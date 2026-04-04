@@ -3,6 +3,9 @@ import { motion } from "framer-motion";
 import { Reveal, RevealGroup, RevealItem, PageHero, Eyebrow } from "@/components/UI";
 import { RED, NAVY, ease } from "@/lib/routes";
 
+// PHP API endpoint — reads from Vite env, falls back to relative path.
+const API_URL = (import.meta.env.VITE_API_URL as string | undefined) ?? "/api";
+
 const CONTACT_INFO = [
   { label: "Cairo HQ", value: "Smart Village, Km 28 Cairo–Alexandria Desert Rd, Giza", icon: "◉" },
   { label: "Phone", value: "+20 2 1234 5678", icon: "◉" },
@@ -14,18 +17,34 @@ export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", company: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
+    setApiError(null);
+    try {
+      const res = await fetch(`${API_URL}/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const json = await res.json() as { status: string; message?: string; errors?: Record<string, string> };
+      if (!res.ok || json.status !== "ok") {
+        const msg = json.message ?? "Something went wrong. Please try again.";
+        setApiError(msg);
+      } else {
+        setSubmitted(true);
+      }
+    } catch (_err) {
+      setApiError("Could not reach the server. Please check your connection.");
+    } finally {
       setLoading(false);
-      setSubmitted(true);
-    }, 1200);
+    }
   };
 
   return (
@@ -159,6 +178,15 @@ export default function Contact() {
                       </div>
                     </Reveal>
                   </div>
+
+                  {/* API Error */}
+                  {apiError && (
+                    <Reveal>
+                      <div className="mt-6 p-4 border border-[#D90429]/30" style={{ background: "rgba(217,4,41,0.04)" }}>
+                        <p className="text-[13px] font-medium" style={{ color: RED }}>{apiError}</p>
+                      </div>
+                    </Reveal>
+                  )}
 
                   {/* Submit */}
                   <Reveal delay={0.1}>

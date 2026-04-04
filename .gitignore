@@ -1,3 +1,5 @@
+# ─── HORIZON OOH — .gitignore ────────────────────────────────────────────
+
 # --- Dependencies ---
 node_modules/
 jspm_packages/
@@ -17,85 +19,43 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-bun-debug.log*
 
-# --- Logs & diagnostics ---
+# --- Logs ---
 logs/
 *.log
 report.[0-9]*.json
 
-# --- Runtime data / pids ---
-pids/
-*.pid
-*.seed
-*.pid.lock
-
-# --- Env files (keep examples) ---
+# --- Env files (keep example templates) ---
 .env
 .env.*
 !.env.example
 !.env.*.example
-!.env.local.example
 
-# --- Coverage ---
+# --- Build outputs ---
+dist/
+build/
+.vite/
+*.tsbuildinfo
+
+# --- PHP: NEVER commit real credentials ---
+backend/config/config.php
+backend/lib/RateLimiter.storage/
+
+# --- Editors / OS ---
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+*.swp
+
+# --- Test / coverage ---
 coverage/
 .nyc_output/
 
-# --- Build outputs / caches ---
-dist/
-build/
-electron-dist/
-dist-electron/
-out/
-bin/
-.tmp/
-tmp/
-temp/
-.cache/
-.esbuild/
-.esbuild-cache/
-.parcel-cache/
-.rpt2_cache/
-.rts2_cache_cjs/
-.rts2_cache_es/
-.rts2_cache_umd/
-.vite/
-.vite-inspect/
+# --- Supabase (unused in PHP setup) ---
+supabase/.branches
+supabase/.temp
 
-# --- TypeScript ---
-*.tsbuildinfo
-
-# --- Common web frameworks ---
-.next/
-.nuxt/
-.svelte-kit/
-.storybook-out/
-storybook-static/
-.angular/
-.docusaurus/
-.vercel/
-.netlify/
-.output/
-
-# --- E2E / testing artifacts ---
-playwright-report/
-test-results/
-cypress/videos/
-cypress/screenshots/
-cypress/downloads/
-
-# --- Editors & OS junk ---
-.vscode/*
-!.vscode/extensions.json
-!.vscode/tasks.json
-.idea/
-*.iml
-.vs/
-*.swp
-.DS_Store
-Thumbs.db
-.node_repl_history
-
-# --- Uploaded Files ---
-uploaded_files/
 
