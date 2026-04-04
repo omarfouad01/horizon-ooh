@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   SERVICES,
   LOCATIONS,
@@ -8,12 +9,14 @@ import {
   TRUST_STATS,
   CLIENT_BRANDS,
 } from "@/data";
+import { serviceHref, locationHref } from "@/lib/routes";
 
 // ─── Constants ───────────────────────────────────────────────────────────
 const NAVY = "#0B0F1A";
 const RED = "#D90429";
 const scrollTo = (id: string) =>
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+
 
 // ─── Easing curve ────────────────────────────────────────────────────────
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -278,8 +281,8 @@ function HeroSection() {
               transition={{ duration: 0.7, ease, delay: 1.05 }}
               className="flex items-center gap-4"
             >
-              <RedButton label="Get a Quote" onClick={() => scrollTo("contact")} />
-              <OutlineButton label="View Locations" onClick={() => scrollTo("locations")} />
+              <RedButton label="Get a Quote" onClick={() => { window.location.hash = '/contact'; window.scrollTo(0,0); }} />
+              <OutlineButton label="View Locations" onClick={() => { window.location.hash = '/locations'; window.scrollTo(0,0); }} />
             </motion.div>
 
             {/* Scroll indicator */}
@@ -533,6 +536,7 @@ function ServicesSection() {
               <div
                 className="group bg-white hover:bg-[#0B0F1A] transition-colors duration-500 cursor-pointer relative overflow-hidden"
                 style={{ padding: "40px 36px 40px" }}
+                onClick={() => { window.location.hash = serviceHref(service.slug); window.scrollTo(0,0); }}
               >
                 {/* Number */}
                 <p
@@ -631,7 +635,7 @@ function FeatureSection() {
           </RevealGroup>
 
           <Reveal delay={0.45}>
-            <RedButton label="Book a Billboard" onClick={() => scrollTo("contact")} />
+            <RedButton label="Book a Billboard" onClick={() => { window.location.hash = '/contact'; window.scrollTo(0,0); }} />
           </Reveal>
         </div>
 
@@ -686,7 +690,7 @@ function LocationsSection() {
             </Reveal>
           </div>
           <Reveal delay={0.2}>
-            <OutlineButton label="View All Locations" onClick={() => scrollTo("contact")} />
+            <OutlineButton label="View All Locations" onClick={() => { window.location.hash = '/locations'; window.scrollTo(0,0); }} />
           </Reveal>
         </div>
 
@@ -1055,8 +1059,8 @@ function FinalCTASection() {
         <Reveal delay={0.24}>
           <div className="flex items-center justify-center gap-5 mb-16">
             <a
-              href="mailto:info@horizonooh.com"
-              className="group relative inline-flex items-center h-[56px] px-11 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white"
+              onClick={() => { window.location.hash = '/contact'; window.scrollTo(0,0); }}
+              className="inline-flex items-center h-[56px] px-11 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white relative group cursor-pointer border-0"
               style={{ background: RED }}
             >
               <span
@@ -1066,8 +1070,8 @@ function FinalCTASection() {
               <span className="relative z-10">Get a Quote</span>
             </a>
             <a
-              href="tel:+20212345678"
-              className="group relative inline-flex items-center h-[56px] px-11 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase transition-colors duration-300"
+              onClick={() => { window.location.hash = '/contact'; window.scrollTo(0,0); }}
+              className="group relative inline-flex items-center h-[56px] px-11 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase transition-colors duration-300 cursor-pointer border-0 bg-transparent"
               style={{ border: `1.5px solid ${NAVY}`, color: NAVY }}
             >
               <span
