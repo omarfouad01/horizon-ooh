@@ -3,10 +3,239 @@
 // ─── Navigation ───────────────────────────────────────────────────────────
 export const NAV_LINKS = [
   { label: "Services", href: "/services" },
+  { label: "Projects", href: "/projects" },
   { label: "Locations", href: "/locations" },
   { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
+];
+
+// ─── Projects / Case Studies ───────────────────────────────────────────────
+export type ProjectCategory = "Billboard" | "DOOH" | "Mall" | "Airport";
+
+export interface ProjectResult {
+  metric: string;
+  value: string;
+  description: string;
+}
+
+export interface Project {
+  id: string;
+  slug: string;
+  title: string;
+  client: string;
+  location: string;
+  city: string;
+  category: ProjectCategory;
+  tags: string[];
+  year: string;
+  duration: string;
+  featured: boolean;
+  coverImage: string;
+  heroImage: string;
+  galleryImages: string[];
+  tagline: string;
+  overview: string;
+  objective: string;
+  execution: string;
+  results: ProjectResult[];
+  keywords: string[];
+}
+
+export const PROJECTS: Project[] = [
+  {
+    id: "vodafone-ring-road",
+    slug: "vodafone-ring-road-cairo-billboard",
+    title: "Vodafone Ring Road Domination",
+    client: "Vodafone Egypt",
+    location: "Ring Road, Cairo",
+    city: "Cairo",
+    category: "Billboard",
+    tags: ["Billboard", "Cairo", "Telecom"],
+    year: "2025",
+    duration: "8 weeks",
+    featured: true,
+    coverImage: "https://images.unsplash.com/photo-1702231942007-b255a41475c9?w=1400&q=90&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1702231942007-b255a41475c9?w=1600&q=90&fit=crop",
+    galleryImages: [
+      "https://images.unsplash.com/photo-1629150154933-a42577786d4f?w=900&q=85&fit=crop",
+      "https://images.unsplash.com/photo-1624526794347-c2a966b81604?w=900&q=85&fit=crop",
+    ],
+    tagline: "Owning Cairo's most-travelled road — 420,000 impressions daily.",
+    overview:
+      "Vodafone Egypt tasked HORIZON OOH with achieving maximum brand presence across Cairo's Ring Road ahead of a major national product launch. The campaign required coordinated multi-format outdoor execution across 14 premium locations along the northern and southern Ring Road corridors.",
+    objective:
+      "Achieve nationwide top-of-mind brand awareness for a new Vodafone tariff among 18–45 urban commuters in Cairo. Target minimum 3 million unique impressions within an 8-week window.",
+    execution:
+      "HORIZON OOH secured 14 consecutive unipole and mega-format billboard sites along the Ring Road — creating a visual corridor that followed the commuter from the Nasr City interchange to the Maadi exit. Creative was produced at 12×6m and 18×8m formats and illuminated 24/7 with LED backlighting. Each site was installed within a 72-hour window to ensure simultaneous campaign launch.",
+    results: [
+      { metric: "Daily Impressions", value: "420,000+", description: "Combined vehicle traffic across all 14 sites" },
+      { metric: "Brand Recall Lift", value: "+180%", description: "Post-campaign unaided brand recall uplift" },
+      { metric: "Campaign Visibility", value: "2.5×", description: "Increase in brand visibility vs. prior quarter" },
+      { metric: "Unique Reach", value: "3.8M", description: "Unique individual commuters exposed in 8 weeks" },
+    ],
+    keywords: ["billboard advertising Cairo", "outdoor advertising Egypt", "Ring Road billboard", "advertising agency Egypt"],
+  },
+  {
+    id: "cib-90th-street",
+    slug: "cib-bank-new-cairo-dooh",
+    title: "CIB Bank DOOH — 90th Street",
+    client: "Commercial International Bank",
+    location: "90th Street, New Cairo",
+    city: "New Cairo",
+    category: "DOOH",
+    tags: ["DOOH", "New Cairo", "Finance"],
+    year: "2025",
+    duration: "6 weeks",
+    featured: false,
+    coverImage: "https://images.unsplash.com/photo-1629150154933-a42577786d4f?w=1400&q=90&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1629150154933-a42577786d4f?w=1600&q=90&fit=crop",
+    galleryImages: [
+      "https://images.unsplash.com/photo-1765398073978-94f84257baf7?w=900&q=85&fit=crop",
+    ],
+    tagline: "Real-time digital storytelling at Egypt's most affluent address.",
+    overview:
+      "CIB bank partnered with HORIZON OOH to deploy a premium digital out-of-home campaign across the 90th Street DOOH network — targeting New Cairo's high-net-worth residential and commercial audience with dynamic, daypart-scheduled creative.",
+    objective:
+      "Drive awareness and qualified leads for CIB's new premium banking product among New Cairo's affluent A1 demographic. Leverage DOOH's dynamic capabilities to deliver time-sensitive messaging and build frequency across a 6-week campaign.",
+    execution:
+      "HORIZON OOH deployed full-motion video creative across 8 high-brightness LED digital screens along the 90th Street corridor and Fifth Settlement commercial strip. Content was daypart-scheduled — premium business messaging during morning rush, lifestyle content in evenings. Creative updated weekly to maintain freshness and deliver phased product messaging.",
+    results: [
+      { metric: "Screens Deployed", value: "8", description: "Premium LED screens across 90th Street corridor" },
+      { metric: "Daily Digital Impressions", value: "280,000+", description: "Across the full DOOH network" },
+      { metric: "Engagement Rate", value: "+165%", description: "Lift vs. static billboard benchmark" },
+      { metric: "Lead Quality Score", value: "4.2×", description: "Improvement in branch visit-to-lead ratio" },
+    ],
+    keywords: ["DOOH campaigns Cairo", "digital billboard New Cairo", "outdoor advertising Egypt"],
+  },
+  {
+    id: "toyota-cairo-festival",
+    slug: "toyota-cairo-festival-city-mall",
+    title: "Toyota Launch — Cairo Festival City",
+    client: "Toyota Egypt",
+    location: "Cairo Festival City Mall",
+    city: "Cairo",
+    category: "Mall",
+    tags: ["Mall", "Cairo", "Automotive"],
+    year: "2025",
+    duration: "4 weeks",
+    featured: false,
+    coverImage: "https://images.unsplash.com/photo-1616418625172-c607e16733ca?w=1400&q=90&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1616418625172-c607e16733ca?w=1600&q=90&fit=crop",
+    galleryImages: [
+      "https://images.unsplash.com/photo-1772895343662-d597635b8168?w=900&q=85&fit=crop",
+    ],
+    tagline: "A model launch executed across Egypt's most trafficked mall atrium.",
+    overview:
+      "Toyota Egypt chose HORIZON OOH to execute an all-formats mall takeover at Cairo Festival City to launch a new vehicle model to Egypt's premium automotive audience — combining large-format atrium banners, digital totems, floor branding, and an experiential activation zone.",
+    objective:
+      "Create an unmissable brand moment at Egypt's highest-footfall mall destination to drive product awareness and qualified showroom traffic for Toyota Egypt's new model launch.",
+    execution:
+      "HORIZON OOH executed a comprehensive mall takeover: three 6×12m atrium banners suspended above the main concourse, eight digital totems with full-motion launch video, branded floor graphics at all four entrance points, and a 120sqm activation zone in the central atrium. All elements were installed overnight with zero disruption to mall operations.",
+    results: [
+      { metric: "Mall Footfall Reached", value: "2.1M", description: "Over the 4-week campaign period" },
+      { metric: "Brand Dwell Time", value: "+220%", description: "vs. standard single-format mall campaign" },
+      { metric: "Showroom Traffic Lift", value: "+140%", description: "Toyota showroom visits vs. prior 4-week period" },
+      { metric: "Test Drive Bookings", value: "3.2×", description: "Increase during and post-campaign period" },
+    ],
+    keywords: ["mall advertising Egypt", "outdoor advertising Cairo", "advertising agency Egypt"],
+  },
+  {
+    id: "nestlé-airport-cai",
+    slug: "nestle-cairo-airport-advertising",
+    title: "Nestlé Cairo Airport — Terminal 2",
+    client: "Nestlé Egypt",
+    location: "Cairo International Airport, T2",
+    city: "Cairo",
+    category: "Airport",
+    tags: ["Airport", "Cairo", "FMCG"],
+    year: "2024",
+    duration: "12 weeks",
+    featured: false,
+    coverImage: "https://images.unsplash.com/photo-1624526794347-c2a966b81604?w=1400&q=90&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1624526794347-c2a966b81604?w=1600&q=90&fit=crop",
+    galleryImages: [
+      "https://images.unsplash.com/photo-1702231942007-b255a41475c9?w=900&q=85&fit=crop",
+    ],
+    tagline: "Premium terminal presence reaching 15 million annual passengers.",
+    overview:
+      "Nestlé Egypt engaged HORIZON OOH for a strategic airport advertising campaign across Cairo International Airport Terminal 2 — targeting both departing Egyptian travellers and arriving international visitors during a 12-week brand equity campaign.",
+    objective:
+      "Build premium brand equity and reinforce Nestlé's positioning among Egypt's high-value international traveller segment — reaching business travellers, expatriates, and tourists during the high-dwell airport environment.",
+    execution:
+      "HORIZON OOH deployed a multi-touchpoint terminal journey: large-format panels at T2 check-in (facing 100% of departing passengers), digital screen domination across the departure lounge, backlit panels at security, and arrivals hall takeover. The campaign ran in English and Arabic, with localised creative for each terminal zone.",
+    results: [
+      { metric: "Terminal Reach", value: "1.2M", description: "Unique passenger impressions over 12 weeks" },
+      { metric: "Brand Recall", value: "78%", description: "Unaided brand recall among surveyed passengers" },
+      { metric: "Engagement Score", value: "+195%", description: "vs. equivalent roadside billboard campaign" },
+      { metric: "Campaign ROI", value: "4.8×", description: "vs. media investment benchmark" },
+    ],
+    keywords: ["airport advertising Cairo", "outdoor advertising Egypt", "billboard campaigns Egypt"],
+  },
+  {
+    id: "samsung-sheikh-zayed",
+    slug: "samsung-sheikh-zayed-billboard",
+    title: "Samsung Galaxy — Sheikh Zayed Corridor",
+    client: "Samsung Egypt",
+    location: "26 July Corridor, Sheikh Zayed",
+    city: "Sheikh Zayed",
+    category: "Billboard",
+    tags: ["Billboard", "Sheikh Zayed", "Tech"],
+    year: "2024",
+    duration: "10 weeks",
+    featured: false,
+    coverImage: "https://images.unsplash.com/photo-1735506943281-4b4502be999d?w=1400&q=90&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1735506943281-4b4502be999d?w=1600&q=90&fit=crop",
+    galleryImages: [
+      "https://images.unsplash.com/photo-1629150154933-a42577786d4f?w=900&q=85&fit=crop",
+    ],
+    tagline: "Commanding the most premium western corridor in Greater Cairo.",
+    overview:
+      "Samsung Egypt partnered with HORIZON OOH to execute the outdoor component of a major Galaxy product launch — targeting Sheikh Zayed City and the 26 July Corridor, home to Egypt's most affluent technology-adopter demographic.",
+    objective:
+      "Achieve category leadership visibility among premium smartphone buyers in West Cairo ahead of a major Galaxy launch date, reinforcing Samsung's position as the premium alternative in the Egyptian market.",
+    execution:
+      "HORIZON OOH activated 9 premium billboard sites across the 26 July Corridor and Sheikh Zayed main strip — including 3 mega-format unipoles (18m+) at the highest-visibility intersections. Creative was produced at multiple sizes with a unified visual identity across all formats, creating a cohesive corridor domination effect.",
+    results: [
+      { metric: "Daily Reach", value: "310,000+", description: "Vehicles exposed daily across the corridor" },
+      { metric: "Brand Visibility Index", value: "+240%", description: "vs. category benchmark for the corridor" },
+      { metric: "Product Awareness Lift", value: "+155%", description: "Measured via pre/post campaign survey" },
+      { metric: "Sales Uplift (Week 1)", value: "+88%", description: "Retail partner reported in-store uplift" },
+    ],
+    keywords: ["billboard advertising Cairo", "outdoor advertising Egypt", "advertising agency Egypt"],
+  },
+  {
+    id: "orange-alexandria",
+    slug: "orange-alexandria-corniche-campaign",
+    title: "Orange — Alexandria Corniche",
+    client: "Orange Egypt",
+    location: "Corniche, Alexandria",
+    city: "Alexandria",
+    category: "Billboard",
+    tags: ["Billboard", "Alexandria", "Telecom"],
+    year: "2024",
+    duration: "6 weeks",
+    featured: false,
+    coverImage: "https://images.unsplash.com/photo-1765398073978-94f84257baf7?w=1400&q=90&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1765398073978-94f84257baf7?w=1600&q=90&fit=crop",
+    galleryImages: [
+      "https://images.unsplash.com/photo-1624526794347-c2a966b81604?w=900&q=85&fit=crop",
+    ],
+    tagline: "26km of Mediterranean seafront — the most iconic address in Egypt.",
+    overview:
+      "Orange Egypt commissioned HORIZON OOH to execute a seasonal summer campaign across Alexandria's Corniche — Egypt's most iconic outdoor advertising address — to capitalise on peak summer footfall and tourist traffic.",
+    objective:
+      "Drive brand awareness and data plan activations among Alexandria's summer population — including seasonal visitors from Cairo and international tourists — during the peak Q3 summer travel window.",
+    execution:
+      "HORIZON OOH placed a network of 11 consecutive Corniche panels along the seafront route from Sidi Bishr to Stanley — creating an unbroken visual presence across Alexandria's most-trafficked leisure corridor. Creative was adapted for an outdoor and tourism audience with bold, minimal design built for high-speed viewing.",
+    results: [
+      { metric: "Corniche Panel Coverage", value: "26km", description: "Continuous brand presence along the full seafront" },
+      { metric: "Daily Impressions", value: "520,000+", description: "Peak-season combined traffic across all panels" },
+      { metric: "Data Plan Activations", value: "+210%", description: "vs. equivalent non-OOH summer period" },
+      { metric: "Brand Preference Lift", value: "+72%", description: "Among Alexandria 18–35 post-campaign survey" },
+    ],
+    keywords: ["billboard advertising Alexandria", "outdoor advertising Egypt", "billboard campaigns Egypt"],
+  },
 ];
 
 // ─── Trust / Stats ────────────────────────────────────────────────────────

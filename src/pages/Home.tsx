@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   SERVICES,
   LOCATIONS,
@@ -8,8 +8,9 @@ import {
   RESULTS,
   TRUST_STATS,
   CLIENT_BRANDS,
+  PROJECTS,
 } from "@/data";
-import { serviceHref, locationHref } from "@/lib/routes";
+import { serviceHref, locationHref, projectHref } from "@/lib/routes";
 
 // ─── Constants ───────────────────────────────────────────────────────────
 const NAVY = "#0B0F1A";
@@ -1109,8 +1110,122 @@ function FinalCTASection() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// PAGE EXPORT
+// PROJECTS TEASER SECTION (HOME)
 // ═══════════════════════════════════════════════════════════════════════════
+function ProjectsSection() {
+  const featured = PROJECTS.find((p) => p.featured)!;
+  const others   = PROJECTS.filter((p) => !p.featured).slice(0, 2);
+
+  return (
+    <section className="bg-white" style={{ paddingTop: 120, paddingBottom: 120 }}>
+      <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        {/* Header */}
+        <div className="flex items-end justify-between mb-14">
+          <div>
+            <Reveal>
+              <div className="flex items-center gap-3 mb-8">
+                <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
+                <span className="text-[10px] font-bold tracking-[0.35em] uppercase" style={{ color: "rgba(11,15,26,0.35)" }}>
+                  Case Studies
+                </span>
+              </div>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <h2 className="font-black leading-[0.9] tracking-[-0.04em]" style={{ fontSize: "clamp(40px, 4.5vw, 60px)", color: NAVY }}>
+                Campaigns that moved<br />
+                <span style={{ color: "rgba(11,15,26,0.2)" }}>the needle.</span>
+              </h2>
+            </Reveal>
+          </div>
+          <Reveal delay={0.15}>
+            <Link
+              to="/projects"
+              className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase flex items-center"
+              style={{ border: `1.5px solid ${NAVY}`, color: NAVY, textDecoration: "none" }}
+            >
+              <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: NAVY }} />
+              <span className="relative z-10 group-hover:text-white transition-colors duration-300">View All Projects</span>
+            </Link>
+          </Reveal>
+        </div>
+
+        {/* Featured + two smaller cards */}
+        <RevealGroup className="grid grid-cols-12 gap-6">
+          {/* Featured — spans 7 columns */}
+          <RevealItem className="col-span-7">
+            <Link
+              to={projectHref(featured.slug)}
+              className="group relative block overflow-hidden"
+              style={{ textDecoration: "none", height: 500 }}
+            >
+              <img
+                src={featured.coverImage}
+                alt={`${featured.title} — outdoor advertising case study`}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                style={{ opacity: 0.82 }}
+              />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(11,15,26,0.88) 0%, rgba(11,15,26,0.15) 65%, transparent 100%)" }} />
+
+              <div className="absolute inset-0 flex flex-col justify-end" style={{ padding: "40px" }}>
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-[10px] font-bold tracking-[0.25em] uppercase px-3 py-1 text-white" style={{ background: RED }}>{featured.category}</span>
+                  <span className="text-white/35 text-[10px] font-semibold tracking-[0.15em]">{featured.location}</span>
+                </div>
+                <h3 className="font-black text-white leading-[1.05] tracking-[-0.03em] mb-3" style={{ fontSize: "clamp(22px, 2.5vw, 32px)" }}>{featured.title}</h3>
+                <p className="text-white/45 text-[13px] mb-6 leading-[1.6]">{featured.tagline}</p>
+                <div className="flex items-center gap-8">
+                  {featured.results.slice(0, 2).map((r) => (
+                    <div key={r.metric}>
+                      <p className="font-black text-white tracking-[-0.03em]" style={{ fontSize: 22, color: RED }}>{r.value}</p>
+                      <p className="text-white/30 text-[10px] tracking-[0.2em] uppercase font-bold">{r.metric}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="absolute top-5 right-5 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0">
+                <span style={{ color: RED, fontSize: 22 }}>→</span>
+              </div>
+            </Link>
+          </RevealItem>
+
+          {/* Two smaller cards — 5 columns */}
+          <div className="col-span-5 flex flex-col gap-6">
+            {others.map((p) => (
+              <RevealItem key={p.id} className="flex-1">
+                <Link
+                  to={projectHref(p.slug)}
+                  className="group relative block overflow-hidden"
+                  style={{ textDecoration: "none", height: "100%", minHeight: 230 }}
+                >
+                  <img
+                    src={p.coverImage}
+                    alt={`${p.title} — outdoor advertising`}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+                    style={{ opacity: 0.82 }}
+                  />
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(11,15,26,0.85) 0%, rgba(11,15,26,0.1) 70%, transparent 100%)" }} />
+                  <div className="absolute inset-0 flex flex-col justify-end" style={{ padding: "24px 28px" }}>
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-[9px] font-bold tracking-[0.25em] uppercase px-2 py-1 text-white" style={{ background: RED }}>{p.category}</span>
+                      <span className="text-white/35 text-[9px] font-semibold tracking-[0.15em]">{p.city}</span>
+                    </div>
+                    <h3 className="font-extrabold text-white leading-[1.1] tracking-[-0.02em]" style={{ fontSize: 17 }}>{p.title}</h3>
+                    <p className="text-white/30 text-[11px] mt-1">{p.client} · {p.year}</p>
+                  </div>
+                  <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                    <span style={{ color: RED, fontSize: 18 }}>→</span>
+                  </div>
+                </Link>
+              </RevealItem>
+            ))}
+          </div>
+        </RevealGroup>
+      </div>
+    </section>
+  );
+}
+
+
 export default function Home() {
   return (
     <>
@@ -1123,6 +1238,7 @@ export default function Home() {
       <ProcessSection />
       <ResultsSection />
       <ClientsSection />
+      <ProjectsSection />
       <SignatureSection />
       <FinalCTASection />
     </>

@@ -4,6 +4,8 @@ export const ROUTES = {
   ABOUT: "/about",
   SERVICES: "/services",
   SERVICE_DETAIL: "/services/:slug",
+  PROJECTS: "/projects",
+  PROJECT_DETAIL: "/projects/:slug",
   LOCATIONS: "/locations",
   LOCATION_DETAIL: "/locations/:slug",
   PRODUCT: "/locations/:city/billboards/:slug",
@@ -12,10 +14,11 @@ export const ROUTES = {
   CONTACT: "/contact",
 };
 
-export const serviceHref = (slug: string) => `/services/${slug}`;
+export const serviceHref  = (slug: string) => `/services/${slug}`;
+export const projectHref  = (slug: string) => `/projects/${slug}`;
 export const locationHref = (slug: string) => `/locations/${slug}`;
-export const productHref = (city: string, slug: string) => `/locations/${city}/billboards/${slug}`;
-export const blogHref = (slug: string) => `/blog/${slug}`;
+export const productHref  = (city: string, slug: string) => `/locations/${city}/billboards/${slug}`;
+export const blogHref     = (slug: string) => `/blog/${slug}`;
 
 // ─── Brand tokens ─────────────────────────────────────────────────────────
 export const NAVY = "#0B0F1A";

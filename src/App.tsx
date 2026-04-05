@@ -8,6 +8,8 @@ import Home from "@/pages/Home";
 import About from "@/pages/About";
 import Services from "@/pages/Services";
 import ServiceDetail from "@/pages/ServiceDetail";
+import Projects from "@/pages/Projects";
+import ProjectDetail from "@/pages/ProjectDetail";
 import Locations from "@/pages/Locations";
 import LocationDetail from "@/pages/LocationDetail";
 import Product from "@/pages/Product";
@@ -25,18 +27,19 @@ const App = () => (
       <Sonner />
       <HashRouter>
         <Routes>
-          <Route path="/" element={<Layout><Home /></Layout>} />
-          <Route path="/about" element={<Layout><About /></Layout>} />
-          <Route path="/services" element={<Layout><Services /></Layout>} />
-          <Route path="/services/:slug" element={<Layout><ServiceDetail /></Layout>} />
-          <Route path="/locations" element={<Layout><Locations /></Layout>} />
-          <Route path="/locations/:slug" element={<Layout><LocationDetail /></Layout>} />
-          <Route path="/locations/:city/billboards/:slug" element={<Layout><Product /></Layout>} />
-          <Route path="/blog" element={<Layout><Blog /></Layout>} />
-          <Route path="/blog/:slug" element={<Layout><BlogArticle /></Layout>} />
-          <Route path="/contact" element={<Layout><Contact /></Layout>} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
+          <Route path="/"                                  element={<Layout><Home /></Layout>} />
+          <Route path="/about"                             element={<Layout><About /></Layout>} />
+          <Route path="/services"                          element={<Layout><Services /></Layout>} />
+          <Route path="/services/:slug"                    element={<Layout><ServiceDetail /></Layout>} />
+          <Route path="/projects"                          element={<Layout><Projects /></Layout>} />
+          <Route path="/projects/:slug"                    element={<Layout><ProjectDetail /></Layout>} />
+          <Route path="/locations"                         element={<Layout><Locations /></Layout>} />
+          <Route path="/locations/:slug"                   element={<Layout><LocationDetail /></Layout>} />
+          <Route path="/locations/:city/billboards/:slug"  element={<Layout><Product /></Layout>} />
+          <Route path="/blog"                              element={<Layout><Blog /></Layout>} />
+          <Route path="/blog/:slug"                        element={<Layout><BlogArticle /></Layout>} />
+          <Route path="/contact"                           element={<Layout><Contact /></Layout>} />
+          <Route path="*"                                  element={<NotFound />} />
         </Routes>
       </HashRouter>
     </TooltipProvider>
