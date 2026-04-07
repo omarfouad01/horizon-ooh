@@ -16,6 +16,8 @@ import Product from "@/pages/Product";
 import Blog from "@/pages/Blog";
 import BlogArticle from "@/pages/BlogArticle";
 import Contact from "@/pages/Contact";
+import Login from "@/pages/Login";
+import Signup from "@/pages/Signup";
 import NotFound from "./pages/not-found/Index";
 
 const queryClient = new QueryClient();
@@ -39,6 +41,8 @@ const App = () => (
           <Route path="/blog"                              element={<Layout><Blog /></Layout>} />
           <Route path="/blog/:slug"                        element={<Layout><BlogArticle /></Layout>} />
           <Route path="/contact"                           element={<Layout><Contact /></Layout>} />
+          <Route path="/login"                             element={<Login />} />
+          <Route path="/signup"                            element={<Signup />} />
           <Route path="*"                                  element={<NotFound />} />
         </Routes>
       </HashRouter>

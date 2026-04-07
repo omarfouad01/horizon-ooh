@@ -12,6 +12,8 @@ export const ROUTES = {
   BLOG: "/blog",
   BLOG_ARTICLE: "/blog/:slug",
   CONTACT: "/contact",
+  LOGIN: "/login",
+  SIGNUP: "/signup",
 };
 
 export const serviceHref  = (slug: string) => `/services/${slug}`;

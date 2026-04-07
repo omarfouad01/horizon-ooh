@@ -81,9 +81,22 @@ export function Navbar() {
                 )}
               </NavLink>
             ))}
+            {/* Login button */}
+            <Link
+              to="/login"
+              className="h-[40px] px-5 text-[11px] font-bold tracking-[0.18em] uppercase flex items-center gap-2 border transition-colors duration-200 hover:border-[#0B0F1A] hover:text-[#0B0F1A]"
+              style={{ borderColor: "rgba(11,15,26,0.2)", color: "rgba(11,15,26,0.55)" }}
+            >
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+                <circle cx="8" cy="5" r="3" stroke="currentColor" strokeWidth="1.5"/>
+                <path d="M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+              Login
+            </Link>
+            {/* Get a Quote */}
             <Link
               to={ROUTES.CONTACT}
-              className="ml-2 h-[40px] px-7 text-[11px] font-bold tracking-[0.2em] uppercase text-white flex items-center relative overflow-hidden group"
+              className="h-[40px] px-7 text-[11px] font-bold tracking-[0.2em] uppercase text-white flex items-center relative overflow-hidden group"
               style={{ background: RED }}
             >
               <span
@@ -137,10 +150,15 @@ export function Navbar() {
               </NavLink>
             ))}
             <Link
+              to="/login"
+              className="flex items-center gap-2 text-[13px] font-semibold tracking-[0.2em] uppercase text-[#0B0F1A]/50 hover:text-[#D90429] transition-colors"
+              style={{ textDecoration: "none" }}
+            >Login
+            </Link>
+            <Link
               to={ROUTES.CONTACT}
               className="mt-2 h-[44px] px-8 text-white text-[11px] font-bold tracking-[0.2em] uppercase w-fit flex items-center"
-              style={{ background: RED }}
-            >
+              style={{ background: RED }}>
               Get a Quote
             </Link>
           </motion.div>
