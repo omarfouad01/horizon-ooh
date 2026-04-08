@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { TRUST_STATS, RESULTS, CLIENT_BRANDS } from "@/data";
 import { Reveal, RevealGroup, RevealItem, PageHero, SectionHeading, CTABanner, Eyebrow } from "@/components/UI";
 import { ROUTES, RED, NAVY, ease } from "@/lib/routes";
+import SEO from "@/components/SEO";
 
 const WHY_CHOOSE = [
   {
@@ -37,6 +38,11 @@ export default function About() {
 
   return (
     <>
+      <SEO
+        title="About HORIZON OOH | Outdoor Advertising Agency Egypt"
+        description="HORIZON OOH is Egypt's premier outdoor advertising company — 9,500+ locations, billboard, DOOH, mall and airport advertising across Cairo, Alexandria and nationwide."
+        keywords="outdoor advertising Egypt, billboard advertising Egypt, DOOH Egypt, advertising agency Egypt, OOH advertising Egypt, HORIZON OOH"
+      />
       {/* Hero */}
       <PageHero
         eyebrow="Our Story"
@@ -63,6 +69,38 @@ export default function About() {
               </p>
               <p className="text-[17px] leading-[1.75] mt-5" style={{ color: "rgba(11,15,26,0.5)" }}>
                 We built Egypt's largest premium outdoor network from the ground up, and today we manage 9,500+ locations across Cairo, Alexandria, the North Coast, and every major urban centre in the country.
+              </p>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* SEO Expertise Section */}
+      <section style={{ background: "#fff", paddingTop: 100, paddingBottom: 100 }}>
+        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+          <Reveal>
+            <h2 className="font-black text-[clamp(28px,3.5vw,44px)] tracking-[-0.03em] mb-16" style={{ color: NAVY }}>
+              Egypt's Leading Outdoor Advertising Agency
+            </h2>
+          </Reveal>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-start">
+            <RevealGroup className="flex flex-col gap-8">
+              {[
+                { h: "Billboard Advertising Egypt", p: "9,500+ premium roadside billboard locations across Cairo, Alexandria and major Egyptian cities" },
+                { h: "DOOH Advertising Cairo", p: "Dynamic digital screens in Egypt's premium urban, retail and transport environments" },
+                { h: "Mall & Airport Advertising", p: "Premium formats in Egypt's top shopping centres and Cairo International Airport" },
+              ].map((item) => (
+                <RevealItem key={item.h}>
+                  <div className="border-l-2 pl-6" style={{ borderColor: RED }}>
+                    <h3 className="font-bold text-[16px] mb-2" style={{ color: NAVY }}>{item.h}</h3>
+                    <p className="text-[14px] leading-[1.75]" style={{ color: "rgba(11,15,26,0.5)" }}>{item.p}</p>
+                  </div>
+                </RevealItem>
+              ))}
+            </RevealGroup>
+            <Reveal delay={0.1}>
+              <p className="text-[16px] leading-[1.85]" style={{ color: "rgba(11,15,26,0.55)" }}>
+                Since 2008, HORIZON OOH has been the outdoor advertising agency of choice for Egypt's most iconic brands. Our billboard advertising network spans Cairo's Ring Road, Sheikh Zayed, New Cairo, and Alexandria's Corniche — delivering unparalleled outdoor advertising reach across Egypt's 100 million+ population. As a full-service OOH advertising agency in Egypt, we combine strategic site selection, creative excellence, and real-time campaign monitoring to maximise your outdoor advertising investment. Whether you need digital out-of-home (DOOH) in Cairo's premium retail districts, mall advertising in Egypt's top shopping centres, or airport advertising at Cairo International Airport, HORIZON OOH delivers outdoor campaigns that make brands impossible to ignore.
               </p>
             </Reveal>
           </div>

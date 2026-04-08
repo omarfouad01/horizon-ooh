@@ -1226,15 +1226,89 @@ function ProjectsSection() {
 }
 
 
+// ─── WhyOOHSection ───────────────────────────────────────────────────────
+function WhyOOHSection() {
+  return (
+    <section style={{ background: NAVY, paddingTop: 120, paddingBottom: 120 }}>
+      <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <Reveal>
+          <p className="text-white/30 text-[10px] tracking-[0.35em] uppercase mb-4">Market Insights</p>
+          <h2 className="text-white font-black text-[clamp(28px,3.5vw,48px)] tracking-[-0.02em] mb-16" style={{ maxWidth: 560 }}>
+            Why Outdoor Advertising Works in Egypt
+          </h2>
+        </Reveal>
+        <RevealGroup className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[
+            {
+              title: "Egypt's Fastest-Growing OOH Market",
+              body: "With a metropolitan Cairo population exceeding 22 million and rapid urbanisation driving infrastructure expansion, Egypt's out-of-home advertising market is growing at double-digit rates year-on-year. New highways, urban corridors, and mixed-use developments create premium new inventory that puts brands at the heart of Egypt's economic momentum.",
+            },
+            {
+              title: "Unmatched Reach Across Cairo & Alexandria",
+              body: "From the Cairo Ring Road and Corniche el-Nil to Alexandria's Mediterranean Corniche and New Cairo's premium retail districts, HORIZON OOH's 9,500+ outdoor advertising locations deliver unparalleled daily reach. A single Ring Road unipole generates over 420,000 vehicle exposures per day — coverage that no digital channel can match.",
+            },
+            {
+              title: "Higher Recall Than Digital Advertising",
+              body: "Independent research confirms that outdoor advertising in Egypt drives 78% unaided brand recall at Cairo International Airport and delivers +180% brand recall uplift over digital-only campaigns. Unlike online ads, billboard advertising cannot be skipped, blocked, or scrolled past — it commands attention 24 hours a day, 365 days a year.",
+            },
+          ].map((col) => (
+            <RevealItem key={col.title}>
+              <div className="h-[3px] w-10 mb-8" style={{ background: RED }} />
+              <h3 className="text-white font-bold text-[18px] leading-[1.4] mb-4">{col.title}</h3>
+              <p className="text-white/45 text-[14px] leading-[1.85]">{col.body}</p>
+            </RevealItem>
+          ))}
+        </RevealGroup>
+      </div>
+    </section>
+  );
+}
+
+// ─── BillboardBenefitsSection ─────────────────────────────────────────────
+function BillboardBenefitsSection() {
+  const benefits = [
+    { num: "01", title: "24/7 Visibility", body: "Your brand never goes offline. Billboard advertising in Cairo operates around the clock, delivering continuous impressions to commuters, shoppers, and travellers." },
+    { num: "02", title: "Mass Reach", body: "A single Ring Road unipole delivers 420,000+ vehicle exposures daily. No other medium offers this scale of guaranteed reach across Egypt's most high-traffic corridors." },
+    { num: "03", title: "Premium Brand Association", body: "Outdoor advertising in Egypt positions your brand alongside major national and international advertisers, building the kind of prestige that digital platforms cannot replicate." },
+    { num: "04", title: "Proven ROI", body: "Our billboard advertising campaigns deliver an average 4.1× return on media investment, validated across 500+ campaigns for Egypt's leading brands." },
+  ];
+  return (
+    <section style={{ background: "#fff", paddingTop: 120, paddingBottom: 120 }}>
+      <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <Reveal>
+          <p className="text-[#0B0F1A]/30 text-[10px] tracking-[0.35em] uppercase mb-4">Why Billboard</p>
+          <h2 className="text-[#0B0F1A] font-black text-[clamp(28px,3.5vw,48px)] tracking-[-0.02em] mb-16" style={{ maxWidth: 560 }}>
+            Benefits of Billboard Advertising in Egypt
+          </h2>
+        </Reveal>
+        <RevealGroup className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0">
+          {benefits.map((b, i) => (
+            <RevealItem key={b.num}>
+              <div className={`pt-8 pb-8 ${i < benefits.length - 1 ? "border-r border-[#0B0F1A]/[0.06]" : ""} pr-8 ${i > 0 ? "pl-8" : ""}`}>
+                <p className="text-[10px] font-bold tracking-[0.3em] uppercase mb-4" style={{ color: RED }}>{b.num}</p>
+                <div className="h-[1px] w-full bg-[#0B0F1A]/[0.07] mb-6" />
+                <h3 className="text-[#0B0F1A] font-bold text-[16px] leading-[1.4] mb-3">{b.title}</h3>
+                <p className="text-[#0B0F1A]/50 text-[13px] leading-[1.8]">{b.body}</p>
+              </div>
+            </RevealItem>
+          ))}
+        </RevealGroup>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   return (
     <>
       <HeroSection />
       <StatementSection />
       <TrustStrip />
+      <WhyOOHSection />
       <ServicesSection />
       <FeatureSection />
       <LocationsSection />
+      <BillboardBenefitsSection />
       <ProcessSection />
       <ResultsSection />
       <ClientsSection />

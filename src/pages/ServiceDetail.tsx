@@ -3,6 +3,7 @@ import { SERVICES } from "@/data";
 import { Reveal, RevealGroup, RevealItem, SectionHeading, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
 import { serviceHref, RED, NAVY, ease } from "@/lib/routes";
 import { motion } from "framer-motion";
+import SEO from "@/components/SEO";
 
 export default function ServiceDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -22,6 +23,11 @@ export default function ServiceDetail() {
 
   return (
     <>
+      <SEO
+        title={`${service.title} in Egypt | HORIZON OOH`}
+        description={service.longDescription.substring(0, 160)}
+        keywords={`${service.title.toLowerCase()} Egypt, outdoor advertising Egypt, OOH advertising Egypt, ${service.shortTitle.toLowerCase()} Cairo`}
+      />
       {/* Breadcrumb */}
       <div className="bg-white pt-4">
         <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: service.shortTitle }]} />
@@ -143,7 +149,7 @@ export default function ServiceDetail() {
       {/* Process */}
       <section className="bg-white" style={{ paddingTop: 100, paddingBottom: 100 }}>
         <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
-          <SectionHeading eyebrow="Campaign Process" title="How a campaign" titleAccent="gets made." />
+          <SectionHeading eyebrow="Campaign Process" title={`Our ${service.shortTitle} Campaign Process`} titleAccent="" />
           <RevealGroup className="grid grid-cols-2 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
             {service.process.map((step, i) => (
               <RevealItem key={i}>
@@ -158,6 +164,44 @@ export default function ServiceDetail() {
               </RevealItem>
             ))}
           </RevealGroup>
+        </div>
+      </section>
+
+      {/* Why Choose HORIZON OOH */}
+      <section style={{ background: "#fff", paddingTop: 100, paddingBottom: 100 }}>
+        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+          <Reveal>
+            <h2 className="font-black text-[clamp(28px,3.5vw,44px)] tracking-[-0.03em] mb-12" style={{ color: NAVY }}>
+              Why Choose HORIZON OOH for {service.shortTitle} Advertising?
+            </h2>
+          </Reveal>
+          <RevealGroup className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <RevealItem>
+              <p className="text-[15px] leading-[1.8]" style={{ color: "rgba(11,15,26,0.6)" }}>
+                HORIZON OOH operates Egypt's largest outdoor advertising network, with 9,500+ premium locations spanning Cairo, Alexandria, and every major Egyptian city. Explore our <Link to="/services" className="underline" style={{ color: RED }}>full range of services</Link> to discover the right format for your campaign objectives.
+              </p>
+            </RevealItem>
+            <RevealItem>
+              <p className="text-[15px] leading-[1.8]" style={{ color: "rgba(11,15,26,0.6)" }}>
+                Our award-winning creative and planning teams have delivered over 500 successful outdoor advertising campaigns in Egypt for brands including Vodafone, CIB Bank, Toyota, Nestlé, and Samsung. View our <Link to="/projects" className="underline" style={{ color: RED }}>case studies and projects</Link> to see the results we deliver.
+              </p>
+            </RevealItem>
+            <RevealItem>
+              <p className="text-[15px] leading-[1.8]" style={{ color: "rgba(11,15,26,0.6)" }}>
+                From site selection and creative production to campaign monitoring and post-campaign reporting, HORIZON OOH is your end-to-end outdoor advertising partner in Egypt. <Link to="/contact" className="underline" style={{ color: RED }}>Contact our team</Link> to receive a tailored media plan and quotation.
+              </p>
+            </RevealItem>
+          </RevealGroup>
+          <Reveal delay={0.1}>
+            <div className="mt-12 pt-8 border-t border-[#0B0F1A]/[0.07]">
+              <p className="text-[11px] font-bold tracking-[0.3em] uppercase mb-5" style={{ color: "rgba(11,15,26,0.3)" }}>Explore Related Services</p>
+              <div className="flex flex-wrap gap-4">
+                {others.map((s) => (
+                  <Link key={s.id} to={serviceHref(s.slug)} className="text-[13px] font-semibold tracking-[0.1em] uppercase px-5 py-2.5 border border-[#0B0F1A]/20 hover:border-[#0B0F1A] transition-colors" style={{ color: NAVY }}>{s.title}</Link>
+                ))}
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
