@@ -1,159 +1,607 @@
+import { useState, useRef, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { LOCATIONS } from "@/data";
 import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
-import { RED, NAVY } from "@/lib/routes";
+import { RED, NAVY, ease } from "@/lib/routes";
 
+// ─── Gallery images per billboard type ───────────────────────────────────
+const GALLERY_POOLS = {
+  night: [
+    "https://images.unsplash.com/photo-1702231942007-b255a41475c9?w=1200&q=90&fit=crop",
+    "https://images.unsplash.com/photo-1636983526696-66425c4ef618?w=1200&q=90&fit=crop",
+    "https://images.unsplash.com/photo-1632228342988-ad2761509b51?w=1200&q=90&fit=crop",
+    "https://images.unsplash.com/photo-1749994981004-e8041f867e50?w=1200&q=90&fit=crop",
+  ],
+  day: [
+    "https://images.unsplash.com/photo-1586189393824-dfaafc3691dc?w=1200&q=90&fit=crop",
+    "https://images.unsplash.com/photo-1658753104951-cda0229679e1?w=1200&q=90&fit=crop",
+    "https://images.unsplash.com/photo-1622058030255-6f54f94cfb3b?w=1200&q=90&fit=crop",
+    "https://images.unsplash.com/photo-1714475400244-40ac47a97ef5?w=1200&q=90&fit=crop",
+  ],
+  context: [
+    "https://images.unsplash.com/photo-1624526794347-c2a966b81604?w=1200&q=90&fit=crop",
+    "https://images.unsplash.com/photo-1559533189-9bd27271f4c4?w=1200&q=90&fit=crop",
+    "https://images.unsplash.com/photo-1638659782541-15c52f28dadb?w=1200&q=90&fit=crop",
+    "https://images.unsplash.com/photo-1687803551027-be2d8bf58ccc?w=1200&q=90&fit=crop",
+  ],
+};
+
+interface GalleryImage {
+  src: string;
+  label: string;
+  description: string;
+}
+
+function getGallery(productId: string): GalleryImage[] {
+  const idx = Math.abs(productId.charCodeAt(0) + productId.charCodeAt(1)) % 4;
+  return [
+    { src: GALLERY_POOLS.night[idx],   label: "Night View",    description: "24/7 LED-backlit — maximum night-time visibility" },
+    { src: GALLERY_POOLS.day[idx],     label: "Day View",      description: "Clear daylight exposure — high-contrast creative" },
+    { src: GALLERY_POOLS.context[idx], label: "Traffic Context", description: "Road-level view — audience approach angle" },
+    { src: GALLERY_POOLS.night[(idx + 1) % 4], label: "Wide Angle", description: "Full approach corridor — visibility distance" },
+  ];
+}
+
+// ─── Lightbox ─────────────────────────────────────────────────────────────
+function Lightbox({ images, active, onClose, onNav }: {
+  images: GalleryImage[]; active: number; onClose: () => void; onNav: (dir: 1 | -1) => void;
+}) {
+  useEffect(() => {
+    const fn = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowRight") onNav(1);
+      if (e.key === "ArrowLeft") onNav(-1);
+    };
+    document.addEventListener("keydown", fn);
+    return () => document.removeEventListener("keydown", fn);
+  }, [onClose, onNav]);
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+        className="fixed inset-0 z-[100] flex items-center justify-center"
+        style={{ background: "rgba(11,15,26,0.96)" }}
+        onClick={onClose}
+      >
+        {/* Close */}
+        <button onClick={onClose}
+          className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center border border-white/20 hover:border-white/50 transition-colors"
+          style={{ color: "white", fontSize: 20, background: "none", cursor: "pointer" }}>
+          ×
+        </button>
+
+        {/* Counter */}
+        <div className="absolute top-6 left-1/2 -translate-x-1/2">
+          <p className="text-white/40 text-[11px] font-bold tracking-[0.3em] uppercase">
+            {active + 1} / {images.length}
+          </p>
+        </div>
+
+        {/* Image */}
+        <motion.div
+          key={active}
+          initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3, ease }}
+          className="relative" style={{ maxWidth: "90vw", maxHeight: "80vh" }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <img src={images[active].src} alt={images[active].label}
+            style={{ maxWidth: "90vw", maxHeight: "78vh", objectFit: "contain", display: "block" }} />
+          <div className="absolute bottom-0 left-0 right-0 p-4"
+            style={{ background: "linear-gradient(to top, rgba(11,15,26,0.9) 0%, transparent 100%)" }}>
+            <p className="text-white font-bold text-[14px]">{images[active].label}</p>
+            <p className="text-white/45 text-[12px] mt-1">{images[active].description}</p>
+          </div>
+        </motion.div>
+
+        {/* Nav arrows */}
+        {images.length > 1 && (
+          <>
+            <button onClick={(e) => { e.stopPropagation(); onNav(-1); }}
+              className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center border border-white/15 hover:border-white/40 transition-all"
+              style={{ color: "white", fontSize: 20, background: "none", cursor: "pointer" }}>‹</button>
+            <button onClick={(e) => { e.stopPropagation(); onNav(1); }}
+              className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center border border-white/15 hover:border-white/40 transition-all"
+              style={{ color: "white", fontSize: 20, background: "none", cursor: "pointer" }}>›</button>
+          </>
+        )}
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
+// ─── Main product page ────────────────────────────────────────────────────
 export default function Product() {
   const { city: citySlug, slug } = useParams<{ city: string; slug: string }>();
   const navigate = useNavigate();
+  const heroRef  = useRef<HTMLElement>(null);
 
   const location = LOCATIONS.find((l) => l.slug === citySlug);
-  const product = location?.products.find((p) => p.slug === slug);
+  const product  = location?.products.find((p) => p.slug === slug);
+
+  const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
+  const [activeGalleryIdx, setActiveGalleryIdx] = useState(0);
+
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const heroImgY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
 
   if (!location || !product) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6">
-        <p className="text-[#0B0F1A]/40 text-lg">Billboard not found.</p>
-        <button onClick={() => navigate("/locations")} className="text-[#D90429] font-bold underline">Back to Locations</button>
+        <p style={{ color: "rgba(11,15,26,0.4)", fontSize: 17 }}>Billboard not found.</p>
+        <button onClick={() => navigate("/locations")}
+          style={{ color: RED, fontWeight: 700, background: "none", border: "none", cursor: "pointer" }}>
+          Back to Locations
+        </button>
       </div>
     );
   }
 
-  const related = location.products.filter((p) => p.slug !== slug).slice(0, 2);
+  const related  = location.products.filter((p) => p.slug !== slug).slice(0, 2);
+  const gallery  = getGallery(product.id);
+
+  const openLightbox = (i: number) => setLightboxIdx(i);
+  const closeLightbox = () => setLightboxIdx(null);
+  const navLightbox = (dir: 1 | -1) =>
+    setLightboxIdx((prev) => prev === null ? 0 : (prev + dir + gallery.length) % gallery.length);
 
   return (
     <>
+      {/* ── Lightbox ─────────────────────────────────────────────────── */}
+      {lightboxIdx !== null && (
+        <Lightbox images={gallery} active={lightboxIdx} onClose={closeLightbox} onNav={navLightbox} />
+      )}
+
+      {/* ── Breadcrumb ───────────────────────────────────────────────── */}
       <div className="bg-white pt-4">
         <Breadcrumb items={[
-          { label: "Home", href: "/" },
+          { label: "Home",     href: "/" },
           { label: "Locations", href: "/locations" },
           { label: location.city, href: `/locations/${location.slug}` },
           { label: product.name },
         ]} />
       </div>
 
-      {/* Hero — full-bleed image */}
-      <section className="relative overflow-hidden" style={{ height: "70vh", minHeight: 520, background: NAVY }}>
-        <img
-          src={product.image}
-          alt={product.name}
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ opacity: 0.55 }}
-        />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(11,15,26,0.9) 0%, rgba(11,15,26,0.3) 60%, transparent 100%)" }} />
+      {/* ═══════════════════════════════════════════════════════════════
+          1. HERO — FULL-BLEED PARALLAX
+      ═══════════════════════════════════════════════════════════════ */}
+      <section ref={heroRef} className="relative overflow-hidden"
+        style={{ height: "88vh", minHeight: 600, background: NAVY }}>
 
-        {/* Badge */}
-        <div className="absolute top-8 right-8 text-right">
-          <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase font-bold">Daily Traffic</p>
-          <p className="font-black text-white/35 tracking-[-0.04em]" style={{ fontSize: 36 }}>{product.traffic.split(" ")[0]}</p>
-        </div>
+        {/* Parallax image */}
+        <motion.div className="absolute inset-[-10%]" style={{ y: heroImgY }}>
+          <img src={product.image}
+            alt={`${product.name} — billboard advertising ${location.city}`}
+            className="w-full h-full object-cover"
+            style={{ opacity: 0.65 }} />
+        </motion.div>
 
-        <div className="absolute bottom-0 left-0 right-0 max-w-[1440px] mx-auto pb-14" style={{ padding: "0 120px 56px" }}>
-          <Eyebrow text={`${product.type} · ${location.city}`} light />
-          <Reveal delay={0.05}>
-            <h1 className="font-black leading-[0.88] tracking-[-0.05em] text-white" style={{ fontSize: "clamp(44px, 5.5vw, 76px)" }}>
-              {product.name}
-            </h1>
-          </Reveal>
-          <Reveal delay={0.12}>
-            <p className="text-[16px] mt-3" style={{ color: "rgba(255,255,255,0.5)" }}>{product.location}</p>
-          </Reveal>
+        {/* Layered gradient overlays */}
+        <div className="absolute inset-0"
+          style={{ background: "linear-gradient(to top, rgba(11,15,26,0.95) 0%, rgba(11,15,26,0.4) 50%, rgba(11,15,26,0.15) 100%)" }} />
+        <div className="absolute inset-0"
+          style={{ background: "linear-gradient(to right, rgba(11,15,26,0.5) 0%, transparent 60%)" }} />
+
+        {/* Top-right KPI badges */}
+        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease, delay: 0.6 }}
+          className="absolute top-10 right-[120px] flex flex-col gap-4">
+          <div className="border border-white/10 text-right" style={{ padding: "16px 24px", background: "rgba(11,15,26,0.5)", backdropFilter: "blur(8px)" }}>
+            <p className="text-white/25 text-[9px] tracking-[0.35em] uppercase font-bold mb-1.5">Daily Traffic</p>
+            <p className="font-black text-white tracking-[-0.04em]" style={{ fontSize: 28 }}>{product.traffic.split(" ")[0]}</p>
+            <p className="text-white/30 text-[10px] tracking-[0.15em]">vehicles/day</p>
+          </div>
+          <div className="border border-white/10 text-right" style={{ padding: "16px 24px", background: "rgba(11,15,26,0.5)", backdropFilter: "blur(8px)" }}>
+            <p className="text-white/25 text-[9px] tracking-[0.35em] uppercase font-bold mb-1.5">Visibility</p>
+            <p className="font-black text-white tracking-[-0.04em]" style={{ fontSize: 22 }}>{product.visibility.split(" ").slice(0,2).join(" ")}</p>
+          </div>
+        </motion.div>
+
+        {/* Bottom content */}
+        <div className="absolute bottom-0 left-0 right-0 max-w-[1440px] mx-auto"
+          style={{ padding: "0 120px 64px" }}>
+          <div className="flex items-end justify-between gap-12">
+            <div style={{ maxWidth: 720 }}>
+              {/* Eyebrow */}
+              <motion.div initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, ease, delay: 0.2 }}
+                className="flex items-center gap-3 mb-5">
+                <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
+                <span className="text-[10px] font-bold tracking-[0.35em] uppercase" style={{ color: "rgba(255,255,255,0.35)" }}>
+                  {product.type} · {location.city}
+                </span>
+              </motion.div>
+
+              {/* H1 */}
+              <div className="overflow-hidden mb-3">
+                <motion.h1 initial={{ y: "100%" }} animate={{ y: 0 }}
+                  transition={{ duration: 0.9, ease, delay: 0.3 }}
+                  className="font-black text-white leading-[0.88] tracking-[-0.05em]"
+                  style={{ fontSize: "clamp(40px, 5.5vw, 80px)" }}>
+                  {product.name}
+                </motion.h1>
+              </div>
+
+              {/* Location address */}
+              <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease, delay: 0.5 }}
+                className="text-[16px]" style={{ color: "rgba(255,255,255,0.45)" }}>
+                {product.location}
+              </motion.p>
+            </div>
+
+            {/* CTA button — bottom right */}
+            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease, delay: 0.7 }} className="flex-shrink-0 hidden md:block">
+              <button onClick={() => navigate("/contact")}
+                className="group relative overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white flex items-center"
+                style={{ height: 52, padding: "0 36px", background: RED, border: "none", cursor: "pointer" }}>
+                <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
+                  style={{ background: "white" }} />
+                <span className="relative z-10 group-hover:text-[#0B0F1A] transition-colors duration-300">Book this Location</span>
+              </button>
+            </motion.div>
+          </div>
+
+          {/* Quick spec strip */}
+          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease, delay: 0.8 }}
+            className="flex items-center gap-10 mt-8 pt-6 border-t border-white/[0.08]">
+            {product.specs.slice(0, 4).map((s) => (
+              <div key={s.label}>
+                <p className="text-[9px] font-bold tracking-[0.3em] uppercase" style={{ color: "rgba(255,255,255,0.25)" }}>{s.label}</p>
+                <p className="font-bold text-white text-[14px] tracking-[-0.01em] mt-0.5">{s.value}</p>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
-      {/* Specs + Description */}
-      <section className="bg-white" style={{ paddingTop: 100, paddingBottom: 80 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
-          <div className="grid grid-cols-12 gap-12">
-            {/* Specs sidebar */}
-            <div className="col-span-4">
-              <Eyebrow text="Specifications" />
-              <div className="flex flex-col gap-0 border-t border-[#0B0F1A]/[0.07]">
-                {product.specs.map((spec) => (
-                  <Reveal key={spec.label}>
-                    <div className="flex items-center justify-between py-5 border-b border-[#0B0F1A]/[0.07]">
-                      <span className="text-[12px] font-semibold tracking-[0.15em] uppercase" style={{ color: "rgba(11,15,26,0.35)" }}>
-                        {spec.label}
-                      </span>
-                      <span className="text-[14px] font-bold" style={{ color: NAVY }}>
-                        {spec.value}
-                      </span>
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
+      {/* ═══════════════════════════════════════════════════════════════
+          2. SPLIT — IMAGE + FULL SPECS
+      ═══════════════════════════════════════════════════════════════ */}
+      <section className="bg-white" style={{ paddingTop: 0, paddingBottom: 0 }}>
+        <div className="max-w-[1440px] mx-auto grid" style={{ gridTemplateColumns: "1fr 1fr", minHeight: 640 }}>
 
-              {/* Book CTA */}
-              <div className="mt-10">
-                <button
-                  onClick={() => navigate("/contact")}
-                  className="group relative w-full h-[56px] overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white flex items-center justify-center"
-                  style={{ background: RED }}
-                >
-                  <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: NAVY }} />
-                  <span className="relative z-10">Book this Location</span>
-                </button>
-              </div>
+          {/* Left — large primary image with zoom hover */}
+          <div className="relative overflow-hidden group cursor-pointer" style={{ minHeight: 640 }}
+            onClick={() => openLightbox(0)}>
+            <motion.img
+              src={gallery[0].src}
+              alt={`${product.name} night view — outdoor billboard advertising ${location.city}`}
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+              style={{ opacity: 0.88 }}
+            />
+            <div className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-80"
+              style={{ background: "linear-gradient(to top, rgba(11,15,26,0.6) 0%, transparent 60%)" }} />
+
+            {/* Night view label */}
+            <div className="absolute bottom-8 left-8">
+              <span className="text-[10px] font-bold tracking-[0.25em] uppercase px-3 py-1.5 text-white"
+                style={{ background: "rgba(11,15,26,0.7)", backdropFilter: "blur(4px)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                Night View
+              </span>
             </div>
 
-            {/* Description + Benefits */}
-            <div className="col-span-8">
-              <Eyebrow text="Overview" />
-              <Reveal delay={0.06}>
-                <h2 className="font-black leading-[0.9] tracking-[-0.04em] mb-8" style={{ fontSize: "clamp(32px, 3vw, 44px)", color: NAVY }}>
+            {/* Zoom hint */}
+            <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="w-10 h-10 flex items-center justify-center border border-white/30"
+                style={{ background: "rgba(11,15,26,0.6)", backdropFilter: "blur(4px)" }}>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M10 1h5v5M1 10v5h5M6 10l-5 5M10 6l5-5" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          {/* Right — specs + details */}
+          <div className="flex flex-col justify-between" style={{ padding: "64px 72px 64px 64px", background: "white" }}>
+            <div>
+              <Eyebrow text="Specifications" />
+              <Reveal delay={0.04}>
+                <h2 className="font-black leading-[0.9] tracking-[-0.04em] mb-10"
+                  style={{ fontSize: "clamp(28px, 3vw, 40px)", color: NAVY }}>
                   Billboard Advertising<br />
                   <span style={{ color: "rgba(11,15,26,0.2)" }}>in {location.city}.</span>
                 </h2>
               </Reveal>
 
+              {/* Spec table */}
+              <div className="flex flex-col gap-0 border-t border-[#0B0F1A]/[0.07] mb-10">
+                {product.specs.map((spec, i) => (
+                  <Reveal key={spec.label} delay={0.04 * i}>
+                    <div className="flex items-center justify-between py-4 border-b border-[#0B0F1A]/[0.07]">
+                      <span className="text-[11px] font-semibold tracking-[0.18em] uppercase"
+                        style={{ color: "rgba(11,15,26,0.35)" }}>{spec.label}</span>
+                      <span className="text-[14px] font-bold" style={{ color: NAVY }}>{spec.value}</span>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+
+              {/* Overview paragraph */}
               <Reveal delay={0.1}>
-                <p className="text-[17px] leading-[1.8] mb-12" style={{ color: "rgba(11,15,26,0.5)" }}>
-                  The {product.name} is one of the most strategically positioned billboard sites in {location.city} — delivering {product.traffic} at a visible distance of {product.visibility}. This {product.type.toLowerCase()} provides unmatched exposure for brands targeting {location.city}'s premium audience.
+                <p className="text-[15px] leading-[1.8]" style={{ color: "rgba(11,15,26,0.5)" }}>
+                  The <strong style={{ color: NAVY }}>{product.name}</strong> is one of the most strategically
+                  positioned billboard sites in {location.city} — delivering&nbsp;
+                  <strong style={{ color: NAVY }}>{product.traffic}</strong> at a visible distance of&nbsp;
+                  <strong style={{ color: NAVY }}>{product.visibility}</strong>.
+                  This {product.type.toLowerCase()} provides unmatched exposure for brands targeting {location.city}'s premium audience.
                 </p>
               </Reveal>
+            </div>
 
-              {/* Benefits */}
-              <div>
-                <Eyebrow text="Key Benefits" />
-                <RevealGroup className="flex flex-col gap-5">
-                  {product.benefits.map((benefit, i) => (
-                    <RevealItem key={i}>
-                      <div className="flex items-start gap-5">
-                        <span className="mt-2 flex-shrink-0 w-[5px] h-[5px]" style={{ background: RED }} />
-                        <p className="text-[16px] leading-[1.7]" style={{ color: "rgba(11,15,26,0.55)" }}>{benefit}</p>
-                      </div>
-                    </RevealItem>
-                  ))}
-                </RevealGroup>
+            {/* CTAs */}
+            <Reveal delay={0.2}>
+              <div className="flex flex-col gap-3 mt-10">
+                <button onClick={() => navigate("/contact")}
+                  className="group relative w-full h-[54px] overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase text-white flex items-center justify-center"
+                  style={{ background: RED, border: "none", cursor: "pointer" }}>
+                  <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
+                    style={{ background: NAVY }} />
+                  <span className="relative z-10">Get a Quote</span>
+                </button>
+                <a href={`https://wa.me/201234567890?text=Hi%20HORIZON%20OOH%2C%20I%27m%20interested%20in%20booking%20${encodeURIComponent(product.name)}`}
+                  target="_blank" rel="noopener noreferrer"
+                  className="w-full h-[48px] flex items-center justify-center gap-2.5 border transition-colors duration-200 hover:border-[#25D366] group"
+                  style={{ border: "1.5px solid rgba(11,15,26,0.12)", textDecoration: "none" }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+                      fill="#25D366" />
+                  </svg>
+                  <span className="text-[12px] font-semibold tracking-[0.15em] uppercase group-hover:text-[#25D366] transition-colors"
+                    style={{ color: "rgba(11,15,26,0.5)" }}>WhatsApp Enquiry</span>
+                </a>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════
+          3. IMAGE GALLERY
+      ═══════════════════════════════════════════════════════════════ */}
+      <section style={{ background: "#F5F5F6", paddingTop: 80, paddingBottom: 80 }}>
+        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+          {/* Section header */}
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <Reveal>
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
+                  <span className="text-[10px] font-bold tracking-[0.35em] uppercase"
+                    style={{ color: "rgba(11,15,26,0.35)" }}>Visual Gallery</span>
+                </div>
+              </Reveal>
+              <Reveal delay={0.04}>
+                <h2 className="font-black leading-[0.9] tracking-[-0.04em]"
+                  style={{ fontSize: "clamp(28px, 3vw, 40px)", color: NAVY }}>
+                  See the location.
+                </h2>
+              </Reveal>
+            </div>
+            <Reveal delay={0.1}>
+              <p className="text-[12px] font-semibold tracking-[0.15em] uppercase"
+                style={{ color: "rgba(11,15,26,0.3)" }}>
+                Click to enlarge
+              </p>
+            </Reveal>
+          </div>
+
+          {/* Primary large image */}
+          <Reveal delay={0.06}>
+            <div className="relative overflow-hidden cursor-pointer group mb-4"
+              style={{ height: 440 }}
+              onClick={() => openLightbox(activeGalleryIdx)}>
+              <motion.img
+                key={activeGalleryIdx}
+                src={gallery[activeGalleryIdx].src}
+                alt={`${product.name} — ${gallery[activeGalleryIdx].label}`}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                initial={{ opacity: 0 }} animate={{ opacity: 0.9 }}
+                transition={{ duration: 0.5 }} />
+              <div className="absolute inset-0 group-hover:opacity-0 transition-opacity duration-500"
+                style={{ background: "linear-gradient(to top, rgba(11,15,26,0.55) 0%, transparent 60%)" }} />
+
+              {/* Label overlay */}
+              <div className="absolute bottom-6 left-6 flex items-center gap-4">
+                <span className="text-[10px] font-bold tracking-[0.25em] uppercase px-4 py-2 text-white"
+                  style={{ background: "rgba(11,15,26,0.7)", backdropFilter: "blur(4px)" }}>
+                  {gallery[activeGalleryIdx].label}
+                </span>
+                <span className="text-white/45 text-[12px]">
+                  {gallery[activeGalleryIdx].description}
+                </span>
+              </div>
+
+              {/* Zoom icon */}
+              <div className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ background: "rgba(11,15,26,0.6)", border: "1px solid rgba(255,255,255,0.2)" }}>
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                  <path d="M10 1h5v5M1 10v5h5M6 10l-5 5M10 6l5-5" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Thumbnail strip */}
+          <RevealGroup className="grid grid-cols-4 gap-4">
+            {gallery.map((img, i) => (
+              <RevealItem key={i}>
+                <button
+                  onClick={() => setActiveGalleryIdx(i)}
+                  className="relative overflow-hidden w-full group"
+                  style={{ height: 120, border: "none", padding: 0, cursor: "pointer",
+                    outline: activeGalleryIdx === i ? `2px solid ${RED}` : "none",
+                    outlineOffset: 2 }}>
+                  <img src={img.src} alt={img.label}
+                    className="w-full h-full object-cover transition-all duration-400 group-hover:scale-[1.05]"
+                    style={{ opacity: activeGalleryIdx === i ? 1 : 0.6 }} />
+                  <div className="absolute inset-0 transition-opacity duration-300"
+                    style={{ background: activeGalleryIdx === i ? "transparent" : "rgba(11,15,26,0.25)" }} />
+                  {/* Label chip */}
+                  <div className="absolute bottom-0 left-0 right-0 flex items-center justify-center py-2"
+                    style={{ background: activeGalleryIdx === i ? RED : "rgba(11,15,26,0.6)" }}>
+                    <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-white">{img.label}</span>
+                  </div>
+                </button>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════
+          4. KEY BENEFITS
+      ═══════════════════════════════════════════════════════════════ */}
+      <section className="bg-white" style={{ paddingTop: 80, paddingBottom: 80 }}>
+        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+          <div className="grid grid-cols-12 gap-10 items-start">
+            <div className="col-span-4">
+              <Eyebrow text="Key Benefits" />
+              <Reveal delay={0.04}>
+                <h2 className="font-black leading-[0.9] tracking-[-0.04em]"
+                  style={{ fontSize: "clamp(28px, 3vw, 40px)", color: NAVY }}>
+                  Why this<br />
+                  <span style={{ color: "rgba(11,15,26,0.2)" }}>location works.</span>
+                </h2>
+              </Reveal>
+            </div>
+            <div className="col-span-8">
+              <RevealGroup className="flex flex-col gap-0 border-t border-[#0B0F1A]/[0.07]">
+                {product.benefits.map((benefit, i) => (
+                  <RevealItem key={i}>
+                    <div className="flex items-start gap-6 py-6 border-b border-[#0B0F1A]/[0.07]">
+                      <span className="font-black text-[11px] tracking-[0.25em] uppercase mt-0.5 flex-shrink-0"
+                        style={{ color: RED, minWidth: 28 }}>{String(i + 1).padStart(2, "0")}</span>
+                      <p className="text-[16px] leading-[1.7]" style={{ color: "rgba(11,15,26,0.6)" }}>{benefit}</p>
+                    </div>
+                  </RevealItem>
+                ))}
+              </RevealGroup>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════
+          5. VISIBILITY CONTEXT — FULL-WIDTH IMAGE STRIP
+      ═══════════════════════════════════════════════════════════════ */}
+      <section style={{ background: NAVY, paddingTop: 0, paddingBottom: 0 }}>
+        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+          <div className="grid grid-cols-2 gap-[1px]" style={{ background: "rgba(255,255,255,0.05)" }}>
+            {/* Context image */}
+            <div className="relative overflow-hidden group cursor-pointer" style={{ height: 380 }}
+              onClick={() => openLightbox(2)}>
+              <img src={gallery[2].src}
+                alt={`${product.name} traffic context — approach angle`}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+                style={{ opacity: 0.7 }} />
+              <div className="absolute inset-0"
+                style={{ background: "linear-gradient(to top, rgba(11,15,26,0.75) 0%, transparent 60%)" }} />
+              <div className="absolute bottom-6 left-6">
+                <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-white/35 mb-1">Traffic Context</p>
+                <p className="font-bold text-white text-[15px]">Approach view · {product.location.split(",")[0]}</p>
+              </div>
+            </div>
+
+            {/* Wide angle image */}
+            <div className="relative overflow-hidden group cursor-pointer" style={{ height: 380 }}
+              onClick={() => openLightbox(3)}>
+              <img src={gallery[3].src}
+                alt={`${product.name} wide angle — ${product.visibility}`}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+                style={{ opacity: 0.7 }} />
+              <div className="absolute inset-0"
+                style={{ background: "linear-gradient(to top, rgba(11,15,26,0.75) 0%, transparent 60%)" }} />
+              <div className="absolute bottom-6 left-6">
+                <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-white/35 mb-1">Wide Angle</p>
+                <p className="font-bold text-white text-[15px]">Visible from {product.visibility}</p>
+              </div>
+              {/* Visibility stat overlay */}
+              <div className="absolute top-6 right-6 text-right">
+                <p className="text-white/20 text-[9px] tracking-[0.3em] uppercase font-bold">Visibility</p>
+                <p className="font-black text-white/50 tracking-[-0.03em]" style={{ fontSize: 24 }}>
+                  {product.visibility.split(" ").slice(0, 2).join("")}
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Related */}
+      {/* ═══════════════════════════════════════════════════════════════
+          6. LOCATION CONTEXT STRIP
+      ═══════════════════════════════════════════════════════════════ */}
+      <section style={{ background: "#F5F5F6", paddingTop: 64, paddingBottom: 64 }}>
+        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+          <div className="grid grid-cols-3 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
+            {[
+              { icon: "◉", label: "Market", value: location.city, sub: "Primary urban market" },
+              { icon: "◎", label: "Zone", value: product.location.split(",")[0], sub: product.location.split(",").slice(1).join(",").trim() || "Premium corridor" },
+              { icon: "◈", label: "Format", value: product.type, sub: product.size + " · " + product.specs.find(s => s.label === "Illumination")?.value || "Illuminated" },
+            ].map((item) => (
+              <div key={item.label} className="bg-white flex items-start gap-5"
+                style={{ padding: "32px 36px" }}>
+                <span style={{ color: RED, fontSize: 20, lineHeight: 1, marginTop: 2 }}>{item.icon}</span>
+                <div>
+                  <p className="text-[10px] font-bold tracking-[0.3em] uppercase mb-1"
+                    style={{ color: "rgba(11,15,26,0.3)" }}>{item.label}</p>
+                  <p className="font-extrabold text-[17px] tracking-[-0.01em]"
+                    style={{ color: NAVY }}>{item.value}</p>
+                  <p className="text-[12px] mt-1" style={{ color: "rgba(11,15,26,0.35)" }}>{item.sub}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════
+          7. RELATED LOCATIONS
+      ═══════════════════════════════════════════════════════════════ */}
       {related.length > 0 && (
-        <section style={{ background: "#F5F5F6", paddingTop: 80, paddingBottom: 80 }}>
+        <section className="bg-white" style={{ paddingTop: 80, paddingBottom: 80 }}>
           <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
-            <Reveal>
-              <p className="text-[11px] font-bold tracking-[0.3em] uppercase mb-8" style={{ color: "rgba(11,15,26,0.3)" }}>
-                Related Locations
-              </p>
-            </Reveal>
+            <div className="flex items-center justify-between mb-10">
+              <Reveal>
+                <p className="text-[10px] font-bold tracking-[0.35em] uppercase"
+                  style={{ color: "rgba(11,15,26,0.3)" }}>Related Billboard Locations</p>
+              </Reveal>
+              <Reveal delay={0.08}>
+                <Link to={`/locations/${location.slug}`}
+                  className="text-[11px] font-bold tracking-[0.2em] uppercase transition-colors hover:text-[#D90429]"
+                  style={{ color: "rgba(11,15,26,0.35)", textDecoration: "none" }}>
+                  View all in {location.city} →
+                </Link>
+              </Reveal>
+            </div>
             <RevealGroup className="grid grid-cols-2 gap-6">
               {related.map((rel) => (
                 <RevealItem key={rel.id}>
-                  <Link
-                    to={`/locations/${citySlug}/billboards/${rel.slug}`}
-                    className="group flex items-center gap-6 p-6 bg-white border border-[#0B0F1A]/[0.08] hover:bg-[#0B0F1A] transition-colors duration-400"
-                    style={{ textDecoration: "none" }}
-                  >
-                    <img src={rel.image} alt={rel.name} className="w-20 h-16 object-cover flex-shrink-0" />
-                    <div className="flex-1">
-                      <p className="font-bold text-[15px] tracking-[-0.01em] mb-1 transition-colors duration-400 group-hover:text-white" style={{ color: NAVY }}>{rel.name}</p>
-                      <p className="text-[12px] transition-colors duration-400 group-hover:text-white/30" style={{ color: "rgba(11,15,26,0.4)" }}>{rel.type} · {rel.size}</p>
+                  <Link to={`/locations/${citySlug}/billboards/${rel.slug}`}
+                    className="group block overflow-hidden border border-[#0B0F1A]/[0.08] hover:border-[#D90429]/25 transition-all duration-400"
+                    style={{ textDecoration: "none" }}>
+                    <div className="relative overflow-hidden" style={{ height: 200 }}>
+                      <img src={rel.image} alt={`${rel.name} — billboard advertising ${location.city}`}
+                        className="w-full h-full object-cover transition-transform duration-600 group-hover:scale-[1.05]"
+                        style={{ opacity: 0.85 }} />
+                      <div className="absolute inset-0"
+                        style={{ background: "linear-gradient(to top, rgba(11,15,26,0.7) 0%, transparent 60%)" }} />
+                      <span className="absolute bottom-4 left-5 font-bold text-white text-[15px]">{rel.name}</span>
                     </div>
-                    <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 text-lg" style={{ color: RED }}>→</span>
+                    <div className="flex items-center justify-between"
+                      style={{ padding: "20px 24px" }}>
+                      <div>
+                        <p className="font-semibold text-[13px] transition-colors group-hover:text-[#D90429]"
+                          style={{ color: NAVY }}>{rel.type} · {rel.size}</p>
+                        <p className="text-[11px] mt-0.5" style={{ color: "rgba(11,15,26,0.35)" }}>{rel.traffic}</p>
+                      </div>
+                      <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 text-lg"
+                        style={{ color: RED }}>→</span>
+                    </div>
                   </Link>
                 </RevealItem>
               ))}
@@ -162,7 +610,14 @@ export default function Product() {
         </section>
       )}
 
-      <CTABanner title={`Book ${product.name} today.`} subtitle="Contact our team for availability, pricing, and campaign packages." buttonLabel="Book this Location" />
+      {/* ═══════════════════════════════════════════════════════════════
+          8. FINAL CTA
+      ═══════════════════════════════════════════════════════════════ */}
+      <CTABanner
+        title={`Book ${product.name} today.`}
+        subtitle="Contact our team for availability, pricing, and campaign packages."
+        buttonLabel="Book this Location"
+      />
     </>
   );
 }
