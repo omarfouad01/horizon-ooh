@@ -10,7 +10,7 @@ import {
   CLIENT_BRANDS,
   PROJECTS,
 } from "@/data";
-import { serviceHref, locationHref, projectHref } from "@/lib/routes";
+import { serviceHref, locationHref, projectHref, productHref } from "@/lib/routes";
 
 // ─── Constants ───────────────────────────────────────────────────────────
 const NAVY = "#0B0F1A";
@@ -1298,6 +1298,141 @@ function BillboardBenefitsSection() {
   );
 }
 
+// ─── Recently Added Billboards Section ──────────────────────────────────────
+function RecentBillboardsSection() {
+  const ALL_BILLBOARD_PRODUCTS = LOCATIONS.flatMap((loc) =>
+    loc.products.map((p) => ({ ...p, citySlug: loc.slug, cityName: loc.city }))
+  );
+  const RECENT_SIX = ALL_BILLBOARD_PRODUCTS.slice(0, 6);
+
+  return (
+    <section
+      aria-labelledby="recent-billboards-heading"
+      style={{ background: "#fff", paddingTop: 120, paddingBottom: 120 }}
+    >
+      <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        {/* Section header */}
+        <Reveal>
+          <div className="flex items-start justify-between mb-16 gap-8 flex-wrap">
+            <div>
+              <p className="text-[#0B0F1A]/30 text-[10px] tracking-[0.35em] uppercase mb-4">
+                Recently Added
+              </p>
+              <h2
+                id="recent-billboards-heading"
+                className="text-[#0B0F1A] font-black text-[clamp(28px,3.5vw,48px)] tracking-[-0.02em]"
+                style={{ maxWidth: 640 }}
+              >
+                Recently Added Billboards in Egypt
+              </h2>
+              <p className="text-[#0B0F1A]/50 text-[15px] mt-4 max-w-[480px] leading-relaxed">
+                New outdoor advertising locations across Cairo, Alexandria &amp; nationwide.
+              </p>
+            </div>
+            <Link
+              to="/locations"
+              className="shrink-0 self-center border border-[#0B0F1A]/20 text-[#0B0F1A] text-[13px] font-semibold tracking-[0.08em] uppercase px-6 py-3 hover:border-[#D90429] hover:text-[#D90429] transition-colors duration-300"
+            >
+              View All Locations
+            </Link>
+          </div>
+        </Reveal>
+
+        {/* Billboard cards grid */}
+        <RevealGroup className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {RECENT_SIX.map((product) => (
+            <RevealItem key={product.id}>
+              <Link
+                to={productHref(product.citySlug, product.slug)}
+                className="group block border border-[#0B0F1A]/[0.08] hover:border-[#D90429]/25 transition-colors duration-300 overflow-hidden relative"
+                aria-label={`View billboard: ${product.name} in ${product.cityName}`}
+              >
+                {/* Image with overlay */}
+                <div className="relative overflow-hidden" style={{ height: 220 }}>
+                  <motion.img
+                    src={product.image}
+                    alt={`billboard advertising ${product.cityName} — ${product.name}`}
+                    className="w-full h-full object-cover"
+                    style={{ transformOrigin: "center" }}
+                    whileHover={{ scale: 1.04 }}
+                    transition={{ duration: 0.6, ease }}
+                    loading="lazy"
+                  />
+                  {/* Bottom-to-top navy gradient overlay */}
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background:
+                        "linear-gradient(to top, rgba(11,15,26,0.70) 0%, transparent 60%)",
+                    }}
+                  />
+                  {/* City chip — top left */}
+                  <span
+                    className="absolute top-3 left-3 text-white text-[10px] font-bold tracking-[0.25em] uppercase px-3 py-1"
+                    style={{ background: RED }}
+                  >
+                    {product.cityName}
+                  </span>
+                  {/* NEW badge — top right */}
+                  <span className="absolute top-3 right-3 text-[#0B0F1A] bg-white text-[10px] font-bold tracking-[0.25em] uppercase px-2 py-1">
+                    NEW
+                  </span>
+                </div>
+
+                {/* Card body */}
+                <div className="p-6 bg-white relative">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-[#0B0F1A] font-bold text-[16px] tracking-[-0.01em] mb-1 leading-snug">
+                        {product.name}
+                      </h3>
+                      <p className="text-[#0B0F1A]/50 text-[13px] leading-snug mb-4 truncate">
+                        {product.location}
+                      </p>
+                      <div className="flex items-center gap-3 text-[12px] text-[#0B0F1A]/40 mb-3">
+                        <span>{product.type}</span>
+                        <span className="w-1 h-1 rounded-full bg-[#0B0F1A]/20" />
+                        <span>{product.size}</span>
+                      </div>
+                      <p className="text-[13px] font-semibold" style={{ color: RED }}>
+                        {product.traffic}
+                      </p>
+                    </div>
+                    {/* Arrow — visible on hover */}
+                    <motion.div
+                      className="shrink-0 w-8 h-8 flex items-center justify-center"
+                      style={{ color: RED }}
+                      initial={{ x: -4, opacity: 0 }}
+                      whileHover={{ x: 0, opacity: 1 }}
+                      transition={{ duration: 0.3, ease }}
+                    >
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 18 18"
+                        fill="none"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M3 9h12M9 3l6 6-6 6"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </motion.div>
+                  </div>
+                </div>
+              </Link>
+            </RevealItem>
+          ))}
+        </RevealGroup>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   return (
     <>
@@ -1311,6 +1446,7 @@ export default function Home() {
       <BillboardBenefitsSection />
       <ProcessSection />
       <ResultsSection />
+      <RecentBillboardsSection />
       <ClientsSection />
       <ProjectsSection />
       <SignatureSection />

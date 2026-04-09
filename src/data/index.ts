@@ -563,6 +563,93 @@ const NEW_CAIRO_PRODUCTS: Product[] = [
   },
 ];
 
+const SHEIKH_ZAYED_PRODUCTS: Product[] = [
+  {
+    id: "26july-west",
+    slug: "26-july-corridor-west-face",
+    name: "26 July Corridor — West Face",
+    location: "26 July Corridor, Sheikh Zayed City",
+    city: "Sheikh Zayed",
+    type: "Unipole Billboard",
+    size: "10m × 5m",
+    visibility: "900m visible distance",
+    traffic: "195,000+ daily vehicles",
+    image: "https://images.unsplash.com/photo-1735506943281-4b4502be999d?w=1200&q=90&fit=crop",
+    specs: [
+      { label: "Size", value: "10m × 5m (50 sqm)" },
+      { label: "Type", value: "Frontlit Unipole" },
+      { label: "Height", value: "14m above road level" },
+      { label: "Location", value: "26 July Corridor, Sheikh Zayed" },
+      { label: "Visibility", value: "900m approach distance" },
+      { label: "Traffic", value: "195,000+ vehicles daily" },
+      { label: "Illumination", value: "Frontlit night lighting" },
+    ],
+    benefits: [
+      "Prime position on West Cairo's highest-value commercial corridor",
+      "West-facing — dominant afternoon and evening commute exposure",
+      "Surrounded by Sheikh Zayed City's premium A1 residential demographic",
+    ],
+    relatedSlugs: ["ring-road-north-face", "90th-street-east-face"],
+  },
+];
+
+const ALEXANDRIA_PRODUCTS: Product[] = [
+  {
+    id: "corniche-central",
+    slug: "corniche-central-alexandria",
+    name: "Alexandria Corniche — Central",
+    location: "Corniche El-Nil Road, Central Alexandria",
+    city: "Alexandria",
+    type: "Seafront Billboard",
+    size: "8m × 4m",
+    visibility: "600m visible distance",
+    traffic: "520,000+ daily vehicles",
+    image: "https://images.unsplash.com/photo-1765398073978-94f84257baf7?w=1200&q=90&fit=crop",
+    specs: [
+      { label: "Size", value: "8m × 4m (32 sqm)" },
+      { label: "Type", value: "Backlit Seafront Panel" },
+      { label: "Height", value: "10m above road level" },
+      { label: "Location", value: "Corniche Road, Central Alexandria" },
+      { label: "Visibility", value: "600m approach distance" },
+      { label: "Traffic", value: "520,000+ vehicles daily" },
+      { label: "Illumination", value: "LED backlit 24/7" },
+    ],
+    benefits: [
+      "Egypt's most iconic outdoor advertising address — 26km of seafront visibility",
+      "Peak summer season reaches millions of tourists and seasonal visitors",
+      "LED backlit for equal day and night-time brand presence",
+    ],
+    relatedSlugs: ["ring-road-north-face", "salah-salem-south"],
+  },
+  {
+    id: "horreya-east",
+    slug: "el-horreya-east-face",
+    name: "El-Horreya Road — East Face",
+    location: "El-Horreya Road, Alexandria",
+    city: "Alexandria",
+    type: "Rooftop Billboard",
+    size: "9m × 4.5m",
+    visibility: "750m visible distance",
+    traffic: "310,000+ daily vehicles",
+    image: "https://images.unsplash.com/photo-1629150154933-a42577786d4f?w=1200&q=90&fit=crop",
+    specs: [
+      { label: "Size", value: "9m × 4.5m (40.5 sqm)" },
+      { label: "Type", value: "Rooftop Billboard" },
+      { label: "Height", value: "20m above road level" },
+      { label: "Location", value: "El-Horreya Road, Alexandria" },
+      { label: "Visibility", value: "750m approach distance" },
+      { label: "Traffic", value: "310,000+ vehicles daily" },
+      { label: "Illumination", value: "Frontlit night lighting" },
+    ],
+    benefits: [
+      "Elevated rooftop position on Alexandria's central commercial boulevard",
+      "East-facing — maximum morning commute exposure into the city centre",
+      "Adjacent to Alexandria's premium retail and hospitality district",
+    ],
+    relatedSlugs: ["corniche-central-alexandria", "ring-road-north-face"],
+  },
+];
+
 export const LOCATIONS: Location[] = [
   {
     id: "cairo",
@@ -601,7 +688,7 @@ export const LOCATIONS: Location[] = [
       "Sheikh Zayed City sits at the intersection of Cairo's wealthiest western residential communities and the 26 July Corridor — one of Egypt's busiest non-Ring Road arterials. Brands here communicate directly with Egypt's most valuable consumer demographic.",
     availableFormats: ["Unipole Billboard", "Rooftop Billboard", "DOOH Screen", "Mall Advertising"],
     image: "https://images.unsplash.com/photo-1629150154933-a42577786d4f?w=1400&q=90&fit=crop",
-    products: [],
+    products: SHEIKH_ZAYED_PRODUCTS,
   },
   {
     id: "6th-october",
@@ -627,7 +714,7 @@ export const LOCATIONS: Location[] = [
       "Alexandria is Egypt's second-largest city and Mediterranean commercial hub — with 6 million residents, a thriving port economy, and major retail and hospitality markets. The Corniche is Egypt's most iconic outdoor advertising address: 26km of seafront road with no visual competition.",
     availableFormats: ["Unipole Billboard", "Corniche Panel", "DOOH Screen", "Mall Advertising", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1765398073978-94f84257baf7?w=1400&q=90&fit=crop",
-    products: [],
+    products: ALEXANDRIA_PRODUCTS,
   },
 ];
 
