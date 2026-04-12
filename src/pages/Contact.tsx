@@ -93,7 +93,7 @@ export default function Contact() {
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-0">
                   {/* Row 1 */}
-                  <div className="grid grid-cols-2 gap-[1px]" style={{ background: "rgba(11,15,26,0.08)" }}>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-[1px]" style={{ background: "rgba(11,15,26,0.08)" }}>
                     {[
                       { name: "name", label: "Full Name", type: "text", required: true },
                       { name: "company", label: "Company", type: "text", required: false },
@@ -124,7 +124,7 @@ export default function Contact() {
                   </div>
 
                   {/* Row 2 */}
-                  <div className="grid grid-cols-2 gap-[1px] mt-[1px]" style={{ background: "rgba(11,15,26,0.08)" }}>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-[1px] mt-[1px]" style={{ background: "rgba(11,15,26,0.08)" }}>
                     {[
                       { name: "email", label: "Email Address", type: "email", required: true },
                       { name: "phone", label: "Phone Number", type: "tel", required: false },
@@ -275,7 +275,7 @@ export default function Contact() {
       {/* Bottom strip */}
       <section style={{ background: "#F5F5F6", paddingTop: 60, paddingBottom: 60 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
-          <RevealGroup className="grid grid-cols-3">
+          <RevealGroup className="grid grid-cols-1 sm:grid-cols-3">
             {[
               { icon: "⊙", label: "Media Strategy", desc: "Free campaign planning consultation" },
               { icon: "◈", label: "Site Selection", desc: "Data-driven location recommendations" },

@@ -56,8 +56,8 @@ export default function ProjectDetail() {
         />
 
         <div
-          className="relative max-w-[1440px] mx-auto flex flex-col justify-end"
-          style={{ padding: "0 120px", paddingTop: 120, paddingBottom: 72, minHeight: 620 }}
+          className="relative max-w-[1440px] mx-auto flex flex-col justify-end px-4 sm:px-8 lg:px-[120px]"
+          style={{ paddingTop: 120, paddingBottom: 72, minHeight: 620 }}
         >
           {/* Meta row */}
           <div className="flex items-center gap-3 mb-6">
@@ -131,8 +131,8 @@ export default function ProjectDetail() {
       {/* ── Overview ──────────────────────────────────────────────────── */}
       <section className="bg-white" style={{ paddingTop: 100, paddingBottom: 80 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
-          <div className="grid grid-cols-12 gap-8">
-            <div className="col-span-4">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div className="col-span-12 lg:col-span-4">
               <Eyebrow text="Overview" />
               <Reveal delay={0.04}>
                 <h2 className="font-black leading-[0.9] tracking-[-0.04em]" style={{ fontSize: "clamp(28px, 3vw, 42px)", color: NAVY }}>
@@ -140,7 +140,7 @@ export default function ProjectDetail() {
                 </h2>
               </Reveal>
             </div>
-            <div className="col-span-8">
+            <div className="col-span-12 lg:col-span-8">
               <Reveal delay={0.1}>
                 <p className="text-[17px] leading-[1.85]" style={{ color: "rgba(11,15,26,0.55)" }}>
                   {project.overview}

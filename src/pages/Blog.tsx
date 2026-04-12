@@ -26,7 +26,7 @@ export default function Blog() {
           </Reveal>
           <Link
             to={blogHref(featured.slug)}
-            className="group grid grid-cols-2 gap-0 overflow-hidden border border-[#0B0F1A]/[0.08] hover:border-[#D90429]/30 transition-colors duration-400"
+            className="group grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden border border-[#0B0F1A]/[0.08] hover:border-[#D90429]/30 transition-colors duration-400"
             style={{ textDecoration: "none" }}
           >
             <div className="relative overflow-hidden" style={{ height: 420 }}>

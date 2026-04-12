@@ -54,7 +54,7 @@ export default function About() {
       {/* Short intro */}
       <section className="bg-white" style={{ paddingTop: 80, paddingBottom: 80 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
-          <div className="grid grid-cols-2 gap-20 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
             <Reveal>
               <p
                 className="font-black leading-[0.9] tracking-[-0.04em]"
@@ -110,8 +110,8 @@ export default function About() {
       {/* Full about — navy section */}
       <section style={{ background: NAVY, paddingTop: 100, paddingBottom: 100 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
-          <div className="grid grid-cols-12 gap-6">
-            <div className="col-span-5">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div className="col-span-12 lg:col-span-5">
               <Eyebrow text="Who We Are" light />
               <Reveal delay={0.05}>
                 <h2
@@ -124,7 +124,7 @@ export default function About() {
                 </h2>
               </Reveal>
             </div>
-            <div className="col-span-7 flex flex-col gap-6">
+            <div className="col-span-12 lg:col-span-7 flex flex-col gap-6">
               {[
                 "Horizon OOH is Egypt's most trusted outdoor advertising company. We don't just sell space — we engineer visibility. Our proprietary network spans highways, malls, airports, city streets, and digital screens, giving brands the infrastructure to be seen everywhere that matters.",
                 "Our team of 200+ professionals combines media strategy, data science, creative production, and operational excellence to deliver campaigns that move the needle. We work with Egypt's leading FMCG brands, financial institutions, automotive companies, real estate developers, and international brands entering the Egyptian market.",

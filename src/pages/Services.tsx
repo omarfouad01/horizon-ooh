@@ -84,7 +84,7 @@ export default function Services() {
       {/* Trust strip */}
       <section style={{ background: "#F5F5F6", paddingTop: 80, paddingBottom: 80 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
-          <RevealGroup className="grid grid-cols-3">
+          <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {[
               { value: "9,500+", label: "Locations Nationwide" },
               { value: "6", label: "Media Formats" },

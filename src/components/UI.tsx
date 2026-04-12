@@ -364,7 +364,7 @@ export function CTABanner({
 // ─── Breadcrumb ───────────────────────────────────────────────────────────
 export function Breadcrumb({ items }: { items: { label: string; href?: string }[] }) {
   return (
-    <div className="max-w-[1440px] mx-auto" style={{ padding: "16px 120px 0" }}>
+    <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]" style={{ paddingTop: 16 }}>
       <div className="flex items-center gap-2">
         {items.map((item, i) => (
           <span key={item.label} className="flex items-center gap-2">

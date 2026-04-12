@@ -83,7 +83,7 @@ export default function ServiceDetail() {
       <section className="bg-white" style={{ paddingTop: 100, paddingBottom: 80 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <div className="col-span-4">
+            <div className="col-span-12 lg:col-span-4">
               <Eyebrow text="Overview" />
               <Reveal delay={0.04}>
                 <h2 className="font-black leading-[0.9] tracking-[-0.04em]" style={{ fontSize: "clamp(32px, 3.5vw, 44px)", color: NAVY }}>
@@ -91,7 +91,7 @@ export default function ServiceDetail() {
                 </h2>
               </Reveal>
             </div>
-            <div className="col-span-8 flex items-center">
+            <div className="col-span-12 lg:col-span-8 flex items-center">
               <Reveal delay={0.1}>
                 <p className="text-[17px] leading-[1.8]" style={{ color: "rgba(11,15,26,0.5)" }}>
                   {service.whatIs}
@@ -127,7 +127,7 @@ export default function ServiceDetail() {
       {/* Where used */}
       <section style={{ background: NAVY, paddingTop: 100, paddingBottom: 100 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
-          <div className="grid grid-cols-2 gap-20 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
             <div>
               <Eyebrow text="Coverage" light />
               <Reveal delay={0.04}>
@@ -149,7 +149,7 @@ export default function ServiceDetail() {
       <section className="bg-white" style={{ paddingTop: 100, paddingBottom: 100 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <SectionHeading eyebrow="Campaign Process" title={`Our ${service.shortTitle} Campaign Process`} titleAccent="" />
-          <RevealGroup className="grid grid-cols-2 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
+          <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
             {service.process.map((step, i) => (
               <RevealItem key={i}>
                 <div className="bg-white p-10">

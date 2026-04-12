@@ -290,7 +290,7 @@ function HeroSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.6, duration: 0.5 }}
-              className="mt-20 flex items-center gap-3"
+              className="mt-20 flex items-center gap-3 hidden lg:flex"
             >
               <div className="flex flex-col items-center gap-1">
                 <motion.span
@@ -306,8 +306,8 @@ function HeroSection() {
           </motion.div>
         </div>
 
-        {/* RIGHT — image */}
-        <div className="relative overflow-hidden flex-1 bg-[#0B0F1A]">
+        {/* RIGHT — image (hidden on mobile, visible lg+) */}
+        <div className="relative overflow-hidden flex-1 bg-[#0B0F1A] hidden lg:block">
           <motion.div className="absolute inset-0" style={{ y: imgY }}>
             <img
               src="https://images.unsplash.com/photo-1702231942007-b255a41475c9?w=1400&q=90&fit=crop"
@@ -464,7 +464,7 @@ function TrustStrip() {
   return (
     <section className="bg-white py-[80px] border-y border-[#0B0F1A]/[0.06]">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
-        <RevealGroup className="grid grid-cols-3">
+        <RevealGroup className="grid grid-cols-1 sm:grid-cols-3">
           {TRUST_STATS.map((stat, i) => (
             <RevealItem key={stat.label}>
               <div
@@ -530,7 +530,7 @@ function ServicesSection() {
         </div>
 
         {/* Grid */}
-        <RevealGroup className="grid grid-cols-3 gap-[1px] bg-[#0B0F1A]/[0.07]">
+        <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-[#0B0F1A]/[0.07]">
           {SERVICES.map((service, i) => (
             <RevealItem key={service.id}>
               <div
@@ -695,7 +695,7 @@ function LocationsSection() {
         </div>
 
         {/* City grid */}
-        <RevealGroup className="grid grid-cols-3 gap-[1px] bg-[#0B0F1A]/[0.06]">
+        <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-[#0B0F1A]/[0.06]">
           {LOCATIONS.map((loc, i) => (
             <RevealItem key={loc.city}>
               <div
@@ -760,7 +760,7 @@ function ProcessSection() {
         </div>
 
         {/* Steps — with horizontal connector */}
-        <RevealGroup className="grid grid-cols-4 gap-8 relative">
+        <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
           {/* Connector line */}
           <div
             className="absolute top-[22px] left-8 right-8 h-[1px] bg-white/[0.06] hidden xl:block"
@@ -832,7 +832,7 @@ function ResultsSection() {
         </div>
 
         {/* Stats */}
-        <RevealGroup className="grid grid-cols-3">
+        <RevealGroup className="grid grid-cols-1 sm:grid-cols-3">
           {RESULTS.map((r, i) => (
             <RevealItem key={r.label}>
               <div

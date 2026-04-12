@@ -187,7 +187,7 @@ export default function Product() {
         {/* Top-right KPI badges */}
         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease, delay: 0.6 }}
-          className="absolute top-10 right-[120px] flex flex-col gap-4">
+          className="absolute top-10 right-[120px] flex-col gap-4 hidden lg:flex">
           <div className="border border-white/10 text-right" style={{ padding: "16px 24px", background: "rgba(11,15,26,0.5)", backdropFilter: "blur(8px)" }}>
             <p className="text-white/25 text-[9px] tracking-[0.35em] uppercase font-bold mb-1.5">Daily Traffic</p>
             <p className="font-black text-white tracking-[-0.04em]" style={{ fontSize: 28 }}>{product.traffic.split(" ")[0]}</p>
@@ -200,8 +200,8 @@ export default function Product() {
         </motion.div>
 
         {/* Bottom content */}
-        <div className="absolute bottom-0 left-0 right-0 max-w-[1440px] mx-auto"
-          style={{ padding: "0 120px 64px" }}>
+        <div           className="absolute bottom-0 left-0 right-0 max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]"
+          style={{ paddingBottom: 64 }}>
           <div className="flex items-end justify-between gap-12">
             <div style={{ maxWidth: 720 }}>
               {/* Eyebrow */}
@@ -248,7 +248,7 @@ export default function Product() {
           {/* Quick spec strip */}
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease, delay: 0.8 }}
-            className="flex items-center gap-10 mt-8 pt-6 border-t border-white/[0.08]">
+            className="flex flex-wrap items-center gap-6 lg:gap-10 mt-8 pt-6 border-t border-white/[0.08]">
             {product.specs.slice(0, 4).map((s) => (
               <div key={s.label}>
                 <p className="text-[9px] font-bold tracking-[0.3em] uppercase" style={{ color: "rgba(255,255,255,0.25)" }}>{s.label}</p>
@@ -427,7 +427,7 @@ export default function Product() {
           </Reveal>
 
           {/* Thumbnail strip */}
-          <RevealGroup className="grid grid-cols-4 gap-4">
+          <RevealGroup className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {gallery.map((img, i) => (
               <RevealItem key={i}>
                 <button

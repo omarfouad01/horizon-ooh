@@ -28,8 +28,8 @@ export default function LocationDetail() {
       {/* Hero */}
       <section style={{ background: NAVY, paddingTop: 80, paddingBottom: 0 }} className="overflow-hidden">
         <div
-          className="max-w-[1440px] mx-auto grid"
-          style={{ gridTemplateColumns: "1fr 1fr", padding: "0 120px", minHeight: 520 }}
+          className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 px-4 sm:px-8 lg:px-[120px]"
+          style={{ minHeight: 520 }}
         >
           <div className="flex flex-col justify-center py-20 pr-16">
             <Eyebrow text="Advertising Location" light />

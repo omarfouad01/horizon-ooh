@@ -67,7 +67,7 @@ export default function BlogArticle() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             {/* Main content */}
-            <article className="col-span-8">
+            <article className="col-span-12 lg:col-span-8">
               {post.body.map((block, i) => {
                 if (block.type === "h2") {
                   return (
@@ -132,7 +132,7 @@ export default function BlogArticle() {
             </article>
 
             {/* Sidebar */}
-            <aside className="col-span-4">
+            <aside className="col-span-12 lg:col-span-4">
               <div className="sticky" style={{ top: 100 }}>
                 {/* CTA card */}
                 <Reveal>

@@ -211,7 +211,7 @@ function WhyItMatters() {
     <section style={{ background: "#F5F5F6", paddingTop: 100, paddingBottom: 100 }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          <div className="col-span-4">
+          <div className="col-span-12 lg:col-span-4">
             <Eyebrow text="Why It Works" />
             <Reveal delay={0.04}>
               <h2
@@ -224,7 +224,7 @@ function WhyItMatters() {
             </Reveal>
           </div>
 
-          <div className="col-span-8">
+          <div className="col-span-12 lg:col-span-8">
             <Reveal delay={0.1}>
               <p className="text-[17px] leading-[1.85] mb-6" style={{ color: "rgba(11,15,26,0.5)" }}>
                 Egypt's outdoor advertising market is among the fastest-growing in the MENA region — driven by rapid urbanisation, a young and mobile population, and a commuter culture that places millions of consumers in front of billboards, DOOH screens, and mall formats every single day. Unlike digital advertising, outdoor advertising in Egypt cannot be skipped, blocked, or scrolled past.
@@ -335,7 +335,7 @@ export default function Projects() {
       <section className="bg-white" style={{ paddingBottom: 16 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <Reveal>
-            <div className="flex items-center gap-0 border-b border-[#0B0F1A]/[0.07]">
+            <div className="flex items-center gap-0 border-b border-[#0B0F1A]/[0.07] overflow-x-auto">
               {FILTERS.map((f) => (
                 <button
                   key={f.value}
