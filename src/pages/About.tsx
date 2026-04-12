@@ -53,7 +53,7 @@ export default function About() {
 
       {/* Short intro */}
       <section className="bg-white" style={{ paddingTop: 80, paddingBottom: 80 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <div className="grid grid-cols-2 gap-20 items-start">
             <Reveal>
               <p
@@ -77,7 +77,7 @@ export default function About() {
 
       {/* SEO Expertise Section */}
       <section style={{ background: "#fff", paddingTop: 100, paddingBottom: 100 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <Reveal>
             <h2 className="font-black text-[clamp(28px,3.5vw,44px)] tracking-[-0.03em] mb-16" style={{ color: NAVY }}>
               Egypt's Leading Outdoor Advertising Agency
@@ -109,7 +109,7 @@ export default function About() {
 
       {/* Full about — navy section */}
       <section style={{ background: NAVY, paddingTop: 100, paddingBottom: 100 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <div className="grid grid-cols-12 gap-6">
             <div className="col-span-5">
               <Eyebrow text="Who We Are" light />
@@ -143,7 +143,7 @@ export default function About() {
 
       {/* Why Choose Us */}
       <section className="bg-white" style={{ paddingTop: 120, paddingBottom: 120 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <SectionHeading
             eyebrow="Why Horizon OOH"
             title="Five reasons brands"
@@ -186,9 +186,9 @@ export default function About() {
 
       {/* Key Numbers */}
       <section style={{ background: "#F5F5F6", paddingTop: 100, paddingBottom: 100 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <SectionHeading eyebrow="By the Numbers" title="The scale behind" titleAccent="every campaign." />
-          <RevealGroup className="grid grid-cols-3 border-t border-[#0B0F1A]/[0.08]">
+          <RevealGroup className="grid grid-cols-1 sm:grid-cols-3 border-t border-[#0B0F1A]/[0.08]">
             {[
               { value: "9,500+", label: "Premium Locations", sub: "Nationwide" },
               { value: "18", label: "Years in Business", sub: "Since 2008" },
@@ -220,7 +220,7 @@ export default function About() {
 
       {/* Clients */}
       <section className="bg-white" style={{ paddingTop: 80, paddingBottom: 80 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <Reveal>
             <div className="flex items-center justify-center gap-4 mb-14">
               <span className="block w-8 h-[1px]" style={{ background: "rgba(11,15,26,0.15)" }} />

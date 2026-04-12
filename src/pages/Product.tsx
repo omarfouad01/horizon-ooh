@@ -263,7 +263,7 @@ export default function Product() {
           2. SPLIT — IMAGE + FULL SPECS
       ═══════════════════════════════════════════════════════════════ */}
       <section className="bg-white" style={{ paddingTop: 0, paddingBottom: 0 }}>
-        <div className="max-w-[1440px] mx-auto grid" style={{ gridTemplateColumns: "1fr 1fr", minHeight: 640 }}>
+        <div className="max-w-[1440px] mx-auto grid grid grid-cols-1 lg:grid-cols-2">
 
           {/* Left — large primary image with zoom hover */}
           <div className="relative overflow-hidden group cursor-pointer" style={{ minHeight: 640 }}
@@ -364,7 +364,7 @@ export default function Product() {
           3. IMAGE GALLERY
       ═══════════════════════════════════════════════════════════════ */}
       <section style={{ background: "#F5F5F6", paddingTop: 80, paddingBottom: 80 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           {/* Section header */}
           <div className="flex items-end justify-between mb-10">
             <div>
@@ -457,8 +457,8 @@ export default function Product() {
           4. KEY BENEFITS
       ═══════════════════════════════════════════════════════════════ */}
       <section className="bg-white" style={{ paddingTop: 80, paddingBottom: 80 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
-          <div className="grid grid-cols-12 gap-10 items-start">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
             <div className="col-span-4">
               <Eyebrow text="Key Benefits" />
               <Reveal delay={0.04}>
@@ -490,8 +490,8 @@ export default function Product() {
           5. VISIBILITY CONTEXT — FULL-WIDTH IMAGE STRIP
       ═══════════════════════════════════════════════════════════════ */}
       <section style={{ background: NAVY, paddingTop: 0, paddingBottom: 0 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
-          <div className="grid grid-cols-2 gap-[1px]" style={{ background: "rgba(255,255,255,0.05)" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-[1px]" style={{ background: "rgba(255,255,255,0.05)" }}>
             {/* Context image */}
             <div className="relative overflow-hidden group cursor-pointer" style={{ height: 380 }}
               onClick={() => openLightbox(2)}>
@@ -536,8 +536,8 @@ export default function Product() {
           6. LOCATION CONTEXT STRIP
       ═══════════════════════════════════════════════════════════════ */}
       <section style={{ background: "#F5F5F6", paddingTop: 64, paddingBottom: 64 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
-          <div className="grid grid-cols-3 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
             {[
               { icon: "◉", label: "Market", value: location.city, sub: "Primary urban market" },
               { icon: "◎", label: "Zone", value: product.location.split(",")[0], sub: product.location.split(",").slice(1).join(",").trim() || "Premium corridor" },
@@ -564,7 +564,7 @@ export default function Product() {
       ═══════════════════════════════════════════════════════════════ */}
       {related.length > 0 && (
         <section className="bg-white" style={{ paddingTop: 80, paddingBottom: 80 }}>
-          <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+          <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
             <div className="flex items-center justify-between mb-10">
               <Reveal>
                 <p className="text-[10px] font-bold tracking-[0.35em] uppercase"
@@ -578,7 +578,7 @@ export default function Product() {
                 </Link>
               </Reveal>
             </div>
-            <RevealGroup className="grid grid-cols-2 gap-6">
+            <RevealGroup className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {related.map((rel) => (
                 <RevealItem key={rel.id}>
                   <Link to={`/locations/${citySlug}/billboards/${rel.slug}`}

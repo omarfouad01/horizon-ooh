@@ -26,7 +26,7 @@ export default function BlogArticle() {
 
       {/* Article Hero */}
       <section style={{ background: NAVY, paddingTop: 80, paddingBottom: 0 }} className="overflow-hidden">
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <div className="max-w-[800px] pt-16 pb-20">
             <div className="flex items-center gap-4 mb-8">
               <span className="text-[10px] font-bold tracking-[0.3em] uppercase px-3 py-1.5" style={{ background: RED, color: "white" }}>
@@ -54,7 +54,7 @@ export default function BlogArticle() {
         </div>
 
         {/* Hero image */}
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <div className="relative overflow-hidden" style={{ height: 480 }}>
             <img src={post.image} alt={post.title} className="w-full h-full object-cover" style={{ opacity: 0.75 }} />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(11,15,26,0.5) 0%, transparent 50%)" }} />
@@ -64,8 +64,8 @@ export default function BlogArticle() {
 
       {/* Article body */}
       <section className="bg-white" style={{ paddingTop: 100, paddingBottom: 80 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
-          <div className="grid grid-cols-12 gap-12">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             {/* Main content */}
             <article className="col-span-8">
               {post.body.map((block, i) => {

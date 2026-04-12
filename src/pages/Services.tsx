@@ -16,8 +16,8 @@ export default function Services() {
 
       {/* Services grid */}
       <section className="bg-white" style={{ paddingTop: 80, paddingBottom: 120 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
-          <RevealGroup className="grid grid-cols-3 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
+          <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
             {SERVICES.map((service, i) => (
               <RevealItem key={service.id}>
                 <Link
@@ -83,7 +83,7 @@ export default function Services() {
 
       {/* Trust strip */}
       <section style={{ background: "#F5F5F6", paddingTop: 80, paddingBottom: 80 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <RevealGroup className="grid grid-cols-3">
             {[
               { value: "9,500+", label: "Locations Nationwide" },

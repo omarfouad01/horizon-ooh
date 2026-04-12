@@ -18,7 +18,7 @@ export default function Blog() {
 
       {/* Featured post */}
       <section className="bg-white" style={{ paddingTop: 80, paddingBottom: 60 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <Reveal>
             <p className="text-[10px] font-bold tracking-[0.35em] uppercase mb-6" style={{ color: "rgba(11,15,26,0.3)" }}>
               Featured Article
@@ -64,13 +64,13 @@ export default function Blog() {
 
       {/* All posts grid */}
       <section className="bg-white" style={{ paddingTop: 40, paddingBottom: 120 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <Reveal>
             <p className="text-[10px] font-bold tracking-[0.35em] uppercase mb-10" style={{ color: "rgba(11,15,26,0.3)" }}>
               All Articles
             </p>
           </Reveal>
-          <RevealGroup className="grid grid-cols-3 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
+          <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
             {rest.map((post) => (
               <RevealItem key={post.id}>
                 <Link

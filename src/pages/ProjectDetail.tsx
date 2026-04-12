@@ -130,7 +130,7 @@ export default function ProjectDetail() {
 
       {/* ── Overview ──────────────────────────────────────────────────── */}
       <section className="bg-white" style={{ paddingTop: 100, paddingBottom: 80 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <div className="grid grid-cols-12 gap-8">
             <div className="col-span-4">
               <Eyebrow text="Overview" />
@@ -153,8 +153,8 @@ export default function ProjectDetail() {
 
       {/* ── Objective + Execution ─────────────────────────────────────── */}
       <section style={{ background: "#F5F5F6", paddingTop: 80, paddingBottom: 80 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
-          <div className="grid grid-cols-2 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
             {/* Objective */}
             <div className="bg-white" style={{ padding: "52px 56px" }}>
               <div className="w-5 h-[1.5px] mb-8" style={{ background: RED }} />
@@ -187,7 +187,7 @@ export default function ProjectDetail() {
       {/* ── Gallery ───────────────────────────────────────────────────── */}
       {project.galleryImages.length > 0 && (
         <section className="bg-white" style={{ paddingTop: 80, paddingBottom: 80 }}>
-          <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+          <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
             <RevealGroup className={`grid gap-4 ${project.galleryImages.length > 1 ? "grid-cols-2" : "grid-cols-1"}`}>
               {project.galleryImages.map((img, i) => (
                 <RevealItem key={i}>
@@ -208,7 +208,7 @@ export default function ProjectDetail() {
 
       {/* ── Results ───────────────────────────────────────────────────── */}
       <section style={{ background: NAVY, paddingTop: 100, paddingBottom: 100 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <Eyebrow text="Campaign Results" light />
           <Reveal delay={0.04}>
             <h2
@@ -220,7 +220,7 @@ export default function ProjectDetail() {
             </h2>
           </Reveal>
 
-          <RevealGroup className="grid grid-cols-2 gap-[1px]" style={{ background: "rgba(255,255,255,0.05)" }}>
+          <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 gap-[1px]" style={{ background: "rgba(255,255,255,0.05)" }}>
             {project.results.map((r, i) => (
               <RevealItem key={r.metric}>
                 <div
@@ -247,13 +247,13 @@ export default function ProjectDetail() {
       {/* ── Related projects ──────────────────────────────────────────── */}
       {relatedAll.length > 0 && (
         <section className="bg-white" style={{ paddingTop: 80, paddingBottom: 80 }}>
-          <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+          <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
             <Reveal>
               <p className="text-[10px] font-bold tracking-[0.35em] uppercase mb-10" style={{ color: "rgba(11,15,26,0.3)" }}>
                 Related Case Studies
               </p>
             </Reveal>
-            <RevealGroup className="grid grid-cols-3 gap-6">
+            <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {relatedAll.map((p) => (
                 <RevealItem key={p.id}>
                   <Link

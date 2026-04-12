@@ -66,8 +66,8 @@ export default function LocationDetail() {
 
       {/* Description */}
       <section className="bg-white" style={{ paddingTop: 100, paddingBottom: 80 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
-          <div className="grid grid-cols-2 gap-20">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
             <div>
               <Eyebrow text={`Advertising in ${location.city}`} />
               <Reveal delay={0.04}>
@@ -87,9 +87,9 @@ export default function LocationDetail() {
 
       {/* Available formats */}
       <section style={{ background: "#F5F5F6", paddingTop: 80, paddingBottom: 80 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <SectionHeading eyebrow="Available Formats" title={`What's available`} titleAccent={`in ${location.city}.`} />
-          <RevealGroup className="grid grid-cols-3 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
+          <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
             {location.availableFormats.map((fmt, i) => (
               <RevealItem key={fmt}>
                 <div className="bg-white p-8 flex items-start gap-5">
@@ -109,9 +109,9 @@ export default function LocationDetail() {
       {/* Featured Locations / Products */}
       {location.products.length > 0 && (
         <section className="bg-white" style={{ paddingTop: 100, paddingBottom: 80 }}>
-          <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+          <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
             <SectionHeading eyebrow="Featured Inventory" title="Prime locations" titleAccent={`in ${location.city}.`} />
-            <RevealGroup className="grid grid-cols-2 gap-6">
+            <RevealGroup className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {location.products.map((product) => (
                 <RevealItem key={product.id}>
                   <Link
@@ -130,7 +130,7 @@ export default function LocationDetail() {
                       <span className="absolute bottom-5 left-6 font-bold text-white tracking-[-0.01em]" style={{ fontSize: 18 }}>{product.name}</span>
                     </div>
                     <div className="p-8">
-                      <div className="grid grid-cols-3 gap-4 mb-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
                         {[
                           { label: "Type", value: product.type },
                           { label: "Size", value: product.size },
@@ -157,11 +157,11 @@ export default function LocationDetail() {
 
       {/* Other cities */}
       <section style={{ background: NAVY, paddingTop: 80, paddingBottom: 80 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <Reveal>
             <p className="text-[11px] font-bold tracking-[0.3em] uppercase mb-8" style={{ color: "rgba(255,255,255,0.25)" }}>Other Markets</p>
           </Reveal>
-          <RevealGroup className="grid grid-cols-3 gap-4">
+          <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {others.map((l) => (
               <RevealItem key={l.id}>
                 <Link

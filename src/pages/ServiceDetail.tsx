@@ -36,8 +36,7 @@ export default function ServiceDetail() {
       {/* Hero */}
       <section style={{ background: NAVY, paddingTop: 80, paddingBottom: 0 }} className="overflow-hidden">
         <div
-          className="max-w-[1440px] mx-auto grid"
-          style={{ gridTemplateColumns: "1fr 1fr", padding: "0 120px", minHeight: 560 }}
+          className="max-w-[1440px] mx-auto grid grid grid-cols-1 lg:grid-cols-2"
         >
           {/* Left */}
           <div className="flex flex-col justify-center py-20 pr-16">
@@ -82,8 +81,8 @@ export default function ServiceDetail() {
 
       {/* What is this service */}
       <section className="bg-white" style={{ paddingTop: 100, paddingBottom: 80 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
-          <div className="grid grid-cols-12 gap-6">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div className="col-span-4">
               <Eyebrow text="Overview" />
               <Reveal delay={0.04}>
@@ -105,9 +104,9 @@ export default function ServiceDetail() {
 
       {/* Benefits */}
       <section style={{ background: "#F5F5F6", paddingTop: 100, paddingBottom: 100 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <SectionHeading eyebrow="Key Benefits" title="Why it works." />
-          <RevealGroup className="grid grid-cols-3 gap-6">
+          <RevealGroup className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {service.benefits.map((benefit, i) => (
               <RevealItem key={i}>
                 <div className="bg-white border border-[#0B0F1A]/[0.07] p-10">
@@ -127,7 +126,7 @@ export default function ServiceDetail() {
 
       {/* Where used */}
       <section style={{ background: NAVY, paddingTop: 100, paddingBottom: 100 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <div className="grid grid-cols-2 gap-20 items-center">
             <div>
               <Eyebrow text="Coverage" light />
@@ -148,7 +147,7 @@ export default function ServiceDetail() {
 
       {/* Process */}
       <section className="bg-white" style={{ paddingTop: 100, paddingBottom: 100 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <SectionHeading eyebrow="Campaign Process" title={`Our ${service.shortTitle} Campaign Process`} titleAccent="" />
           <RevealGroup className="grid grid-cols-2 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
             {service.process.map((step, i) => (
@@ -169,7 +168,7 @@ export default function ServiceDetail() {
 
       {/* Why Choose HORIZON OOH */}
       <section style={{ background: "#fff", paddingTop: 100, paddingBottom: 100 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <Reveal>
             <h2 className="font-black text-[clamp(28px,3.5vw,44px)] tracking-[-0.03em] mb-12" style={{ color: NAVY }}>
               Why Choose HORIZON OOH for {service.shortTitle} Advertising?
@@ -207,13 +206,13 @@ export default function ServiceDetail() {
 
       {/* Other services */}
       <section style={{ background: "#F5F5F6", paddingTop: 80, paddingBottom: 80 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <Reveal>
             <p className="text-[11px] font-bold tracking-[0.3em] uppercase mb-8" style={{ color: "rgba(11,15,26,0.3)" }}>
               Other Services
             </p>
           </Reveal>
-          <RevealGroup className="grid grid-cols-3 gap-6">
+          <RevealGroup className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {others.map((s) => (
               <RevealItem key={s.id}>
                 <Link

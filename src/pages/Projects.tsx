@@ -125,7 +125,7 @@ function FeaturedProject() {
   const featured = PROJECTS.find((p) => p.featured)!;
   return (
     <section className="bg-white" style={{ paddingTop: 0, paddingBottom: 80 }}>
-      <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         <Reveal>
           <p className="text-[10px] font-bold tracking-[0.35em] uppercase mb-6" style={{ color: "rgba(11,15,26,0.3)" }}>
             Featured Campaign
@@ -209,8 +209,8 @@ function FeaturedProject() {
 function WhyItMatters() {
   return (
     <section style={{ background: "#F5F5F6", paddingTop: 100, paddingBottom: 100 }}>
-      <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
-        <div className="grid grid-cols-12 gap-8 items-start">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           <div className="col-span-4">
             <Eyebrow text="Why It Works" />
             <Reveal delay={0.04}>
@@ -234,7 +234,7 @@ function WhyItMatters() {
               </p>
             </Reveal>
 
-            <RevealGroup className="grid grid-cols-3 gap-6 mt-10">
+            <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
               {[
                 { value: "+178%", label: "Avg. brand recall lift", sub: "Across all 2025 campaigns" },
                 { value: "4.1×",  label: "Average campaign ROI",   sub: "vs. media investment" },
@@ -271,7 +271,7 @@ export default function Projects() {
     <>
       {/* ── Hero ──────────────────────────────────────────────────────── */}
       <section style={{ background: NAVY, paddingTop: 120, paddingBottom: 80 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <Eyebrow text="Case Studies" light />
 
           {/* H1 — SEO-optimised */}
@@ -333,7 +333,7 @@ export default function Projects() {
 
       {/* ── Filter bar ────────────────────────────────────────────────── */}
       <section className="bg-white" style={{ paddingBottom: 16 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <Reveal>
             <div className="flex items-center gap-0 border-b border-[#0B0F1A]/[0.07]">
               {FILTERS.map((f) => (
@@ -371,10 +371,10 @@ export default function Projects() {
 
       {/* ── Project grid ──────────────────────────────────────────────── */}
       <section className="bg-white" style={{ paddingTop: 48, paddingBottom: 120 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <motion.div
             ref={gridRef}
-            className="grid grid-cols-3 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
             initial="hidden"
             animate={gridInView ? "visible" : "hidden"}
             variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.09 } } }}

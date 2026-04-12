@@ -122,7 +122,7 @@ export function PageHero({
         paddingBottom: 100,
       }}
     >
-      <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+<div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         <Eyebrow text={eyebrow} light={dark} />
         <Reveal delay={0.05}>
           <h1
@@ -331,8 +331,7 @@ export function CTABanner({
       }}
     >
       <div
-        className="max-w-[1440px] mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-10"
-        style={{ padding: "0 120px" }}
+        className="max-w-[1440px] mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-10 px-4 sm:px-8 lg:px-[120px]"
       >
         <div>
           <Reveal>

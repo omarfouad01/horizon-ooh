@@ -59,8 +59,8 @@ export default function Contact() {
 
       {/* Contact layout */}
       <section className="bg-white" style={{ paddingTop: 80, paddingBottom: 140 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
-          <div className="grid grid-cols-12 gap-12">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
 
             {/* Form — left */}
             <div className="col-span-7">
@@ -274,7 +274,7 @@ export default function Contact() {
 
       {/* Bottom strip */}
       <section style={{ background: "#F5F5F6", paddingTop: 60, paddingBottom: 60 }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <RevealGroup className="grid grid-cols-3">
             {[
               { icon: "⊙", label: "Media Strategy", desc: "Free campaign planning consultation" },

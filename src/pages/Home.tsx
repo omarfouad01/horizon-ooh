@@ -200,7 +200,7 @@ function HeroSection() {
     >
       {/* Grid overlay lines — editorial touch */}
       <div className="absolute inset-0 pointer-events-none z-0" aria-hidden>
-        <div className="max-w-[1440px] mx-auto h-full relative" style={{ padding: "0 120px" }}>
+        <div className="max-w-[1440px] mx-auto h-full relative px-4 sm:px-8 lg:px-[120px]">
           {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((i) => (
             <div
               key={i}
@@ -211,11 +211,10 @@ function HeroSection() {
         </div>
       </div>
 
-      <div className="relative z-10 max-w-[1440px] mx-auto flex" style={{ minHeight: "100svh" }}>
+      <div className="relative z-10 max-w-[1440px] mx-auto flex flex-col lg:flex-row" style={{ minHeight: "100svh" }}>
         {/* LEFT — text */}
         <div
-          className="flex flex-col justify-end pb-[80px] pt-[180px]"
-          style={{ width: "52%", padding: "180px 0 80px 120px" }}
+          className="flex flex-col justify-end px-4 sm:px-8 lg:pl-[120px] lg:pr-0 pt-[120px] pb-16 lg:pt-[180px] lg:pb-[80px] w-full lg:w-[52%]"
         >
           <motion.div style={{ y: textY }}>
             {/* Eyebrow */}
@@ -280,7 +279,7 @@ function HeroSection() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease, delay: 1.05 }}
-              className="flex items-center gap-4"
+              className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4"
             >
               <RedButton label="Get a Quote" onClick={() => { window.location.hash = '/contact'; window.scrollTo(0,0); }} />
               <OutlineButton label="View Locations" onClick={() => { window.location.hash = '/locations'; window.scrollTo(0,0); }} />
@@ -447,7 +446,7 @@ function StatementSection() {
           className="mt-12 flex justify-center"
           style={{ transformOrigin: "center" }}
         >
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
             <span className="block w-10 h-[1px] bg-white/15" />
             <span className="text-white/25 text-[10px] tracking-[0.4em] uppercase font-bold">HORIZON OOH</span>
             <span className="block w-10 h-[1px] bg-white/15" />
@@ -464,7 +463,7 @@ function StatementSection() {
 function TrustStrip() {
   return (
     <section className="bg-white py-[80px] border-y border-[#0B0F1A]/[0.06]">
-      <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         <RevealGroup className="grid grid-cols-3">
           {TRUST_STATS.map((stat, i) => (
             <RevealItem key={stat.label}>
@@ -507,7 +506,7 @@ function TrustStrip() {
 function ServicesSection() {
   return (
     <section id="services" className="bg-white" style={{ paddingTop: 120, paddingBottom: 140 }}>
-      <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         {/* Header row */}
         <div className="flex items-end justify-between mb-20 gap-8">
           <div>
@@ -675,7 +674,7 @@ function FeatureSection() {
 function LocationsSection() {
   return (
     <section id="locations" className="bg-white" style={{ paddingTop: 120, paddingBottom: 120 }}>
-      <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         {/* Header */}
         <div className="flex items-end justify-between mb-16">
           <div>
@@ -744,7 +743,7 @@ function LocationsSection() {
 function ProcessSection() {
   return (
     <section style={{ background: NAVY, padding: "120px 0 140px" }}>
-      <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         <div className="flex items-end justify-between mb-20">
           <div>
             <Eyebrow text="How We Work" light />
@@ -816,7 +815,7 @@ function ResultsSection() {
 
   return (
     <section id="results" className="bg-white" style={{ paddingTop: 120, paddingBottom: 120 }}>
-      <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         {/* Header */}
         <div className="mb-20">
           <Eyebrow text="Proven Results" />
@@ -886,7 +885,7 @@ function ClientsSection() {
       id="about"
       style={{ background: "#F5F5F6", paddingTop: 96, paddingBottom: 96 }}
     >
-      <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         <Reveal>
           <div className="flex items-center justify-center gap-4 mb-14">
             <span className="block w-8 h-[1px]" style={{ background: "rgba(11,15,26,0.15)" }} />
@@ -1015,7 +1014,6 @@ function FinalCTASection() {
     >
       <div
         className="max-w-[1440px] mx-auto text-center"
-        style={{ padding: "0 120px" }}
       >
         {/* Top eyebrow */}
         <Reveal>
@@ -1118,7 +1116,7 @@ function ProjectsSection() {
 
   return (
     <section className="bg-white" style={{ paddingTop: 120, paddingBottom: 120 }}>
-      <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         {/* Header */}
         <div className="flex items-end justify-between mb-14">
           <div>
@@ -1150,7 +1148,7 @@ function ProjectsSection() {
         </div>
 
         {/* Featured + two smaller cards */}
-        <RevealGroup className="grid grid-cols-12 gap-6">
+        <RevealGroup className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Featured — spans 7 columns */}
           <RevealItem className="col-span-7">
             <Link
@@ -1230,7 +1228,7 @@ function ProjectsSection() {
 function WhyOOHSection() {
   return (
     <section style={{ background: NAVY, paddingTop: 120, paddingBottom: 120 }}>
-      <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         <Reveal>
           <p className="text-white/30 text-[10px] tracking-[0.35em] uppercase mb-4">Market Insights</p>
           <h2 className="text-white font-black text-[clamp(28px,3.5vw,48px)] tracking-[-0.02em] mb-16" style={{ maxWidth: 560 }}>
@@ -1274,7 +1272,7 @@ function BillboardBenefitsSection() {
   ];
   return (
     <section style={{ background: "#fff", paddingTop: 120, paddingBottom: 120 }}>
-      <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         <Reveal>
           <p className="text-[#0B0F1A]/30 text-[10px] tracking-[0.35em] uppercase mb-4">Why Billboard</p>
           <h2 className="text-[#0B0F1A] font-black text-[clamp(28px,3.5vw,48px)] tracking-[-0.02em] mb-16" style={{ maxWidth: 560 }}>
@@ -1310,7 +1308,7 @@ function RecentBillboardsSection() {
       aria-labelledby="recent-billboards-heading"
       style={{ background: "#fff", paddingTop: 120, paddingBottom: 120 }}
     >
-      <div className="max-w-[1440px] mx-auto" style={{ padding: "0 120px" }}>
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         {/* Section header */}
         <Reveal>
           <div className="flex items-start justify-between mb-16 gap-8 flex-wrap">
