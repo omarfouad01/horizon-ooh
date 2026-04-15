@@ -1,7 +1,8 @@
-import { useRef, useEffect, useState, lazy, Suspense } from "react";
-
-const BillboardMap = lazy(() => import("@/components/BillboardMap"));
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { useRef, useEffect, useState, useMemo } from "react";
+import LeafletMap from "@/components/BillboardMap";
+import { ALL_BILLBOARDS } from "@/data";
+import type { MapBillboard } from "@/data";
+import { motion, AnimatePresence, useInView, useScroll, useTransform } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 import {
   SERVICES,
@@ -185,13 +186,78 @@ function OutlineButton({
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// 1. HERO
+// HERO + MAP + SEARCH — unified first section
 // ═══════════════════════════════════════════════════════════════════════════
+
+// ── Filter-select helper ────────────────────────────────────────────────
+const ALL_CITIES    = Array.from(new Set(ALL_BILLBOARDS.map(b => b.city))).sort();
+const ALL_FORMATS   = Array.from(new Set(ALL_BILLBOARDS.map(b => b.type))).sort();
+
+interface SelectProps {
+  label: string; value: string; options: string[];
+  onChange: (v: string) => void; icon: React.ReactNode;
+}
+function HeroFilterSelect({ label, value, options, onChange, icon }: SelectProps) {
+  return (
+    <div className="relative flex-1 min-w-0">
+      <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none z-10">{icon}</div>
+      <select
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        className="w-full h-12 pl-9 pr-7 appearance-none text-[12px] font-semibold outline-none cursor-pointer"
+        style={{
+          background: "white",
+          border: "1.5px solid rgba(11,15,26,0.12)",
+          color: value ? NAVY : "rgba(11,15,26,0.38)",
+          borderRadius: 0,
+        }}
+        onFocus={e  => (e.target.style.borderColor = RED)}
+        onBlur={e   => (e.target.style.borderColor = "rgba(11,15,26,0.12)")}
+      >
+        <option value="">{label}</option>
+        {options.map(o => <option key={o} value={o}>{o}</option>)}
+      </select>
+      <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+        <svg width="9" height="5" viewBox="0 0 9 5" fill="none">
+          <path d="M1 1l3.5 3.5L8 1" stroke={NAVY} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
 function HeroSection() {
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "8%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "6%"]);
+
+  // ── Map + search state ─────────────────────────────────────────────
+  const [city,     setCity]     = useState("");
+  const [district, setDistrict] = useState("");
+  const [format,   setFormat]   = useState("");
+  const [query,    setQuery]    = useState("");
+  const [selected, setSelected] = useState<MapBillboard | null>(null);
+
+  const districtOptions = useMemo(() =>
+    Array.from(new Set(
+      ALL_BILLBOARDS.filter(b => !city || b.city === city).map(b => b.district)
+    )).sort(),
+  [city]);
+
+  const filtered = useMemo(() => {
+    const q = query.toLowerCase().trim();
+    return ALL_BILLBOARDS.filter(b => {
+      if (city     && b.city     !== city)     return false;
+      if (district && b.district !== district) return false;
+      if (format   && b.type     !== format)   return false;
+      if (q && ![b.name, b.city, b.district, b.location, b.type]
+        .some(s => s.toLowerCase().includes(q))) return false;
+      return true;
+    });
+  }, [city, district, format, query]);
+
+  const hasFilters = !!(city || district || format || query);
+  const reset = () => { setCity(""); setDistrict(""); setFormat(""); setQuery(""); setSelected(null); };
 
   return (
     <section
@@ -200,52 +266,55 @@ function HeroSection() {
       className="relative overflow-hidden bg-white"
       style={{ minHeight: "100svh" }}
     >
-      {/* Grid overlay lines — editorial touch */}
+      {/* Subtle grid overlay */}
       <div className="absolute inset-0 pointer-events-none z-0" aria-hidden>
         <div className="max-w-[1440px] mx-auto h-full relative px-4 sm:px-8 lg:px-[120px]">
-          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((i) => (
-            <div
-              key={i}
-              className="absolute top-0 bottom-0 border-l border-[#0B0F1A]/[0.025]"
-              style={{ left: `calc(${(i / 12) * 100}% + ${(120 / 1440) * 100}%)` }}
-            />
+          {[0,1,2,3,4,5,6,7,8,9,10,11].map(i => (
+            <div key={i} className="absolute top-0 bottom-0 border-l border-[#0B0F1A]/[0.02]"
+              style={{ left: `calc(${(i/12)*100}% + ${(120/1440)*100}%)` }} />
           ))}
         </div>
       </div>
 
-      <div className="relative z-10 max-w-[1440px] mx-auto flex flex-col lg:flex-row" style={{ minHeight: "100svh" }}>
-        {/* LEFT — text */}
+      <div
+        className="relative z-10 w-full flex flex-col lg:flex-row"
+        style={{ minHeight: "100svh" }}
+      >
+        {/* ── LEFT PANEL — brand content + search ──────────────────── */}
         <div
-          className="flex flex-col justify-end px-4 sm:px-8 lg:pl-[120px] lg:pr-0 pt-[120px] pb-16 lg:pt-[180px] lg:pb-[80px] w-full lg:w-[52%]"
+          className="flex flex-col justify-between px-4 sm:px-8 lg:pl-[120px] lg:pr-12
+            pt-[100px] pb-10 lg:pt-[140px] lg:pb-12
+            w-full lg:w-[44%] xl:w-[42%] flex-shrink-0 bg-white"
+          style={{ borderRight: "1px solid rgba(11,15,26,0.06)" }}
         >
-          <motion.div style={{ y: textY }}>
+          <motion.div style={{ y: textY }} className="flex flex-col gap-0">
             {/* Eyebrow */}
             <motion.div
-              initial={{ opacity: 0, x: -16 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, ease, delay: 0.2 }}
-              className="flex items-center gap-3 mb-10"
+              initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, ease, delay: 0.15 }}
+              className="flex items-center gap-3 mb-8"
             >
-              <span className="block w-5 h-[1.5px] bg-[#D90429]" />
-              <span className="text-[10px] font-bold tracking-[0.35em] uppercase text-[#0B0F1A]/35">
+              <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
+              <span className="text-[10px] font-bold tracking-[0.35em] uppercase"
+                style={{ color: "rgba(11,15,26,0.3)" }}>
                 Egypt's Premier OOH Network
               </span>
             </motion.div>
 
-            {/* H1 */}
-            <div className="overflow-hidden mb-6">
+            {/* H1 — untouched */}
+            <div className="overflow-hidden mb-5">
               {["Outdoor", "Advertising", "Agency."].map((word, i) => (
                 <motion.div
                   key={word}
                   initial={{ y: "100%", opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.9, ease, delay: 0.3 + i * 0.1 }}
+                  transition={{ duration: 0.9, ease, delay: 0.25 + i * 0.1 }}
                 >
                   <h1
                     className="font-black leading-[0.92] tracking-[-0.04em]"
                     style={{
-                      fontSize: "clamp(52px, 5.5vw, 80px)",
-                      color: i === 2 ? "rgba(11,15,26,0.18)" : NAVY,
+                      fontSize: "clamp(44px, 4.5vw, 72px)",
+                      color: i === 2 ? "rgba(11,15,26,0.16)" : NAVY,
                     }}
                   >
                     {word}
@@ -256,108 +325,237 @@ function HeroSection() {
 
             {/* Sub-channels */}
             <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.75 }}
-              className="text-[13px] font-semibold tracking-[0.22em] uppercase mb-5"
-              style={{ color: "rgba(11,15,26,0.3)" }}
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.65 }}
+              className="text-[12px] font-semibold tracking-[0.22em] uppercase mb-4"
+              style={{ color: "rgba(11,15,26,0.28)" }}
             >
               Billboards&nbsp;·&nbsp;DOOH&nbsp;·&nbsp;Malls&nbsp;·&nbsp;Airports
             </motion.p>
 
             {/* Statement */}
             <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, ease, delay: 0.9 }}
-              className="text-[20px] font-medium leading-[1.55] mb-14"
-              style={{ color: NAVY, maxWidth: 360 }}
+              initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease, delay: 0.8 }}
+              className="text-[18px] font-medium leading-[1.55] mb-8"
+              style={{ color: NAVY, maxWidth: 340 }}
             >
               We make brands impossible to ignore.
             </motion.p>
 
-            {/* CTA row */}
+            {/* CTA row — untouched */}
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease, delay: 1.05 }}
-              className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4"
+              initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease, delay: 0.95 }}
+              className="flex flex-col sm:flex-row items-start gap-3 mb-10"
             >
-              <RedButton label="Get a Quote" onClick={() => { window.location.hash = '/contact'; window.scrollTo(0,0); }} />
+              <RedButton  label="Get a Quote"    onClick={() => { window.location.hash = '/contact'; window.scrollTo(0,0); }} />
               <OutlineButton label="View Locations" onClick={() => { window.location.hash = '/locations'; window.scrollTo(0,0); }} />
             </motion.div>
 
-            {/* Scroll indicator */}
+            {/* ── Divider ───────────────────────────────────────────── */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.6, duration: 0.5 }}
-              className="mt-20 flex items-center gap-3 hidden lg:flex"
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+              transition={{ delay: 1.1, duration: 0.5 }}
             >
-              <div className="flex flex-col items-center gap-1">
-                <motion.span
-                  animate={{ y: [0, 6, 0] }}
-                  transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-                  className="block w-[1px] h-8 bg-[#0B0F1A]/15"
-                />
+              <div className="flex items-center gap-3 mb-4">
+                <span className="block w-4 h-[1.5px]" style={{ background: RED }} />
+                <p className="text-[9px] font-bold tracking-[0.35em] uppercase"
+                  style={{ color: "rgba(11,15,26,0.28)" }}>
+                  Find a Billboard
+                </p>
               </div>
-              <span className="text-[10px] font-semibold tracking-[0.3em] uppercase" style={{ color: "rgba(11,15,26,0.2)" }}>
-                Scroll
-              </span>
+
+              {/* ── Search filters ─────────────────────────────────── */}
+              <div className="flex flex-col gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
+
+                {/* Row 1: text search */}
+                <div className="relative">
+                  <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none z-10">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <circle cx="6" cy="6" r="4.5" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4"/>
+                      <path d="M9.5 9.5l3 3" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4" strokeLinecap="round"/>
+                    </svg>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Search by name, road, district…"
+                    value={query}
+                    onChange={e => setQuery(e.target.value)}
+                    className="w-full h-12 pl-9 pr-10 text-[12px] font-medium outline-none"
+                    style={{ background: "white", border: "1.5px solid rgba(11,15,26,0.12)", color: NAVY, borderRadius: 0 }}
+                  />
+                  {query && (
+                    <button onClick={() => setQuery("")}
+                      className="absolute right-3 top-1/2 -translate-y-1/2"
+                      style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(11,15,26,0.3)", fontSize: 16 }}>
+                      ×
+                    </button>
+                  )}
+                </div>
+
+                {/* Row 2: City + District */}
+                <div className="flex gap-[1px]">
+                  <HeroFilterSelect
+                    label="All Cities" value={city} options={ALL_CITIES}
+                    onChange={v => { setCity(v); setDistrict(""); }}
+                    icon={
+                      <svg width="11" height="13" viewBox="0 0 13 15" fill="none">
+                        <path d="M6.5 0C3.462 0 1 2.462 1 5.5c0 3.85 5.5 9.5 5.5 9.5S12 9.35 12 5.5C12 2.462 9.538 0 6.5 0zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                          fill="rgba(11,15,26,0.28)"/>
+                      </svg>
+                    }
+                  />
+                  <HeroFilterSelect
+                    label="All Districts" value={district} options={districtOptions}
+                    onChange={setDistrict}
+                    icon={
+                      <svg width="13" height="11" viewBox="0 0 15 13" fill="none">
+                        <rect x="0.5" y="5.5" width="6" height="7" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4"/>
+                        <rect x="8.5" y="2.5" width="6" height="10" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4"/>
+                        <path d="M0 5.5L7.5 0 15 5.5" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4" strokeLinecap="round"/>
+                      </svg>
+                    }
+                  />
+                </div>
+
+                {/* Row 3: Format + Reset */}
+                <div className="flex gap-[1px]">
+                  <HeroFilterSelect
+                    label="All Formats" value={format} options={ALL_FORMATS}
+                    onChange={setFormat}
+                    icon={
+                      <svg width="13" height="11" viewBox="0 0 15 13" fill="none">
+                        <rect x="0.5" y="0.5" width="14" height="12" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4"/>
+                        <path d="M3 4h9M3 6.5h6M3 9h4" stroke="rgba(11,15,26,0.28)" strokeWidth="1.2" strokeLinecap="round"/>
+                      </svg>
+                    }
+                  />
+                  <AnimatePresence>
+                    {hasFilters && (
+                      <motion.button
+                        initial={{ opacity: 0, width: 0 }} animate={{ opacity: 1, width: 48 }} exit={{ opacity: 0, width: 0 }}
+                        onClick={reset}
+                        className="h-12 flex items-center justify-center flex-shrink-0 transition-colors hover:opacity-80"
+                        style={{ background: "rgba(217,4,41,0.09)", border: "none", cursor: "pointer" }}
+                        title="Clear filters"
+                      >
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                          <path d="M1 1l8 8M9 1L1 9" stroke={RED} strokeWidth="1.6" strokeLinecap="round"/>
+                        </svg>
+                      </motion.button>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
+
+              {/* Result count */}
+              <div className="flex items-center gap-2 mt-3">
+                <span className="font-black text-[20px] tracking-[-0.03em] leading-none" style={{ color: RED }}>
+                  {filtered.length}
+                </span>
+                <span className="text-[11px] font-semibold tracking-[0.1em] uppercase"
+                  style={{ color: "rgba(11,15,26,0.35)" }}>
+                  {filtered.length === 1 ? "location" : "locations"} found
+                </span>
+                {hasFilters && (
+                  <button onClick={reset}
+                    className="ml-auto text-[10px] font-bold tracking-[0.15em] uppercase underline"
+                    style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(11,15,26,0.25)" }}>
+                    Reset
+                  </button>
+                )}
+              </div>
             </motion.div>
           </motion.div>
         </div>
 
-        {/* RIGHT — image (hidden on mobile, visible lg+) */}
-        <div className="relative overflow-hidden flex-1 bg-[#0B0F1A] hidden lg:block">
-          <motion.div className="absolute inset-0" style={{ y: imgY }}>
-            <img
-              src="https://images.unsplash.com/photo-1702231942007-b255a41475c9?w=1400&q=90&fit=crop"
-              alt="Premium outdoor billboard advertising in Egypt"
-              className="w-full h-full object-cover"
-              style={{ opacity: 0.75, scale: 1.08 }}
-            />
-          </motion.div>
-          <div
-            className="absolute inset-0"
-            style={{ background: "linear-gradient(to right, rgba(11,15,26,0.5) 0%, rgba(11,15,26,0.1) 50%, transparent 100%)" }}
+        {/* ── RIGHT PANEL — full-height Leaflet map ────────────────── */}
+        <div className="relative flex-1 overflow-hidden" style={{ minHeight: "clamp(420px, 55vh, 100svh)" }}>
+          {/* Map fills the entire right panel */}
+          <LeafletMap
+            filtered={filtered}
+            allCount={ALL_BILLBOARDS.length}
+            selected={selected}
+            onSelect={setSelected}
+            className="absolute inset-0 w-full h-full"
+            style={{ zIndex: 1 }}
           />
 
-          {/* Year marker — editorial detail */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.4, duration: 0.6 }}
-            className="absolute top-10 right-10 text-right"
-          >
-            <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase font-bold">Since</p>
-            <p className="text-white/25 font-black text-[32px] tracking-[-0.04em] leading-none">2008</p>
-          </motion.div>
+          {/* Selected card overlay — appears when a pin is clicked */}
+          <AnimatePresence>
+            {selected && (
+              <motion.div
+                initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute top-4 right-4 z-[1000]"
+                style={{ width: 268 }}
+              >
+                <div className="bg-white overflow-hidden"
+                  style={{ boxShadow: "0 8px 40px rgba(11,15,26,0.18)" }}>
+                  {/* Image */}
+                  <div className="relative overflow-hidden" style={{ height: 128 }}>
+                    <img src={selected.image} alt={selected.name}
+                      className="w-full h-full object-cover" style={{ opacity: 0.88 }}/>
+                    <div className="absolute inset-0"
+                      style={{ background: "linear-gradient(to top,rgba(11,15,26,.75) 0%,transparent 55%)" }}/>
+                    <span className="absolute bottom-2.5 left-3 text-[9px] font-bold tracking-[0.18em] uppercase text-white/50">
+                      {selected.district} · {selected.city}
+                    </span>
+                    <button onClick={() => setSelected(null)}
+                      className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center"
+                      style={{ background: "rgba(11,15,26,.55)", border: "none", cursor: "pointer" }}>
+                      <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+                        <path d="M1 1l6 6M7 1L1 7" stroke="white" strokeWidth="1.3" strokeLinecap="round"/>
+                      </svg>
+                    </button>
+                  </div>
+                  <div style={{ padding: "14px 18px 18px" }}>
+                    <p className="text-[9px] font-bold tracking-[0.22em] uppercase mb-1" style={{ color: RED }}>
+                      {selected.type}
+                    </p>
+                    <p className="font-extrabold text-[14px] leading-tight mb-2" style={{ color: NAVY }}>
+                      {selected.name}
+                    </p>
+                    <div className="grid grid-cols-2 gap-2.5 mb-4">
+                      {[
+                        { l: "Traffic",    v: selected.traffic.split(" ").slice(0,2).join(" ") },
+                        { l: "Size",       v: selected.size },
+                        { l: "Visibility", v: selected.visibility.split(" ").slice(0,2).join(" ") },
+                        { l: "Format",     v: selected.type.split(" ")[0] },
+                      ].map(s => (
+                        <div key={s.l}>
+                          <p className="text-[8px] font-bold tracking-[0.18em] uppercase mb-0.5"
+                            style={{ color: "rgba(11,15,26,0.28)" }}>{s.l}</p>
+                          <p className="font-bold text-[11px]" style={{ color: NAVY }}>{s.v}</p>
+                        </div>
+                      ))}
+                    </div>
+                    <button
+                      onClick={() => { window.location.href = `/locations/${selected.citySlug}/billboards/${selected.slug}`; }}
+                      className="w-full h-9 text-[10px] font-bold tracking-[0.18em] uppercase text-white"
+                      style={{ background: RED, border: "none", cursor: "pointer" }}>
+                      View Details →
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-          {/* Floating KPI card */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.3, duration: 0.8, ease }}
-            className="absolute bottom-12 left-10 bg-white"
-            style={{ padding: "24px 32px" }}
-          >
-            <p className="text-[10px] font-bold tracking-[0.3em] uppercase mb-2" style={{ color: "rgba(11,15,26,0.3)" }}>
-              Locations Nationwide
-            </p>
-            <p className="font-black leading-none tracking-[-0.04em]" style={{ fontSize: 42, color: RED }}>
-              9,500<span style={{ fontSize: 28, color: RED }}>+</span>
-            </p>
-          </motion.div>
-
-          {/* Vertical label */}
-          <div
-            className="absolute right-8 bottom-16 flex flex-col items-center gap-2"
-            style={{ writingMode: "vertical-rl" }}
-          >
-            <span className="text-white/15 text-[9px] tracking-[0.4em] uppercase font-bold">Premium Inventory</span>
-            <span className="block w-12 h-[1px] bg-white/10 mt-1" style={{ writingMode: "horizontal-tb" }} />
-          </div>
+          {/* Empty state */}
+          <AnimatePresence>
+            {filtered.length === 0 && (
+              <motion.div
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                className="absolute inset-0 flex flex-col items-center justify-center z-[400] pointer-events-none"
+                style={{ background: "rgba(11,15,26,0.5)", backdropFilter: "blur(2px)" }}
+              >
+                <p className="font-bold text-white text-[16px] mb-1">No locations found</p>
+                <p className="text-white/40 text-[12px]">Try adjusting your filters</p>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </section>
@@ -1437,9 +1635,6 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <Suspense fallback={<div style={{ height: 680, background: "#f5f5f6" }} />}>
-        <BillboardMap />
-      </Suspense>
       <StatementSection />
       <TrustStrip />
       <WhyOOHSection />
