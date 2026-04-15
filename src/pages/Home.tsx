@@ -1,7 +1,6 @@
-import { useRef, useEffect, useState, useMemo } from "react";
+import { useRef, useEffect, useState } from "react";
 import LeafletMap from "@/components/BillboardMap";
 import { ALL_BILLBOARDS } from "@/data";
-import type { MapBillboard } from "@/data";
 import { motion, AnimatePresence, useInView, useScroll, useTransform } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 import {
@@ -231,33 +230,30 @@ function HeroSection() {
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "6%"]);
 
-  // ── Map + search state ─────────────────────────────────────────────
+  // ── Search state — navigates to /locations on submit ─────────────
+  const navigate   = useNavigate();
   const [city,     setCity]     = useState("");
   const [district, setDistrict] = useState("");
   const [format,   setFormat]   = useState("");
-  const [query,    setQuery]    = useState("");
-  const [selected, setSelected] = useState<MapBillboard | null>(null);
 
-  const districtOptions = useMemo(() =>
-    Array.from(new Set(
-      ALL_BILLBOARDS.filter(b => !city || b.city === city).map(b => b.district)
-    )).sort(),
-  [city]);
+  const districtOptions = Array.from(new Set(
+    ALL_BILLBOARDS.filter(b => !city || b.city === city).map(b => b.district)
+  )).sort();
 
-  const filtered = useMemo(() => {
-    const q = query.toLowerCase().trim();
-    return ALL_BILLBOARDS.filter(b => {
-      if (city     && b.city     !== city)     return false;
-      if (district && b.district !== district) return false;
-      if (format   && b.type     !== format)   return false;
-      if (q && ![b.name, b.city, b.district, b.location, b.type]
-        .some(s => s.toLowerCase().includes(q))) return false;
-      return true;
-    });
-  }, [city, district, format, query]);
+  const hasFilters = !!(city || district || format);
+  const reset = () => { setCity(""); setDistrict(""); setFormat(""); };
 
-  const hasFilters = !!(city || district || format || query);
-  const reset = () => { setCity(""); setDistrict(""); setFormat(""); setQuery(""); setSelected(null); };
+  // ── Map pin selection (independent of search) ─────────────────────
+  const [selectedPin, setSelectedPin] = useState<(typeof ALL_BILLBOARDS)[0] | null>(null);
+
+  function handleSearch(e?: React.FormEvent) {
+    if (e) e.preventDefault();
+    const params = new URLSearchParams();
+    if (city)     params.set("city",     city);
+    if (district) params.set("district", district);
+    if (format)   params.set("format",   format);
+    navigate(`/locations${params.toString() ? "?" + params.toString() : ""}`);
+  }
 
   return (
     <section
@@ -366,125 +362,90 @@ function HeroSection() {
                 </p>
               </div>
 
-              {/* ── Search filters ─────────────────────────────────── */}
-              <div className="flex flex-col gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
+              {/* ── Search form — 3 filters + Search button ─────── */}
+              <form onSubmit={handleSearch} className="flex flex-col gap-[1px]"
+                style={{ background: "rgba(11,15,26,0.07)" }}>
 
-                {/* Row 1: text search */}
-                <div className="relative">
-                  <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none z-10">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                      <circle cx="6" cy="6" r="4.5" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4"/>
-                      <path d="M9.5 9.5l3 3" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4" strokeLinecap="round"/>
+                {/* City */}
+                <HeroFilterSelect
+                  label="City" value={city} options={ALL_CITIES}
+                  onChange={v => { setCity(v); setDistrict(""); }}
+                  icon={
+                    <svg width="11" height="13" viewBox="0 0 13 15" fill="none">
+                      <path d="M6.5 0C3.462 0 1 2.462 1 5.5c0 3.85 5.5 9.5 5.5 9.5S12 9.35 12 5.5C12 2.462 9.538 0 6.5 0zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                        fill="rgba(11,15,26,0.28)"/>
                     </svg>
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Search by name, road, district…"
-                    value={query}
-                    onChange={e => setQuery(e.target.value)}
-                    className="w-full h-12 pl-9 pr-10 text-[12px] font-medium outline-none"
-                    style={{ background: "white", border: "1.5px solid rgba(11,15,26,0.12)", color: NAVY, borderRadius: 0 }}
-                  />
-                  {query && (
-                    <button onClick={() => setQuery("")}
-                      className="absolute right-3 top-1/2 -translate-y-1/2"
-                      style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(11,15,26,0.3)", fontSize: 16 }}>
-                      ×
-                    </button>
-                  )}
-                </div>
+                  }
+                />
 
-                {/* Row 2: City + District */}
-                <div className="flex gap-[1px]">
-                  <HeroFilterSelect
-                    label="All Cities" value={city} options={ALL_CITIES}
-                    onChange={v => { setCity(v); setDistrict(""); }}
-                    icon={
-                      <svg width="11" height="13" viewBox="0 0 13 15" fill="none">
-                        <path d="M6.5 0C3.462 0 1 2.462 1 5.5c0 3.85 5.5 9.5 5.5 9.5S12 9.35 12 5.5C12 2.462 9.538 0 6.5 0zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
-                          fill="rgba(11,15,26,0.28)"/>
-                      </svg>
-                    }
-                  />
-                  <HeroFilterSelect
-                    label="All Districts" value={district} options={districtOptions}
-                    onChange={setDistrict}
-                    icon={
-                      <svg width="13" height="11" viewBox="0 0 15 13" fill="none">
-                        <rect x="0.5" y="5.5" width="6" height="7" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4"/>
-                        <rect x="8.5" y="2.5" width="6" height="10" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4"/>
-                        <path d="M0 5.5L7.5 0 15 5.5" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4" strokeLinecap="round"/>
-                      </svg>
-                    }
-                  />
-                </div>
+                {/* District */}
+                <HeroFilterSelect
+                  label="District" value={district} options={districtOptions}
+                  onChange={setDistrict}
+                  icon={
+                    <svg width="13" height="11" viewBox="0 0 15 13" fill="none">
+                      <rect x="0.5" y="5.5" width="6" height="7" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4"/>
+                      <rect x="8.5" y="2.5" width="6" height="10" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4"/>
+                      <path d="M0 5.5L7.5 0 15 5.5" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4" strokeLinecap="round"/>
+                    </svg>
+                  }
+                />
 
-                {/* Row 3: Format + Reset */}
-                <div className="flex gap-[1px]">
-                  <HeroFilterSelect
-                    label="All Formats" value={format} options={ALL_FORMATS}
-                    onChange={setFormat}
-                    icon={
-                      <svg width="13" height="11" viewBox="0 0 15 13" fill="none">
-                        <rect x="0.5" y="0.5" width="14" height="12" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4"/>
-                        <path d="M3 4h9M3 6.5h6M3 9h4" stroke="rgba(11,15,26,0.28)" strokeWidth="1.2" strokeLinecap="round"/>
-                      </svg>
-                    }
-                  />
-                  <AnimatePresence>
-                    {hasFilters && (
-                      <motion.button
-                        initial={{ opacity: 0, width: 0 }} animate={{ opacity: 1, width: 48 }} exit={{ opacity: 0, width: 0 }}
-                        onClick={reset}
-                        className="h-12 flex items-center justify-center flex-shrink-0 transition-colors hover:opacity-80"
-                        style={{ background: "rgba(217,4,41,0.09)", border: "none", cursor: "pointer" }}
-                        title="Clear filters"
-                      >
-                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                          <path d="M1 1l8 8M9 1L1 9" stroke={RED} strokeWidth="1.6" strokeLinecap="round"/>
-                        </svg>
-                      </motion.button>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </div>
+                {/* Format */}
+                <HeroFilterSelect
+                  label="Format" value={format} options={ALL_FORMATS}
+                  onChange={setFormat}
+                  icon={
+                    <svg width="13" height="11" viewBox="0 0 15 13" fill="none">
+                      <rect x="0.5" y="0.5" width="14" height="12" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4"/>
+                      <path d="M3 4h9M3 6.5h6M3 9h4" stroke="rgba(11,15,26,0.28)" strokeWidth="1.2" strokeLinecap="round"/>
+                    </svg>
+                  }
+                />
 
-              {/* Result count */}
-              <div className="flex items-center gap-2 mt-3">
-                <span className="font-black text-[20px] tracking-[-0.03em] leading-none" style={{ color: RED }}>
-                  {filtered.length}
-                </span>
-                <span className="text-[11px] font-semibold tracking-[0.1em] uppercase"
-                  style={{ color: "rgba(11,15,26,0.35)" }}>
-                  {filtered.length === 1 ? "location" : "locations"} found
-                </span>
-                {hasFilters && (
-                  <button onClick={reset}
-                    className="ml-auto text-[10px] font-bold tracking-[0.15em] uppercase underline"
-                    style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(11,15,26,0.25)" }}>
-                    Reset
-                  </button>
-                )}
-              </div>
+                {/* Search button */}
+                <button
+                  type="submit"
+                  className="w-full h-12 flex items-center justify-center gap-2.5 text-[11px] font-bold tracking-[0.22em] uppercase text-white group relative overflow-hidden"
+                  style={{ background: RED, border: "none", cursor: "pointer" }}
+                >
+                  <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
+                    style={{ background: NAVY }} />
+                  <svg className="relative z-10" width="13" height="13" viewBox="0 0 14 14" fill="none">
+                    <circle cx="6" cy="6" r="4.5" stroke="white" strokeWidth="1.5"/>
+                    <path d="M9.5 9.5l3 3" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+                  </svg>
+                  <span className="relative z-10">Search Billboards</span>
+                </button>
+              </form>
+
+              {/* Reset link */}
+              {hasFilters && (
+                <button onClick={reset}
+                  className="mt-2 text-[10px] font-bold tracking-[0.15em] uppercase"
+                  style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(11,15,26,0.28)", textAlign: "left" }}>
+                  ← Clear filters
+                </button>
+              )}
             </motion.div>
           </motion.div>
         </div>
 
-        {/* ── RIGHT PANEL — full-height Leaflet map ────────────────── */}
+        {/* ── RIGHT PANEL — full-height Leaflet map (all pins, static) ─ */}
         <div className="relative flex-1 overflow-hidden" style={{ minHeight: "clamp(420px, 55vh, 100svh)" }}>
-          {/* Map fills the entire right panel */}
+          {/* Map always shows ALL billboard locations */}
           <LeafletMap
-            filtered={filtered}
+            filtered={ALL_BILLBOARDS}
             allCount={ALL_BILLBOARDS.length}
-            selected={selected}
-            onSelect={setSelected}
+            selected={selectedPin}
+            onSelect={setSelectedPin}
             className="absolute inset-0 w-full h-full"
             style={{ zIndex: 1 }}
           />
 
-          {/* Selected card overlay — appears when a pin is clicked */}
+          {/* Quick-preview card when pin is clicked */}
           <AnimatePresence>
-            {selected && (
+            {selectedPin && (
               <motion.div
                 initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }}
                 transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
@@ -493,16 +454,15 @@ function HeroSection() {
               >
                 <div className="bg-white overflow-hidden"
                   style={{ boxShadow: "0 8px 40px rgba(11,15,26,0.18)" }}>
-                  {/* Image */}
-                  <div className="relative overflow-hidden" style={{ height: 128 }}>
-                    <img src={selected.image} alt={selected.name}
+                  <div className="relative overflow-hidden" style={{ height: 120 }}>
+                    <img src={selectedPin.image} alt={selectedPin.name}
                       className="w-full h-full object-cover" style={{ opacity: 0.88 }}/>
                     <div className="absolute inset-0"
-                      style={{ background: "linear-gradient(to top,rgba(11,15,26,.75) 0%,transparent 55%)" }}/>
+                      style={{ background: "linear-gradient(to top,rgba(11,15,26,.7) 0%,transparent 55%)" }}/>
                     <span className="absolute bottom-2.5 left-3 text-[9px] font-bold tracking-[0.18em] uppercase text-white/50">
-                      {selected.district} · {selected.city}
+                      {selectedPin.district} · {selectedPin.city}
                     </span>
-                    <button onClick={() => setSelected(null)}
+                    <button onClick={() => setSelectedPin(null)}
                       className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center"
                       style={{ background: "rgba(11,15,26,.55)", border: "none", cursor: "pointer" }}>
                       <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
@@ -510,49 +470,24 @@ function HeroSection() {
                       </svg>
                     </button>
                   </div>
-                  <div style={{ padding: "14px 18px 18px" }}>
+                  <div style={{ padding: "12px 16px 16px" }}>
                     <p className="text-[9px] font-bold tracking-[0.22em] uppercase mb-1" style={{ color: RED }}>
-                      {selected.type}
+                      {selectedPin.type}
                     </p>
-                    <p className="font-extrabold text-[14px] leading-tight mb-2" style={{ color: NAVY }}>
-                      {selected.name}
+                    <p className="font-extrabold text-[14px] leading-tight mb-1.5" style={{ color: NAVY }}>
+                      {selectedPin.name}
                     </p>
-                    <div className="grid grid-cols-2 gap-2.5 mb-4">
-                      {[
-                        { l: "Traffic",    v: selected.traffic.split(" ").slice(0,2).join(" ") },
-                        { l: "Size",       v: selected.size },
-                        { l: "Visibility", v: selected.visibility.split(" ").slice(0,2).join(" ") },
-                        { l: "Format",     v: selected.type.split(" ")[0] },
-                      ].map(s => (
-                        <div key={s.l}>
-                          <p className="text-[8px] font-bold tracking-[0.18em] uppercase mb-0.5"
-                            style={{ color: "rgba(11,15,26,0.28)" }}>{s.l}</p>
-                          <p className="font-bold text-[11px]" style={{ color: NAVY }}>{s.v}</p>
-                        </div>
-                      ))}
-                    </div>
+                    <p className="text-[11px] mb-3" style={{ color: "rgba(11,15,26,0.4)" }}>
+                      {selectedPin.traffic} · {selectedPin.size}
+                    </p>
                     <button
-                      onClick={() => { window.location.href = `/locations/${selected.citySlug}/billboards/${selected.slug}`; }}
+                      onClick={() => navigate(`/locations/${selectedPin.citySlug}/billboards/${selectedPin.slug}`)}
                       className="w-full h-9 text-[10px] font-bold tracking-[0.18em] uppercase text-white"
                       style={{ background: RED, border: "none", cursor: "pointer" }}>
-                      View Details →
+                      View Full Details →
                     </button>
                   </div>
                 </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Empty state */}
-          <AnimatePresence>
-            {filtered.length === 0 && (
-              <motion.div
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                className="absolute inset-0 flex flex-col items-center justify-center z-[400] pointer-events-none"
-                style={{ background: "rgba(11,15,26,0.5)", backdropFilter: "blur(2px)" }}
-              >
-                <p className="font-bold text-white text-[16px] mb-1">No locations found</p>
-                <p className="text-white/40 text-[12px]">Try adjusting your filters</p>
               </motion.div>
             )}
           </AnimatePresence>
