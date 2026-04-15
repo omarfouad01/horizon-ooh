@@ -4,6 +4,7 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { LOCATIONS } from "@/data";
 import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
 import { RED, NAVY, ease } from "@/lib/routes";
+import ProductMap from "@/components/ProductMap";
 
 // ─── Gallery images per billboard type ───────────────────────────────────
 const GALLERY_POOLS = {
@@ -456,7 +457,156 @@ export default function Product() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════
-          4. KEY BENEFITS
+          4. BILLBOARD LOCATION MAP
+      ═══════════════════════════════════════════════════════════════ */}
+      <section className="bg-white" style={{ paddingTop: 80, paddingBottom: 80 }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
+          {/* Section header */}
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <Reveal>
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
+                  <span className="text-[10px] font-bold tracking-[0.35em] uppercase"
+                    style={{ color: "rgba(11,15,26,0.35)" }}>Billboard Location</span>
+                </div>
+              </Reveal>
+              <Reveal delay={0.04}>
+                <h2 className="font-black leading-[0.9] tracking-[-0.04em]"
+                  style={{ fontSize: "clamp(28px, 3vw, 40px)", color: NAVY }}>
+                  Find it on<br />
+                  <span style={{ color: "rgba(11,15,26,0.2)" }}>the map.</span>
+                </h2>
+              </Reveal>
+            </div>
+            <Reveal delay={0.1}>
+              <a
+                href={`https://www.google.com/maps?q=${product.lat},${product.lng}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-[11px] font-bold tracking-[0.2em] uppercase transition-colors hover:text-[#D90429] group"
+                style={{ color: "rgba(11,15,26,0.35)", textDecoration: "none" }}
+              >
+                <svg width="12" height="14" viewBox="0 0 13 15" fill="none" className="transition-colors group-hover:fill-[#D90429]">
+                  <path d="M6.5 0C3.462 0 1 2.462 1 5.5c0 3.85 5.5 9.5 5.5 9.5S12 9.35 12 5.5C12 2.462 9.538 0 6.5 0zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                    fill="currentColor"/>
+                </svg>
+                Open in Google Maps →
+              </a>
+            </Reveal>
+          </div>
+
+          {/* Map + sidebar */}
+          <Reveal delay={0.06}>
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-[1px]"
+              style={{ background: "rgba(11,15,26,0.07)" }}>
+
+              {/* Map panel */}
+              <div className="relative overflow-hidden" style={{ height: 480 }}>
+                <ProductMap
+                  lat={product.lat}
+                  lng={product.lng}
+                  name={product.name}
+                  type={product.type}
+                  district={product.district}
+                  city={location.city}
+                  traffic={product.traffic}
+                  size={product.size}
+                  className="absolute inset-0 w-full h-full"
+                  style={{ zIndex: 1 }}
+                />
+                {/* "Click map to zoom" hint */}
+                <div className="absolute top-4 left-4 z-[1000] pointer-events-none">
+                  <div className="flex items-center gap-2"
+                    style={{ background: "rgba(255,255,255,0.92)", backdropFilter: "blur(6px)",
+                      padding: "6px 12px", boxShadow: "0 2px 12px rgba(11,15,26,0.1)" }}>
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                      <circle cx="5" cy="5" r="4" stroke="rgba(11,15,26,0.3)" strokeWidth="1.2"/>
+                      <path d="M5 2v3l2 1" stroke="rgba(11,15,26,0.3)" strokeWidth="1.2" strokeLinecap="round"/>
+                    </svg>
+                    <span className="text-[9px] font-bold tracking-[0.2em] uppercase"
+                      style={{ color: "rgba(11,15,26,0.35)" }}>Scroll inside map to zoom</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Info sidebar */}
+              <div className="bg-white flex flex-col justify-between" style={{ padding: "40px 36px" }}>
+                {/* Header */}
+                <div>
+                  <p className="text-[9px] font-bold tracking-[0.35em] uppercase mb-3"
+                    style={{ color: RED }}>
+                    {product.type}
+                  </p>
+                  <h3 className="font-black leading-[1.0] tracking-[-0.03em] mb-4"
+                    style={{ fontSize: 22, color: NAVY }}>
+                    {product.name}
+                  </h3>
+                  <p className="text-[13px] leading-[1.6] mb-6"
+                    style={{ color: "rgba(11,15,26,0.45)" }}>
+                    {product.location}
+                  </p>
+
+                  {/* Coordinate row */}
+                  <div className="flex items-center gap-2 mb-8 py-3 border-y border-[#0B0F1A]/[0.07]">
+                    <svg width="11" height="13" viewBox="0 0 13 15" fill="none" className="flex-shrink-0">
+                      <path d="M6.5 0C3.462 0 1 2.462 1 5.5c0 3.85 5.5 9.5 5.5 9.5S12 9.35 12 5.5C12 2.462 9.538 0 6.5 0zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                        fill="rgba(11,15,26,0.25)"/>
+                    </svg>
+                    <span className="font-mono text-[11px]" style={{ color: "rgba(11,15,26,0.35)" }}>
+                      {product.lat.toFixed(4)}°N, {product.lng.toFixed(4)}°E
+                    </span>
+                  </div>
+
+                  {/* Key facts */}
+                  <div className="flex flex-col gap-0 border-t border-[#0B0F1A]/[0.07]">
+                    {[
+                      { label: "Market",     value: location.city },
+                      { label: "Zone",       value: product.district },
+                      { label: "Traffic",    value: product.traffic },
+                      { label: "Visibility", value: product.visibility },
+                    ].map(item => (
+                      <div key={item.label}
+                        className="flex items-center justify-between py-3 border-b border-[#0B0F1A]/[0.07]">
+                        <span className="text-[10px] font-semibold tracking-[0.18em] uppercase"
+                          style={{ color: "rgba(11,15,26,0.3)" }}>{item.label}</span>
+                        <span className="text-[13px] font-bold text-right"
+                          style={{ color: NAVY }}>{item.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Google Maps CTA */}
+                <a
+                  href={`https://www.google.com/maps?q=${product.lat},${product.lng}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-8 w-full h-[46px] flex items-center justify-center gap-2.5 text-[11px] font-bold tracking-[0.2em] uppercase group transition-colors"
+                  style={{ border: "1.5px solid rgba(11,15,26,0.12)", textDecoration: "none",
+                    color: "rgba(11,15,26,0.5)" }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = RED;
+                    (e.currentTarget as HTMLAnchorElement).style.color = RED;
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(11,15,26,0.12)";
+                    (e.currentTarget as HTMLAnchorElement).style.color = "rgba(11,15,26,0.5)";
+                  }}
+                >
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                  </svg>
+                  Get Directions
+                </a>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════
+          5. KEY BENEFITS
       ═══════════════════════════════════════════════════════════════ */}
       <section className="bg-white" style={{ paddingTop: 80, paddingBottom: 80 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
@@ -489,7 +639,7 @@ export default function Product() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════
-          5. VISIBILITY CONTEXT — FULL-WIDTH IMAGE STRIP
+          6. VISIBILITY CONTEXT — FULL-WIDTH IMAGE STRIP
       ═══════════════════════════════════════════════════════════════ */}
       <section style={{ background: NAVY, paddingTop: 0, paddingBottom: 0 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
@@ -535,7 +685,7 @@ export default function Product() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════
-          6. LOCATION CONTEXT STRIP
+          7. LOCATION CONTEXT STRIP
       ═══════════════════════════════════════════════════════════════ */}
       <section style={{ background: "#F5F5F6", paddingTop: 64, paddingBottom: 64 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
@@ -562,7 +712,7 @@ export default function Product() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════════
-          7. RELATED LOCATIONS
+          8. RELATED LOCATIONS
       ═══════════════════════════════════════════════════════════════ */}
       {related.length > 0 && (
         <section className="bg-white" style={{ paddingTop: 80, paddingBottom: 80 }}>
@@ -613,7 +763,7 @@ export default function Product() {
       )}
 
       {/* ═══════════════════════════════════════════════════════════════
-          8. FINAL CTA
+          9. FINAL CTA
       ═══════════════════════════════════════════════════════════════ */}
       <CTABanner
         title={`Book ${product.name} today.`}
