@@ -659,6 +659,14 @@ function ServicesSection() {
                   {service.title}
                 </h3>
 
+                {/* Description — visible always, turns white on hover */}
+                <p
+                  className="text-[13px] leading-[1.65] mb-5 transition-colors duration-500 group-hover:text-white/75"
+                  style={{ color: "rgba(11,15,26,0.45)" }}
+                >
+                  {service.description}
+                </p>
+
                 {/* Divider line */}
                 <div
                   className="w-8 h-[1px] mb-4 transition-all duration-500 group-hover:w-12 group-hover:bg-[#D90429]"
@@ -828,8 +836,8 @@ function LocationsSection() {
                   {loc.city}
                 </h3>
                 <p
-                  className="text-[13px] leading-[1.6] transition-colors duration-500 group-hover:text-white/35"
-                  style={{ color: "rgba(11,15,26,0.35)" }}
+                  className="text-[13px] leading-[1.6] transition-colors duration-500 group-hover:text-white/70"
+                  style={{ color: "rgba(11,15,26,0.45)" }}
                 >
                   {loc.detail}
                 </p>

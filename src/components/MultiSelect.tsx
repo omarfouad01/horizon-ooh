@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 
 const NAVY = "#0B0F1A";
 const RED  = "#D90429";
@@ -12,13 +13,44 @@ interface Props {
 }
 
 export default function MultiSelect({ label, options, selected, onChange, icon }: Props) {
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const [open, setOpen]           = useState(false);
+  const [dropPos, setDropPos]     = useState({ top: 0, left: 0, width: 0 });
+  const triggerRef                = useRef<HTMLButtonElement>(null);
+  const dropRef                   = useRef<HTMLDivElement>(null);
+
+  // ── Reposition dropdown to match trigger button ───────────────────────
+  const reposition = useCallback(() => {
+    if (!triggerRef.current) return;
+    const r = triggerRef.current.getBoundingClientRect();
+    setDropPos({
+      top:   r.bottom + window.scrollY,
+      left:  r.left   + window.scrollX,
+      width: r.width,
+    });
+  }, []);
+
+  // Reposition whenever opened or window scrolls/resizes
+  useEffect(() => {
+    if (!open) return;
+    reposition();
+    window.addEventListener("scroll", reposition, true);
+    window.addEventListener("resize", reposition);
+    return () => {
+      window.removeEventListener("scroll", reposition, true);
+      window.removeEventListener("resize", reposition);
+    };
+  }, [open, reposition]);
 
   // Close on outside click
   useEffect(() => {
     const fn = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+      const target = e.target as Node;
+      if (
+        triggerRef.current && !triggerRef.current.contains(target) &&
+        dropRef.current    && !dropRef.current.contains(target)
+      ) {
+        setOpen(false);
+      }
     };
     document.addEventListener("mousedown", fn);
     return () => document.removeEventListener("mousedown", fn);
@@ -44,9 +76,10 @@ export default function MultiSelect({ label, options, selected, onChange, icon }
         : `${selected.length} ${label}s`;
 
   return (
-    <div ref={ref} className="relative flex-1 min-w-0">
+    <div className="relative flex-1 min-w-0">
       {/* Trigger button */}
       <button
+        ref={triggerRef}
         type="button"
         onClick={() => setOpen(v => !v)}
         className="w-full h-12 flex items-center gap-2 pl-3 pr-7 text-[12px] font-semibold text-left outline-none transition-all duration-200"
@@ -80,16 +113,21 @@ export default function MultiSelect({ label, options, selected, onChange, icon }
         </span>
       </button>
 
-      {/* Dropdown panel */}
-      {open && (
+      {/* Dropdown — rendered in a portal to escape any overflow:hidden ancestors */}
+      {open && createPortal(
         <div
-          className="absolute top-full left-0 right-0 overflow-y-auto"
+          ref={dropRef}
+          className="overflow-y-auto"
           style={{
-            zIndex: 9999,
+            position: "absolute",
+            top:   dropPos.top,
+            left:  dropPos.left,
+            width: dropPos.width,
+            zIndex: 99999,
             background: "white",
             border: `1.5px solid ${RED}`,
             borderTop: "none",
-            boxShadow: "0 8px 32px rgba(11,15,26,0.14)",
+            boxShadow: "0 12px 40px rgba(11,15,26,0.18)",
             maxHeight: 220,
           }}
         >
@@ -143,7 +181,8 @@ export default function MultiSelect({ label, options, selected, onChange, icon }
               </button>
             );
           })}
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
