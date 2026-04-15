@@ -1,4 +1,6 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, lazy, Suspense } from "react";
+
+const BillboardMap = lazy(() => import("@/components/BillboardMap"));
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 import {
@@ -1435,6 +1437,9 @@ export default function Home() {
   return (
     <>
       <HeroSection />
+      <Suspense fallback={<div style={{ height: 680, background: "#f5f5f6" }} />}>
+        <BillboardMap />
+      </Suspense>
       <StatementSection />
       <TrustStrip />
       <WhyOOHSection />

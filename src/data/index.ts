@@ -466,11 +466,14 @@ export interface Product {
   name: string;
   location: string;
   city: string;
+  district: string;
   type: string;
   size: string;
   visibility: string;
   traffic: string;
   image: string;
+  lat: number;
+  lng: number;
   specs: { label: string; value: string }[];
   benefits: string[];
   relatedSlugs: string[];
@@ -483,11 +486,13 @@ const CAIRO_PRODUCTS: Product[] = [
     name: "Ring Road North Face",
     location: "Ring Road, km 28 North — Nasr City Direction",
     city: "Cairo",
+    district: "Nasr City",
     type: "Unipole Billboard",
     size: "12m × 6m",
     visibility: "1.2km visible distance",
     traffic: "420,000+ daily vehicles",
     image: "https://images.unsplash.com/photo-1702231942007-b255a41475c9?w=1200&q=90&fit=crop",
+    lat: 30.0722, lng: 31.3987,
     specs: [
       { label: "Size", value: "12m × 6m (72 sqm)" },
       { label: "Type", value: "Backlit Unipole" },
@@ -510,11 +515,13 @@ const CAIRO_PRODUCTS: Product[] = [
     name: "Salah Salem Southbound",
     location: "Salah Salem Street, Southbound — Heliopolis Gate",
     city: "Cairo",
+    district: "Heliopolis",
     type: "Rooftop Billboard",
     size: "8m × 4m",
     visibility: "800m visible distance",
     traffic: "280,000+ daily vehicles",
     image: "https://images.unsplash.com/photo-1629150154933-a42577786d4f?w=1200&q=90&fit=crop",
+    lat: 30.0912, lng: 31.3360,
     specs: [
       { label: "Size", value: "8m × 4m (32 sqm)" },
       { label: "Type", value: "Rooftop Billboard" },
@@ -531,6 +538,93 @@ const CAIRO_PRODUCTS: Product[] = [
     ],
     relatedSlugs: ["ring-road-north-face", "6th-october-bridge"],
   },
+  {
+    id: "tahrir-square-north",
+    slug: "tahrir-square-north",
+    name: "Tahrir Square — North Panel",
+    location: "Tahrir Square, Downtown Cairo",
+    city: "Cairo",
+    district: "Downtown",
+    type: "Mega Billboard",
+    size: "14m × 7m",
+    visibility: "900m visible distance",
+    traffic: "380,000+ daily vehicles",
+    image: "https://images.unsplash.com/photo-1624526794347-c2a966b81604?w=1200&q=90&fit=crop",
+    lat: 30.0444, lng: 31.2357,
+    specs: [
+      { label: "Size", value: "14m × 7m (98 sqm)" },
+      { label: "Type", value: "Mega Billboard" },
+      { label: "Height", value: "20m above road level" },
+      { label: "Location", value: "Tahrir Square, Downtown" },
+      { label: "Visibility", value: "900m approach distance" },
+      { label: "Traffic", value: "380,000+ vehicles daily" },
+      { label: "Illumination", value: "24/7 LED backlit" },
+    ],
+    benefits: [
+      "Cairo's most iconic public square — global recognition",
+      "Maximum dwell time — surrounded by tourist and commercial traffic",
+      "24/7 illuminated for round-the-clock brand presence",
+    ],
+    relatedSlugs: ["ring-road-north-face", "salah-salem-south"],
+  },
+  {
+    id: "zamalek-corniche",
+    slug: "zamalek-corniche",
+    name: "Zamalek Corniche Billboard",
+    location: "Corniche El Nil, Zamalek",
+    city: "Cairo",
+    district: "Zamalek",
+    type: "Rooftop Billboard",
+    size: "10m × 5m",
+    visibility: "700m visible distance",
+    traffic: "190,000+ daily vehicles",
+    image: "https://images.unsplash.com/photo-1559533189-9bd27271f4c4?w=1200&q=90&fit=crop",
+    lat: 30.0644, lng: 31.2168,
+    specs: [
+      { label: "Size", value: "10m × 5m (50 sqm)" },
+      { label: "Type", value: "Rooftop Billboard" },
+      { label: "Height", value: "16m above road level" },
+      { label: "Location", value: "Corniche El Nil, Zamalek" },
+      { label: "Visibility", value: "700m approach distance" },
+      { label: "Traffic", value: "190,000+ vehicles daily" },
+      { label: "Illumination", value: "Frontlit night lighting" },
+    ],
+    benefits: [
+      "Zamalek — Cairo's most premium residential and diplomatic enclave",
+      "Nile-facing — luxury brand environment with upscale pedestrian traffic",
+      "Low clutter high-value corridor for premium brand positioning",
+    ],
+    relatedSlugs: ["ring-road-north-face", "salah-salem-south"],
+  },
+  {
+    id: "maadi-ring-road",
+    slug: "maadi-ring-road",
+    name: "Maadi Ring Road West",
+    location: "Ring Road West, Maadi Interchange",
+    city: "Cairo",
+    district: "Maadi",
+    type: "Unipole Billboard",
+    size: "12m × 6m",
+    visibility: "1.1km visible distance",
+    traffic: "350,000+ daily vehicles",
+    image: "https://images.unsplash.com/photo-1638659782541-15c52f28dadb?w=1200&q=90&fit=crop",
+    lat: 29.9602, lng: 31.2569,
+    specs: [
+      { label: "Size", value: "12m × 6m (72 sqm)" },
+      { label: "Type", value: "Backlit Unipole" },
+      { label: "Height", value: "18m above road level" },
+      { label: "Location", value: "Ring Road West, Maadi Exit" },
+      { label: "Visibility", value: "1.1km approach distance" },
+      { label: "Traffic", value: "350,000+ vehicles daily" },
+      { label: "Illumination", value: "24/7 LED backlit" },
+    ],
+    benefits: [
+      "Maadi — Cairo's largest expat and upper-income residential zone",
+      "Dual audience: local premium residents + corporate traffic",
+      "LED backlit unipole for equal day and night impact",
+    ],
+    relatedSlugs: ["ring-road-north-face", "salah-salem-south"],
+  },
 ];
 
 const NEW_CAIRO_PRODUCTS: Product[] = [
@@ -540,11 +634,13 @@ const NEW_CAIRO_PRODUCTS: Product[] = [
     name: "90th Street East Face",
     location: "90th Street, East Face — Fifth Settlement Intersection",
     city: "New Cairo",
+    district: "Fifth Settlement",
     type: "Mega Billboard",
     size: "18m × 8m",
     visibility: "1.5km visible distance",
     traffic: "310,000+ daily vehicles",
     image: "https://images.unsplash.com/photo-1735506943281-4b4502be999d?w=1200&q=90&fit=crop",
+    lat: 30.0071, lng: 31.4472,
     specs: [
       { label: "Size", value: "18m × 8m (144 sqm)" },
       { label: "Type", value: "Mega Format Unipole" },
@@ -561,6 +657,35 @@ const NEW_CAIRO_PRODUCTS: Product[] = [
     ],
     relatedSlugs: ["ring-road-north-face", "salah-salem-south"],
   },
+  {
+    id: "south-teseen",
+    slug: "south-teseen-west",
+    name: "South Teseen West Face",
+    location: "South Teseen Street, New Cairo",
+    city: "New Cairo",
+    district: "New Cairo Centre",
+    type: "Unipole Billboard",
+    size: "12m × 6m",
+    visibility: "1.0km visible distance",
+    traffic: "240,000+ daily vehicles",
+    image: "https://images.unsplash.com/photo-1586189393824-dfaafc3691dc?w=1200&q=90&fit=crop",
+    lat: 29.9924, lng: 31.4619,
+    specs: [
+      { label: "Size", value: "12m × 6m (72 sqm)" },
+      { label: "Type", value: "Backlit Unipole" },
+      { label: "Height", value: "18m above road level" },
+      { label: "Location", value: "South Teseen, New Cairo" },
+      { label: "Visibility", value: "1.0km approach distance" },
+      { label: "Traffic", value: "240,000+ vehicles daily" },
+      { label: "Illumination", value: "24/7 LED backlit" },
+    ],
+    benefits: [
+      "Key artery in New Cairo's fastest-growing commercial zone",
+      "Surrounded by high-income residential and premium retail",
+      "LED backlit for 24-hour brand presence",
+    ],
+    relatedSlugs: ["90th-street-east-face", "ring-road-north-face"],
+  },
 ];
 
 const SHEIKH_ZAYED_PRODUCTS: Product[] = [
@@ -570,11 +695,13 @@ const SHEIKH_ZAYED_PRODUCTS: Product[] = [
     name: "26 July Corridor — West Face",
     location: "26 July Corridor, Sheikh Zayed City",
     city: "Sheikh Zayed",
+    district: "26 July Corridor",
     type: "Unipole Billboard",
     size: "10m × 5m",
     visibility: "900m visible distance",
     traffic: "195,000+ daily vehicles",
     image: "https://images.unsplash.com/photo-1735506943281-4b4502be999d?w=1200&q=90&fit=crop",
+    lat: 30.0527, lng: 30.9808,
     specs: [
       { label: "Size", value: "10m × 5m (50 sqm)" },
       { label: "Type", value: "Frontlit Unipole" },
@@ -591,6 +718,35 @@ const SHEIKH_ZAYED_PRODUCTS: Product[] = [
     ],
     relatedSlugs: ["ring-road-north-face", "90th-street-east-face"],
   },
+  {
+    id: "sheikh-zayed-main",
+    slug: "sheikh-zayed-main-strip",
+    name: "Sheikh Zayed Main Strip",
+    location: "Main Commercial Strip, Sheikh Zayed City",
+    city: "Sheikh Zayed",
+    district: "City Centre",
+    type: "Digital Billboard",
+    size: "8m × 4m",
+    visibility: "600m visible distance",
+    traffic: "160,000+ daily vehicles",
+    image: "https://images.unsplash.com/photo-1622058030255-6f54f94cfb3b?w=1200&q=90&fit=crop",
+    lat: 30.0612, lng: 30.9721,
+    specs: [
+      { label: "Size", value: "8m × 4m (32 sqm)" },
+      { label: "Type", value: "Digital DOOH Screen" },
+      { label: "Height", value: "10m above road level" },
+      { label: "Location", value: "Main Strip, Sheikh Zayed" },
+      { label: "Visibility", value: "600m approach distance" },
+      { label: "Traffic", value: "160,000+ vehicles daily" },
+      { label: "Illumination", value: "Full-motion digital 24/7" },
+    ],
+    benefits: [
+      "Digital screen — dynamic creative with dayparting capability",
+      "Sheikh Zayed's premium commercial and F&B zone",
+      "A1 upscale demographic — high disposable income audience",
+    ],
+    relatedSlugs: ["26-july-corridor-west-face", "ring-road-north-face"],
+  },
 ];
 
 const ALEXANDRIA_PRODUCTS: Product[] = [
@@ -600,11 +756,13 @@ const ALEXANDRIA_PRODUCTS: Product[] = [
     name: "Alexandria Corniche — Central",
     location: "Corniche El-Nil Road, Central Alexandria",
     city: "Alexandria",
+    district: "Corniche",
     type: "Seafront Billboard",
     size: "8m × 4m",
     visibility: "600m visible distance",
     traffic: "520,000+ daily vehicles",
     image: "https://images.unsplash.com/photo-1765398073978-94f84257baf7?w=1200&q=90&fit=crop",
+    lat: 31.2001, lng: 29.9187,
     specs: [
       { label: "Size", value: "8m × 4m (32 sqm)" },
       { label: "Type", value: "Backlit Seafront Panel" },
@@ -627,11 +785,13 @@ const ALEXANDRIA_PRODUCTS: Product[] = [
     name: "El-Horreya Road — East Face",
     location: "El-Horreya Road, Alexandria",
     city: "Alexandria",
+    district: "El-Horreya",
     type: "Rooftop Billboard",
     size: "9m × 4.5m",
     visibility: "750m visible distance",
     traffic: "310,000+ daily vehicles",
     image: "https://images.unsplash.com/photo-1629150154933-a42577786d4f?w=1200&q=90&fit=crop",
+    lat: 31.2157, lng: 29.9434,
     specs: [
       { label: "Size", value: "9m × 4.5m (40.5 sqm)" },
       { label: "Type", value: "Rooftop Billboard" },
@@ -736,6 +896,12 @@ export interface BlogSection {
   content?: string;
   items?: string[];
 }
+
+// ─── Flat map of ALL billboard products (for search + map) ───────────────
+export type MapBillboard = Product & { citySlug: string };
+
+export const ALL_BILLBOARDS: MapBillboard[] = [];
+// Populated after LOCATIONS is defined — see bottom of file
 
 export const BLOG_POSTS: BlogPost[] = [
   {
@@ -870,3 +1036,11 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
   },
 ];
+
+
+// ─── Populate ALL_BILLBOARDS flat array from LOCATIONS ───────────────────
+LOCATIONS.forEach((loc) => {
+  loc.products.forEach((p) => {
+    ALL_BILLBOARDS.push({ ...p, citySlug: loc.slug });
+  });
+});
