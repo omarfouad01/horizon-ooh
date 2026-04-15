@@ -1,5 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import MultiSelect from "@/components/MultiSelect";
 import { motion, AnimatePresence } from "framer-motion";
 import { LOCATIONS, ALL_BILLBOARDS } from "@/data";
 import { Reveal, RevealGroup, RevealItem, PageHero, CTABanner } from "@/components/UI";
@@ -7,12 +8,52 @@ import { locationHref, productHref, RED, NAVY } from "@/lib/routes";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
+const ALL_CITIES  = Array.from(new Set(ALL_BILLBOARDS.map(b => b.city))).sort();
+const ALL_FORMATS = Array.from(new Set(ALL_BILLBOARDS.map(b => b.type))).sort();
+
 export default function Locations() {
   const [searchParams, setSearchParams] = useSearchParams();
   const cities     = searchParams.getAll("city");
   const districts  = searchParams.getAll("district");
   const formats    = searchParams.getAll("format");
   const hasSearch  = cities.length > 0 || districts.length > 0 || formats.length > 0;
+
+  // ── Inline search bar state (mirrors homepage search, updates URL params) ──
+  const [localCities,    setLocalCities]    = useState<string[]>(cities);
+  const [localDistricts, setLocalDistricts] = useState<string[]>(districts);
+  const [localFormats,   setLocalFormats]   = useState<string[]>(formats);
+
+  // Sync local state when URL params change (e.g. on arrival from homepage)
+  useEffect(() => {
+    setLocalCities(cities);
+    setLocalDistricts(districts);
+    setLocalFormats(formats);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams.toString()]);
+
+  const localDistrictOptions = Array.from(new Set(
+    ALL_BILLBOARDS
+      .filter(b => localCities.length === 0 || localCities.includes(b.city))
+      .map(b => b.district)
+  )).sort();
+
+  const hasLocalFilters = localCities.length > 0 || localDistricts.length > 0 || localFormats.length > 0;
+
+  function applySearch(e?: React.FormEvent) {
+    if (e) e.preventDefault();
+    const params = new URLSearchParams();
+    localCities.forEach(c    => params.append("city",     c));
+    localDistricts.forEach(d => params.append("district", d));
+    localFormats.forEach(f   => params.append("format",   f));
+    setSearchParams(params);
+  }
+
+  function clearAll() {
+    setLocalCities([]);
+    setLocalDistricts([]);
+    setLocalFormats([]);
+    setSearchParams({});
+  }
 
   // Scroll to results when arriving from hero search
   const resultsRef = useRef<HTMLDivElement>(null);
@@ -31,7 +72,7 @@ export default function Locations() {
   });
 
   // Clear all filters
-  const clearSearch = () => setSearchParams({});
+  const clearSearch = () => { setLocalCities([]); setLocalDistricts([]); setLocalFormats([]); setSearchParams({}); };
 
   return (
     <>
@@ -41,6 +82,85 @@ export default function Locations() {
         titleAccent="Across Egypt."
         subtitle="9,500+ premium outdoor advertising locations across Egypt's most valuable markets — from Cairo's Ring Road to Alexandria's Corniche."
       />
+
+      {/* ── INLINE SEARCH BAR — under PageHero ─────────────────────────── */}
+      <section style={{ background: "white", borderBottom: "1px solid rgba(11,15,26,0.07)" }}>
+        <div className="max-w-[1440px] mx-auto" style={{ padding: "40px 120px" }}>
+          <form onSubmit={applySearch}>
+            {/* Label row */}
+            <div className="flex items-center gap-3 mb-5">
+              <span className="block w-4 h-[1.5px]" style={{ background: RED }} />
+              <p className="text-[9px] font-bold tracking-[0.35em] uppercase"
+                style={{ color: "rgba(11,15,26,0.28)" }}>
+                Filter Locations
+              </p>
+              {hasLocalFilters && (
+                <button type="button" onClick={clearAll}
+                  className="ml-auto text-[9px] font-bold tracking-[0.2em] uppercase transition-colors hover:text-[#D90429]"
+                  style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(11,15,26,0.3)" }}>
+                  ← Clear all
+                </button>
+              )}
+            </div>
+
+            {/* 3 selects + button — single horizontal row */}
+            <div className="flex items-stretch gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
+              <div className="flex-1">
+                <MultiSelect
+                  label="City" options={ALL_CITIES} selected={localCities}
+                  onChange={v => { setLocalCities(v); setLocalDistricts([]); }}
+                  icon={
+                    <svg width="11" height="13" viewBox="0 0 13 15" fill="none">
+                      <path d="M6.5 0C3.462 0 1 2.462 1 5.5c0 3.85 5.5 9.5 5.5 9.5S12 9.35 12 5.5C12 2.462 9.538 0 6.5 0zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                        fill="rgba(11,15,26,0.28)"/>
+                    </svg>
+                  }
+                />
+              </div>
+              <div className="flex-1">
+                <MultiSelect
+                  label="District" options={localDistrictOptions} selected={localDistricts}
+                  onChange={setLocalDistricts}
+                  icon={
+                    <svg width="13" height="11" viewBox="0 0 15 13" fill="none">
+                      <rect x="0.5" y="5.5" width="6" height="7" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4"/>
+                      <rect x="8.5" y="2.5" width="6" height="10" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4"/>
+                      <path d="M0 5.5L7.5 0 15 5.5" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4" strokeLinecap="round"/>
+                    </svg>
+                  }
+                />
+              </div>
+              <div className="flex-1">
+                <MultiSelect
+                  label="Format" options={ALL_FORMATS} selected={localFormats}
+                  onChange={setLocalFormats}
+                  icon={
+                    <svg width="13" height="11" viewBox="0 0 15 13" fill="none">
+                      <rect x="0.5" y="0.5" width="14" height="12" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4"/>
+                      <path d="M3 4h9M3 6.5h6M3 9h4" stroke="rgba(11,15,26,0.28)" strokeWidth="1.2" strokeLinecap="round"/>
+                    </svg>
+                  }
+                />
+              </div>
+
+              {/* Search button */}
+              <button
+                type="submit"
+                className="flex items-center justify-center gap-2.5 text-[11px] font-bold tracking-[0.22em] uppercase text-white group relative overflow-hidden flex-shrink-0"
+                style={{ background: RED, border: "none", cursor: "pointer", height: 52, padding: "0 36px", minWidth: 180 }}
+              >
+                <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
+                  style={{ background: NAVY }} />
+                <svg className="relative z-10" width="13" height="13" viewBox="0 0 14 14" fill="none">
+                  <circle cx="6" cy="6" r="4.5" stroke="white" strokeWidth="1.5"/>
+                  <path d="M9.5 9.5l3 3" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+                <span className="relative z-10">Search</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
 
       {/* ── SEARCH RESULTS — shown when arriving from hero search ──────── */}
       <AnimatePresence>
