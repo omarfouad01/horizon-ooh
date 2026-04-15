@@ -13,7 +13,7 @@ export default function BlogArticle() {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6">
         <p className="text-[#0B0F1A]/40 text-lg">Article not found.</p>
-        <button onClick={() => navigate("/blog")} className="text-[#D90429] font-bold underline">Back to Blog</button>
+        <button onClick={() => navigate("/blog")} className="text-[#D90429] font-bold underline hover:opacity-70 transition-opacity duration-150 cursor-pointer">Back to Blog</button>
       </div>
     );
   }
@@ -117,7 +117,7 @@ export default function BlogArticle() {
                         </div>
                         <button
                           onClick={() => navigate("/contact")}
-                          className="group relative h-[48px] px-8 overflow-hidden text-[11px] font-bold tracking-[0.2em] uppercase text-white flex items-center flex-shrink-0"
+                          className="group relative h-[48px] px-8 overflow-hidden text-[11px] font-bold tracking-[0.2em] uppercase text-white flex items-center flex-shrink-0 active:scale-[0.97] transition-transform cursor-pointer"
                           style={{ background: RED }}
                         >
                           <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: "white" }} />
@@ -146,7 +146,7 @@ export default function BlogArticle() {
                     </p>
                     <button
                       onClick={() => navigate("/contact")}
-                      className="group relative w-full h-[48px] overflow-hidden text-[11px] font-bold tracking-[0.2em] uppercase text-white flex items-center justify-center"
+                      className="group relative w-full h-[48px] overflow-hidden text-[11px] font-bold tracking-[0.2em] uppercase text-white flex items-center justify-center active:scale-[0.97] transition-transform cursor-pointer"
                       style={{ background: RED }}
                     >
                       <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: NAVY }} />

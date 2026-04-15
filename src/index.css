@@ -248,3 +248,19 @@
   padding-left: 120px;
   padding-right: 120px;
 }
+
+/* ── Global interaction improvements ─────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #D90429;
+  outline-offset: 2px;
+}
+:focus:not(:focus-visible) {
+  outline: none;
+}
+button {
+  user-select: none;
+  -webkit-user-select: none;
+}
+html {
+  scroll-behavior: smooth;
+}

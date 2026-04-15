@@ -33,7 +33,7 @@ function ProjectCard({ project, index }: { project: typeof PROJECTS[0]; index: n
     >
       <Link
         to={projectHref(project.slug)}
-        className="group block overflow-hidden bg-white border border-[#0B0F1A]/[0.07] hover:border-[#D90429]/20 transition-all duration-500"
+            className="group block overflow-hidden bg-white border border-[#0B0F1A]/[0.07] hover:border-[#D90429]/20 transition-all duration-500 cursor-pointer"
         style={{ textDecoration: "none" }}
       >
         {/* Image */}
@@ -340,7 +340,7 @@ export default function Projects() {
                 <button
                   key={f.value}
                   onClick={() => setActiveFilter(f.value)}
-                  className="relative pb-4 pr-8 text-[12px] font-bold tracking-[0.18em] uppercase transition-colors duration-200"
+                  className="relative pb-4 pr-8 text-[12px] font-bold tracking-[0.18em] uppercase transition-colors duration-200 cursor-pointer active:scale-[0.97]"
                   style={{
                     color: activeFilter === f.value ? NAVY : "rgba(11,15,26,0.35)",
                     background: "none",

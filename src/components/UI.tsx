@@ -246,14 +246,14 @@ export function RedBtn({
   };
   if (href) {
     return (
-      <Link to={href} style={styles} className="group">
+      <Link to={href} style={styles} className="group active:scale-[0.97] transition-transform">
         <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" style={{ background: NAVY }} />
         <span className="relative z-10">{label}</span>
       </Link>
     );
   }
   return (
-    <button onClick={onClick} style={styles} className="group">
+    <button onClick={onClick} style={styles} className="group active:scale-[0.97] transition-transform">
       <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" style={{ background: NAVY }} />
       <span className="relative z-10">{label}</span>
     </button>
@@ -295,14 +295,14 @@ export function OutlineBtn({
   };
   if (href) {
     return (
-      <Link to={href} style={styles} className="group">
+      <Link to={href} style={styles} className="group active:scale-[0.97] transition-transform">
         <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" style={{ background: light ? "rgba(255,255,255,0.12)" : NAVY }} />
         <span className="relative z-10 group-hover:text-white transition-colors duration-300">{label}</span>
       </Link>
     );
   }
   return (
-    <button onClick={onClick} style={styles} className="group">
+    <button onClick={onClick} style={styles} className="group active:scale-[0.97] transition-transform">
       <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" style={{ background: light ? "rgba(255,255,255,0.12)" : NAVY }} />
       <span className="relative z-10 group-hover:text-white transition-colors duration-300">{label}</span>
     </button>
@@ -372,7 +372,7 @@ export function Breadcrumb({ items }: { items: { label: string; href?: string }[
             {item.href ? (
               <Link
                 to={item.href}
-                className="text-[11px] font-semibold tracking-[0.15em] uppercase transition-colors hover:text-[#D90429]"
+                className="text-[11px] font-semibold tracking-[0.15em] uppercase transition-colors duration-150 hover:text-[#D90429] cursor-pointer"
                 style={{ color: "rgba(11,15,26,0.35)" }}
               >
                 {item.label}

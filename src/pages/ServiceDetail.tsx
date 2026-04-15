@@ -14,7 +14,7 @@ export default function ServiceDetail() {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6">
         <p className="text-[#0B0F1A]/40 text-lg">Service not found.</p>
-        <button onClick={() => navigate("/services")} className="text-[#D90429] font-bold underline">Back to Services</button>
+        <button onClick={() => navigate("/services")} className="text-[#D90429] font-bold underline hover:opacity-70 transition-opacity duration-150 cursor-pointer">Back to Services</button>
       </div>
     );
   }
@@ -57,7 +57,7 @@ export default function ServiceDetail() {
             <Reveal delay={0.2}>
               <button
                 onClick={() => navigate("/contact")}
-                className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white w-fit flex items-center"
+                className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white w-fit flex items-center active:scale-[0.97] transition-transform cursor-pointer"
                 style={{ background: RED }}
               >
                 <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" style={{ background: "white" }} />
@@ -217,7 +217,7 @@ export default function ServiceDetail() {
               <RevealItem key={s.id}>
                 <Link
                   to={serviceHref(s.slug)}
-                  className="group flex items-center justify-between p-6 bg-white border border-[#0B0F1A]/[0.08] hover:bg-[#0B0F1A] transition-colors duration-400"
+                  className="group flex items-center justify-between p-6 bg-white border border-[#0B0F1A]/[0.08] hover:bg-[#0B0F1A] hover:border-[#D90429]/30 transition-all duration-300"
                   style={{ textDecoration: "none" }}
                 >
                   <div>

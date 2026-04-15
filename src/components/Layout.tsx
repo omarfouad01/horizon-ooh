@@ -95,7 +95,7 @@ export function Navbar() {
             {/* Get a Quote */}
             <Link
               to={ROUTES.CONTACT}
-              className="h-[40px] px-7 text-[11px] font-bold tracking-[0.2em] uppercase text-white flex items-center relative overflow-hidden group"
+              className="h-[40px] px-7 text-[11px] font-bold tracking-[0.2em] uppercase text-white flex items-center relative overflow-hidden group active:scale-[0.97] transition-transform"
               style={{ background: RED }}
             >
               <span
@@ -108,7 +108,7 @@ export function Navbar() {
 
           {/* Mobile toggle */}
           <button
-            className="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-[5px]"
+            className="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-[5px] cursor-pointer"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
@@ -156,7 +156,7 @@ export function Navbar() {
             </Link>
             <Link
               to={ROUTES.CONTACT}
-              className="mt-2 h-[44px] px-8 text-white text-[11px] font-bold tracking-[0.2em] uppercase w-fit flex items-center"
+              className="mt-2 h-[44px] px-8 text-white text-[11px] font-bold tracking-[0.2em] uppercase w-fit flex items-center active:scale-[0.97] transition-transform"
               style={{ background: RED }}>
               Get a Quote
             </Link>

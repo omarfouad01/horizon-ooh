@@ -9,10 +9,10 @@ const ease = [0.16, 1, 0.3, 1] as const;
 
 export default function Locations() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const city     = searchParams.get("city")     || "";
-  const district = searchParams.get("district") || "";
-  const format   = searchParams.get("format")   || "";
-  const hasSearch = !!(city || district || format);
+  const cities     = searchParams.getAll("city");
+  const districts  = searchParams.getAll("district");
+  const formats    = searchParams.getAll("format");
+  const hasSearch  = cities.length > 0 || districts.length > 0 || formats.length > 0;
 
   // Scroll to results when arriving from hero search
   const resultsRef = useRef<HTMLDivElement>(null);
@@ -24,9 +24,9 @@ export default function Locations() {
 
   // Filter billboard products
   const matchedBillboards = ALL_BILLBOARDS.filter(b => {
-    if (city     && b.city     !== city)     return false;
-    if (district && b.district !== district) return false;
-    if (format   && b.type     !== format)   return false;
+    if (cities.length     > 0 && !cities.includes(b.city))        return false;
+    if (districts.length  > 0 && !districts.includes(b.district)) return false;
+    if (formats.length    > 0 && !formats.includes(b.type))       return false;
     return true;
   });
 
@@ -62,24 +62,24 @@ export default function Locations() {
                   <div className="flex flex-wrap items-center gap-2 mb-4">
                     <span className="text-[9px] font-bold tracking-[0.3em] uppercase"
                       style={{ color: "rgba(11,15,26,0.35)" }}>Filtered by:</span>
-                    {city && (
-                      <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1"
+                    {cities.map(c => (
+                      <span key={c} className="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1"
                         style={{ background: NAVY, color: "white" }}>
-                        City: {city}
+                        City: {c}
                       </span>
-                    )}
-                    {district && (
-                      <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1"
+                    ))}
+                    {districts.map(d => (
+                      <span key={d} className="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1"
                         style={{ background: NAVY, color: "white" }}>
-                        District: {district}
+                        District: {d}
                       </span>
-                    )}
-                    {format && (
-                      <span className="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1"
+                    ))}
+                    {formats.map(f => (
+                      <span key={f} className="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1"
                         style={{ background: NAVY, color: "white" }}>
-                        Format: {format}
+                        Format: {f}
                       </span>
-                    )}
+                    ))}
                   </div>
 
                   <div className="flex items-baseline gap-3">
@@ -242,7 +242,7 @@ export default function Locations() {
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     {/* Highlight if city matches search */}
-                    {city && loc.city === city && (
+                    {cities.length > 0 && cities.includes(loc.city) && (
                       <div className="absolute top-4 right-4 text-[9px] font-bold tracking-[0.2em] uppercase px-2.5 py-1 text-white"
                         style={{ background: RED }}>
                         Your Search

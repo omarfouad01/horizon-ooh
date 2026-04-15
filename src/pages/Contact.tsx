@@ -114,7 +114,7 @@ export default function Contact() {
                             required={field.required}
                             value={form[field.name as keyof typeof form]}
                             onChange={handleChange}
-                            className="w-full bg-transparent px-6 pb-5 text-[15px] font-medium outline-none border-0"
+                            className="w-full bg-transparent px-6 pb-5 text-[15px] font-medium outline-none border-0 focus:border-b-2 focus:border-[#D90429] transition-colors duration-200"
                             style={{ color: NAVY }}
                             placeholder=""
                           />
@@ -145,7 +145,7 @@ export default function Contact() {
                             required={field.required}
                             value={form[field.name as keyof typeof form]}
                             onChange={handleChange}
-                            className="w-full bg-transparent px-6 pb-5 text-[15px] font-medium outline-none border-0"
+                            className="w-full bg-transparent px-6 pb-5 text-[15px] font-medium outline-none border-0 focus:border-b-2 focus:border-[#D90429] transition-colors duration-200"
                             style={{ color: NAVY }}
                           />
                         </div>
@@ -171,7 +171,7 @@ export default function Contact() {
                           rows={5}
                           value={form.message}
                           onChange={handleChange}
-                          className="w-full bg-transparent px-6 pb-6 text-[15px] font-medium outline-none border-0 resize-none"
+                          className="w-full bg-transparent px-6 pb-6 text-[15px] font-medium outline-none border-0 resize-none focus:border-b-2 focus:border-[#D90429] transition-colors duration-200"
                           style={{ color: NAVY }}
                           placeholder="Tell us about your campaign objectives, target audience, and budget range…"
                         />
@@ -194,7 +194,7 @@ export default function Contact() {
                       <button
                         type="submit"
                         disabled={loading}
-                        className="group relative h-[56px] px-12 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white flex items-center gap-3"
+                        className="group relative h-[56px] px-12 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white flex items-center gap-3 active:scale-[0.97] transition-transform disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
                         style={{ background: loading ? "rgba(217,4,41,0.6)" : RED }}
                       >
                         <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: NAVY }} />
@@ -253,7 +253,7 @@ export default function Contact() {
                             key={link.label}
                             href={`#${link.href}`}
                             onClick={(e) => { e.preventDefault(); window.location.hash = link.href; }}
-                            className="flex items-center gap-2 group"
+                            className="flex items-center gap-2 group cursor-pointer hover:opacity-80 transition-opacity"
                             style={{ textDecoration: "none" }}
                           >
                             <span className="w-1 h-1 flex-shrink-0 group-hover:w-3 transition-all duration-300" style={{ background: RED }} />

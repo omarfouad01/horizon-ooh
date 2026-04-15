@@ -67,8 +67,8 @@ function Lightbox({ images, active, onClose, onNav }: {
       >
         {/* Close */}
         <button onClick={onClose}
-          className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center border border-white/20 hover:border-white/50 transition-colors"
-          style={{ color: "white", fontSize: 20, background: "none", cursor: "pointer" }}>
+          className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center border border-white/20 hover:border-white/50 cursor-pointer hover:bg-white/10 active:bg-white/20 transition-all duration-150"
+          style={{ color: "white", fontSize: 20, background: "none" }}>
           ×
         </button>
 
@@ -100,11 +100,11 @@ function Lightbox({ images, active, onClose, onNav }: {
         {images.length > 1 && (
           <>
             <button onClick={(e) => { e.stopPropagation(); onNav(-1); }}
-              className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center border border-white/15 hover:border-white/40 transition-all"
-              style={{ color: "white", fontSize: 20, background: "none", cursor: "pointer" }}>‹</button>
+              className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center border border-white/15 hover:border-white/40 cursor-pointer hover:bg-white/10 active:bg-white/20 transition-all duration-150"
+              style={{ color: "white", fontSize: 20, background: "none" }}>‹</button>
             <button onClick={(e) => { e.stopPropagation(); onNav(1); }}
-              className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center border border-white/15 hover:border-white/40 transition-all"
-              style={{ color: "white", fontSize: 20, background: "none", cursor: "pointer" }}>›</button>
+              className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center border border-white/15 hover:border-white/40 cursor-pointer hover:bg-white/10 active:bg-white/20 transition-all duration-150"
+              style={{ color: "white", fontSize: 20, background: "none" }}>›</button>
           </>
         )}
       </motion.div>
@@ -131,8 +131,10 @@ export default function Product() {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6">
         <p style={{ color: "rgba(11,15,26,0.4)", fontSize: 17 }}>Billboard not found.</p>
-        <button onClick={() => navigate("/locations")}
-          style={{ color: RED, fontWeight: 700, background: "none", border: "none", cursor: "pointer" }}>
+        <button
+          onClick={() => navigate("/locations")}
+          style={{ color: RED, fontWeight: 700, background: "none", border: "none", cursor: "pointer" }}
+          className="hover:opacity-70 transition-opacity duration-150">
           Back to Locations
         </button>
       </div>
@@ -236,7 +238,7 @@ export default function Product() {
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease, delay: 0.7 }} className="flex-shrink-0 hidden md:block">
               <button onClick={() => navigate("/contact")}
-                className="group relative overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white flex items-center"
+              className="group relative overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white flex items-center active:scale-[0.97] transition-transform"
                 style={{ height: 52, padding: "0 36px", background: RED, border: "none", cursor: "pointer" }}>
                 <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
                   style={{ background: "white" }} />
@@ -337,7 +339,7 @@ export default function Product() {
             <Reveal delay={0.2}>
               <div className="flex flex-col gap-3 mt-10">
                 <button onClick={() => navigate("/contact")}
-                  className="group relative w-full h-[54px] overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase text-white flex items-center justify-center"
+                  className="group relative w-full h-[54px] overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase text-white flex items-center justify-center active:scale-[0.97] transition-transform"
                   style={{ background: RED, border: "none", cursor: "pointer" }}>
                   <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
                     style={{ background: NAVY }} />

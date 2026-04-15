@@ -3,6 +3,7 @@ import LeafletMap from "@/components/BillboardMap";
 import { ALL_BILLBOARDS } from "@/data";
 import { motion, AnimatePresence, useInView, useScroll, useTransform } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
+import MultiSelect from "@/components/MultiSelect";
 import {
   SERVICES,
   LOCATIONS,
@@ -145,7 +146,7 @@ function RedButton({
   return (
     <button
       onClick={onClick}
-      className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white"
+      className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white active:scale-[0.97] transition-transform cursor-pointer"
       style={{ background: RED }}
     >
       <span
@@ -169,7 +170,7 @@ function OutlineButton({
   return (
     <button
       onClick={onClick}
-      className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase transition-colors duration-300"
+      className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase transition-all duration-300 active:scale-[0.97] cursor-pointer"
       style={{
         border: `1.5px solid ${light ? "rgba(255,255,255,0.25)" : NAVY}`,
         color: light ? "rgba(255,255,255,0.7)" : NAVY,
@@ -192,39 +193,6 @@ function OutlineButton({
 const ALL_CITIES    = Array.from(new Set(ALL_BILLBOARDS.map(b => b.city))).sort();
 const ALL_FORMATS   = Array.from(new Set(ALL_BILLBOARDS.map(b => b.type))).sort();
 
-interface SelectProps {
-  label: string; value: string; options: string[];
-  onChange: (v: string) => void; icon: React.ReactNode;
-}
-function HeroFilterSelect({ label, value, options, onChange, icon }: SelectProps) {
-  return (
-    <div className="relative flex-1 min-w-0">
-      <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none z-10">{icon}</div>
-      <select
-        value={value}
-        onChange={e => onChange(e.target.value)}
-        className="w-full h-12 pl-9 pr-7 appearance-none text-[12px] font-semibold outline-none cursor-pointer"
-        style={{
-          background: "white",
-          border: "1.5px solid rgba(11,15,26,0.12)",
-          color: value ? NAVY : "rgba(11,15,26,0.38)",
-          borderRadius: 0,
-        }}
-        onFocus={e  => (e.target.style.borderColor = RED)}
-        onBlur={e   => (e.target.style.borderColor = "rgba(11,15,26,0.12)")}
-      >
-        <option value="">{label}</option>
-        {options.map(o => <option key={o} value={o}>{o}</option>)}
-      </select>
-      <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-        <svg width="9" height="5" viewBox="0 0 9 5" fill="none">
-          <path d="M1 1l3.5 3.5L8 1" stroke={NAVY} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      </div>
-    </div>
-  );
-}
-
 function HeroSection() {
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
@@ -232,16 +200,18 @@ function HeroSection() {
 
   // ── Search state — navigates to /locations on submit ─────────────
   const navigate   = useNavigate();
-  const [city,     setCity]     = useState("");
-  const [district, setDistrict] = useState("");
-  const [format,   setFormat]   = useState("");
+  const [cities,    setCities]    = useState<string[]>([]);
+  const [districts, setDistricts] = useState<string[]>([]);
+  const [formats,   setFormats]   = useState<string[]>([]);
 
   const districtOptions = Array.from(new Set(
-    ALL_BILLBOARDS.filter(b => !city || b.city === city).map(b => b.district)
+    ALL_BILLBOARDS
+      .filter(b => cities.length === 0 || cities.includes(b.city))
+      .map(b => b.district)
   )).sort();
 
-  const hasFilters = !!(city || district || format);
-  const reset = () => { setCity(""); setDistrict(""); setFormat(""); };
+  const hasFilters = cities.length > 0 || districts.length > 0 || formats.length > 0;
+  const reset = () => { setCities([]); setDistricts([]); setFormats([]); };
 
   // ── Map pin selection (independent of search) ─────────────────────
   const [selectedPin, setSelectedPin] = useState<(typeof ALL_BILLBOARDS)[0] | null>(null);
@@ -249,9 +219,9 @@ function HeroSection() {
   function handleSearch(e?: React.FormEvent) {
     if (e) e.preventDefault();
     const params = new URLSearchParams();
-    if (city)     params.set("city",     city);
-    if (district) params.set("district", district);
-    if (format)   params.set("format",   format);
+    cities.forEach(c    => params.append("city",     c));
+    districts.forEach(d => params.append("district", d));
+    formats.forEach(f   => params.append("format",   f));
     navigate(`/locations${params.toString() ? "?" + params.toString() : ""}`);
   }
 
@@ -367,9 +337,9 @@ function HeroSection() {
                 style={{ background: "rgba(11,15,26,0.07)" }}>
 
                 {/* City */}
-                <HeroFilterSelect
-                  label="City" value={city} options={ALL_CITIES}
-                  onChange={v => { setCity(v); setDistrict(""); }}
+                <MultiSelect
+                  label="City" options={ALL_CITIES} selected={cities}
+                  onChange={v => { setCities(v); setDistricts([]); }}
                   icon={
                     <svg width="11" height="13" viewBox="0 0 13 15" fill="none">
                       <path d="M6.5 0C3.462 0 1 2.462 1 5.5c0 3.85 5.5 9.5 5.5 9.5S12 9.35 12 5.5C12 2.462 9.538 0 6.5 0zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
@@ -379,9 +349,9 @@ function HeroSection() {
                 />
 
                 {/* District */}
-                <HeroFilterSelect
-                  label="District" value={district} options={districtOptions}
-                  onChange={setDistrict}
+                <MultiSelect
+                  label="District" options={districtOptions} selected={districts}
+                  onChange={setDistricts}
                   icon={
                     <svg width="13" height="11" viewBox="0 0 15 13" fill="none">
                       <rect x="0.5" y="5.5" width="6" height="7" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4"/>
@@ -392,9 +362,9 @@ function HeroSection() {
                 />
 
                 {/* Format */}
-                <HeroFilterSelect
-                  label="Format" value={format} options={ALL_FORMATS}
-                  onChange={setFormat}
+                <MultiSelect
+                  label="Format" options={ALL_FORMATS} selected={formats}
+                  onChange={setFormats}
                   icon={
                     <svg width="13" height="11" viewBox="0 0 15 13" fill="none">
                       <rect x="0.5" y="0.5" width="14" height="12" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4"/>
