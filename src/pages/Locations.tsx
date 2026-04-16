@@ -45,107 +45,186 @@ function XIcon({ size = 8 }: { size?: number }) {
   );
 }
 
-// ─── Filter dropdown (single-select, inline, no portal needed here) ─────────
+// ─── Filter dropdown — multi-select with checkboxes ────────────────────────
 interface FilterDropdownProps {
   label: string;
   options: string[];
-  value: string;
-  onChange: (v: string) => void;
+  values: string[];
+  onChange: (vals: string[]) => void;
   icon: React.ReactNode;
 }
-function FilterDropdown({ label, options, value, onChange, icon }: FilterDropdownProps) {
+function FilterDropdown({ label, options, values, onChange, icon }: FilterDropdownProps) {
   const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-  const selected = value !== "";
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const dropRef    = useRef<HTMLDivElement>(null);
+  const hasValues  = values.length > 0;
 
+  // Close on outside click
   useEffect(() => {
     const fn = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+      const t = e.target as Node;
+      if (
+        triggerRef.current && !triggerRef.current.contains(t) &&
+        dropRef.current    && !dropRef.current.contains(t)
+      ) setOpen(false);
     };
     document.addEventListener("mousedown", fn);
     return () => document.removeEventListener("mousedown", fn);
   }, []);
 
+  // Close on Escape
+  useEffect(() => {
+    const fn = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    document.addEventListener("keydown", fn);
+    return () => document.removeEventListener("keydown", fn);
+  }, []);
+
+  const toggle = (opt: string) =>
+    onChange(values.includes(opt) ? values.filter(v => v !== opt) : [...values, opt]);
+
+  // Trigger label
+  const triggerLabel = !hasValues
+    ? label
+    : values.length === 1
+      ? values[0]
+      : `${label} (${values.length})`;
+
   return (
-    <div ref={ref} className="relative">
+    <div className="relative">
+      {/* Trigger */}
       <button
+        ref={triggerRef}
         type="button"
         onClick={() => setOpen(v => !v)}
         className="flex items-center gap-2 h-11 px-5 text-[13px] font-bold transition-all duration-200 whitespace-nowrap"
         style={{
-          background: selected ? RED : "white",
-          color: selected ? "white" : NAVY,
-          border: `2px solid ${selected ? RED : "rgba(11,15,26,0.22)"}`,
+          background: hasValues ? RED : "white",
+          color: hasValues ? "white" : NAVY,
+          border: `2px solid ${hasValues ? RED : "rgba(11,15,26,0.22)"}`,
           borderRadius: 8,
           cursor: "pointer",
-          boxShadow: selected ? "0 2px 12px rgba(217,4,41,0.2)" : "0 1px 4px rgba(11,15,26,0.06)",
+          boxShadow: hasValues ? "0 2px 12px rgba(217,4,41,0.2)" : "0 1px 4px rgba(11,15,26,0.06)",
         }}
       >
-        <span style={{ opacity: selected ? 1 : 0.5 }}>{icon}</span>
-        <span>{selected ? value : label}</span>
-        {selected ? (
+        <span style={{ opacity: hasValues ? 1 : 0.5, flexShrink: 0 }}>{icon}</span>
+        <span className="truncate" style={{ maxWidth: 140 }}>{triggerLabel}</span>
+        {hasValues ? (
           <span
-            onClick={e => { e.stopPropagation(); onChange(""); }}
-            className="flex items-center justify-center w-4 h-4 rounded-full ml-1 transition-opacity hover:opacity-70"
-            style={{ background: "rgba(255,255,255,0.25)", cursor: "pointer" }}
+            onClick={e => { e.stopPropagation(); onChange([]); }}
+            className="flex items-center justify-center w-4 h-4 rounded-full ml-1 flex-shrink-0 transition-opacity hover:opacity-70"
+            style={{ background: "rgba(255,255,255,0.3)", cursor: "pointer" }}
           >
             <XIcon size={7} />
           </span>
         ) : (
-          <ChevronDown />
+          <span
+            className="transition-transform duration-200 flex-shrink-0"
+            style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
+          >
+            <ChevronDown />
+          </span>
         )}
       </button>
 
+      {/* Dropdown panel — rendered inline, z-index handles layering */}
       <AnimatePresence>
         {open && (
           <motion.div
+            ref={dropRef}
             initial={{ opacity: 0, y: 6, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 4, scale: 0.97 }}
             transition={{ duration: 0.18, ease }}
-            className="absolute top-full left-0 mt-2 overflow-hidden z-[9999]"
+            className="absolute top-full left-0 mt-2 z-[9999] overflow-hidden"
             style={{
-              minWidth: 200,
+              minWidth: 240,
               background: "white",
               border: "1.5px solid rgba(11,15,26,0.1)",
-              borderRadius: 8,
-              boxShadow: "0 8px 32px rgba(11,15,26,0.12)",
+              borderRadius: 10,
+              boxShadow: "0 12px 40px rgba(11,15,26,0.14)",
             }}
           >
-            {/* All option */}
-            <button
-              type="button"
-              onClick={() => { onChange(""); setOpen(false); }}
-              className="w-full text-left px-4 py-2.5 text-[12px] font-semibold transition-colors hover:bg-gray-50"
-              style={{ border: "none", borderBottom: "1px solid rgba(11,15,26,0.06)", color: "rgba(11,15,26,0.4)", cursor: "pointer", background: value === "" ? "rgba(11,15,26,0.03)" : "white" }}
-            >
-              All {label}s
-            </button>
-            {options.map(opt => (
-              <button
-                key={opt}
-                type="button"
-                onClick={() => { onChange(opt); setOpen(false); }}
-                className="w-full text-left px-4 py-2.5 text-[12px] font-medium transition-colors hover:bg-[rgba(11,15,26,0.03)]"
-                style={{
-                  border: "none",
-                  borderBottom: "1px solid rgba(11,15,26,0.04)",
-                  color: opt === value ? NAVY : "rgba(11,15,26,0.65)",
-                  fontWeight: opt === value ? 700 : 500,
-                  background: opt === value ? "rgba(217,4,41,0.04)" : "white",
-                  cursor: "pointer",
-                }}
-              >
-                <span className="flex items-center justify-between">
-                  {opt}
-                  {opt === value && (
-                    <svg width="12" height="9" viewBox="0 0 12 9" fill="none">
-                      <path d="M1 4.5l3.5 3.5 6.5-7" stroke={RED} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  )}
-                </span>
-              </button>
-            ))}
+            {/* Header row */}
+            <div className="flex items-center justify-between px-4 py-3"
+              style={{ borderBottom: "1px solid rgba(11,15,26,0.07)" }}>
+              <span className="text-[11px] font-bold tracking-[0.2em] uppercase"
+                style={{ color: "rgba(11,15,26,0.4)" }}>
+                {label}
+              </span>
+              {hasValues && (
+                <button
+                  type="button"
+                  onClick={() => onChange([])}
+                  className="text-[10px] font-bold tracking-[0.12em] uppercase transition-colors hover:text-[#D90429]"
+                  style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(11,15,26,0.35)" }}
+                >
+                  Clear
+                </button>
+              )}
+            </div>
+
+            {/* Options list */}
+            <div style={{ maxHeight: 240, overflowY: "auto" }}>
+              {options.map(opt => {
+                const checked = values.includes(opt);
+                return (
+                  <button
+                    key={opt}
+                    type="button"
+                    onClick={() => toggle(opt)}
+                    className="w-full text-left flex items-center gap-3 px-4 py-3 transition-all duration-150"
+                    style={{
+                      background: checked ? "rgba(217,4,41,0.04)" : "white",
+                      border: "none",
+                      borderBottom: "1px solid rgba(11,15,26,0.04)",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {/* Checkbox */}
+                    <span
+                      className="flex-shrink-0 flex items-center justify-center transition-all duration-150"
+                      style={{
+                        width: 18,
+                        height: 18,
+                        borderRadius: 4,
+                        border: `2px solid ${checked ? RED : "rgba(11,15,26,0.2)"}`,
+                        background: checked ? RED : "white",
+                      }}
+                    >
+                      {checked && (
+                        <svg width="9" height="7" viewBox="0 0 9 7" fill="none">
+                          <path d="M1 3.5l2.5 2.5 5-5" stroke="white" strokeWidth="1.6"
+                            strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      )}
+                    </span>
+                    <span
+                      className="text-[13px]"
+                      style={{
+                        color: checked ? NAVY : "rgba(11,15,26,0.65)",
+                        fontWeight: checked ? 700 : 450,
+                      }}
+                    >
+                      {opt}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Footer — apply/done */}
+            {hasValues && (
+              <div className="px-4 py-3" style={{ borderTop: "1px solid rgba(11,15,26,0.07)" }}>
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  className="w-full h-9 flex items-center justify-center text-[11px] font-bold tracking-[0.18em] uppercase text-white transition-opacity hover:opacity-90"
+                  style={{ background: RED, border: "none", borderRadius: 6, cursor: "pointer" }}
+                >
+                  Apply · {values.length} selected
+                </button>
+              </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
@@ -305,48 +384,47 @@ export default function Locations() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  // ── Filter state (single-select for cleaner UX) ──────────────────────
-  const [city,     setCity]     = useState(searchParams.get("city")     ?? "");
-  const [district, setDistrict] = useState(searchParams.get("district") ?? "");
-  const [format,   setFormat]   = useState(searchParams.get("format")   ?? "");
+  // ── Filter state — multi-select arrays ──────────────────────────────
+  const [cities,    setCities]    = useState<string[]>(searchParams.getAll("city"));
+  const [districts, setDistricts] = useState<string[]>(searchParams.getAll("district"));
+  const [formats,   setFormats]   = useState<string[]>(searchParams.getAll("format"));
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [mobileMapOpen,     setMobileMapOpen]     = useState(false);
 
-  // Sync URL ↔ state on external navigation
+  // Sync URL ↔ local state when navigating from outside (e.g. homepage search)
   useEffect(() => {
-    setCity(    searchParams.getAll("city")[0]     ?? "");
-    setDistrict(searchParams.getAll("district")[0] ?? "");
-    setFormat(  searchParams.getAll("format")[0]   ?? "");
+    setCities(   searchParams.getAll("city"));
+    setDistricts(searchParams.getAll("district"));
+    setFormats(  searchParams.getAll("format"));
   }, [searchParams.toString()]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Push filters to URL
-  const applyFilters = useCallback((c: string, d: string, f: string) => {
+  // Push filter arrays to URL immediately on change
+  const pushToUrl = useCallback((c: string[], d: string[], f: string[]) => {
     const p = new URLSearchParams();
-    if (c) p.set("city",     c);
-    if (d) p.set("district", d);
-    if (f) p.set("format",   f);
+    c.forEach(v => p.append("city",     v));
+    d.forEach(v => p.append("district", v));
+    f.forEach(v => p.append("format",   v));
     setSearchParams(p);
   }, [setSearchParams]);
 
+  // District options narrow when cities are selected
   const districtOptions = Array.from(new Set(
     ALL_BILLBOARDS
-      .filter(b => city === "" || b.city === city)
+      .filter(b => cities.length === 0 || cities.includes(b.city))
       .map(b => b.district)
   )).sort();
 
-  // ── Filtered + sorted results ────────────────────────────────────────
-  const filtered = ALL_BILLBOARDS.filter(b => {
-    if (city     && b.city     !== city)     return false;
-    if (district && b.district !== district) return false;
-    if (format   && b.type     !== format)   return false;
+  // ── Filtered results ─────────────────────────────────────────────────
+  const sorted = ALL_BILLBOARDS.filter(b => {
+    if (cities.length    > 0 && !cities.includes(b.city))        return false;
+    if (districts.length > 0 && !districts.includes(b.district)) return false;
+    if (formats.length   > 0 && !formats.includes(b.type))       return false;
     return true;
   });
 
-  const sorted = filtered;
-
-  const hasFilters = city !== "" || district !== "" || format !== "";
-  const clearAll = () => { setCity(""); setDistrict(""); setFormat(""); setSearchParams({}); };
+  const hasFilters = cities.length > 0 || districts.length > 0 || formats.length > 0;
+  const clearAll = () => { setCities([]); setDistricts([]); setFormats([]); setSearchParams({}); };
 
   // ── Pin ↔ card interaction ───────────────────────────────────────────
   const [hoveredId,  setHoveredId]  = useState<string | null>(null);
@@ -366,21 +444,23 @@ export default function Locations() {
     }
   }, []);
 
-  // Filter change helpers that also reset dependent fields
-  const handleCityChange = (v: string) => {
-    setCity(v); setDistrict(""); applyFilters(v, "", format);
+  // Filter change helpers — update state + URL together
+  const handleCitiesChange = (vals: string[]) => {
+    // When cities change, remove districts that no longer belong
+    const newDists = districts.filter(d =>
+      ALL_BILLBOARDS.some(b => vals.length === 0 || vals.includes(b.city) ? b.district === d : false)
+    );
+    setCities(vals); setDistricts(newDists);
+    pushToUrl(vals, newDists, formats);
   };
-  const handleDistrictChange = (v: string) => {
-    setDistrict(v); applyFilters(city, v, format);
+  const handleDistrictsChange = (vals: string[]) => {
+    setDistricts(vals); pushToUrl(cities, vals, formats);
   };
-  const handleFormatChange = (v: string) => {
-    setFormat(v); applyFilters(city, district, v);
+  const handleFormatsChange = (vals: string[]) => {
+    setFormats(vals); pushToUrl(cities, districts, vals);
   };
 
-  // Result label
-  const resultLabel = city
-    ? `Showing ${sorted.length} premium billboard location${sorted.length !== 1 ? "s" : ""} in ${city}`
-    : `Showing all ${sorted.length} premium billboard locations`;
+  const cityLabel = cities.length === 0 ? "" : cities.length === 1 ? cities[0] : `${cities.length} cities`;
 
   return (
     <div className="flex flex-col min-h-screen" style={{ background: "#F7F7F8" }}>
@@ -441,7 +521,7 @@ export default function Locations() {
               style={{ color: "rgba(11,15,26,0.45)" }}>Filter:</span>
 
             <FilterDropdown
-              label="City" options={ALL_CITIES} value={city} onChange={handleCityChange}
+              label="City" options={ALL_CITIES} values={cities} onChange={handleCitiesChange}
               icon={
                 <svg width="11" height="13" viewBox="0 0 13 15" fill="none">
                   <path d="M6.5 0C3.462 0 1 2.462 1 5.5c0 3.85 5.5 9.5 5.5 9.5S12 9.35 12 5.5C12 2.462 9.538 0 6.5 0zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
@@ -450,7 +530,7 @@ export default function Locations() {
               }
             />
             <FilterDropdown
-              label="District" options={districtOptions} value={district} onChange={handleDistrictChange}
+              label="District" options={districtOptions} values={districts} onChange={handleDistrictsChange}
               icon={
                 <svg width="13" height="11" viewBox="0 0 15 13" fill="none">
                   <rect x="0.5" y="5.5" width="6" height="7" stroke="currentColor" strokeWidth="1.4"/>
@@ -460,7 +540,7 @@ export default function Locations() {
               }
             />
             <FilterDropdown
-              label="Format" options={ALL_FORMATS} value={format} onChange={handleFormatChange}
+              label="Format" options={ALL_FORMATS} values={formats} onChange={handleFormatsChange}
               icon={
                 <svg width="13" height="11" viewBox="0 0 15 13" fill="none">
                   <rect x="0.5" y="0.5" width="14" height="12" stroke="currentColor" strokeWidth="1.4"/>
@@ -501,16 +581,16 @@ export default function Locations() {
               onClick={() => setMobileFiltersOpen(v => !v)}
               className="flex items-center gap-2 h-10 px-4 flex-1 text-[12px] font-semibold"
               style={{
-                background: hasFilters ? NAVY : "white",
+                background: hasFilters ? RED : "white",
                 color: hasFilters ? "white" : "rgba(11,15,26,0.6)",
-                border: `1.5px solid ${hasFilters ? NAVY : "rgba(11,15,26,0.12)"}`,
+                border: `1.5px solid ${hasFilters ? RED : "rgba(11,15,26,0.12)"}`,
                 borderRadius: 8, cursor: "pointer",
               }}
             >
               <svg width="13" height="11" viewBox="0 0 14 12" fill="none">
                 <path d="M1 2h12M3 6h8M5 10h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
-              Filters {hasFilters && `(${[city, district, format].filter(Boolean).length})`}
+              Filters {hasFilters && `(${cities.length + districts.length + formats.length})`}
               <ChevronDown />
             </button>
             <button
@@ -544,22 +624,22 @@ export default function Locations() {
                 className="lg:hidden overflow-hidden"
               >
                 <div className="pb-4 flex flex-col gap-3">
-                  <FilterDropdown label="City" options={ALL_CITIES} value={city} onChange={handleCityChange}
+                  <FilterDropdown label="City" options={ALL_CITIES} values={cities} onChange={handleCitiesChange}
                     icon={<svg width="11" height="13" viewBox="0 0 13 15" fill="none"><path d="M6.5 0C3.462 0 1 2.462 1 5.5c0 3.85 5.5 9.5 5.5 9.5S12 9.35 12 5.5C12 2.462 9.538 0 6.5 0zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fill="currentColor"/></svg>}
                   />
-                  <FilterDropdown label="District" options={districtOptions} value={district} onChange={handleDistrictChange}
+                  <FilterDropdown label="District" options={districtOptions} values={districts} onChange={handleDistrictsChange}
                     icon={<svg width="13" height="11" viewBox="0 0 15 13" fill="none"><rect x="0.5" y="5.5" width="6" height="7" stroke="currentColor" strokeWidth="1.4"/><rect x="8.5" y="2.5" width="6" height="10" stroke="currentColor" strokeWidth="1.4"/><path d="M0 5.5L7.5 0 15 5.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/></svg>}
                   />
-                  <FilterDropdown label="Format" options={ALL_FORMATS} value={format} onChange={handleFormatChange}
+                  <FilterDropdown label="Format" options={ALL_FORMATS} values={formats} onChange={handleFormatsChange}
                     icon={<svg width="13" height="11" viewBox="0 0 15 13" fill="none"><rect x="0.5" y="0.5" width="14" height="12" stroke="currentColor" strokeWidth="1.4"/><path d="M3 4h9M3 6.5h6M3 9h4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>}
                   />
-                  {hasFilters && (
-                    <button onClick={clearAll}
-                      className="flex items-center gap-1.5 text-[11px] font-bold tracking-[0.15em] uppercase"
-                      style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(11,15,26,0.4)" }}>
-                      <XIcon size={8}/> Clear all filters
-                    </button>
-                  )}
+              {hasFilters && (
+                <button onClick={() => { clearAll(); }}
+                  className="text-[10px] font-bold tracking-[0.15em] uppercase flex items-center gap-1.5"
+                  style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(11,15,26,0.4)" }}>
+                  <XIcon size={8}/> Clear all filters
+                </button>
+              )}
                 </div>
               </motion.div>
             )}
@@ -589,7 +669,7 @@ export default function Locations() {
             <div className="flex items-center justify-between">
               <p className="text-[13px] font-semibold" style={{ color: "rgba(11,15,26,0.55)" }}>
                 <span className="font-black" style={{ color: NAVY }}>{sorted.length} </span>
-                {city ? <>premium billboard location{sorted.length !== 1 ? "s" : ""} in <span style={{ color: RED }}>{city}</span></> : "premium billboard locations"}
+                {cityLabel ? <>premium billboard location{sorted.length !== 1 ? "s" : ""} in <span style={{ color: RED }}>{cityLabel}</span></> : "premium billboard locations"}
               </p>
               {hasFilters && (
                 <button onClick={clearAll}
@@ -610,11 +690,11 @@ export default function Locations() {
                 style={{ padding: "12px 32px 0", overflow: "hidden" }}
               >
                 <div className="flex items-center gap-2 flex-wrap">
-                  {[city && { label: "City", value: city, clear: () => handleCityChange("") },
-                    district && { label: "District", value: district, clear: () => handleDistrictChange("") },
-                    format && { label: "Format", value: format, clear: () => handleFormatChange("") }]
-                    .filter(Boolean)
-                    .map((chip: any) => (
+                  {[
+                    ...cities.map(v    => ({ label: "City",     value: v, clear: () => handleCitiesChange(cities.filter(x => x !== v)) })),
+                    ...districts.map(v => ({ label: "District", value: v, clear: () => handleDistrictsChange(districts.filter(x => x !== v)) })),
+                    ...formats.map(v   => ({ label: "Format",   value: v, clear: () => handleFormatsChange(formats.filter(x => x !== v)) })),
+                  ].map((chip) => (
                       <motion.span
                         key={chip.label}
                         initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
