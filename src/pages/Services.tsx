@@ -28,16 +28,15 @@ export default function Services() {
                 >
                   {/* Number */}
                   <span
-                    className="font-black text-[11px] tracking-[0.25em] uppercase mb-10 transition-colors duration-500 group-hover:text-white/15"
-                    style={{ color: "rgba(11,15,26,0.15)" }}
+                    className="font-black text-[11px] tracking-[0.25em] uppercase mb-10 text-[rgba(11,15,26,0.15)] group-hover:text-white/15 transition-colors duration-500"
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
 
                   {/* Title */}
                   <h2
-                    className="font-bold tracking-[-0.02em] mb-4 transition-colors duration-500 group-hover:text-white"
-                    style={{ fontSize: 22, color: NAVY, lineHeight: 1.2 }}
+                    className="font-bold tracking-[-0.02em] mb-4 text-[#0B0F1A] group-hover:text-white transition-colors duration-500"
+                    style={{ fontSize: 22, lineHeight: 1.2 }}
                   >
                     {service.title}
                   </h2>
@@ -54,8 +53,7 @@ export default function Services() {
 
                   {/* Short desc */}
                   <p
-                    className="text-[15px] leading-[1.7] flex-1 transition-colors duration-500 group-hover:text-white/40"
-                    style={{ color: "rgba(11,15,26,0.45)" }}
+                    className="text-[15px] leading-[1.7] flex-1 text-[rgba(11,15,26,0.45)] group-hover:text-white/70 transition-colors duration-500"
                   >
                     {service.description}
                   </p>

@@ -192,16 +192,7 @@ export default function ServiceDetail() {
               </p>
             </RevealItem>
           </RevealGroup>
-          <Reveal delay={0.1}>
-            <div className="mt-12 pt-8 border-t border-[#0B0F1A]/[0.07]">
-              <p className="text-[11px] font-bold tracking-[0.3em] uppercase mb-5" style={{ color: "rgba(11,15,26,0.3)" }}>Explore Related Services</p>
-              <div className="flex flex-wrap gap-4">
-                {others.map((s) => (
-                  <Link key={s.id} to={serviceHref(s.slug)} className="text-[13px] font-semibold tracking-[0.1em] uppercase px-5 py-2.5 border border-[#0B0F1A]/20 hover:border-[#0B0F1A] transition-colors" style={{ color: NAVY }}>{s.title}</Link>
-                ))}
-              </div>
-            </div>
-          </Reveal>
+
         </div>
       </section>
 
@@ -222,10 +213,10 @@ export default function ServiceDetail() {
                   style={{ textDecoration: "none" }}
                 >
                   <div>
-                    <p className="font-bold text-[16px] tracking-[-0.01em] transition-colors duration-400 group-hover:text-white" style={{ color: NAVY }}>
+                    <p className="font-bold text-[16px] tracking-[-0.01em] text-[#0B0F1A] group-hover:text-white transition-colors duration-400">
                       {s.title}
                     </p>
-                    <p className="text-[12px] font-semibold tracking-[0.1em] uppercase mt-1 transition-colors duration-400 group-hover:text-white/30" style={{ color: "rgba(11,15,26,0.3)" }}>
+                    <p className="text-[12px] font-semibold tracking-[0.1em] uppercase mt-1 text-[rgba(11,15,26,0.3)] group-hover:text-white/50 transition-colors duration-400">
                       {s.tagline}
                     </p>
                   </div>
