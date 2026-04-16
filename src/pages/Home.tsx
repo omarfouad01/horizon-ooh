@@ -10,7 +10,7 @@ import { serviceHref, locationHref, projectHref, productHref } from "@/lib/route
 
 // Cities, districts and formats are driven by the store (admin-managed)
 const getCities  = () => getState().locations.map((l: any) => l.city).sort();
-const getFormats = () => Array.from(new Set(getState().locations.flatMap((l: any) => (l.products||[]).map((p:any)=>p.adFormat).filter(Boolean)))).sort();
+const getFormats = () => getState().adFormats.map((f: any) => f.label).filter(Boolean).sort();
 const getBillboards = () => getState().locations.flatMap((l: any) => (l.products||[]).map((p: any) => ({ ...p, citySlug: l.slug })));
 
 // ─── Constants ───────────────────────────────────────────────────────────
@@ -203,9 +203,9 @@ function HeroSection() {
   const [formats,   setFormats]   = useState<string[]>([]);
 
 // Cities, districts, and formats from store
-  const { locations: _storeLocs, districts: _storeDists, homeContent: hc } = useStore()
+  const { locations: _storeLocs, districts: _storeDists, adFormats: _adFormats, homeContent: hc } = useStore()
   const ALL_CITIES  = _storeLocs.map((l: any) => l.city).sort()
-  const ALL_FORMATS = Array.from(new Set(_storeLocs.flatMap((l: any) => l.availableFormats || []))).sort()
+  const ALL_FORMATS = _adFormats.map((f: any) => f.label).filter(Boolean).sort()
 
   const districtOptions = (() => {
     if (cities.length === 0) return _storeDists.map((d: any) => d.name).sort()

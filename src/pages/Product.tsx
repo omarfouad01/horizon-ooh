@@ -206,7 +206,7 @@ export default function Product() {
               key={heroIdx}
               src={productImages[heroIdx].url}
               alt={productImages[heroIdx].alt}
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-contain"
               initial={{ opacity: 0, scale: 1.04 }}
               animate={{ opacity: 0.68, scale: 1 }}
               exit={{ opacity: 0, scale: 1.02 }}
@@ -299,7 +299,7 @@ export default function Product() {
                     key={detailIdx}
                     src={productImages[detailIdx].url}
                     alt={productImages[detailIdx].alt}
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-contain"
                     initial={{ opacity: 0, scale: 1.02 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 1.01 }}
@@ -325,7 +325,7 @@ export default function Product() {
                   {productImages.slice(0, 4).map((img: any, i: number) => (
                     <button key={img.id} onClick={() => setDetailIdx(i)} className="relative overflow-hidden border transition-all duration-200"
                       style={{ height: 82, borderColor: i === detailIdx ? RED : 'rgba(11,15,26,0.08)' }}>
-                      <img src={img.url} alt={img.alt} className="w-full h-full object-cover" />
+                      <img src={img.url} alt={img.alt} className="w-full h-full object-contain bg-white" />
                     </button>
                   ))}
                 </div>
