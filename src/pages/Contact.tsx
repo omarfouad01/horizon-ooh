@@ -1,4 +1,4 @@
-import { contactStore, useStore } from "@/store/dataStore"
+import { contactStore, siteUserStore, useStore } from "@/store/dataStore"
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Reveal, RevealGroup, RevealItem, PageHero, Eyebrow } from "@/components/UI";
@@ -28,25 +28,32 @@ export default function Contact() {
     e.preventDefault();
     setLoading(true);
     setApiError(null);
+
+    // ── Always save to local store immediately ─────────────────────────────
+    contactStore.add({
+      name:    form.name    || "",
+      email:   form.email   || "",
+      phone:   (form as any).phone,
+      company: (form as any).company,
+      subject: (form as any).subject || (form as any).service,
+      message: form.message || "",
+    });
+    // Track as site user
+    if (form.email) {
+      siteUserStore.upsert(form.email, { name: form.name, phone: (form as any).phone, source: 'contact' });
+    }
+
+    // ── Also try sending to PHP API (optional, non-blocking) ───────────────
     try {
-      const res = await fetch(`${API_URL}/contact`, {
+      await fetch(`${API_URL}/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      const json = await res.json() as { status: string; message?: string; errors?: Record<string, string> };
-      if (!res.ok || json.status !== "ok") {
-        const msg = json.message ?? "Something went wrong. Please try again.";
-        setApiError(msg);
-      } else {
-        contactStore.add({ name: form.name||"", email: form.email||"", phone: (form as any).phone, company: (form as any).company, subject: (form as any).subject||(form as any).service, message: form.message||"" })
-      setSubmitted(true);
-      }
-    } catch (_err) {
-      setApiError("Could not reach the server. Please check your connection.");
-    } finally {
-      setLoading(false);
-    }
+    } catch (_) { /* ignore — data already saved to store */ }
+
+    setLoading(false);
+    setSubmitted(true);
   };
 
   return (

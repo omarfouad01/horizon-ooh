@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ROUTES, RED, NAVY, ease } from "@/lib/routes";
+import { siteUserStore } from "@/store/dataStore";
 
 function AuthInput({ label, id, type = "text", placeholder, value, onChange, required = true }: {
   label: string; id: string; type?: string; placeholder: string;
@@ -145,6 +146,8 @@ export default function Signup() {
     if (!agreed) { setError("Please agree to the terms and privacy policy."); return; }
     setLoading(true);
     await new Promise((r) => setTimeout(r, 1100));
+    // Save user to admin store
+    siteUserStore.upsert(email, { name, phone: company, source: 'signup' });
     setLoading(false);
     setSuccess(true);
   };

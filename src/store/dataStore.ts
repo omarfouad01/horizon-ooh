@@ -101,6 +101,29 @@ export interface AboutContent {
 export interface ClientBrand  { id:string; name:string; logoUrl:string }
 export interface Supplier     { id:string; name:string; contact:string; email:string; phone:string; description:string; category:string }
 
+
+export interface Customer {
+  id:          string
+  name:        string
+  company:     string
+  email:       string
+  phone:       string
+  industry:    string
+  notes:       string
+  createdAt:   string
+}
+
+export interface SiteUser {
+  id:          string
+  name:        string
+  email:       string
+  phone:       string
+  source:      'signup' | 'login' | 'contact'
+  createdAt:   string
+  lastSeen:    string
+  notes:       string
+}
+
 export interface StoreState {
   locations:    Location[]
   districts:    District[]
@@ -116,6 +139,9 @@ export interface StoreState {
   results:      { value:string; label:string; sublabel:string }[]
   about:        AboutContent
   adFormats:    AdFormatType[]
+  customers:    Customer[]
+  siteUsers:    SiteUser[]
+  _bbCodeSeq:   number
 }
 
 // ── Official 27 Egyptian Governorates ─────────────────────────────────────────
@@ -379,6 +405,9 @@ function defaultState(): StoreState {
     results:      RESULTS,
     about:        DEFAULT_ABOUT,
     adFormats:    DEFAULT_AD_FORMATS,
+    customers:    [],
+    siteUsers:    [],
+    _bbCodeSeq:   1918,
   }
 }
 
@@ -405,6 +434,9 @@ function load(): StoreState {
       results:      p.results      ?? d.results,
       about:        p.about        ?? d.about,
       adFormats:    p.adFormats    ?? d.adFormats,
+      customers:    p.customers    ?? d.customers,
+      siteUsers:    p.siteUsers    ?? d.siteUsers,
+      _bbCodeSeq:   p._bbCodeSeq   ?? d._bbCodeSeq,
     }
   } catch { return defaultState() }
 }
@@ -483,6 +515,29 @@ export const processStore    = {
 }
 export const resultStore     = { set:(results:StoreState['results'])=>setState(s=>({...s,results})) }
 export const aboutStore      = { update:(p:Partial<AboutContent>)=>setState(s=>({...s,about:{...s.about,...p}})) }
+
+export const customerStore = {
+  add:    (x:Omit<Customer,'id'|'createdAt'>)         => setState(s=>({...s,customers:[{...x,id:uid(),createdAt:new Date().toISOString()},...s.customers]})),
+  update: (id:string,p:Partial<Customer>)             => setState(s=>({...s,customers:s.customers.map(x=>x.id===id?{...x,...p}:x)})),
+  remove: (id:string)                                  => setState(s=>({...s,customers:s.customers.filter(x=>x.id!==id)})),
+}
+export const siteUserStore = {
+  upsert: (email:string, data:Partial<Omit<SiteUser,'id'>>) => setState(s=>{
+    const existing = s.siteUsers.find(u=>u.email===email)
+    if (existing) {
+      return {...s, siteUsers: s.siteUsers.map(u=>u.email===email ? {...u,...data,lastSeen:new Date().toISOString()} : u)}
+    }
+    return {...s, siteUsers:[{id:uid(),name:'',phone:'',notes:'',source:'signup',createdAt:new Date().toISOString(),lastSeen:new Date().toISOString(),...data,email},...s.siteUsers]}
+  }),
+  update: (id:string,p:Partial<SiteUser>)             => setState(s=>({...s,siteUsers:s.siteUsers.map(x=>x.id===id?{...x,...p}:x)})),
+  remove: (id:string)                                  => setState(s=>({...s,siteUsers:s.siteUsers.filter(x=>x.id!==id)})),
+}
+/** Generate next unique billboard code like H-1918 */
+export function nextBillboardCode(): string {
+  let seq = 0
+  setState(s=>{ seq=s._bbCodeSeq; return {...s,_bbCodeSeq:s._bbCodeSeq+1} })
+  return `H-${seq}`
+}
 export const adFormatStore = {
   add:    (x:Omit<AdFormatType,'id'>)           => setState(s=>({...s,adFormats:[...s.adFormats,{...x,id:uid()}]})),
   update: (id:string,p:Partial<AdFormatType>)   => setState(s=>({...s,adFormats:s.adFormats.map(x=>x.id===id?{...x,...p}:x)})),

@@ -35,6 +35,8 @@ import AdminContacts   from "@/admin/pages/AdminContacts";
 import AdminSettings   from "@/admin/pages/AdminSettings";
 import AdminAbout      from "@/admin/pages/AdminAbout";
 import AdminSuppliers  from "@/admin/pages/AdminSuppliers";
+import AdminCustomers  from "@/admin/pages/AdminCustomers";
+import AdminUsers      from "@/admin/pages/AdminUsers";
 
 const queryClient = new QueryClient();
 
@@ -76,6 +78,8 @@ const App = () => (
               <Route path="settings"    element={<AdminSettings />} />
               <Route path="about"       element={<AdminAbout />} />
               <Route path="suppliers"   element={<AdminSuppliers />} />
+              <Route path="customers"   element={<AdminCustomers />} />
+              <Route path="users"       element={<AdminUsers />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

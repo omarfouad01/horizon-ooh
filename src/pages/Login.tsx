@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ROUTES, RED, NAVY, ease } from "@/lib/routes";
+import { siteUserStore } from "@/store/dataStore";
 
 // ─── Shared input component ───────────────────────────────────────────────
 function AuthInput({
@@ -127,6 +128,8 @@ export default function Login() {
     setLoading(true);
     // Simulate API call — replace with real auth
     await new Promise((r) => setTimeout(r, 1100));
+    // Record login attempt in admin users list
+    siteUserStore.upsert(email, { source: 'login' });
     setLoading(false);
     // navigate("/dashboard"); // uncomment when dashboard exists
     setError("Demo mode — backend auth not yet connected.");
