@@ -5,8 +5,71 @@
 import {
   LOCATIONS, SERVICES, PROJECTS, BLOG_POSTS,
   TRUST_STATS, CLIENT_BRANDS, PROCESS, RESULTS,
-  type Location, type Service, type Project, type BlogPost,
+  type Location as _Location, type Service, type Project, type BlogPost,
 } from '../data/index'
+// ── Extended Billboard / Product type ────────────────────────────────────────
+export interface BillboardImage {
+  url:  string
+  alt:  string   // uses filename for SEO
+}
+
+export interface Product {
+  id:             string
+  slug:           string
+  // Names
+  nameEn:         string
+  nameAr:         string
+  name:           string        // alias for nameEn (website compat)
+  // Location
+  location:       string        // address
+  locationName:   string        // landmark / place name
+  city:           string
+  district:       string
+  lat:            number
+  lng:            number
+  // Classification
+  adFormat:       string        // Billboard | Digital Screens | Mall Advertising | Airport Advertising | Transit Ads
+  type:           string        // from admin-managed type list
+  // Physical
+  size:           string        // e.g. "12m × 6m"
+  sqm:            number        // auto-computed from size
+  sides:          number
+  material:       string
+  brightness:     string        // Back Light | Internal Light
+  // Digital-only
+  resolution:     string        // visible only when adFormat === Digital Screens
+  spot:           string        // visible only when adFormat === Digital Screens
+  // Commercial
+  agencyPrice:    number
+  clientPrice:    number
+  availability:   string        // ISO date string
+  status:         'Available' | 'Not Available'
+  quantity:       number
+  // Descriptions
+  descriptionEn:  string
+  descriptionAr:  string
+  // Traffic
+  traffic:        string
+  visibility:     string
+  // Supplier
+  supplierId:     string
+  supplierNote:   string
+  // Media
+  images:         BillboardImage[]
+  image:          string        // compat: first image url
+  // Legacy
+  specs:          { label: string; value: string }[]
+  benefits:       string[]
+  relatedSlugs:   string[]
+}
+
+// Location type that uses our extended Product
+export type Location = Omit<_Location, 'products'> & { products: Product[] }
+
+// Admin-managed Ad Format types
+export interface AdFormatType { id: string; label: string }
+
+
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 export interface District   { id: string; name: string; locationId: string }
@@ -52,6 +115,7 @@ export interface StoreState {
   process:      ProcessStep[]
   results:      { value:string; label:string; sublabel:string }[]
   about:        AboutContent
+  adFormats:    AdFormatType[]
 }
 
 // ── Official 27 Egyptian Governorates ─────────────────────────────────────────
@@ -290,6 +354,15 @@ const DEFAULT_SUPPLIERS: Supplier[] = []
 const DEFAULT_TRUST_STATS: TrustStat[]  = TRUST_STATS.map((s,i) => ({id:String(i+1),...s}))
 const DEFAULT_PROCESS:     ProcessStep[] = PROCESS.map((p,i) => ({id:String(i+1),...p}))
 
+
+const DEFAULT_AD_FORMATS: AdFormatType[] = [
+  { id:'af1', label:'Billboard' },
+  { id:'af2', label:'Digital Screens' },
+  { id:'af3', label:'Mall Advertising' },
+  { id:'af4', label:'Airport Advertising' },
+  { id:'af5', label:'Transit Ads' },
+]
+
 function defaultState(): StoreState {
   return {
     locations:    buildDefaultLocations(),
@@ -305,6 +378,7 @@ function defaultState(): StoreState {
     process:      DEFAULT_PROCESS,
     results:      RESULTS,
     about:        DEFAULT_ABOUT,
+    adFormats:    DEFAULT_AD_FORMATS,
   }
 }
 
@@ -330,6 +404,7 @@ function load(): StoreState {
       process:      p.process      ?? d.process,
       results:      p.results      ?? d.results,
       about:        p.about        ?? d.about,
+      adFormats:    p.adFormats    ?? d.adFormats,
     }
   } catch { return defaultState() }
 }
@@ -408,3 +483,8 @@ export const processStore    = {
 }
 export const resultStore     = { set:(results:StoreState['results'])=>setState(s=>({...s,results})) }
 export const aboutStore      = { update:(p:Partial<AboutContent>)=>setState(s=>({...s,about:{...s.about,...p}})) }
+export const adFormatStore = {
+  add:    (x:Omit<AdFormatType,'id'>)           => setState(s=>({...s,adFormats:[...s.adFormats,{...x,id:uid()}]})),
+  update: (id:string,p:Partial<AdFormatType>)   => setState(s=>({...s,adFormats:s.adFormats.map(x=>x.id===id?{...x,...p}:x)})),
+  remove: (id:string)                            => setState(s=>({...s,adFormats:s.adFormats.filter(x=>x.id!==id)})),
+}

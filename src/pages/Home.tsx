@@ -4,12 +4,13 @@ import { useStore, getState } from "@/store/dataStore";
 import { motion, AnimatePresence, useInView, useScroll, useTransform } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 import MultiSelect from "@/components/MultiSelect";
+import LogoMarquee from "@/components/LogoMarquee";
 // data now from store
 import { serviceHref, locationHref, projectHref, productHref } from "@/lib/routes";
 
 // Cities, districts and formats are driven by the store (admin-managed)
 const getCities  = () => getState().locations.map((l: any) => l.city).sort();
-const getFormats = () => Array.from(new Set(getState().locations.flatMap((l: any) => l.availableFormats || []))).sort();
+const getFormats = () => Array.from(new Set(getState().locations.flatMap((l: any) => (l.products||[]).map((p:any)=>p.adFormat).filter(Boolean)))).sort();
 const getBillboards = () => getState().locations.flatMap((l: any) => (l.products||[]).map((p: any) => ({ ...p, citySlug: l.slug })));
 
 // ─── Constants ───────────────────────────────────────────────────────────
@@ -590,13 +591,7 @@ function TrustStrip() {
                   className="font-black leading-none tracking-[-0.05em] mb-4"
                   style={{ fontSize: "clamp(48px, 5vw, 72px)", color: RED }}
                 >
-                  {stat.value === "Nationwide" ? (
-                    <span>{stat.value}</span>
-                  ) : stat.value === "Premium" ? (
-                    <span>{stat.value}</span>
-                  ) : (
-                    <Counter value={9500} suffix="+" />
-                  )}
+                  <span>{stat.value}</span>
                 </div>
                 <div
                   className="font-semibold tracking-[0.22em] uppercase"
@@ -1005,49 +1000,20 @@ function ResultsSection() {
 // 9. CLIENTS / TRUST
 // ═══════════════════════════════════════════════════════════════════════════
 function ClientsSection() {
-  const { clientBrands: CLIENT_BRANDS } = useStore()
+  const { clientBrands } = useStore()
   return (
-    <section
-      id="about"
-      style={{ background: "#F5F5F6", paddingTop: 96, paddingBottom: 96 }}
-    >
+    <section id="about" style={{ background: "#F5F5F6", paddingTop: 80, paddingBottom: 80 }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         <Reveal>
-          <div className="flex items-center justify-center gap-4 mb-14">
+          <div className="flex items-center justify-center gap-4 mb-12">
             <span className="block w-8 h-[1px]" style={{ background: "rgba(11,15,26,0.15)" }} />
-            <p
-              className="text-[11px] font-bold tracking-[0.3em] uppercase text-center"
-              style={{ color: "rgba(11,15,26,0.3)" }}
-            >
+            <p className="text-[11px] font-bold tracking-[0.3em] uppercase text-center" style={{ color: "rgba(11,15,26,0.3)" }}>
               Trusted by 100+ brands across Egypt
             </p>
             <span className="block w-8 h-[1px]" style={{ background: "rgba(11,15,26,0.15)" }} />
           </div>
         </Reveal>
-
-        <RevealGroup className="flex flex-wrap justify-center items-center gap-x-12 gap-y-6">
-          {CLIENT_BRANDS.map((brand) => (
-            <RevealItem key={brand.id}>
-              {brand.logoUrl ? (
-                <img
-                  src={brand.logoUrl}
-                  alt={brand.name}
-                  title={brand.name}
-                  style={{ height:32, width:'auto', objectFit:'contain', opacity:0.35, filter:'grayscale(1)', transition:'opacity .2s, filter .2s', cursor:'default' }}
-                  onMouseEnter={e=>{ (e.currentTarget as HTMLImageElement).style.opacity='0.7'; (e.currentTarget as HTMLImageElement).style.filter='grayscale(0)'; }}
-                  onMouseLeave={e=>{ (e.currentTarget as HTMLImageElement).style.opacity='0.35'; (e.currentTarget as HTMLImageElement).style.filter='grayscale(1)'; }}
-                />
-              ) : (
-                <span
-                  className="font-bold tracking-[0.15em] uppercase cursor-default transition-colors duration-200 hover:text-[#0B0F1A]/70"
-                  style={{ fontSize: 14, color: "rgba(11,15,26,0.2)", letterSpacing: "0.12em" }}
-                >
-                  {brand.name}
-                </span>
-              )}
-            </RevealItem>
-          ))}
-        </RevealGroup>
+        <LogoMarquee brands={clientBrands} speed={45} light={true} />
       </div>
     </section>
   );
