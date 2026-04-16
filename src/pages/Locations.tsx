@@ -26,11 +26,7 @@ const BADGES: Record<string, string[]> = {
 };
 const getBadges = (type: string) => BADGES[type] ?? ["Premium Location"];
 
-const SORT_OPTIONS = [
-  { id: "recommended",  label: "Recommended" },
-  { id: "strategic",    label: "Most Strategic" },
-  { id: "traffic",      label: "Highest Traffic" },
-];
+
 
 // ─── Tiny helpers ───────────────────────────────────────────────────────────
 function ChevronDown({ size = 10 }: { size?: number }) {
@@ -75,16 +71,17 @@ function FilterDropdown({ label, options, value, onChange, icon }: FilterDropdow
       <button
         type="button"
         onClick={() => setOpen(v => !v)}
-        className="flex items-center gap-2 h-10 px-4 text-[12px] font-semibold transition-all duration-200 whitespace-nowrap"
+        className="flex items-center gap-2 h-11 px-5 text-[13px] font-bold transition-all duration-200 whitespace-nowrap"
         style={{
-          background: selected ? NAVY : "white",
-          color: selected ? "white" : "rgba(11,15,26,0.55)",
-          border: `1.5px solid ${selected ? NAVY : "rgba(11,15,26,0.12)"}`,
-          borderRadius: 6,
+          background: selected ? RED : "white",
+          color: selected ? "white" : NAVY,
+          border: `2px solid ${selected ? RED : "rgba(11,15,26,0.22)"}`,
+          borderRadius: 8,
           cursor: "pointer",
+          boxShadow: selected ? "0 2px 12px rgba(217,4,41,0.2)" : "0 1px 4px rgba(11,15,26,0.06)",
         }}
       >
-        <span className="opacity-60">{icon}</span>
+        <span style={{ opacity: selected ? 1 : 0.5 }}>{icon}</span>
         <span>{selected ? value : label}</span>
         {selected ? (
           <span
@@ -312,7 +309,7 @@ export default function Locations() {
   const [city,     setCity]     = useState(searchParams.get("city")     ?? "");
   const [district, setDistrict] = useState(searchParams.get("district") ?? "");
   const [format,   setFormat]   = useState(searchParams.get("format")   ?? "");
-  const [sort,     setSort]     = useState("recommended");
+
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [mobileMapOpen,     setMobileMapOpen]     = useState(false);
 
@@ -346,19 +343,7 @@ export default function Locations() {
     return true;
   });
 
-  const sorted = [...filtered].sort((a, b) => {
-    if (sort === "traffic") {
-      const aNum = parseInt(a.traffic.replace(/\D/g, "")) || 0;
-      const bNum = parseInt(b.traffic.replace(/\D/g, "")) || 0;
-      return bNum - aNum;
-    }
-    if (sort === "strategic") {
-      // Unipoles + Mega billboards first
-      const rank = (t: string) => t.includes("Unipole") || t.includes("Mega") ? 0 : 1;
-      return rank(a.type) - rank(b.type);
-    }
-    return 0; // recommended — keep default order
-  });
+  const sorted = filtered;
 
   const hasFilters = city !== "" || district !== "" || format !== "";
   const clearAll = () => { setCity(""); setDistrict(""); setFormat(""); setSearchParams({}); };
@@ -450,10 +435,10 @@ export default function Locations() {
       >
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           {/* Desktop filter row */}
-          <div className="hidden lg:flex items-center gap-3 py-3">
+          <div className="hidden lg:flex items-center gap-3 py-4">
             {/* Filters label */}
-            <span className="text-[10px] font-bold tracking-[0.3em] uppercase mr-2 flex-shrink-0"
-              style={{ color: "rgba(11,15,26,0.3)" }}>Filter:</span>
+            <span className="text-[11px] font-bold tracking-[0.25em] uppercase mr-1 flex-shrink-0"
+              style={{ color: "rgba(11,15,26,0.45)" }}>Filter:</span>
 
             <FilterDropdown
               label="City" options={ALL_CITIES} value={city} onChange={handleCityChange}
@@ -501,31 +486,12 @@ export default function Locations() {
             {/* Spacer */}
             <div className="flex-1" />
 
-            {/* Sort */}
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] font-semibold tracking-[0.2em] uppercase"
-                style={{ color: "rgba(11,15,26,0.3)" }}>Sort:</span>
-              {SORT_OPTIONS.map(opt => (
-                <button key={opt.id} onClick={() => setSort(opt.id)}
-                  className="h-9 px-3.5 text-[11px] font-semibold tracking-[0.1em] transition-all duration-200"
-                  style={{
-                    background: sort === opt.id ? NAVY : "transparent",
-                    color: sort === opt.id ? "white" : "rgba(11,15,26,0.4)",
-                    border: `1.5px solid ${sort === opt.id ? NAVY : "rgba(11,15,26,0.1)"}`,
-                    borderRadius: 6,
-                    cursor: "pointer",
-                  }}>
-                  {opt.label}
-                </button>
-              ))}
-            </div>
-
             {/* Result count pill */}
-            <div className="flex items-center gap-2 px-3.5 py-2 ml-2"
-              style={{ background: "rgba(11,15,26,0.04)", borderRadius: 6 }}>
-              <span className="text-[11px] font-bold" style={{ color: NAVY }}>{sorted.length}</span>
-              <span className="text-[10px] font-semibold tracking-[0.1em] uppercase"
-                style={{ color: "rgba(11,15,26,0.4)" }}>locations</span>
+            <div className="flex items-center gap-2 px-4 py-2"
+              style={{ background: "rgba(11,15,26,0.06)", borderRadius: 8 }}>
+              <span className="text-[13px] font-black" style={{ color: NAVY }}>{sorted.length}</span>
+              <span className="text-[10px] font-bold tracking-[0.15em] uppercase"
+                style={{ color: "rgba(11,15,26,0.45)" }}>locations</span>
             </div>
           </div>
 
