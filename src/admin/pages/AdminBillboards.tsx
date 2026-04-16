@@ -1,4 +1,6 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
 import { useStore, locationStore, nextBillboardCode, type Supplier, type Product, type AdFormatType, adFormatStore } from '@/store/dataStore'
 import { Btn, PageHeader, Tbl, Th, Td, Tr, Badge, Confirm, Modal, Field } from '../ui'
 import { Plus, Pencil, Trash2, X, Upload, MapPin, Settings2, ExternalLink, Copy } from 'lucide-react'
@@ -41,18 +43,70 @@ const inp = "h-9 px-3 rounded-xl border border-gray-200 text-sm outline-none foc
 const ta  = "px-3 py-2 rounded-xl border border-gray-200 text-sm outline-none focus:border-gray-400 resize-none w-full"
 
 // ── Map Picker ────────────────────────────────────────────────────────────────
+// ── Interactive Leaflet Map Picker ────────────────────────────────────────────
+function LeafletPickerMap({ lat, lng, onMove }: { lat: number; lng: number; onMove:(la:number,lo:number)=>void }) {
+  const divRef  = useRef<HTMLDivElement>(null)
+  const mapRef  = useRef<L.Map | null>(null)
+  const pinRef  = useRef<L.Marker | null>(null)
+
+  const makeIcon = () => L.divIcon({
+    className:'',
+    html:`<div style="width:28px;height:28px;background:#D90429;border:3px solid white;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 2px 8px rgba(0,0,0,0.35)"></div>`,
+    iconSize:[28,28], iconAnchor:[14,28],
+  })
+
+  useEffect(()=>{
+    if (!divRef.current || mapRef.current) return
+    const initLat = lat || 30.0444, initLng = lng || 31.2357
+    const map = L.map(divRef.current, { center:[initLat,initLng], zoom:13, zoomControl:true })
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
+      attribution:'&copy; OpenStreetMap &copy; CARTO', maxZoom:19
+    }).addTo(map)
+    const marker = L.marker([initLat,initLng],{ icon:makeIcon(), draggable:true }).addTo(map)
+    marker.on('dragend',()=>{
+      const p = marker.getLatLng()
+      onMove(Math.round(p.lat*1e6)/1e6, Math.round(p.lng*1e6)/1e6)
+    })
+    map.on('click',(e)=>{
+      const {lat:la,lng:lo} = e.latlng
+      marker.setLatLng([la,lo])
+      onMove(Math.round(la*1e6)/1e6, Math.round(lo*1e6)/1e6)
+    })
+    mapRef.current = map; pinRef.current = marker
+    return ()=>{ map.remove(); mapRef.current=null; pinRef.current=null }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
+
+  // Sync external lat/lng changes into the map
+  useEffect(()=>{
+    if (!mapRef.current || !pinRef.current) return
+    if (!lat || !lng) return
+    pinRef.current.setLatLng([lat,lng])
+    mapRef.current.setView([lat,lng], mapRef.current.getZoom(), {animate:true})
+  },[lat,lng])
+
+  return <div ref={divRef} style={{width:'100%',height:'100%',minHeight:340}}/>
+}
+
 function MapPicker({ lat, lng, onChange }: { lat: number; lng: number; onChange:(lat:number,lng:number)=>void }) {
   const [open, setOpen] = useState(false)
-  const [tempLat, setTempLat] = useState(String(lat || 30.0444))
-  const [tempLng, setTempLng] = useState(String(lng || 31.2357))
+  const [tempLat, setTempLat] = useState(lat || 30.0444)
+  const [tempLng, setTempLng] = useState(lng || 31.2357)
 
-  const mapUrl = `https://maps.google.com/maps?q=${tempLat},${tempLng}&z=15&output=embed`
-  const osmUrl = `https://www.openstreetmap.org/?mlat=${tempLat}&mlon=${tempLng}#map=15/${tempLat}/${tempLng}`
+  // Keep temp coords in sync when parent values change (first open)
+  useEffect(()=>{
+    if (lat) setTempLat(lat)
+    if (lng) setTempLng(lng)
+  },[lat,lng])
 
-  function apply() {
-    const la = parseFloat(tempLat), lo = parseFloat(tempLng)
-    if (!isNaN(la) && !isNaN(lo)) { onChange(la, lo); setOpen(false); toast.success('Location updated') }
-    else toast.error('Invalid coordinates')
+  const handleMapMove = useCallback((la:number,lo:number)=>{
+    setTempLat(la); setTempLng(lo)
+  },[])
+
+  function confirm() {
+    if (!isNaN(tempLat) && !isNaN(tempLng)) {
+      onChange(tempLat, tempLng); setOpen(false); toast.success('Location saved ✓')
+    }
   }
 
   if (!open) {
@@ -76,52 +130,52 @@ function MapPicker({ lat, lng, onChange }: { lat: number; lng: number; onChange:
   }
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4" style={{background:'rgba(11,15,26,0.7)'}}>
-      <div className="bg-white rounded-xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col" style={{maxHeight:'90vh'}}>
+    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4" style={{background:'rgba(11,15,26,0.72)'}}>
+      <div className="bg-white rounded-xl w-full max-w-3xl shadow-2xl overflow-hidden flex flex-col" style={{maxHeight:'92vh'}}>
+        {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 flex-shrink-0">
-          <h3 className="text-[14px] font-bold text-gray-900 flex items-center gap-2"><MapPin size={15} style={{color:'#D90429'}}/>Pick Location on Map</h3>
+          <h3 className="text-[14px] font-bold text-gray-900 flex items-center gap-2">
+            <MapPin size={15} style={{color:'#D90429'}}/>Pick Location on Map
+          </h3>
           <button onClick={()=>setOpen(false)} className="text-gray-400 hover:text-gray-700 p-1 rounded-lg hover:bg-gray-100"><X size={15}/></button>
         </div>
-        <div className="p-4 flex-shrink-0 bg-gray-50 border-b border-gray-100">
-          <p className="text-[12px] text-gray-500 mb-3">Enter coordinates manually or copy them from Google Maps / OpenStreetMap.</p>
-          <div className="flex gap-2 items-end flex-wrap">
-            <div className="flex-1 min-w-[140px]">
+
+        {/* Hint */}
+        <div className="px-5 py-2.5 bg-blue-50 border-b border-blue-100 flex-shrink-0">
+          <p className="text-[12px] text-blue-700">
+            <strong>Click anywhere on the map</strong> or <strong>drag the red pin</strong> to set the exact location. Use the coordinate inputs below to fine-tune.
+          </p>
+        </div>
+
+        {/* Map — takes all available space */}
+        <div className="flex-1 relative overflow-hidden" style={{minHeight:340}}>
+          {open && <LeafletPickerMap lat={tempLat} lng={tempLng} onMove={handleMapMove}/>}
+        </div>
+
+        {/* Coordinate inputs + actions */}
+        <div className="px-5 py-4 border-t border-gray-100 flex-shrink-0 bg-gray-50/80">
+          <div className="flex gap-3 items-end flex-wrap">
+            <div className="flex-1 min-w-[130px]">
               <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-1">Latitude</label>
-              <input className={inp} value={tempLat} onChange={e=>setTempLat(e.target.value)} placeholder="30.0722"/>
+              <input className={inp} type="number" step="any" value={tempLat}
+                onChange={e=>{const v=parseFloat(e.target.value);if(!isNaN(v))setTempLat(v)}}/>
             </div>
-            <div className="flex-1 min-w-[140px]">
+            <div className="flex-1 min-w-[130px]">
               <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-1">Longitude</label>
-              <input className={inp} value={tempLng} onChange={e=>setTempLng(e.target.value)} placeholder="31.3987"/>
+              <input className={inp} type="number" step="any" value={tempLng}
+                onChange={e=>{const v=parseFloat(e.target.value);if(!isNaN(v))setTempLng(v)}}/>
             </div>
-            <Btn type="button" onClick={apply} className="flex items-center gap-1.5">
-              <MapPin size={13}/> Set Location
+            <Btn type="button" onClick={()=>setOpen(false)} className="bg-gray-100 text-gray-700 hover:bg-gray-200 flex-shrink-0">Cancel</Btn>
+            <Btn type="button" onClick={confirm} className="flex items-center gap-1.5 flex-shrink-0">
+              <MapPin size={13}/> Save Location
             </Btn>
           </div>
-        </div>
-        {/* Embedded map */}
-        <div className="flex-1 relative" style={{minHeight:300}}>
-          <iframe
-            title="map-picker"
-            src={mapUrl}
-            className="w-full h-full border-0"
-            style={{minHeight:300}}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
-        </div>
-        <div className="px-5 py-3 border-t border-gray-100 flex-shrink-0 flex gap-3 items-center bg-gray-50/60">
-          <a href={osmUrl} target="_blank" rel="noopener noreferrer"
-            className="text-[12px] text-blue-600 hover:text-blue-800 font-semibold flex items-center gap-1">
-            <ExternalLink size={11}/> Open in OpenStreetMap to get exact coords
-          </a>
-          <a href={`https://maps.google.com/?q=${tempLat},${tempLng}`} target="_blank" rel="noopener noreferrer"
-            className="text-[12px] text-blue-600 hover:text-blue-800 font-semibold flex items-center gap-1 ml-2">
-            <ExternalLink size={11}/> Open in Google Maps
-          </a>
-          <div className="ml-auto flex gap-2">
-            <Btn type="button" onClick={()=>setOpen(false)} className="bg-gray-100 text-gray-700 hover:bg-gray-200">Cancel</Btn>
-            <Btn type="button" onClick={apply} className="flex items-center gap-1.5"><MapPin size={13}/> Confirm Location</Btn>
-          </div>
+          <p className="text-[10px] text-gray-400 mt-2">
+            Selected: <span className="font-mono font-semibold text-gray-600">{tempLat.toFixed(6)}, {tempLng.toFixed(6)}</span>
+            &nbsp;·&nbsp;
+            <a href={`https://maps.google.com/?q=${tempLat},${tempLng}`} target="_blank" rel="noopener noreferrer"
+              className="text-blue-500 hover:text-blue-700 font-semibold">Verify in Google Maps ↗</a>
+          </p>
         </div>
       </div>
     </div>
@@ -225,8 +279,8 @@ function BillboardForm({ editing, onClose }: any) {
       slug:   (f.nameEn || f.name || '').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''),
       sqm:    parseSqm(f.size),
       image:  f.images?.[0]?.url || f.image || '',
-      lat:    parseFloat(f.lat) || 0,
-      lng:    parseFloat(f.lng) || 0,
+      lat:    typeof f.lat === 'number' ? f.lat : (parseFloat(f.lat) || 0),
+      lng:    typeof f.lng === 'number' ? f.lng : (parseFloat(f.lng) || 0),
       code:   f.code || code,
     }
     if (editing) {
@@ -484,12 +538,19 @@ export default function AdminBillboards() {
   const [govFilter, setGovFilter] = useState('')
   const [fmtFilter, setFmtFilter] = useState('')
   const [statusFilter, setStatusFilter] = useState('')
+  const [codeSearch, setCodeSearch] = useState('')
   const [typesMgr, setTypesMgr] = useState(false)
 
   const filtered = allBillboards.filter(b => {
     if (govFilter    && b._locId   !== govFilter)   return false
     if (fmtFilter    && b.adFormat !== fmtFilter)    return false
     if (statusFilter && b.status   !== statusFilter) return false
+    if (codeSearch) {
+      const q = codeSearch.toLowerCase()
+      const matchCode = (b.code||'').toLowerCase().includes(q)
+      const matchName = ((b.nameEn||b.name||'')).toLowerCase().includes(q)
+      if (!matchCode && !matchName) return false
+    }
     return true
   })
 
@@ -516,8 +577,26 @@ export default function AdminBillboards() {
           </div>
         }
       />
-      {/* Filters */}
+      {/* Filters + Search */}
       <div className="flex flex-wrap gap-3 mb-5">
+        {/* Code / name search */}
+        <div className="relative">
+          <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" width="13" height="13" viewBox="0 0 14 14" fill="none">
+            <circle cx="6" cy="6" r="4.5" stroke="currentColor" strokeWidth="1.5"/>
+            <path d="M9.5 9.5l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+          </svg>
+          <input
+            value={codeSearch}
+            onChange={e => setCodeSearch(e.target.value)}
+            placeholder="Search by code or name…"
+            className="h-9 pl-8 pr-3 rounded-xl border border-gray-200 text-sm outline-none bg-white focus:border-gray-400 w-56"
+          />
+          {codeSearch && (
+            <button onClick={() => setCodeSearch('')} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-700">
+              <X size={12}/>
+            </button>
+          )}
+        </div>
         <select value={govFilter} onChange={e=>setGovFilter(e.target.value)} className="h-9 px-3 rounded-xl border border-gray-200 text-sm outline-none bg-white min-w-[180px]">
           <option value="">All Governorates ({allBillboards.length})</option>
           {locations.map((l: any) => <option key={l.id} value={l.id}>{l.city} ({(l.products||[]).length})</option>)}
@@ -531,9 +610,10 @@ export default function AdminBillboards() {
           <option value="Available">Available</option>
           <option value="Not Available">Not Available</option>
         </select>
-        {(govFilter||fmtFilter||statusFilter) && (
-          <button onClick={()=>{setGovFilter('');setFmtFilter('');setStatusFilter('')}} className="text-xs text-gray-400 hover:text-gray-700 font-semibold px-2">Clear filters</button>
+        {(govFilter||fmtFilter||statusFilter||codeSearch) && (
+          <button onClick={()=>{setGovFilter('');setFmtFilter('');setStatusFilter('');setCodeSearch('')}} className="text-xs text-gray-400 hover:text-gray-700 font-semibold px-2">Clear all</button>
         )}
+        <span className="ml-auto text-xs text-gray-400 self-center">{filtered.length} of {allBillboards.length} shown</span>
       </div>
 
       <Tbl>

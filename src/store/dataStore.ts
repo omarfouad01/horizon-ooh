@@ -125,6 +125,34 @@ export interface SiteUser {
   notes:       string
 }
 
+export interface HomeContent {
+  heroEyebrow: string
+  heroTitleLines: string[]
+  heroChannels: string
+  heroStatement: string
+  searchTitle: string
+  statementEyebrow: string
+  statementLines: string[]
+  statementBrand: string
+  featureEyebrow: string
+  featureTitleLine1: string
+  featureTitleLine2: string
+  featureBullets: string[]
+  featureButtonText: string
+  featureImage: string
+  featureStatsLabel: string
+  featureStatsValue: string
+  signatureEyebrow: string
+  signatureLines: string[]
+  finalCtaEyebrow: string
+  finalCtaTitleLine1: string
+  finalCtaTitleLine2: string
+  finalCtaSubtext: string
+  finalCtaPrimaryText: string
+  finalCtaSecondaryText: string
+  finalCtaBadges: string[]
+}
+
 export interface StoreState {
   locations:    Location[]
   districts:    District[]
@@ -139,6 +167,7 @@ export interface StoreState {
   process:      ProcessStep[]
   results:      { value:string; label:string; sublabel:string }[]
   about:        AboutContent
+  homeContent:  HomeContent
   adFormats:    AdFormatType[]
   customers:    Customer[]
   siteUsers:    SiteUser[]
@@ -384,6 +413,38 @@ const DEFAULT_TRUST_STATS: TrustStat[]  = TRUST_STATS.map((s,i) => ({id:String(i
 const DEFAULT_PROCESS:     ProcessStep[] = PROCESS.map((p,i) => ({id:String(i+1),...p}))
 
 
+const DEFAULT_HOME_CONTENT: HomeContent = {
+  heroEyebrow:        "Egypt's Premier OOH Network",
+  heroTitleLines:     ['Outdoor', 'Advertising', 'Agency.'],
+  heroChannels:       'Billboards · DOOH · Malls · Airports',
+  heroStatement:      'We make brands impossible to ignore.',
+  searchTitle:        'Find a Billboard',
+  statementEyebrow:   'A thought',
+  statementLines:     ['"If your brand', "isn't seen,", 'it doesn\'t exist."'],
+  statementBrand:     'HORIZON OOH',
+  featureEyebrow:     'Billboard Advertising',
+  featureTitleLine1:  'Own',
+  featureTitleLine2:  'the road.',
+  featureBullets: [
+    "Prime roadside locations across Egypt's highest-traffic corridors",
+    'Millions of daily impressions — maximum brand visibility',
+    'High-impact large-format that stops people in their tracks',
+  ],
+  featureButtonText:  'Book a Billboard',
+  featureImage:       'https://images.unsplash.com/photo-1629150154933-a42577786d4f?w=1000&q=90&fit=crop',
+  featureStatsLabel:  'Daily Impressions',
+  featureStatsValue:  '4.2M+',
+  signatureEyebrow:   'Brand Philosophy',
+  signatureLines:     ['WE MAKE BRANDS', 'IMPOSSIBLE', 'TO IGNORE.'],
+  finalCtaEyebrow:    "Let's Work Together",
+  finalCtaTitleLine1: 'Ready to launch',
+  finalCtaTitleLine2: 'your campaign?',
+  finalCtaSubtext:    "Let's put your brand where it gets seen.",
+  finalCtaPrimaryText:   'Get a Quote',
+  finalCtaSecondaryText: 'Call Us',
+  finalCtaBadges: ['No long-term contracts', 'Nationwide coverage', '24-hr response'],
+}
+
 const DEFAULT_AD_FORMATS: AdFormatType[] = [
   { id:'af1', label:'Billboard' },
   { id:'af2', label:'Digital Screens' },
@@ -407,6 +468,7 @@ function defaultState(): StoreState {
     process:      DEFAULT_PROCESS,
     results:      RESULTS,
     about:        DEFAULT_ABOUT,
+    homeContent:  DEFAULT_HOME_CONTENT,
     adFormats:    DEFAULT_AD_FORMATS,
     customers:    [],
     siteUsers:    [],
@@ -429,13 +491,14 @@ function load(): StoreState {
       projects:     p.projects     ?? d.projects,
       blogPosts:    p.blogPosts    ?? d.blogPosts,
       contacts:     p.contacts     ?? d.contacts,
-      settings:     p.settings     ?? d.settings,
+      settings:     p.settings     ? { ...d.settings, ...p.settings }         : d.settings,
       trustStats:   p.trustStats   ?? d.trustStats,
       clientBrands: p.clientBrands ?? d.clientBrands,
       suppliers:    p.suppliers    ?? d.suppliers,
       process:      p.process      ?? d.process,
       results:      p.results      ?? d.results,
-      about:        p.about        ?? d.about,
+      about:        p.about        ? { ...d.about, ...p.about }               : d.about,
+      homeContent:  p.homeContent  ? { ...d.homeContent, ...p.homeContent }   : d.homeContent,
       adFormats:    p.adFormats    ?? d.adFormats,
       customers:    p.customers    ?? d.customers,
       siteUsers:    p.siteUsers    ?? d.siteUsers,
@@ -518,6 +581,7 @@ export const processStore    = {
 }
 export const resultStore     = { set:(results:StoreState['results'])=>setState(s=>({...s,results})) }
 export const aboutStore      = { update:(p:Partial<AboutContent>)=>setState(s=>({...s,about:{...s.about,...p}})) }
+export const homeStore       = { update:(p:Partial<HomeContent>)=>setState(s=>({...s,homeContent:{...s.homeContent,...p}})) }
 
 export const customerStore = {
   add:    (x:Omit<Customer,'id'|'createdAt'>)         => setState(s=>({...s,customers:[{...x,id:uid(),createdAt:new Date().toISOString()},...s.customers]})),

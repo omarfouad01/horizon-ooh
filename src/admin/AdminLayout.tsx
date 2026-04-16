@@ -1,13 +1,14 @@
 import { Link, useLocation, Outlet, Navigate } from 'react-router-dom'
 import { useAdmin } from './AdminAuth'
 import { useState } from 'react'
-import { LayoutDashboard, MapPin, Monitor, Briefcase, BookOpen, MessageSquare, Settings, LogOut, Menu, X, ExternalLink, Layers, Info, Truck, User, Users, Bell } from 'lucide-react'
+import { LayoutDashboard, MapPin, Monitor, Briefcase, BookOpen, MessageSquare, Settings, LogOut, Menu, X, ExternalLink, Layers, Info, Truck, User, Users, Bell, Home } from 'lucide-react'
 import clsx from 'clsx'
 import { useStore } from '@/store/dataStore'
 
 const NAVY = '#0B0F1A', RED = '#D90429'
 const NAV = [
   { to:'/admin',             label:'Dashboard',     icon:LayoutDashboard, exact:true },
+  { to:'/admin/homepage',    label:'Home Page',     icon:Home },
   { to:'/admin/locations',   label:'Locations',     icon:MapPin },
   { to:'/admin/billboards',  label:'Billboards',    icon:Monitor },
   { to:'/admin/services',    label:'Services',      icon:Briefcase },

@@ -203,7 +203,7 @@ function HeroSection() {
   const [formats,   setFormats]   = useState<string[]>([]);
 
 // Cities, districts, and formats from store
-  const { locations: _storeLocs, districts: _storeDists } = useStore()
+  const { locations: _storeLocs, districts: _storeDists, homeContent: hc } = useStore()
   const ALL_CITIES  = _storeLocs.map((l: any) => l.city).sort()
   const ALL_FORMATS = Array.from(new Set(_storeLocs.flatMap((l: any) => l.availableFormats || []))).sort()
 
@@ -271,13 +271,13 @@ function HeroSection() {
               <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
               <span className="text-[10px] font-bold tracking-[0.35em] uppercase"
                 style={{ color: "rgba(11,15,26,0.3)" }}>
-                Egypt's Premier OOH Network
+                {hc.heroEyebrow}
               </span>
             </motion.div>
 
-            {/* H1 — untouched */}
+            {/* H1 */}
             <div className="overflow-hidden mb-5">
-              {["Outdoor", "Advertising", "Agency."].map((word, i) => (
+              {(hc.heroTitleLines || ['Outdoor','Advertising','Agency.']).map((word, i) => (
                 <motion.div
                   key={word}
                   initial={{ y: "100%", opacity: 0 }}
@@ -304,7 +304,7 @@ function HeroSection() {
               className="text-[12px] font-semibold tracking-[0.22em] uppercase mb-4"
               style={{ color: "rgba(11,15,26,0.28)" }}
             >
-              Billboards&nbsp;·&nbsp;DOOH&nbsp;·&nbsp;Malls&nbsp;·&nbsp;Airports
+              {hc.heroChannels}
             </motion.p>
 
             {/* Statement */}
@@ -314,7 +314,7 @@ function HeroSection() {
               className="text-[18px] font-medium leading-[1.55] mb-8"
               style={{ color: NAVY, maxWidth: 340 }}
             >
-              We make brands impossible to ignore.
+              {hc.heroStatement}
             </motion.p>
 
             {/* CTA row — untouched */}
@@ -336,7 +336,7 @@ function HeroSection() {
                 <span className="block w-4 h-[1.5px]" style={{ background: RED }} />
                 <p className="text-[9px] font-bold tracking-[0.35em] uppercase"
                   style={{ color: "rgba(11,15,26,0.28)" }}>
-                  Find a Billboard
+                  {hc.searchTitle}
                 </p>
               </div>
 
@@ -483,6 +483,7 @@ function StatementSection() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.96, 1, 1, 0.96]);
+  const { homeContent: hc } = useStore();
 
   return (
     <section
@@ -510,46 +511,27 @@ function StatementSection() {
             transition={{ duration: 1.1, ease }}
             className="text-white/20 text-[12px] font-bold tracking-[0.4em] uppercase"
           >
-            A thought
+            {hc.statementEyebrow}
           </motion.p>
         </div>
 
-        <div className="overflow-hidden">
-          <motion.h2
-            initial={{ y: "100%" }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.1, ease, delay: 0.1 }}
-            className="font-black text-white leading-[0.88] tracking-[-0.04em] uppercase"
-            style={{ fontSize: "clamp(48px, 7.5vw, 108px)" }}
-          >
-            "If your brand
-          </motion.h2>
-        </div>
-        <div className="overflow-hidden">
-          <motion.h2
-            initial={{ y: "100%" }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.1, ease, delay: 0.18 }}
-            className="font-black leading-[0.88] tracking-[-0.04em] uppercase"
-            style={{ fontSize: "clamp(48px, 7.5vw, 108px)", color: RED }}
-          >
-            isn't seen,
-          </motion.h2>
-        </div>
-        <div className="overflow-hidden">
-          <motion.h2
-            initial={{ y: "100%" }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.1, ease, delay: 0.26 }}
-            className="font-black text-white leading-[0.88] tracking-[-0.04em] uppercase"
-            style={{ fontSize: "clamp(48px, 7.5vw, 108px)" }}
-          >
-            it doesn't exist."
-          </motion.h2>
-        </div>
+        {(hc.statementLines || []).map((line, i) => (
+          <div key={i} className="overflow-hidden">
+            <motion.h2
+              initial={{ y: "100%" }}
+              whileInView={{ y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.1, ease, delay: 0.1 + i * 0.08 }}
+              className="font-black leading-[0.88] tracking-[-0.04em] uppercase"
+              style={{
+                fontSize: "clamp(48px, 7.5vw, 108px)",
+                color: i === 1 ? RED : 'white',
+              }}
+            >
+              {line}
+            </motion.h2>
+          </div>
+        ))}
 
         <motion.div
           initial={{ opacity: 0, scaleX: 0 }}
@@ -561,7 +543,7 @@ function StatementSection() {
         >
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
             <span className="block w-10 h-[1px] bg-white/15" />
-            <span className="text-white/25 text-[10px] tracking-[0.4em] uppercase font-bold">HORIZON OOH</span>
+            <span className="text-white/25 text-[10px] tracking-[0.4em] uppercase font-bold">{hc.statementBrand}</span>
             <span className="block w-10 h-[1px] bg-white/15" />
           </div>
         </motion.div>
@@ -708,6 +690,7 @@ function FeatureSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
   const imgScale = useTransform(scrollYProgress, [0, 1], [1.12, 1.0]);
+  const { homeContent: hc } = useStore();
 
   return (
     <section ref={sectionRef} className="overflow-hidden" style={{ background: NAVY }}>
@@ -720,29 +703,22 @@ function FeatureSection() {
           className="flex flex-col justify-center"
           style={{ padding: "100px 80px 100px 120px" }}
         >
-          <Eyebrow text="Billboard Advertising" light />
+          <Eyebrow text={hc.featureEyebrow} light />
 
           <Reveal delay={0.1} y={20}>
             <h2
               className="font-black leading-[0.88] tracking-[-0.05em] text-white mb-14"
               style={{ fontSize: "clamp(60px, 6vw, 88px)" }}
             >
-              Own<br />the road.
+              {hc.featureTitleLine1}<br />{hc.featureTitleLine2}
             </h2>
           </Reveal>
 
           <RevealGroup className="flex flex-col gap-7 mb-14">
-            {[
-              "Prime roadside locations across Egypt's highest-traffic corridors",
-              "Millions of daily impressions — maximum brand visibility",
-              "High-impact large-format that stops people in their tracks",
-            ].map((bullet) => (
+            {(hc.featureBullets || []).map((bullet) => (
               <RevealItem key={bullet}>
                 <div className="flex items-start gap-5">
-                  <span
-                    className="mt-2 flex-shrink-0 w-[5px] h-[5px]"
-                    style={{ background: RED }}
-                  />
+                  <span className="mt-2 flex-shrink-0 w-[5px] h-[5px]" style={{ background: RED }} />
                   <p className="text-[16px] leading-[1.65]" style={{ color: "rgba(255,255,255,0.5)" }}>
                     {bullet}
                   </p>
@@ -752,18 +728,15 @@ function FeatureSection() {
           </RevealGroup>
 
           <Reveal delay={0.45}>
-            <RedButton label="Book a Billboard" onClick={() => { window.location.hash = '/contact'; window.scrollTo(0,0); }} />
+            <RedButton label={hc.featureButtonText} onClick={() => { window.location.hash = '/contact'; window.scrollTo(0,0); }} />
           </Reveal>
         </div>
 
         {/* Right — image with parallax */}
         <div className="relative overflow-hidden">
-          <motion.div
-            className="absolute inset-[-8%]"
-            style={{ scale: imgScale }}
-          >
+          <motion.div className="absolute inset-[-8%]" style={{ scale: imgScale }}>
             <img
-              src="https://images.unsplash.com/photo-1629150154933-a42577786d4f?w=1000&q=90&fit=crop"
+              src={hc.featureImage || 'https://images.unsplash.com/photo-1629150154933-a42577786d4f?w=1000&q=90&fit=crop'}
               alt="Large format billboard advertising"
               className="w-full h-full object-cover"
               style={{ opacity: 0.65 }}
@@ -773,11 +746,10 @@ function FeatureSection() {
             className="absolute inset-0"
             style={{ background: `linear-gradient(to right, ${NAVY} 0%, rgba(11,15,26,0.3) 60%, transparent 100%)` }}
           />
-
           {/* Stats overlay */}
           <div className="absolute bottom-10 right-10 text-right">
-            <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase font-bold mb-1">Daily Impressions</p>
-            <p className="font-black text-white/40 tracking-[-0.04em]" style={{ fontSize: 36 }}>4.2M+</p>
+            <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase font-bold mb-1">{hc.featureStatsLabel}</p>
+            <p className="font-black text-white/40 tracking-[-0.04em]" style={{ fontSize: 36 }}>{hc.featureStatsValue}</p>
           </div>
         </div>
       </div>
@@ -1028,6 +1000,7 @@ function SignatureSection() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const x = useTransform(scrollYProgress, [0, 1], ["-4%", "4%"]);
+  const { homeContent: hc } = useStore();
 
   return (
     <section
@@ -1035,70 +1008,42 @@ function SignatureSection() {
       className="relative overflow-hidden flex items-center justify-center"
       style={{ background: NAVY, paddingTop: 160, paddingBottom: 160 }}
     >
-      {/* Moving background text — depth effect */}
-      <motion.div
-        style={{ x }}
-        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
-        aria-hidden
-      >
-        <p
-          className="text-white/[0.03] font-black uppercase whitespace-nowrap"
-          style={{ fontSize: "clamp(120px, 18vw, 260px)", letterSpacing: "-0.05em" }}
-        >
+      <motion.div style={{ x }} className="absolute inset-0 flex items-center justify-center pointer-events-none select-none" aria-hidden>
+        <p className="text-white/[0.03] font-black uppercase whitespace-nowrap"
+          style={{ fontSize: "clamp(120px, 18vw, 260px)", letterSpacing: "-0.05em" }}>
           HORIZON
         </p>
       </motion.div>
-
-      {/* Glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `radial-gradient(ellipse 50% 50% at 50% 50%, rgba(217,4,41,0.05) 0%, transparent 70%)`,
-        }}
-      />
-
+      <div className="absolute inset-0 pointer-events-none"
+        style={{ background: `radial-gradient(ellipse 50% 50% at 50% 50%, rgba(217,4,41,0.05) 0%, transparent 70%)` }}/>
       <div className="relative z-10 text-center px-8">
-        {/* Top rule */}
         <Reveal>
           <div className="flex items-center justify-center gap-5 mb-12">
             <span className="block w-12 h-[1px]" style={{ background: "rgba(255,255,255,0.1)" }} />
-            <span
-              className="text-[10px] font-bold tracking-[0.4em] uppercase"
-              style={{ color: "rgba(255,255,255,0.2)" }}
-            >
-              Brand Philosophy
+            <span className="text-[10px] font-bold tracking-[0.4em] uppercase" style={{ color: "rgba(255,255,255,0.2)" }}>
+              {hc.signatureEyebrow}
             </span>
             <span className="block w-12 h-[1px]" style={{ background: "rgba(255,255,255,0.1)" }} />
           </div>
         </Reveal>
-
-        {/* Main text */}
-        {["WE MAKE BRANDS", "IMPOSSIBLE", "TO IGNORE."].map((line, i) => (
-          <div key={line} className="overflow-hidden">
+        {(hc.signatureLines || []).map((line, i) => (
+          <div key={i} className="overflow-hidden">
             <motion.h2
               initial={{ y: "100%" }}
               whileInView={{ y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1.0, ease, delay: i * 0.12 }}
               className="font-black leading-[0.88] tracking-[-0.05em] uppercase"
-              style={{
-                fontSize: "clamp(48px, 7.5vw, 110px)",
-                color: line === "IMPOSSIBLE" ? RED : "white",
-              }}
+              style={{ fontSize: "clamp(48px, 7.5vw, 110px)", color: i === 1 ? RED : "white" }}
             >
               {line}
             </motion.h2>
           </div>
         ))}
-
-        {/* Bottom rule */}
         <Reveal delay={0.5}>
           <div className="flex items-center justify-center gap-5 mt-12">
             <span className="block w-12 h-[1px]" style={{ background: "rgba(255,255,255,0.08)" }} />
-            <span
-              className="block w-2 h-2"
-              style={{ background: RED }}
-            />
+            <span className="block w-2 h-2" style={{ background: RED }} />
             <span className="block w-12 h-[1px]" style={{ background: "rgba(255,255,255,0.08)" }} />
           </div>
         </Reveal>
@@ -1111,96 +1056,54 @@ function SignatureSection() {
 // 11. FINAL CTA
 // ═══════════════════════════════════════════════════════════════════════════
 function FinalCTASection() {
+  const { homeContent: hc } = useStore();
   return (
-    <section
-      id="contact"
-      className="bg-white"
-      style={{ paddingTop: 160, paddingBottom: 160 }}
-    >
-      <div
-        className="max-w-[1440px] mx-auto text-center"
-      >
-        {/* Top eyebrow */}
+    <section id="contact" className="bg-white" style={{ paddingTop: 160, paddingBottom: 160 }}>
+      <div className="max-w-[1440px] mx-auto text-center">
         <Reveal>
           <div className="flex items-center justify-center gap-4 mb-10">
             <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
-            <span
-              className="text-[10px] font-bold tracking-[0.35em] uppercase"
-              style={{ color: "rgba(11,15,26,0.3)" }}
-            >
-              Let's Work Together
+            <span className="text-[10px] font-bold tracking-[0.35em] uppercase" style={{ color: "rgba(11,15,26,0.3)" }}>
+              {hc.finalCtaEyebrow}
             </span>
             <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
           </div>
         </Reveal>
-
-        {/* Headline */}
         <Reveal delay={0.08}>
-          <h2
-            className="font-black leading-[0.9] tracking-[-0.04em] mx-auto mb-8"
-            style={{
-              fontSize: "clamp(44px, 5vw, 72px)",
-              color: NAVY,
-              maxWidth: 720,
-            }}
-          >
-            Ready to launch<br />
-            <span style={{ color: "rgba(11,15,26,0.2)" }}>your campaign?</span>
+          <h2 className="font-black leading-[0.9] tracking-[-0.04em] mx-auto mb-8"
+            style={{ fontSize: "clamp(44px, 5vw, 72px)", color: NAVY, maxWidth: 720 }}>
+            {hc.finalCtaTitleLine1}<br />
+            <span style={{ color: "rgba(11,15,26,0.2)" }}>{hc.finalCtaTitleLine2}</span>
           </h2>
         </Reveal>
-
-        {/* Subtext */}
         <Reveal delay={0.16}>
-          <p
-            className="text-[18px] leading-[1.65] mx-auto mb-14"
-            style={{ color: "rgba(11,15,26,0.4)", maxWidth: 380 }}
-          >
-            Let's put your brand where it gets seen.
+          <p className="text-[18px] leading-[1.65] mx-auto mb-14"
+            style={{ color: "rgba(11,15,26,0.4)", maxWidth: 380 }}>
+            {hc.finalCtaSubtext}
           </p>
         </Reveal>
-
-        {/* CTA buttons */}
         <Reveal delay={0.24}>
           <div className="flex items-center justify-center gap-5 mb-16">
-            <a
-              onClick={() => { window.location.hash = '/contact'; window.scrollTo(0,0); }}
+            <a onClick={() => { window.location.hash = '/contact'; window.scrollTo(0,0); }}
               className="inline-flex items-center h-[56px] px-11 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white relative group cursor-pointer border-0"
-              style={{ background: RED }}
-            >
-              <span
-                className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out"
-                style={{ background: NAVY }}
-              />
-              <span className="relative z-10">Get a Quote</span>
+              style={{ background: RED }}>
+              <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out" style={{ background: NAVY }}/>
+              <span className="relative z-10">{hc.finalCtaPrimaryText}</span>
             </a>
-            <a
-              onClick={() => { window.location.hash = '/contact'; window.scrollTo(0,0); }}
+            <a onClick={() => { window.location.hash = '/contact'; window.scrollTo(0,0); }}
               className="group relative inline-flex items-center h-[56px] px-11 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase transition-colors duration-300 cursor-pointer border-0 bg-transparent"
-              style={{ border: `1.5px solid ${NAVY}`, color: NAVY }}
-            >
-              <span
-                className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out"
-                style={{ background: NAVY }}
-              />
-              <span className="relative z-10 group-hover:text-white transition-colors duration-400">Call Us</span>
+              style={{ border: `1.5px solid ${NAVY}`, color: NAVY }}>
+              <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out" style={{ background: NAVY }}/>
+              <span className="relative z-10 group-hover:text-white transition-colors duration-400">{hc.finalCtaSecondaryText}</span>
             </a>
           </div>
         </Reveal>
-
-        {/* Trust micro-badges */}
         <Reveal delay={0.32}>
           <div className="flex items-center justify-center gap-10 pt-10 border-t border-[#0B0F1A]/[0.06]">
-            {[
-              { label: "No long-term contracts" },
-              { label: "Nationwide coverage" },
-              { label: "24-hr response" },
-            ].map(({ label }) => (
+            {(hc.finalCtaBadges || []).map((label) => (
               <div key={label} className="flex items-center gap-2.5">
                 <span className="block w-1 h-1" style={{ background: RED }} />
-                <span
-                  className="text-[11px] font-semibold tracking-[0.15em] uppercase"
-                  style={{ color: "rgba(11,15,26,0.3)" }}
-                >
+                <span className="text-[11px] font-semibold tracking-[0.15em] uppercase" style={{ color: "rgba(11,15,26,0.3)" }}>
                   {label}
                 </span>
               </div>
