@@ -16,6 +16,7 @@ export interface BillboardImage {
 export interface Product {
   id:             string
   slug:           string
+  code?:          string
   // Names
   nameEn:         string
   nameAr:         string
