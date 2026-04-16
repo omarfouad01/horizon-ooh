@@ -1,442 +1,839 @@
-import { useEffect, useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import MultiSelect from "@/components/MultiSelect";
+/**
+ * Locations — Premium marketplace-style page
+ * Layout: Sticky filter bar → Results header → Split-screen (cards left / map right)
+ */
+import { useEffect, useRef, useState, useCallback } from "react";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { LOCATIONS, ALL_BILLBOARDS } from "@/data";
-import { Reveal, RevealGroup, RevealItem, PageHero, CTABanner } from "@/components/UI";
-import { locationHref, productHref, RED, NAVY } from "@/lib/routes";
+import { ALL_BILLBOARDS } from "@/data";
+import { productHref, RED, NAVY } from "@/lib/routes";
+import LocationsMap from "@/components/LocationsMap";
 
-const ease = [0.16, 1, 0.3, 1] as const;
+// ─── constants ─────────────────────────────────────────────────────────────
+const ease = [0.22, 1, 0.36, 1] as const;
+const ALL_CITIES    = Array.from(new Set(ALL_BILLBOARDS.map(b => b.city))).sort();
+const ALL_FORMATS   = Array.from(new Set(ALL_BILLBOARDS.map(b => b.type))).sort();
 
-const ALL_CITIES  = Array.from(new Set(ALL_BILLBOARDS.map(b => b.city))).sort();
-const ALL_FORMATS = Array.from(new Set(ALL_BILLBOARDS.map(b => b.type))).sort();
+const BADGES: Record<string, string[]> = {
+  "Unipole Billboard": ["High Visibility", "Premium Location"],
+  "Rooftop Billboard": ["Strategic Placement", "Urban Core"],
+  "Bridge Panel":      ["High Traffic", "Strategic Placement"],
+  "DOOH Screen":       ["Digital", "Premium Location"],
+  "Mega Billboard":    ["High Visibility", "Landmark"],
+  "Mall Advertising":  ["High Footfall", "Indoor"],
+  "Street Furniture":  ["Eye-Level", "High Frequency"],
+  "Corniche Panel":    ["Iconic Location", "Premium Location"],
+};
+const getBadges = (type: string) => BADGES[type] ?? ["Premium Location"];
 
+const SORT_OPTIONS = [
+  { id: "recommended",  label: "Recommended" },
+  { id: "strategic",    label: "Most Strategic" },
+  { id: "traffic",      label: "Highest Traffic" },
+];
+
+// ─── Tiny helpers ───────────────────────────────────────────────────────────
+function ChevronDown({ size = 10 }: { size?: number }) {
+  return (
+    <svg width={size} height={size * 0.6} viewBox="0 0 10 6" fill="none">
+      <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+
+function XIcon({ size = 8 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 8 8" fill="none">
+      <path d="M1 1l6 6M7 1L1 7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+    </svg>
+  );
+}
+
+// ─── Filter dropdown (single-select, inline, no portal needed here) ─────────
+interface FilterDropdownProps {
+  label: string;
+  options: string[];
+  value: string;
+  onChange: (v: string) => void;
+  icon: React.ReactNode;
+}
+function FilterDropdown({ label, options, value, onChange, icon }: FilterDropdownProps) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const selected = value !== "";
+
+  useEffect(() => {
+    const fn = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", fn);
+    return () => document.removeEventListener("mousedown", fn);
+  }, []);
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen(v => !v)}
+        className="flex items-center gap-2 h-10 px-4 text-[12px] font-semibold transition-all duration-200 whitespace-nowrap"
+        style={{
+          background: selected ? NAVY : "white",
+          color: selected ? "white" : "rgba(11,15,26,0.55)",
+          border: `1.5px solid ${selected ? NAVY : "rgba(11,15,26,0.12)"}`,
+          borderRadius: 6,
+          cursor: "pointer",
+        }}
+      >
+        <span className="opacity-60">{icon}</span>
+        <span>{selected ? value : label}</span>
+        {selected ? (
+          <span
+            onClick={e => { e.stopPropagation(); onChange(""); }}
+            className="flex items-center justify-center w-4 h-4 rounded-full ml-1 transition-opacity hover:opacity-70"
+            style={{ background: "rgba(255,255,255,0.25)", cursor: "pointer" }}
+          >
+            <XIcon size={7} />
+          </span>
+        ) : (
+          <ChevronDown />
+        )}
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: 6, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 4, scale: 0.97 }}
+            transition={{ duration: 0.18, ease }}
+            className="absolute top-full left-0 mt-2 overflow-hidden z-[9999]"
+            style={{
+              minWidth: 200,
+              background: "white",
+              border: "1.5px solid rgba(11,15,26,0.1)",
+              borderRadius: 8,
+              boxShadow: "0 8px 32px rgba(11,15,26,0.12)",
+            }}
+          >
+            {/* All option */}
+            <button
+              type="button"
+              onClick={() => { onChange(""); setOpen(false); }}
+              className="w-full text-left px-4 py-2.5 text-[12px] font-semibold transition-colors hover:bg-gray-50"
+              style={{ border: "none", borderBottom: "1px solid rgba(11,15,26,0.06)", color: "rgba(11,15,26,0.4)", cursor: "pointer", background: value === "" ? "rgba(11,15,26,0.03)" : "white" }}
+            >
+              All {label}s
+            </button>
+            {options.map(opt => (
+              <button
+                key={opt}
+                type="button"
+                onClick={() => { onChange(opt); setOpen(false); }}
+                className="w-full text-left px-4 py-2.5 text-[12px] font-medium transition-colors hover:bg-[rgba(11,15,26,0.03)]"
+                style={{
+                  border: "none",
+                  borderBottom: "1px solid rgba(11,15,26,0.04)",
+                  color: opt === value ? NAVY : "rgba(11,15,26,0.65)",
+                  fontWeight: opt === value ? 700 : 500,
+                  background: opt === value ? "rgba(217,4,41,0.04)" : "white",
+                  cursor: "pointer",
+                }}
+              >
+                <span className="flex items-center justify-between">
+                  {opt}
+                  {opt === value && (
+                    <svg width="12" height="9" viewBox="0 0 12 9" fill="none">
+                      <path d="M1 4.5l3.5 3.5 6.5-7" stroke={RED} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  )}
+                </span>
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+// ─── Billboard card ──────────────────────────────────────────────────────────
+interface CardProps {
+  b: typeof ALL_BILLBOARDS[0];
+  isHovered: boolean;
+  isSelected: boolean;
+  onHover: (id: string | null) => void;
+  onSelect: (id: string | null) => void;
+  cardRef: (el: HTMLDivElement | null) => void;
+}
+function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }: CardProps) {
+  const navigate = useNavigate();
+  const badges = getBadges(b.type);
+  const highlighted = isHovered || isSelected;
+
+  return (
+    <motion.div
+      ref={cardRef}
+      layout
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 8, scale: 0.98 }}
+      transition={{ duration: 0.4, ease }}
+      onMouseEnter={() => onHover(b.id)}
+      onMouseLeave={() => onHover(null)}
+      onClick={() => onSelect(isSelected ? null : b.id)}
+      className="group cursor-pointer"
+      style={{
+        background: "white",
+        borderRadius: 12,
+        overflow: "hidden",
+        border: `1.5px solid ${highlighted ? RED : "rgba(11,15,26,0.08)"}`,
+        boxShadow: highlighted
+          ? "0 8px 32px rgba(217,4,41,0.12), 0 2px 8px rgba(11,15,26,0.06)"
+          : "0 2px 12px rgba(11,15,26,0.06)",
+        transition: "all 0.25s cubic-bezier(0.22,1,0.36,1)",
+        transform: highlighted ? "translateY(-2px)" : "none",
+      }}
+    >
+      {/* Image */}
+      <div className="relative overflow-hidden" style={{ height: 200 }}>
+        <img
+          src={b.image}
+          alt={`${b.name} — billboard advertising ${b.city}`}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+          style={{ opacity: 0.88 }}
+        />
+        <div className="absolute inset-0"
+          style={{ background: "linear-gradient(to top, rgba(11,15,26,0.75) 0%, rgba(11,15,26,0.1) 60%)" }} />
+
+        {/* City chip */}
+        <div className="absolute top-3 left-3 flex items-center gap-1.5">
+          <span className="text-[9px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 text-white"
+            style={{ background: RED, borderRadius: 3 }}>
+            {b.city}
+          </span>
+          <span className="text-[9px] font-semibold tracking-[0.12em] uppercase px-2.5 py-1 text-white/80"
+            style={{ background: "rgba(11,15,26,0.6)", backdropFilter: "blur(6px)", borderRadius: 3 }}>
+            {b.district}
+          </span>
+        </div>
+
+        {/* Format chip top right */}
+        <div className="absolute top-3 right-3">
+          <span className="text-[9px] font-bold tracking-[0.12em] uppercase px-2.5 py-1 text-white/70"
+            style={{ background: "rgba(11,15,26,0.55)", backdropFilter: "blur(6px)", borderRadius: 3 }}>
+            {b.type}
+          </span>
+        </div>
+
+        {/* Name overlay */}
+        <div className="absolute bottom-3 left-3 right-3">
+          <p className="font-extrabold text-white leading-tight" style={{ fontSize: 15 }}>{b.name}</p>
+          <p className="text-[11px] text-white/55 mt-0.5">{b.location.split(",")[0]}</p>
+        </div>
+      </div>
+
+      {/* Body */}
+      <div style={{ padding: "16px 18px 18px" }}>
+        {/* Stats row */}
+        <div className="flex items-center gap-4 mb-4 pb-4"
+          style={{ borderBottom: "1px solid rgba(11,15,26,0.06)" }}>
+          {[
+            { label: "Size",    value: b.size },
+            { label: "Traffic", value: b.traffic.split(" ").slice(0,2).join(" ") },
+            { label: "Visibility", value: b.visibility.split(" ").slice(0,2).join(" ") },
+          ].map(stat => (
+            <div key={stat.label} className="flex-1">
+              <p className="text-[9px] font-semibold tracking-[0.18em] uppercase mb-0.5"
+                style={{ color: "rgba(11,15,26,0.3)" }}>{stat.label}</p>
+              <p className="text-[12px] font-bold" style={{ color: NAVY }}>{stat.value}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Badge tags */}
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {badges.map(badge => (
+            <span key={badge}
+              className="text-[9px] font-bold tracking-[0.1em] uppercase px-2.5 py-1"
+              style={{
+                background: "rgba(217,4,41,0.06)",
+                color: RED,
+                borderRadius: 4,
+                border: "1px solid rgba(217,4,41,0.15)",
+              }}>
+              {badge}
+            </span>
+          ))}
+        </div>
+
+        {/* CTA row */}
+        <div className="flex items-center gap-2">
+          <button
+            onClick={e => { e.stopPropagation(); navigate(productHref(b.citySlug, b.slug)); }}
+            className="flex-1 h-9 flex items-center justify-center text-[10px] font-bold tracking-[0.18em] uppercase text-white transition-all duration-200 hover:opacity-90 active:scale-[0.97]"
+            style={{ background: NAVY, border: "none", borderRadius: 5, cursor: "pointer" }}
+          >
+            View Details
+          </button>
+          <button
+            onClick={e => { e.stopPropagation(); navigate("/contact"); }}
+            className="flex-1 h-9 flex items-center justify-center text-[10px] font-bold tracking-[0.18em] uppercase transition-all duration-200 hover:bg-[rgba(217,4,41,0.06)] active:scale-[0.97]"
+            style={{ border: `1.5px solid ${RED}`, color: RED, borderRadius: 5, cursor: "pointer", background: "transparent" }}
+          >
+            Get Quote
+          </button>
+          <a
+            href={`https://wa.me/201234567890?text=Hi%20HORIZON%20OOH%2C%20I%27m%20interested%20in%20${encodeURIComponent(b.name)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={e => e.stopPropagation()}
+            className="w-9 h-9 flex items-center justify-center transition-all duration-200 hover:opacity-80 active:scale-[0.97] flex-shrink-0"
+            style={{ background: "#25D366", borderRadius: 5, textDecoration: "none" }}
+            title="WhatsApp enquiry"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// MAIN PAGE
+// ═══════════════════════════════════════════════════════════════════════════
 export default function Locations() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const cities     = searchParams.getAll("city");
-  const districts  = searchParams.getAll("district");
-  const formats    = searchParams.getAll("format");
-  const hasSearch  = cities.length > 0 || districts.length > 0 || formats.length > 0;
+  const navigate = useNavigate();
 
-  // ── Inline search bar state (mirrors homepage search, updates URL params) ──
-  const [localCities,    setLocalCities]    = useState<string[]>(cities);
-  const [localDistricts, setLocalDistricts] = useState<string[]>(districts);
-  const [localFormats,   setLocalFormats]   = useState<string[]>(formats);
+  // ── Filter state (single-select for cleaner UX) ──────────────────────
+  const [city,     setCity]     = useState(searchParams.get("city")     ?? "");
+  const [district, setDistrict] = useState(searchParams.get("district") ?? "");
+  const [format,   setFormat]   = useState(searchParams.get("format")   ?? "");
+  const [sort,     setSort]     = useState("recommended");
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [mobileMapOpen,     setMobileMapOpen]     = useState(false);
 
-  // Sync local state when URL params change (e.g. on arrival from homepage)
+  // Sync URL ↔ state on external navigation
   useEffect(() => {
-    setLocalCities(cities);
-    setLocalDistricts(districts);
-    setLocalFormats(formats);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams.toString()]);
+    setCity(    searchParams.getAll("city")[0]     ?? "");
+    setDistrict(searchParams.getAll("district")[0] ?? "");
+    setFormat(  searchParams.getAll("format")[0]   ?? "");
+  }, [searchParams.toString()]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const localDistrictOptions = Array.from(new Set(
+  // Push filters to URL
+  const applyFilters = useCallback((c: string, d: string, f: string) => {
+    const p = new URLSearchParams();
+    if (c) p.set("city",     c);
+    if (d) p.set("district", d);
+    if (f) p.set("format",   f);
+    setSearchParams(p);
+  }, [setSearchParams]);
+
+  const districtOptions = Array.from(new Set(
     ALL_BILLBOARDS
-      .filter(b => localCities.length === 0 || localCities.includes(b.city))
+      .filter(b => city === "" || b.city === city)
       .map(b => b.district)
   )).sort();
 
-  const hasLocalFilters = localCities.length > 0 || localDistricts.length > 0 || localFormats.length > 0;
-
-  function applySearch(e?: React.FormEvent) {
-    if (e) e.preventDefault();
-    const params = new URLSearchParams();
-    localCities.forEach(c    => params.append("city",     c));
-    localDistricts.forEach(d => params.append("district", d));
-    localFormats.forEach(f   => params.append("format",   f));
-    setSearchParams(params);
-  }
-
-  function clearAll() {
-    setLocalCities([]);
-    setLocalDistricts([]);
-    setLocalFormats([]);
-    setSearchParams({});
-  }
-
-  // Scroll to results when arriving from hero search
-  const resultsRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (hasSearch && resultsRef.current) {
-      setTimeout(() => resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 200);
-    }
-  }, [hasSearch]);
-
-  // Filter billboard products
-  const matchedBillboards = ALL_BILLBOARDS.filter(b => {
-    if (cities.length     > 0 && !cities.includes(b.city))        return false;
-    if (districts.length  > 0 && !districts.includes(b.district)) return false;
-    if (formats.length    > 0 && !formats.includes(b.type))       return false;
+  // ── Filtered + sorted results ────────────────────────────────────────
+  const filtered = ALL_BILLBOARDS.filter(b => {
+    if (city     && b.city     !== city)     return false;
+    if (district && b.district !== district) return false;
+    if (format   && b.type     !== format)   return false;
     return true;
   });
 
-  // Clear all filters
-  const clearSearch = () => { setLocalCities([]); setLocalDistricts([]); setLocalFormats([]); setSearchParams({}); };
+  const sorted = [...filtered].sort((a, b) => {
+    if (sort === "traffic") {
+      const aNum = parseInt(a.traffic.replace(/\D/g, "")) || 0;
+      const bNum = parseInt(b.traffic.replace(/\D/g, "")) || 0;
+      return bNum - aNum;
+    }
+    if (sort === "strategic") {
+      // Unipoles + Mega billboards first
+      const rank = (t: string) => t.includes("Unipole") || t.includes("Mega") ? 0 : 1;
+      return rank(a.type) - rank(b.type);
+    }
+    return 0; // recommended — keep default order
+  });
+
+  const hasFilters = city !== "" || district !== "" || format !== "";
+  const clearAll = () => { setCity(""); setDistrict(""); setFormat(""); setSearchParams({}); };
+
+  // ── Pin ↔ card interaction ───────────────────────────────────────────
+  const [hoveredId,  setHoveredId]  = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const cardRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+  const listRef  = useRef<HTMLDivElement>(null);
+
+  const handlePinSelect = useCallback((id: string | null) => {
+    setSelectedId(id);
+    if (id && listRef.current) {
+      const el = cardRefs.current.get(id);
+      if (el) {
+        const container = listRef.current;
+        const top = el.offsetTop - container.offsetTop - 80;
+        container.scrollTo({ top, behavior: "smooth" });
+      }
+    }
+  }, []);
+
+  // Filter change helpers that also reset dependent fields
+  const handleCityChange = (v: string) => {
+    setCity(v); setDistrict(""); applyFilters(v, "", format);
+  };
+  const handleDistrictChange = (v: string) => {
+    setDistrict(v); applyFilters(city, v, format);
+  };
+  const handleFormatChange = (v: string) => {
+    setFormat(v); applyFilters(city, district, v);
+  };
+
+  // Result label
+  const resultLabel = city
+    ? `Showing ${sorted.length} premium billboard location${sorted.length !== 1 ? "s" : ""} in ${city}`
+    : `Showing all ${sorted.length} premium billboard locations`;
 
   return (
-    <>
-      <PageHero
-        eyebrow="Our Network"
-        title="Advertising Locations"
-        titleAccent="Across Egypt."
-        subtitle="9,500+ premium outdoor advertising locations across Egypt's most valuable markets — from Cairo's Ring Road to Alexandria's Corniche."
-      />
+    <div className="flex flex-col min-h-screen" style={{ background: "#F7F7F8" }}>
 
-      {/* ── INLINE SEARCH BAR — under PageHero ─────────────────────────── */}
-      <section style={{ background: "white", borderBottom: "1px solid rgba(11,15,26,0.07)" }}>
-        <div className="max-w-[1440px] mx-auto" style={{ padding: "40px 120px" }}>
-          <form onSubmit={applySearch}>
-            {/* Label row */}
-            <div className="flex items-center gap-3 mb-5">
-              <span className="block w-4 h-[1.5px]" style={{ background: RED }} />
-              <p className="text-[9px] font-bold tracking-[0.35em] uppercase"
-                style={{ color: "rgba(11,15,26,0.28)" }}>
-                Filter Locations
-              </p>
-              {hasLocalFilters && (
-                <button type="button" onClick={clearAll}
-                  className="ml-auto text-[9px] font-bold tracking-[0.2em] uppercase transition-colors hover:text-[#D90429]"
-                  style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(11,15,26,0.3)" }}>
-                  ← Clear all
-                </button>
-              )}
-            </div>
+      {/* ══════════════════════════════════════════════════════════════
+          1. PAGE HEADER (not sticky — scrolls away)
+      ══════════════════════════════════════════════════════════════ */}
+      <div className="bg-white" style={{ borderBottom: "1px solid rgba(11,15,26,0.07)", paddingTop: 80 }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]" style={{ paddingBottom: 40 }}>
+          {/* Breadcrumb */}
+          <div className="flex items-center gap-2 mb-6">
+            <button onClick={() => navigate("/")}
+              className="text-[11px] font-semibold tracking-[0.12em] uppercase transition-colors hover:text-[#D90429]"
+              style={{ color: "rgba(11,15,26,0.35)", background: "none", border: "none", cursor: "pointer" }}>
+              Home
+            </button>
+            <span style={{ color: "rgba(11,15,26,0.2)", fontSize: 12 }}>›</span>
+            <span className="text-[11px] font-semibold tracking-[0.12em] uppercase" style={{ color: NAVY }}>
+              Locations
+            </span>
+          </div>
 
-            {/* 3 selects + button — single horizontal row */}
-            <div className="flex items-stretch gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
-              <div className="flex-1">
-                <MultiSelect
-                  label="City" options={ALL_CITIES} selected={localCities}
-                  onChange={v => { setLocalCities(v); setLocalDistricts([]); }}
-                  icon={
-                    <svg width="11" height="13" viewBox="0 0 13 15" fill="none">
-                      <path d="M6.5 0C3.462 0 1 2.462 1 5.5c0 3.85 5.5 9.5 5.5 9.5S12 9.35 12 5.5C12 2.462 9.538 0 6.5 0zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
-                        fill="rgba(11,15,26,0.28)"/>
-                    </svg>
-                  }
-                />
-              </div>
-              <div className="flex-1">
-                <MultiSelect
-                  label="District" options={localDistrictOptions} selected={localDistricts}
-                  onChange={setLocalDistricts}
-                  icon={
-                    <svg width="13" height="11" viewBox="0 0 15 13" fill="none">
-                      <rect x="0.5" y="5.5" width="6" height="7" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4"/>
-                      <rect x="8.5" y="2.5" width="6" height="10" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4"/>
-                      <path d="M0 5.5L7.5 0 15 5.5" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4" strokeLinecap="round"/>
-                    </svg>
-                  }
-                />
-              </div>
-              <div className="flex-1">
-                <MultiSelect
-                  label="Format" options={ALL_FORMATS} selected={localFormats}
-                  onChange={setLocalFormats}
-                  icon={
-                    <svg width="13" height="11" viewBox="0 0 15 13" fill="none">
-                      <rect x="0.5" y="0.5" width="14" height="12" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4"/>
-                      <path d="M3 4h9M3 6.5h6M3 9h4" stroke="rgba(11,15,26,0.28)" strokeWidth="1.2" strokeLinecap="round"/>
-                    </svg>
-                  }
-                />
-              </div>
-
-              {/* Search button */}
-              <button
-                type="submit"
-                className="flex items-center justify-center gap-2.5 text-[11px] font-bold tracking-[0.22em] uppercase text-white group relative overflow-hidden flex-shrink-0"
-                style={{ background: RED, border: "none", cursor: "pointer", height: 52, padding: "0 36px", minWidth: 180 }}
-              >
-                <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
-                  style={{ background: NAVY }} />
-                <svg className="relative z-10" width="13" height="13" viewBox="0 0 14 14" fill="none">
-                  <circle cx="6" cy="6" r="4.5" stroke="white" strokeWidth="1.5"/>
-                  <path d="M9.5 9.5l3 3" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
-                </svg>
-                <span className="relative z-10">Search</span>
-              </button>
-            </div>
-          </form>
-        </div>
-      </section>
-
-      {/* ── SEARCH RESULTS — shown when arriving from hero search ──────── */}
-      <AnimatePresence>
-        {hasSearch && (
-          <motion.section
-            ref={resultsRef as React.RefObject<HTMLElement>}
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 12 }}
-            transition={{ duration: 0.6, ease }}
-            style={{ background: "#F5F5F6", paddingTop: 72, paddingBottom: 80 }}
-          >
-            <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
-
-              {/* Results header */}
-              <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10">
-                <div>
-                  {/* Active filters */}
-                  <div className="flex flex-wrap items-center gap-2 mb-4">
-                    <span className="text-[9px] font-bold tracking-[0.3em] uppercase"
-                      style={{ color: "rgba(11,15,26,0.35)" }}>Filtered by:</span>
-                    {cities.map(c => (
-                      <span key={c} className="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1"
-                        style={{ background: NAVY, color: "white" }}>
-                        City: {c}
-                      </span>
-                    ))}
-                    {districts.map(d => (
-                      <span key={d} className="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1"
-                        style={{ background: NAVY, color: "white" }}>
-                        District: {d}
-                      </span>
-                    ))}
-                    {formats.map(f => (
-                      <span key={f} className="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1"
-                        style={{ background: NAVY, color: "white" }}>
-                        Format: {f}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex items-baseline gap-3">
-                    <span className="font-black tracking-[-0.04em]"
-                      style={{ fontSize: "clamp(28px, 3vw, 40px)", color: matchedBillboards.length > 0 ? RED : NAVY }}>
-                      {matchedBillboards.length}
-                    </span>
-                    <span className="text-[13px] font-semibold tracking-[0.1em] uppercase"
-                      style={{ color: "rgba(11,15,26,0.4)" }}>
-                      Billboard{matchedBillboards.length !== 1 ? "s" : ""} Found
-                    </span>
-                  </div>
-                </div>
-
-                <button
-                  onClick={clearSearch}
-                  className="flex items-center gap-2 text-[11px] font-bold tracking-[0.2em] uppercase transition-colors hover:opacity-70 self-start sm:self-auto"
-                  style={{ background: "none", border: "1.5px solid rgba(11,15,26,0.15)", padding: "10px 20px", cursor: "pointer", color: "rgba(11,15,26,0.5)" }}>
-                  <svg width="9" height="9" viewBox="0 0 9 9" fill="none">
-                    <path d="M1 1l7 7M8 1L1 8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
-                  </svg>
-                  Clear Search
-                </button>
-              </div>
-
-              {/* Results grid */}
-              {matchedBillboards.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {matchedBillboards.map((b, i) => (
-                    <motion.div
-                      key={b.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, ease, delay: i * 0.06 }}
-                    >
-                      <Link
-                        to={productHref(b.citySlug, b.slug)}
-                        className="group block overflow-hidden bg-white border transition-all duration-400 hover:border-[#D90429]/30"
-                        style={{ borderColor: "rgba(11,15,26,0.08)", textDecoration: "none" }}
-                      >
-                        {/* Image */}
-                        <div className="relative overflow-hidden" style={{ height: 210 }}>
-                          <img
-                            src={b.image}
-                            alt={`${b.name} — billboard advertising ${b.city}`}
-                            className="w-full h-full object-cover transition-transform duration-600 group-hover:scale-[1.04]"
-                            style={{ opacity: 0.88 }}
-                          />
-                          <div className="absolute inset-0"
-                            style={{ background: "linear-gradient(to top, rgba(11,15,26,0.72) 0%, transparent 55%)" }} />
-                          {/* City + District chip */}
-                          <div className="absolute top-4 left-4 flex items-center gap-2">
-                            <span className="text-[9px] font-bold tracking-[0.2em] uppercase px-2.5 py-1 text-white"
-                              style={{ background: RED }}>
-                              {b.city}
-                            </span>
-                            <span className="text-[9px] font-bold tracking-[0.15em] uppercase px-2.5 py-1 text-white/70"
-                              style={{ background: "rgba(11,15,26,0.65)", backdropFilter: "blur(4px)" }}>
-                              {b.district}
-                            </span>
-                          </div>
-                          {/* Name overlay */}
-                          <p className="absolute bottom-4 left-4 right-4 font-extrabold text-white leading-tight"
-                            style={{ fontSize: 16 }}>
-                            {b.name}
-                          </p>
-                        </div>
-
-                        {/* Card body */}
-                        <div className="flex items-center justify-between"
-                          style={{ padding: "16px 20px" }}>
-                          <div>
-                            <p className="text-[11px] font-bold tracking-[0.12em]"
-                              style={{ color: "rgba(11,15,26,0.45)" }}>
-                              {b.type} · {b.size}
-                            </p>
-                            <p className="text-[12px] font-semibold mt-0.5"
-                              style={{ color: RED }}>
-                              {b.traffic}
-                            </p>
-                          </div>
-                          <span className="text-lg opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300"
-                            style={{ color: RED }}>
-                            →
-                          </span>
-                        </div>
-                      </Link>
-                    </motion.div>
-                  ))}
-                </div>
-              ) : (
-                <div className="flex flex-col items-center justify-center py-20 text-center">
-                  <div className="w-12 h-12 flex items-center justify-center mb-6"
-                    style={{ background: "rgba(11,15,26,0.05)", borderRadius: "50%" }}>
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                      <circle cx="9" cy="9" r="7" stroke="rgba(11,15,26,0.2)" strokeWidth="1.5"/>
-                      <path d="M14 14l4 4" stroke="rgba(11,15,26,0.2)" strokeWidth="1.5" strokeLinecap="round"/>
-                      <path d="M6 9h6M9 6v6" stroke="rgba(11,15,26,0.2)" strokeWidth="1.3" strokeLinecap="round"/>
-                    </svg>
-                  </div>
-                  <p className="font-bold text-[18px] mb-2" style={{ color: NAVY }}>
-                    No billboards match your search
-                  </p>
-                  <p className="text-[14px] mb-8" style={{ color: "rgba(11,15,26,0.4)" }}>
-                    Try removing a filter or browse all locations below
-                  </p>
-                  <button onClick={clearSearch}
-                    className="text-[11px] font-bold tracking-[0.2em] uppercase px-6 py-3 text-white"
-                    style={{ background: RED, border: "none", cursor: "pointer" }}>
-                    Show All Locations
-                  </button>
-                </div>
-              )}
-            </div>
-          </motion.section>
-        )}
-      </AnimatePresence>
-
-      {/* ── ALL LOCATIONS GRID ──────────────────────────────────────────── */}
-      <section className="bg-white" style={{ paddingTop: hasSearch ? 60 : 80, paddingBottom: 120 }}>
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
-
-          {hasSearch && (
-            <Reveal>
-              <div className="flex items-center gap-3 mb-10">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+            <div>
+              <div className="flex items-center gap-3 mb-4">
                 <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
-                <p className="text-[10px] font-bold tracking-[0.35em] uppercase"
-                  style={{ color: "rgba(11,15,26,0.3)" }}>
-                  All Cities
-                </p>
+                <span className="text-[10px] font-bold tracking-[0.35em] uppercase"
+                  style={{ color: "rgba(11,15,26,0.3)" }}>Our Network</span>
               </div>
-            </Reveal>
-          )}
-
-          <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[1px]"
-            style={{ background: "rgba(11,15,26,0.07)" }}>
-            {LOCATIONS.map((loc, i) => (
-              <RevealItem key={loc.id}>
-                <Link
-                  to={locationHref(loc.slug)}
-                  className="group bg-white hover:bg-[#0B0F1A] transition-colors duration-500 block relative overflow-hidden"
-                  style={{ textDecoration: "none" }}
-                >
-                  {/* Image */}
-                  <div className="relative overflow-hidden" style={{ height: 260 }}>
-                    <img
-                      src={loc.image}
-                      alt={`Outdoor advertising in ${loc.city}`}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      style={{ opacity: 0.85 }}
-                    />
-                    <div className="absolute inset-0"
-                      style={{ background: "linear-gradient(to top, rgba(11,15,26,0.7) 0%, transparent 60%)" }} />
-                    <span className="absolute bottom-5 left-6 font-black text-white tracking-[-0.03em]"
-                      style={{ fontSize: 28 }}>
-                      {loc.city}
-                    </span>
-                    <span className="absolute top-5 left-6 font-black text-[11px] tracking-[0.2em] uppercase"
-                      style={{ color: RED }}>
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    {/* Highlight if city matches search */}
-                    {cities.length > 0 && cities.includes(loc.city) && (
-                      <div className="absolute top-4 right-4 text-[9px] font-bold tracking-[0.2em] uppercase px-2.5 py-1 text-white"
-                        style={{ background: RED }}>
-                        Your Search
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Card body */}
-                  <div style={{ padding: "28px 28px 32px" }}>
-                    <p className="text-[13px] leading-[1.65] mb-5 transition-colors duration-500 group-hover:text-white/40"
-                      style={{ color: "rgba(11,15,26,0.45)" }}>
-                      {loc.detail}
-                    </p>
-                    {/* Formats pills */}
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {loc.availableFormats.slice(0, 3).map((fmt) => (
-                        <span key={fmt}
-                          className="text-[10px] font-bold tracking-[0.15em] uppercase px-3 py-1 border transition-colors duration-500 group-hover:border-white/20 group-hover:text-white/30"
-                          style={{ borderColor: "rgba(11,15,26,0.12)", color: "rgba(11,15,26,0.4)" }}>
-                          {fmt}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-[11px] font-bold tracking-[0.2em] uppercase" style={{ color: RED }}>
-                        Explore Locations
-                      </span>
-                      <span className="text-xl opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0"
-                        style={{ color: RED }}>
-                        →
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              </RevealItem>
-            ))}
-          </RevealGroup>
+              <h1 className="font-black leading-[0.88] tracking-[-0.04em]"
+                style={{ fontSize: "clamp(36px, 4vw, 58px)", color: NAVY }}>
+                Advertising Locations<br />
+                <span style={{ color: "rgba(11,15,26,0.18)" }}>Across Egypt.</span>
+              </h1>
+            </div>
+            <p className="text-[15px] leading-[1.7]" style={{ color: "rgba(11,15,26,0.45)", maxWidth: 340 }}>
+              9,500+ premium outdoor advertising locations — from Cairo's Ring Road to Alexandria's Corniche.
+            </p>
+          </div>
         </div>
-      </section>
+      </div>
 
-      {/* Stats strip */}
-      <section style={{ background: NAVY, paddingTop: 80, paddingBottom: 80 }}>
+      {/* ══════════════════════════════════════════════════════════════
+          2. STICKY FILTER BAR
+      ══════════════════════════════════════════════════════════════ */}
+      <div
+        className="sticky top-0 z-40 bg-white"
+        style={{
+          borderBottom: "1px solid rgba(11,15,26,0.07)",
+          boxShadow: "0 2px 16px rgba(11,15,26,0.06)",
+        }}
+      >
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
-          <RevealGroup className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { value: "5",     label: "Major Cities" },
-              { value: "9,500+", label: "Locations" },
-              { value: "6",     label: "Ad Formats" },
-              { value: "22M+",  label: "Daily Audience" },
-            ].map((stat) => (
-              <RevealItem key={stat.label}>
-                <div className="flex flex-col" style={{ paddingTop: 8 }}>
-                  <div className="w-5 h-[1.5px] mb-5" style={{ background: RED }} />
-                  <span className="font-black leading-none tracking-[-0.05em] mb-3"
-                    style={{ fontSize: 48, color: RED }}>
-                    {stat.value}
-                  </span>
-                  <span className="text-[11px] font-semibold tracking-[0.22em] uppercase"
-                    style={{ color: "rgba(255,255,255,0.3)" }}>
-                    {stat.label}
-                  </span>
-                </div>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
-      </section>
+          {/* Desktop filter row */}
+          <div className="hidden lg:flex items-center gap-3 py-3">
+            {/* Filters label */}
+            <span className="text-[10px] font-bold tracking-[0.3em] uppercase mr-2 flex-shrink-0"
+              style={{ color: "rgba(11,15,26,0.3)" }}>Filter:</span>
 
-      <CTABanner
-        title="Can't find your target market?"
-        subtitle="We'll identify the perfect locations for your campaign objectives."
-        buttonLabel="Talk to a Strategist"
-        dark={false}
-      />
-    </>
+            <FilterDropdown
+              label="City" options={ALL_CITIES} value={city} onChange={handleCityChange}
+              icon={
+                <svg width="11" height="13" viewBox="0 0 13 15" fill="none">
+                  <path d="M6.5 0C3.462 0 1 2.462 1 5.5c0 3.85 5.5 9.5 5.5 9.5S12 9.35 12 5.5C12 2.462 9.538 0 6.5 0zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
+                    fill="currentColor"/>
+                </svg>
+              }
+            />
+            <FilterDropdown
+              label="District" options={districtOptions} value={district} onChange={handleDistrictChange}
+              icon={
+                <svg width="13" height="11" viewBox="0 0 15 13" fill="none">
+                  <rect x="0.5" y="5.5" width="6" height="7" stroke="currentColor" strokeWidth="1.4"/>
+                  <rect x="8.5" y="2.5" width="6" height="10" stroke="currentColor" strokeWidth="1.4"/>
+                  <path d="M0 5.5L7.5 0 15 5.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/>
+                </svg>
+              }
+            />
+            <FilterDropdown
+              label="Format" options={ALL_FORMATS} value={format} onChange={handleFormatChange}
+              icon={
+                <svg width="13" height="11" viewBox="0 0 15 13" fill="none">
+                  <rect x="0.5" y="0.5" width="14" height="12" stroke="currentColor" strokeWidth="1.4"/>
+                  <path d="M3 4h9M3 6.5h6M3 9h4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+                </svg>
+              }
+            />
+
+            {/* Clear filters */}
+            <AnimatePresence>
+              {hasFilters && (
+                <motion.button
+                  initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -8 }}
+                  onClick={clearAll}
+                  className="flex items-center gap-1.5 h-10 px-3 text-[11px] font-bold tracking-[0.15em] uppercase transition-colors hover:text-[#D90429]"
+                  style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(11,15,26,0.35)" }}
+                >
+                  <XIcon size={8} /> Clear all
+                </motion.button>
+              )}
+            </AnimatePresence>
+
+            {/* Spacer */}
+            <div className="flex-1" />
+
+            {/* Sort */}
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-semibold tracking-[0.2em] uppercase"
+                style={{ color: "rgba(11,15,26,0.3)" }}>Sort:</span>
+              {SORT_OPTIONS.map(opt => (
+                <button key={opt.id} onClick={() => setSort(opt.id)}
+                  className="h-9 px-3.5 text-[11px] font-semibold tracking-[0.1em] transition-all duration-200"
+                  style={{
+                    background: sort === opt.id ? NAVY : "transparent",
+                    color: sort === opt.id ? "white" : "rgba(11,15,26,0.4)",
+                    border: `1.5px solid ${sort === opt.id ? NAVY : "rgba(11,15,26,0.1)"}`,
+                    borderRadius: 6,
+                    cursor: "pointer",
+                  }}>
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Result count pill */}
+            <div className="flex items-center gap-2 px-3.5 py-2 ml-2"
+              style={{ background: "rgba(11,15,26,0.04)", borderRadius: 6 }}>
+              <span className="text-[11px] font-bold" style={{ color: NAVY }}>{sorted.length}</span>
+              <span className="text-[10px] font-semibold tracking-[0.1em] uppercase"
+                style={{ color: "rgba(11,15,26,0.4)" }}>locations</span>
+            </div>
+          </div>
+
+          {/* Mobile filter row */}
+          <div className="flex lg:hidden items-center gap-2 py-3">
+            <button
+              onClick={() => setMobileFiltersOpen(v => !v)}
+              className="flex items-center gap-2 h-10 px-4 flex-1 text-[12px] font-semibold"
+              style={{
+                background: hasFilters ? NAVY : "white",
+                color: hasFilters ? "white" : "rgba(11,15,26,0.6)",
+                border: `1.5px solid ${hasFilters ? NAVY : "rgba(11,15,26,0.12)"}`,
+                borderRadius: 8, cursor: "pointer",
+              }}
+            >
+              <svg width="13" height="11" viewBox="0 0 14 12" fill="none">
+                <path d="M1 2h12M3 6h8M5 10h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+              Filters {hasFilters && `(${[city, district, format].filter(Boolean).length})`}
+              <ChevronDown />
+            </button>
+            <button
+              onClick={() => setMobileMapOpen(v => !v)}
+              className="flex items-center gap-2 h-10 px-4 text-[12px] font-semibold flex-shrink-0"
+              style={{
+                background: mobileMapOpen ? RED : "white",
+                color: mobileMapOpen ? "white" : "rgba(11,15,26,0.6)",
+                border: `1.5px solid ${mobileMapOpen ? RED : "rgba(11,15,26,0.12)"}`,
+                borderRadius: 8, cursor: "pointer",
+              }}
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M5 1L1 3v10l4-2 4 2 4-2V1l-4 2-4-2z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M5 1v10M9 3v10" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+              </svg>
+              {mobileMapOpen ? "List" : "Map"}
+            </button>
+            <div className="px-3 py-2 flex-shrink-0"
+              style={{ background: "rgba(11,15,26,0.05)", borderRadius: 6 }}>
+              <span className="text-[11px] font-bold" style={{ color: NAVY }}>{sorted.length}</span>
+            </div>
+          </div>
+
+          {/* Mobile filter panel */}
+          <AnimatePresence>
+            {mobileFiltersOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25, ease }}
+                className="lg:hidden overflow-hidden"
+              >
+                <div className="pb-4 flex flex-col gap-3">
+                  <FilterDropdown label="City" options={ALL_CITIES} value={city} onChange={handleCityChange}
+                    icon={<svg width="11" height="13" viewBox="0 0 13 15" fill="none"><path d="M6.5 0C3.462 0 1 2.462 1 5.5c0 3.85 5.5 9.5 5.5 9.5S12 9.35 12 5.5C12 2.462 9.538 0 6.5 0zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fill="currentColor"/></svg>}
+                  />
+                  <FilterDropdown label="District" options={districtOptions} value={district} onChange={handleDistrictChange}
+                    icon={<svg width="13" height="11" viewBox="0 0 15 13" fill="none"><rect x="0.5" y="5.5" width="6" height="7" stroke="currentColor" strokeWidth="1.4"/><rect x="8.5" y="2.5" width="6" height="10" stroke="currentColor" strokeWidth="1.4"/><path d="M0 5.5L7.5 0 15 5.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/></svg>}
+                  />
+                  <FilterDropdown label="Format" options={ALL_FORMATS} value={format} onChange={handleFormatChange}
+                    icon={<svg width="13" height="11" viewBox="0 0 15 13" fill="none"><rect x="0.5" y="0.5" width="14" height="12" stroke="currentColor" strokeWidth="1.4"/><path d="M3 4h9M3 6.5h6M3 9h4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>}
+                  />
+                  {hasFilters && (
+                    <button onClick={clearAll}
+                      className="flex items-center gap-1.5 text-[11px] font-bold tracking-[0.15em] uppercase"
+                      style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(11,15,26,0.4)" }}>
+                      <XIcon size={8}/> Clear all filters
+                    </button>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+
+      {/* ══════════════════════════════════════════════════════════════
+          3. SPLIT-SCREEN CONTENT AREA
+      ══════════════════════════════════════════════════════════════ */}
+      <div className="flex-1 flex flex-col lg:flex-row relative">
+
+        {/* ── LEFT — Scrollable card list (70%) ───────────────────── */}
+        <div
+          ref={listRef}
+          className={`${mobileMapOpen ? "hidden lg:flex" : "flex"} flex-col lg:overflow-y-auto`}
+          style={{ flex: "0 0 66%", padding: "0 0 120px" }}
+        >
+          {/* Results header */}
+          <div className="sticky top-0 z-20 bg-white/95"
+            style={{
+              backdropFilter: "blur(8px)",
+              padding: "14px 32px",
+              borderBottom: "1px solid rgba(11,15,26,0.06)",
+              boxShadow: "0 2px 8px rgba(11,15,26,0.04)",
+            }}>
+            <div className="flex items-center justify-between">
+              <p className="text-[13px] font-semibold" style={{ color: "rgba(11,15,26,0.55)" }}>
+                <span className="font-black" style={{ color: NAVY }}>{sorted.length} </span>
+                {city ? <>premium billboard location{sorted.length !== 1 ? "s" : ""} in <span style={{ color: RED }}>{city}</span></> : "premium billboard locations"}
+              </p>
+              {hasFilters && (
+                <button onClick={clearAll}
+                  className="text-[10px] font-bold tracking-[0.15em] uppercase transition-colors hover:text-[#D90429]"
+                  style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(11,15,26,0.3)" }}>
+                  Clear filters
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Active filter chips */}
+          <AnimatePresence>
+            {hasFilters && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }}
+                style={{ padding: "12px 32px 0", overflow: "hidden" }}
+              >
+                <div className="flex items-center gap-2 flex-wrap">
+                  {[city && { label: "City", value: city, clear: () => handleCityChange("") },
+                    district && { label: "District", value: district, clear: () => handleDistrictChange("") },
+                    format && { label: "Format", value: format, clear: () => handleFormatChange("") }]
+                    .filter(Boolean)
+                    .map((chip: any) => (
+                      <motion.span
+                        key={chip.label}
+                        initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
+                        className="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.12em] uppercase px-3 py-1.5"
+                        style={{ background: NAVY, color: "white", borderRadius: 4 }}
+                      >
+                        {chip.label}: {chip.value}
+                        <button
+                          onClick={chip.clear}
+                          className="flex items-center justify-center w-3.5 h-3.5 rounded-full transition-opacity hover:opacity-70"
+                          style={{ background: "rgba(255,255,255,0.2)", cursor: "pointer", border: "none" }}
+                        >
+                          <XIcon size={6} />
+                        </button>
+                      </motion.span>
+                    ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Cards */}
+          <div style={{ padding: "20px 32px 0" }}>
+            <AnimatePresence mode="popLayout">
+              {sorted.length > 0 ? (
+                <motion.div
+                  key="results"
+                  className="grid grid-cols-1 xl:grid-cols-2 gap-5"
+                >
+                  {sorted.map(b => (
+                    <BillboardCard
+                      key={b.id}
+                      b={b}
+                      isHovered={hoveredId === b.id}
+                      isSelected={selectedId === b.id}
+                      onHover={setHoveredId}
+                      onSelect={handlePinSelect}
+                      cardRef={el => {
+                        if (el) cardRefs.current.set(b.id, el);
+                        else cardRefs.current.delete(b.id);
+                      }}
+                    />
+                  ))}
+                </motion.div>
+              ) : (
+                /* ── EMPTY STATE ────────────────────────────────────── */
+                <motion.div
+                  key="empty"
+                  initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+                  className="flex flex-col items-center justify-center py-24 text-center"
+                  style={{ gridColumn: "1 / -1" }}
+                >
+                  <div className="w-16 h-16 flex items-center justify-center mb-6"
+                    style={{ background: "rgba(217,4,41,0.06)", borderRadius: "50%", border: "1.5px solid rgba(217,4,41,0.12)" }}>
+                    <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+                      <path d="M13 1C6.373 1 1 6.373 1 13s5.373 12 12 12 12-5.373 12-12S19.627 1 13 1z" stroke={RED} strokeWidth="1.5"/>
+                      <path d="M9 13h4M13 9v4" stroke={RED} strokeWidth="1.5" strokeLinecap="round"/>
+                    </svg>
+                  </div>
+                  <h3 className="font-black text-[22px] tracking-[-0.03em] mb-3" style={{ color: NAVY }}>
+                    No locations match your search
+                  </h3>
+                  <p className="text-[14px] leading-[1.7] mb-8" style={{ color: "rgba(11,15,26,0.45)", maxWidth: 340 }}>
+                    Let us recommend the best locations for your campaign — our strategists know every market.
+                  </p>
+                  <div className="flex items-center gap-3">
+                    <button onClick={clearAll}
+                      className="h-11 px-6 text-[11px] font-bold tracking-[0.2em] uppercase text-white transition-opacity hover:opacity-90"
+                      style={{ background: RED, border: "none", borderRadius: 6, cursor: "pointer" }}>
+                      Show All Locations
+                    </button>
+                    <button onClick={() => navigate("/contact")}
+                      className="h-11 px-6 text-[11px] font-bold tracking-[0.2em] uppercase transition-all hover:border-[#D90429] hover:text-[#D90429]"
+                      style={{ background: "transparent", border: `1.5px solid rgba(11,15,26,0.15)`, borderRadius: 6, cursor: "pointer", color: "rgba(11,15,26,0.5)" }}>
+                      Contact Us
+                    </button>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* ── RIGHT — Sticky map panel (30%) ──────────────────────── */}
+        <div
+          className={`${mobileMapOpen ? "flex" : "hidden"} lg:flex flex-col`}
+          style={{ flex: "0 0 34%", position: "sticky", top: 57, height: "calc(100vh - 57px)", background: "#e8eaed" }}
+        >
+          <div className="relative w-full h-full">
+            <LocationsMap
+              billboards={sorted}
+              hoveredId={hoveredId}
+              selectedId={selectedId}
+              onHover={setHoveredId}
+              onSelect={handlePinSelect}
+              className="absolute inset-0 w-full h-full"
+              style={{ zIndex: 1 }}
+            />
+
+            {/* Map legend */}
+            <div className="absolute bottom-20 left-4 z-[1000] flex flex-col gap-2 pointer-events-none">
+              <div className="flex items-center gap-2 px-3 py-2"
+                style={{ background: "rgba(255,255,255,0.95)", backdropFilter: "blur(6px)", borderRadius: 6, boxShadow: "0 2px 12px rgba(11,15,26,0.1)" }}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="13" viewBox="0 0 32 40">
+                  <path d="M16 0C7.163 0 0 7.163 0 16c0 10.293 14.222 23.156 15.259 24.114a1 1 0 0 0 1.482 0C17.778 39.156 32 26.293 32 16 32 7.163 24.837 0 16 0z" fill={NAVY}/>
+                  <circle cx="16" cy="16" r="6" fill={RED}/>
+                </svg>
+                <span className="text-[9px] font-bold tracking-[0.18em] uppercase" style={{ color: NAVY }}>Billboard</span>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-2"
+                style={{ background: "rgba(255,255,255,0.95)", backdropFilter: "blur(6px)", borderRadius: 6, boxShadow: "0 2px 12px rgba(11,15,26,0.1)" }}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="13" viewBox="0 0 32 40">
+                  <path d="M16 0C7.163 0 0 7.163 0 16c0 10.293 14.222 23.156 15.259 24.114a1 1 0 0 0 1.482 0C17.778 39.156 32 26.293 32 16 32 7.163 24.837 0 16 0z" fill={RED}/>
+                  <circle cx="16" cy="16" r="6" fill="white}"/>
+                </svg>
+                <span className="text-[9px] font-bold tracking-[0.18em] uppercase" style={{ color: NAVY }}>Selected</span>
+              </div>
+            </div>
+
+            {/* Pin count chip */}
+            <div className="absolute top-3 right-3 z-[1000]">
+              <div className="flex items-center gap-1.5 px-3 py-1.5"
+                style={{ background: "rgba(11,15,26,0.85)", backdropFilter: "blur(6px)", borderRadius: 20 }}>
+                <svg width="8" height="8" viewBox="0 0 8 8" fill={RED}>
+                  <circle cx="4" cy="4" r="4"/>
+                </svg>
+                <span className="text-[9px] font-bold tracking-[0.15em] uppercase text-white">{sorted.length} pins</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ══════════════════════════════════════════════════════════════
+          4. FLOATING CTA BAR (sticky bottom)
+      ══════════════════════════════════════════════════════════════ */}
+      <motion.div
+        initial={{ y: 80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 1.2, duration: 0.6, ease }}
+        className="fixed bottom-6 left-1/2 z-50"
+        style={{ transform: "translateX(-50%)" }}
+      >
+        <div className="flex items-center gap-3 px-5 py-3"
+          style={{
+            background: "white",
+            borderRadius: 50,
+            boxShadow: "0 8px 40px rgba(11,15,26,0.18), 0 2px 8px rgba(11,15,26,0.08)",
+            border: "1px solid rgba(11,15,26,0.08)",
+            whiteSpace: "nowrap",
+          }}>
+          <div className="hidden sm:flex items-center gap-2 pr-3"
+            style={{ borderRight: "1px solid rgba(11,15,26,0.1)" }}>
+            <div className="w-2 h-2 rounded-full" style={{ background: RED, animation: "pulse 2s infinite" }} />
+            <span className="text-[12px] font-semibold" style={{ color: "rgba(11,15,26,0.55)" }}>
+              Need help choosing the best billboard?
+            </span>
+          </div>
+          <button
+            onClick={() => navigate("/contact")}
+            className="flex items-center gap-2 h-9 px-4 text-[11px] font-bold tracking-[0.15em] uppercase text-white transition-opacity hover:opacity-90 active:scale-[0.97]"
+            style={{ background: NAVY, border: "none", borderRadius: 30, cursor: "pointer" }}
+          >
+            Talk to an Expert
+          </button>
+          <a
+            href="https://wa.me/201234567890?text=Hi%20HORIZON%20OOH%2C%20I%20need%20help%20choosing%20billboard%20locations"
+            target="_blank" rel="noopener noreferrer"
+            className="flex items-center gap-2 h-9 px-4 text-[11px] font-bold tracking-[0.15em] uppercase text-white transition-opacity hover:opacity-90 active:scale-[0.97]"
+            style={{ background: "#25D366", borderRadius: 30, textDecoration: "none" }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            WhatsApp
+          </a>
+        </div>
+      </motion.div>
+
+      <style>{`
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: .4; }
+        }
+      `}</style>
+    </div>
   );
 }
