@@ -24,6 +24,11 @@ export interface Project {
   slug: string;
   title: string;
   client: string;
+  clientLogo?: string;
+  clientIndustry?: string;
+  clientDescription?: string;
+  clientPageDescription?: string;
+  campaignBrief?: string;
   location: string;
   city: string;
   category: ProjectCategory;

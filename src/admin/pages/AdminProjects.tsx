@@ -5,14 +5,15 @@ import { Plus, Pencil, Trash2, Star, X } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 function ProjectForm({ editing, onClose }: any) {
-  const init = editing || { title:'', client:'', location:'', city:'', category:'Billboard', year:new Date().getFullYear().toString(), duration:'', tagline:'', overview:'', objective:'', execution:'', coverImage:'', results:[], tags:[], keywords:[], featured:false }
+  const init = editing || { title:'', client:'', clientLogo:'', clientIndustry:'', clientDescription:'', clientPageDescription:'', campaignBrief:'', location:'', city:'', category:'Billboard', year:new Date().getFullYear().toString(), duration:'', tagline:'', overview:'', objective:'', execution:'', coverImage:'', heroImage:'', galleryImages:[], results:[], tags:[], keywords:[], featured:false }
   const [f,setF]           = useState({...init})
   const [results,setRes]   = useState<any[]>(init.results||[])
   const [tags,setTags]     = useState<string[]>(init.tags||[])
+  const [galleryImages,setGalleryImages] = useState<string[]>(init.galleryImages||[])
   const set = (k:string,v:any) => setF((p:any)=>({...p,[k]:v}))
   const save = (e:React.FormEvent) => {
     e.preventDefault()
-    const data = { ...f, results, tags, slug: f.title.toLowerCase().replace(/[^a-z0-9]+/g,'-'), heroImage: f.coverImage, galleryImages:[] }
+    const data = { ...f, results, tags, galleryImages, slug: f.title.toLowerCase().replace(/[^a-z0-9]+/g,'-'), heroImage: f.heroImage || f.coverImage }
     if (editing) projectStore.update(editing.id, data)
     else         projectStore.add(data)
     toast.success(editing?'Updated':'Created'); onClose()
@@ -25,6 +26,13 @@ function ProjectForm({ editing, onClose }: any) {
         <Field label="Title *"  value={f.title}  onChange={(e:any)=>set('title',e.target.value)}  required/>
         <Field label="Client *" value={f.client} onChange={(e:any)=>set('client',e.target.value)} required/>
       </div>
+      <div className="grid grid-cols-2 gap-3">
+        <Field label="Client Logo URL" value={f.clientLogo} onChange={(e:any)=>set('clientLogo',e.target.value)} placeholder="https://..."/>
+        <Field label="Client Industry" value={f.clientIndustry} onChange={(e:any)=>set('clientIndustry',e.target.value)} placeholder="Real Estate, FMCG, Retail..."/>
+      </div>
+      <TA label="Client Description" value={f.clientDescription} onChange={(e:any)=>set('clientDescription',e.target.value)} />
+      <TA label="Client Page Description" value={f.clientPageDescription} onChange={(e:any)=>set('clientPageDescription',e.target.value)} />
+      <TA label="Campaign Brief" value={f.campaignBrief} onChange={(e:any)=>set('campaignBrief',e.target.value)} />
       <div className="grid grid-cols-3 gap-3">
         <Sel label="Category" value={f.category} onChange={(e:any)=>set('category',e.target.value)}>
           {['Billboard','DOOH','Mall','Airport'].map(c=><option key={c}>{c}</option>)}
@@ -36,7 +44,11 @@ function ProjectForm({ editing, onClose }: any) {
       <TA label="Overview *"   value={f.overview}   onChange={(e:any)=>set('overview',e.target.value)}   required/>
       <TA label="Objective *"  value={f.objective}  onChange={(e:any)=>set('objective',e.target.value)}  required/>
       <TA label="Execution *"  value={f.execution}  onChange={(e:any)=>set('execution',e.target.value)}  required/>
-      <Field label="Cover Image URL" value={f.coverImage} onChange={(e:any)=>set('coverImage',e.target.value)}/>
+      <div className="grid grid-cols-2 gap-3">
+        <Field label="Cover Image URL" value={f.coverImage} onChange={(e:any)=>set('coverImage',e.target.value)}/>
+        <Field label="Hero Image URL" value={f.heroImage} onChange={(e:any)=>set('heroImage',e.target.value)} placeholder="Optional. Falls back to cover image"/>
+      </div>
+      <ArrayEditor label="Gallery Image URLs" value={galleryImages} onChange={setGalleryImages} placeholder="https://..."/>
       <ArrayEditor label="Tags" value={tags} onChange={setTags} placeholder="e.g. Billboard, Cairo"/>
       {/* Results */}
       <div>
