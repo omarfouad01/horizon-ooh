@@ -5,14 +5,16 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ALL_BILLBOARDS } from "@/data";
+import { useStore, getState } from "@/store/dataStore";
 import { productHref, RED, NAVY } from "@/lib/routes";
 import LocationsMap from "@/components/LocationsMap";
 
+const getBillboards = () => getState().locations.flatMap((l: any) => (l.products||[]).map((p: any) => ({ ...p, citySlug: l.slug })));
+
 // ─── constants ─────────────────────────────────────────────────────────────
 const ease = [0.22, 1, 0.36, 1] as const;
-const ALL_CITIES    = Array.from(new Set(ALL_BILLBOARDS.map(b => b.city))).sort();
-const ALL_FORMATS   = Array.from(new Set(ALL_BILLBOARDS.map(b => b.type))).sort();
+const ALL_CITIES    = Array.from(new Set(getBillboards().map(b => b.city))).sort();
+const ALL_FORMATS   = Array.from(new Set(getBillboards().map(b => b.type))).sort();
 
 const BADGES: Record<string, string[]> = {
   "Unipole Billboard": ["High Visibility", "Premium Location"],
@@ -234,7 +236,7 @@ function FilterDropdown({ label, options, values, onChange, icon }: FilterDropdo
 
 // ─── Billboard card ──────────────────────────────────────────────────────────
 interface CardProps {
-  b: typeof ALL_BILLBOARDS[0];
+  b: any;
   isHovered: boolean;
   isSelected: boolean;
   onHover: (id: string | null) => void;
@@ -381,6 +383,8 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }:
 // MAIN PAGE
 // ═══════════════════════════════════════════════════════════════════════════
 export default function Locations() {
+  const { locations } = useStore()
+  const allBillboards = locations.flatMap((l: any) => (l.products||[]).map((p: any) => ({ ...p, citySlug: l.slug })))
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -410,13 +414,13 @@ export default function Locations() {
 
   // District options narrow when cities are selected
   const districtOptions = Array.from(new Set(
-    ALL_BILLBOARDS
+    allBillboards
       .filter(b => cities.length === 0 || cities.includes(b.city))
       .map(b => b.district)
   )).sort();
 
   // ── Filtered results ─────────────────────────────────────────────────
-  const sorted = ALL_BILLBOARDS.filter(b => {
+  const sorted = allBillboards.filter(b => {
     if (cities.length    > 0 && !cities.includes(b.city))        return false;
     if (districts.length > 0 && !districts.includes(b.district)) return false;
     if (formats.length   > 0 && !formats.includes(b.type))       return false;
@@ -448,7 +452,7 @@ export default function Locations() {
   const handleCitiesChange = (vals: string[]) => {
     // When cities change, remove districts that no longer belong
     const newDists = districts.filter(d =>
-      ALL_BILLBOARDS.some(b => vals.length === 0 || vals.includes(b.city) ? b.district === d : false)
+      allBillboards.some(b => vals.length === 0 || vals.includes(b.city) ? b.district === d : false)
     );
     setCities(vals); setDistricts(newDists);
     pushToUrl(vals, newDists, formats);

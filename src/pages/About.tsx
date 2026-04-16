@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { TRUST_STATS, RESULTS, CLIENT_BRANDS } from "@/data";
+import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, PageHero, SectionHeading, CTABanner, Eyebrow } from "@/components/UI";
 import { ROUTES, RED, NAVY, ease } from "@/lib/routes";
 import SEO from "@/components/SEO";
@@ -34,6 +34,7 @@ const WHY_CHOOSE = [
 ];
 
 export default function About() {
+  const { trustStats: TRUST_STATS, results: RESULTS, clientBrands: CLIENT_BRANDS } = useStore()
   const navigate = useNavigate();
 
   return (

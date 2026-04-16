@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-import { SERVICES } from "@/data";
+import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, PageHero, CTABanner, Eyebrow } from "@/components/UI";
 import { serviceHref, RED, NAVY } from "@/lib/routes";
 
 export default function Services() {
+  const { services: SERVICES } = useStore()
   return (
     <>
       <PageHero

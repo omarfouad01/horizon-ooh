@@ -1,11 +1,12 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { SERVICES } from "@/data";
+import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, SectionHeading, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
 import { serviceHref, RED, NAVY, ease } from "@/lib/routes";
 import { motion } from "framer-motion";
 import SEO from "@/components/SEO";
 
 export default function ServiceDetail() {
+  const { services: SERVICES } = useStore()
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const service = SERVICES.find((s) => s.slug === slug);

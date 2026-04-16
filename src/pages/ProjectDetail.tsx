@@ -1,6 +1,7 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { PROJECTS, type ProjectCategory } from "@/data";
+import { useStore } from "@/store/dataStore"
+import { type ProjectCategory } from "@/data";
 import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
 import { projectHref, RED, NAVY, ease } from "@/lib/routes";
 
@@ -12,6 +13,7 @@ const CAT_COLORS: Record<ProjectCategory, string> = {
 };
 
 export default function ProjectDetail() {
+  const { projects: PROJECTS } = useStore()
   const { slug } = useParams<{ slug: string }>();
   const navigate  = useNavigate();
   const project   = PROJECTS.find((p) => p.slug === slug);

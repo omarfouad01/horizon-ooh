@@ -1,3 +1,4 @@
+import { contactStore } from "@/store/dataStore"
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Reveal, RevealGroup, RevealItem, PageHero, Eyebrow } from "@/components/UI";
@@ -38,7 +39,8 @@ export default function Contact() {
         const msg = json.message ?? "Something went wrong. Please try again.";
         setApiError(msg);
       } else {
-        setSubmitted(true);
+        contactStore.add({ name: form.name||"", email: form.email||"", phone: (form as any).phone, company: (form as any).company, subject: (form as any).subject||(form as any).service, message: form.message||"" })
+      setSubmitted(true);
       }
     } catch (_err) {
       setApiError("Could not reach the server. Please check your connection.");

@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-import { BLOG_POSTS } from "@/data";
+import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, PageHero, CTABanner } from "@/components/UI";
 import { blogHref, RED, NAVY } from "@/lib/routes";
 
 export default function Blog() {
+  const { blogPosts: BLOG_POSTS } = useStore()
   const featured = BLOG_POSTS[0];
   const rest = BLOG_POSTS.slice(1);
 

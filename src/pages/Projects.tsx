@@ -1,7 +1,8 @@
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
-import { PROJECTS, type ProjectCategory } from "@/data";
+import { useStore } from "@/store/dataStore"
+import { type ProjectCategory } from "@/data";
 import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow } from "@/components/UI";
 import { projectHref, RED, NAVY, ease } from "@/lib/routes";
 
@@ -23,7 +24,7 @@ const CAT_COLORS: Record<ProjectCategory, string> = {
 };
 
 // ─── Project card ──────────────────────────────────────────────────────────
-function ProjectCard({ project, index }: { project: typeof PROJECTS[0]; index: number }) {
+function ProjectCard({ project, index }: { project: any; index: number }) {
   return (
     <motion.div
       variants={{
@@ -122,6 +123,7 @@ function ProjectCard({ project, index }: { project: typeof PROJECTS[0]; index: n
 
 // ─── Featured project (full-width) ────────────────────────────────────────
 function FeaturedProject() {
+  const { projects: PROJECTS } = useStore()
   const featured = PROJECTS.find((p) => p.featured)!;
   return (
     <section className="bg-white" style={{ paddingTop: 0, paddingBottom: 80 }}>
@@ -258,6 +260,7 @@ function WhyItMatters() {
 
 // ─── Projects listing page ────────────────────────────────────────────────
 export default function Projects() {
+  const { projects: PROJECTS } = useStore()
   const [activeFilter, setActiveFilter] = useState<"All" | ProjectCategory>("All");
 
   const filtered = activeFilter === "All"

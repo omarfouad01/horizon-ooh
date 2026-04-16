@@ -1,19 +1,14 @@
 import { useRef, useEffect, useState } from "react";
 import LeafletMap from "@/components/BillboardMap";
-import { ALL_BILLBOARDS } from "@/data";
+import { useStore, getState } from "@/store/dataStore";
 import { motion, AnimatePresence, useInView, useScroll, useTransform } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 import MultiSelect from "@/components/MultiSelect";
-import {
-  SERVICES,
-  LOCATIONS,
-  PROCESS,
-  RESULTS,
-  TRUST_STATS,
-  CLIENT_BRANDS,
-  PROJECTS,
-} from "@/data";
+// data now from store
 import { serviceHref, locationHref, projectHref, productHref } from "@/lib/routes";
+
+// Module-level billboards accessor (re-evaluates on each render from store)
+const getBillboards = () => getState().locations.flatMap((l: any) => (l.products||[]).map((p: any) => ({ ...p, citySlug: l.slug })));
 
 // ─── Constants ───────────────────────────────────────────────────────────
 const NAVY = "#0B0F1A";
@@ -190,8 +185,8 @@ function OutlineButton({
 // ═══════════════════════════════════════════════════════════════════════════
 
 // ── Filter-select helper ────────────────────────────────────────────────
-const ALL_CITIES    = Array.from(new Set(ALL_BILLBOARDS.map(b => b.city))).sort();
-const ALL_FORMATS   = Array.from(new Set(ALL_BILLBOARDS.map(b => b.type))).sort();
+const ALL_CITIES    = Array.from(new Set(getBillboards().map((b: any) => b.city))).sort();
+const ALL_FORMATS   = Array.from(new Set(getBillboards().map((b: any) => b.type))).sort();
 
 function HeroSection() {
   const heroRef = useRef<HTMLElement>(null);
@@ -205,7 +200,7 @@ function HeroSection() {
   const [formats,   setFormats]   = useState<string[]>([]);
 
   const districtOptions = Array.from(new Set(
-    ALL_BILLBOARDS
+    getBillboards()
       .filter(b => cities.length === 0 || cities.includes(b.city))
       .map(b => b.district)
   )).sort();
@@ -214,7 +209,7 @@ function HeroSection() {
   const reset = () => { setCities([]); setDistricts([]); setFormats([]); };
 
   // ── Map pin selection (independent of search) ─────────────────────
-  const [selectedPin, setSelectedPin] = useState<(typeof ALL_BILLBOARDS)[0] | null>(null);
+  const [selectedPin, setSelectedPin] = useState<(ReturnType<typeof getBillboards>)[0] | null>(null);
 
   function handleSearch(e?: React.FormEvent) {
     if (e) e.preventDefault();
@@ -405,8 +400,8 @@ function HeroSection() {
         <div className="relative flex-1 overflow-hidden" style={{ minHeight: "clamp(420px, 55vh, 100svh)" }}>
           {/* Map always shows ALL billboard locations */}
           <LeafletMap
-            filtered={ALL_BILLBOARDS}
-            allCount={ALL_BILLBOARDS.length}
+            filtered={getBillboards()}
+            allCount={getBillboards().length}
             selected={selectedPin}
             onSelect={setSelectedPin}
             className="absolute inset-0 w-full h-full"
@@ -566,6 +561,7 @@ function StatementSection() {
 // 3. TRUST / AUTHORITY STRIP
 // ═══════════════════════════════════════════════════════════════════════════
 function TrustStrip() {
+  const { trustStats: TRUST_STATS } = useStore()
   return (
     <section className="bg-white py-[80px] border-y border-[#0B0F1A]/[0.06]">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
@@ -609,6 +605,7 @@ function TrustStrip() {
 // 4. SERVICES GRID
 // ═══════════════════════════════════════════════════════════════════════════
 function ServicesSection() {
+  const { services: SERVICES } = useStore()
   return (
     <section id="services" className="bg-white" style={{ paddingTop: 120, paddingBottom: 140 }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
@@ -785,6 +782,7 @@ function FeatureSection() {
 // 6. LOCATIONS
 // ═══════════════════════════════════════════════════════════════════════════
 function LocationsSection() {
+  const { locations: LOCATIONS } = useStore()
   return (
     <section id="locations" className="bg-white" style={{ paddingTop: 120, paddingBottom: 120 }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
@@ -854,6 +852,7 @@ function LocationsSection() {
 // 7. PROCESS
 // ═══════════════════════════════════════════════════════════════════════════
 function ProcessSection() {
+  const { process: PROCESS } = useStore()
   return (
     <section style={{ background: NAVY, padding: "120px 0 140px" }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
@@ -924,6 +923,7 @@ function ProcessSection() {
 // 8. RESULTS
 // ═══════════════════════════════════════════════════════════════════════════
 function ResultsSection() {
+  const { results: RESULTS } = useStore()
   const resultNums: Record<string, number> = { "2.7×": 27, "+180%": 180, "100+": 100 };
 
   return (
@@ -993,6 +993,7 @@ function ResultsSection() {
 // 9. CLIENTS / TRUST
 // ═══════════════════════════════════════════════════════════════════════════
 function ClientsSection() {
+  const { clientBrands: CLIENT_BRANDS } = useStore()
   return (
     <section
       id="about"
@@ -1224,6 +1225,7 @@ function FinalCTASection() {
 // PROJECTS TEASER SECTION (HOME)
 // ═══════════════════════════════════════════════════════════════════════════
 function ProjectsSection() {
+  const { projects: PROJECTS } = useStore()
   const featured = PROJECTS.find((p) => p.featured)!;
   const others   = PROJECTS.filter((p) => !p.featured).slice(0, 2);
 
@@ -1411,6 +1413,7 @@ function BillboardBenefitsSection() {
 
 // ─── Recently Added Billboards Section ──────────────────────────────────────
 function RecentBillboardsSection() {
+  const { locations: LOCATIONS } = useStore()
   const ALL_BILLBOARD_PRODUCTS = LOCATIONS.flatMap((loc) =>
     loc.products.map((p) => ({ ...p, citySlug: loc.slug, cityName: loc.city }))
   );
@@ -1545,6 +1548,8 @@ function RecentBillboardsSection() {
 }
 
 export default function Home() {
+  const { locations: LOCATIONS, services: SERVICES, projects: PROJECTS, trustStats: TRUST_STATS, clientBrands: CLIENT_BRANDS, process: PROCESS, results: RESULTS } = useStore()
+  const allBillboards = LOCATIONS.flatMap((l: any) => (l.products||[]).map((p: any) => ({ ...p, citySlug: l.slug })))
   return (
     <>
       <HeroSection />

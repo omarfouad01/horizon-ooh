@@ -1,9 +1,10 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { BLOG_POSTS } from "@/data";
+import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
 import { blogHref, RED, NAVY } from "@/lib/routes";
 
 export default function BlogArticle() {
+  const { blogPosts: BLOG_POSTS } = useStore()
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const post = BLOG_POSTS.find((p) => p.slug === slug);

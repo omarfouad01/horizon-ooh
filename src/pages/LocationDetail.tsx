@@ -1,9 +1,10 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { LOCATIONS } from "@/data";
+import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, SectionHeading, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
 import { productHref, RED, NAVY } from "@/lib/routes";
 
 export default function LocationDetail() {
+  const { locations: LOCATIONS } = useStore()
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const location = LOCATIONS.find((l) => l.slug === slug);

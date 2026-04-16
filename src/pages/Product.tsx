@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { LOCATIONS } from "@/data";
+import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
 import { RED, NAVY, ease } from "@/lib/routes";
 import ProductMap from "@/components/ProductMap";
@@ -115,6 +115,7 @@ function Lightbox({ images, active, onClose, onNav }: {
 
 // ─── Main product page ────────────────────────────────────────────────────
 export default function Product() {
+  const { locations: LOCATIONS } = useStore()
   const { city: citySlug, slug } = useParams<{ city: string; slug: string }>();
   const navigate = useNavigate();
   const heroRef  = useRef<HTMLElement>(null);
