@@ -34,6 +34,7 @@ import AdminBlog       from "@/admin/pages/AdminBlog";
 import AdminContacts   from "@/admin/pages/AdminContacts";
 import AdminSettings   from "@/admin/pages/AdminSettings";
 import AdminAbout      from "@/admin/pages/AdminAbout";
+import AdminSuppliers  from "@/admin/pages/AdminSuppliers";
 
 const queryClient = new QueryClient();
 
@@ -74,6 +75,7 @@ const App = () => (
               <Route path="contacts"    element={<AdminContacts />} />
               <Route path="settings"    element={<AdminSettings />} />
               <Route path="about"       element={<AdminAbout />} />
+              <Route path="suppliers"   element={<AdminSuppliers />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

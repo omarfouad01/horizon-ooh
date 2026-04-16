@@ -13,7 +13,7 @@ export interface District   { id: string; name: string; locationId: string }
 export interface Contact    { id: string; name: string; email: string; phone?: string; company?: string; subject?: string; message: string; status: 'new'|'read'|'replied'|'archived'; createdAt: string }
 export interface TrustStat  { id: string; value: string; label: string }
 export interface ProcessStep{ id: string; step: string; label: string; description: string }
-export interface SiteSettings { companyName:string; tagline:string; email:string; phone:string; address:string; whatsapp:string; metaDescription:string }
+export interface SiteSettings { companyName:string; tagline:string; email:string; phone:string; address:string; whatsapp:string; metaDescription:string; logoUrl:string; faviconUrl:string }
 
 export interface WhyChooseItem { id:string; num:string; title:string; desc:string }
 export interface AboutStat     { id:string; value:string; label:string; sub:string }
@@ -35,6 +35,9 @@ export interface AboutContent {
   keyStats:       AboutStat[]
 }
 
+export interface ClientBrand  { id:string; name:string; logoUrl:string }
+export interface Supplier     { id:string; name:string; contact:string; email:string; phone:string; description:string; category:string }
+
 export interface StoreState {
   locations:    Location[]
   districts:    District[]
@@ -44,7 +47,8 @@ export interface StoreState {
   contacts:     Contact[]
   settings:     SiteSettings
   trustStats:   TrustStat[]
-  clientBrands: string[]
+  clientBrands: ClientBrand[]
+  suppliers:    Supplier[]
   process:      ProcessStep[]
   results:      { value:string; label:string; sublabel:string }[]
   about:        AboutContent
@@ -279,7 +283,10 @@ const DEFAULT_SETTINGS: SiteSettings = {
   email:'hello@horizonooh.com', phone:'+20 2 1234 5678',
   address:'Cairo, Egypt', whatsapp:'+201234567890',
   metaDescription:"Egypt's leading outdoor advertising company. Premium billboard, DOOH, mall, and airport advertising across Cairo, Alexandria, and nationwide.",
+  logoUrl:'', faviconUrl:'',
 }
+const DEFAULT_CLIENT_BRANDS: ClientBrand[] = CLIENT_BRANDS.map((name,i) => ({id:String(i+1), name, logoUrl:''}))
+const DEFAULT_SUPPLIERS: Supplier[] = []
 const DEFAULT_TRUST_STATS: TrustStat[]  = TRUST_STATS.map((s,i) => ({id:String(i+1),...s}))
 const DEFAULT_PROCESS:     ProcessStep[] = PROCESS.map((p,i) => ({id:String(i+1),...p}))
 
@@ -293,7 +300,8 @@ function defaultState(): StoreState {
     contacts:     [],
     settings:     DEFAULT_SETTINGS,
     trustStats:   DEFAULT_TRUST_STATS,
-    clientBrands: CLIENT_BRANDS,
+    clientBrands: DEFAULT_CLIENT_BRANDS,
+    suppliers:    DEFAULT_SUPPLIERS,
     process:      DEFAULT_PROCESS,
     results:      RESULTS,
     about:        DEFAULT_ABOUT,
@@ -318,6 +326,7 @@ function load(): StoreState {
       settings:     p.settings     ?? d.settings,
       trustStats:   p.trustStats   ?? d.trustStats,
       clientBrands: p.clientBrands ?? d.clientBrands,
+      suppliers:    p.suppliers    ?? d.suppliers,
       process:      p.process      ?? d.process,
       results:      p.results      ?? d.results,
       about:        p.about        ?? d.about,
@@ -380,7 +389,17 @@ export const trustStatStore  = {
   update: (id:string,p:Partial<TrustStat>)   => setState(s=>({...s,trustStats:s.trustStats.map(x=>x.id===id?{...x,...p}:x)})),
   remove: (id:string)                         => setState(s=>({...s,trustStats:s.trustStats.filter(x=>x.id!==id)})),
 }
-export const brandStore      = { set:(brands:string[])=>setState(s=>({...s,clientBrands:brands})) }
+export const brandStore = {
+  add:    (x:Omit<ClientBrand,'id'>)           => setState(s=>({...s,clientBrands:[...s.clientBrands,{...x,id:uid()}]})),
+  update: (id:string,p:Partial<ClientBrand>)   => setState(s=>({...s,clientBrands:s.clientBrands.map(x=>x.id===id?{...x,...p}:x)})),
+  remove: (id:string)                           => setState(s=>({...s,clientBrands:s.clientBrands.filter(x=>x.id!==id)})),
+  set:    (brands:ClientBrand[])               => setState(s=>({...s,clientBrands:brands})),
+}
+export const supplierStore = {
+  add:    (x:Omit<Supplier,'id'>)              => setState(s=>({...s,suppliers:[...s.suppliers,{...x,id:uid()}]})),
+  update: (id:string,p:Partial<Supplier>)      => setState(s=>({...s,suppliers:s.suppliers.map(x=>x.id===id?{...x,...p}:x)})),
+  remove: (id:string)                           => setState(s=>({...s,suppliers:s.suppliers.filter(x=>x.id!==id)})),
+}
 export const processStore    = {
   add:    (x:Omit<ProcessStep,'id'>)          => setState(s=>({...s,process:[...s.process,{...x,id:uid()}]})),
   update: (id:string,p:Partial<ProcessStep>)  => setState(s=>({...s,process:s.process.map(x=>x.id===id?{...x,...p}:x)})),

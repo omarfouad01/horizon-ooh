@@ -1,6 +1,6 @@
 
 import { useState } from 'react'
-import { useStore, aboutStore, trustStatStore, brandStore, type AboutContent, type WhyChooseItem, type AboutStat } from '@/store/dataStore'
+import { useStore, aboutStore, trustStatStore, type AboutContent, type WhyChooseItem, type AboutStat } from '@/store/dataStore'
 import { Btn, Field, TA, PageHeader } from '../ui'
 import { Save, Plus, Trash2, Pencil, X, ChevronUp, ChevronDown, GripVertical } from 'lucide-react'
 
@@ -107,14 +107,7 @@ export default function AdminAbout() {
   }
 
   // ── Brands
-  const [brandInput, setBrandInput] = useState('')
-  function addBrand() {
-    const t = brandInput.trim()
-    if (!t) return
-    brandStore.set([...store.clientBrands, t])
-    setBrandInput('')
-  }
-  function removeBrand(b:string) { brandStore.set(store.clientBrands.filter(x=>x!==b)) }
+
 
   // ── Dark paragraphs helpers
   function setPara(i:number, v:string) {
@@ -249,22 +242,18 @@ export default function AdminAbout() {
 
       {/* ── CLIENT BRANDS ─────────────────────────────────────── */}
       {tab==='brands' && (
-        <Card title="Client Brands (wordmark list)">
-          <div className="flex flex-wrap gap-2 mb-5">
+        <Card title="Client Brands">
+          <div className="flex flex-wrap gap-3 mb-5">
             {store.clientBrands.map(b => (
-              <div key={b} className="flex items-center gap-1.5 bg-gray-100 rounded-lg px-3 py-1.5 border border-gray-200">
-                <span className="text-[12px] font-semibold text-gray-700 tracking-wider uppercase">{b}</span>
-                <button onClick={()=>removeBrand(b)} className="text-gray-400 hover:text-red-500 transition-colors"><X size={12}/></button>
+              <div key={b.id} className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-xl px-3 py-2">
+                {b.logoUrl && <img src={b.logoUrl} alt={b.name} style={{height:24,width:'auto',objectFit:'contain',maxWidth:48,flexShrink:0}}/>}
+                <span className="text-[12px] font-semibold text-gray-700 tracking-wider uppercase">{b.name}</span>
               </div>
             ))}
           </div>
-          <div className="flex gap-2">
-            <input value={brandInput} onChange={e=>setBrandInput(e.target.value)}
-              onKeyDown={e=>{if(e.key==='Enter'){e.preventDefault();addBrand()}}}
-              placeholder="Brand name (e.g. Coca-Cola)" className="flex-1 h-9 px-3 rounded-lg border border-gray-200 text-[13px] outline-none focus:border-navy"/>
-            <Btn onClick={addBrand} className="flex items-center gap-1.5 text-[12px] px-4"><Plus size={13}/>Add Brand</Btn>
+          <div className="p-3 rounded-lg bg-blue-50 border border-blue-100 text-[12px] text-blue-700">
+            ℹ️ To add, edit, or upload logos for client brands, go to <strong>Settings → Brands</strong>.
           </div>
-          <p className="text-[11px] text-gray-400 mt-3">Brands appear as uppercase wordmarks on the About page. Press Enter or click Add Brand.</p>
         </Card>
       )}
 

@@ -1,4 +1,4 @@
-import { contactStore } from "@/store/dataStore"
+import { contactStore, useStore } from "@/store/dataStore"
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Reveal, RevealGroup, RevealItem, PageHero, Eyebrow } from "@/components/UI";
@@ -7,14 +7,14 @@ import { RED, NAVY, ease } from "@/lib/routes";
 // PHP API endpoint — reads from Vite env, falls back to relative path.
 const API_URL = (import.meta.env.VITE_API_URL as string | undefined) ?? "/api";
 
-const CONTACT_INFO = [
-  { label: "Cairo HQ", value: "Smart Village, Km 28 Cairo–Alexandria Desert Rd, Giza", icon: "◉" },
-  { label: "Phone", value: "+20 2 1234 5678", icon: "◉" },
-  { label: "Email", value: "info@horizonooh.com", icon: "◉" },
-  { label: "Hours", value: "Sun – Thu, 9:00 – 18:00 EET", icon: "◉" },
-];
-
 export default function Contact() {
+  const { settings } = useStore();
+  const CONTACT_INFO = [
+    { label: "Cairo HQ", value: settings.address || "Cairo, Egypt", icon: "◉" },
+    { label: "Phone",   value: settings.phone   || "+20 2 1234 5678", icon: "◉" },
+    { label: "Email",   value: settings.email   || "info@horizonooh.com", icon: "◉" },
+    { label: "Hours",   value: "Sun – Thu, 9:00 – 18:00 EET", icon: "◉" },
+  ];
   const [form, setForm] = useState({ name: "", email: "", phone: "", company: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);

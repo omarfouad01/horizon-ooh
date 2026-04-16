@@ -196,15 +196,26 @@ export default function About() {
               <span className="block w-8 h-[1px]" style={{ background: "rgba(11,15,26,0.15)" }} />
             </div>
           </Reveal>
-          <RevealGroup className="flex flex-wrap justify-center items-center gap-x-12 gap-y-5">
+          <RevealGroup className="flex flex-wrap justify-center items-center gap-x-12 gap-y-6">
             {store.clientBrands.map((brand) => (
-              <RevealItem key={brand}>
-                <span
-                  className="font-bold tracking-[0.12em] uppercase cursor-default transition-colors duration-200 hover:text-[#0B0F1A]/70"
-                  style={{ fontSize: 14, color: "rgba(11,15,26,0.2)" }}
-                >
-                  {brand}
-                </span>
+              <RevealItem key={brand.id}>
+                {brand.logoUrl ? (
+                  <img
+                    src={brand.logoUrl}
+                    alt={brand.name}
+                    title={brand.name}
+                    style={{ height: 36, width: "auto", objectFit: "contain", opacity: 0.35, filter: "grayscale(1)", transition: "opacity .2s, filter .2s", cursor: "default" }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLImageElement).style.opacity = "0.75"; (e.currentTarget as HTMLImageElement).style.filter = "grayscale(0)"; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLImageElement).style.opacity = "0.35"; (e.currentTarget as HTMLImageElement).style.filter = "grayscale(1)"; }}
+                  />
+                ) : (
+                  <span
+                    className="font-bold tracking-[0.12em] uppercase cursor-default transition-colors duration-200 hover:text-[#0B0F1A]/70"
+                    style={{ fontSize: 14, color: "rgba(11,15,26,0.2)" }}
+                  >
+                    {brand.name}
+                  </span>
+                )}
               </RevealItem>
             ))}
           </RevealGroup>

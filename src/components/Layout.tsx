@@ -3,6 +3,30 @@ import { NavLink, Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { NAV_LINKS } from "@/data";
 import { ROUTES, RED, NAVY } from "@/lib/routes";
+import { useStore } from "@/store/dataStore";
+
+// ─── Logo component (shared between Navbar & Footer) ──────────────────────────
+function LogoMark({ size = 36, light = false }: { size?: number; light?: boolean }) {
+  const store = useStore();
+  if (store.settings.logoUrl) {
+    return (
+      <img
+        src={store.settings.logoUrl}
+        alt={store.settings.companyName}
+        style={{ height: size, width: "auto", objectFit: "contain", display: "block" }}
+      />
+    );
+  }
+  // Default SVG mark
+  return (
+    <div style={{ width: size, height: size, background: RED, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <svg width={size * 0.5} height={size * 0.5} viewBox="0 0 18 18" fill="none">
+        <path d="M2 2h5v14H2zM11 2h5v14h-5z" fill="white" opacity="0.9" />
+        <path d="M7 8.5h4v1H7z" fill="white" />
+      </svg>
+    </div>
+  );
+}
 
 // ─── Navbar ────────────────────────────────────────────────────────────────
 export function Navbar() {
@@ -11,10 +35,10 @@ export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const isHome = location.pathname === "/";
+  const store = useStore();
+  const { companyName } = store.settings;
 
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [location.pathname]);
+  useEffect(() => { setMenuOpen(false); }, [location.pathname]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -31,27 +55,20 @@ export function Navbar() {
   return (
     <>
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${navBg}`}>
-        <div
-          className="max-w-[1440px] mx-auto h-[76px] flex items-center justify-between px-4 sm:px-8 lg:px-[120px]"
-        >
+        <div className="max-w-[1440px] mx-auto h-[76px] flex items-center justify-between px-4 sm:px-8 lg:px-[120px]">
           {/* Logo */}
           <Link to={ROUTES.HOME} className="flex items-center gap-4 group flex-shrink-0">
-            <div className="relative w-9 h-9 overflow-hidden flex-shrink-0" style={{ background: RED }}>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                  <path d="M2 2h5v14H2zM11 2h5v14h-5z" fill="white" opacity="0.9" />
-                  <path d="M7 8.5h4v1H7z" fill="white" />
-                </svg>
+            <LogoMark size={36} />
+            {!store.settings.logoUrl && (
+              <div className="flex flex-col gap-[1px]">
+                <span className="text-[13px] font-black tracking-[0.22em] uppercase leading-none text-[#0B0F1A]">
+                  {companyName.split(' ')[0] || 'HORIZON'}
+                </span>
+                <span className="text-[9px] font-semibold tracking-[0.35em] uppercase leading-none text-[#0B0F1A]/35">
+                  OUT-OF-HOME
+                </span>
               </div>
-            </div>
-            <div className="flex flex-col gap-[1px]">
-              <span className="text-[13px] font-black tracking-[0.22em] uppercase leading-none text-[#0B0F1A]">
-                HORIZON
-              </span>
-              <span className="text-[9px] font-semibold tracking-[0.35em] uppercase leading-none text-[#0B0F1A]/35">
-                OUT-OF-HOME
-              </span>
-            </div>
+            )}
           </Link>
 
           {/* Desktop links */}
@@ -71,16 +88,12 @@ export function Navbar() {
                     {link.label}
                     <span
                       className="absolute -bottom-0.5 left-0 h-[1px] transition-all duration-300"
-                      style={{
-                        width: isActive ? "100%" : "0%",
-                        background: RED,
-                      }}
+                      style={{ width: isActive ? "100%" : "0%", background: RED }}
                     />
                   </>
                 )}
               </NavLink>
             ))}
-            {/* Login button */}
             <Link
               to="/login"
               className="h-[40px] px-5 text-[11px] font-bold tracking-[0.18em] uppercase flex items-center gap-2 border transition-colors duration-200 hover:border-[#0B0F1A] hover:text-[#0B0F1A]"
@@ -92,16 +105,12 @@ export function Navbar() {
               </svg>
               Login
             </Link>
-            {/* Get a Quote */}
             <Link
               to={ROUTES.CONTACT}
               className="h-[40px] px-7 text-[11px] font-bold tracking-[0.2em] uppercase text-white flex items-center relative overflow-hidden group active:scale-[0.97] transition-transform"
               style={{ background: RED }}
             >
-              <span
-                className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"
-                style={{ background: NAVY }}
-              />
+              <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" style={{ background: NAVY }} />
               <span className="relative z-10">Get a Quote</span>
             </Link>
           </div>
@@ -148,16 +157,12 @@ export function Navbar() {
                 {link.label}
               </NavLink>
             ))}
-            <Link
-              to="/login"
-              className="flex items-center gap-2 text-[13px] font-semibold tracking-[0.2em] uppercase text-[#0B0F1A]/50 hover:text-[#D90429] transition-colors"
-              style={{ textDecoration: "none" }}
-            >Login
-            </Link>
+            <Link to="/login" className="flex items-center gap-2 text-[13px] font-semibold tracking-[0.2em] uppercase text-[#0B0F1A]/50 hover:text-[#D90429] transition-colors">Login</Link>
             <Link
               to={ROUTES.CONTACT}
               className="mt-2 h-[44px] px-8 text-white text-[11px] font-bold tracking-[0.2em] uppercase w-fit flex items-center active:scale-[0.97] transition-transform"
-              style={{ background: RED }}>
+              style={{ background: RED }}
+            >
               Get a Quote
             </Link>
           </motion.div>
@@ -169,6 +174,9 @@ export function Navbar() {
 
 // ─── Footer ────────────────────────────────────────────────────────────────
 export function Footer() {
+  const store = useStore();
+  const s = store.settings;
+
   return (
     <footer style={{ background: NAVY }} className="relative overflow-hidden">
       {/* Decorative watermark */}
@@ -177,7 +185,7 @@ export function Footer() {
           className="text-white/[0.025] font-black uppercase whitespace-nowrap leading-none"
           style={{ fontSize: "clamp(80px, 12vw, 180px)", letterSpacing: "-0.04em", transform: "translateY(30%)" }}
         >
-          HORIZON OOH
+          {s.companyName}
         </p>
       </div>
 
@@ -186,20 +194,24 @@ export function Footer() {
           {/* Brand */}
           <div style={{ maxWidth: 280 }}>
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-8 flex items-center justify-center flex-shrink-0" style={{ background: RED }}>
-                <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
-                  <path d="M2 2h5v14H2zM11 2h5v14h-5z" fill="white" />
-                  <path d="M7 8.5h4v1H7z" fill="white" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-white font-black text-[13px] tracking-[0.22em] uppercase leading-none">HORIZON</p>
-                <p className="text-white/30 font-semibold text-[9px] tracking-[0.35em] uppercase mt-0.5">OUT-OF-HOME</p>
-              </div>
+              {s.logoUrl ? (
+                <img src={s.logoUrl} alt={s.companyName} style={{ height: 32, width: "auto", objectFit: "contain" }} />
+              ) : (
+                <>
+                  <div className="w-8 h-8 flex items-center justify-center flex-shrink-0" style={{ background: RED }}>
+                    <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
+                      <path d="M2 2h5v14H2zM11 2h5v14h-5z" fill="white" />
+                      <path d="M7 8.5h4v1H7z" fill="white" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-white font-black text-[13px] tracking-[0.22em] uppercase leading-none">{s.companyName.split(' ')[0] || 'HORIZON'}</p>
+                    <p className="text-white/30 font-semibold text-[9px] tracking-[0.35em] uppercase mt-0.5">OUT-OF-HOME</p>
+                  </div>
+                </>
+              )}
             </div>
-            <p className="text-white/30 text-[14px] leading-[1.75]">
-              Egypt's premier outdoor advertising network — putting brands in front of millions daily.
-            </p>
+            <p className="text-white/30 text-[14px] leading-[1.75]">{s.tagline}</p>
             <div className="mt-8 flex items-center gap-1">
               <span className="w-6 h-[1px]" style={{ background: RED }} />
               <span className="text-white/20 text-[10px] tracking-[0.3em] uppercase ml-2">Est. 2008, Cairo</span>
@@ -223,10 +235,10 @@ export function Footer() {
                 heading: "Locations",
                 links: [
                   { label: "Cairo", href: "/locations/cairo" },
-                  { label: "New Cairo", href: "/locations/new-cairo" },
-                  { label: "Sheikh Zayed", href: "/locations/sheikh-zayed" },
+                  { label: "Giza", href: "/locations/giza" },
                   { label: "Alexandria", href: "/locations/alexandria" },
-                  { label: "North Coast", href: "/locations" },
+                  { label: "North Coast", href: "/locations/matrouh" },
+                  { label: "All Locations", href: "/locations" },
                 ],
               },
               {
@@ -240,9 +252,9 @@ export function Footer() {
               {
                 heading: "Contact",
                 links: [
-                  { label: "info@horizonooh.com", href: "/contact" },
-                  { label: "+20 2 1234 5678", href: "/contact" },
-                  { label: "Cairo, Egypt", href: "/contact" },
+                  { label: s.email,   href: `mailto:${s.email}` },
+                  { label: s.phone,   href: `tel:${s.phone.replace(/\s/g,'')}` },
+                  { label: s.address, href: "/contact" },
                 ],
               },
             ].map(({ heading, links }) => (
@@ -266,7 +278,7 @@ export function Footer() {
 
         {/* Bottom */}
         <div className="pt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-          <p className="text-white/20 text-[11px] tracking-[0.2em]">© 2026 HORIZON OOH · All rights reserved</p>
+          <p className="text-white/20 text-[11px] tracking-[0.2em]">© 2026 {s.companyName} · All rights reserved</p>
           <div className="flex items-center gap-5">
             {["Privacy", "Terms", "Sitemap"].map((item) => (
               <span key={item} className="text-white/20 text-[11px] tracking-[0.15em] hover:text-white/50 cursor-pointer transition-colors">{item}</span>
@@ -286,6 +298,7 @@ export function Footer() {
 function FloatingCTAs() {
   const [visible, setVisible] = useState(false);
   const location = useLocation();
+  const store = useStore();
   const isAuthPage = location.pathname === "/login" || location.pathname === "/signup";
 
   useEffect(() => {
@@ -295,6 +308,10 @@ function FloatingCTAs() {
   }, []);
 
   if (isAuthPage) return null;
+
+  // Build WhatsApp number — strip non-digits, ensure it starts with country code
+  const waNumber = store.settings.whatsapp.replace(/\D/g, '') || '201234567890';
+  const waHref = `https://wa.me/${waNumber}?text=Hi%20${encodeURIComponent(store.settings.companyName)}%2C%20I%27d%20like%20a%20quote.`;
 
   return (
     <AnimatePresence>
@@ -308,10 +325,10 @@ function FloatingCTAs() {
         >
           {/* WhatsApp FAB */}
           <a
-            href="https://wa.me/201234567890?text=Hi%20HORIZON%20OOH%2C%20I%27d%20like%20a%20quote%20for%20outdoor%20advertising."
+            href={waHref}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Contact HORIZON OOH on WhatsApp"
+            aria-label={`Contact ${store.settings.companyName} on WhatsApp`}
             className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-200"
             style={{ background: "#25D366" }}
           >
@@ -321,10 +338,7 @@ function FloatingCTAs() {
           </a>
 
           {/* Sticky Get a Quote bar */}
-          <div
-            className="flex flex-col items-end gap-2 rounded-sm shadow-xl overflow-hidden"
-            style={{ background: NAVY }}
-          >
+          <div className="flex flex-col items-end gap-2 rounded-sm shadow-xl overflow-hidden" style={{ background: NAVY }}>
             <div className="px-4 pt-3 pb-1">
               <p className="text-white/40 text-[9px] tracking-[0.25em] uppercase leading-none">Launch your campaign</p>
             </div>
@@ -333,10 +347,7 @@ function FloatingCTAs() {
               className="mx-3 mb-3 px-5 py-2.5 text-white text-[10px] font-bold tracking-[0.2em] uppercase flex items-center gap-2 relative overflow-hidden group"
               style={{ background: RED }}
             >
-              <span
-                className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"
-                style={{ background: "#ff1a3a" }}
-              />
+              <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" style={{ background: "#ff1a3a" }} />
               <span className="relative z-10">Get a Quote</span>
               <svg className="relative z-10" width="10" height="10" viewBox="0 0 10 10" fill="none">
                 <path d="M1 9L9 1M9 1H3M9 1V7" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
@@ -349,10 +360,35 @@ function FloatingCTAs() {
   );
 }
 
+// ─── Dynamic Favicon ──────────────────────────────────────────────────────────
+function DynamicFavicon() {
+  const store = useStore();
+  useEffect(() => {
+    if (!store.settings.faviconUrl) return;
+    let link = document.querySelector<HTMLLinkElement>("link[rel~='icon']");
+    if (!link) { link = document.createElement("link"); link.rel = "icon"; document.head.appendChild(link); }
+    link.href = store.settings.faviconUrl;
+  }, [store.settings.faviconUrl]);
+  return null;
+}
+
+// ─── Dynamic Page Title ───────────────────────────────────────────────────────
+function DynamicTitle() {
+  const store = useStore();
+  useEffect(() => {
+    if (store.settings.companyName) {
+      document.title = store.settings.companyName + " — " + store.settings.tagline;
+    }
+  }, [store.settings.companyName, store.settings.tagline]);
+  return null;
+}
+
 // ─── Layout ────────────────────────────────────────────────────────────────
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-white">
+      <DynamicFavicon />
+      <DynamicTitle />
       <Navbar />
       <main className="pt-[76px]">{children}</main>
       <Footer />
