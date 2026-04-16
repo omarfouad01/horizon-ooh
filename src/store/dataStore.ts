@@ -404,7 +404,7 @@ const DEFAULT_SETTINGS: SiteSettings = {
   address:'Cairo, Egypt', whatsapp:'+201234567890',
   metaDescription:"Egypt's leading outdoor advertising company. Premium billboard, DOOH, mall, and airport advertising across Cairo, Alexandria, and nationwide.",
   headerLogoUrl:'', footerLogoUrl:'', faviconUrl:'',
-  hqLabel:'Cairo HQ', homeCoverageLimit:9,
+  hqLabel:'Cairo HQ', homeCoverageLimit:6,
   socialLinks:{ facebook:'', instagram:'', linkedin:'', twitter:'', tiktok:'', youtube:'' },
 }
 const DEFAULT_CLIENT_BRANDS: ClientBrand[] = CLIENT_BRANDS.map((name,i) => ({id:String(i+1), name, logoUrl:''}))

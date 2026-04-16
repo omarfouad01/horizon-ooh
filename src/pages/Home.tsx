@@ -631,24 +631,23 @@ function ServicesSection() {
               >
                 {/* Number */}
                 <p
-                  className="font-black tracking-[-0.04em] leading-none mb-10 transition-colors duration-500 group-hover:text-white/10"
-                  style={{ fontSize: 11, color: "rgba(11,15,26,0.12)", letterSpacing: "0.1em" }}
+                  className="font-black tracking-[-0.04em] leading-none mb-10 text-[rgba(11,15,26,0.12)] group-hover:text-white/10 transition-colors duration-500"
+                  style={{ fontSize: 11, letterSpacing: "0.1em" }}
                 >
                   {String(i + 1).padStart(2, "0")}
                 </p>
 
                 {/* Title */}
                 <h3
-                  className="font-bold leading-[1.2] tracking-[-0.01em] mb-3 transition-colors duration-500 group-hover:text-white"
-                  style={{ fontSize: 20, color: NAVY }}
+                  className="font-bold leading-[1.2] tracking-[-0.01em] mb-3 text-[#0B0F1A] group-hover:text-white transition-colors duration-500"
+                  style={{ fontSize: 20 }}
                 >
                   {service.title}
                 </h3>
 
-                {/* Description — visible always, turns white on hover */}
+                {/* Description */}
                 <p
-                  className="text-[13px] leading-[1.65] mb-5 transition-colors duration-500 group-hover:text-white/75"
-                  style={{ color: "rgba(11,15,26,0.45)" }}
+                  className="text-[13px] leading-[1.65] mb-5 text-[rgba(11,15,26,0.45)] group-hover:text-white/75 transition-colors duration-500"
                 >
                   {service.description}
                 </p>
@@ -762,8 +761,14 @@ function FeatureSection() {
 // ═══════════════════════════════════════════════════════════════════════════
 function LocationsSection() {
   const { locations: LOCATIONS, settings } = useStore()
-  const limit = (settings as any).homeCoverageLimit ?? 9
-  const visibleLocations = LOCATIONS.slice(0, limit > 0 ? limit : LOCATIONS.length)
+  // Featured cities always shown first; limit from settings applies to remaining slots
+  const FEATURED_SLUGS = ['cairo', 'giza', 'alexandria', 'matrouh', 'luxor', 'aswan']
+  const featuredFirst = [
+    ...FEATURED_SLUGS.map(slug => LOCATIONS.find((l: any) => l.slug === slug)).filter(Boolean),
+    ...LOCATIONS.filter((l: any) => !FEATURED_SLUGS.includes(l.slug)),
+  ] as typeof LOCATIONS
+  const limit = (settings as any).homeCoverageLimit ?? 6
+  const visibleLocations = featuredFirst.slice(0, limit > 0 ? limit : featuredFirst.length)
   return (
     <section id="locations" className="bg-white" style={{ paddingTop: 120, paddingBottom: 120 }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
@@ -796,27 +801,24 @@ function LocationsSection() {
               >
                 <div className="flex items-start justify-between mb-8">
                   <span
-                    className="font-black text-[11px] tracking-[0.25em] uppercase transition-colors duration-500 group-hover:text-white/20"
-                    style={{ color: RED }}
+                    className="font-black text-[11px] tracking-[0.25em] uppercase text-[#D90429] group-hover:text-white/20 transition-colors duration-500"
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <span
-                    className="text-[20px] leading-none opacity-0 group-hover:opacity-100 transition-all duration-400 -translate-x-2 group-hover:translate-x-0"
-                    style={{ color: RED }}
+                    className="text-[20px] leading-none opacity-0 group-hover:opacity-100 transition-all duration-400 -translate-x-2 group-hover:translate-x-0 text-[#D90429]"
                   >
                     →
                   </span>
                 </div>
                 <h3
-                  className="font-extrabold tracking-[-0.02em] mb-3 transition-colors duration-500 group-hover:text-white"
-                  style={{ fontSize: 26, color: NAVY, lineHeight: 1.1 }}
+                  className="font-extrabold tracking-[-0.02em] mb-3 text-[#0B0F1A] group-hover:text-white transition-colors duration-500"
+                  style={{ fontSize: 26, lineHeight: 1.1 }}
                 >
                   {loc.city}
                 </h3>
                 <p
-                  className="text-[13px] leading-[1.6] transition-colors duration-500 group-hover:text-white/70"
-                  style={{ color: "rgba(11,15,26,0.45)" }}
+                  className="text-[13px] leading-[1.6] text-[rgba(11,15,26,0.45)] group-hover:text-white/70 transition-colors duration-500"
                 >
                   {loc.detail}
                 </p>
