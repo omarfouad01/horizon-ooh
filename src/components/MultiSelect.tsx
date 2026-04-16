@@ -15,6 +15,7 @@ interface Props {
 export default function MultiSelect({ label, options, selected, onChange, icon }: Props) {
   const [open, setOpen]           = useState(false);
   const [dropPos, setDropPos]     = useState({ top: 0, left: 0, width: 0 });
+  const [query, setQuery]         = useState("");
   const triggerRef                = useRef<HTMLButtonElement>(null);
   const dropRef                   = useRef<HTMLDivElement>(null);
 
@@ -32,6 +33,7 @@ export default function MultiSelect({ label, options, selected, onChange, icon }
   // Reposition whenever opened or window scrolls/resizes
   useEffect(() => {
     if (!open) return;
+    setQuery("");
     reposition();
     window.addEventListener("scroll", reposition, true);
     window.addEventListener("resize", reposition);
@@ -74,6 +76,10 @@ export default function MultiSelect({ label, options, selected, onChange, icon }
       : selected.length <= 2
         ? selected.join(", ")
         : `${selected.length} ${label}s`;
+
+  const filteredOptions = options.filter(opt =>
+    opt.toLowerCase().includes(query.trim().toLowerCase())
+  );
 
   return (
     <div className="relative flex-1 min-w-0">
@@ -145,7 +151,20 @@ export default function MultiSelect({ label, options, selected, onChange, icon }
               Clear selection
             </button>
           )}
-          {options.map(opt => {
+          <div className="px-3 py-3" style={{ borderBottom: "1px solid rgba(11,15,26,0.06)" }}>
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder={`Search ${label.toLowerCase()}...`}
+              className="w-full h-9 px-3 text-[12px] outline-none"
+              style={{ border: "1px solid rgba(11,15,26,0.12)", color: NAVY }}
+            />
+          </div>
+          {filteredOptions.length === 0 ? (
+            <div className="px-4 py-4 text-[12px]" style={{ color: "rgba(11,15,26,0.4)" }}>
+              No results found.
+            </div>
+          ) : filteredOptions.map(opt => {
             const checked = selected.includes(opt);
             return (
               <button
@@ -163,7 +182,6 @@ export default function MultiSelect({ label, options, selected, onChange, icon }
                   fontSize: 12,
                 }}
               >
-                {/* Custom checkbox */}
                 <span
                   className="flex-shrink-0 w-4 h-4 flex items-center justify-center transition-all duration-150"
                   style={{

@@ -171,7 +171,6 @@ export default function Product() {
   const prevDetail = useCallback(() => setDetailIdx((p) => (p - 1 + productImages.length) % productImages.length), [productImages.length]);
 
   const specRows = [
-    { label: 'English Name', value: product.nameEn || product.name || '[Not set]' },
     { label: 'Code', value: product.code || '[Not set]' },
     { label: 'Type', value: product.type || '[Not set]' },
     { label: 'Sides', value: product.sides ? String(product.sides) : '[Not set]' },
@@ -339,8 +338,8 @@ export default function Product() {
               <Eyebrow text="Specifications" />
               <Reveal delay={0.04}>
                 <h2 className="font-black leading-[0.9] tracking-[-0.04em] mb-10" style={{ fontSize: 'clamp(28px, 3vw, 40px)', color: NAVY }}>
-                  Billboard details<br />
-                  <span style={{ color: 'rgba(11,15,26,0.2)' }}>from the dashboard.</span>
+                  Outdoor Advertising in<br />
+                  <span style={{ color: 'rgba(11,15,26,0.2)' }}>{product.city || location.city || '[Not set]'}</span>
                 </h2>
               </Reveal>
 
