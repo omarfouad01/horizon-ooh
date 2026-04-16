@@ -83,7 +83,7 @@ function BrandModal({ open, brand, onClose, onSave }: { open:boolean; brand:Clie
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-const TABS = ['general','logo','brands','stats','process','results','reset'] as const
+const TABS = ['general','social','logo','brands','stats','process','results','reset'] as const
 type Tab = typeof TABS[number]
 
 export default function AdminSettings() {
@@ -136,8 +136,9 @@ export default function AdminSettings() {
               <Field label="Email"   value={settings.email}   onChange={(e:any)=>setSettings(p=>({...p,email:e.target.value}))}/>
               <Field label="Phone"   value={settings.phone}   onChange={(e:any)=>setSettings(p=>({...p,phone:e.target.value}))} placeholder="+20 2 XXXX XXXX"/>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <Field label="Address"  value={settings.address}  onChange={(e:any)=>setSettings(p=>({...p,address:e.target.value}))}/>
+            <div className="grid grid-cols-3 gap-4">
+              <Field label="Address"     value={settings.address}    onChange={(e:any)=>setSettings(p=>({...p,address:e.target.value}))}/>
+              <Field label="HQ Label (Contact page)" value={(settings as any).hqLabel||'Cairo HQ'} onChange={(e:any)=>setSettings(p=>({...p,hqLabel:e.target.value}))} placeholder="Cairo HQ"/>
               <Field label="WhatsApp Number" value={settings.whatsapp} onChange={(e:any)=>setSettings(p=>({...p,whatsapp:e.target.value}))} placeholder="+20 10 XXXX XXXX"/>
             </div>
             <TA label="Meta Description (SEO)" value={settings.metaDescription} onChange={(e:any)=>setSettings(p=>({...p,metaDescription:e.target.value}))} rows={2}/>
@@ -146,6 +147,28 @@ export default function AdminSettings() {
             </div>
           </div>
           <Btn onClick={saveGeneral} className="flex items-center gap-2"><Save size={14}/>Save General Settings</Btn>
+        </div>
+      )}
+
+      {/* ── SOCIAL LINKS ────────────────────────────────────────── */}
+      {tab==='social' && (
+        <div className="space-y-5">
+          <div className="bg-white rounded-xl border border-gray-100 p-6 space-y-4 shadow-sm">
+            <p className="text-[12px] text-gray-500 mb-2">Enter full URLs (e.g. <code>https://instagram.com/horizonooh</code>). Leave blank to hide the icon in the footer.</p>
+            <div className="grid grid-cols-2 gap-4">
+              <Field label="Facebook"  value={(settings as any).socialLinks?.facebook  || ''} onChange={(e:any)=>setSettings(p=>({...p,socialLinks:{...(p as any).socialLinks,facebook:e.target.value}}))}   placeholder="https://facebook.com/…"/>
+              <Field label="Instagram" value={(settings as any).socialLinks?.instagram || ''} onChange={(e:any)=>setSettings(p=>({...p,socialLinks:{...(p as any).socialLinks,instagram:e.target.value}}))}  placeholder="https://instagram.com/…"/>
+              <Field label="LinkedIn"  value={(settings as any).socialLinks?.linkedin  || ''} onChange={(e:any)=>setSettings(p=>({...p,socialLinks:{...(p as any).socialLinks,linkedin:e.target.value}}))}   placeholder="https://linkedin.com/company/…"/>
+              <Field label="X (Twitter)" value={(settings as any).socialLinks?.twitter || ''} onChange={(e:any)=>setSettings(p=>({...p,socialLinks:{...(p as any).socialLinks,twitter:e.target.value}}))}    placeholder="https://x.com/…"/>
+              <Field label="TikTok"    value={(settings as any).socialLinks?.tiktok    || ''} onChange={(e:any)=>setSettings(p=>({...p,socialLinks:{...(p as any).socialLinks,tiktok:e.target.value}}))}     placeholder="https://tiktok.com/@…"/>
+              <Field label="YouTube"   value={(settings as any).socialLinks?.youtube   || ''} onChange={(e:any)=>setSettings(p=>({...p,socialLinks:{...(p as any).socialLinks,youtube:e.target.value}}))}    placeholder="https://youtube.com/@…"/>
+            </div>
+            <div className="grid grid-cols-2 gap-4 pt-3 border-t border-gray-100">
+              <Field label="Home Page — Max Coverage Cards" value={String((settings as any).homeCoverageLimit ?? 9)} onChange={(e:any)=>setSettings(p=>({...p,homeCoverageLimit:Number(e.target.value)||9}))} placeholder="9" type="number"/>
+              <div className="pt-5 text-[12px] text-gray-400">Controls how many governorate cards appear in the homepage coverage section (default: 9).</div>
+            </div>
+          </div>
+          <Btn onClick={saveGeneral} className="flex items-center gap-2"><Save size={14}/>Save Social &amp; Display Settings</Btn>
         </div>
       )}
 

@@ -789,7 +789,9 @@ function FeatureSection() {
 // 6. LOCATIONS
 // ═══════════════════════════════════════════════════════════════════════════
 function LocationsSection() {
-  const { locations: LOCATIONS } = useStore()
+  const { locations: LOCATIONS, settings } = useStore()
+  const limit = (settings as any).homeCoverageLimit ?? 9
+  const visibleLocations = LOCATIONS.slice(0, limit > 0 ? limit : LOCATIONS.length)
   return (
     <section id="locations" className="bg-white" style={{ paddingTop: 120, paddingBottom: 120 }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
@@ -814,7 +816,7 @@ function LocationsSection() {
 
         {/* City grid */}
         <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-[#0B0F1A]/[0.06]">
-          {LOCATIONS.map((loc, i) => (
+          {visibleLocations.map((loc, i) => (
             <RevealItem key={loc.city}>
               <div
                 className="group bg-white hover:bg-[#0B0F1A] transition-colors duration-500 cursor-pointer"

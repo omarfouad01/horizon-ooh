@@ -76,7 +76,8 @@ export interface District   { id: string; name: string; locationId: string }
 export interface Contact    { id: string; name: string; email: string; phone?: string; company?: string; subject?: string; message: string; status: 'new'|'read'|'replied'|'archived'; createdAt: string }
 export interface TrustStat  { id: string; value: string; label: string }
 export interface ProcessStep{ id: string; step: string; label: string; description: string }
-export interface SiteSettings { companyName:string; tagline:string; email:string; phone:string; address:string; whatsapp:string; metaDescription:string; headerLogoUrl:string; footerLogoUrl:string; faviconUrl:string }
+export interface SocialLinks { facebook:string; instagram:string; linkedin:string; twitter:string; tiktok:string; youtube:string }
+export interface SiteSettings { companyName:string; tagline:string; email:string; phone:string; address:string; hqLabel:string; whatsapp:string; metaDescription:string; headerLogoUrl:string; footerLogoUrl:string; faviconUrl:string; socialLinks:SocialLinks; homeCoverageLimit:number }
 
 export interface WhyChooseItem { id:string; num:string; title:string; desc:string }
 export interface AboutStat     { id:string; value:string; label:string; sub:string }
@@ -374,6 +375,8 @@ const DEFAULT_SETTINGS: SiteSettings = {
   address:'Cairo, Egypt', whatsapp:'+201234567890',
   metaDescription:"Egypt's leading outdoor advertising company. Premium billboard, DOOH, mall, and airport advertising across Cairo, Alexandria, and nationwide.",
   headerLogoUrl:'', footerLogoUrl:'', faviconUrl:'',
+  hqLabel:'Cairo HQ', homeCoverageLimit:9,
+  socialLinks:{ facebook:'', instagram:'', linkedin:'', twitter:'', tiktok:'', youtube:'' },
 }
 const DEFAULT_CLIENT_BRANDS: ClientBrand[] = CLIENT_BRANDS.map((name,i) => ({id:String(i+1), name, logoUrl:''}))
 const DEFAULT_SUPPLIERS: Supplier[] = []

@@ -10,7 +10,7 @@ const API_URL = (import.meta.env.VITE_API_URL as string | undefined) ?? "/api";
 export default function Contact() {
   const { settings } = useStore();
   const CONTACT_INFO = [
-    { label: "Cairo HQ", value: settings.address || "Cairo, Egypt", icon: "◉" },
+    { label: (settings as any).hqLabel || "Cairo HQ", value: settings.address || "Cairo, Egypt", icon: "◉" },
     { label: "Phone",   value: settings.phone   || "+20 2 1234 5678", icon: "◉" },
     { label: "Email",   value: settings.email   || "info@horizonooh.com", icon: "◉" },
     { label: "Hours",   value: "Sun – Thu, 9:00 – 18:00 EET", icon: "◉" },
