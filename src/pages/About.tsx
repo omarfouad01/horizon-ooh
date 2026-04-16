@@ -1,40 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
 import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, PageHero, SectionHeading, CTABanner, Eyebrow } from "@/components/UI";
-import { ROUTES, RED, NAVY, ease } from "@/lib/routes";
+import { ROUTES, RED, NAVY } from "@/lib/routes";
 import SEO from "@/components/SEO";
 
-const WHY_CHOOSE = [
-  {
-    num: "01",
-    title: "Largest Network in Egypt",
-    desc: "9,500+ premium locations nationwide — more inventory, more reach, more impact.",
-  },
-  {
-    num: "02",
-    title: "Data-Driven Site Selection",
-    desc: "Every location selected using traffic count data, audience mapping, and visibility analysis.",
-  },
-  {
-    num: "03",
-    title: "Full-Service Execution",
-    desc: "From creative brief to installation and monitoring — one partner for your entire campaign.",
-  },
-  {
-    num: "04",
-    title: "Proven Performance",
-    desc: "Average 2.7× conversion lift and +180% brand recall across campaigns tracked in 2025.",
-  },
-  {
-    num: "05",
-    title: "Exclusive Premium Inventory",
-    desc: "First-access rights to Egypt's most sought-after outdoor advertising positions.",
-  },
-];
-
 export default function About() {
-  const { trustStats: TRUST_STATS, results: RESULTS, clientBrands: CLIENT_BRANDS } = useStore()
+  const store   = useStore();
+  const about   = store.about;
   const navigate = useNavigate();
 
   return (
@@ -44,11 +16,12 @@ export default function About() {
         description="HORIZON OOH is Egypt's premier outdoor advertising company — 9,500+ locations, billboard, DOOH, mall and airport advertising across Cairo, Alexandria and nationwide."
         keywords="outdoor advertising Egypt, billboard advertising Egypt, DOOH Egypt, advertising agency Egypt, OOH advertising Egypt, HORIZON OOH"
       />
+
       {/* Hero */}
       <PageHero
-        eyebrow="Our Story"
-        title="About Horizon OOH."
-        titleAccent="We control visibility."
+        eyebrow={about.heroEyebrow}
+        title={about.heroTitle}
+        titleAccent={about.heroAccent}
         dark={false}
       />
 
@@ -61,15 +34,15 @@ export default function About() {
                 className="font-black leading-[0.9] tracking-[-0.04em]"
                 style={{ fontSize: "clamp(32px, 3.5vw, 48px)", color: NAVY }}
               >
-                Egypt's leading outdoor advertising partner — since 2008.
+                {about.introHeadline}
               </p>
             </Reveal>
             <Reveal delay={0.1}>
               <p className="text-[17px] leading-[1.75]" style={{ color: "rgba(11,15,26,0.5)" }}>
-                Horizon OOH was founded with one conviction: that the most powerful advertising in the world happens in the physical world — where brands and people share real space.
+                {about.introParagraph1}
               </p>
               <p className="text-[17px] leading-[1.75] mt-5" style={{ color: "rgba(11,15,26,0.5)" }}>
-                We built Egypt's largest premium outdoor network from the ground up, and today we manage 9,500+ locations across Cairo, Alexandria, the North Coast, and every major urban centre in the country.
+                {about.introParagraph2}
               </p>
             </Reveal>
           </div>
@@ -81,7 +54,7 @@ export default function About() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <Reveal>
             <h2 className="font-black text-[clamp(28px,3.5vw,44px)] tracking-[-0.03em] mb-16" style={{ color: NAVY }}>
-              Egypt's Leading Outdoor Advertising Agency
+              {about.seoHeading}
             </h2>
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-start">
@@ -101,7 +74,7 @@ export default function About() {
             </RevealGroup>
             <Reveal delay={0.1}>
               <p className="text-[16px] leading-[1.85]" style={{ color: "rgba(11,15,26,0.55)" }}>
-                Since 2008, HORIZON OOH has been the outdoor advertising agency of choice for Egypt's most iconic brands. Our billboard advertising network spans Cairo's Ring Road, Sheikh Zayed, New Cairo, and Alexandria's Corniche — delivering unparalleled outdoor advertising reach across Egypt's 100 million+ population. As a full-service OOH advertising agency in Egypt, we combine strategic site selection, creative excellence, and real-time campaign monitoring to maximise your outdoor advertising investment. Whether you need digital out-of-home (DOOH) in Cairo's premium retail districts, mall advertising in Egypt's top shopping centres, or airport advertising at Cairo International Airport, HORIZON OOH delivers outdoor campaigns that make brands impossible to ignore.
+                {about.seoParagraph}
               </p>
             </Reveal>
           </div>
@@ -119,18 +92,14 @@ export default function About() {
                   className="font-black leading-[0.9] tracking-[-0.04em] text-white"
                   style={{ fontSize: "clamp(36px, 4vw, 52px)" }}
                 >
-                  More than media.
+                  {about.darkTitle}
                   <br />
-                  <span style={{ color: "rgba(255,255,255,0.2)" }}>A visibility partner.</span>
+                  <span style={{ color: "rgba(255,255,255,0.2)" }}>{about.darkAccent}</span>
                 </h2>
               </Reveal>
             </div>
             <div className="col-span-12 lg:col-span-7 flex flex-col gap-6">
-              {[
-                "Horizon OOH is Egypt's most trusted outdoor advertising company. We don't just sell space — we engineer visibility. Our proprietary network spans highways, malls, airports, city streets, and digital screens, giving brands the infrastructure to be seen everywhere that matters.",
-                "Our team of 200+ professionals combines media strategy, data science, creative production, and operational excellence to deliver campaigns that move the needle. We work with Egypt's leading FMCG brands, financial institutions, automotive companies, real estate developers, and international brands entering the Egyptian market.",
-                "In 2025 alone, we delivered 1,200+ campaigns, generating over 12 billion OOH impressions across Egypt. Our proprietary traffic and audience data platform lets us predict campaign performance before a single panel goes up.",
-              ].map((para, i) => (
+              {about.darkParagraphs.map((para, i) => (
                 <Reveal key={i} delay={0.05 * i}>
                   <p className="text-[16px] leading-[1.8]" style={{ color: "rgba(255,255,255,0.45)" }}>
                     {para}
@@ -147,13 +116,13 @@ export default function About() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <SectionHeading
             eyebrow="Why Horizon OOH"
-            title="Five reasons brands"
-            titleAccent="choose us."
+            title={about.whyTitle}
+            titleAccent={about.whyAccent}
           />
 
           <RevealGroup className="flex flex-col gap-0 border-t border-[#0B0F1A]/[0.07]">
-            {WHY_CHOOSE.map((item) => (
-              <RevealItem key={item.num}>
+            {about.whyItems.map((item) => (
+              <RevealItem key={item.id}>
                 <div
                   className="group flex items-start gap-10 py-8 border-b border-[#0B0F1A]/[0.07] hover:bg-[#F5F5F6] transition-colors duration-300 px-4 -mx-4 cursor-default"
                 >
@@ -190,15 +159,11 @@ export default function About() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <SectionHeading eyebrow="By the Numbers" title="The scale behind" titleAccent="every campaign." />
           <RevealGroup className="grid grid-cols-1 sm:grid-cols-3 border-t border-[#0B0F1A]/[0.08]">
-            {[
-              { value: "9,500+", label: "Premium Locations", sub: "Nationwide" },
-              { value: "18", label: "Years in Business", sub: "Since 2008" },
-              { value: "100+", label: "Brand Partners", sub: "Active clients" },
-            ].map((stat, i) => (
-              <RevealItem key={stat.label}>
+            {about.keyStats.map((stat, i) => (
+              <RevealItem key={stat.id}>
                 <div
                   className="flex flex-col py-14 px-10"
-                  style={{ borderRight: i < 2 ? "1px solid rgba(11,15,26,0.08)" : "none" }}
+                  style={{ borderRight: i < about.keyStats.length - 1 ? "1px solid rgba(11,15,26,0.08)" : "none" }}
                 >
                   <span
                     className="font-black leading-none tracking-[-0.05em] mb-4"
@@ -232,7 +197,7 @@ export default function About() {
             </div>
           </Reveal>
           <RevealGroup className="flex flex-wrap justify-center items-center gap-x-12 gap-y-5">
-            {CLIENT_BRANDS.map((brand) => (
+            {store.clientBrands.map((brand) => (
               <RevealItem key={brand}>
                 <span
                   className="font-bold tracking-[0.12em] uppercase cursor-default transition-colors duration-200 hover:text-[#0B0F1A]/70"

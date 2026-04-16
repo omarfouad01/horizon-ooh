@@ -33,6 +33,7 @@ import AdminProjects   from "@/admin/pages/AdminProjects";
 import AdminBlog       from "@/admin/pages/AdminBlog";
 import AdminContacts   from "@/admin/pages/AdminContacts";
 import AdminSettings   from "@/admin/pages/AdminSettings";
+import AdminAbout      from "@/admin/pages/AdminAbout";
 
 const queryClient = new QueryClient();
 
@@ -72,6 +73,7 @@ const App = () => (
               <Route path="blog"        element={<AdminBlog />} />
               <Route path="contacts"    element={<AdminContacts />} />
               <Route path="settings"    element={<AdminSettings />} />
+              <Route path="about"       element={<AdminAbout />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

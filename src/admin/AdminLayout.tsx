@@ -1,7 +1,7 @@
 import { Link, useLocation, Outlet, Navigate } from 'react-router-dom'
 import { useAdmin } from './AdminAuth'
 import { useState } from 'react'
-import { LayoutDashboard, MapPin, Monitor, Briefcase, BookOpen, MessageSquare, Settings, LogOut, Menu, X, ExternalLink, ChevronLeft, Layers } from 'lucide-react'
+import { LayoutDashboard, MapPin, Monitor, Briefcase, BookOpen, MessageSquare, Settings, LogOut, Menu, X, ExternalLink, ChevronLeft, Layers, Info } from 'lucide-react'
 import clsx from 'clsx'
 
 const NAVY = '#0B0F1A', RED = '#D90429'
@@ -13,6 +13,7 @@ const NAV = [
   { to:'/admin/projects',   label:'Projects',   icon:Layers },
   { to:'/admin/blog',       label:'Blog Posts', icon:BookOpen },
   { to:'/admin/contacts',   label:'Contacts',   icon:MessageSquare },
+  { to:'/admin/about',      label:'About Page', icon:Info },
   { to:'/admin/settings',   label:'Settings',   icon:Settings },
 ]
 
