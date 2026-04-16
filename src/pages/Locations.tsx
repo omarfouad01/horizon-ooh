@@ -13,8 +13,9 @@ const getBillboards = () => getState().locations.flatMap((l: any) => (l.products
 
 // ─── constants ─────────────────────────────────────────────────────────────
 const ease = [0.22, 1, 0.36, 1] as const;
-const ALL_CITIES    = Array.from(new Set(getBillboards().map(b => b.city))).sort();
-const ALL_FORMATS   = Array.from(new Set(getBillboards().map(b => b.type))).sort();
+// Cities, districts, and formats come from the store (admin-managed), not billboard fields
+const getCities  = () => getState().locations.map((l: any) => l.city).sort();
+const getFormats = () => Array.from(new Set(getState().locations.flatMap((l: any) => l.availableFormats || []))).sort();
 
 const BADGES: Record<string, string[]> = {
   "Unipole Billboard": ["High Visibility", "Premium Location"],
@@ -412,12 +413,20 @@ export default function Locations() {
     setSearchParams(p);
   }, [setSearchParams]);
 
-  // District options narrow when cities are selected
-  const districtOptions = Array.from(new Set(
-    allBillboards
-      .filter(b => cities.length === 0 || cities.includes(b.city))
-      .map(b => b.district)
-  )).sort();
+  // District options come from store.districts, narrowed by selected cities
+  const { locations: storeLocations, districts: storeDistricts } = useStore()
+  const ALL_CITIES  = storeLocations.map((l: any) => l.city).sort()
+  const ALL_FORMATS = Array.from(new Set(storeLocations.flatMap((l: any) => l.availableFormats || []))).sort()
+  const districtOptions = (() => {
+    if (cities.length === 0) return storeDistricts.map((d: any) => d.name).sort()
+    const locIds = storeLocations
+      .filter((l: any) => cities.includes(l.city))
+      .map((l: any) => l.id)
+    return storeDistricts
+      .filter((d: any) => locIds.includes(d.locationId))
+      .map((d: any) => d.name)
+      .sort()
+  })()
 
   // ── Filtered results ─────────────────────────────────────────────────
   const sorted = allBillboards.filter(b => {

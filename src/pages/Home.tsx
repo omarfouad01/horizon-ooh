@@ -7,7 +7,9 @@ import MultiSelect from "@/components/MultiSelect";
 // data now from store
 import { serviceHref, locationHref, projectHref, productHref } from "@/lib/routes";
 
-// Module-level billboards accessor (re-evaluates on each render from store)
+// Cities, districts and formats are driven by the store (admin-managed)
+const getCities  = () => getState().locations.map((l: any) => l.city).sort();
+const getFormats = () => Array.from(new Set(getState().locations.flatMap((l: any) => l.availableFormats || []))).sort();
 const getBillboards = () => getState().locations.flatMap((l: any) => (l.products||[]).map((p: any) => ({ ...p, citySlug: l.slug })));
 
 // ─── Constants ───────────────────────────────────────────────────────────
@@ -185,8 +187,8 @@ function OutlineButton({
 // ═══════════════════════════════════════════════════════════════════════════
 
 // ── Filter-select helper ────────────────────────────────────────────────
-const ALL_CITIES    = Array.from(new Set(getBillboards().map((b: any) => b.city))).sort();
-const ALL_FORMATS   = Array.from(new Set(getBillboards().map((b: any) => b.type))).sort();
+const ALL_CITIES    = getCities();
+const ALL_FORMATS   = getFormats();
 
 function HeroSection() {
   const heroRef = useRef<HTMLElement>(null);
@@ -199,11 +201,21 @@ function HeroSection() {
   const [districts, setDistricts] = useState<string[]>([]);
   const [formats,   setFormats]   = useState<string[]>([]);
 
-  const districtOptions = Array.from(new Set(
-    getBillboards()
-      .filter(b => cities.length === 0 || cities.includes(b.city))
-      .map(b => b.district)
-  )).sort();
+// Cities, districts, and formats from store
+  const { locations: _storeLocs, districts: _storeDists } = useStore()
+  const ALL_CITIES  = _storeLocs.map((l: any) => l.city).sort()
+  const ALL_FORMATS = Array.from(new Set(_storeLocs.flatMap((l: any) => l.availableFormats || []))).sort()
+
+  const districtOptions = (() => {
+    if (cities.length === 0) return _storeDists.map((d: any) => d.name).sort()
+    const locIds = _storeLocs
+      .filter((l: any) => cities.includes(l.city))
+      .map((l: any) => l.id)
+    return _storeDists
+      .filter((d: any) => locIds.includes(d.locationId))
+      .map((d: any) => d.name)
+      .sort()
+  })()
 
   const hasFilters = cities.length > 0 || districts.length > 0 || formats.length > 0;
   const reset = () => { setCities([]); setDistricts([]); setFormats([]); };
