@@ -6,12 +6,16 @@ import { ROUTES, RED, NAVY } from "@/lib/routes";
 import { useStore } from "@/store/dataStore";
 
 // ─── Logo component (shared between Navbar & Footer) ──────────────────────────
-function LogoMark({ size = 36, light = false }: { size?: number; light?: boolean }) {
+function LogoMark({ size = 54, variant = 'header' }: { size?: number; variant?: 'header' | 'footer' }) {
   const store = useStore();
-  if (store.settings.logoUrl) {
+  // Pick the right logo URL — footer falls back to header if not set
+  const url = variant === 'footer'
+    ? (store.settings.footerLogoUrl || store.settings.headerLogoUrl)
+    : store.settings.headerLogoUrl;
+  if (url) {
     return (
       <img
-        src={store.settings.logoUrl}
+        src={url}
         alt={store.settings.companyName}
         style={{ height: size, width: "auto", objectFit: "contain", display: "block" }}
       />
@@ -58,8 +62,8 @@ export function Navbar() {
         <div className="max-w-[1440px] mx-auto h-[76px] flex items-center justify-between px-4 sm:px-8 lg:px-[120px]">
           {/* Logo */}
           <Link to={ROUTES.HOME} className="flex items-center gap-4 group flex-shrink-0">
-            <LogoMark size={36} />
-            {!store.settings.logoUrl && (
+            <LogoMark size={54} variant="header" />
+            {!store.settings.headerLogoUrl && (
               <div className="flex flex-col gap-[1px]">
                 <span className="text-[13px] font-black tracking-[0.22em] uppercase leading-none text-[#0B0F1A]">
                   {companyName.split(' ')[0] || 'HORIZON'}
@@ -194,12 +198,12 @@ export function Footer() {
           {/* Brand */}
           <div style={{ maxWidth: 280 }}>
             <div className="flex items-center gap-3 mb-6">
-              {s.logoUrl ? (
-                <img src={s.logoUrl} alt={s.companyName} style={{ height: 32, width: "auto", objectFit: "contain" }} />
+              {(s.footerLogoUrl || s.headerLogoUrl) ? (
+                <img src={s.footerLogoUrl || s.headerLogoUrl} alt={s.companyName} style={{ height: 48, width: "auto", objectFit: "contain" }} />
               ) : (
                 <>
-                  <div className="w-8 h-8 flex items-center justify-center flex-shrink-0" style={{ background: RED }}>
-                    <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
+                  <div className="w-12 h-12 flex items-center justify-center flex-shrink-0" style={{ background: RED }}>
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                       <path d="M2 2h5v14H2zM11 2h5v14h-5z" fill="white" />
                       <path d="M7 8.5h4v1H7z" fill="white" />
                     </svg>

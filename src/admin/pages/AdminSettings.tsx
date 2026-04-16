@@ -96,7 +96,7 @@ export default function AdminSettings() {
 
   // Sync when store changes (e.g. after logoUrl upload)
   const saveGeneral = () => { settingsStore.update(settings); toast.success('Settings saved') }
-  const saveLogo    = () => { settingsStore.update({ logoUrl: settings.logoUrl, faviconUrl: settings.faviconUrl }); toast.success('Logo & favicon saved — reload the website to see favicon update') }
+  const saveLogo    = () => { settingsStore.update({ headerLogoUrl: settings.headerLogoUrl, footerLogoUrl: settings.footerLogoUrl, faviconUrl: settings.faviconUrl }); toast.success('Logos & favicon saved') }
   const saveStats   = () => { stats.forEach(st => trustStatStore.update(st.id, st)); toast.success('Stats saved') }
   const saveProc    = () => { proc.forEach(p => processStore.update(p.id, p)); toast.success('Process saved') }
   const saveResults = () => { resultStore.set(results); toast.success('Results saved') }
@@ -153,24 +153,47 @@ export default function AdminSettings() {
       {tab==='logo' && (
         <div className="space-y-5">
           <div className="bg-white rounded-xl border border-gray-100 p-6 space-y-6 shadow-sm">
-            <ImageUpload
-              label="Header & Footer Logo"
-              value={settings.logoUrl}
-              onChange={url => setSettings(p=>({...p,logoUrl:url}))}
-              hint="Recommended: PNG or SVG, transparent background, width ≥ 300px. If blank, the default icon + text is shown."
-              height={64}
-            />
-            <div className="border-t border-gray-100 pt-5">
+
+            {/* Header logo */}
+            <div>
+              <p className="text-[12px] font-bold text-gray-700 mb-1">Header Logo</p>
+              <p className="text-[11px] text-gray-400 mb-3">Shown in the top navigation bar. Recommended: PNG/SVG with transparent background, height ≥ 80px.</p>
               <ImageUpload
-                label="Browser Favicon"
+                label=""
+                value={settings.headerLogoUrl}
+                onChange={url => setSettings(p=>({...p,headerLogoUrl:url}))}
+                hint="If blank, the default icon + text mark is shown."
+                height={72}
+              />
+            </div>
+
+            <div className="border-t border-gray-100 pt-5">
+              {/* Footer logo */}
+              <p className="text-[12px] font-bold text-gray-700 mb-1">Footer Logo</p>
+              <p className="text-[11px] text-gray-400 mb-3">Shown in the website footer. Can be a white/light version of your logo. Recommended: PNG/SVG with transparent background.</p>
+              <ImageUpload
+                label=""
+                value={settings.footerLogoUrl}
+                onChange={url => setSettings(p=>({...p,footerLogoUrl:url}))}
+                hint="If blank, falls back to the Header Logo. If both are blank, the default text mark is shown."
+                height={72}
+              />
+            </div>
+
+            <div className="border-t border-gray-100 pt-5">
+              {/* Favicon */}
+              <p className="text-[12px] font-bold text-gray-700 mb-1">Browser Favicon</p>
+              <p className="text-[11px] text-gray-400 mb-3">Updates the browser tab icon in real time.</p>
+              <ImageUpload
+                label=""
                 value={settings.faviconUrl}
                 onChange={url => setSettings(p=>({...p,faviconUrl:url}))}
-                hint="Recommended: 32×32 or 64×64 PNG / ICO. Updates the browser tab icon in real time."
+                hint="Recommended: 32×32 or 64×64 PNG / ICO."
                 height={48}
               />
             </div>
           </div>
-          <Btn onClick={saveLogo} className="flex items-center gap-2"><Save size={14}/>Save Logo & Favicon</Btn>
+          <Btn onClick={saveLogo} className="flex items-center gap-2"><Save size={14}/>Save Logos & Favicon</Btn>
         </div>
       )}
 
