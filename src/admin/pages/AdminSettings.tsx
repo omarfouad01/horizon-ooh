@@ -289,7 +289,7 @@ export default function AdminSettings() {
                 </div>
               ))}
             </div>
-            <Btn onClick={()=>{ const n={id:Date.now().toString(),step:`0${proc.length+1}`,label:'',description:''}; processStore.add(n); setProc(s=>[...s,n]) }} className="text-[12px] px-3 py-1.5 flex items-center gap-1"><Plus size={12}/>Add Step</Btn>
+            <Btn onClick={()=>{ const n:any={id:Date.now().toString(),step:`0${proc.length+1}`,label:'',description:''}; processStore.add(n); setProc((s:any[])=>[...s,n]) }} className="text-[12px] px-3 py-1.5 flex items-center gap-1"><Plus size={12}/>Add Step</Btn>
           </div>
           <Btn onClick={saveProc} className="flex items-center gap-2"><Save size={14}/>Save Process</Btn>
         </div>
