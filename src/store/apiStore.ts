@@ -163,9 +163,36 @@ const DEMO_SETTINGS = {
 
 const DEMO_HOME = {
   hero_headline: 'Own Every Road.\nDominate Every Screen.',
-  hero_subheadline: "Egypt's most trusted OOH advertising partner — from static billboards to dynamic DOOH networks.",
+  hero_subheadline: "Egypt's most trusted OOH advertising partner.",
   hero_cta_primary: 'Explore Locations',
   hero_cta_secondary: 'View Case Studies',
+  // Fields used by Home.tsx sections
+  heroEyebrow:        "Egypt's #1 OOH Agency",
+  heroTitleLines:     ['Visibility', 'That Moves'],
+  heroStatement:      "We plan, place, and deliver outdoor advertising campaigns across Egypt.",
+  heroChannels:       ['Billboard', 'DOOH', 'Mall', 'Airport', 'Transit'],
+  searchTitle:        'Find Your Billboard Location',
+  statementEyebrow:   'Our Mission',
+  statementLines:     ["We engineer", "visibility."],
+  statementBrand:     'HORIZON OOH',
+  featureEyebrow:     'Why HORIZON OOH',
+  featureTitleLine1:  'Outdoor advertising',
+  featureTitleLine2:  'that performs.',
+  featureImage:       'https://images.unsplash.com/photo-1702231942007-b255a41475c9?w=1200&q=85',
+  featureBullets:     ["9,500+ premium locations nationwide", "Egypt's most experienced OOH team", "Full-service: strategy, production, installation"],
+  featureButtonText:  'Get a Quote',
+  featureStatsValue:  '9,500+',
+  featureStatsLabel:  'Billboard Locations',
+  signatureEyebrow:   'Our Commitment',
+  signatureLines:     ["We don't sell space.", "We engineer visibility."],
+  finalCtaEyebrow:    'Ready to be seen?',
+  finalCtaTitleLine1: 'Start your campaign',
+  finalCtaTitleLine2: 'today.',
+  finalCtaTitleLine:  'Start your campaign',
+  finalCtaSubtext:    "Let's plan your next outdoor advertising campaign.",
+  finalCtaPrimaryText:   'Get a Quote',
+  finalCtaSecondaryText: 'Explore Locations',
+  finalCtaBadges:     ['Billboard', 'DOOH', 'Mall', 'Airport'],
 };
 
 const DEMO_ABOUT: AboutContent = {
@@ -232,35 +259,51 @@ export interface ApiState {
   reload:       () => Promise<void>;
 }
 
+// ─── Pre-compute demo data (synchronous, used as initial store state) ─────────
+const _demoBrands: ClientBrand[] = (CLIENT_BRANDS as any[]).map((b: any) => ({
+  ...b, logoUrl: b.logoUrl ?? b.logo ?? '',
+}));
+const _demoProcess: ProcessStep[] = (PROCESS as any[]).map((p: any, i: number) => ({
+  id: p.id ?? String(i + 1), step: p.step ?? (i + 1),
+  title: p.title ?? '', description: p.description ?? p.desc ?? '', icon: p.icon ?? '',
+}));
+const _demoDistricts: any[] = [];
+(LOCATIONS as any[]).forEach((loc: any) => {
+  (loc.districts ?? []).forEach((d: any) => {
+    _demoDistricts.push({ ...d, location_id: loc.id, location_slug: loc.slug });
+  });
+});
+
 // ─── Store ────────────────────────────────────────────────────────────────────
 export const useApiStore = create<ApiState>((set, get) => ({
-  locations:    [],
-  districts:    [],
+  // Pre-populated with demo data so first render never sees empty arrays
+  locations:    LOCATIONS   as any[],
+  districts:    _demoDistricts,
   adFormats:    AD_FORMATS_DEFAULT,
-  services:     [],
-  projects:     [],
-  blogPosts:    [],
-  trustStats:   [],
-  processSteps: [],
-  clientBrands: [],
+  services:     SERVICES    as any[],
+  projects:     PROJECTS    as any[],
+  blogPosts:    BLOG_POSTS  as any[],
+  trustStats:   TRUST_STATS as any[],
+  processSteps: _demoProcess,
+  process:      _demoProcess,
+  results:      DEMO_RESULTS,
+  clientBrands: _demoBrands,
   suppliers:    [],
   customers:    [],
   siteUsers:    [],
   contacts:     _demoContacts,
-  results:      DEMO_RESULTS,
-  process:      [],
   settings:     DEMO_SETTINGS,
   homeContent:  DEMO_HOME,
   about:        DEMO_ABOUT,
   aboutContent: DEMO_ABOUT,
-  loaded:       false,
-  loading:      false,
-  error:        null,
-  usingDemo:    false,
+  loaded:    true,   // ← demo data is ready immediately
+  loading:   false,
+  error:     null,
+  usingDemo: true,
 
   reload: async () => {
     if (get().loading) return;
-    set({ loading: true, error: null });
+    set({ loading: true, error: null }); // keep loaded:true so UI stays visible
 
     try {
       const [locs, dists, fmts, svcs, projs, blog, stats, steps, brands, setts, hc, ac] =

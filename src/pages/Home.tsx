@@ -1444,7 +1444,21 @@ function RecentBillboardsSection() {
 }
 
 export default function Home() {
-  const { locations: LOCATIONS, services: SERVICES, projects: PROJECTS, trustStats: TRUST_STATS, clientBrands: CLIENT_BRANDS, process: PROCESS, results: RESULTS } = useStore()
+  const { locations: LOCATIONS, services: SERVICES, projects: PROJECTS, trustStats: TRUST_STATS, clientBrands: CLIENT_BRANDS, process: PROCESS, results: RESULTS, loaded } = useStore()
+
+  // Wait for store to be ready before rendering data-dependent sections
+  if (!loaded) {
+    return (
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fff' }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ width: 48, height: 48, border: '3px solid #D90429', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '0 auto 16px' }} />
+          <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+          <p style={{ color: '#888', fontSize: 14, fontFamily: 'sans-serif' }}>Loading…</p>
+        </div>
+      </div>
+    );
+  }
+
   const allBillboards = LOCATIONS.flatMap((l: any) => (l.products||[]).map((p: any) => ({ ...p, citySlug: l.slug })))
   return (
     <>
