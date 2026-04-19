@@ -40,7 +40,7 @@ export function Navbar() {
   const location = useLocation();
   const isHome = location.pathname === "/";
   const store = useStore();
-  const { companyName } = store.settings;
+  const companyName: string = store.settings?.companyName ?? 'HORIZON OOH';
 
   useEffect(() => { setMenuOpen(false); }, [location.pathname]);
 
@@ -66,7 +66,7 @@ export function Navbar() {
             {!store.settings.headerLogoUrl && (
               <div className="flex flex-col gap-[1px]">
                 <span className="text-[13px] font-black tracking-[0.22em] uppercase leading-none text-[#0B0F1A]">
-                  {companyName.split(' ')[0] || 'HORIZON'}
+                  {(companyName ?? 'HORIZON OOH').split(' ')[0] || 'HORIZON'}
                 </span>
                 <span className="text-[9px] font-semibold tracking-[0.35em] uppercase leading-none text-[#0B0F1A]/35">
                   OUT-OF-HOME
@@ -209,7 +209,7 @@ export function Footer() {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-white font-black text-[13px] tracking-[0.22em] uppercase leading-none">{s.companyName.split(' ')[0] || 'HORIZON'}</p>
+                    <p className="text-white font-black text-[13px] tracking-[0.22em] uppercase leading-none">{(s.companyName ?? 'HORIZON OOH').split(' ')[0] || 'HORIZON'}</p>
                     <p className="text-white/30 font-semibold text-[9px] tracking-[0.35em] uppercase mt-0.5">OUT-OF-HOME</p>
                   </div>
                 </>
@@ -268,7 +268,7 @@ export function Footer() {
                 heading: "Contact",
                 links: [
                   { label: s.email,   href: `mailto:${s.email}` },
-                  { label: s.phone,   href: `tel:${s.phone.replace(/\s/g,'')}` },
+                  { label: s.phone ?? '', href: `tel:${(s.phone ?? '').replace(/\s/g,'')}` },
                   { label: s.address, href: "/contact" },
                 ],
               },
@@ -325,8 +325,8 @@ function FloatingCTAs() {
   if (isAuthPage) return null;
 
   // Build WhatsApp number — strip non-digits, ensure it starts with country code
-  const waNumber = store.settings.whatsapp.replace(/\D/g, '') || '201234567890';
-  const waHref = `https://wa.me/${waNumber}?text=Hi%20${encodeURIComponent(store.settings.companyName)}%2C%20I%27d%20like%20a%20quote.`;
+  const waNumber = (store.settings?.whatsapp ?? '').replace(/\D/g, '') || '201234567890';
+  const waHref = `https://wa.me/${waNumber}?text=Hi%20${encodeURIComponent(store.settings?.companyName ?? 'HORIZON OOH')}%2C%20I%27d%20like%20a%20quote.`;
 
   return (
     <AnimatePresence>
