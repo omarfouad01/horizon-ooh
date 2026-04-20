@@ -98,19 +98,18 @@ export default function Blog() {
                   {/* Content */}
                   <div className="flex flex-col flex-1 p-8">
                     <div className="flex items-center gap-3 mb-4">
-                      <span className="text-[10px] font-semibold tracking-[0.2em]" style={{ color: "rgba(11,15,26,0.3)" }}>{post.date}</span>
-                      <span style={{ color: "rgba(11,15,26,0.2)", fontSize: 10 }}>·</span>
-                      <span className="text-[10px] font-semibold tracking-[0.2em]" style={{ color: "rgba(11,15,26,0.3)" }}>{post.readTime}</span>
+                      <span className="text-[10px] font-semibold tracking-[0.2em] text-[rgba(11,15,26,0.3)] group-hover:text-white/30 transition-colors duration-500">{post.date}</span>
+                      <span className="text-[rgba(11,15,26,0.2)] group-hover:text-white/20 transition-colors duration-500" style={{ fontSize: 10 }}>·</span>
+                      <span className="text-[10px] font-semibold tracking-[0.2em] text-[rgba(11,15,26,0.3)] group-hover:text-white/30 transition-colors duration-500">{post.readTime}</span>
                     </div>
                     <h3
-                      className="font-bold leading-[1.2] tracking-[-0.02em] mb-4 flex-1 transition-colors duration-500 group-hover:text-white"
-                      style={{ fontSize: 18, color: NAVY }}
+                      className="font-bold leading-[1.2] tracking-[-0.02em] mb-4 flex-1 transition-colors duration-500 text-[#0B0F1A] group-hover:text-white"
+                      style={{ fontSize: 18 }}
                     >
                       {post.title}
                     </h3>
                     <p
-                      className="text-[13px] leading-[1.65] mb-6 transition-colors duration-500 group-hover:text-white/35"
-                      style={{ color: "rgba(11,15,26,0.45)" }}
+                      className="text-[13px] leading-[1.65] mb-6 transition-colors duration-500 text-[rgba(11,15,26,0.45)] group-hover:text-white/35"
                     >
                       {post.excerpt.length > 100 ? post.excerpt.slice(0, 100) + "…" : post.excerpt}
                     </p>

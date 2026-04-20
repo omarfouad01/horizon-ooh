@@ -334,5 +334,5 @@ export function nextBillboardCode(): string {
     .map((p: any) => parseInt((p.code ?? '').replace(/\D/g, ''), 10))
     .filter((n: number) => !isNaN(n));
   const next = codes.length ? Math.max(...codes) + 1 : 1;
-  return 'HOH-' + String(next).padStart(4, '0');
+  return 'H-' + String(next).padStart(4, '0');
 }
