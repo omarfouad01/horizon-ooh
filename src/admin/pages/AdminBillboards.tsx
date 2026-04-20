@@ -250,7 +250,11 @@ function BillboardForm({ editing, onClose }: any) {
     specs:[], benefits:[], relatedSlugs:[],
   }
 
-  const [f, setF] = useState<any>({ ...empty, ...(editing || {}) })
+  const [f, setF] = useState<any>(() => {
+    const ed = editing || {}
+    // Map legacy `name` field to `nameEn` so the form pre-fills correctly
+    return { ...empty, ...ed, nameEn: (ed as any).nameEn || (ed as any).name || '' }
+  })
   const set = (k: string, v: any) => setF((p: any) => {
     const next = { ...p, [k]: v }
     if (k === 'size') next.sqm = parseSqm(v)
