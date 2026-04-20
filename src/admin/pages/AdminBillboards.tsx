@@ -42,141 +42,154 @@ const sel = "h-9 px-3 rounded-xl border border-gray-200 text-sm outline-none bg-
 const inp = "h-9 px-3 rounded-xl border border-gray-200 text-sm outline-none focus:border-gray-400 w-full"
 const ta  = "px-3 py-2 rounded-xl border border-gray-200 text-sm outline-none focus:border-gray-400 resize-none w-full"
 
-// ── Map Picker ────────────────────────────────────────────────────────────────
-// ── Interactive Leaflet Map Picker ────────────────────────────────────────────
-function LeafletPickerMap({ lat, lng, onMove }: { lat: number; lng: number; onMove:(la:number,lo:number)=>void }) {
-  const divRef  = useRef<HTMLDivElement>(null)
-  const mapRef  = useRef<L.Map | null>(null)
-  const pinRef  = useRef<L.Marker | null>(null)
+// ── Always-visible inline map with geocoding ─────────────────────────────────
+function InlineMapPicker({
+  lat, lng, address,
+  onCoordsChange, onAddressChange,
+}: {
+  lat: number; lng: number; address: string;
+  onCoordsChange: (la: number, lo: number) => void;
+  onAddressChange: (addr: string) => void;
+}) {
+  const divRef = useRef<HTMLDivElement>(null)
+  const mapRef = useRef<L.Map | null>(null)
+  const pinRef = useRef<L.Marker | null>(null)
+  const geocodeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [searching, setSearching] = useState(false)
+  const [addrInput, setAddrInput] = useState(address || '')
+
+  // Keep addrInput in sync if parent resets it
+  useEffect(() => { setAddrInput(address || '') }, [address])
 
   const makeIcon = () => L.divIcon({
-    className:'',
-    html:`<div style="width:28px;height:28px;background:#D90429;border:3px solid white;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 2px 8px rgba(0,0,0,0.35)"></div>`,
-    iconSize:[28,28], iconAnchor:[14,28],
+    className: '',
+    html: `<div style="width:28px;height:28px;background:#D90429;border:3px solid white;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 2px 8px rgba(0,0,0,0.35)"></div>`,
+    iconSize: [28, 28], iconAnchor: [14, 28],
   })
 
-  useEffect(()=>{
+  // Reverse-geocode coords → address string
+  const reverseGeocode = useCallback(async (la: number, lo: number) => {
+    try {
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${la}&lon=${lo}`,
+        { headers: { 'Accept-Language': 'en', 'User-Agent': 'HorizonOOH/1.0' } }
+      )
+      const data = await res.json()
+      if (data?.display_name) {
+        setAddrInput(data.display_name)
+        onAddressChange(data.display_name)
+      }
+    } catch { /* silently ignore */ }
+  }, [onAddressChange])
+
+  // Init map once
+  useEffect(() => {
     if (!divRef.current || mapRef.current) return
     const initLat = lat || 30.0444, initLng = lng || 31.2357
-    const map = L.map(divRef.current, { center:[initLat,initLng], zoom:13, zoomControl:true })
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
-      attribution:'&copy; OpenStreetMap &copy; CARTO', maxZoom:19
+    const map = L.map(divRef.current, { center: [initLat, initLng], zoom: 13, zoomControl: true })
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; OpenStreetMap &copy; CARTO', maxZoom: 19,
     }).addTo(map)
-    const marker = L.marker([initLat,initLng],{ icon:makeIcon(), draggable:true }).addTo(map)
-    marker.on('dragend',()=>{
+    const marker = L.marker([initLat, initLng], { icon: makeIcon(), draggable: true }).addTo(map)
+    marker.on('dragend', () => {
       const p = marker.getLatLng()
-      onMove(Math.round(p.lat*1e6)/1e6, Math.round(p.lng*1e6)/1e6)
+      const la = Math.round(p.lat * 1e6) / 1e6
+      const lo = Math.round(p.lng * 1e6) / 1e6
+      onCoordsChange(la, lo)
+      reverseGeocode(la, lo)
     })
-    map.on('click',(e)=>{
-      const {lat:la,lng:lo} = e.latlng
-      marker.setLatLng([la,lo])
-      onMove(Math.round(la*1e6)/1e6, Math.round(lo*1e6)/1e6)
+    map.on('click', (e) => {
+      const la = Math.round(e.latlng.lat * 1e6) / 1e6
+      const lo = Math.round(e.latlng.lng * 1e6) / 1e6
+      marker.setLatLng([la, lo])
+      onCoordsChange(la, lo)
+      reverseGeocode(la, lo)
     })
-    mapRef.current = map; pinRef.current = marker
-    return ()=>{ map.remove(); mapRef.current=null; pinRef.current=null }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+    mapRef.current = map
+    pinRef.current = marker
+    return () => { map.remove(); mapRef.current = null; pinRef.current = null }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-  // Sync external lat/lng changes into the map
-  useEffect(()=>{
+  // Sync external coord changes into the map (e.g. after geocode search)
+  useEffect(() => {
     if (!mapRef.current || !pinRef.current) return
     if (!lat || !lng) return
-    pinRef.current.setLatLng([lat,lng])
-    mapRef.current.setView([lat,lng], mapRef.current.getZoom(), {animate:true})
-  },[lat,lng])
+    pinRef.current.setLatLng([lat, lng])
+    mapRef.current.setView([lat, lng], Math.max(mapRef.current.getZoom(), 15), { animate: true })
+  }, [lat, lng])
 
-  return <div ref={divRef} style={{width:'100%',height:'100%',minHeight:340}}/>
-}
-
-function MapPicker({ lat, lng, onChange }: { lat: number; lng: number; onChange:(lat:number,lng:number)=>void }) {
-  const [open, setOpen] = useState(false)
-  const [tempLat, setTempLat] = useState(lat || 30.0444)
-  const [tempLng, setTempLng] = useState(lng || 31.2357)
-
-  // Keep temp coords in sync when parent values change (first open)
-  useEffect(()=>{
-    if (lat) setTempLat(lat)
-    if (lng) setTempLng(lng)
-  },[lat,lng])
-
-  const handleMapMove = useCallback((la:number,lo:number)=>{
-    setTempLat(la); setTempLng(lo)
-  },[])
-
-  function confirm() {
-    if (!isNaN(tempLat) && !isNaN(tempLng)) {
-      onChange(tempLat, tempLng); setOpen(false); toast.success('Location saved ✓')
-    }
-  }
-
-  if (!open) {
-    return (
-      <div className="flex flex-wrap items-center gap-2">
-        <div className="grid grid-cols-2 gap-2 flex-1">
-          <input className={inp} type="number" step="any" value={lat||''} onChange={e=>onChange(parseFloat(e.target.value)||0,lng)} placeholder="Latitude e.g. 30.0722"/>
-          <input className={inp} type="number" step="any" value={lng||''} onChange={e=>onChange(lat,parseFloat(e.target.value)||0)} placeholder="Longitude e.g. 31.3987"/>
-        </div>
-        <Btn type="button" onClick={()=>setOpen(true)} className="flex items-center gap-1.5 text-[12px] whitespace-nowrap bg-gray-100 text-gray-700 hover:bg-gray-200">
-          <MapPin size={13}/> Pick on Map
-        </Btn>
-        {lat && lng && (
-          <a href={`https://maps.google.com/?q=${lat},${lng}`} target="_blank" rel="noopener noreferrer"
-            className="flex items-center gap-1 text-[11px] text-blue-600 hover:text-blue-800 font-semibold whitespace-nowrap">
-            <ExternalLink size={11}/> View
-          </a>
-        )}
-      </div>
-    )
+  // Forward-geocode: type in address → search Nominatim → move pin
+  const handleAddrChange = (val: string) => {
+    setAddrInput(val)
+    onAddressChange(val)
+    if (geocodeTimer.current) clearTimeout(geocodeTimer.current)
+    if (val.trim().length < 5) return
+    geocodeTimer.current = setTimeout(async () => {
+      setSearching(true)
+      try {
+        const res = await fetch(
+          `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(val)}&limit=1`,
+          { headers: { 'Accept-Language': 'en', 'User-Agent': 'HorizonOOH/1.0' } }
+        )
+        const data = await res.json()
+        if (data?.[0]) {
+          const la = Math.round(parseFloat(data[0].lat) * 1e6) / 1e6
+          const lo = Math.round(parseFloat(data[0].lon) * 1e6) / 1e6
+          onCoordsChange(la, lo)
+          // Map will pan via the coords useEffect above
+        }
+      } catch { /* ignore */ } finally {
+        setSearching(false)
+      }
+    }, 900)
   }
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4" style={{background:'rgba(11,15,26,0.72)'}}>
-      <div className="bg-white rounded-xl w-full max-w-3xl shadow-2xl overflow-hidden flex flex-col" style={{maxHeight:'92vh'}}>
-        {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 flex-shrink-0">
-          <h3 className="text-[14px] font-bold text-gray-900 flex items-center gap-2">
-            <MapPin size={15} style={{color:'#D90429'}}/>Pick Location on Map
-          </h3>
-          <button onClick={()=>setOpen(false)} className="text-gray-400 hover:text-gray-700 p-1 rounded-lg hover:bg-gray-100"><X size={15}/></button>
-        </div>
+    <div className="flex flex-col gap-0" style={{ border: '1px solid #e5e7eb', borderRadius: 12, overflow: 'hidden' }}>
+      {/* Address search bar on top of the map */}
+      <div className="relative bg-white border-b border-gray-200 flex items-center gap-2 px-3 py-2">
+        <MapPin size={14} style={{ color: '#D90429', flexShrink: 0 }} />
+        <input
+          className="flex-1 text-sm outline-none bg-transparent placeholder-gray-400"
+          value={addrInput}
+          onChange={e => handleAddrChange(e.target.value)}
+          placeholder="Type a full address to search on map…"
+        />
+        {searching && (
+          <svg className="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ color: '#D90429', flexShrink: 0 }}>
+            <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeDasharray="31.4" strokeDashoffset="10"/>
+          </svg>
+        )}
+        {!searching && lat && lng && (
+          <a href={`https://maps.google.com/?q=${lat},${lng}`} target="_blank" rel="noopener noreferrer"
+            className="flex items-center gap-1 text-[11px] text-blue-500 hover:text-blue-700 font-semibold whitespace-nowrap flex-shrink-0">
+            <ExternalLink size={11}/> Maps
+          </a>
+        )}
+      </div>
 
-        {/* Hint */}
-        <div className="px-5 py-2.5 bg-blue-50 border-b border-blue-100 flex-shrink-0">
-          <p className="text-[12px] text-blue-700">
-            <strong>Click anywhere on the map</strong> or <strong>drag the red pin</strong> to set the exact location. Use the coordinate inputs below to fine-tune.
-          </p>
-        </div>
+      {/* The map itself */}
+      <div ref={divRef} style={{ width: '100%', height: 340 }} />
 
-        {/* Map — takes all available space */}
-        <div className="flex-1 relative overflow-hidden" style={{minHeight:340}}>
-          {open && <LeafletPickerMap lat={tempLat} lng={tempLng} onMove={handleMapMove}/>}
-        </div>
-
-        {/* Coordinate inputs + actions */}
-        <div className="px-5 py-4 border-t border-gray-100 flex-shrink-0 bg-gray-50/80">
-          <div className="flex gap-3 items-end flex-wrap">
-            <div className="flex-1 min-w-[130px]">
-              <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-1">Latitude</label>
-              <input className={inp} type="number" step="any" value={tempLat}
-                onChange={e=>{const v=parseFloat(e.target.value);if(!isNaN(v))setTempLat(v)}}/>
-            </div>
-            <div className="flex-1 min-w-[130px]">
-              <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-1">Longitude</label>
-              <input className={inp} type="number" step="any" value={tempLng}
-                onChange={e=>{const v=parseFloat(e.target.value);if(!isNaN(v))setTempLng(v)}}/>
-            </div>
-            <Btn type="button" onClick={()=>setOpen(false)} className="bg-gray-100 text-gray-700 hover:bg-gray-200 flex-shrink-0">Cancel</Btn>
-            <Btn type="button" onClick={confirm} className="flex items-center gap-1.5 flex-shrink-0">
-              <MapPin size={13}/> Save Location
-            </Btn>
-          </div>
-          <p className="text-[10px] text-gray-400 mt-2">
-            Selected: <span className="font-mono font-semibold text-gray-600">{tempLat.toFixed(6)}, {tempLng.toFixed(6)}</span>
-            &nbsp;·&nbsp;
-            <a href={`https://maps.google.com/?q=${tempLat},${tempLng}`} target="_blank" rel="noopener noreferrer"
-              className="text-blue-500 hover:text-blue-700 font-semibold">Verify in Google Maps ↗</a>
-          </p>
-        </div>
+      {/* Coord readout + manual inputs */}
+      <div className="bg-gray-50 border-t border-gray-100 px-3 py-2 flex gap-3 items-center flex-wrap">
+        <span className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider">Coords:</span>
+        <input
+          className="h-7 px-2 rounded-lg border border-gray-200 text-[11px] font-mono outline-none focus:border-gray-400 w-36"
+          type="number" step="any" value={lat || ''}
+          onChange={e => onCoordsChange(parseFloat(e.target.value) || 0, lng)}
+          placeholder="Latitude"
+        />
+        <input
+          className="h-7 px-2 rounded-lg border border-gray-200 text-[11px] font-mono outline-none focus:border-gray-400 w-36"
+          type="number" step="any" value={lng || ''}
+          onChange={e => onCoordsChange(lat, parseFloat(e.target.value) || 0)}
+          placeholder="Longitude"
+        />
+        {lat && lng && (
+          <span className="text-[10px] text-gray-400 font-mono ml-auto">{lat.toFixed(5)}, {lng.toFixed(5)}</span>
+        )}
       </div>
     </div>
   )
@@ -462,16 +475,17 @@ function BillboardForm({ editing, onClose }: any) {
           </select>
         </Lbl>
       </div>
-      <div className="grid grid-cols-2 gap-3">
-        <Lbl label="Location Landmark / Name">
-          <input className={inp} value={f.locationName||''} onChange={e=>set('locationName',e.target.value)} placeholder="e.g. Ring Road km 28 — Nasr City exit"/>
-        </Lbl>
-        <Lbl label="Full Address">
-          <input className={inp} value={f.location||''} onChange={e=>set('location',e.target.value)} placeholder="Full street address"/>
-        </Lbl>
-      </div>
-      <Lbl label="Map Pin — Latitude & Longitude">
-        <MapPicker lat={f.lat} lng={f.lng} onChange={(la,lo)=>setF((p:any)=>({...p,lat:la,lng:lo}))}/>
+      <Lbl label="Location Landmark / Name">
+        <input className={inp} value={f.locationName||''} onChange={e=>set('locationName',e.target.value)} placeholder="e.g. Ring Road km 28 — Nasr City exit"/>
+      </Lbl>
+      <Lbl label="Map — Pin Location & Full Address">
+        <InlineMapPicker
+          lat={f.lat}
+          lng={f.lng}
+          address={f.location||''}
+          onCoordsChange={(la,lo)=>setF((p:any)=>({...p,lat:la,lng:lo}))}
+          onAddressChange={(addr)=>set('location',addr)}
+        />
       </Lbl>
 
       {/* ── IMAGES ── */}
