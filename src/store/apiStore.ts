@@ -151,14 +151,23 @@ export interface ResultStat {
 
 // ─── Demo defaults ────────────────────────────────────────────────────────────
 const DEMO_SETTINGS = {
-  site_name: 'HORIZON OOH',
-  tagline: "Egypt's Premium Out-of-Home Advertising Partner",
-  phone: '+20 100 123 4567',
-  email: 'info@horizonooh.com',
-  address: 'Smart Village, Km 28, Cairo–Alexandria Desert Road, Cairo, Egypt',
-  facebook: 'https://facebook.com/horizonooh',
-  instagram: 'https://instagram.com/horizonooh',
-  linkedin: 'https://linkedin.com/company/horizonooh',
+  site_name:       'HORIZON OOH',
+  companyName:     'HORIZON OOH',
+  tagline:         "Egypt's Premium Out-of-Home Advertising Partner",
+  phone:           '+20 100 123 4567',
+  email:           'info@horizonooh.com',
+  address:         'Smart Village, Km 28, Cairo–Alexandria Desert Road, Cairo, Egypt',
+  hqLabel:         'Cairo HQ',
+  whatsapp:        '+201234567890',
+  metaDescription: "HORIZON OOH is Egypt's #1 outdoor advertising company — billboards, DOOH, mall, airport and transit advertising across all 27 governorates.",
+  facebook:        'https://facebook.com/horizonooh',
+  instagram:       'https://instagram.com/horizonooh',
+  linkedin:        'https://linkedin.com/company/horizonooh',
+  youtube:         '',
+  twitter:         '',
+  headerLogoUrl:   '',
+  footerLogoUrl:   '',
+  faviconUrl:      '',
 };
 
 const DEMO_HOME = {
