@@ -1465,6 +1465,7 @@ export default function Home() {
       <HeroSection />
       <StatementSection />
       <TrustStrip />
+      <RecentBillboardsSection />
       <WhyOOHSection />
       <ServicesSection />
       <FeatureSection />
@@ -1472,7 +1473,6 @@ export default function Home() {
       <BillboardBenefitsSection />
       <ProcessSection />
       <ResultsSection />
-      <RecentBillboardsSection />
       <ClientsSection />
       <ProjectsSection />
       <SignatureSection />
