@@ -315,7 +315,12 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }:
         {/* English name + full address */}
         <div className="mb-4 pb-4" style={{ borderBottom: "1px solid rgba(11,15,26,0.06)" }}>
           <p className="text-[13px] font-bold text-[#0B0F1A] leading-snug mb-1">{b.nameEn || b.name}</p>
-          <p className="text-[11px] leading-snug" style={{ color: "rgba(11,15,26,0.45)" }}>{b.location}</p>
+          <div className="flex items-start gap-1.5">
+            <svg className="shrink-0 mt-[1px]" width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ color: '#D90429' }}>
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" fill="currentColor"/>
+            </svg>
+            <p className="text-[11px] leading-snug" style={{ color: "rgba(11,15,26,0.45)" }}>{b.location}</p>
+          </div>
         </div>
         {/* Code / Size / Format stats row */}
         <div className="grid grid-cols-3 gap-0 mb-4" style={{ border: "1px solid rgba(11,15,26,0.07)" }}>
@@ -325,7 +330,7 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }:
             { label: "Format", value: b.type },
           ].map((stat, i) => (
             <div key={stat.label} className="flex flex-col items-center justify-center py-2.5 px-2"
-              style={{ borderLeft: i > 0 ? "1px solid rgba(11,15,26,0.07)" : "none" }}>
+              style={{ borderLeft: i > 0 ? '2px solid #D90429' : 'none' }}>
               <p className="text-[9px] font-semibold tracking-[0.18em] uppercase mb-0.5"
                 style={{ color: "rgba(11,15,26,0.3)" }}>{stat.label}</p>
               <p className="text-[11px] font-bold text-center leading-tight" style={{ color: NAVY }}>{stat.value}</p>

@@ -1410,9 +1410,14 @@ function RecentBillboardsSection() {
                     </motion.div>
                   </div>
                   {/* Full address */}
-                  <p className="text-[#0B0F1A]/50 text-[12px] leading-snug mb-4">
-                    {product.location}
-                  </p>
+                  <div className="flex items-start gap-1.5 mb-4">
+                    <svg className="shrink-0 mt-[1px]" width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ color: '#D90429' }}>
+                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" fill="currentColor"/>
+                    </svg>
+                    <p className="text-[#0B0F1A]/50 text-[12px] leading-snug">
+                      {product.location}
+                    </p>
+                  </div>
                   {/* Code / Size / Format */}
                   <div className="grid grid-cols-3 gap-0 border border-[#0B0F1A]/[0.07]">
                     {[
@@ -1423,7 +1428,7 @@ function RecentBillboardsSection() {
                       <div
                         key={stat.label}
                         className="flex flex-col items-center justify-center py-3 px-2"
-                        style={{ borderLeft: i > 0 ? "1px solid rgba(11,15,26,0.07)" : "none" }}
+                        style={{ borderLeft: i > 0 ? '2px solid #D90429' : 'none' }}
                       >
                         <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-[#0B0F1A]/30 mb-1">{stat.label}</span>
                         <span className="text-[12px] font-bold text-[#0B0F1A] text-center leading-tight">{stat.value}</span>
