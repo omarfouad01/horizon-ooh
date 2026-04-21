@@ -7,10 +7,10 @@ import path from 'path';
  * Horizon OOH — Unified Vite config
  *
  * Source:  resources/react/   (React 18 + TypeScript)
- * Output:  public/app/        (served by Laravel routes/web.php)
+ * Output:  dist/               (served by Skywork preview + Laravel)
  *
  * Dev:  npm run dev      → Vite dev server (hot reload)
- * Prod: npm run build    → builds to public/app/ for Laravel to serve
+ * Prod: npm run build    → builds to dist/ for serving
  */
 export default defineConfig(({ mode }) => ({
   root: '.',
@@ -28,15 +28,10 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    outDir: 'public/app' /* v2 */,
+    outDir: 'dist',
     emptyOutDir: true,
     rollupOptions: {
       input: path.resolve(__dirname, 'index.html'),
-      output: {
-        entryFileNames: 'assets/[name]-[hash].js',
-        chunkFileNames: 'assets/[name]-[hash].js',
-        assetFileNames: 'assets/[name]-[hash][extname]',
-      },
     },
   },
   server: {
