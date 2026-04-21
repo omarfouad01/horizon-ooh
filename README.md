@@ -1,275 +1,442 @@
-# HORIZON OOH — Premium Outdoor Advertising Website
+# HORIZON OOH — Full-Stack Website & Admin Dashboard
 
-A full-stack website for HORIZON OOH, Egypt's premier outdoor advertising company.
+Egypt's premier outdoor advertising platform — a **unified Laravel + React project** with a public website, client portal, and admin dashboard.
 
-**Frontend:** React 18 + Vite 5 + TypeScript + Tailwind CSS v4 + Framer Motion  
-**Backend:** Laravel 12 (PHP 8.4) REST API with JWT Authentication  
-**Database:** MySQL 8 / MariaDB 10.6+
-
----
-
-## Pages
-
-| Route | Description |
+| Layer | Technology |
 |---|---|
-| `/` | Homepage — 11 sections, hero, statement, services, locations, CTA |
-| `/about` | About page — company story, why choose us, key numbers |
-| `/services` | Services listing grid |
-| `/services/:slug` | Service detail page (Billboard, DOOH, Mall, Airport, Street, Production) |
-| `/locations` | Locations listing with city cards |
-| `/locations/:slug` | Location detail — formats, featured billboards |
-| `/locations/:city/billboards/:slug` | Individual billboard product page with full specs |
-| `/blog` | Blog listing — featured + grid |
-| `/blog/:slug` | Full blog article with sidebar |
-| `/contact` | Contact form → PHP API → MySQL + Email |
+| **Frontend** | React 18 · Vite 5 · TypeScript · Tailwind CSS v4 · Framer Motion |
+| **Backend** | Laravel 12 (PHP 8.3+) · REST API · JWT Authentication |
+| **Database** | MySQL 8+ / MariaDB 10.6+ |
+| **Build output** | `public/app/` (served by Laravel's `routes/web.php`) |
 
 ---
 
 ## Project Structure
 
+This is a **single repository with a single root** — the Laravel project root IS the project root. React source lives inside `resources/react/` and builds directly into `public/app/`.
+
 ```
-horizon_ooh/
-├── index.html               # SPA shell
-├── .htaccess                # Apache SPA routing + /api proxy
-├── .env.example             # Environment variable template
-├── vite.config.ts           # Vite config
+horizon-ooh/                     ← repository root = Laravel root
 │
-├── src/                     # React frontend
-│   ├── App.tsx              # Router + all routes
-│   ├── pages/               # One file per page
-│   ├── components/
-│   │   ├── Layout.tsx       # Navbar + Footer
-│   │   └── UI.tsx           # Shared primitives (Reveal, Eyebrow, CTABanner…)
-│   ├── data/index.ts        # All site content (services, locations, blog)
-│   └── lib/routes.ts        # Route constants + helper functions
+├── resources/
+│   ├── react/                   ← React 18 source (TypeScript)
+│   │   ├── App.tsx              ← Router + all routes
+│   │   ├── main.tsx             ← Entry point
+│   │   ├── index.css            ← Tailwind v4 design system
+│   │   ├── pages/               ← Public website pages
+│   │   │   ├── Home.tsx
+│   │   │   ├── About.tsx
+│   │   │   ├── Services.tsx / ServiceDetail.tsx
+│   │   │   ├── Locations.tsx / LocationDetail.tsx
+│   │   │   ├── Product.tsx      ← Individual billboard page
+│   │   │   ├── Projects.tsx / ProjectDetail.tsx
+│   │   │   ├── Blog.tsx / BlogArticle.tsx
+│   │   │   ├── Contact.tsx
+│   │   │   └── Login.tsx / Signup.tsx
+│   │   ├── admin/               ← Admin dashboard
+│   │   │   ├── AdminLayout.tsx
+│   │   │   ├── AdminLogin.tsx
+│   │   │   ├── AdminAuth.tsx    ← Auth guard HOC
+│   │   │   └── pages/
+│   │   │       ├── AdminDashboard.tsx
+│   │   │       ├── AdminHomePage.tsx
+│   │   │       ├── AdminAbout.tsx
+│   │   │       ├── AdminBillboards.tsx  ← Inline map picker + geocoding
+│   │   │       ├── AdminLocations.tsx
+│   │   │       ├── AdminServices.tsx
+│   │   │       ├── AdminProjects.tsx
+│   │   │       ├── AdminBlog.tsx
+│   │   │       ├── AdminContacts.tsx
+│   │   │       ├── AdminCustomers.tsx
+│   │   │       ├── AdminSuppliers.tsx
+│   │   │       ├── AdminUsers.tsx
+│   │   │       └── AdminSettings.tsx
+│   │   ├── api/                 ← Axios client + all API calls
+│   │   │   ├── client.ts        ← Axios instance (reads VITE_API_URL)
+│   │   │   └── index.ts         ← Typed wrappers for every endpoint
+│   │   ├── store/
+│   │   │   ├── apiStore.ts      ← Zustand store — live API with demo fallback
+│   │   │   └── dataStore.ts     ← Static demo data
+│   │   ├── components/          ← Shared UI components
+│   │   ├── data/                ← Static seed / demo content
+│   │   └── lib/
+│   │       ├── routes.ts        ← ROUTE_PATHS constants
+│   │       └── react-router-dom-proxy.tsx
+│   └── public-static/           ← Static assets copied to public/ at build
+│       ├── favicon.ico
+│       └── placeholder.svg
 │
-├── backend/                 # Legacy PHP backend (kept for reference)
-│   └── ...                  # Superseded by laravel-backend/
+├── app/
+│   ├── Http/Controllers/Api/    ← 16 API controllers
+│   │   ├── AuthController.php
+│   │   ├── BillboardController.php
+│   │   ├── LocationController.php
+│   │   ├── DistrictController.php
+│   │   ├── ServiceController.php
+│   │   ├── ProjectController.php
+│   │   ├── BlogController.php
+│   │   ├── ContactController.php
+│   │   ├── SettingController.php
+│   │   ├── AdFormatController.php
+│   │   ├── ClientBrandController.php
+│   │   ├── TrustStatController.php
+│   │   ├── ProcessStepController.php
+│   │   ├── SupplierController.php
+│   │   ├── CustomerController.php
+│   │   └── UserController.php
+│   └── Models/                  ← 16 Eloquent models
 │
-└── laravel-backend/         # ★ Laravel 12 API backend
-    ├── app/
-    │   ├── Http/Controllers/Api/   # All API controllers
-    │   │   ├── AuthController.php
-    │   │   ├── BillboardController.php
-    │   │   ├── LocationController.php
-    │   │   ├── ServiceController.php
-    │   │   ├── ProjectController.php
-    │   │   ├── BlogController.php
-    │   │   ├── ContactController.php
-    │   │   ├── SettingController.php
-    │   │   └── ...
-    │   └── Models/          # Eloquent models
-    ├── database/
-    │   ├── migrations/      # All table schemas
-    │   └── seeders/         # Default data (admin user, formats, stats)
-    ├── routes/
-    │   └── api.php          # All 50+ API routes
-    ├── config/
-    │   ├── auth.php         # JWT guard configuration
-    │   └── cors.php         # CORS settings
-    ├── .env.example         # Environment template
-    ├── deploy.sh            # One-command deployment script
-    └── nginx.conf.example   # Nginx vhost configuration
+├── database/
+│   ├── migrations/              ← Full schema (all tables)
+│   └── seeders/DatabaseSeeder.php  ← Demo data (admin user, locations, billboards…)
+│
+├── routes/
+│   ├── api.php                  ← 55+ API routes (public + auth-gated)
+│   └── web.php                  ← Serves public/app/index.html for all non-API requests
+│
+├── config/
+│   ├── auth.php                 ← JWT guard
+│   └── cors.php                 ← CORS settings
+│
+├── public/
+│   ├── app/                     ← Vite build output (git-ignored, generated by npm run build)
+│   ├── favicon.ico
+│   └── .htaccess                ← Apache SPA + API routing
+│
+├── index.html                   ← Vite SPA shell (entry: /resources/react/main.tsx)
+├── vite.config.ts               ← source: resources/react/ → output: public/app/
+├── package.json                 ← npm scripts + all frontend dependencies
+├── tsconfig.app.json            ← TypeScript: paths @/* → resources/react/*
+├── .env.example                 ← All environment variables documented
+├── deploy.sh                    ← One-command deployment script
+└── nginx.conf.example           ← Nginx vhost reference
 ```
 
 ---
 
-## Quick Start
+## Website Pages
 
-### 1. Clone the repository
+| Route | Page |
+|---|---|
+| `/` | Homepage — hero, location map, services, projects, blog, CTA |
+| `/about` | About — company story, why choose us, key numbers, client brands |
+| `/services` | Services grid |
+| `/services/:slug` | Service detail (Billboard, DOOH, Mall, Airport, Street, Production) |
+| `/locations` | Locations — map + governorate cards |
+| `/locations/:slug` | Location detail — formats, featured billboards |
+| `/locations/:city/billboards/:slug` | Individual billboard — full specs, images, map |
+| `/projects` | Portfolio — case studies grid |
+| `/projects/:slug` | Project detail |
+| `/blog` | Blog — featured post + grid |
+| `/blog/:slug` | Full article with sidebar |
+| `/contact` | Contact form |
+| `/login` | Client portal login |
+
+## Admin Dashboard Pages
+
+All admin routes are prefixed `/admin` and require JWT authentication.
+
+| Route | Page |
+|---|---|
+| `/admin/login` | Admin login |
+| `/admin` | Dashboard — live stats (locations, billboards, services, projects, blog, brands) |
+| `/admin/homepage` | Edit all homepage content sections (Hero, Statement, Feature, CTA) |
+| `/admin/about` | Edit all About page content (Hero, Intro, Why Choose, Key Numbers, Brands) |
+| `/admin/billboards` | Manage billboards — inline map picker with Nominatim geocoding |
+| `/admin/locations` | Manage governorates and districts |
+| `/admin/services` | Manage services |
+| `/admin/projects` | Manage case studies / portfolio |
+| `/admin/blog` | Manage blog posts |
+| `/admin/contacts` | View and manage website enquiries |
+| `/admin/customers` | CRM — manage clients/customers |
+| `/admin/suppliers` | Manage supplier network |
+| `/admin/users` | Manage website registered users |
+| `/admin/settings` | Site-wide settings (company info, social links, SEO, logos, brands, stats) |
+
+---
+
+## Quick Start (Development)
+
+### Prerequisites
+- PHP 8.3+ with extensions: `pdo_mysql`, `mbstring`, `openssl`, `json`, `tokenizer`, `gd`
+- Composer (global)
+- Node.js 20+ and npm
+- MySQL 8+ database
+
+### 1. Clone
 
 ```bash
-git clone https://github.com/YOUR_ORG/horizon-ooh.git
+git clone https://github.com/omarfouad01/horizon-ooh.git -b laravel
 cd horizon-ooh
 ```
 
-### 2. Install frontend dependencies
+### 2. Configure environment
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` and fill in **both** frontend and backend variables:
+
+```bash
+# Laravel / PHP backend
+APP_URL=http://localhost:8000
+DB_DATABASE=horizon_ooh
+DB_USERNAME=root
+DB_PASSWORD=secret
+MAIL_HOST=smtp.mailtrap.io
+JWT_SECRET=          # generated in step 3
+
+# React / Vite frontend
+VITE_API_URL=http://localhost:8000/api
+VITE_ENABLE_ROUTE_MESSAGING=false
+```
+
+### 3. Install dependencies & set up Laravel
+
+```bash
+# PHP dependencies
+composer install
+
+# Generate keys
+php artisan key:generate
+php artisan jwt:secret          # writes JWT_SECRET into .env
+
+# Run migrations + seed demo data
+php artisan migrate --seed
+
+# Storage symlink (for uploaded images)
+php artisan storage:link
+```
+
+### 4. Install frontend dependencies
 
 ```bash
 npm install
 ```
 
-### 3. Configure frontend environment
+### 5. Run dev servers
 
 ```bash
-cp .env.example .env
-# Edit .env — set VITE_API_URL to point to your Laravel API
-# e.g. VITE_API_URL=https://api.horizonooh.com/api
-```
-
-### 4. Configure Laravel backend
-
-```bash
-cd laravel-backend
-cp .env.example .env
-# Edit .env — set DB credentials, JWT_SECRET, SMTP, APP_URL
-php artisan key:generate
-php artisan jwt:secret
-```
-
-### 5. Run development server
-
-```bash
-# Terminal 1 – React frontend
-npm run dev
-# http://localhost:5173
-
-# Terminal 2 – Laravel API (dev)
-cd laravel-backend
+# Terminal 1 — Laravel API
 php artisan serve
-# http://localhost:8000/api
+# → http://localhost:8000/api
+
+# Terminal 2 — Vite dev server (hot reload)
+npm run dev
+# → http://localhost:8080
 ```
-
-### 6. Build for production
-
-```bash
-npm run build
-# Output: dist/
-```
-
----
-
-## Laravel Backend – Full API Reference
-
-All endpoints are prefixed with `/api`.
-
-### Authentication
-
-| Method | Endpoint | Auth? | Description |
-|--------|----------|-------|-------------|
-| POST | `/auth/login` | No | Login → returns JWT token |
-| POST | `/auth/logout` | Yes | Invalidate token |
-| GET | `/auth/me` | Yes | Current user info |
-
-**Login request:**
-```json
-{ "email": "admin@horizonooh.com", "password": "admin123" }
-```
-**Login response:**
-```json
-{ "token": "eyJ...", "user": { "id": 1, "name": "Admin", "email": "...", "role": "admin" } }
-```
-
-All authenticated requests must include the header:
-```
-Authorization: Bearer <token>
-```
-
-### Content Endpoints (Public)
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/health` | Health check |
-| GET | `/locations` | All locations with billboards |
-| GET | `/locations/{slug}` | Single location |
-| GET | `/billboards` | All billboards (filterable) |
-| GET | `/billboards/{slug}` | Single billboard |
-| GET | `/services` | All services |
-| GET | `/services/{slug}` | Single service |
-| GET | `/projects` | All projects (portfolio) |
-| GET | `/projects/{slug}` | Single project |
-| GET | `/blog` | Blog posts (published only) |
-| GET | `/blog/{slug}` | Single blog post |
-| GET | `/ad-formats` | Billboard format types |
-| GET | `/clients` | Client brand logos |
-| GET | `/trust-stats` | Homepage stats |
-| GET | `/process-steps` | How-it-works steps |
-| GET | `/settings` | Site-wide settings |
-| POST | `/contact` | Submit contact/enquiry form |
-
-### Admin Endpoints (Authenticated)
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/dashboard/stats` | Dashboard counters |
-| PUT | `/settings` | Bulk-update site settings |
-| POST/PUT/DELETE | `/locations/{id}` | Manage locations |
-| GET/POST/PUT/DELETE | `/districts` | Manage districts |
-| POST/PUT/DELETE | `/billboards/{id}` | Manage billboards + images |
-| DELETE | `/billboards/{id}/images` | Remove a billboard image |
-| POST/PUT/DELETE | `/services/{id}` | Manage services |
-| POST/PUT/DELETE | `/projects/{id}` | Manage projects |
-| POST/PUT/DELETE | `/blog/{id}` | Manage blog posts |
-| GET/PUT/DELETE | `/contacts/{id}` | View/manage contact enquiries |
-| POST/PUT/DELETE | `/clients/{id}` | Manage client brands |
-| POST/PUT/DELETE | `/trust-stats/{id}` | Manage homepage stats |
-| POST/PUT/DELETE | `/process-steps/{id}` | Manage how-it-works steps |
-| GET/POST/PUT/DELETE | `/suppliers` | Manage suppliers |
-| GET/POST/PUT/DELETE | `/customers` | Manage customers |
-| GET/POST/PUT/DELETE | `/users` | Manage admin users |
 
 ---
 
 ## Production Deployment
 
-### Option A – One-Command Deploy (recommended)
+### One-command deploy (recommended)
+
+After uploading the repository to your server and configuring `.env`:
 
 ```bash
-# After uploading laravel-backend/ to server:
-cd /var/www/horizonooh/laravel-backend
-cp .env.example .env
-nano .env   # Fill in your DB, SMTP, APP_URL, etc.
 chmod +x deploy.sh
-./deploy.sh
+./deploy.sh          # first deploy
+./deploy.sh --seed   # first deploy with demo data
 ```
 
-### Option B – Manual Steps
+The script runs:
+1. `composer install --no-dev --optimize-autoloader`
+2. `npm install && npm run build` → outputs to `public/app/`
+3. `php artisan migrate --force` (+ `db:seed` if `--seed`)
+4. `php artisan storage:link`
+5. `php artisan config:cache && route:cache && view:cache`
+6. Sets correct file permissions on `storage/` and `bootstrap/cache/`
+
+### Manual steps
 
 ```bash
-# 1. Install dependencies
+# 1. PHP dependencies
 composer install --no-dev --optimize-autoloader
 
-# 2. Generate keys
+# 2. Generate keys (first deploy only)
 php artisan key:generate --force
 php artisan jwt:secret --force
 
-# 3. Run migrations + seed default data
+# 3. Database
 php artisan migrate --force
-php artisan db:seed --force
+php artisan db:seed --force     # optional: loads demo data
 
 # 4. Storage symlink
 php artisan storage:link
 
-# 5. Optimise
+# 5. Build React frontend → public/app/
+npm install
+npm run build
+
+# 6. Optimise
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-# 6. Permissions
+# 7. Permissions
 chmod -R 775 storage bootstrap/cache
+chown -R www-data:www-data storage bootstrap/cache
 ```
 
-### Nginx Configuration
+### Web server
 
-See `laravel-backend/nginx.conf.example` for a complete Nginx vhost.
+**Nginx** — see `nginx.conf.example` for a complete vhost. Key rules:
+- `/api/*` → Laravel `index.php`
+- `/storage/*` → storage symlink
+- `/app/*` → Vite build assets
+- Everything else → Laravel `index.php` (which serves `public/app/index.html`)
 
-### Apache Configuration
+**Apache** — `public/.htaccess` handles all routing. Requires `mod_rewrite`:
+```bash
+a2enmod rewrite
+```
 
-The `laravel-backend/public/.htaccess` handles URL rewriting.
-Ensure `mod_rewrite` is enabled: `a2enmod rewrite`.
+### Document root
+
+Point your web server document root to `public/` (not the repo root).
+
+---
+
+## Environment Variables
+
+All variables are documented in `.env.example`.
+
+### Frontend (Vite — prefixed `VITE_`)
+
+| Variable | Description | Example |
+|---|---|---|
+| `VITE_API_URL` | Full URL to the Laravel API (no trailing slash) | `https://api.horizonooh.com/api` |
+| `VITE_ENABLE_ROUTE_MESSAGING` | Post route-change messages to parent iframe (Skywork editor only) | `false` |
+
+### Backend (Laravel)
+
+| Variable | Description |
+|---|---|
+| `APP_URL` | Full public URL of the site |
+| `DB_*` | MySQL connection (host, port, database, username, password) |
+| `JWT_SECRET` | Generated by `php artisan jwt:secret` |
+| `JWT_TTL` | Token lifetime in minutes (default: 1440 = 24 h) |
+| `MAIL_*` | SMTP credentials for contact form emails |
+| `CORS_ALLOWED_ORIGINS` | Comma-separated origins allowed to call the API |
+
+---
+
+## API Reference
+
+All endpoints are prefixed with `/api`. Authenticated routes require the header:
+```
+Authorization: Bearer <token>
+```
+
+### Authentication
+
+| Method | Endpoint | Auth | Description |
+|---|---|---|---|
+| `POST` | `/auth/login` | No | Login → returns JWT token |
+| `POST` | `/auth/logout` | Yes | Invalidate token |
+| `GET` | `/auth/me` | Yes | Current authenticated user |
+
+**Login:**
+```json
+POST /api/auth/login
+{ "email": "admin@horizonooh.com", "password": "admin123" }
+
+→ { "token": "eyJ...", "user": { "id": 1, "name": "Admin", "role": "admin" } }
+```
+
+### Public Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/health` | Health check |
+| `GET` | `/locations` | All governorates |
+| `GET` | `/locations/{slug}` | Single governorate |
+| `GET` | `/billboards` | All billboards (filterable by location, format) |
+| `GET` | `/billboards/{slug}` | Single billboard |
+| `GET` | `/services` | All services |
+| `GET` | `/services/{slug}` | Single service |
+| `GET` | `/projects` | All projects |
+| `GET` | `/projects/{slug}` | Single project |
+| `GET` | `/blog` | Published blog posts |
+| `GET` | `/blog/{slug}` | Single blog post |
+| `GET` | `/ad-formats` | Billboard format types |
+| `GET` | `/clients` | Client brand logos |
+| `GET` | `/trust-stats` | Homepage trust statistics |
+| `GET` | `/process-steps` | How-it-works steps |
+| `GET` | `/settings` | Site-wide settings |
+| `GET` | `/home-content` | Homepage editable content |
+| `GET` | `/about-content` | About page editable content |
+| `POST` | `/contact` | Submit enquiry form |
+
+### Admin Endpoints (JWT required)
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/dashboard/stats` | Dashboard counters |
+| `PUT` | `/settings` | Bulk-update site settings |
+| `PUT` | `/home-content` | Update homepage content |
+| `PUT` | `/about-content` | Update About page content |
+| `POST/PUT/DELETE` | `/locations/{id}` | Manage governorates |
+| `GET/POST/PUT/DELETE` | `/districts` | Manage districts |
+| `GET` | `/billboards/next-code` | Auto-generate next billboard code |
+| `POST/PUT/POST/DELETE` | `/billboards/{id}` | Manage billboards + image uploads |
+| `DELETE` | `/billboards/{id}/images` | Remove a billboard image |
+| `POST/PUT/DELETE` | `/services/{id}` | Manage services |
+| `POST/PUT/POST/DELETE` | `/projects/{id}` | Manage projects + cover image |
+| `POST/PUT/DELETE` | `/blog/{id}` | Manage blog posts |
+| `GET/PUT/DELETE` | `/contacts/{id}` | Manage enquiries |
+| `POST/PUT/DELETE` | `/clients/{id}` | Manage client brands |
+| `POST/PUT/DELETE` | `/trust-stats/{id}` | Manage homepage stats |
+| `POST/PUT/DELETE` | `/process-steps/{id}` | Manage how-it-works steps |
+| `GET/POST/PUT/DELETE` | `/suppliers` | Manage supplier network |
+| `GET/POST/PUT/DELETE` | `/customers` | Manage customers/CRM |
+| `GET/POST/PUT/DELETE` | `/users` | Manage website users |
+
+> **Note on image uploads:** Billboard and project image uploads use `multipart/form-data`. The frontend sends `POST /{resource}/{id}` (not `PUT`) for updates that include file uploads because browsers cannot send files via `PUT`. Both methods are registered in `routes/api.php`.
 
 ---
 
 ## Database
 
-Full schema managed by Laravel migrations in `database/migrations/`.
-Default seed data (admin user, ad formats, trust stats, process steps) in `database/seeders/DatabaseSeeder.php`.
+Schema managed by Laravel migrations in `database/migrations/`. All tables are created and seeded in a single `php artisan migrate --seed` command.
 
-**Default admin credentials** (change immediately after first login):
-- Email: `admin@horizonooh.com`
-- Password: `admin123`
+**Tables:**
+`users`, `locations`, `districts`, `billboards`, `billboard_images`, `ad_formats`, `services`, `projects`, `blog_posts`, `contacts`, `client_brands`, `trust_stats`, `process_steps`, `settings`, `suppliers`, `customers`
+
+**Default admin credentials** — change immediately after first login:
+```
+Email:    admin@horizonooh.com
+Password: admin123
+```
+
+---
+
+## Demo / Offline Mode
+
+When `VITE_API_URL` is not set or unreachable (e.g. in the Skywork preview), the frontend automatically falls back to built-in static demo data. This is controlled by `apiStore.ts`:
+
+```ts
+const HAS_API = !!(import.meta.env.VITE_API_URL && import.meta.env.VITE_API_URL !== '/api');
+```
+
+- `HAS_API = false` → store initialises with demo data immediately, no network calls
+- `HAS_API = true` → store fetches from the Laravel API; falls back to demo data on error
+
+This means the site renders correctly in every environment without requiring a database connection.
 
 ---
 
 ## Security
 
-- All admin routes require a valid JWT (`Authorization: Bearer <token>`)
-- JWT tokens expire after 24 hours; configurable via `JWT_TTL`
-- Input validated with Laravel's `$request->validate()` on every endpoint
-- Honeypot field on contact form silently rejects bots
+- All admin routes are protected by the `auth:api` JWT middleware
+- JWT tokens expire after 24 hours (configurable via `JWT_TTL`)
+- All inputs validated with Laravel's `$request->validate()` on every write endpoint
+- File uploads stored in `storage/app/public` — never in `public/` directly
 - CORS restricted via `CORS_ALLOWED_ORIGINS` in `.env`
-- File uploads stored in `storage/app/public` (outside webroot)
-- `.env` is in `.gitignore` — **never commit credentials**
+- Honeypot field on the contact form silently rejects bots
+- `.env` is in `.gitignore` — credentials are never committed
 
 ---
 
@@ -277,157 +444,9 @@ Default seed data (admin user, ad formats, trust stats, process steps) in `datab
 
 | Token | Value |
 |---|---|
-| Navy | `#0B0F1A` |
+| Primary red | `#D90429` |
+| Dark navy | `#0B0F1A` |
 | White | `#FFFFFF` |
-| Accent Red | `#D90429` |
-| Font | Inter (Google Fonts) |
-
----
-
-## License
-
-© 2026 HORIZON OOH. All rights reserved.
-
-```bash
-cp backend/config/config.example.php backend/config/config.php
-# Edit backend/config/config.php — set DB, mail, and CORS settings
-```
-
-### 5. Run development server
-
-```bash
-npm run dev
-# Frontend: http://localhost:5173
-# API calls proxied to /api → backend/api/index.php via vite.config proxy
-```
-
-### 6. Build for production
-
-```bash
-npm run build
-# Output: dist/
-```
-
----
-
-## Backend API Reference
-
-### `GET /api/health`
-
-Health check — returns service name, version, and server time.
-
-**Response:**
-```json
-{
-  "status": "ok",
-  "data": {
-    "service": "HORIZON OOH API",
-    "version": "v1",
-    "time": "2026-04-04T12:00:00+02:00"
-  }
-}
-```
-
----
-
-### `POST /api/contact`
-
-Submit a campaign enquiry form.
-
-**Request body (JSON):**
-```json
-{
-  "name":    "Ahmed Hassan",
-  "email":   "ahmed@brand.com",
-  "phone":   "+20 10 1234 5678",
-  "company": "Brand Egypt",
-  "message": "We need billboard coverage on the Ring Road for Q3 2026."
-}
-```
-
-**Success response `200`:**
-```json
-{
-  "status": "ok",
-  "data": {
-    "message": "Your message has been received. We will be in touch within 24 hours.",
-    "lead_id": 42
-  }
-}
-```
-
-**Validation error `422`:**
-```json
-{
-  "status": "error",
-  "message": "Validation failed.",
-  "errors": {
-    "email": "email must be a valid email address."
-  }
-}
-```
-
-**Rate limit error `429`:**
-```json
-{
-  "status": "error",
-  "message": "Too many requests. Please wait 3540 seconds before trying again."
-}
-```
-
----
-
-## Database Schema
-
-The `contact_leads` table is auto-created on first form submission:
-
-```sql
-CREATE TABLE IF NOT EXISTS contact_leads (
-    id         INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name       VARCHAR(120)  NOT NULL,
-    email      VARCHAR(255)  NOT NULL,
-    phone      VARCHAR(30)   NOT NULL DEFAULT '',
-    company    VARCHAR(200)  NOT NULL DEFAULT '',
-    message    TEXT          NOT NULL,
-    ip_address VARCHAR(45)   NOT NULL DEFAULT '',
-    user_agent VARCHAR(500)  NOT NULL DEFAULT '',
-    created_at DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    INDEX idx_email   (email),
-    INDEX idx_created (created_at)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-```
-
----
-
-## Production Deployment (Apache + PHP)
-
-1. Upload the entire repository to your web root (e.g. `/var/www/html/horizonooh.com/`)
-2. Run `npm run build` — copy the `dist/` contents to your web root
-3. Place `backend/` alongside `index.html`
-4. Ensure `mod_rewrite` is enabled on Apache
-5. Set correct file permissions: `find backend/ -type f -name "*.php" -exec chmod 644 {} \;`
-6. Set `backend/config/config.php` — **never commit this file**
-
----
-
-## Security Notes
-
-- `config.php` is in `.gitignore` — never commit credentials
-- Rate limiter: 10 contact submissions per IP per hour
-- All user input is sanitised with `htmlspecialchars` + `strip_tags`
-- Honeypot field detects bots silently
-- `.htaccess` blocks direct access to all lib/config PHP files
-- CORS restricted to configured origin(s) only
-
----
-
-## Brand
-
-| Token | Value |
-|---|---|
-| Navy | `#0B0F1A` |
-| White | `#FFFFFF` |
-| Accent Red | `#D90429` |
 | Font | Inter (Google Fonts) |
 
 ---
