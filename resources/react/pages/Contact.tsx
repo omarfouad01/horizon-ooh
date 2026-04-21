@@ -100,19 +100,19 @@ export default function Contact() {
                   </p>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-0">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                   {/* Row 1 */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-[1px]" style={{ background: "rgba(11,15,26,0.08)" }}>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     {[
-                      { name: "name", label: "Full Name", type: "text", required: true },
-                      { name: "company", label: "Company", type: "text", required: false },
+                      { name: "name",    label: "Full Name",   type: "text",  required: true,  placeholder: "e.g. Ahmed Hassan" },
+                      { name: "company", label: "Company",     type: "text",  required: false, placeholder: "e.g. Horizon Media" },
                     ].map((field) => (
                       <Reveal key={field.name}>
-                        <div className="bg-white relative" style={{ paddingTop: 8 }}>
+                        <div className="flex flex-col gap-1.5">
                           <label
                             htmlFor={field.name}
-                            className="block text-[10px] font-bold tracking-[0.3em] uppercase px-6 pt-5 pb-1"
-                            style={{ color: "rgba(11,15,26,0.35)" }}
+                            className="text-[11px] font-bold tracking-[0.25em] uppercase"
+                            style={{ color: "rgba(11,15,26,0.5)" }}
                           >
                             {field.label}{field.required && <span style={{ color: RED }}>*</span>}
                           </label>
@@ -123,9 +123,16 @@ export default function Contact() {
                             required={field.required}
                             value={form[field.name as keyof typeof form]}
                             onChange={handleChange}
-                            className="w-full bg-transparent px-6 pb-5 text-[15px] font-medium outline-none border-0 focus:border-b-2 focus:border-[#D90429] transition-colors duration-200"
-                            style={{ color: NAVY }}
-                            placeholder=""
+                            placeholder={field.placeholder}
+                            className="w-full h-[52px] px-4 text-[15px] font-medium outline-none transition-all duration-200"
+                            style={{
+                              color: NAVY,
+                              background: "#F8F8F9",
+                              border: "1.5px solid rgba(11,15,26,0.15)",
+                              borderRadius: 2,
+                            }}
+                            onFocus={e => (e.currentTarget.style.borderColor = RED)}
+                            onBlur={e  => (e.currentTarget.style.borderColor = "rgba(11,15,26,0.15)")}
                           />
                         </div>
                       </Reveal>
@@ -133,17 +140,17 @@ export default function Contact() {
                   </div>
 
                   {/* Row 2 */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-[1px] mt-[1px]" style={{ background: "rgba(11,15,26,0.08)" }}>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     {[
-                      { name: "email", label: "Email Address", type: "email", required: true },
-                      { name: "phone", label: "Phone Number", type: "tel", required: false },
+                      { name: "email", label: "Email Address", type: "email", required: true,  placeholder: "name@company.com" },
+                      { name: "phone", label: "Phone Number",  type: "tel",   required: false, placeholder: "+20 100 000 0000" },
                     ].map((field) => (
                       <Reveal key={field.name}>
-                        <div className="bg-white">
+                        <div className="flex flex-col gap-1.5">
                           <label
                             htmlFor={field.name}
-                            className="block text-[10px] font-bold tracking-[0.3em] uppercase px-6 pt-5 pb-1"
-                            style={{ color: "rgba(11,15,26,0.35)" }}
+                            className="text-[11px] font-bold tracking-[0.25em] uppercase"
+                            style={{ color: "rgba(11,15,26,0.5)" }}
                           >
                             {field.label}{field.required && <span style={{ color: RED }}>*</span>}
                           </label>
@@ -154,8 +161,16 @@ export default function Contact() {
                             required={field.required}
                             value={form[field.name as keyof typeof form]}
                             onChange={handleChange}
-                            className="w-full bg-transparent px-6 pb-5 text-[15px] font-medium outline-none border-0 focus:border-b-2 focus:border-[#D90429] transition-colors duration-200"
-                            style={{ color: NAVY }}
+                            placeholder={field.placeholder}
+                            className="w-full h-[52px] px-4 text-[15px] font-medium outline-none transition-all duration-200"
+                            style={{
+                              color: NAVY,
+                              background: "#F8F8F9",
+                              border: "1.5px solid rgba(11,15,26,0.15)",
+                              borderRadius: 2,
+                            }}
+                            onFocus={e => (e.currentTarget.style.borderColor = RED)}
+                            onBlur={e  => (e.currentTarget.style.borderColor = "rgba(11,15,26,0.15)")}
                           />
                         </div>
                       </Reveal>
@@ -163,30 +178,35 @@ export default function Contact() {
                   </div>
 
                   {/* Message */}
-                  <div className="mt-[1px]" style={{ background: "rgba(11,15,26,0.08)" }}>
-                    <Reveal>
-                      <div className="bg-white">
-                        <label
-                          htmlFor="message"
-                          className="block text-[10px] font-bold tracking-[0.3em] uppercase px-6 pt-5 pb-1"
-                          style={{ color: "rgba(11,15,26,0.35)" }}
-                        >
-                          Message<span style={{ color: RED }}>*</span>
-                        </label>
-                        <textarea
-                          id="message"
-                          name="message"
-                          required
-                          rows={5}
-                          value={form.message}
-                          onChange={handleChange}
-                          className="w-full bg-transparent px-6 pb-6 text-[15px] font-medium outline-none border-0 resize-none focus:border-b-2 focus:border-[#D90429] transition-colors duration-200"
-                          style={{ color: NAVY }}
-                          placeholder="Tell us about your campaign objectives, target audience, and budget range…"
-                        />
-                      </div>
-                    </Reveal>
-                  </div>
+                  <Reveal>
+                    <div className="flex flex-col gap-1.5">
+                      <label
+                        htmlFor="message"
+                        className="text-[11px] font-bold tracking-[0.25em] uppercase"
+                        style={{ color: "rgba(11,15,26,0.5)" }}
+                      >
+                        Message<span style={{ color: RED }}>*</span>
+                      </label>
+                      <textarea
+                        id="message"
+                        name="message"
+                        required
+                        rows={6}
+                        value={form.message}
+                        onChange={handleChange}
+                        placeholder="Tell us about your campaign objectives, target audience, and budget range…"
+                        className="w-full px-4 py-3.5 text-[15px] font-medium outline-none resize-none transition-all duration-200"
+                        style={{
+                          color: NAVY,
+                          background: "#F8F8F9",
+                          border: "1.5px solid rgba(11,15,26,0.15)",
+                          borderRadius: 2,
+                        }}
+                        onFocus={e => (e.currentTarget.style.borderColor = RED)}
+                        onBlur={e  => (e.currentTarget.style.borderColor = "rgba(11,15,26,0.15)")}
+                      />
+                    </div>
+                  </Reveal>
 
                   {/* API Error */}
                   {apiError && (
