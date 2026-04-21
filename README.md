@@ -3,7 +3,7 @@
 A full-stack website for HORIZON OOH, Egypt's premier outdoor advertising company.
 
 **Frontend:** React 18 + Vite 5 + TypeScript + Tailwind CSS v4 + Framer Motion  
-**Backend:** PHP 8.1+ REST API  
+**Backend:** Laravel 12 (PHP 8.4) REST API with JWT Authentication  
 **Database:** MySQL 8 / MariaDB 10.6+
 
 ---
@@ -43,20 +43,33 @@ horizon_ooh/
 │   ├── data/index.ts        # All site content (services, locations, blog)
 │   └── lib/routes.ts        # Route constants + helper functions
 │
-└── backend/                 # PHP backend
-    ├── .htaccess            # Apache rules for backend
-    ├── api/
-    │   ├── index.php        # API router  (GET /health, POST /contact)
-    │   └── contact.php      # Contact form handler
+├── backend/                 # Legacy PHP backend (kept for reference)
+│   └── ...                  # Superseded by laravel-backend/
+│
+└── laravel-backend/         # ★ Laravel 12 API backend
+    ├── app/
+    │   ├── Http/Controllers/Api/   # All API controllers
+    │   │   ├── AuthController.php
+    │   │   ├── BillboardController.php
+    │   │   ├── LocationController.php
+    │   │   ├── ServiceController.php
+    │   │   ├── ProjectController.php
+    │   │   ├── BlogController.php
+    │   │   ├── ContactController.php
+    │   │   ├── SettingController.php
+    │   │   └── ...
+    │   └── Models/          # Eloquent models
+    ├── database/
+    │   ├── migrations/      # All table schemas
+    │   └── seeders/         # Default data (admin user, formats, stats)
+    ├── routes/
+    │   └── api.php          # All 50+ API routes
     ├── config/
-    │   └── config.example.php   # Config template (copy → config.php)
-    └── lib/
-        ├── bootstrap.php    # Bootstrap: config load, CORS, helpers
-        ├── Cors.php         # CORS handler
-        ├── Validator.php    # Input validation & sanitisation
-        ├── Database.php     # PDO singleton wrapper
-        ├── Mailer.php       # Email notifications (notification + ack)
-        └── RateLimiter.php  # File-based rate limiter (10 req/hr/IP)
+    │   ├── auth.php         # JWT guard configuration
+    │   └── cors.php         # CORS settings
+    ├── .env.example         # Environment template
+    ├── deploy.sh            # One-command deployment script
+    └── nginx.conf.example   # Nginx vhost configuration
 ```
 
 ---
@@ -76,14 +89,204 @@ cd horizon-ooh
 npm install
 ```
 
-### 3. Configure environment
+### 3. Configure frontend environment
 
 ```bash
 cp .env.example .env
-# Edit .env — set VITE_API_URL, DB credentials, SMTP settings
+# Edit .env — set VITE_API_URL to point to your Laravel API
+# e.g. VITE_API_URL=https://api.horizonooh.com/api
 ```
 
-### 4. Configure PHP backend
+### 4. Configure Laravel backend
+
+```bash
+cd laravel-backend
+cp .env.example .env
+# Edit .env — set DB credentials, JWT_SECRET, SMTP, APP_URL
+php artisan key:generate
+php artisan jwt:secret
+```
+
+### 5. Run development server
+
+```bash
+# Terminal 1 – React frontend
+npm run dev
+# http://localhost:5173
+
+# Terminal 2 – Laravel API (dev)
+cd laravel-backend
+php artisan serve
+# http://localhost:8000/api
+```
+
+### 6. Build for production
+
+```bash
+npm run build
+# Output: dist/
+```
+
+---
+
+## Laravel Backend – Full API Reference
+
+All endpoints are prefixed with `/api`.
+
+### Authentication
+
+| Method | Endpoint | Auth? | Description |
+|--------|----------|-------|-------------|
+| POST | `/auth/login` | No | Login → returns JWT token |
+| POST | `/auth/logout` | Yes | Invalidate token |
+| GET | `/auth/me` | Yes | Current user info |
+
+**Login request:**
+```json
+{ "email": "admin@horizonooh.com", "password": "admin123" }
+```
+**Login response:**
+```json
+{ "token": "eyJ...", "user": { "id": 1, "name": "Admin", "email": "...", "role": "admin" } }
+```
+
+All authenticated requests must include the header:
+```
+Authorization: Bearer <token>
+```
+
+### Content Endpoints (Public)
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/health` | Health check |
+| GET | `/locations` | All locations with billboards |
+| GET | `/locations/{slug}` | Single location |
+| GET | `/billboards` | All billboards (filterable) |
+| GET | `/billboards/{slug}` | Single billboard |
+| GET | `/services` | All services |
+| GET | `/services/{slug}` | Single service |
+| GET | `/projects` | All projects (portfolio) |
+| GET | `/projects/{slug}` | Single project |
+| GET | `/blog` | Blog posts (published only) |
+| GET | `/blog/{slug}` | Single blog post |
+| GET | `/ad-formats` | Billboard format types |
+| GET | `/clients` | Client brand logos |
+| GET | `/trust-stats` | Homepage stats |
+| GET | `/process-steps` | How-it-works steps |
+| GET | `/settings` | Site-wide settings |
+| POST | `/contact` | Submit contact/enquiry form |
+
+### Admin Endpoints (Authenticated)
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/dashboard/stats` | Dashboard counters |
+| PUT | `/settings` | Bulk-update site settings |
+| POST/PUT/DELETE | `/locations/{id}` | Manage locations |
+| GET/POST/PUT/DELETE | `/districts` | Manage districts |
+| POST/PUT/DELETE | `/billboards/{id}` | Manage billboards + images |
+| DELETE | `/billboards/{id}/images` | Remove a billboard image |
+| POST/PUT/DELETE | `/services/{id}` | Manage services |
+| POST/PUT/DELETE | `/projects/{id}` | Manage projects |
+| POST/PUT/DELETE | `/blog/{id}` | Manage blog posts |
+| GET/PUT/DELETE | `/contacts/{id}` | View/manage contact enquiries |
+| POST/PUT/DELETE | `/clients/{id}` | Manage client brands |
+| POST/PUT/DELETE | `/trust-stats/{id}` | Manage homepage stats |
+| POST/PUT/DELETE | `/process-steps/{id}` | Manage how-it-works steps |
+| GET/POST/PUT/DELETE | `/suppliers` | Manage suppliers |
+| GET/POST/PUT/DELETE | `/customers` | Manage customers |
+| GET/POST/PUT/DELETE | `/users` | Manage admin users |
+
+---
+
+## Production Deployment
+
+### Option A – One-Command Deploy (recommended)
+
+```bash
+# After uploading laravel-backend/ to server:
+cd /var/www/horizonooh/laravel-backend
+cp .env.example .env
+nano .env   # Fill in your DB, SMTP, APP_URL, etc.
+chmod +x deploy.sh
+./deploy.sh
+```
+
+### Option B – Manual Steps
+
+```bash
+# 1. Install dependencies
+composer install --no-dev --optimize-autoloader
+
+# 2. Generate keys
+php artisan key:generate --force
+php artisan jwt:secret --force
+
+# 3. Run migrations + seed default data
+php artisan migrate --force
+php artisan db:seed --force
+
+# 4. Storage symlink
+php artisan storage:link
+
+# 5. Optimise
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+
+# 6. Permissions
+chmod -R 775 storage bootstrap/cache
+```
+
+### Nginx Configuration
+
+See `laravel-backend/nginx.conf.example` for a complete Nginx vhost.
+
+### Apache Configuration
+
+The `laravel-backend/public/.htaccess` handles URL rewriting.
+Ensure `mod_rewrite` is enabled: `a2enmod rewrite`.
+
+---
+
+## Database
+
+Full schema managed by Laravel migrations in `database/migrations/`.
+Default seed data (admin user, ad formats, trust stats, process steps) in `database/seeders/DatabaseSeeder.php`.
+
+**Default admin credentials** (change immediately after first login):
+- Email: `admin@horizonooh.com`
+- Password: `admin123`
+
+---
+
+## Security
+
+- All admin routes require a valid JWT (`Authorization: Bearer <token>`)
+- JWT tokens expire after 24 hours; configurable via `JWT_TTL`
+- Input validated with Laravel's `$request->validate()` on every endpoint
+- Honeypot field on contact form silently rejects bots
+- CORS restricted via `CORS_ALLOWED_ORIGINS` in `.env`
+- File uploads stored in `storage/app/public` (outside webroot)
+- `.env` is in `.gitignore` — **never commit credentials**
+
+---
+
+## Brand
+
+| Token | Value |
+|---|---|
+| Navy | `#0B0F1A` |
+| White | `#FFFFFF` |
+| Accent Red | `#D90429` |
+| Font | Inter (Google Fonts) |
+
+---
+
+## License
+
+© 2026 HORIZON OOH. All rights reserved.
 
 ```bash
 cp backend/config/config.example.php backend/config/config.php

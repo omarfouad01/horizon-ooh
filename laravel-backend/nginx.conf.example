@@ -1,0 +1,111 @@
+# ============================================================
+# Nginx configuration for HORIZON OOH – Laravel API backend
+# ============================================================
+#
+# Usage:
+#   Place at: /etc/nginx/sites-available/horizonooh-api
+#   Enable:   ln -s /etc/nginx/sites-available/horizonooh-api /etc/nginx/sites-enabled/
+#   Reload:   nginx -t && systemctl reload nginx
+#
+# This serves ONLY the Laravel API (e.g. api.horizonooh.com OR /api on the same domain).
+# See the main frontend nginx config for the React SPA.
+# ============================================================
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name api.horizonooh.com;
+
+    # Redirect HTTP to HTTPS
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+
+    server_name api.horizonooh.com;
+
+    # ── SSL ─────────────────────────────────────────────────────────────────
+    # ssl_certificate     /etc/letsencrypt/live/api.horizonooh.com/fullchain.pem;
+    # ssl_certificate_key /etc/letsencrypt/live/api.horizonooh.com/privkey.pem;
+    # include             /etc/letsencrypt/options-ssl-nginx.conf;
+    # ssl_dhparam         /etc/letsencrypt/ssl-dhparams.pem;
+
+    root /var/www/horizonooh/laravel-backend/public;
+    index index.php;
+
+    # ── Security headers ────────────────────────────────────────────────────
+    add_header X-Frame-Options            "SAMEORIGIN";
+    add_header X-Content-Type-Options     "nosniff";
+    add_header Referrer-Policy            "strict-origin-when-cross-origin";
+    add_header Permissions-Policy         "camera=(), microphone=(), geolocation=()";
+
+    # ── Max upload size (for billboard images) ───────────────────────────────
+    client_max_body_size 20M;
+
+    # ── CORS preflight ───────────────────────────────────────────────────────
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location = /robots.txt  { access_log off; log_not_found off; }
+
+    # ── Storage symlink ──────────────────────────────────────────────────────
+    location /storage {
+        alias /var/www/horizonooh/laravel-backend/storage/app/public;
+        try_files $uri $uri/ =404;
+        expires 30d;
+        access_log off;
+    }
+
+    # ── Main routing ─────────────────────────────────────────────────────────
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    # ── PHP-FPM ──────────────────────────────────────────────────────────────
+    location ~ \.php$ {
+        include        fastcgi_params;
+        fastcgi_pass   unix:/run/php/php8.4-fpm.sock;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+    }
+
+    # ── Block hidden files ───────────────────────────────────────────────────
+    location ~ /\.(?!well-known).* {
+        deny all;
+    }
+
+    # ── Logs ─────────────────────────────────────────────────────────────────
+    access_log /var/log/nginx/horizonooh-api-access.log;
+    error_log  /var/log/nginx/horizonooh-api-error.log;
+}
+
+# ============================================================
+# Alternative: Serve API under /api path on the same domain
+# ============================================================
+# If you want the React SPA and API under the same domain
+# (e.g. horizonooh.com for React, horizonooh.com/api for Laravel):
+#
+# server {
+#     listen 443 ssl http2;
+#     server_name horizonooh.com www.horizonooh.com;
+#
+#     # SPA root
+#     root /var/www/horizonooh/frontend/dist;
+#     index index.html;
+#
+#     # API location
+#     location /api {
+#         alias /var/www/horizonooh/laravel-backend/public;
+#         try_files $uri $uri/ /index.php?$query_string;
+#         location ~ \.php$ {
+#             include       fastcgi_params;
+#             fastcgi_pass  unix:/run/php/php8.4-fpm.sock;
+#             fastcgi_param SCRIPT_FILENAME /var/www/horizonooh/laravel-backend/public/index.php;
+#         }
+#     }
+#
+#     # SPA fallback
+#     location / {
+#         try_files $uri $uri/ /index.html;
+#     }
+# }
