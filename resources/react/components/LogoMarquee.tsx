@@ -65,9 +65,9 @@ export default function LogoMarquee({ brands, speed = 40, light = true }: LogoMa
       <div className="pointer-events-none absolute inset-y-0 right-0 w-20 z-10"
            style={{ background: `linear-gradient(to left, ${light ? 'white' : 'transparent'}, transparent)` }}/>
 
-      <div ref={trackRef} className="flex items-center gap-14 will-change-transform" style={{ width: 'max-content', padding: '0 28px' }}>
+      <div ref={trackRef} className="flex items-center gap-16 will-change-transform" style={{ width: 'max-content', padding: '0 28px' }}>
         {items.map((brand, i) => (
-          <div key={`${brand.id}-${i}`} className="flex-shrink-0 flex items-center justify-center" style={{ height: 40, minWidth: 80 }}>
+          <div key={`${brand.id}-${i}`} className="flex-shrink-0 flex items-center justify-center" style={{ height: 72, minWidth: 120 }}>
             {brand.logoUrl ? (
               <img
                 src={brand.logoUrl}
@@ -75,7 +75,7 @@ export default function LogoMarquee({ brands, speed = 40, light = true }: LogoMa
                 title={brand.name}
                 draggable={false}
                 style={{
-                  height: 36, width: 'auto', objectFit: 'contain', maxWidth: 120,
+                  height: 64, width: 'auto', objectFit: 'contain', maxWidth: 180,
                   opacity: 0.35, filter: 'grayscale(1)',
                   transition: 'opacity .25s, filter .25s',
                 }}
