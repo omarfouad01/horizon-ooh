@@ -6,7 +6,7 @@ import { useNavigate, Link } from "react-router-dom";
 import MultiSelect from "@/components/MultiSelect";
 import LogoMarquee from "@/components/LogoMarquee";
 // data now from store
-import { serviceHref, locationHref, projectHref, productHref } from "@/lib/routes";
+import { serviceHref, locationHref, projectHref, productHref, blogHref } from "@/lib/routes";
 
 // Cities, districts and formats are driven by the store (admin-managed)
 const getCities  = () => getState().locations.map((l: any) => l.city).sort();
@@ -1235,6 +1235,92 @@ function ProjectsSection() {
 }
 
 
+// ─── LatestBlogsSection ──────────────────────────────────────────────────────
+function LatestBlogsSection() {
+  const { blogPosts } = useStore();
+  const latest = blogPosts.slice(0, 3);
+  if (latest.length === 0) return null;
+
+  return (
+    <section style={{ background: "#F5F5F6", paddingTop: 120, paddingBottom: 120 }}>
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
+        {/* Header */}
+        <Reveal>
+          <div className="flex items-end justify-between mb-16 gap-8 flex-wrap">
+            <div>
+              <p className="text-[10px] font-bold tracking-[0.35em] uppercase mb-4" style={{ color: "rgba(11,15,26,0.3)" }}>
+                Insights & Strategy
+              </p>
+              <h2 className="text-[#0B0F1A] font-black text-[clamp(28px,3.5vw,48px)] tracking-[-0.02em]" style={{ maxWidth: 560 }}>
+                Latest from the Blog
+              </h2>
+            </div>
+            <Link
+              to="/blog"
+              className="shrink-0 border border-[#0B0F1A]/20 text-[#0B0F1A] text-[13px] font-semibold tracking-[0.08em] uppercase px-6 py-3 hover:border-[#D90429] hover:text-[#D90429] transition-colors duration-300"
+            >
+              View All Articles
+            </Link>
+          </div>
+        </Reveal>
+
+        {/* Cards */}
+        <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
+          {latest.map((post) => (
+            <RevealItem key={post.id}>
+              <Link
+                to={blogHref(post.slug)}
+                className="group bg-white flex flex-col hover:bg-[#0B0F1A] transition-colors duration-500 h-full"
+                style={{ textDecoration: "none" }}
+              >
+                {/* Image */}
+                <div className="relative overflow-hidden" style={{ height: 220 }}>
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    style={{ opacity: 0.85 }}
+                    loading="lazy"
+                  />
+                  <div
+                    className="absolute top-4 left-4 text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1.5"
+                    style={{ background: RED, color: "white" }}
+                  >
+                    {post.category}
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="flex flex-col flex-1 p-8">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="text-[10px] font-semibold tracking-[0.2em] text-[rgba(11,15,26,0.3)] group-hover:text-white/30 transition-colors duration-500">{post.date}</span>
+                    <span className="text-[rgba(11,15,26,0.2)] group-hover:text-white/20 transition-colors duration-500" style={{ fontSize: 10 }}>·</span>
+                    <span className="text-[10px] font-semibold tracking-[0.2em] text-[rgba(11,15,26,0.3)] group-hover:text-white/30 transition-colors duration-500">{post.readTime}</span>
+                  </div>
+                  <h3
+                    className="font-bold leading-[1.2] tracking-[-0.02em] mb-4 flex-1 transition-colors duration-500 text-[#0B0F1A] group-hover:text-white"
+                    style={{ fontSize: 18 }}
+                  >
+                    {post.title}
+                  </h3>
+                  <p className="text-[13px] leading-[1.65] mb-6 transition-colors duration-500 text-[rgba(11,15,26,0.45)] group-hover:text-white/35">
+                    {post.excerpt.length > 100 ? post.excerpt.slice(0, 100) + "…" : post.excerpt}
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] font-bold tracking-[0.2em] uppercase" style={{ color: RED }}>Read More</span>
+                    <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 text-base" style={{ color: RED }}>→</span>
+                  </div>
+                </div>
+              </Link>
+            </RevealItem>
+          ))}
+        </RevealGroup>
+      </div>
+    </section>
+  );
+}
+
+
 // ─── WhyOOHSection ───────────────────────────────────────────────────────
 function WhyOOHSection() {
   return (
@@ -1477,6 +1563,7 @@ export default function Home() {
       <ProcessSection />
       <ResultsSection />
       <ProjectsSection />
+      <LatestBlogsSection />
       <SignatureSection />
       <FinalCTASection />
     </>
