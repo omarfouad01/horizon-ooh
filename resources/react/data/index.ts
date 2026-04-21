@@ -463,6 +463,7 @@ export interface Location {
   availableFormats: string[];
   image: string;
   products: Product[];
+  districts?: string[]; // list of district/city names within this governorate
 }
 
 export interface Product {
@@ -815,6 +816,9 @@ const ALEXANDRIA_PRODUCTS: Product[] = [
   },
 ];
 
+// ── Egypt's 27 official governorates ──────────────────────────────────────
+// New Cairo, Sheikh Zayed, 6th of October are districts of Cairo/Giza —
+// NOT separate governorates. Removed from top-level list.
 export const LOCATIONS: Location[] = [
   // ── Greater Cairo ──────────────────────────────────────────────────────────
   {
@@ -828,6 +832,12 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Rooftop Billboard", "Bridge Panel", "DOOH Screen", "Street Furniture", "Mall Advertising"],
     image: "https://images.unsplash.com/photo-1702231942007-b255a41475c9?w=1400&q=90&fit=crop",
     products: CAIRO_PRODUCTS,
+    districts: [
+      "Cairo Downtown (Wust El-Balad)","Garden City","Zamalek","Maadi","Heliopolis (Misr El-Gedida)",
+      "Nasr City","New Cairo (5th Settlement)","Helwan","Ain Shams","Shubra","Matariya",
+      "El-Salam","El-Marg","El-Basatin","Mokattam","15th of May City",
+      "Rod El-Farag","El-Sharabia","Dar El-Salam","El-Amiriya","El-Zeitoun",
+    ],
   },
   {
     id: "giza",
@@ -840,6 +850,12 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Rooftop Billboard", "Bridge Panel", "DOOH Screen", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1539768942893-daf53e448371?w=1400&q=90&fit=crop",
     products: [],
+    districts: [
+      "Dokki","Mohandiseen","Agouza","Imbaba","Giza City Centre","Pyramids (Haram)",
+      "Faisal","Omraniya","Badrasheen","El-Ayat","El-Saff",
+      "Abu El-Nomros","Kerdasa","Abu Rawash","Saft El-Laban",
+      "6th of October City","Sheikh Zayed City",
+    ],
   },
   {
     id: "qalyubia",
@@ -852,42 +868,11 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Bridge Panel", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1577705998148-6da4f3963bc8?w=1400&q=90&fit=crop",
     products: [],
-  },
-  {
-    id: "new-cairo",
-    slug: "new-cairo",
-    city: "New Cairo",
-    headline: "Billboard Advertising in New Cairo",
-    description: "Egypt's fastest-growing premium residential and commercial district.",
-    detail: "90th Street, Fifth Settlement, New Capital Corridor",
-    longDescription: "New Cairo is Egypt's most affluent and fastest-growing urban district — home to premium residential compounds, Egypt's leading universities, and a rapidly expanding retail and F&B landscape. The 90th Street corridor is the single highest-value outdoor media address in Egypt outside of the Ring Road.",
-    availableFormats: ["Mega Billboard", "Unipole Billboard", "DOOH Screen", "Mall Advertising", "Street Furniture"],
-    image: "https://images.unsplash.com/photo-1735506943281-4b4502be999d?w=1400&q=90&fit=crop",
-    products: NEW_CAIRO_PRODUCTS,
-  },
-  {
-    id: "sheikh-zayed",
-    slug: "sheikh-zayed",
-    city: "Sheikh Zayed",
-    headline: "Billboard Advertising in Sheikh Zayed",
-    description: "West Cairo's premium residential corridor.",
-    detail: "Hyper One Strip, 26 July Corridor, Beverly Hills",
-    longDescription: "Sheikh Zayed City sits at the intersection of Cairo's wealthiest western residential communities and the 26 July Corridor — one of Egypt's busiest non-Ring Road arterials. Brands here communicate directly with Egypt's most valuable consumer demographic.",
-    availableFormats: ["Unipole Billboard", "Rooftop Billboard", "DOOH Screen", "Mall Advertising"],
-    image: "https://images.unsplash.com/photo-1629150154933-a42577786d4f?w=1400&q=90&fit=crop",
-    products: SHEIKH_ZAYED_PRODUCTS,
-  },
-  {
-    id: "6th-october",
-    slug: "6th-october",
-    city: "6th of October",
-    headline: "Billboard Advertising in 6th of October City",
-    description: "Industrial hub and residential expansion zone west of Cairo.",
-    detail: "Hadayek October, Wahat Road, Industrial Zone",
-    longDescription: "6th of October City combines Egypt's largest industrial zone with growing upper-middle residential developments. The Wahat Road and Hadayek October main strip offer high-volume commuter traffic — ideal for mass-market and FMCG brands.",
-    availableFormats: ["Unipole Billboard", "Bridge Panel", "Street Furniture"],
-    image: "https://images.unsplash.com/photo-1624526794347-c2a966b81604?w=1400&q=90&fit=crop",
-    products: [],
+    districts: [
+      "Banha","Qalyub","Shubra El-Kheima","El-Khanka","El-Qanater El-Khayria",
+      "Kafr Shukr","Tukh","El-Obour City","Qaha","Shibin El-Qanater",
+      "Abu Zaabal","Mostorod",
+    ],
   },
   // ── Alexandria & North Coast ───────────────────────────────────────────────
   {
@@ -901,6 +886,12 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Corniche Panel", "DOOH Screen", "Mall Advertising", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1765398073978-94f84257baf7?w=1400&q=90&fit=crop",
     products: ALEXANDRIA_PRODUCTS,
+    districts: [
+      "El-Montaza","Miami","Sidi Gaber","Cleopatra","Roushdy","Smouha",
+      "Stanley","Louran","El-Raml","Azarita","El-Mansheya","Anfushi",
+      "El-Gomrok","El-Mex","Agami","Borg El-Arab","Amreya","King Mariout",
+      "Abu Qir","El-Dekhela",
+    ],
   },
   {
     id: "beheira",
@@ -913,6 +904,11 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Bridge Panel", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1586348943529-beaae6c28db9?w=1400&q=90&fit=crop",
     products: [],
+    districts: [
+      "Damanhour","Kafr El-Dawwar","Rashid (Rosetta)","Edku","Abu El-Matamir",
+      "Abu Hummus","El-Delengat","El-Mahmoudiya","El-Rahmaniya","Itay El-Barud",
+      "Hosh Issa","Shubrakhit","Kom Hamada",
+    ],
   },
   {
     id: "matruh",
@@ -925,6 +921,10 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Corniche Panel", "Bridge Panel"],
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1400&q=90&fit=crop",
     products: [],
+    districts: [
+      "Marsa Matruh","El-Alamein","El-Dabaa","Sidi Barrani","Siwa",
+      "El-Hamam","El-Negila",
+    ],
   },
   // ── Nile Delta ─────────────────────────────────────────────────────────────
   {
@@ -938,6 +938,11 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Bridge Panel", "Street Furniture", "DOOH Screen"],
     image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1400&q=90&fit=crop",
     products: [],
+    districts: [
+      "Mansoura","Talkha","Mit Ghamr","El-Senbellawein","Aga","Belkas",
+      "Sherbin","El-Manzala","El-Matariya","Dekernes","Minyat El-Nasr",
+      "Nabroh","Gammasa",
+    ],
   },
   {
     id: "gharbia",
@@ -950,6 +955,10 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Bridge Panel", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1400&q=90&fit=crop",
     products: [],
+    districts: [
+      "Tanta","Mahalla El-Kubra","Kafr El-Zayat","Zifta",
+      "Samannoud","Basyoun","El-Santa","Qutur",
+    ],
   },
   {
     id: "monufia",
@@ -962,6 +971,10 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Bridge Panel", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&q=90&fit=crop",
     products: [],
+    districts: [
+      "Shibin El-Kom","Menouf","Sadat City","El-Bagour","Quesna",
+      "Tala","Ashmoun","El-Shohada",
+    ],
   },
   {
     id: "kafr-el-sheikh",
@@ -974,6 +987,10 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Bridge Panel", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1533929736458-ca588d08c8be?w=1400&q=90&fit=crop",
     products: [],
+    districts: [
+      "Kafr El Sheikh City","Desouk","Fuwwah","Qallin","El-Reyad",
+      "Metoubes","Burg (Burj)","Baltim","Sidi Salem","Hamoul",
+    ],
   },
   {
     id: "damietta",
@@ -986,6 +1003,10 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Bridge Panel", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1400&q=90&fit=crop",
     products: [],
+    districts: [
+      "Damietta City","New Damietta","Faraskur","El-Zarka","El-Rouwda",
+      "Kafr Saad","Kafr El-Bateekh","El-Serw",
+    ],
   },
   {
     id: "sharqia",
@@ -998,6 +1019,11 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Bridge Panel", "DOOH Screen", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1400&q=90&fit=crop",
     products: [],
+    districts: [
+      "Zagazig","10th of Ramadan City","Abu Hammad","El-Husseiniya","Belbeis",
+      "Hehia","Kafr Saqr","Mashtoul El-Souq","Minya El-Qamh","Faqous",
+      "El-Ibrahimiya","Abu Kebir","El-Salihiya El-Gadida",
+    ],
   },
   // ── Suez Canal Zone ────────────────────────────────────────────────────────
   {
@@ -1011,6 +1037,9 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Corniche Panel", "DOOH Screen", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=90&fit=crop",
     products: [],
+    districts: [
+      "Port Said City","Port Fouad","El-Arab District","El-Manakh","El-Dawahy","El-Zohour",
+    ],
   },
   {
     id: "ismailia",
@@ -1023,6 +1052,10 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Bridge Panel", "Corniche Panel", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=1400&q=90&fit=crop",
     products: [],
+    districts: [
+      "Ismailia City","Abu Suwair","El-Qantara East","El-Qantara West",
+      "El-Tal El-Kebir","Fayed","El-Qassasin",
+    ],
   },
   {
     id: "suez",
@@ -1035,6 +1068,9 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Bridge Panel", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&q=90&fit=crop",
     products: [],
+    districts: [
+      "Suez City (El-Arbaeen)","El-Ganayen","Ataka","Faisal District","Port Tawfik",
+    ],
   },
   // ── Sinai ──────────────────────────────────────────────────────────────────
   {
@@ -1048,6 +1084,9 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Bridge Panel", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1400&q=90&fit=crop",
     products: [],
+    districts: [
+      "El-Arish","Rafah","Sheikh Zuweid","El-Hasana","Bir El-Abd","Nekhel",
+    ],
   },
   {
     id: "south-sinai",
@@ -1060,6 +1099,10 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Airport Advertising", "Corniche Panel", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1518684079-3c830dcef090?w=1400&q=90&fit=crop",
     products: [],
+    districts: [
+      "Sharm El-Sheikh","Dahab","Nuweiba","Taba","St. Catherine","Ras Sedr",
+      "Abu Rudeis","El-Tur (Al-Tor)",
+    ],
   },
   // ── Upper Egypt ────────────────────────────────────────────────────────────
   {
@@ -1073,6 +1116,10 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Bridge Panel", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&q=90&fit=crop",
     products: [],
+    districts: [
+      "Beni Suef City","El-Fashn","Beba","Ihnasya El-Madina","El-Wasta",
+      "Nasser","Sumusta El-Waqf",
+    ],
   },
   {
     id: "faiyum",
@@ -1085,6 +1132,9 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Bridge Panel", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1473625247510-8ceb1760943f?w=1400&q=90&fit=crop",
     products: [],
+    districts: [
+      "Faiyum City","Sinnuris","Ibsheway","Tamiya","Yusuf El-Seddiq",
+    ],
   },
   {
     id: "minya",
@@ -1097,6 +1147,10 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Corniche Panel", "Bridge Panel", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=1400&q=90&fit=crop",
     products: [],
+    districts: [
+      "Minya City","Abu Qurqas","Beni Mazar","Deir Mawas","El-Edwa",
+      "Maghagha","Matai","Samalut","Mallawi",
+    ],
   },
   {
     id: "asyut",
@@ -1109,6 +1163,10 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Rooftop Billboard", "DOOH Screen", "Bridge Panel", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1400&q=90&fit=crop",
     products: [],
+    districts: [
+      "Asyut City","Abnoub","Abu Tig","El-Badari","El-Fateh",
+      "El-Qusiya","Manfalut","Sadfa","Sahel Selim","Deirut",
+    ],
   },
   {
     id: "sohag",
@@ -1121,6 +1179,10 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Bridge Panel", "Corniche Panel", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1400&q=90&fit=crop",
     products: [],
+    districts: [
+      "Sohag City","Akhmim","El-Balyana","El-Maragha","El-Monshah",
+      "Gerga","Tahta","Tima",
+    ],
   },
   {
     id: "qena",
@@ -1133,6 +1195,10 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Bridge Panel", "Corniche Panel", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1400&q=90&fit=crop",
     products: [],
+    districts: [
+      "Qena City","Abu Tesht","El-Waqf","Farshut","Nag Hammadi",
+      "Naqada","Qift","Qus",
+    ],
   },
   {
     id: "luxor",
@@ -1145,6 +1211,9 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Corniche Panel", "Airport Advertising", "DOOH Screen", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=1400&q=90&fit=crop",
     products: [],
+    districts: [
+      "Luxor City (East Bank)","Armant","El-Bayadiya","El-Tod","Esna","Luxor West Bank",
+    ],
   },
   {
     id: "aswan",
@@ -1157,6 +1226,10 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Corniche Panel", "Airport Advertising", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=1400&q=90&fit=crop",
     products: [],
+    districts: [
+      "Aswan City","Daraw","Kom Ombo","Edfu","El-Rauda","Nasr El-Nuba",
+      "Abu Simbel","Toshka",
+    ],
   },
   // ── Red Sea & Desert ───────────────────────────────────────────────────────
   {
@@ -1170,6 +1243,10 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Airport Advertising", "Corniche Panel", "DOOH Screen", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1400&q=90&fit=crop",
     products: [],
+    districts: [
+      "Hurghada","El Gouna","Safaga","El-Quseir","Marsa Alam",
+      "Ras Gharib","El-Shalateen","Halayeb",
+    ],
   },
   {
     id: "new-valley",
@@ -1182,6 +1259,9 @@ export const LOCATIONS: Location[] = [
     availableFormats: ["Unipole Billboard", "Bridge Panel", "Street Furniture"],
     image: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1400&q=90&fit=crop",
     products: [],
+    districts: [
+      "El-Kharga","Dakhla (Mut)","Farafra","El-Bahariya (Bawiti)",
+    ],
   },
 ];
 

@@ -285,9 +285,16 @@ const _demoProcess: ProcessStep[] = (PROCESS as any[]).map((p: any, i: number) =
   title: p.title ?? '', description: p.description ?? p.desc ?? '', icon: p.icon ?? '',
 }));
 const _demoDistricts: any[] = [];
-(LOCATIONS as any[]).forEach((loc: any) => {
-  (loc.districts ?? []).forEach((d: any) => {
-    _demoDistricts.push({ ...d, location_id: loc.id, location_slug: loc.slug });
+(LOCATIONS as any[]).forEach((loc: any, _li: number) => {
+  (loc.districts ?? []).forEach((d: any, di: number) => {
+    const name = typeof d === 'string' ? d : (d.name ?? String(d));
+    _demoDistricts.push({
+      id: `${loc.id}-district-${di + 1}`,
+      name,
+      locationId:    loc.id,      // camelCase for dashboard UI
+      location_id:   loc.id,      // snake_case for API compatibility
+      location_slug: loc.slug,
+    });
   });
 });
 
@@ -365,8 +372,15 @@ export const useApiStore = create<ApiState>((set, get) => ({
 
       const districts: any[] = [];
       (LOCATIONS as any[]).forEach((loc: any) => {
-        (loc.districts ?? []).forEach((d: any) => {
-          districts.push({ ...d, location_id: loc.id, location_slug: loc.slug });
+        (loc.districts ?? []).forEach((d: any, di: number) => {
+          const name = typeof d === 'string' ? d : (d.name ?? String(d));
+          districts.push({
+            id: `${loc.id}-district-${di + 1}`,
+            name,
+            locationId:    loc.id,
+            location_id:   loc.id,
+            location_slug: loc.slug,
+          });
         });
       });
 
