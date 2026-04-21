@@ -1,77 +1,103 @@
 #!/usr/bin/env bash
-# ============================================================
-# HORIZON OOH – Laravel Backend Deployment Script
-# Run this after uploading the laravel-backend directory
-# to your server.
+##############################################################################
+# deploy.sh — Horizon OOH Full-Stack Deployment Script
+#
+# This script deploys the unified Laravel + React project.
+# Run from the PROJECT ROOT (same directory as artisan & package.json).
 #
 # Usage:
 #   chmod +x deploy.sh
-#   ./deploy.sh
-# ============================================================
+#   ./deploy.sh [--seed]          # --seed to run fresh migrations + demo data
+#
+# Prerequisites on the server:
+#   - PHP 8.3+   with extensions: pdo_mysql, mbstring, openssl, json, tokenizer
+#   - Composer   (global install)
+#   - Node.js 20+ and npm
+#   - MySQL 8.0+ database created
+#   - .env file configured (copy from .env.example)
+##############################################################################
+
 set -e
 
-CYAN='\033[0;36m'; GREEN='\033[0;32m'; RED='\033[0;31m'; NC='\033[0m'
-step() { echo -e "\n${CYAN}▶ $1${NC}"; }
-ok()   { echo -e "${GREEN}✔ $1${NC}"; }
-fail() { echo -e "${RED}✘ $1${NC}"; exit 1; }
+SEED=false
+for arg in "$@"; do
+  [[ "$arg" == "--seed" ]] && SEED=true
+done
 
-# ── 1. Check .env ────────────────────────────────────────────────────────────
-step "Checking .env"
-[ -f .env ] || fail ".env not found — copy .env.example to .env and fill in your values"
-ok ".env exists"
+echo ""
+echo "╔══════════════════════════════════════════════╗"
+echo "║   HORIZON OOH — Deployment Script           ║"
+echo "╚══════════════════════════════════════════════╝"
+echo ""
 
-# ── 2. Install PHP dependencies ───────────────────────────────────────────────
-step "Installing Composer dependencies (production)"
-composer install --no-dev --optimize-autoloader --no-interaction
-ok "Composer done"
-
-# ── 3. App key ───────────────────────────────────────────────────────────────
-APP_KEY=$(grep -E "^APP_KEY=" .env | cut -d= -f2)
-if [ -z "$APP_KEY" ]; then
-    step "Generating application key"
-    php artisan key:generate --force
-    ok "App key generated"
-else
-    ok "App key already set"
+# ── 1. Verify we're in the right directory ───────────────────────────────────
+if [[ ! -f "artisan" ]]; then
+  echo "✗ ERROR: Run this script from the Laravel project root (where artisan lives)"
+  exit 1
 fi
 
-# ── 4. JWT secret ────────────────────────────────────────────────────────────
-JWT_SECRET=$(grep -E "^JWT_SECRET=" .env | cut -d= -f2)
-if [ -z "$JWT_SECRET" ]; then
-    step "Generating JWT secret"
-    php artisan jwt:secret --force
-    ok "JWT secret generated"
-else
-    ok "JWT secret already set"
+if [[ ! -f ".env" ]]; then
+  echo "✗ ERROR: .env file not found. Copy .env.example to .env and configure it."
+  exit 1
 fi
 
-# ── 5. Migrate & seed ────────────────────────────────────────────────────────
-step "Running database migrations"
-php artisan migrate --force
-ok "Migrations complete"
+# ── 2. PHP / Composer dependencies ───────────────────────────────────────────
+echo "▸ Installing PHP dependencies (composer)..."
+composer install --no-dev --optimize-autoloader --no-interaction --quiet
+echo "  ✓ Composer done"
 
-step "Seeding default data (safe — uses firstOrCreate)"
-php artisan db:seed --force
-ok "Seed complete"
+# ── 3. Laravel setup ─────────────────────────────────────────────────────────
+echo "▸ Generating application key (if not set)..."
+php artisan key:generate --force --no-interaction
+echo "  ✓ App key ready"
 
-# ── 6. Storage symlink ───────────────────────────────────────────────────────
-step "Creating storage symlink"
-php artisan storage:link --force
-ok "Storage linked → public/storage"
+echo "▸ Generating JWT secret (if not set)..."
+php artisan jwt:secret --force --no-interaction 2>/dev/null || true
+echo "  ✓ JWT secret ready"
 
-# ── 7. Clear & warm caches ───────────────────────────────────────────────────
-step "Optimizing for production"
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
-ok "Caches warmed"
+echo "▸ Running database migrations..."
+if [[ "$SEED" == "true" ]]; then
+  echo "  → Fresh migration with demo seed data..."
+  php artisan migrate:fresh --seed --force --no-interaction
+else
+  php artisan migrate --force --no-interaction
+fi
+echo "  ✓ Database up to date"
 
-# ── 8. File permissions ───────────────────────────────────────────────────────
-step "Setting file permissions"
-chmod -R 775 storage bootstrap/cache
-ok "Permissions set"
+echo "▸ Creating storage symlink..."
+php artisan storage:link --force --no-interaction 2>/dev/null || true
+echo "  ✓ Storage linked"
 
-echo -e "\n${GREEN}════════════════════════════════════════"
-echo "  HORIZON OOH API deployment complete!"
-echo "  Health check: curl https://your-domain.com/api/health"
-echo -e "════════════════════════════════════════${NC}\n"
+# ── 4. Node.js / Frontend build ───────────────────────────────────────────────
+echo "▸ Installing Node.js dependencies (npm)..."
+npm ci --silent
+echo "  ✓ npm dependencies installed"
+
+echo "▸ Building React frontend..."
+npm run build
+echo "  ✓ Frontend built → public/app/"
+
+# ── 5. Laravel optimisation ──────────────────────────────────────────────────
+echo "▸ Optimising Laravel config/routes/views cache..."
+php artisan config:cache --no-interaction
+php artisan route:cache  --no-interaction
+php artisan view:cache   --no-interaction
+php artisan event:cache  --no-interaction
+echo "  ✓ Caches warmed"
+
+# ── 6. File permissions ───────────────────────────────────────────────────────
+echo "▸ Setting file permissions..."
+chmod -R 775 storage bootstrap/cache 2>/dev/null || true
+chown -R www-data:www-data storage bootstrap/cache 2>/dev/null || true
+echo "  ✓ Permissions set"
+
+# ── 7. Done ───────────────────────────────────────────────────────────────────
+echo ""
+echo "╔══════════════════════════════════════════════════════════╗"
+echo "║  ✓ Deployment complete!                                 ║"
+echo "║                                                         ║"
+echo "║  Website:   https://your-domain.com/                   ║"
+echo "║  Admin:     https://your-domain.com/#/admin/login       ║"
+echo "║  API:       https://your-domain.com/api/health          ║"
+echo "╚══════════════════════════════════════════════════════════╝"
+echo ""

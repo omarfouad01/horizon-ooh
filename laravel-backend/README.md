@@ -1,58 +1,174 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# HORIZON OOH — Full-Stack Project
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+> Egypt's Premier Out-of-Home Advertising Platform  
+> **Laravel 12 API + React 18 SPA — unified in one repository**
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Project Structure
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+```
+horizon-ooh/                       ← This is the entire project (one folder)
+├── app/                           ← Laravel PHP application
+│   └── Http/Controllers/Api/      ← 16 API controllers
+├── resources/
+│   └── react/                     ← React 18 + TypeScript source
+│       ├── admin/                 ← Admin dashboard pages & components
+│       ├── api/                   ← Axios API client
+│       ├── components/            ← Shared UI components
+│       ├── pages/                 ← Public website pages
+│       └── store/                 ← Zustand state management
+├── database/
+│   ├── migrations/                ← MySQL schema (15 tables)
+│   └── seeders/                   ← Demo data seeder
+├── routes/
+│   ├── api.php                    ← 60+ REST API routes (JWT-protected)
+│   └── web.php                    ← SPA catch-all → returns React index.html
+├── public/
+│   ├── index.php                  ← Laravel front controller
+│   └── app/                       ← Vite build output (git-ignored, generated)
+├── index.html                     ← React app entry (Vite root)
+├── vite.config.ts                 ← Unified Vite config
+├── package.json                   ← All Node.js/React dependencies
+├── composer.json                  ← All PHP/Laravel dependencies
+├── deploy.sh                      ← One-command deployment script
+└── .env.example                   ← Environment template
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+## Quick Start (Local Development)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 1. Clone & configure
+```bash
+git clone https://github.com/omarfouad01/horizon-ooh.git
+cd horizon-ooh
+cp .env.example .env
+# Edit .env: set DB_*, MAIL_*, JWT_SECRET (or run artisan below)
+```
 
-## Code of Conduct
+### 2. Install dependencies
+```bash
+composer install
+npm install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 3. Set up Laravel
+```bash
+php artisan key:generate
+php artisan jwt:secret
+php artisan migrate --seed   # creates tables + demo data
+php artisan storage:link
+```
 
-## Security Vulnerabilities
+### 4. Build & run
+```bash
+# Terminal 1 — Laravel API server
+php artisan serve            # http://localhost:8000
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# Terminal 2 — Vite dev server (React hot-reload)
+VITE_API_URL=http://localhost:8000/api npm run dev
+```
 
-## License
+Open **http://localhost:5173** (Vite dev server)  
+Admin panel: **http://localhost:5173/#/admin/login** → `admin@horizonooh.com` / `admin123`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## Production Deployment (Apache/Nginx + MySQL)
+
+### Prerequisites
+- PHP 8.3+ (extensions: pdo_mysql, mbstring, openssl, json, tokenizer, fileinfo, gd)
+- Composer (global)
+- Node.js 20+ and npm
+- MySQL 8.0+
+
+### One-command deploy
+```bash
+git clone https://github.com/omarfouad01/horizon-ooh.git /var/www/horizon-ooh
+cd /var/www/horizon-ooh
+cp .env.example .env
+nano .env          # fill in DB_*, MAIL_*, APP_URL, VITE_API_URL
+
+./deploy.sh        # installs all deps, migrates DB, builds React, caches Laravel
+```
+
+### Apache virtual host
+Point `DocumentRoot` to `/var/www/horizon-ooh/public` — the existing `public/.htaccess` handles everything automatically:
+- `/api/*` → Laravel PHP
+- `/*` → serves `public/app/index.html` (React SPA)
+
+### Nginx
+See `nginx.conf.example` for a complete Nginx server block.
+
+---
+
+## Environment Variables
+
+| Variable | Description | Example |
+|---|---|---|
+| `APP_URL` | Your domain | `https://horizonooh.com` |
+| `DB_DATABASE` | MySQL database name | `horizon_ooh` |
+| `DB_USERNAME` | MySQL user | `horizon_user` |
+| `DB_PASSWORD` | MySQL password | `secret` |
+| `JWT_SECRET` | Auto-generated by `php artisan jwt:secret` | — |
+| `MAIL_HOST` | SMTP host | `smtp.gmail.com` |
+| `MAIL_USERNAME` | SMTP user | `info@horizonooh.com` |
+| `MAIL_PASSWORD` | SMTP password | `app-password` |
+| `VITE_API_URL` | Full API URL (same domain) | `https://horizonooh.com/api` |
+| `VITE_ENABLE_ROUTE_MESSAGING` | Set `false` in production | `false` |
+
+---
+
+## API Reference
+
+Base URL: `https://your-domain.com/api`
+
+### Public endpoints (no auth required)
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/auth/login` | Admin login → returns JWT |
+| GET | `/locations` | All billboard locations |
+| GET | `/locations/{slug}` | Single location |
+| GET | `/billboards` | All billboards (filterable) |
+| GET | `/billboards/{slug}` | Single billboard |
+| GET | `/services` | All services |
+| GET | `/projects` | All projects |
+| GET | `/blog` | All blog posts |
+| GET | `/ad-formats` | Ad format types |
+| GET | `/clients` | Client brand logos |
+| GET | `/trust-stats` | Trust statistics |
+| GET | `/process-steps` | How-it-works steps |
+| GET | `/settings` | Site settings (name, contact, social) |
+| GET | `/home-content` | Home page content |
+| GET | `/about-content` | About page content |
+| POST | `/contact` | Submit contact form |
+
+### Admin endpoints (JWT Bearer token required)
+All CRUD operations for: locations, districts, billboards, services, projects, blog, contacts, ad-formats, clients, trust-stats, process-steps, suppliers, customers, users, settings.
+
+---
+
+## Database
+
+15 MySQL tables created by migrations:
+`locations`, `districts`, `billboards`, `billboard_images`, `ad_formats`, `services`, `projects`, `blog_posts`, `contacts`, `client_brands`, `trust_stats`, `process_steps`, `suppliers`, `customers`, `settings`, `users`
+
+Default admin: `admin@horizonooh.com` / `admin123` (change after first login)
+
+---
+
+## Security Checklist
+
+- [ ] Change admin password after first login
+- [ ] Set `APP_DEBUG=false` in production
+- [ ] Set `APP_ENV=production`
+- [ ] Restrict `CORS_ALLOWED_ORIGINS` to your domain
+- [ ] Use HTTPS (Let's Encrypt / Certbot)
+- [ ] Set `VITE_ENABLE_ROUTE_MESSAGING=false`
+- [ ] Configure proper SMTP (not `mail()`)
+- [ ] Run `php artisan config:cache` after `.env` changes
+
+---
+
+© 2026 HORIZON OOH. All rights reserved.

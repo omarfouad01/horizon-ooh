@@ -1,111 +1,80 @@
-# ============================================================
-# Nginx configuration for HORIZON OOH – Laravel API backend
-# ============================================================
+##############################################################################
+# Nginx configuration — Horizon OOH (unified Laravel + React)
+# Document root: /var/www/horizon-ooh/public
 #
-# Usage:
-#   Place at: /etc/nginx/sites-available/horizonooh-api
-#   Enable:   ln -s /etc/nginx/sites-available/horizonooh-api /etc/nginx/sites-enabled/
-#   Reload:   nginx -t && systemctl reload nginx
-#
-# This serves ONLY the Laravel API (e.g. api.horizonooh.com OR /api on the same domain).
-# See the main frontend nginx config for the React SPA.
-# ============================================================
+# This single config serves:
+#   - /api/*          → Laravel PHP (via index.php FastCGI)
+#   - /storage/*      → Laravel storage symlink (uploaded images)
+#   - /app/*          → Vite-built React static assets (CSS, JS, images)
+#   - everything else → Laravel index.php → web.php → serves public/app/index.html
+##############################################################################
 
 server {
     listen 80;
     listen [::]:80;
-    server_name api.horizonooh.com;
+    server_name horizonooh.com www.horizonooh.com;
 
-    # Redirect HTTP to HTTPS
+    # Redirect HTTP → HTTPS
     return 301 https://$host$request_uri;
 }
 
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
+    server_name horizonooh.com www.horizonooh.com;
 
-    server_name api.horizonooh.com;
+    # SSL — replace with your certificate paths (or use Certbot)
+    ssl_certificate     /etc/letsencrypt/live/horizonooh.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/horizonooh.com/privkey.pem;
+    ssl_protocols       TLSv1.2 TLSv1.3;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
 
-    # ── SSL ─────────────────────────────────────────────────────────────────
-    # ssl_certificate     /etc/letsencrypt/live/api.horizonooh.com/fullchain.pem;
-    # ssl_certificate_key /etc/letsencrypt/live/api.horizonooh.com/privkey.pem;
-    # include             /etc/letsencrypt/options-ssl-nginx.conf;
-    # ssl_dhparam         /etc/letsencrypt/ssl-dhparams.pem;
-
-    root /var/www/horizonooh/laravel-backend/public;
+    # Document root is Laravel's public/ directory
+    root /var/www/horizon-ooh/public;
     index index.php;
 
-    # ── Security headers ────────────────────────────────────────────────────
-    add_header X-Frame-Options            "SAMEORIGIN";
-    add_header X-Content-Type-Options     "nosniff";
-    add_header Referrer-Policy            "strict-origin-when-cross-origin";
-    add_header Permissions-Policy         "camera=(), microphone=(), geolocation=()";
+    charset utf-8;
 
-    # ── Max upload size (for billboard images) ───────────────────────────────
-    client_max_body_size 20M;
+    # Security headers
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-Content-Type-Options "nosniff";
+    add_header X-XSS-Protection "1; mode=block";
+    add_header Referrer-Policy "strict-origin-when-cross-origin";
 
-    # ── CORS preflight ───────────────────────────────────────────────────────
-    location = /favicon.ico { access_log off; log_not_found off; }
-    location = /robots.txt  { access_log off; log_not_found off; }
+    # Logs
+    access_log /var/log/nginx/horizon-ooh.access.log;
+    error_log  /var/log/nginx/horizon-ooh.error.log;
 
-    # ── Storage symlink ──────────────────────────────────────────────────────
-    location /storage {
-        alias /var/www/horizonooh/laravel-backend/storage/app/public;
-        try_files $uri $uri/ =404;
-        expires 30d;
-        access_log off;
+    # ── Vite-built React assets (long-lived cache) ────────────────────────────
+    location /app/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+        try_files $uri =404;
     }
 
-    # ── Main routing ─────────────────────────────────────────────────────────
+    # ── Laravel storage symlink (uploaded images) ────────────────────────────
+    location /storage/ {
+        expires 7d;
+        add_header Cache-Control "public";
+        try_files $uri =404;
+    }
+
+    # ── Everything else goes to Laravel's front controller ───────────────────
     location / {
         try_files $uri $uri/ /index.php?$query_string;
     }
 
     # ── PHP-FPM ──────────────────────────────────────────────────────────────
     location ~ \.php$ {
-        include        fastcgi_params;
-        fastcgi_pass   unix:/run/php/php8.4-fpm.sock;
+        fastcgi_pass   unix:/var/run/php/php8.3-fpm.sock;
         fastcgi_index  index.php;
         fastcgi_param  SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include        fastcgi_params;
+        fastcgi_read_timeout 120;
     }
 
-    # ── Block hidden files ───────────────────────────────────────────────────
+    # ── Deny hidden files ────────────────────────────────────────────────────
     location ~ /\.(?!well-known).* {
         deny all;
     }
-
-    # ── Logs ─────────────────────────────────────────────────────────────────
-    access_log /var/log/nginx/horizonooh-api-access.log;
-    error_log  /var/log/nginx/horizonooh-api-error.log;
 }
-
-# ============================================================
-# Alternative: Serve API under /api path on the same domain
-# ============================================================
-# If you want the React SPA and API under the same domain
-# (e.g. horizonooh.com for React, horizonooh.com/api for Laravel):
-#
-# server {
-#     listen 443 ssl http2;
-#     server_name horizonooh.com www.horizonooh.com;
-#
-#     # SPA root
-#     root /var/www/horizonooh/frontend/dist;
-#     index index.html;
-#
-#     # API location
-#     location /api {
-#         alias /var/www/horizonooh/laravel-backend/public;
-#         try_files $uri $uri/ /index.php?$query_string;
-#         location ~ \.php$ {
-#             include       fastcgi_params;
-#             fastcgi_pass  unix:/run/php/php8.4-fpm.sock;
-#             fastcgi_param SCRIPT_FILENAME /var/www/horizonooh/laravel-backend/public/index.php;
-#         }
-#     }
-#
-#     # SPA fallback
-#     location / {
-#         try_files $uri $uri/ /index.html;
-#     }
-# }
