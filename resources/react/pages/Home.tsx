@@ -1391,47 +1391,44 @@ function RecentBillboardsSection() {
 
                 {/* Card body */}
                 <div className="p-6 bg-white relative">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-[#0B0F1A] font-bold text-[16px] tracking-[-0.01em] mb-1 leading-snug">
-                        {product.name}
-                      </h3>
-                      <p className="text-[#0B0F1A]/50 text-[13px] leading-snug mb-4 truncate">
-                        {product.location}
-                      </p>
-                      <div className="flex items-center gap-3 text-[12px] text-[#0B0F1A]/40 mb-3">
-                        <span>{product.type}</span>
-                        <span className="w-1 h-1 rounded-full bg-[#0B0F1A]/20" />
-                        <span>{product.size}</span>
-                      </div>
-                      <p className="text-[13px] font-semibold" style={{ color: RED }}>
-                        {product.traffic}
-                      </p>
-                    </div>
+                  {/* Name + arrow row */}
+                  <div className="flex items-start justify-between gap-3 mb-1">
+                    <h3 className="text-[#0B0F1A] font-bold text-[16px] tracking-[-0.01em] leading-snug flex-1 min-w-0">
+                      {(product as any).nameEn || product.name}
+                    </h3>
                     {/* Arrow — visible on hover */}
                     <motion.div
-                      className="shrink-0 w-8 h-8 flex items-center justify-center"
+                      className="shrink-0 w-8 h-8 flex items-center justify-center mt-0.5"
                       style={{ color: RED }}
                       initial={{ x: -4, opacity: 0 }}
                       whileHover={{ x: 0, opacity: 1 }}
                       transition={{ duration: 0.3, ease }}
                     >
-                      <svg
-                        width="18"
-                        height="18"
-                        viewBox="0 0 18 18"
-                        fill="none"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M3 9h12M9 3l6 6-6 6"
-                          stroke="currentColor"
-                          strokeWidth="1.8"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
+                      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                        <path d="M3 9h12M9 3l6 6-6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </motion.div>
+                  </div>
+                  {/* Full address */}
+                  <p className="text-[#0B0F1A]/50 text-[12px] leading-snug mb-4">
+                    {product.location}
+                  </p>
+                  {/* Code / Size / Format */}
+                  <div className="grid grid-cols-3 gap-0 border border-[#0B0F1A]/[0.07]">
+                    {[
+                      { label: "Code",   value: (product as any).code || "—" },
+                      { label: "Size",   value: product.size },
+                      { label: "Format", value: product.type },
+                    ].map((stat, i) => (
+                      <div
+                        key={stat.label}
+                        className="flex flex-col items-center justify-center py-3 px-2"
+                        style={{ borderLeft: i > 0 ? "1px solid rgba(11,15,26,0.07)" : "none" }}
+                      >
+                        <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-[#0B0F1A]/30 mb-1">{stat.label}</span>
+                        <span className="text-[12px] font-bold text-[#0B0F1A] text-center leading-tight">{stat.value}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </Link>

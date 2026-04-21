@@ -306,25 +306,29 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }:
 
         {/* Name overlay */}
         <div className="absolute bottom-3 left-3 right-3">
-          <p className="font-extrabold text-white leading-tight" style={{ fontSize: 15 }}>{b.name}</p>
-          <p className="text-[11px] text-white/55 mt-0.5">{b.location.split(",")[0]}</p>
+          <p className="font-extrabold text-white leading-tight" style={{ fontSize: 15 }}>{b.nameEn || b.name}</p>
         </div>
       </div>
 
       {/* Body */}
       <div style={{ padding: "16px 18px 18px" }}>
-        {/* Stats row */}
-        <div className="flex items-center gap-4 mb-4 pb-4"
-          style={{ borderBottom: "1px solid rgba(11,15,26,0.06)" }}>
+        {/* English name + full address */}
+        <div className="mb-4 pb-4" style={{ borderBottom: "1px solid rgba(11,15,26,0.06)" }}>
+          <p className="text-[13px] font-bold text-[#0B0F1A] leading-snug mb-1">{b.nameEn || b.name}</p>
+          <p className="text-[11px] leading-snug" style={{ color: "rgba(11,15,26,0.45)" }}>{b.location}</p>
+        </div>
+        {/* Code / Size / Format stats row */}
+        <div className="grid grid-cols-3 gap-0 mb-4" style={{ border: "1px solid rgba(11,15,26,0.07)" }}>
           {[
-            { label: "Size",    value: b.size },
-            { label: "Traffic", value: b.traffic.split(" ").slice(0,2).join(" ") },
-            { label: "Visibility", value: b.visibility.split(" ").slice(0,2).join(" ") },
-          ].map(stat => (
-            <div key={stat.label} className="flex-1">
+            { label: "Code",   value: b.code || "—" },
+            { label: "Size",   value: b.size },
+            { label: "Format", value: b.type },
+          ].map((stat, i) => (
+            <div key={stat.label} className="flex flex-col items-center justify-center py-2.5 px-2"
+              style={{ borderLeft: i > 0 ? "1px solid rgba(11,15,26,0.07)" : "none" }}>
               <p className="text-[9px] font-semibold tracking-[0.18em] uppercase mb-0.5"
                 style={{ color: "rgba(11,15,26,0.3)" }}>{stat.label}</p>
-              <p className="text-[12px] font-bold" style={{ color: NAVY }}>{stat.value}</p>
+              <p className="text-[11px] font-bold text-center leading-tight" style={{ color: NAVY }}>{stat.value}</p>
             </div>
           ))}
         </div>
