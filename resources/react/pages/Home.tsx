@@ -1242,7 +1242,7 @@ function LatestBlogsSection() {
   if (latest.length === 0) return null;
 
   return (
-    <section style={{ background: "#F5F5F6", paddingTop: 120, paddingBottom: 120 }}>
+    <section id="latest-blogs" style={{ background: "#F5F5F6", paddingTop: 120, paddingBottom: 120 }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         {/* Header */}
         <Reveal>
@@ -1265,7 +1265,8 @@ function LatestBlogsSection() {
         </Reveal>
 
         {/* Cards */}
-        <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
+        <div style={{ background: "rgba(11,15,26,0.07)" }}>
+        <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[1px]">
           {latest.map((post) => (
             <RevealItem key={post.id}>
               <Link
@@ -1315,6 +1316,7 @@ function LatestBlogsSection() {
             </RevealItem>
           ))}
         </RevealGroup>
+        </div>
       </div>
     </section>
   );
