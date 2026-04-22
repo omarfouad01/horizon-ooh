@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { useStore, settingsStore, trustStatStore, brandStore, processStore, resultStore, resetToDefaults, type ClientBrand } from '@/store/dataStore'
+import { useStore, settingsStore, trustStatStore, brandStore, processStore, resultStore, projectsContentStore, resetToDefaults, type ClientBrand } from '@/store/dataStore'
 import { Btn, PageHeader, Field, TA } from '../ui'
 import { Save, Plus, Trash2, RotateCcw, Upload, X, Pencil } from 'lucide-react'
 import toast from 'react-hot-toast'
@@ -58,14 +58,16 @@ function ImageUpload({
 // ── Brand logo modal ──────────────────────────────────────────────────────────
 function BrandModal({ open, brand, onClose, onSave, saving }: { open:boolean; brand:ClientBrand|null; onClose:()=>void; onSave:(b:Omit<ClientBrand,'id'>)=>Promise<void>; saving?:boolean }) {
   // Always call hooks — never conditionally
-  const [name,    setName]    = useState('')
-  const [logoUrl, setLogoUrl] = useState('')
+  const [name,        setName]        = useState('')
+  const [logoUrl,     setLogoUrl]     = useState('')
+  const [description, setDescription] = useState('')
 
   // Sync fields whenever the modal opens or the brand changes
   useEffect(() => {
     if (open) {
-      setName(brand?.name    || '')
-      setLogoUrl(brand?.logoUrl || '')
+      setName(brand?.name          || '')
+      setLogoUrl(brand?.logoUrl    || '')
+      setDescription(brand?.description || '')
     }
   }, [open, brand])
 
@@ -73,7 +75,7 @@ function BrandModal({ open, brand, onClose, onSave, saving }: { open:boolean; br
 
   const handleSave = async () => {
     if (!name.trim()) return
-    await onSave({ name: name.trim(), logoUrl })
+    await onSave({ name: name.trim(), logoUrl, description: description.trim() })
     onClose()
   }
 
@@ -101,6 +103,13 @@ function BrandModal({ open, brand, onClose, onSave, saving }: { open:boolean; br
             onChange={setLogoUrl}
             hint="PNG / SVG with transparent background recommended"
             height={52}
+          />
+          <TA
+            label="Client Description (shown on project pages)"
+            value={description}
+            onChange={(e:any)=>setDescription(e.target.value)}
+            rows={4}
+            placeholder="Write a short description of this client — it will appear in the 'About the client' section of their project pages."
           />
         </div>
 
@@ -137,7 +146,7 @@ function BrandModal({ open, brand, onClose, onSave, saving }: { open:boolean; br
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-const TABS = ['general','social','logo','brands','stats','process','results','reset'] as const
+const TABS = ['general','social','logo','brands','stats','process','results','projects','reset'] as const
 type Tab = typeof TABS[number]
 
 export default function AdminSettings() {
@@ -147,6 +156,7 @@ export default function AdminSettings() {
   const [stats,    setStats]    = useState([...s.trustStats])
   const [proc,     setProc]     = useState([...s.process])
   const [results,  setResults]  = useState([...s.results])
+  const [projContent, setProjContent] = useState({ ...s.projectsContent })
 
   // Sync when store changes (e.g. after logoUrl upload)
   const saveGeneral = () => { settingsStore.update(settings); toast.success('Settings saved') }
@@ -193,7 +203,7 @@ export default function AdminSettings() {
           <button key={t} onClick={()=>setTab(t)}
             className="px-4 py-2 rounded-lg text-[12px] font-bold capitalize transition-all"
             style={tab===t ? {background:'white',color:'#0B0F1A',boxShadow:'0 1px 3px rgba(11,15,26,0.1)'} : {color:'rgba(11,15,26,0.4)'}}>
-            {t === 'logo' ? 'Logo & Favicon' : t === 'reset' ? '⚠ Reset' : t}
+            {t === 'logo' ? 'Logo & Favicon' : t === 'reset' ? '⚠ Reset' : t === 'projects' ? 'Projects Page' : t}
           </button>
         ))}
       </div>
@@ -384,6 +394,59 @@ export default function AdminSettings() {
             </div>
           </div>
           <Btn onClick={saveResults} className="flex items-center gap-2"><Save size={14}/>Save Results</Btn>
+        </div>
+      )}
+
+      {/* ── PROJECTS PAGE ───────────────────────────────────────── */}
+      {tab==='projects' && (
+        <div className="space-y-5">
+          <div className="bg-white rounded-xl border border-gray-100 p-6 space-y-5 shadow-sm">
+            <p className="text-[12px] text-gray-400">Control the text and statistics that appear on the public <strong>/projects</strong> page.</p>
+
+            {/* Hero section */}
+            <div className="border-b border-gray-100 pb-5">
+              <p className="text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-3">Hero Section</p>
+              <div className="grid grid-cols-2 gap-4">
+                <Field label="Eyebrow label" value={projContent.heroEyebrow||''} onChange={(e:any)=>setProjContent((p:any)=>({...p,heroEyebrow:e.target.value}))} placeholder="Projects"/>
+                <Field label="Title" value={projContent.heroTitle||''} onChange={(e:any)=>setProjContent((p:any)=>({...p,heroTitle:e.target.value}))} placeholder="Clients first."/>
+              </div>
+              <Field label="Title accent (greyed-out second line)" value={projContent.heroTitleAccent||''} onChange={(e:any)=>setProjContent((p:any)=>({...p,heroTitleAccent:e.target.value}))} placeholder="Then every campaign we delivered." className="mt-3"/>
+              <TA label="Intro paragraph" value={projContent.heroParagraph||''} onChange={(e:any)=>setProjContent((p:any)=>({...p,heroParagraph:e.target.value}))} rows={3} className="mt-3"/>
+            </div>
+
+            {/* Why It Works stats */}
+            <div className="border-b border-gray-100 pb-5">
+              <p className="text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-3">"Why It Works" Stats</p>
+              <div className="grid grid-cols-3 gap-3">
+                <div className="space-y-2">
+                  <Field label="Stat 1 Value" value={projContent.stat1Value||''} onChange={(e:any)=>setProjContent((p:any)=>({...p,stat1Value:e.target.value}))} placeholder="+178%"/>
+                  <Field label="Stat 1 Label" value={projContent.stat1Label||''} onChange={(e:any)=>setProjContent((p:any)=>({...p,stat1Label:e.target.value}))} placeholder="Avg. brand recall lift"/>
+                  <Field label="Stat 1 Sub"   value={projContent.stat1Sub  ||''} onChange={(e:any)=>setProjContent((p:any)=>({...p,stat1Sub:e.target.value}))}   placeholder="Across all 2025 campaigns"/>
+                </div>
+                <div className="space-y-2">
+                  <Field label="Stat 2 Value" value={projContent.stat2Value||''} onChange={(e:any)=>setProjContent((p:any)=>({...p,stat2Value:e.target.value}))} placeholder="4.1×"/>
+                  <Field label="Stat 2 Label" value={projContent.stat2Label||''} onChange={(e:any)=>setProjContent((p:any)=>({...p,stat2Label:e.target.value}))} placeholder="Average campaign ROI"/>
+                  <Field label="Stat 2 Sub"   value={projContent.stat2Sub  ||''} onChange={(e:any)=>setProjContent((p:any)=>({...p,stat2Sub:e.target.value}))}   placeholder="vs. media investment"/>
+                </div>
+                <div className="space-y-2">
+                  <Field label="Stat 3 Value" value={projContent.stat3Value||''} onChange={(e:any)=>setProjContent((p:any)=>({...p,stat3Value:e.target.value}))} placeholder="100+"/>
+                  <Field label="Stat 3 Label" value={projContent.stat3Label||''} onChange={(e:any)=>setProjContent((p:any)=>({...p,stat3Label:e.target.value}))} placeholder="Campaigns delivered"/>
+                  <Field label="Stat 3 Sub"   value={projContent.stat3Sub  ||''} onChange={(e:any)=>setProjContent((p:any)=>({...p,stat3Sub:e.target.value}))}   placeholder="In 2024–2025"/>
+                </div>
+              </div>
+            </div>
+
+            {/* CTA Banner */}
+            <div>
+              <p className="text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-3">Bottom CTA Banner</p>
+              <div className="grid grid-cols-2 gap-3">
+                <Field label="CTA Title"    value={projContent.ctaTitle  ||''} onChange={(e:any)=>setProjContent((p:any)=>({...p,ctaTitle:e.target.value}))}   placeholder="Ready to be our next success story?"/>
+                <Field label="CTA Button"   value={projContent.ctaButton ||''} onChange={(e:any)=>setProjContent((p:any)=>({...p,ctaButton:e.target.value}))}  placeholder="Start Your Campaign"/>
+              </div>
+              <TA label="CTA Subtitle" value={projContent.ctaSubtitle||''} onChange={(e:any)=>setProjContent((p:any)=>({...p,ctaSubtitle:e.target.value}))} rows={2} className="mt-3"/>
+            </div>
+          </div>
+          <Btn onClick={()=>{ projectsContentStore.update(projContent); toast.success('Projects page content saved') }} className="flex items-center gap-2"><Save size={14}/>Save Projects Page Content</Btn>
         </div>
       )}
 

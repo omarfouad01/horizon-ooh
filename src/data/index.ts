@@ -24,6 +24,8 @@ export interface Project {
   slug: string;
   title: string;
   client: string;
+  clients?: string[];          // multi-client support: array of brand names
+  clientLogos?: Record<string, string>; // map brand name -> logo URL
   clientLogo?: string;
   clientIndustry?: string;
   clientDescription?: string;

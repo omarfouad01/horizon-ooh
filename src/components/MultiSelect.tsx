@@ -10,9 +10,10 @@ interface Props {
   selected: string[];
   onChange: (vals: string[]) => void;
   icon: React.ReactNode;
+  dark?: boolean; // dark-mode variant for navy backgrounds
 }
 
-export default function MultiSelect({ label, options, selected, onChange, icon }: Props) {
+export default function MultiSelect({ label, options, selected, onChange, icon, dark = false }: Props) {
   const [open, setOpen]           = useState(false);
   const [dropPos, setDropPos]     = useState({ top: 0, left: 0, width: 0 });
   const [query, setQuery]         = useState("");
@@ -90,10 +91,10 @@ export default function MultiSelect({ label, options, selected, onChange, icon }
         onClick={() => setOpen(v => !v)}
         className="w-full h-12 flex items-center gap-2 pl-3 pr-7 text-[12px] font-semibold text-left outline-none transition-all duration-200"
         style={{
-          background: "white",
-          border: `1.5px solid ${open || selected.length > 0 ? RED : "rgba(11,15,26,0.12)"}`,
+          background: dark ? "rgba(255,255,255,0.05)" : "white",
+          border: `1.5px solid ${open || selected.length > 0 ? RED : (dark ? "rgba(255,255,255,0.1)" : "rgba(11,15,26,0.12)")}`,
           borderRadius: 0,
-          color: selected.length > 0 ? NAVY : "rgba(11,15,26,0.38)",
+          color: selected.length > 0 ? (dark ? "white" : NAVY) : (dark ? "rgba(255,255,255,0.35)" : "rgba(11,15,26,0.38)"),
           cursor: "pointer",
         }}
       >
@@ -114,7 +115,7 @@ export default function MultiSelect({ label, options, selected, onChange, icon }
           style={{ transform: open ? "translateY(-50%) rotate(180deg)" : "translateY(-50%)" }}
         >
           <svg width="9" height="5" viewBox="0 0 9 5" fill="none">
-            <path d="M1 1l3.5 3.5L8 1" stroke={NAVY} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M1 1l3.5 3.5L8 1" stroke={dark ? "rgba(255,255,255,0.4)" : NAVY} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </span>
       </button>

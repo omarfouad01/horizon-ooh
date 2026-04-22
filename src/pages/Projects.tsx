@@ -23,6 +23,7 @@ const CAT_COLORS: Record<ProjectCategory, string> = {
 
 type ClientGroup = {
   name: string;
+  logo: string;            // logo URL resolved from clientBrands
   projects: any[];
   categories: ProjectCategory[];
   latestYear: string;
@@ -74,6 +75,15 @@ function ClientCard({ client, index, active, onClick }: { client: ClientGroup; i
         <div className="absolute top-5 right-5">
           <span className="text-[10px] font-semibold tracking-[0.2em] text-white/55">{client.latestYear}</span>
         </div>
+
+        {/* Client logo overlay in bottom-right of image */}
+        {client.logo && (
+          <div className="absolute bottom-4 right-4">
+            <div className="bg-white/90 backdrop-blur-sm px-3 py-2 rounded" style={{ boxShadow: "0 2px 12px rgba(11,15,26,0.18)" }}>
+              <img src={client.logo} alt={client.name} className="h-7 w-auto max-w-[80px] object-contain" />
+            </div>
+          </div>
+        )}
 
         <div className="absolute bottom-0 left-0 right-0 p-6">
           <p className="text-white/45 text-[10px] font-bold tracking-[0.28em] uppercase mb-2">Client</p>
@@ -170,7 +180,10 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
           </h3>
 
           <p className="text-[13px] font-medium mb-6" style={{ color: "rgba(11,15,26,0.4)" }}>
-            {project.client} · {project.duration}
+            {project.clients && project.clients.length > 1
+              ? project.clients.join(" & ")
+              : project.client
+            } · {project.duration}
           </p>
 
           <div className="flex items-center justify-between pt-5 border-t border-[#0B0F1A]/[0.07]">
@@ -305,7 +318,7 @@ function WhyItMatters() {
 }
 
 export default function Projects() {
-  const { projects: PROJECTS } = useStore();
+  const { projects: PROJECTS, clientBrands } = useStore();
   const [filter, setFilter] = useState<"All" | ProjectCategory>("All");
   const [activeClient, setActiveClient] = useState<string | null>(null);
   const gridRef = useRef<HTMLDivElement | null>(null);
@@ -316,19 +329,37 @@ export default function Projects() {
     [PROJECTS, filter]
   );
 
+  // Helper: resolve logo URL for a client name
+  const logoOf = (name: string, project?: any): string => {
+    // 1. from clientLogos on the project itself
+    if (project?.clientLogos?.[name]) return project.clientLogos[name];
+    // 2. from clientBrands store
+    const brand = clientBrands.find(b => b.name === name);
+    if (brand) return brand.logoUrl || brand.logo || '';
+    return '';
+  };
+
   const clientGroups = useMemo<ClientGroup[]>(() => {
     const map = new Map<string, any[]>();
     filteredProjects.forEach((project) => {
-      const key = project.client || "Unknown Client";
-      if (!map.has(key)) map.set(key, []);
-      map.get(key)!.push(project);
+      // Support multi-client: expand project into each client bucket
+      const clientList: string[] = project.clients && project.clients.length > 0
+        ? project.clients
+        : [project.client || "Unknown Client"];
+      clientList.forEach(name => {
+        if (!map.has(name)) map.set(name, []);
+        map.get(name)!.push(project);
+      });
     });
 
     return Array.from(map.entries())
       .map(([name, projects]) => {
         const ordered = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
+        // Resolve logo: check project.clientLogos first, then clientBrands store
+        const logo = logoOf(name, ordered[0]);
         return {
           name,
+          logo,
           projects: ordered,
           categories: Array.from(new Set(ordered.map((p) => p.category))),
           latestYear: ordered[0]?.year || "",
@@ -337,7 +368,8 @@ export default function Projects() {
         };
       })
       .sort((a, b) => b.projects.length - a.projects.length || a.name.localeCompare(b.name));
-  }, [filteredProjects]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filteredProjects, clientBrands]);
 
   const selectedClient = activeClient && clientGroups.some((c) => c.name === activeClient)
     ? clientGroups.find((c) => c.name === activeClient) || null
@@ -427,11 +459,19 @@ export default function Projects() {
               {selectedClient ? (
                 <div className="border border-[#0B0F1A]/[0.07] bg-[#F5F5F6] p-6 sm:p-8">
                   <div className="flex items-start justify-between gap-4 mb-6">
-                    <div>
-                      <p className="text-[10px] font-bold tracking-[0.3em] uppercase mb-2" style={{ color: RED }}>Selected client</p>
-                      <h2 className="font-black tracking-[-0.03em] leading-[0.95]" style={{ fontSize: "clamp(28px, 3vw, 40px)", color: NAVY }}>
-                        {selectedClient.name}
-                      </h2>
+                    <div className="flex items-center gap-4">
+                      {/* Client logo in the detail panel */}
+                      {selectedClient.logo && (
+                        <div className="flex-shrink-0 bg-white border border-[#0B0F1A]/[0.07] rounded flex items-center justify-center" style={{ width: 72, height: 48 }}>
+                          <img src={selectedClient.logo} alt={selectedClient.name} className="max-h-8 max-w-[60px] object-contain" />
+                        </div>
+                      )}
+                      <div>
+                        <p className="text-[10px] font-bold tracking-[0.3em] uppercase mb-2" style={{ color: RED }}>Selected client</p>
+                        <h2 className="font-black tracking-[-0.03em] leading-[0.95]" style={{ fontSize: "clamp(28px, 3vw, 40px)", color: NAVY }}>
+                          {selectedClient.name}
+                        </h2>
+                      </div>
                     </div>
                     <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "rgba(11,15,26,0.3)" }}>
                       {selectedClient.projects.length} campaign{selectedClient.projects.length > 1 ? "s" : ""}

@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { X, GripVertical, Plus, Loader2, Upload, Trash2, ImagePlus } from 'lucide-react'
 
 const NAVY='#0B0F1A', RED='#D90429'
@@ -152,13 +152,41 @@ export function ArrayEditor({label,value,onChange,placeholder}:any) {
   )
 }
 
-// ── Shared helper ─────────────────────────────────────────────────────────────
-function readFileAsDataURL(file: File): Promise<string> {
+// ── Shared helpers ────────────────────────────────────────────────────────────
+const MAX_PX = 1600   // max width/height after resize
+const QUALITY = 0.82  // JPEG quality
+const MAX_MB  = 5     // hard limit before even trying
+
+function compressImage(file: File): Promise<string> {
   return new Promise((res, rej) => {
-    const r = new FileReader()
-    r.onload = () => res(r.result as string)
-    r.onerror = rej
-    r.readAsDataURL(file)
+    if (file.size > MAX_MB * 1024 * 1024) {
+      rej(new Error(`"${file.name}" is ${(file.size / 1024 / 1024).toFixed(1)} MB — please use an image under ${MAX_MB} MB.`))
+      return
+    }
+    const reader = new FileReader()
+    reader.onerror = rej
+    reader.onload = (ev) => {
+      const src = ev.target?.result as string
+      const img = new Image()
+      img.onerror = rej
+      img.onload = () => {
+        let { width, height } = img
+        // Scale down if larger than MAX_PX on either axis
+        if (width > MAX_PX || height > MAX_PX) {
+          const ratio = Math.min(MAX_PX / width, MAX_PX / height)
+          width  = Math.round(width  * ratio)
+          height = Math.round(height * ratio)
+        }
+        const canvas = document.createElement('canvas')
+        canvas.width  = width
+        canvas.height = height
+        const ctx = canvas.getContext('2d')!
+        ctx.drawImage(img, 0, 0, width, height)
+        res(canvas.toDataURL('image/jpeg', QUALITY))
+      }
+      img.src = src
+    }
+    reader.readAsDataURL(file)
   })
 }
 
@@ -178,6 +206,8 @@ export function ImagePicker({
   onChange: (url: string, alt: string) => void
 }) {
   const ref = useRef<HTMLInputElement>(null)
+  const [busy, setBusy] = useState(false)
+  const [err,  setErr]  = useState<string | null>(null)
 
   function openPicker(e: React.MouseEvent) {
     e.preventDefault()
@@ -188,10 +218,18 @@ export function ImagePicker({
   async function pick(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
     if (!file) return
-    const url = await readFileAsDataURL(file)
-    const autoAlt = file.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ')
-    onChange(url, altValue || autoAlt)
     e.target.value = ''
+    setBusy(true)
+    setErr(null)
+    try {
+      const url = await compressImage(file)
+      const autoAlt = file.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ')
+      onChange(url, altValue || autoAlt)
+    } catch (ex: any) {
+      setErr(ex?.message ?? 'Failed to process image')
+    } finally {
+      setBusy(false)
+    }
   }
 
   return (
@@ -207,9 +245,9 @@ export function ImagePicker({
             </div>
           </div>
         ) : (
-          <button type="button" onClick={openPicker}
-            className="w-28 h-20 rounded-xl border-2 border-dashed border-gray-200 hover:border-gray-400 hover:bg-gray-50 transition-colors flex flex-col items-center justify-center gap-1.5 text-gray-400 flex-shrink-0">
-            <ImagePlus size={18}/>
+          <button type="button" onClick={openPicker} disabled={busy}
+            className="w-28 h-20 rounded-xl border-2 border-dashed border-gray-200 hover:border-gray-400 hover:bg-gray-50 transition-colors flex flex-col items-center justify-center gap-1.5 text-gray-400 flex-shrink-0 disabled:opacity-50">
+            {busy ? <Loader2 size={18} className="animate-spin"/> : <ImagePlus size={18}/>}
             <span className="text-[10px] font-medium">Upload image</span>
           </button>
         )}
@@ -228,6 +266,7 @@ export function ImagePicker({
           </p>
         </div>
       </div>
+      {err && <p className="text-[11px] text-red-500 mt-2 flex items-center gap-1"><X size={11}/>{err}</p>}
       <input ref={ref} type="file" accept="image/*" className="hidden" onChange={pick}/>
     </div>
   )
@@ -254,15 +293,27 @@ export function ImageGalleryPicker({
     ref.current?.click()
   }
 
+  const [uploading, setUploading] = useState(false)
+  const [uploadErr, setUploadErr] = useState<string | null>(null)
+
   async function pick(e: React.ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files || [])
     if (!files.length) return
-    const newImgs = await Promise.all(files.map(async f => ({
-      url: await readFileAsDataURL(f),
-      alt: f.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' '),
-    })))
-    onChange([...value, ...newImgs])
     e.target.value = ''
+    setUploading(true)
+    setUploadErr(null)
+    const added: GalleryImage[] = []
+    for (const f of files) {
+      try {
+        const url = await compressImage(f)
+        added.push({ url, alt: f.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ') })
+      } catch (err: any) {
+        setUploadErr(err?.message ?? `Failed to process "${f.name}"`)
+        break
+      }
+    }
+    if (added.length) onChange([...value, ...added])
+    setUploading(false)
   }
 
   function updateAlt(i: number, alt: string) {
@@ -292,12 +343,18 @@ export function ImageGalleryPicker({
             />
           </div>
         ))}
-        <button type="button" onClick={openPicker}
-          className="w-24 h-20 rounded-xl border-2 border-dashed border-gray-200 hover:border-gray-400 hover:bg-gray-50 transition-colors flex flex-col items-center justify-center gap-1 text-gray-400">
-          <Upload size={16}/><span className="text-[10px]">Add photos</span>
+        <button type="button" onClick={openPicker} disabled={uploading}
+          className="w-24 h-20 rounded-xl border-2 border-dashed border-gray-200 hover:border-gray-400 hover:bg-gray-50 transition-colors flex flex-col items-center justify-center gap-1 text-gray-400 disabled:opacity-50 disabled:pointer-events-none">
+          {uploading ? <Loader2 size={16} className="animate-spin"/> : <Upload size={16}/>}
+          <span className="text-[10px]">{uploading ? 'Processing…' : 'Add photos'}</span>
         </button>
       </div>
-      <p className="text-[10px] text-gray-400 mt-2">Filenames are auto-used as alt text — edit each one below its thumbnail.</p>
+      {uploadErr && (
+        <p className="text-[11px] text-red-500 mt-2 flex items-center gap-1">
+          <X size={11} className="flex-shrink-0"/>{uploadErr}
+        </p>
+      )}
+      <p className="text-[10px] text-gray-400 mt-1.5">Max {MAX_MB} MB per image · auto-compressed to {MAX_PX}px · edit alt text below each thumbnail.</p>
       <input ref={ref} type="file" accept="image/*" multiple className="hidden" onChange={pick}/>
     </div>
   )

@@ -40,6 +40,7 @@ export interface ClientBrand {
   logoUrl?: string;
   industry?: string;
   website?: string;
+  description?: string;
 }
 
 export interface Supplier {
@@ -245,31 +246,50 @@ const _demoContacts: ContactEntry[] = [];
 const HAS_API = !!(import.meta.env.VITE_API_URL && import.meta.env.VITE_API_URL !== '/api');
 
 // ─── State interface ──────────────────────────────────────────────────────────
+const DEMO_PROJECTS_CONTENT = {
+  heroEyebrow:    'Projects',
+  heroTitle:      'Clients first.',
+  heroTitleAccent: 'Then every campaign we delivered.',
+  heroParagraph:  'Browse by client. Each client card opens the projects and campaigns we executed for that brand, so repeat work with the same client is grouped together instead of being split into unrelated cards.',
+  whyEyebrow:     'Why It Works',
+  whyTitle:       'Why outdoor advertising works in Egypt.',
+  whyTitleAccent: 'in Egypt.',
+  whyParagraph1:  "Egypt's outdoor advertising market is among the fastest-growing in the MENA region — driven by rapid urbanisation, a young and mobile population, and a commuter culture that places millions of consumers in front of billboards, DOOH screens, and mall formats every single day. Unlike digital advertising, outdoor advertising in Egypt cannot be skipped, blocked, or scrolled past.",
+  whyParagraph2:  'Our billboard campaigns in Cairo, DOOH campaigns across New Cairo and Sheikh Zayed, and airport advertising at Cairo International consistently outperform digital channel benchmarks on brand recall, purchase intent, and consumer trust. Across 100+ campaigns delivered in 2024–2025, the average brand recall lift was <strong>+178%</strong> — and the average campaign ROI was <strong>4.1×</strong>.',
+  stat1Value: '+178%', stat1Label: 'Avg. brand recall lift',   stat1Sub: 'Across all 2025 campaigns',
+  stat2Value: '4.1×',  stat2Label: 'Average campaign ROI',     stat2Sub: 'vs. media investment',
+  stat3Value: '100+',  stat3Label: 'Campaigns delivered',      stat3Sub: 'In 2024–2025',
+  ctaTitle:  'Ready to be our next success story?',
+  ctaSubtitle: "Let's plan a campaign tailored to your audience, locations, and business goals.",
+  ctaButton:  'Start Your Campaign',
+};
+
 export interface ApiState {
-  locations:    any[];
-  districts:    any[];
-  adFormats:    AdFormatType[];
-  services:     any[];
-  projects:     any[];
-  blogPosts:    any[];
-  trustStats:   any[];
-  processSteps: ProcessStep[];
-  clientBrands: ClientBrand[];
-  suppliers:    Supplier[];
-  customers:    Customer[];
-  siteUsers:    SiteUser[];
-  contacts:     ContactEntry[];
-  results:      ResultStat[];
-  process:      ProcessStep[];
-  settings:     any;
-  homeContent:  any;
-  about:        AboutContent;
-  aboutContent: AboutContent;
-  loaded:       boolean;
-  loading:      boolean;
-  error:        string | null;
-  usingDemo:    boolean;
-  reload:       () => Promise<void>;
+  locations:       any[];
+  districts:       any[];
+  adFormats:       AdFormatType[];
+  services:        any[];
+  projects:        any[];
+  blogPosts:       any[];
+  trustStats:      any[];
+  processSteps:    ProcessStep[];
+  clientBrands:    ClientBrand[];
+  suppliers:       Supplier[];
+  customers:       Customer[];
+  siteUsers:       SiteUser[];
+  contacts:        ContactEntry[];
+  results:         ResultStat[];
+  process:         ProcessStep[];
+  settings:        any;
+  homeContent:     any;
+  projectsContent: any;
+  about:           AboutContent;
+  aboutContent:    AboutContent;
+  loaded:          boolean;
+  loading:         boolean;
+  error:           string | null;
+  usingDemo:       boolean;
+  reload:          () => Promise<void>;
 }
 
 // ─── Pre-compute demo data ────────────────────────────────────────────────────
@@ -316,10 +336,11 @@ export const useApiStore = create<ApiState>((set, get) => ({
   customers:    [],
   siteUsers:    [],
   contacts:     HAS_API ? [] : _demoContacts,
-  settings:     HAS_API ? {} : DEMO_SETTINGS,
-  homeContent:  HAS_API ? {} : DEMO_HOME,
-  about:        HAS_API ? {} as AboutContent : DEMO_ABOUT,
-  aboutContent: HAS_API ? {} as AboutContent : DEMO_ABOUT,
+  settings:        HAS_API ? {} : DEMO_SETTINGS,
+  homeContent:     HAS_API ? {} : DEMO_HOME,
+  projectsContent: HAS_API ? {} : DEMO_PROJECTS_CONTENT,
+  about:           HAS_API ? {} as AboutContent : DEMO_ABOUT,
+  aboutContent:    HAS_API ? {} as AboutContent : DEMO_ABOUT,
   loaded:       !HAS_API,   // demo data is ready immediately; API data is not
   loading:      false,
   error:        null,
@@ -349,20 +370,21 @@ export const useApiStore = create<ApiState>((set, get) => ({
       const normFmts: AdFormatType[] = (fmts.data || []).map((f: any) => ({ ...f, label: f.label ?? f.name }));
 
       set({
-        locations:    locs.data   || [],
-        districts:    dists.data  || [],
-        adFormats:    normFmts.length ? normFmts : AD_FORMATS_DEFAULT,
-        services:     svcs.data   || [],
-        projects:     projs.data  || [],
-        blogPosts:    blog.data   || [],
-        trustStats:   stats.data  || [],
-        processSteps: steps.data  || [],
-        process:      steps.data  || [],
-        clientBrands: (brands.data || []).map((b: any) => ({ ...b, logoUrl: b.logoUrl ?? b.logo })),
-        settings:     setts.data  || DEMO_SETTINGS,
-        homeContent:  hc.data     || DEMO_HOME,
-        about:        ac.data     || DEMO_ABOUT,
-        aboutContent: ac.data     || DEMO_ABOUT,
+        locations:       locs.data   || [],
+        districts:       dists.data  || [],
+        adFormats:       normFmts.length ? normFmts : AD_FORMATS_DEFAULT,
+        services:        svcs.data   || [],
+        projects:        projs.data  || [],
+        blogPosts:       blog.data   || [],
+        trustStats:      stats.data  || [],
+        processSteps:    steps.data  || [],
+        process:         steps.data  || [],
+        clientBrands:    (brands.data || []).map((b: any) => ({ ...b, logoUrl: b.logoUrl ?? b.logo })),
+        settings:        setts.data  || DEMO_SETTINGS,
+        homeContent:     hc.data     || DEMO_HOME,
+        projectsContent: DEMO_PROJECTS_CONTENT,
+        about:           ac.data     || DEMO_ABOUT,
+        aboutContent:    ac.data     || DEMO_ABOUT,
         loaded:    true,
         loading:   false,
         usingDemo: false,

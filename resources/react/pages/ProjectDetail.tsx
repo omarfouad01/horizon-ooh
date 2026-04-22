@@ -14,6 +14,9 @@ const CAT_COLORS: Record<ProjectCategory, string> = {
 };
 
 function buildClientBrief(project: any, clientProjects: any[]) {
+  // If a manual description was entered in the dashboard, use it
+  if (project.clientDescription?.trim()) return project.clientDescription.trim();
+  // Otherwise fall back to auto-generated text
   const categories = Array.from(new Set(clientProjects.map((p) => p.category))).join(" / ");
   const markets = Array.from(new Set(clientProjects.map((p) => p.city))).join(", ");
   return `${project.client} is featured across ${clientProjects.length} campaign${clientProjects.length > 1 ? "s" : ""} in our portfolio${categories ? `, spanning ${categories}` : ""}${markets ? ` across ${markets}` : ""}. This case study highlights one part of our ongoing execution for the brand.`;
@@ -45,7 +48,15 @@ export default function ProjectDetail() {
     );
   }
 
-  const gallery = project.galleryImages?.length ? project.galleryImages : [project.coverImage].filter(Boolean);
+  // galleryImages can be GalleryImage[] ({url,alt}) or legacy string[] — normalise to {url,alt}
+  const gallery: { url: string; alt: string }[] = (() => {
+    const raw: any[] = project.galleryImages?.length ? project.galleryImages : [project.coverImage].filter(Boolean);
+    return raw.map((item: any) =>
+      typeof item === 'string'
+        ? { url: item, alt: `${project.title} campaign photo` }
+        : { url: item?.url ?? '', alt: item?.alt || `${project.title} campaign photo` }
+    ).filter(item => item.url);
+  })();
   const clientBrief = buildClientBrief(project, clientProjects);
 
   return (
@@ -197,7 +208,7 @@ export default function ProjectDetail() {
               </Reveal>
               <Reveal delay={0.04}>
                 <h2 className="font-black leading-[0.9] tracking-[-0.04em]" style={{ fontSize: "clamp(28px, 3vw, 42px)", color: NAVY }}>
-                  Photos side by side.
+                  Outdoor advertising campaign photos.
                 </h2>
               </Reveal>
             </div>
@@ -205,7 +216,7 @@ export default function ProjectDetail() {
               {gallery.map((img, i) => (
                 <RevealItem key={i}>
                   <div className="overflow-hidden bg-[#F5F5F6] border border-[#0B0F1A]/[0.07]" style={{ height: 340 }}>
-                    <img src={img} alt={`${project.title} campaign photography ${i + 1}`} className="w-full h-full object-cover" style={{ opacity: 0.92 }} />
+                    <img src={img.url} alt={img.alt || `${project.title} campaign photography ${i + 1}`} className="w-full h-full object-cover" style={{ opacity: 0.92 }} />
                   </div>
                 </RevealItem>
               ))}

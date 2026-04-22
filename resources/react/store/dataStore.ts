@@ -93,6 +93,13 @@ export const homeStore = {
   },
 };
 
+// ─── Projects page content ─────────────────────────────────────────────────────
+export const projectsContentStore = {
+  update: (data: any) => {
+    set(st => ({ projectsContent: { ...st.projectsContent, ...data } }));
+  },
+};
+
 // ─── About content ─────────────────────────────────────────────────────────────
 export const aboutStore = {
   update: async (data: any) => {
@@ -169,9 +176,23 @@ export const serviceStore = {
 };
 
 // ─── Projects ─────────────────────────────────────────────────────────────────
+// Build a FormData from a plain project object so the API multipart endpoint works.
+function buildProjectFormData(data: any): FormData {
+  const fd = new FormData();
+  Object.entries(data).forEach(([k, v]) => {
+    if (v === undefined || v === null) return;
+    if (Array.isArray(v) || typeof v === 'object') {
+      fd.append(k, JSON.stringify(v));
+    } else {
+      fd.append(k, String(v));
+    }
+  });
+  return fd;
+}
+
 export const projectStore = {
-  add:    (data: any) => apiOrLocal(() => projectsApi.create(data), () => { set(st => ({ projects: [...st.projects, { ...data, id: data.id ?? uid() }] })); }),
-  update: (id: any, data: any) => apiOrLocal(() => projectsApi.update(id, data), () => { set(st => ({ projects: st.projects.map((x: any) => x.id === id ? { ...x, ...data } : x) })); }),
+  add:    (data: any) => apiOrLocal(() => projectsApi.create(buildProjectFormData(data)), () => { set(st => ({ projects: [...st.projects, { ...data, id: data.id ?? uid() }] })); }),
+  update: (id: any, data: any) => apiOrLocal(() => projectsApi.update(id, buildProjectFormData(data)), () => { set(st => ({ projects: st.projects.map((x: any) => x.id === id ? { ...x, ...data } : x) })); }),
   remove: (id: any) => apiOrLocal(() => projectsApi.remove(id), () => { set(st => ({ projects: st.projects.filter((x: any) => x.id !== id) })); }),
 };
 

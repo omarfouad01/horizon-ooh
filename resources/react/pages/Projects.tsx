@@ -23,6 +23,7 @@ const CAT_COLORS: Record<ProjectCategory, string> = {
 
 type ClientGroup = {
   name: string;
+  logo: string;
   projects: any[];
   categories: ProjectCategory[];
   latestYear: string;
@@ -76,7 +77,13 @@ function ClientCard({ client, index, active, onClick }: { client: ClientGroup; i
         </div>
 
         <div className="absolute bottom-0 left-0 right-0 p-6">
-          <p className="text-white/45 text-[10px] font-bold tracking-[0.28em] uppercase mb-2">Client</p>
+          {client.logo ? (
+            <div className="mb-3">
+              <img src={client.logo} alt={client.name} style={{ height: 28, width: 'auto', objectFit: 'contain', maxWidth: 120, filter: 'brightness(10)', opacity: 0.85 }}/>
+            </div>
+          ) : (
+            <p className="text-white/45 text-[10px] font-bold tracking-[0.28em] uppercase mb-2">Client</p>
+          )}
           <h3 className="text-white font-black tracking-[-0.02em] leading-tight" style={{ fontSize: 24 }}>{client.name}</h3>
         </div>
       </div>
@@ -257,17 +264,22 @@ function FeaturedProject() {
   );
 }
 
-function WhyItMatters() {
+function WhyItMatters({ pc }: { pc?: any }) {
+  const stats = [
+    { value: pc?.stat1Value || '+178%', label: pc?.stat1Label || 'Avg. brand recall lift',  sub: pc?.stat1Sub || 'Across all 2025 campaigns' },
+    { value: pc?.stat2Value || '4.1×',  label: pc?.stat2Label || 'Average campaign ROI',    sub: pc?.stat2Sub || 'vs. media investment' },
+    { value: pc?.stat3Value || '100+',  label: pc?.stat3Label || 'Campaigns delivered',     sub: pc?.stat3Sub || 'In 2024–2025' },
+  ];
   return (
     <section style={{ background: "#F5F5F6", paddingTop: 100, paddingBottom: 100 }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           <div className="col-span-12 lg:col-span-4">
-            <Eyebrow text="Why It Works" />
+            <Eyebrow text={pc?.whyEyebrow || 'Why It Works'} />
             <Reveal delay={0.04}>
               <h2 className="font-black leading-[0.9] tracking-[-0.04em]" style={{ fontSize: "clamp(32px, 3.5vw, 48px)", color: NAVY }}>
-                Why outdoor advertising works<br />
-                <span style={{ color: "rgba(11,15,26,0.2)" }}>in Egypt.</span>
+                {pc?.whyTitle || 'Why outdoor advertising works'}<br />
+                <span style={{ color: "rgba(11,15,26,0.2)" }}>{pc?.whyTitleAccent || 'in Egypt.'}</span>
               </h2>
             </Reveal>
           </div>
@@ -275,19 +287,12 @@ function WhyItMatters() {
           <div className="col-span-12 lg:col-span-8">
             <Reveal delay={0.1}>
               <p className="text-[17px] leading-[1.85] mb-6" style={{ color: "rgba(11,15,26,0.5)" }}>
-                Egypt's outdoor advertising market is among the fastest-growing in the MENA region — driven by rapid urbanisation, a young and mobile population, and a commuter culture that places millions of consumers in front of billboards, DOOH screens, and mall formats every single day. Unlike digital advertising, outdoor advertising in Egypt cannot be skipped, blocked, or scrolled past.
-              </p>
-              <p className="text-[17px] leading-[1.85] mb-6" style={{ color: "rgba(11,15,26,0.5)" }}>
-                Our billboard campaigns in Cairo, DOOH campaigns across New Cairo and Sheikh Zayed, and airport advertising at Cairo International consistently outperform digital channel benchmarks on brand recall, purchase intent, and consumer trust. Across 100+ campaigns delivered in 2024–2025, the average brand recall lift was <strong style={{ color: NAVY }}>+178%</strong> — and the average campaign ROI was <strong style={{ color: NAVY }}>4.1×</strong>.
+                {pc?.whyParagraph1 || "Egypt's outdoor advertising market is among the fastest-growing in the MENA region — driven by rapid urbanisation, a young and mobile population, and a commuter culture that places millions of consumers in front of billboards, DOOH screens, and mall formats every single day. Unlike digital advertising, outdoor advertising in Egypt cannot be skipped, blocked, or scrolled past."}
               </p>
             </Reveal>
 
             <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-              {[
-                { value: "+178%", label: "Avg. brand recall lift", sub: "Across all 2025 campaigns" },
-                { value: "4.1×", label: "Average campaign ROI", sub: "vs. media investment" },
-                { value: "100+", label: "Campaigns delivered", sub: "In 2024–2025" },
-              ].map((stat) => (
+              {stats.map((stat) => (
                 <RevealItem key={stat.label}>
                   <div className="bg-white p-8 border border-[#0B0F1A]/[0.07]">
                     <p className="font-black leading-none tracking-[-0.04em] mb-3" style={{ fontSize: 40, color: RED }}>{stat.value}</p>
@@ -305,11 +310,18 @@ function WhyItMatters() {
 }
 
 export default function Projects() {
-  const { projects: PROJECTS } = useStore();
+  const { projects: PROJECTS, clientBrands, projectsContent: pc } = useStore();
   const [filter, setFilter] = useState<"All" | ProjectCategory>("All");
   const [activeClient, setActiveClient] = useState<string | null>(null);
   const gridRef = useRef<HTMLDivElement | null>(null);
   const inView = useInView(gridRef, { once: true, margin: "-10% 0px" });
+
+  // Brand logo lookup keyed by brand name
+  const brandLogoMap = useMemo(() => {
+    const m: Record<string, string> = {};
+    clientBrands.forEach(b => { m[b.name] = b.logoUrl || (b as any).logo || ''; });
+    return m;
+  }, [clientBrands]);
 
   const filteredProjects = useMemo(
     () => PROJECTS.filter((p) => (filter === "All" ? true : p.category === filter)),
@@ -329,6 +341,7 @@ export default function Projects() {
         const ordered = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
         return {
           name,
+          logo: brandLogoMap[name] || ordered[0]?.clientLogo || '',
           projects: ordered,
           categories: Array.from(new Set(ordered.map((p) => p.category))),
           latestYear: ordered[0]?.year || "",
@@ -337,7 +350,7 @@ export default function Projects() {
         };
       })
       .sort((a, b) => b.projects.length - a.projects.length || a.name.localeCompare(b.name));
-  }, [filteredProjects]);
+  }, [filteredProjects, brandLogoMap]);
 
   const selectedClient = activeClient && clientGroups.some((c) => c.name === activeClient)
     ? clientGroups.find((c) => c.name === activeClient) || null
@@ -348,17 +361,17 @@ export default function Projects() {
       <section className="bg-white" style={{ paddingTop: 64, paddingBottom: 40 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <Reveal>
-            <Eyebrow text="Projects" />
+            <Eyebrow text={pc?.heroEyebrow || 'Projects'} />
           </Reveal>
           <Reveal delay={0.04}>
             <h1 className="font-black leading-[0.88] tracking-[-0.05em]" style={{ fontSize: "clamp(42px, 6vw, 86px)", color: NAVY, maxWidth: 980 }}>
-              Clients first.<br />
-              <span style={{ color: "rgba(11,15,26,0.2)" }}>Then every campaign we delivered.</span>
+              {pc?.heroTitle || 'Clients first.'}<br />
+              <span style={{ color: "rgba(11,15,26,0.2)" }}>{pc?.heroTitleAccent || 'Then every campaign we delivered.'}</span>
             </h1>
           </Reveal>
           <Reveal delay={0.08}>
             <p className="text-[17px] leading-[1.85] mt-8" style={{ color: "rgba(11,15,26,0.5)", maxWidth: 760 }}>
-              Browse by client. Each client card opens the projects and campaigns we executed for that brand, so repeat work with the same client is grouped together instead of being split into unrelated cards.
+              {pc?.heroParagraph || 'Browse by client. Each client card opens the projects and campaigns we executed for that brand, so repeat work with the same client is grouped together instead of being split into unrelated cards.'}
             </p>
           </Reveal>
         </div>
@@ -460,9 +473,13 @@ export default function Projects() {
         </div>
       </section>
 
-      <WhyItMatters />
+      <WhyItMatters pc={pc} />
 
-      <CTABanner title="Ready to be our next success story?" subtitle="Let's plan a campaign tailored to your audience, locations, and business goals." buttonLabel="Start Your Campaign" />
+      <CTABanner
+        title={pc?.ctaTitle || 'Ready to be our next success story?'}
+        subtitle={pc?.ctaSubtitle || "Let's plan a campaign tailored to your audience, locations, and business goals."}
+        buttonLabel={pc?.ctaButton || 'Start Your Campaign'}
+      />
     </>
   );
 }

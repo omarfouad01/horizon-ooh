@@ -8,9 +8,7 @@ import LogoMarquee from "@/components/LogoMarquee";
 // data now from store
 import { serviceHref, locationHref, projectHref, productHref, blogHref } from "@/lib/routes";
 
-// Cities, districts and formats are driven by the store (admin-managed)
-const getCities  = () => getState().locations.map((l: any) => l.city).sort();
-const getFormats = () => getState().adFormats.map((f: any) => f.label).filter(Boolean).sort();
+// Billboards helper (cities/formats are now computed inside HeroSection)
 const getBillboards = () => getState().locations.flatMap((l: any) => (l.products||[]).map((p: any) => ({ ...p, citySlug: l.slug })));
 
 // ─── Constants ───────────────────────────────────────────────────────────
@@ -184,44 +182,35 @@ function OutlineButton({
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// HERO + MAP + SEARCH — unified first section
+// HERO — dark navy premium redesign
 // ═══════════════════════════════════════════════════════════════════════════
-
-// ── Filter-select helper ────────────────────────────────────────────────
-const ALL_CITIES    = getCities();
-const ALL_FORMATS   = getFormats();
 
 function HeroSection() {
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "6%"]);
+  const textY     = useTransform(scrollYProgress, [0, 1], ["0%", "8%"]);
+  const bgScale   = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
+  const bgOpacity = useTransform(scrollYProgress, [0, 1], [0.22, 0.14]);
 
-  // ── Search state — navigates to /locations on submit ─────────────
-  const navigate   = useNavigate();
+  const navigate = useNavigate();
   const [cities,    setCities]    = useState<string[]>([]);
   const [districts, setDistricts] = useState<string[]>([]);
   const [formats,   setFormats]   = useState<string[]>([]);
 
-// Cities, districts, and formats from store
-  const { locations: _storeLocs, districts: _storeDists, adFormats: _adFormats, homeContent: hc } = useStore()
-  const ALL_CITIES  = _storeLocs.map((l: any) => l.city).sort()
-  const ALL_FORMATS = _adFormats.map((f: any) => f.label).filter(Boolean).sort()
+  const { locations: _storeLocs, districts: _storeDists, adFormats: _adFormats, homeContent: hc } = useStore();
+  const ALL_CITIES  = _storeLocs.map((l: any) => l.city).sort();
+  const ALL_FORMATS = _adFormats.map((f: any) => f.label).filter(Boolean).sort();
 
   const districtOptions = (() => {
-    if (cities.length === 0) return _storeDists.map((d: any) => d.name).sort()
-    const locIds = _storeLocs
-      .filter((l: any) => cities.includes(l.city))
-      .map((l: any) => l.id)
-    return _storeDists
-      .filter((d: any) => locIds.includes(d.locationId))
-      .map((d: any) => d.name)
-      .sort()
-  })()
+    if (cities.length === 0) return _storeDists.map((d: any) => d.name).sort();
+    const locIds = _storeLocs.filter((l: any) => cities.includes(l.city)).map((l: any) => l.id);
+    return _storeDists.filter((d: any) => locIds.includes(d.locationId)).map((d: any) => d.name).sort();
+  })();
 
   const hasFilters = cities.length > 0 || districts.length > 0 || formats.length > 0;
   const reset = () => { setCities([]); setDistricts([]); setFormats([]); };
 
-  // ── Map pin selection (independent of search) ─────────────────────
+  // ── Map pin selection ─────────────────────────────────────────────
   const [selectedPin, setSelectedPin] = useState<(ReturnType<typeof getBillboards>)[0] | null>(null);
 
   function handleSearch(e?: React.FormEvent) {
@@ -237,94 +226,123 @@ function HeroSection() {
     <section
       ref={heroRef}
       id="hero"
-      className="relative overflow-hidden bg-white"
-      style={{ minHeight: "100svh" }}
+      className="relative overflow-hidden"
+      style={{ minHeight: "100svh", background: NAVY }}
     >
-      {/* Subtle grid overlay */}
-      <div className="absolute inset-0 pointer-events-none z-0" aria-hidden>
-        <div className="max-w-[1440px] mx-auto h-full relative px-4 sm:px-8 lg:px-[120px]">
-          {[0,1,2,3,4,5,6,7,8,9,10,11].map(i => (
-            <div key={i} className="absolute top-0 bottom-0 border-l border-[#0B0F1A]/[0.02]"
-              style={{ left: `calc(${(i/12)*100}% + ${(120/1440)*100}%)` }} />
-          ))}
-        </div>
-      </div>
+      {/* ── BACKGROUND parallax image ──────────────────────── */}
+      <motion.div className="absolute inset-0 pointer-events-none" style={{ scale: bgScale }}>
+        <motion.img
+          src="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?w=1600&q=85&fit=crop"
+          alt="" aria-hidden
+          className="w-full h-full object-cover"
+          style={{ opacity: bgOpacity }}
+        />
+      </motion.div>
 
-      <div
-        className="relative z-10 w-full flex flex-col lg:flex-row"
-        style={{ minHeight: "100svh" }}
-      >
-        {/* ── LEFT PANEL — brand content + search ──────────────────── */}
-        <div
-          className="flex flex-col justify-between px-4 sm:px-8 lg:pl-[120px] lg:pr-12
-            pt-[100px] pb-10 lg:pt-[140px] lg:pb-12
-            w-full lg:w-[44%] xl:w-[42%] flex-shrink-0 bg-white"
-          style={{ borderRight: "1px solid rgba(11,15,26,0.06)" }}
-        >
+      {/* ── GRADIENTS & EFFECTS ────────────────────────────── */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        background: `linear-gradient(135deg, ${NAVY} 0%, #060912 100%)`
+      }} />
+      <div className="absolute inset-0 pointer-events-none" style={{
+        background: "radial-gradient(ellipse 85% 80% at 50% 50%, transparent 40%, rgba(0,0,0,0.55) 100%)"
+      }} />
+      <div className="absolute pointer-events-none" style={{
+        left: "-8%", top: "15%", width: "45%", height: "60%",
+        background: "radial-gradient(ellipse at center, rgba(217,4,41,0.10) 0%, transparent 70%)",
+        filter: "blur(40px)"
+      }} />
+      <div className="absolute inset-0 pointer-events-none" style={{
+        backgroundImage: "linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px)",
+        backgroundSize: "100% 80px"
+      }} />
+      <div className="absolute top-0 bottom-0 pointer-events-none hidden lg:block" style={{
+        left: "44%", width: "1px",
+        background: "linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.06) 20%, rgba(255,255,255,0.06) 80%, transparent 100%)"
+      }} />
+
+      <div className="relative z-10 w-full flex flex-col lg:flex-row" style={{ minHeight: "100svh" }}>
+        {/* ═══ LEFT PANEL ══════════════════════════════════════ */}
+        <div className="flex flex-col justify-between px-6 sm:px-10 lg:pl-[120px] lg:pr-14
+          pt-[104px] pb-10 lg:pt-[148px] lg:pb-14
+          w-full lg:w-[44%] xl:w-[42%] flex-shrink-0">
           <motion.div style={{ y: textY }} className="flex flex-col gap-0">
             {/* Eyebrow */}
             <motion.div
-              initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, ease, delay: 0.15 }}
-              className="flex items-center gap-3 mb-8"
+              initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, ease, delay: 0.1 }}
+              className="flex items-center gap-3 mb-9"
             >
               <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
-              <span className="text-[10px] font-bold tracking-[0.35em] uppercase"
-                style={{ color: "rgba(11,15,26,0.3)" }}>
+              <span className="text-[10px] font-bold tracking-[0.38em] uppercase"
+                style={{ color: "rgba(255,255,255,0.35)" }}>
                 {hc.heroEyebrow}
               </span>
             </motion.div>
 
             {/* H1 */}
-            <div className="overflow-hidden mb-5">
+            <div className="overflow-visible mb-5">
               {(hc.heroTitleLines || ['Outdoor','Advertising','Agency.']).map((word, i) => (
-                <motion.div
-                  key={word}
-                  initial={{ y: "100%", opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.9, ease, delay: 0.25 + i * 0.1 }}
-                >
-                  <h1
-                    className="font-black leading-[0.92] tracking-[-0.04em]"
+                <div key={word} className="overflow-hidden">
+                  <motion.h1
+                    initial={{ y: "105%", opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 1.0, ease, delay: 0.2 + i * 0.11 }}
+                    className="font-black leading-[0.9] tracking-[-0.04em]"
                     style={{
-                      fontSize: "clamp(44px, 4.5vw, 72px)",
-                      color: i === 2 ? "rgba(11,15,26,0.16)" : NAVY,
+                      fontSize: "clamp(48px, 5vw, 80px)",
+                      color: i === 2 ? "rgba(255,255,255,0.18)" : "white",
                     }}
                   >
                     {word}
-                  </h1>
-                </motion.div>
+                  </motion.h1>
+                </div>
               ))}
             </div>
 
-            {/* Sub-channels */}
+            {/* Channels */}
             <motion.p
               initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.65 }}
-              className="text-[12px] font-semibold tracking-[0.22em] uppercase mb-4"
-              style={{ color: "rgba(11,15,26,0.28)" }}
+              transition={{ duration: 0.7, delay: 0.6 }}
+              className="text-[11px] font-bold tracking-[0.24em] uppercase mb-5"
+              style={{ color: "rgba(255,255,255,0.25)" }}
             >
               {hc.heroChannels}
             </motion.p>
 
             {/* Statement */}
             <motion.p
-              initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease, delay: 0.8 }}
-              className="text-[18px] font-medium leading-[1.55] mb-8"
-              style={{ color: NAVY, maxWidth: 340 }}
+              initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, ease, delay: 0.75 }}
+              className="text-[17px] font-medium leading-[1.6] mb-9"
+              style={{ color: "rgba(255,255,255,0.6)", maxWidth: 360 }}
             >
               {hc.heroStatement}
             </motion.p>
 
-            {/* CTA row — untouched */}
+            {/* CTA row */}
             <motion.div
               initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease, delay: 0.95 }}
-              className="flex flex-col sm:flex-row items-start gap-3 mb-10"
+              transition={{ duration: 0.75, ease, delay: 0.9 }}
+              className="flex flex-col sm:flex-row items-start gap-3 mb-12"
             >
-              <RedButton  label="Get a Quote"    onClick={() => { window.location.hash = '/contact'; window.scrollTo(0,0); }} />
-              <OutlineButton label="View Locations" onClick={() => { window.location.hash = '/locations'; window.scrollTo(0,0); }} />
+              <button
+                onClick={() => { window.location.hash = '/contact'; window.scrollTo(0,0); }}
+                className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase text-white cursor-pointer flex-shrink-0"
+                style={{ background: RED, border: "none" }}
+              >
+                <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
+                  style={{ background: "#f0042e" }} />
+                <span className="relative z-10">Get a Quote</span>
+              </button>
+              <button
+                onClick={() => { window.location.hash = '/locations'; window.scrollTo(0,0); }}
+                className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase cursor-pointer flex-shrink-0"
+                style={{ border: "1.5px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.65)", background: "transparent" }}
+              >
+                <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
+                  style={{ background: "rgba(255,255,255,0.07)" }} />
+                <span className="relative z-10 group-hover:text-white transition-colors duration-300">View Locations</span>
+              </button>
             </motion.div>
 
             {/* ── Divider ───────────────────────────────────────────── */}
@@ -333,62 +351,57 @@ function HeroSection() {
               transition={{ delay: 1.1, duration: 0.5 }}
             >
               <div className="flex items-center gap-3 mb-4">
-                <span className="block w-4 h-[1.5px]" style={{ background: RED }} />
+                <span className="block w-4 h-[1px]" style={{ background: RED }} />
                 <p className="text-[9px] font-bold tracking-[0.35em] uppercase"
-                  style={{ color: "rgba(11,15,26,0.28)" }}>
+                  style={{ color: "rgba(255,255,255,0.22)" }}>
                   {hc.searchTitle}
                 </p>
               </div>
 
-              {/* ── Search form — 3 filters + Search button ─────── */}
+              {/* Search form */}
               <form onSubmit={handleSearch} className="flex flex-col gap-[1px]"
-                style={{ background: "rgba(11,15,26,0.07)" }}>
-
-                {/* City */}
+                style={{ background: "rgba(255,255,255,0.06)" }}>
                 <MultiSelect
                   label="City" options={ALL_CITIES} selected={cities}
                   onChange={v => { setCities(v); setDistricts([]); }}
+                  dark
                   icon={
                     <svg width="11" height="13" viewBox="0 0 13 15" fill="none">
                       <path d="M6.5 0C3.462 0 1 2.462 1 5.5c0 3.85 5.5 9.5 5.5 9.5S12 9.35 12 5.5C12 2.462 9.538 0 6.5 0zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
-                        fill="rgba(11,15,26,0.28)"/>
+                        fill="rgba(255,255,255,0.3)"/>
                     </svg>
                   }
                 />
-
-                {/* District */}
                 <MultiSelect
                   label="District" options={districtOptions} selected={districts}
                   onChange={setDistricts}
+                  dark
                   icon={
                     <svg width="13" height="11" viewBox="0 0 15 13" fill="none">
-                      <rect x="0.5" y="5.5" width="6" height="7" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4"/>
-                      <rect x="8.5" y="2.5" width="6" height="10" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4"/>
-                      <path d="M0 5.5L7.5 0 15 5.5" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4" strokeLinecap="round"/>
+                      <rect x="0.5" y="5.5" width="6" height="7" stroke="rgba(255,255,255,0.3)" strokeWidth="1.4"/>
+                      <rect x="8.5" y="2.5" width="6" height="10" stroke="rgba(255,255,255,0.3)" strokeWidth="1.4"/>
+                      <path d="M0 5.5L7.5 0 15 5.5" stroke="rgba(255,255,255,0.3)" strokeWidth="1.4" strokeLinecap="round"/>
                     </svg>
                   }
                 />
-
-                {/* Format */}
                 <MultiSelect
                   label="Format" options={ALL_FORMATS} selected={formats}
                   onChange={setFormats}
+                  dark
                   icon={
                     <svg width="13" height="11" viewBox="0 0 15 13" fill="none">
-                      <rect x="0.5" y="0.5" width="14" height="12" stroke="rgba(11,15,26,0.28)" strokeWidth="1.4"/>
-                      <path d="M3 4h9M3 6.5h6M3 9h4" stroke="rgba(11,15,26,0.28)" strokeWidth="1.2" strokeLinecap="round"/>
+                      <rect x="0.5" y="0.5" width="14" height="12" stroke="rgba(255,255,255,0.3)" strokeWidth="1.4"/>
+                      <path d="M3 4h9M3 6.5h6M3 9h4" stroke="rgba(255,255,255,0.3)" strokeWidth="1.2" strokeLinecap="round"/>
                     </svg>
                   }
                 />
-
-                {/* Search button */}
                 <button
                   type="submit"
                   className="w-full h-12 flex items-center justify-center gap-2.5 text-[11px] font-bold tracking-[0.22em] uppercase text-white group relative overflow-hidden"
                   style={{ background: RED, border: "none", cursor: "pointer" }}
                 >
                   <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
-                    style={{ background: NAVY }} />
+                    style={{ background: "#f0042e" }} />
                   <svg className="relative z-10" width="13" height="13" viewBox="0 0 14 14" fill="none">
                     <circle cx="6" cy="6" r="4.5" stroke="white" strokeWidth="1.5"/>
                     <path d="M9.5 9.5l3 3" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
@@ -397,11 +410,10 @@ function HeroSection() {
                 </button>
               </form>
 
-              {/* Reset link */}
               {hasFilters && (
                 <button onClick={reset}
                   className="mt-2 text-[10px] font-bold tracking-[0.15em] uppercase"
-                  style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(11,15,26,0.28)", textAlign: "left" }}>
+                  style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.22)", textAlign: "left" }}>
                   ← Clear filters
                 </button>
               )}
@@ -409,9 +421,13 @@ function HeroSection() {
           </motion.div>
         </div>
 
-        {/* ── RIGHT PANEL — full-height Leaflet map (all pins, static) ─ */}
+        {/* ═══ RIGHT PANEL — map ════════════════════════════════════ */}
         <div className="relative flex-1 overflow-hidden" style={{ minHeight: "clamp(420px, 55vh, 100svh)" }}>
-          {/* Map always shows ALL billboard locations */}
+          {/* Left edge fade */}
+          <div className="absolute inset-0 pointer-events-none z-[2]" style={{
+            background: "linear-gradient(to right, rgba(11,15,26,0.4) 0%, transparent 25%)"
+          }} />
+
           <LeafletMap
             filtered={getBillboards()}
             allCount={getBillboards().length}
@@ -421,7 +437,6 @@ function HeroSection() {
             style={{ zIndex: 1 }}
           />
 
-          {/* Quick-preview card when pin is clicked */}
           <AnimatePresence>
             {selectedPin && (
               <motion.div
@@ -430,19 +445,20 @@ function HeroSection() {
                 className="absolute top-4 right-4 z-[1000]"
                 style={{ width: 268 }}
               >
-                <div className="bg-white overflow-hidden"
-                  style={{ boxShadow: "0 8px 40px rgba(11,15,26,0.18)" }}>
+                <div className="overflow-hidden"
+                  style={{ background: NAVY, boxShadow: "0 8px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.07)" }}>
                   <div className="relative overflow-hidden" style={{ height: 120 }}>
                     <img src={selectedPin.image} alt={selectedPin.name}
-                      className="w-full h-full object-cover" style={{ opacity: 0.88 }}/>
+                      className="w-full h-full object-cover" style={{ opacity: 0.7 }}/>
                     <div className="absolute inset-0"
-                      style={{ background: "linear-gradient(to top,rgba(11,15,26,.7) 0%,transparent 55%)" }}/>
-                    <span className="absolute bottom-2.5 left-3 text-[9px] font-bold tracking-[0.18em] uppercase text-white/50">
+                      style={{ background: "linear-gradient(to top,rgba(11,15,26,.85) 0%,transparent 55%)" }}/>
+                    <span className="absolute bottom-2.5 left-3 text-[9px] font-bold tracking-[0.18em] uppercase"
+                      style={{ color: "rgba(255,255,255,0.4)" }}>
                       {selectedPin.district} · {selectedPin.city}
                     </span>
                     <button onClick={() => setSelectedPin(null)}
                       className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center"
-                      style={{ background: "rgba(11,15,26,.55)", border: "none", cursor: "pointer" }}>
+                      style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.1)", cursor: "pointer" }}>
                       <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
                         <path d="M1 1l6 6M7 1L1 7" stroke="white" strokeWidth="1.3" strokeLinecap="round"/>
                       </svg>
@@ -452,10 +468,10 @@ function HeroSection() {
                     <p className="text-[9px] font-bold tracking-[0.22em] uppercase mb-1" style={{ color: RED }}>
                       {selectedPin.type}
                     </p>
-                    <p className="font-extrabold text-[14px] leading-tight mb-1.5" style={{ color: NAVY }}>
+                    <p className="font-extrabold text-[14px] leading-tight mb-1.5 text-white">
                       {selectedPin.name}
                     </p>
-                    <p className="text-[11px] mb-3" style={{ color: "rgba(11,15,26,0.4)" }}>
+                    <p className="text-[11px] mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>
                       {selectedPin.traffic} · {selectedPin.size}
                     </p>
                     <button
@@ -973,20 +989,20 @@ function ResultsSection() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// 9. CLIENTS / TRUST
+// 9. CLIENTS / TRUST — sits directly beneath the hero
 // ═══════════════════════════════════════════════════════════════════════════
 function ClientsSection() {
-  const { clientBrands } = useStore()
+  const { clientBrands } = useStore();
   return (
-    <section id="about" style={{ background: "#F5F5F6", paddingTop: 80, paddingBottom: 80 }}>
+    <section id="about" style={{ background: "#ffffff", paddingTop: 52, paddingBottom: 52, borderTop: "1px solid rgba(11,15,26,0.06)" }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         <Reveal>
-          <div className="flex items-center justify-center gap-4 mb-12">
-            <span className="block w-8 h-[1px]" style={{ background: "rgba(11,15,26,0.15)" }} />
-            <p className="text-[11px] font-bold tracking-[0.3em] uppercase text-center" style={{ color: "rgba(11,15,26,0.3)" }}>
+          <div className="flex items-center justify-center gap-4 mb-10">
+            <span className="block w-8 h-[1px]" style={{ background: "rgba(11,15,26,0.12)" }} />
+            <p className="text-[10px] font-bold tracking-[0.35em] uppercase text-center" style={{ color: "rgba(11,15,26,0.35)" }}>
               Trusted by 100+ brands across Egypt
             </p>
-            <span className="block w-8 h-[1px]" style={{ background: "rgba(11,15,26,0.15)" }} />
+            <span className="block w-8 h-[1px]" style={{ background: "rgba(11,15,26,0.12)" }} />
           </div>
         </Reveal>
         <LogoMarquee brands={clientBrands} speed={45} light={true} />
@@ -1553,10 +1569,10 @@ export default function Home() {
   return (
     <>
       <HeroSection />
+      <ClientsSection />
       <StatementSection />
       <TrustStrip />
       <RecentBillboardsSection />
-      <ClientsSection />
       <WhyOOHSection />
       <ServicesSection />
       <FeatureSection />
