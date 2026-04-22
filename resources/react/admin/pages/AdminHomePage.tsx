@@ -118,9 +118,14 @@ export default function AdminHomePage() {
             <div className="p-3 rounded-lg bg-gray-50 text-[11px] text-gray-400">
               💡 The last line uses a faded style by default (e.g. "Agency.").
             </div>
-            {/* Arabic */}
-            <div className="pt-1 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400">Arabic (اللغة العربية)</span><div className="flex-1 h-px bg-gray-100"/></div>
-            <Field label="Arabic Eyebrow (الشعار الصغير)" value={(h as any).heroEyebrowAr||''} onChange={(e:any)=>set('heroEyebrowAr',e.target.value)} dir="rtl"/>
+            {/* ── Arabic ── */}
+            <div className="pt-2 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{color:'#D90429'}}>🌐 Arabic — اللغة العربية</span><div className="flex-1 h-px bg-red-100"/></div>
+            <Field label="Arabic Eyebrow (الشعار الصغير)" value={(h as any).heroEyebrowAr||''} onChange={(e:any)=>set('heroEyebrowAr',e.target.value)} dir="rtl" placeholder="مثال: الوكالة الرقم 1 في مصر"/>
+            <StringListEditor label="Arabic H1 Title Lines (أسطر العنوان الرئيسي بالعربية)"
+              value={(h as any).heroTitleLinesAr || []} onChange={v=>set('heroTitleLinesAr',v)}/>
+            <div className="p-3 rounded-lg bg-red-50 text-[11px] text-gray-500">
+              💡 اترك هذه الحقول فارغة لعرض النص الإنجليزي افتراضياً.
+            </div>
           </SectionCard>
           <SectionCard title="Hero — Subtext & Channels">
             <Field label="Channels strip (e.g. Billboards · DOOH · Malls)"
@@ -129,10 +134,11 @@ export default function AdminHomePage() {
               value={h.heroStatement} onChange={(e:any)=>set('heroStatement',e.target.value)}/>
             <Field label="Search form title (e.g. 'Find a Billboard')"
               value={h.searchTitle} onChange={(e:any)=>set('searchTitle',e.target.value)}/>
-            {/* Arabic */}
-            <div className="pt-1 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400">Arabic (اللغة العربية)</span><div className="flex-1 h-px bg-gray-100"/></div>
-            <Field label="Arabic Tagline (الشعار)" value={(h as any).heroStatementAr||''} onChange={(e:any)=>set('heroStatementAr',e.target.value)} dir="rtl"/>
-            <Field label="Arabic Search Title (عنوان البحث)" value={(h as any).searchTitleAr||''} onChange={(e:any)=>set('searchTitleAr',e.target.value)} dir="rtl"/>
+            {/* ── Arabic ── */}
+            <div className="pt-2 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{color:'#D90429'}}>🌐 Arabic — اللغة العربية</span><div className="flex-1 h-px bg-red-100"/></div>
+            <Field label="Arabic Tagline (الشعار الرئيسي)" value={(h as any).heroStatementAr||''} onChange={(e:any)=>set('heroStatementAr',e.target.value)} dir="rtl" placeholder="مثال: نخطط وننفذ حملاتك الإعلانية في كل مصر."/>
+            <Field label="Arabic Search Title (عنوان خانة البحث)" value={(h as any).searchTitleAr||''} onChange={(e:any)=>set('searchTitleAr',e.target.value)} dir="rtl" placeholder="مثال: ابحث عن موقع لوحتك الإعلانية"/>
+            <Field label="Arabic Channels Strip (شريط الخدمات)" value={(h as any).heroChannelsAr||''} onChange={(e:any)=>set('heroChannelsAr',e.target.value)} dir="rtl" placeholder="مثال: لوحات إعلانية · شاشات رقمية · مولات · مطارات"/>
           </SectionCard>
         </>)}
 
@@ -148,6 +154,11 @@ export default function AdminHomePage() {
             </div>
             <Field label="Brand signature below quote (e.g. 'HORIZON OOH')"
               value={h.statementBrand} onChange={(e:any)=>set('statementBrand',e.target.value)}/>
+            {/* ── Arabic ── */}
+            <div className="pt-2 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{color:'#D90429'}}>🌐 Arabic — اللغة العربية</span><div className="flex-1 h-px bg-red-100"/></div>
+            <Field label="Arabic Eyebrow (الشعار الصغير)" value={(h as any).statementEyebrowAr||''} onChange={(e:any)=>set('statementEyebrowAr',e.target.value)} dir="rtl"/>
+            <StringListEditor label="Arabic Quote Lines (أسطر الاقتباس بالعربية)"
+              value={(h as any).statementLinesAr || []} onChange={v=>set('statementLinesAr',v)}/>
           </SectionCard>
         </>)}
 
@@ -164,6 +175,14 @@ export default function AdminHomePage() {
             </div>
             <StringListEditor label="Feature bullets (3 bullet points)"
               value={h.featureBullets} onChange={v=>set('featureBullets',v)}/>
+            {/* ── Arabic ── */}
+            <div className="pt-2 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{color:'#D90429'}}>🌐 Arabic — اللغة العربية</span><div className="flex-1 h-px bg-red-100"/></div>
+            <div className="grid grid-cols-2 gap-4">
+              <Field label="Arabic Title Line 1 (السطر الأول)" value={(h as any).featureTitleLine1Ar||''} onChange={(e:any)=>set('featureTitleLine1Ar',e.target.value)} dir="rtl"/>
+              <Field label="Arabic Title Line 2 (السطر الثاني)" value={(h as any).featureTitleLine2Ar||''} onChange={(e:any)=>set('featureTitleLine2Ar',e.target.value)} dir="rtl"/>
+            </div>
+            <StringListEditor label="Arabic Bullets (النقاط بالعربية)"
+              value={(h as any).featureBulletsAr || []} onChange={v=>set('featureBulletsAr',v)}/>
           </SectionCard>
           <SectionCard title="Feature Section — Background Image & Stats">
             <ImagePicker label="Background Image" value={h.featureImage} altValue={h.featureImageAlt || ''} onChange={(url, alt) => { set('featureImage', url); set('featureImageAlt', alt) }}/>
@@ -184,6 +203,11 @@ export default function AdminHomePage() {
             <div className="p-3 rounded-lg bg-gray-50 text-[11px] text-gray-400">
               💡 The <strong>second line</strong> is displayed in red; all others are white.
             </div>
+            {/* ── Arabic ── */}
+            <div className="pt-2 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{color:'#D90429'}}>🌐 Arabic — اللغة العربية</span><div className="flex-1 h-px bg-red-100"/></div>
+            <Field label="Arabic Eyebrow (الشعار الصغير)" value={(h as any).signatureEyebrowAr||''} onChange={(e:any)=>set('signatureEyebrowAr',e.target.value)} dir="rtl"/>
+            <StringListEditor label="Arabic Signature Lines (أسطر الشعار بالعربية)"
+              value={(h as any).signatureLinesAr || []} onChange={v=>set('signatureLinesAr',v)}/>
           </SectionCard>
         </>)}
 
@@ -204,6 +228,18 @@ export default function AdminHomePage() {
             </div>
             <StringListEditor label="Trust badges (3 micro-labels at the bottom)"
               value={h.finalCtaBadges} onChange={v=>set('finalCtaBadges',v)}/>
+            {/* ── Arabic ── */}
+            <div className="pt-2 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{color:'#D90429'}}>🌐 Arabic — اللغة العربية</span><div className="flex-1 h-px bg-red-100"/></div>
+            <div className="grid grid-cols-2 gap-4">
+              <Field label="Arabic Headline Line 1 (السطر الأول)" value={(h as any).finalCtaTitleLine1Ar||''} onChange={(e:any)=>set('finalCtaTitleLine1Ar',e.target.value)} dir="rtl"/>
+              <Field label="Arabic Headline Line 2 (السطر الثاني)" value={(h as any).finalCtaTitleLine2Ar||''} onChange={(e:any)=>set('finalCtaTitleLine2Ar',e.target.value)} dir="rtl"/>
+            </div>
+            <TA label="Arabic Subtext (النص الفرعي بالعربية)" value={(h as any).finalCtaSubtextAr||''}
+              onChange={(e:any)=>set('finalCtaSubtextAr',e.target.value)} rows={2} dir="rtl"/>
+            <div className="grid grid-cols-2 gap-4">
+              <Field label="Arabic Primary Button (زر رئيسي)" value={(h as any).finalCtaPrimaryTextAr||''} onChange={(e:any)=>set('finalCtaPrimaryTextAr',e.target.value)} dir="rtl"/>
+              <Field label="Arabic Secondary Button (زر ثانوي)" value={(h as any).finalCtaSecondaryTextAr||''} onChange={(e:any)=>set('finalCtaSecondaryTextAr',e.target.value)} dir="rtl"/>
+            </div>
           </SectionCard>
         </>)}
 

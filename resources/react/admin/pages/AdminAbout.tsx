@@ -203,6 +203,24 @@ export default function AdminAbout() {
               </div>
             ))}
           </div>
+          {/* ── Arabic ── */}
+          <div className="mt-4 pt-2 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{color:'#D90429'}}>🌐 Arabic — اللغة العربية</span><div className="flex-1 h-px bg-red-100"/></div>
+          <div className="grid grid-cols-2 gap-4 mt-3">
+            <Field label="Arabic Title (العنوان)" value={(merged as any).darkTitleAr||''} onChange={e=>patch({darkTitleAr:e.target.value})} dir="rtl" placeholder="أكثر من مجرد إعلان."/>
+            <Field label="Arabic Accent (النص البارز)" value={(merged as any).darkAccentAr||''} onChange={e=>patch({darkAccentAr:e.target.value})} dir="rtl" placeholder="شريك الظهور الحقيقي."/>
+          </div>
+          <div className="mt-3 space-y-3">
+            {((merged as any).darkParagraphsAr || ['']).map((p: string, i: number) => (
+              <div key={i} className="relative">
+                <label className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block mb-1.5">Arabic Paragraph {i+1} (الفقرة {i+1})</label>
+                <div className="flex gap-2">
+                  <TA value={p} onChange={e=>{ const a=[...((merged as any).darkParagraphsAr||[''])]; a[i]=e.target.value; patch({darkParagraphsAr:a}) }} rows={3} dir="rtl"/>
+                  {i > 0 && <button onClick={()=>{ const a=[...((merged as any).darkParagraphsAr||[])]; a.splice(i,1); patch({darkParagraphsAr:a}) }} className="text-gray-300 hover:text-red-500 transition-colors self-start mt-1 p-1"><Trash2 size={14}/></button>}
+                </div>
+              </div>
+            ))}
+            <button type="button" onClick={()=>{ const a=[...((merged as any).darkParagraphsAr||['']),''] ; patch({darkParagraphsAr:a}) }} className="mt-1 text-[11px] font-semibold text-gray-400 hover:text-gray-700 flex items-center gap-1 transition-colors">+ Add Arabic Paragraph</button>
+          </div>
         </Card>
       )}
 
@@ -213,6 +231,12 @@ export default function AdminAbout() {
             <div className="grid grid-cols-2 gap-4">
               <Field label="Title"  value={merged.whyTitle}  onChange={e=>patch({whyTitle:e.target.value})}  placeholder="Five reasons brands"/>
               <Field label="Accent" value={merged.whyAccent} onChange={e=>patch({whyAccent:e.target.value})} placeholder="choose us."/>
+            </div>
+            {/* ── Arabic ── */}
+            <div className="mt-3 pt-2 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{color:'#D90429'}}>🌐 Arabic — اللغة العربية</span><div className="flex-1 h-px bg-red-100"/></div>
+            <div className="grid grid-cols-2 gap-4 mt-2">
+              <Field label="Arabic Title (العنوان)" value={(merged as any).whyTitleAr||''} onChange={e=>patch({whyTitleAr:e.target.value})} dir="rtl" placeholder="خمسة أسباب تجعل العلامات التجارية"/>
+              <Field label="Arabic Accent (النص البارز)" value={(merged as any).whyAccentAr||''} onChange={e=>patch({whyAccentAr:e.target.value})} dir="rtl" placeholder="تختارنا."/>
             </div>
           </Card>
 

@@ -200,12 +200,13 @@ function HeroSection() {
 
   const { locations: _storeLocs, districts: _storeDists, adFormats: _adFormats, homeContent: hc } = useStore();
   const { isAr, t } = useLang();
-  // Arabic helpers for homeContent
-  const heroEyebrow   = (isAr && hc.heroEyebrowAr)  ? hc.heroEyebrowAr  : hc.heroEyebrow;
+  // Arabic helpers for hero section only
+  const heroEyebrow    = (isAr && hc.heroEyebrowAr)  ? hc.heroEyebrowAr  : hc.heroEyebrow;
   const heroTitleLines = (isAr && hc.heroTitleLinesAr && hc.heroTitleLinesAr.length) ? hc.heroTitleLinesAr : (hc.heroTitleLines || ['Outdoor','Advertising','Agency.']);
-  const heroStatement = (isAr && hc.heroStatementAr) ? hc.heroStatementAr : hc.heroStatement;
-  const heroCta1      = (isAr && hc.heroCta1Ar)      ? hc.heroCta1Ar      : (hc.hero_cta_primary || t('home.exploreLocations'));
-  const heroCta2      = (isAr && hc.heroCta2Ar)      ? hc.heroCta2Ar      : (hc.hero_cta_secondary || t('home.viewCaseStudies'));
+  const heroStatement  = (isAr && hc.heroStatementAr) ? hc.heroStatementAr : hc.heroStatement;
+  const heroChannels   = (isAr && hc.heroChannelsAr)  ? hc.heroChannelsAr  : hc.heroChannels;
+  const heroCta1       = (isAr && hc.heroCta1Ar)      ? hc.heroCta1Ar      : (hc.hero_cta_primary || t('home.exploreLocations'));
+  const heroCta2       = (isAr && hc.heroCta2Ar)      ? hc.heroCta2Ar      : (hc.hero_cta_secondary || t('home.viewCaseStudies'));
   const ALL_CITIES  = _storeLocs.map((l: any) => l.city).sort();
   const ALL_FORMATS = _adFormats.map((f: any) => f.label).filter(Boolean).sort();
 
@@ -314,7 +315,7 @@ function HeroSection() {
               className="text-[11px] font-bold tracking-[0.24em] uppercase mb-5"
               style={{ color: "rgba(255,255,255,0.25)" }}
             >
-              {hc.heroChannels}
+              {heroChannels}
             </motion.p>
 
             {/* Statement */}
@@ -508,6 +509,9 @@ function StatementSection() {
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.96, 1, 1, 0.96]);
   const { homeContent: hc } = useStore();
+  const { isAr } = useLang();
+  const statementEyebrow = (isAr && hc.statementEyebrowAr) ? hc.statementEyebrowAr : hc.statementEyebrow;
+  const statementLines   = (isAr && hc.statementLinesAr && hc.statementLinesAr.length) ? hc.statementLinesAr : (hc.statementLines || []);
 
   return (
     <section
@@ -535,11 +539,11 @@ function StatementSection() {
             transition={{ duration: 1.1, ease }}
             className="text-white/20 text-[12px] font-bold tracking-[0.4em] uppercase"
           >
-            {hc.statementEyebrow}
+            {statementEyebrow}
           </motion.p>
         </div>
 
-        {(hc.statementLines || []).map((line, i) => (
+        {statementLines.map((line: string, i: number) => (
           <div key={i} className="overflow-hidden">
             <motion.h2
               initial={{ y: "100%" }}
@@ -714,6 +718,10 @@ function FeatureSection() {
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
   const imgScale = useTransform(scrollYProgress, [0, 1], [1.12, 1.0]);
   const { homeContent: hc } = useStore();
+  const { isAr } = useLang();
+  const featureLine1   = (isAr && hc.featureTitleLine1Ar) ? hc.featureTitleLine1Ar : hc.featureTitleLine1;
+  const featureLine2   = (isAr && hc.featureTitleLine2Ar) ? hc.featureTitleLine2Ar : hc.featureTitleLine2;
+  const featureBullets = (isAr && hc.featureBulletsAr && hc.featureBulletsAr.length) ? hc.featureBulletsAr : (hc.featureBullets || []);
 
   return (
     <section ref={sectionRef} className="overflow-hidden" style={{ background: NAVY }}>
@@ -733,12 +741,12 @@ function FeatureSection() {
               className="font-black leading-[0.88] tracking-[-0.05em] text-white mb-14"
               style={{ fontSize: "clamp(60px, 6vw, 88px)" }}
             >
-              {hc.featureTitleLine1}<br />{hc.featureTitleLine2}
+              {featureLine1}<br />{featureLine2}
             </h2>
           </Reveal>
 
           <RevealGroup className="flex flex-col gap-7 mb-14">
-            {(hc.featureBullets || []).map((bullet) => (
+            {featureBullets.map((bullet: string) => (
               <RevealItem key={bullet}>
                 <div className="flex items-start gap-5">
                   <span className="mt-2 flex-shrink-0 w-[5px] h-[5px]" style={{ background: RED }} />
@@ -1027,6 +1035,9 @@ function SignatureSection() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const x = useTransform(scrollYProgress, [0, 1], ["-4%", "4%"]);
   const { homeContent: hc } = useStore();
+  const { isAr } = useLang();
+  const signatureEyebrow = (isAr && hc.signatureEyebrowAr) ? hc.signatureEyebrowAr : hc.signatureEyebrow;
+  const signatureLines   = (isAr && hc.signatureLinesAr && hc.signatureLinesAr.length) ? hc.signatureLinesAr : (hc.signatureLines || []);
 
   return (
     <section
@@ -1047,12 +1058,12 @@ function SignatureSection() {
           <div className="flex items-center justify-center gap-5 mb-12">
             <span className="block w-12 h-[1px]" style={{ background: "rgba(255,255,255,0.1)" }} />
             <span className="text-[10px] font-bold tracking-[0.4em] uppercase" style={{ color: "rgba(255,255,255,0.2)" }}>
-              {hc.signatureEyebrow}
+              {signatureEyebrow}
             </span>
             <span className="block w-12 h-[1px]" style={{ background: "rgba(255,255,255,0.1)" }} />
           </div>
         </Reveal>
-        {(hc.signatureLines || []).map((line, i) => (
+        {signatureLines.map((line: string, i: number) => (
           <div key={i} className="overflow-hidden">
             <motion.h2
               initial={{ y: "100%" }}
@@ -1083,6 +1094,12 @@ function SignatureSection() {
 // ═══════════════════════════════════════════════════════════════════════════
 function FinalCTASection() {
   const { homeContent: hc } = useStore();
+  const { isAr } = useLang();
+  const finalLine1     = (isAr && hc.finalCtaTitleLine1Ar) ? hc.finalCtaTitleLine1Ar : hc.finalCtaTitleLine1;
+  const finalLine2     = (isAr && hc.finalCtaTitleLine2Ar) ? hc.finalCtaTitleLine2Ar : hc.finalCtaTitleLine2;
+  const finalSubtext   = (isAr && hc.finalCtaSubtextAr)    ? hc.finalCtaSubtextAr    : hc.finalCtaSubtext;
+  const finalPrimary   = (isAr && hc.finalCtaPrimaryTextAr)   ? hc.finalCtaPrimaryTextAr   : hc.finalCtaPrimaryText;
+  const finalSecondary = (isAr && hc.finalCtaSecondaryTextAr) ? hc.finalCtaSecondaryTextAr : hc.finalCtaSecondaryText;
   return (
     <section id="contact" className="bg-white" style={{ paddingTop: 160, paddingBottom: 160 }}>
       <div className="max-w-[1440px] mx-auto text-center">
@@ -1098,14 +1115,14 @@ function FinalCTASection() {
         <Reveal delay={0.08}>
           <h2 className="font-black leading-[0.9] tracking-[-0.04em] mx-auto mb-8"
             style={{ fontSize: "clamp(44px, 5vw, 72px)", color: NAVY, maxWidth: 720 }}>
-            {hc.finalCtaTitleLine1}<br />
-            <span style={{ color: "rgba(11,15,26,0.2)" }}>{hc.finalCtaTitleLine2}</span>
+            {finalLine1}<br />
+            <span style={{ color: "rgba(11,15,26,0.2)" }}>{finalLine2}</span>
           </h2>
         </Reveal>
         <Reveal delay={0.16}>
           <p className="text-[18px] leading-[1.65] mx-auto mb-14"
             style={{ color: "rgba(11,15,26,0.4)", maxWidth: 380 }}>
-            {hc.finalCtaSubtext}
+            {finalSubtext}
           </p>
         </Reveal>
         <Reveal delay={0.24}>
@@ -1114,13 +1131,13 @@ function FinalCTASection() {
               className="inline-flex items-center h-[56px] px-11 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white relative group cursor-pointer border-0"
               style={{ background: RED }}>
               <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out" style={{ background: NAVY }}/>
-              <span className="relative z-10">{hc.finalCtaPrimaryText}</span>
+              <span className="relative z-10">{finalPrimary}</span>
             </a>
             <a onClick={() => { window.location.hash = '/contact'; window.scrollTo(0,0); }}
               className="group relative inline-flex items-center h-[56px] px-11 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase transition-colors duration-300 cursor-pointer border-0 bg-transparent"
               style={{ border: `1.5px solid ${NAVY}`, color: NAVY }}>
               <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out" style={{ background: NAVY }}/>
-              <span className="relative z-10 group-hover:text-white transition-colors duration-400">{hc.finalCtaSecondaryText}</span>
+              <span className="relative z-10 group-hover:text-white transition-colors duration-400">{finalSecondary}</span>
             </a>
           </div>
         </Reveal>

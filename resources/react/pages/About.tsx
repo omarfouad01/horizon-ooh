@@ -95,14 +95,14 @@ export default function About() {
                   className="font-black leading-[0.9] tracking-[-0.04em] text-white"
                   style={{ fontSize: "clamp(36px, 4vw, 52px)" }}
                 >
-                  {about.darkTitle}
+                  {isAr && (about as any).darkTitleAr ? (about as any).darkTitleAr : about.darkTitle}
                   <br />
-                  <span style={{ color: "rgba(255,255,255,0.2)" }}>{about.darkAccent}</span>
+                  <span style={{ color: "rgba(255,255,255,0.2)" }}>{isAr && (about as any).darkAccentAr ? (about as any).darkAccentAr : about.darkAccent}</span>
                 </h2>
               </Reveal>
             </div>
             <div className="col-span-12 lg:col-span-7 flex flex-col gap-6">
-              {about.darkParagraphs.map((para, i) => (
+              {(isAr && (about as any).darkParagraphsAr?.length ? (about as any).darkParagraphsAr : about.darkParagraphs).map((para: string, i: number) => (
                 <Reveal key={i} delay={0.05 * i}>
                   <p className="text-[16px] leading-[1.8]" style={{ color: "rgba(255,255,255,0.45)" }}>
                     {para}
@@ -119,8 +119,8 @@ export default function About() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <SectionHeading
             eyebrow="Why Horizon OOH"
-            title={about.whyTitle}
-            titleAccent={about.whyAccent}
+            title={isAr && (about as any).whyTitleAr ? (about as any).whyTitleAr : about.whyTitle}
+            titleAccent={isAr && (about as any).whyAccentAr ? (about as any).whyAccentAr : about.whyAccent}
           />
 
           <RevealGroup className="flex flex-col gap-0 border-t border-[#0B0F1A]/[0.07]">
