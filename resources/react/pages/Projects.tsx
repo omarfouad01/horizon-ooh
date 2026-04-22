@@ -7,12 +7,12 @@ import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow } from "@/component
 import { projectHref, RED, NAVY, ease } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
 
-const FILTERS: { label: string; value: "All" | ProjectCategory }[] = [
-  { label: "All Projects", value: "All" },
-  { label: "Billboards", value: "Billboard" },
-  { label: "DOOH", value: "DOOH" },
-  { label: "Malls", value: "Mall" },
-  { label: "Airports", value: "Airport" },
+const FILTER_KEYS: { labelKey: string; value: "All" | ProjectCategory }[] = [
+  { labelKey: 'projects.filterAll',        value: "All" },
+  { labelKey: 'projects.filterBillboards', value: "Billboard" },
+  { labelKey: 'projects.filterDOOH',       value: "DOOH" },
+  { labelKey: 'projects.filterMalls',      value: "Mall" },
+  { labelKey: 'projects.filterAirports',   value: "Airport" },
 ];
 
 const CAT_COLORS: Record<ProjectCategory, string> = {
@@ -36,6 +36,32 @@ function buildClientBlurb(projects: any[]) {
   const cities = Array.from(new Set(projects.map((p) => p.city).filter(Boolean)));
   const categories = Array.from(new Set(projects.map((p) => p.category).filter(Boolean)));
   return `${projects.length} campaign${projects.length > 1 ? "s" : ""} delivered${cities.length ? ` across ${cities.join(", ")}` : ""}${categories.length ? ` · ${categories.join(" / ")}` : ""}.`;
+}
+
+// ─── Tiny translated label components ────────────────────────────────────────
+function LatestCampaignLabel()    { const { t } = useLang(); return <>{t('projects.latestCampaign')}</>; }
+function FeaturedCampaignLabel()  { const { t } = useLang(); return <>{t('projects.featuredCampaign')}</>; }
+function ViewCaseStudyLabel()     { const { t } = useLang(); return <>{t('projects.viewCaseStudy')}</>; }
+function FilterItemLabel({ labelKey }: { labelKey: string }) { const { t } = useLang(); return <>{t(labelKey as any)}</>; }
+function ClientsLabel()           { const { t } = useLang(); return <>{t('projects.clientsLabel')}</>; }
+function ClientCampaignsLabel({ selectedClient }: { selectedClient: any }) {
+  const { t } = useLang();
+  return <>{selectedClient ? `${selectedClient.name} ${t('projects.clientCampaigns')}` : t('projects.clientsLabel')}</>;
+}
+function SelectedClientLabel()    { const { t } = useLang(); return <>{t('projects.selectedClient')}</>; }
+function CampaignCountLabel({ count }: { count: number }) {
+  const { t } = useLang();
+  return <>{count} {t('projects.clientCampaigns')}</>;
+}
+function NoProjectsLabel()        { const { t } = useLang(); return <>{t('projects.noProjects')}</>; }
+function SelectClientLabel()      { const { t } = useLang(); return <>{t('projects.selectClient')}</>; }
+function FeaturedTitle({ featured }: { featured: any }) {
+  const { isAr } = useLang();
+  return <>{isAr && featured.titleAr ? featured.titleAr : featured.title}</>;
+}
+function FeaturedTagline({ featured }: { featured: any }) {
+  const { isAr } = useLang();
+  return <>{isAr && featured.taglineAr ? featured.taglineAr : featured.tagline}</>;
 }
 
 function ClientCard({ client, index, active, onClick }: { client: ClientGroup; index: number; active: boolean; onClick: () => void }) {
@@ -83,7 +109,7 @@ function ClientCard({ client, index, active, onClick }: { client: ClientGroup; i
               <img src={client.logo} alt={client.name} style={{ height: 28, width: 'auto', objectFit: 'contain', maxWidth: 120, filter: 'brightness(10)', opacity: 0.85 }}/>
             </div>
           ) : (
-            <p className="text-white/45 text-[10px] font-bold tracking-[0.28em] uppercase mb-2">Client</p>
+            <p className="text-white/45 text-[10px] font-bold tracking-[0.28em] uppercase mb-2"><ClientsLabel /></p>
           )}
           <h3 className="text-white font-black tracking-[-0.02em] leading-tight" style={{ fontSize: 24 }}>{client.name}</h3>
         </div>
@@ -106,7 +132,7 @@ function ClientCard({ client, index, active, onClick }: { client: ClientGroup; i
         <div className="flex items-center justify-between pt-5 border-t border-[#0B0F1A]/[0.07]">
           <div>
             <p className="text-[10px] font-bold tracking-[0.2em] uppercase mb-1" style={{ color: "rgba(11,15,26,0.3)" }}>
-              Latest campaign
+              <LatestCampaignLabel />
             </p>
             <p className="font-black tracking-[-0.03em]" style={{ fontSize: 18, color: NAVY }}>
               {client.projects[0]?.title}
@@ -211,7 +237,7 @@ function FeaturedProject() {
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         <Reveal>
           <p className="text-[10px] font-bold tracking-[0.35em] uppercase mb-6" style={{ color: "rgba(11,15,26,0.3)" }}>
-            Featured Campaign
+            <FeaturedCampaignLabel />
           </p>
         </Reveal>
 
@@ -230,11 +256,11 @@ function FeaturedProject() {
             </div>
 
             <h2 className="font-black text-white leading-[0.9] tracking-[-0.04em] mb-5" style={{ fontSize: "clamp(36px, 4.5vw, 64px)", maxWidth: 680 }}>
-              {featured.title}
+              <FeaturedTitle featured={featured} />
             </h2>
 
             <p className="text-white/55 text-[17px] leading-[1.65] mb-10" style={{ maxWidth: 520 }}>
-              {featured.tagline}
+              <FeaturedTagline featured={featured} />
             </p>
 
             <div className="flex items-center gap-12 mb-10">
@@ -247,7 +273,7 @@ function FeaturedProject() {
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="text-white font-bold text-[12px] tracking-[0.2em] uppercase">View Case Study</span>
+              <span className="text-white font-bold text-[12px] tracking-[0.2em] uppercase"><ViewCaseStudyLabel /></span>
               <span className="text-xl opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0" style={{ color: RED }}>
                 →
               </span>
@@ -267,6 +293,7 @@ function FeaturedProject() {
 }
 
 function WhyItMatters({ pc }: { pc?: any }) {
+  const { isAr, t } = useLang();
   const stats = [
     { value: pc?.stat1Value || '+178%', label: pc?.stat1Label || 'Avg. brand recall lift',  sub: pc?.stat1Sub || 'Across all 2025 campaigns' },
     { value: pc?.stat2Value || '4.1×',  label: pc?.stat2Label || 'Average campaign ROI',    sub: pc?.stat2Sub || 'vs. media investment' },
@@ -277,11 +304,11 @@ function WhyItMatters({ pc }: { pc?: any }) {
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           <div className="col-span-12 lg:col-span-4">
-            <Eyebrow text={pc?.whyEyebrow || 'Why It Works'} />
+            <Eyebrow text={isAr && (pc as any)?.whyEyebrowAr ? (pc as any).whyEyebrowAr : (pc?.whyEyebrow || t('projects.whyEyebrow'))} />
             <Reveal delay={0.04}>
               <h2 className="font-black leading-[0.9] tracking-[-0.04em]" style={{ fontSize: "clamp(32px, 3.5vw, 48px)", color: NAVY }}>
-                {pc?.whyTitle || 'Why outdoor advertising works'}<br />
-                <span style={{ color: "rgba(11,15,26,0.2)" }}>{pc?.whyTitleAccent || 'in Egypt.'}</span>
+                {isAr && (pc as any)?.whyTitleAr ? (pc as any).whyTitleAr : (pc?.whyTitle || t('projects.whyTitle'))}<br />
+                <span style={{ color: "rgba(11,15,26,0.2)" }}>{isAr && (pc as any)?.whyTitleAccentAr ? (pc as any).whyTitleAccentAr : (pc?.whyTitleAccent || t('projects.whyTitleAccent'))}</span>
               </h2>
             </Reveal>
           </div>
@@ -289,7 +316,7 @@ function WhyItMatters({ pc }: { pc?: any }) {
           <div className="col-span-12 lg:col-span-8">
             <Reveal delay={0.1}>
               <p className="text-[17px] leading-[1.85] mb-6" style={{ color: "rgba(11,15,26,0.5)" }}>
-                {pc?.whyParagraph1 || "Egypt's outdoor advertising market is among the fastest-growing in the MENA region — driven by rapid urbanisation, a young and mobile population, and a commuter culture that places millions of consumers in front of billboards, DOOH screens, and mall formats every single day. Unlike digital advertising, outdoor advertising in Egypt cannot be skipped, blocked, or scrolled past."}
+                {isAr && (pc as any)?.whyParagraph1Ar ? (pc as any).whyParagraph1Ar : (pc?.whyParagraph1 || "Egypt's outdoor advertising market is among the fastest-growing in the MENA region — driven by rapid urbanisation, a young and mobile population, and a commuter culture that places millions of consumers in front of billboards, DOOH screens, and mall formats every single day. Unlike digital advertising, outdoor advertising in Egypt cannot be skipped, blocked, or scrolled past.")}
               </p>
             </Reveal>
 
@@ -385,7 +412,7 @@ export default function Projects() {
       <section className="bg-white" style={{ paddingTop: 20, paddingBottom: 100 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <div className="flex flex-wrap items-center gap-3 mb-12">
-            {FILTERS.map((item) => {
+            {FILTER_KEYS.map((item) => {
               const active = filter === item.value;
               return (
                 <button
@@ -401,7 +428,7 @@ export default function Projects() {
                     color: active ? "white" : NAVY,
                   }}
                 >
-                  {item.label}
+                  <FilterItemLabel labelKey={item.labelKey} />
                 </button>
               );
             })}
@@ -411,12 +438,12 @@ export default function Projects() {
             <div>
               <Reveal>
                 <p className="text-[10px] font-bold tracking-[0.35em] uppercase mb-8" style={{ color: "rgba(11,15,26,0.3)" }}>
-                  Clients
+                  <ClientsLabel />
                 </p>
               </Reveal>
               {clientGroups.length === 0 ? (
                 <div className="border border-[#0B0F1A]/[0.08] bg-[#F5F5F6] p-8">
-                  <p style={{ color: "rgba(11,15,26,0.45)" }}>No projects found for this category.</p>
+                  <p style={{ color: "rgba(11,15,26,0.45)" }}><NoProjectsLabel /></p>
                 </div>
               ) : (
                 <motion.div initial="hidden" animate={inView ? "visible" : "hidden"} className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -436,7 +463,7 @@ export default function Projects() {
             <div className="xl:sticky xl:top-28">
               <Reveal>
                 <p className="text-[10px] font-bold tracking-[0.35em] uppercase mb-8" style={{ color: "rgba(11,15,26,0.3)" }}>
-                  {selectedClient ? `${selectedClient.name} campaigns` : "Client campaigns"}
+                  <ClientCampaignsLabel selectedClient={selectedClient} />
                 </p>
               </Reveal>
 
@@ -444,13 +471,13 @@ export default function Projects() {
                 <div className="border border-[#0B0F1A]/[0.07] bg-[#F5F5F6] p-6 sm:p-8">
                   <div className="flex items-start justify-between gap-4 mb-6">
                     <div>
-                      <p className="text-[10px] font-bold tracking-[0.3em] uppercase mb-2" style={{ color: RED }}>Selected client</p>
+                      <p className="text-[10px] font-bold tracking-[0.3em] uppercase mb-2" style={{ color: RED }}><SelectedClientLabel /></p>
                       <h2 className="font-black tracking-[-0.03em] leading-[0.95]" style={{ fontSize: "clamp(28px, 3vw, 40px)", color: NAVY }}>
                         {selectedClient.name}
                       </h2>
                     </div>
                     <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "rgba(11,15,26,0.3)" }}>
-                      {selectedClient.projects.length} campaign{selectedClient.projects.length > 1 ? "s" : ""}
+                      <CampaignCountLabel count={selectedClient.projects.length} />
                     </span>
                   </div>
 
@@ -468,7 +495,7 @@ export default function Projects() {
                 </div>
               ) : (
                 <div className="border border-[#0B0F1A]/[0.08] bg-[#F5F5F6] p-8">
-                  <p style={{ color: "rgba(11,15,26,0.45)" }}>Select a client to see all projects and campaigns executed for them.</p>
+                  <p style={{ color: "rgba(11,15,26,0.45)" }}><SelectClientLabel /></p>
                 </div>
               )}
             </div>
@@ -479,9 +506,9 @@ export default function Projects() {
       <WhyItMatters pc={pc} />
 
       <CTABanner
-        title={pc?.ctaTitle || 'Ready to be our next success story?'}
-        subtitle={pc?.ctaSubtitle || "Let's plan a campaign tailored to your audience, locations, and business goals."}
-        buttonLabel={pc?.ctaButton || 'Start Your Campaign'}
+        title={isAr && (pc as any)?.ctaTitleAr ? (pc as any).ctaTitleAr : (pc?.ctaTitle || t('projects.ctaTitle'))}
+        subtitle={isAr && (pc as any)?.ctaSubtitleAr ? (pc as any).ctaSubtitleAr : (pc?.ctaSubtitle || t('projects.ctaSubtitle'))}
+        buttonLabel={isAr && (pc as any)?.ctaButtonAr ? (pc as any).ctaButtonAr : (pc?.ctaButton || t('projects.ctaButton'))}
       />
     </>
   );

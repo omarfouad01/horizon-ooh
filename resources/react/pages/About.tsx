@@ -63,9 +63,9 @@ export default function About() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-start">
             <RevealGroup className="flex flex-col gap-8">
               {[
-                { h: "Billboard Advertising Egypt", p: "9,500+ premium roadside billboard locations across Cairo, Alexandria and major Egyptian cities" },
-                { h: "DOOH Advertising Cairo", p: "Dynamic digital screens in Egypt's premium urban, retail and transport environments" },
-                { h: "Mall & Airport Advertising", p: "Premium formats in Egypt's top shopping centres and Cairo International Airport" },
+                { h: isAr ? 'الإعلان على اللوحات في مصر' : "Billboard Advertising Egypt", p: isAr ? 'أكثر من 9,500 موقع إعلاني متميز على الطرق في القاهرة والإسكندرية والمدن المصرية الكبرى' : "9,500+ premium roadside billboard locations across Cairo, Alexandria and major Egyptian cities" },
+                { h: isAr ? 'الإعلان الرقمي الخارجي في القاهرة' : "DOOH Advertising Cairo", p: isAr ? 'شاشات رقمية ديناميكية في البيئات الحضرية والتجزئة والنقل المتميزة في مصر' : "Dynamic digital screens in Egypt's premium urban, retail and transport environments" },
+                { h: isAr ? 'إعلانات المولات والمطارات' : "Mall & Airport Advertising", p: isAr ? 'تنسيقات متميزة في أفضل مراكز التسوق في مصر ومطار القاهرة الدولي' : "Premium formats in Egypt's top shopping centres and Cairo International Airport" },
               ].map((item) => (
                 <RevealItem key={item.h}>
                   <div className="border-l-2 pl-6" style={{ borderColor: RED }}>
@@ -89,7 +89,7 @@ export default function About() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div className="col-span-12 lg:col-span-5">
-              <Eyebrow text="Who We Are" light />
+              <Eyebrow text={t('about.whoWeAre')} light />
               <Reveal delay={0.05}>
                 <h2
                   className="font-black leading-[0.9] tracking-[-0.04em] text-white"
@@ -118,7 +118,7 @@ export default function About() {
       <section className="bg-white" style={{ paddingTop: 120, paddingBottom: 120 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <SectionHeading
-            eyebrow="Why Horizon OOH"
+            eyebrow={t('about.whyHorizon')}
             title={isAr && (about as any).whyTitleAr ? (about as any).whyTitleAr : about.whyTitle}
             titleAccent={isAr && (about as any).whyAccentAr ? (about as any).whyAccentAr : about.whyAccent}
           />
@@ -139,10 +139,10 @@ export default function About() {
                     className="font-bold tracking-[-0.02em] flex-shrink-0"
                     style={{ fontSize: 20, color: NAVY, minWidth: 280 }}
                   >
-                    {item.title}
+                    {isAr && (item as any).titleAr ? (item as any).titleAr : item.title}
                   </h3>
                   <p className="text-[15px] leading-[1.7]" style={{ color: "rgba(11,15,26,0.45)" }}>
-                    {item.desc}
+                    {isAr && (item as any).descAr ? (item as any).descAr : item.desc}
                   </p>
                   <span
                     className="text-xl ml-auto flex-shrink-0 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0"
@@ -160,7 +160,7 @@ export default function About() {
       {/* Key Numbers */}
       <section style={{ background: "#F5F5F6", paddingTop: 100, paddingBottom: 100 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
-          <SectionHeading eyebrow="By the Numbers" title="The scale behind" titleAccent="every campaign." />
+          <SectionHeading eyebrow={t('about.byTheNumbers')} title={t('about.scaleTitle')} titleAccent={t('about.scaleAccent')} />
           <RevealGroup className="grid grid-cols-1 sm:grid-cols-3 border-t border-[#0B0F1A]/[0.08]">
             {about.keyStats.map((stat, i) => (
               <RevealItem key={stat.id}>
@@ -194,7 +194,7 @@ export default function About() {
             <div className="flex items-center justify-center gap-4 mb-14">
               <span className="block w-8 h-[1px]" style={{ background: "rgba(11,15,26,0.15)" }} />
               <p className="text-[11px] font-bold tracking-[0.3em] uppercase text-center" style={{ color: "rgba(11,15,26,0.3)" }}>
-                Trusted by 100+ brands across Egypt
+                {t('about.trustedBy')}
               </p>
               <span className="block w-8 h-[1px]" style={{ background: "rgba(11,15,26,0.15)" }} />
             </div>
@@ -205,9 +205,9 @@ export default function About() {
 
       {/* CTA */}
       <CTABanner
-        title="Ready to make your brand impossible to ignore?"
-        subtitle="Talk to our team and we'll build a campaign around your objectives."
-        buttonLabel="Start a Campaign"
+        title={t('about.ctaTitle')}
+        subtitle={t('about.ctaSubtitle')}
+        buttonLabel={t('about.ctaButton')}
       />
     </>
   );

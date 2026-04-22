@@ -525,11 +525,11 @@ export default function Locations() {
             <button onClick={() => navigate("/")}
               className="text-[11px] font-semibold tracking-[0.12em] uppercase transition-colors hover:text-[#D90429]"
               style={{ color: "rgba(11,15,26,0.35)", background: "none", border: "none", cursor: "pointer" }}>
-              Home
+              {t('common.home')}
             </button>
             <span style={{ color: "rgba(11,15,26,0.2)", fontSize: 12 }}>›</span>
             <span className="text-[11px] font-semibold tracking-[0.12em] uppercase" style={{ color: NAVY }}>
-              Locations
+              {t('nav.locations')}
             </span>
           </div>
 
@@ -568,7 +568,7 @@ export default function Locations() {
           <div className="hidden lg:flex items-center gap-3 py-4">
             {/* Filters label */}
             <span className="text-[11px] font-bold tracking-[0.25em] uppercase mr-1 flex-shrink-0"
-              style={{ color: "rgba(11,15,26,0.45)" }}>Filter:</span>
+              style={{ color: "rgba(11,15,26,0.45)" }}>{t('locations.filterLabel')}</span>
 
             <FilterDropdown
               label={isAr ? 'المحافظة' : 'City'} options={ALL_CITIES} values={cities} onChange={handleCitiesChange}
@@ -592,7 +592,7 @@ export default function Locations() {
               }
             />
             <FilterDropdown
-              label="Format" options={ALL_FORMATS} values={formats} onChange={handleFormatsChange}
+              label={t('locations.formatLabel')} options={ALL_FORMATS} values={formats} onChange={handleFormatsChange}
               icon={
                 <svg width="13" height="11" viewBox="0 0 15 13" fill="none">
                   <rect x="0.5" y="0.5" width="14" height="12" stroke="currentColor" strokeWidth="1.4"/>
@@ -610,7 +610,7 @@ export default function Locations() {
                   className="flex items-center gap-1.5 h-10 px-3 text-[11px] font-bold tracking-[0.15em] uppercase transition-colors hover:text-[#D90429]"
                   style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(11,15,26,0.35)" }}
                 >
-                  <XIcon size={8} /> Clear all
+                  <XIcon size={8} /> {t('common.clearAll')}
                 </motion.button>
               )}
             </AnimatePresence>
@@ -623,7 +623,7 @@ export default function Locations() {
               style={{ background: "rgba(11,15,26,0.06)", borderRadius: 8 }}>
               <span className="text-[13px] font-black" style={{ color: NAVY }}>{sorted.length}</span>
               <span className="text-[10px] font-bold tracking-[0.15em] uppercase"
-                style={{ color: "rgba(11,15,26,0.45)" }}>locations</span>
+                style={{ color: "rgba(11,15,26,0.45)" }}>{t('common.locations')}</span>
             </div>
           </div>
 
@@ -642,7 +642,7 @@ export default function Locations() {
               <svg width="13" height="11" viewBox="0 0 14 12" fill="none">
                 <path d="M1 2h12M3 6h8M5 10h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
-              Filters {hasFilters && `(${cities.length + districts.length + formats.length})`}
+              {t('common.filters')} {hasFilters && `(${cities.length + districts.length + formats.length})`}
               <ChevronDown />
             </button>
             <button
@@ -659,7 +659,7 @@ export default function Locations() {
                 <path d="M5 1L1 3v10l4-2 4 2 4-2V1l-4 2-4-2z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M5 1v10M9 3v10" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
               </svg>
-              {mobileMapOpen ? "List" : "Map"}
+              {mobileMapOpen ? t('common.list') : t('common.map')}
             </button>
             <div className="px-3 py-2 flex-shrink-0"
               style={{ background: "rgba(11,15,26,0.05)", borderRadius: 6 }}>
@@ -684,14 +684,14 @@ export default function Locations() {
                     optionLabels={districtLabelsAr}
                     icon={<svg width="13" height="11" viewBox="0 0 15 13" fill="none"><rect x="0.5" y="5.5" width="6" height="7" stroke="currentColor" strokeWidth="1.4"/><rect x="8.5" y="2.5" width="6" height="10" stroke="currentColor" strokeWidth="1.4"/><path d="M0 5.5L7.5 0 15 5.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/></svg>}
                   />
-                  <FilterDropdown label="Format" options={ALL_FORMATS} values={formats} onChange={handleFormatsChange}
+                  <FilterDropdown label={t('locations.formatLabel')} options={ALL_FORMATS} values={formats} onChange={handleFormatsChange}
                     icon={<svg width="13" height="11" viewBox="0 0 15 13" fill="none"><rect x="0.5" y="0.5" width="14" height="12" stroke="currentColor" strokeWidth="1.4"/><path d="M3 4h9M3 6.5h6M3 9h4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>}
                   />
               {hasFilters && (
                 <button onClick={() => { clearAll(); }}
                   className="text-[10px] font-bold tracking-[0.15em] uppercase flex items-center gap-1.5"
                   style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(11,15,26,0.4)" }}>
-                  <XIcon size={8}/> Clear all filters
+                  <XIcon size={8}/> {t('common.clearAll')}
                 </button>
               )}
                 </div>
@@ -723,13 +723,13 @@ export default function Locations() {
             <div className="flex items-center justify-between">
               <p className="text-[13px] font-semibold" style={{ color: "rgba(11,15,26,0.55)" }}>
                 <span className="font-black" style={{ color: NAVY }}>{sorted.length} </span>
-                {cityLabel ? <>premium billboard location{sorted.length !== 1 ? "s" : ""} in <span style={{ color: RED }}>{cityLabel}</span></> : "premium billboard locations"}
+                {cityLabel ? <>{t('locations.premiumBillboards')} {t('common.in')} <span style={{ color: RED }}>{cityLabel}</span></> : t('locations.premiumBillboards')}
               </p>
               {hasFilters && (
                 <button onClick={clearAll}
                   className="text-[10px] font-bold tracking-[0.15em] uppercase transition-colors hover:text-[#D90429]"
                   style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(11,15,26,0.3)" }}>
-                  Clear filters
+                  {t('common.clearFilters')}
                 </button>
               )}
             </div>
@@ -745,9 +745,9 @@ export default function Locations() {
               >
                 <div className="flex items-center gap-2 flex-wrap">
                   {[
-                    ...cities.map(v    => ({ label: isAr ? 'المحافظة' : 'City',     value: isAr && cityLabelsAr[v] ? cityLabelsAr[v] : v,     clear: () => handleCitiesChange(cities.filter(x => x !== v)) })),
-                    ...districts.map(v => ({ label: isAr ? 'المنطقة'  : 'District', value: isAr && districtLabelsAr[v] ? districtLabelsAr[v] : v, clear: () => handleDistrictsChange(districts.filter(x => x !== v)) })),
-                    ...formats.map(v   => ({ label: isAr ? 'النوع'    : 'Format',   value: v, clear: () => handleFormatsChange(formats.filter(x => x !== v)) })),
+                    ...cities.map(v    => ({ label: t('locations.cityLabel'),     value: isAr && cityLabelsAr[v] ? cityLabelsAr[v] : v,     clear: () => handleCitiesChange(cities.filter(x => x !== v)) })),
+                    ...districts.map(v => ({ label: t('locations.districtLabel'), value: isAr && districtLabelsAr[v] ? districtLabelsAr[v] : v, clear: () => handleDistrictsChange(districts.filter(x => x !== v)) })),
+                    ...formats.map(v   => ({ label: t('locations.formatLabel'),   value: v, clear: () => handleFormatsChange(formats.filter(x => x !== v)) })),
                   ].map((chip, i) => (
                       <motion.span
                         key={i}
@@ -809,21 +809,21 @@ export default function Locations() {
                     </svg>
                   </div>
                   <h3 className="font-black text-[22px] tracking-[-0.03em] mb-3" style={{ color: NAVY }}>
-                    No locations match your search
+                    {t('locations.noResults')}
                   </h3>
                   <p className="text-[14px] leading-[1.7] mb-8" style={{ color: "rgba(11,15,26,0.45)", maxWidth: 340 }}>
-                    Let us recommend the best locations for your campaign — our strategists know every market.
+                    {t('locations.noResultsHint')}
                   </p>
                   <div className="flex items-center gap-3">
                     <button onClick={clearAll}
                       className="h-11 px-6 text-[11px] font-bold tracking-[0.2em] uppercase text-white transition-opacity hover:opacity-90"
                       style={{ background: RED, border: "none", borderRadius: 6, cursor: "pointer" }}>
-                      Show All Locations
+                      {t('locations.showAll')}
                     </button>
                     <button onClick={() => navigate("/contact")}
                       className="h-11 px-6 text-[11px] font-bold tracking-[0.2em] uppercase transition-all hover:border-[#D90429] hover:text-[#D90429]"
                       style={{ background: "transparent", border: `1.5px solid rgba(11,15,26,0.15)`, borderRadius: 6, cursor: "pointer", color: "rgba(11,15,26,0.5)" }}>
-                      Contact Us
+                      {t('common.contactUs')}
                     </button>
                   </div>
                 </motion.div>
@@ -856,7 +856,7 @@ export default function Locations() {
                   <path d="M16 0C7.163 0 0 7.163 0 16c0 10.293 14.222 23.156 15.259 24.114a1 1 0 0 0 1.482 0C17.778 39.156 32 26.293 32 16 32 7.163 24.837 0 16 0z" fill={NAVY}/>
                   <circle cx="16" cy="16" r="6" fill={RED}/>
                 </svg>
-                <span className="text-[9px] font-bold tracking-[0.18em] uppercase" style={{ color: NAVY }}>Billboard</span>
+                <span className="text-[9px] font-bold tracking-[0.18em] uppercase" style={{ color: NAVY }}>{t('common.billboard')}</span>
               </div>
               <div className="flex items-center gap-2 px-3 py-2"
                 style={{ background: "rgba(255,255,255,0.95)", backdropFilter: "blur(6px)", borderRadius: 6, boxShadow: "0 2px 12px rgba(11,15,26,0.1)" }}>
@@ -864,7 +864,7 @@ export default function Locations() {
                   <path d="M16 0C7.163 0 0 7.163 0 16c0 10.293 14.222 23.156 15.259 24.114a1 1 0 0 0 1.482 0C17.778 39.156 32 26.293 32 16 32 7.163 24.837 0 16 0z" fill={RED}/>
                   <circle cx="16" cy="16" r="6" fill="white}"/>
                 </svg>
-                <span className="text-[9px] font-bold tracking-[0.18em] uppercase" style={{ color: NAVY }}>Selected</span>
+                <span className="text-[9px] font-bold tracking-[0.18em] uppercase" style={{ color: NAVY }}>{t('common.selected')}</span>
               </div>
             </div>
 
@@ -875,7 +875,7 @@ export default function Locations() {
                 <svg width="8" height="8" viewBox="0 0 8 8" fill={RED}>
                   <circle cx="4" cy="4" r="4"/>
                 </svg>
-                <span className="text-[9px] font-bold tracking-[0.15em] uppercase text-white">{sorted.length} pins</span>
+                <span className="text-[9px] font-bold tracking-[0.15em] uppercase text-white">{sorted.length} {t('common.pins')}</span>
               </div>
             </div>
           </div>
@@ -904,7 +904,7 @@ export default function Locations() {
             style={{ borderRight: "1px solid rgba(11,15,26,0.1)" }}>
             <div className="w-2 h-2 rounded-full" style={{ background: RED, animation: "pulse 2s infinite" }} />
             <span className="text-[12px] font-semibold" style={{ color: "rgba(11,15,26,0.55)" }}>
-              Need help choosing the best billboard?
+              {t('locations.helpChoosing')}
             </span>
           </div>
           <button
@@ -912,7 +912,7 @@ export default function Locations() {
             className="flex items-center gap-2 h-9 px-4 text-[11px] font-bold tracking-[0.15em] uppercase text-white transition-opacity hover:opacity-90 active:scale-[0.97]"
             style={{ background: NAVY, border: "none", borderRadius: 30, cursor: "pointer" }}
           >
-            Talk to an Expert
+            {t('locations.talkToExpert')}
           </button>
           <a
             href="https://wa.me/201234567890?text=Hi%20HORIZON%20OOH%2C%20I%20need%20help%20choosing%20billboard%20locations"

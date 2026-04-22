@@ -87,11 +87,11 @@ export default function Services() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { value: "9,500+", label: "Locations Nationwide" },
-              { value: "6", label: "Media Formats" },
-              { value: "100+", label: "Brand Partners" },
+              { value: "9,500+", labelKey: 'services.stat1Label' },
+              { value: "6",      labelKey: 'services.stat2Label' },
+              { value: "100+",  labelKey: 'services.stat3Label' },
             ].map((stat, i) => (
-              <RevealItem key={stat.label}>
+              <RevealItem key={stat.labelKey}>
                 <div
                   className="flex flex-col items-center py-10 text-center"
                   style={{ borderRight: i < 2 ? "1px solid rgba(11,15,26,0.08)" : "none" }}
@@ -106,7 +106,7 @@ export default function Services() {
                     className="text-[11px] font-semibold tracking-[0.22em] uppercase"
                     style={{ color: "rgba(11,15,26,0.35)" }}
                   >
-                    {stat.label}
+                    {t(stat.labelKey as any)}
                   </span>
                 </div>
               </RevealItem>
@@ -116,9 +116,9 @@ export default function Services() {
       </section>
 
       <CTABanner
-        title="Need help choosing the right format?"
-        subtitle="Our media strategists will match the right outdoor mix to your campaign objectives."
-        buttonLabel="Talk to Us"
+        title={t('services.ctaTitle')}
+        subtitle={t('services.ctaSubtitle')}
+        buttonLabel={t('services.ctaButton')}
       />
     </>
   );

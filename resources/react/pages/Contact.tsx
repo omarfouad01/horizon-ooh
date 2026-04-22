@@ -3,17 +3,19 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Reveal, RevealGroup, RevealItem, PageHero, Eyebrow } from "@/components/UI";
 import { RED, NAVY, ease } from "@/lib/routes";
+import { useLang } from "@/i18n/LangContext";
 
 // PHP API endpoint — reads from Vite env, falls back to relative path.
 const API_URL = (import.meta.env.VITE_API_URL as string | undefined) ?? "/api";
 
 export default function Contact() {
   const { settings } = useStore();
+  const { isAr, t } = useLang();
   const CONTACT_INFO = [
-    { label: (settings as any).hqLabel || "Cairo HQ", value: settings.address || "Cairo, Egypt", icon: "◉" },
-    { label: "Phone",   value: settings.phone   || "+20 2 1234 5678", icon: "◉" },
-    { label: "Email",   value: settings.email   || "info@horizonooh.com", icon: "◉" },
-    { label: "Hours",   value: "Sun – Thu, 9:00 – 18:00 EET", icon: "◉" },
+    { label: isAr ? 'المقر الرئيسي بالقاهرة' : ((settings as any).hqLabel || "Cairo HQ"), value: settings.address || "Cairo, Egypt", icon: "◉" },
+    { label: isAr ? 'الهاتف' : "Phone",   value: settings.phone   || "+20 2 1234 5678", icon: "◉" },
+    { label: isAr ? 'البريد الإلكتروني' : "Email",   value: settings.email   || "info@horizonooh.com", icon: "◉" },
+    { label: isAr ? 'ساعات العمل' : "Hours",   value: isAr ? 'الأحد – الخميس، 9:00 – 18:00 EET' : "Sun – Thu, 9:00 – 18:00 EET", icon: "◉" },
   ];
   const [form, setForm] = useState({ name: "", email: "", phone: "", company: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
@@ -59,10 +61,10 @@ export default function Contact() {
   return (
     <>
       <PageHero
-        eyebrow="Get in Touch"
-        title="Contact Us."
-        titleAccent="Let's talk visibility."
-        subtitle="Ready to launch your outdoor advertising campaign? Our team will respond within 24 hours."
+        eyebrow={isAr ? 'تواصل معنا' : "Get in Touch"}
+        title={isAr ? 'اتصل بنا.' : "Contact Us."}
+        titleAccent={isAr ? 'دعنا نتحدث عن الظهور.' : "Let's talk visibility."}
+        subtitle={isAr ? 'هل أنت مستعد لإطلاق حملتك الإعلانية الخارجية؟ سيرد فريقنا خلال 24 ساعة.' : "Ready to launch your outdoor advertising campaign? Our team will respond within 24 hours."}
         dark={false}
       />
 
@@ -75,7 +77,7 @@ export default function Contact() {
             <div className="col-span-7">
               <Reveal>
                 <p className="text-[10px] font-bold tracking-[0.35em] uppercase mb-8" style={{ color: "rgba(11,15,26,0.3)" }}>
-                  Campaign Enquiry Form
+                  {isAr ? 'نموذج الاستفسار عن الحملة' : 'Campaign Enquiry Form'}
                 </p>
               </Reveal>
 
@@ -93,10 +95,10 @@ export default function Contact() {
                     </svg>
                   </div>
                   <h2 className="font-black leading-[1.0] tracking-[-0.03em]" style={{ fontSize: 36, color: NAVY }}>
-                    Message received.
+                    {isAr ? 'تم استلام رسالتك.' : 'Message received.'}
                   </h2>
                   <p className="text-[17px] leading-[1.75]" style={{ color: "rgba(11,15,26,0.45)", maxWidth: 420 }}>
-                    Thank you for reaching out. One of our media strategists will be in touch within 24 hours.
+                    {isAr ? 'شكراً لتواصلك معنا. سيتواصل معك أحد خبرائنا الإعلاميين خلال 24 ساعة.' : 'Thank you for reaching out. One of our media strategists will be in touch within 24 hours.'}
                   </p>
                 </motion.div>
               ) : (
@@ -104,8 +106,8 @@ export default function Contact() {
                   {/* Row 1 */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     {[
-                      { name: "name",    label: "Full Name",   type: "text",  required: true,  placeholder: "e.g. Ahmed Hassan" },
-                      { name: "company", label: "Company",     type: "text",  required: false, placeholder: "e.g. Horizon Media" },
+                      { name: "name",    label: isAr ? 'الاسم الكامل' : 'Full Name',   type: "text",  required: true,  placeholder: isAr ? 'مثال: أحمد حسن' : 'e.g. Ahmed Hassan' },
+                      { name: "company", label: isAr ? 'الشركة' : 'Company',     type: "text",  required: false, placeholder: isAr ? 'مثال: هورايزون ميديا' : 'e.g. Horizon Media' },
                     ].map((field) => (
                       <Reveal key={field.name}>
                         <div className="flex flex-col gap-1.5">
@@ -142,8 +144,8 @@ export default function Contact() {
                   {/* Row 2 */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     {[
-                      { name: "email", label: "Email Address", type: "email", required: true,  placeholder: "name@company.com" },
-                      { name: "phone", label: "Phone Number",  type: "tel",   required: false, placeholder: "+20 100 000 0000" },
+                      { name: "email", label: isAr ? 'البريد الإلكتروني' : 'Email Address', type: "email", required: true,  placeholder: "name@company.com" },
+                      { name: "phone", label: isAr ? 'رقم الهاتف' : 'Phone Number',  type: "tel",   required: false, placeholder: "+20 100 000 0000" },
                     ].map((field) => (
                       <Reveal key={field.name}>
                         <div className="flex flex-col gap-1.5">
@@ -185,7 +187,7 @@ export default function Contact() {
                         className="text-[11px] font-bold tracking-[0.25em] uppercase"
                         style={{ color: "rgba(11,15,26,0.5)" }}
                       >
-                        Message<span style={{ color: RED }}>*</span>
+                        {isAr ? 'الرسالة' : 'Message'}<span style={{ color: RED }}>*</span>
                       </label>
                       <textarea
                         id="message"
@@ -194,7 +196,7 @@ export default function Contact() {
                         rows={6}
                         value={form.message}
                         onChange={handleChange}
-                        placeholder="Tell us about your campaign objectives, target audience, and budget range…"
+                        placeholder={isAr ? 'أخبرنا عن أهداف حملتك والجمهور المستهدف ونطاق الميزانية...' : 'Tell us about your campaign objectives, target audience, and budget range…'}
                         className="w-full px-4 py-3.5 text-[15px] font-medium outline-none resize-none transition-all duration-200"
                         style={{
                           color: NAVY,
@@ -228,14 +230,14 @@ export default function Contact() {
                       >
                         <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: NAVY }} />
                         <span className="relative z-10">
-                          {loading ? "Sending…" : "Send Message"}
+                          {loading ? (isAr ? 'جارٍ الإرسال...' : 'Sending…') : (isAr ? 'إرسال الرسالة' : 'Send Message')}
                         </span>
                         {loading && (
                           <span className="relative z-10 w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                         )}
                       </button>
                       <p className="text-[11px]" style={{ color: "rgba(11,15,26,0.3)" }}>
-                        We respond within 24 hours.
+                        {isAr ? 'نرد خلال 24 ساعة.' : 'We respond within 24 hours.'}
                       </p>
                     </div>
                   </Reveal>
@@ -251,7 +253,7 @@ export default function Contact() {
                   <div style={{ background: NAVY, padding: "48px 48px" }}>
                     <div className="w-5 h-[1.5px] mb-8" style={{ background: RED }} />
                     <p className="font-black text-white text-[20px] tracking-[-0.02em] leading-[1.2] mb-10">
-                      Speak directly with our media team.
+                      {isAr ? 'تحدث مباشرة مع فريق الإعلام لدينا.' : 'Speak directly with our media team.'}
                     </p>
 
                     <div className="flex flex-col gap-8">
@@ -270,13 +272,13 @@ export default function Contact() {
                     {/* Quick links */}
                     <div className="mt-12 pt-10 border-t border-white/[0.07]">
                       <p className="text-[10px] font-bold tracking-[0.3em] uppercase mb-5" style={{ color: "rgba(255,255,255,0.2)" }}>
-                        Quick Actions
+                        {isAr ? 'إجراءات سريعة' : 'Quick Actions'}
                       </p>
                       <div className="flex flex-col gap-3">
                         {[
-                          { label: "View all locations", href: "/locations" },
-                          { label: "Explore our services", href: "/services" },
-                          { label: "Read our insights", href: "/blog" },
+                          { label: isAr ? 'عرض جميع المواقع' : 'View all locations', href: "/locations" },
+                          { label: isAr ? 'استكشف خدماتنا' : 'Explore our services', href: "/services" },
+                          { label: isAr ? 'اقرأ رؤيتنا' : 'Read our insights', href: "/blog" },
                         ].map((link) => (
                           <a
                             key={link.label}
@@ -306,9 +308,9 @@ export default function Contact() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <RevealGroup className="grid grid-cols-1 sm:grid-cols-3">
             {[
-              { icon: "⊙", label: "Media Strategy", desc: "Free campaign planning consultation" },
-              { icon: "◈", label: "Site Selection", desc: "Data-driven location recommendations" },
-              { icon: "◇", label: "Campaign Execution", desc: "End-to-end managed service" },
+              { icon: "⊙", label: isAr ? 'استراتيجية الإعلام' : 'Media Strategy', desc: isAr ? 'استشارة مجانية لتخطيط الحملة' : 'Free campaign planning consultation' },
+              { icon: "◈", label: isAr ? 'اختيار الموقع' : 'Site Selection', desc: isAr ? 'توصيات مواقع تعتمد على البيانات' : 'Data-driven location recommendations' },
+              { icon: "◇", label: isAr ? 'تنفيذ الحملة' : 'Campaign Execution', desc: isAr ? 'خدمة متكاملة من البداية إلى النهاية' : 'End-to-end managed service' },
             ].map((item, i) => (
               <RevealItem key={item.label}>
                 <div
