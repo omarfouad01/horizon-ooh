@@ -307,13 +307,16 @@ const _demoProcess: ProcessStep[] = (PROCESS as any[]).map((p: any, i: number) =
 const _demoDistricts: any[] = [];
 (LOCATIONS as any[]).forEach((loc: any, _li: number) => {
   (loc.districts ?? []).forEach((d: any, di: number) => {
-    const name = typeof d === 'string' ? d : (d.name ?? String(d));
+    const name   = typeof d === 'string' ? d : (d.name ?? String(d));
+    const nameAr = typeof d === 'object' ? (d.nameAr ?? '') : '';
     _demoDistricts.push({
       id: `${loc.id}-district-${di + 1}`,
       name,
+      nameAr,
       locationId:    loc.id,      // camelCase for dashboard UI
       location_id:   loc.id,      // snake_case for API compatibility
       location_slug: loc.slug,
+      cityAr:        loc.cityAr ?? '',
     });
   });
 });
@@ -395,13 +398,16 @@ export const useApiStore = create<ApiState>((set, get) => ({
       const districts: any[] = [];
       (LOCATIONS as any[]).forEach((loc: any) => {
         (loc.districts ?? []).forEach((d: any, di: number) => {
-          const name = typeof d === 'string' ? d : (d.name ?? String(d));
+          const name   = typeof d === 'string' ? d : (d.name ?? String(d));
+          const nameAr = typeof d === 'object' ? (d.nameAr ?? '') : '';
           districts.push({
             id: `${loc.id}-district-${di + 1}`,
             name,
+            nameAr,
             locationId:    loc.id,
             location_id:   loc.id,
             location_slug: loc.slug,
+            cityAr:        loc.cityAr ?? '',
           });
         });
       });
