@@ -5,6 +5,7 @@ import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
 import { RED, NAVY, ease } from "@/lib/routes";
 import ProductMap from "@/components/ProductMap";
+import { useLang } from "@/i18n/LangContext";
 
 // ─── Gallery images per billboard type ───────────────────────────────────
 const GALLERY_POOLS = {
@@ -115,9 +116,10 @@ function Lightbox({ images, active, onClose, onNav }: {
 
 // ─── Main product page ────────────────────────────────────────────────────
 export default function Product() {
-  const { locations: LOCATIONS, settings } = useStore()
+  const { locations: LOCATIONS, settings, districts: storeDistricts } = useStore()
   const { city: citySlug, slug } = useParams<{ city: string; slug: string }>();
   const navigate = useNavigate();
+  const { isAr, t } = useLang();
   const heroRef  = useRef<HTMLElement>(null);
 
   const location = LOCATIONS.find((l) => l.slug === citySlug);
@@ -126,15 +128,20 @@ export default function Product() {
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroImgY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
 
+  // Arabic helpers
+  const districtObj         = storeDistricts.find((d: any) => d.name === (product?.district || ''))
+  const displayDistrictName = isAr && districtObj?.nameAr ? districtObj.nameAr : (product?.district || '[Not set]')
+  const displayCityName     = isAr && (location as any)?.cityAr ? (location as any).cityAr : (product?.city || location?.city || '[Not set]')
+
   if (!location || !product) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6">
-        <p style={{ color: "rgba(11,15,26,0.4)", fontSize: 17 }}>Billboard not found.</p>
+        <p style={{ color: "rgba(11,15,26,0.4)", fontSize: 17 }}>{t('product.notFound')}</p>
         <button
           onClick={() => navigate("/locations")}
           style={{ color: RED, fontWeight: 700, background: "none", border: "none", cursor: "pointer" }}
           className="hover:opacity-70 transition-opacity duration-150">
-          Back to Locations
+          {t('product.backToLocations')}
         </button>
       </div>
     );
@@ -161,8 +168,8 @@ export default function Product() {
 
   useEffect(() => {
     if (productImages.length < 2) return;
-    const t = setTimeout(() => setHeroIdx((p) => (p + 1) % productImages.length), 5000);
-    return () => clearTimeout(t);
+    const timer = setTimeout(() => setHeroIdx((p) => (p + 1) % productImages.length), 5000);
+    return () => clearTimeout(timer);
   }, [heroIdx, productImages.length]);
 
   const nextHero = useCallback(() => setHeroIdx((p) => (p + 1) % productImages.length), [productImages.length]);
@@ -170,17 +177,18 @@ export default function Product() {
   const nextDetail = useCallback(() => setDetailIdx((p) => (p + 1) % productImages.length), [productImages.length]);
   const prevDetail = useCallback(() => setDetailIdx((p) => (p - 1 + productImages.length) % productImages.length), [productImages.length]);
 
+  const notSet = '[Not set]'
   const specRows = [
-    { label: 'Code', value: product.code || '[Not set]' },
-    { label: 'Type', value: product.type || '[Not set]' },
-    { label: 'Sides', value: product.sides ? String(product.sides) : '[Not set]' },
-    { label: 'Size', value: product.size || '[Not set]' },
-    { label: 'Quantity', value: product.quantity ? String(product.quantity) : '[Not set]' },
-    { label: 'Governorate', value: product.city || location.city || '[Not set]' },
-    { label: 'District', value: product.district || '[Not set]' },
-    { label: 'Lightning', value: product.brightness || '[Not set]' },
-    { label: 'Square meter', value: product.sqm ? `${product.sqm} sqm` : '[Not set]' },
-    { label: 'Ad Format', value: product.adFormat || '[Not set]' },
+    { label: t('spec.code'),        value: product.code || notSet },
+    { label: t('spec.type'),        value: product.type || notSet },
+    { label: t('spec.sides'),       value: product.sides ? String(product.sides) : notSet },
+    { label: t('spec.size'),        value: product.size || notSet },
+    { label: t('spec.quantity'),    value: product.quantity ? String(product.quantity) : notSet },
+    { label: t('spec.governorate'), value: displayCityName },
+    { label: t('spec.district'),    value: displayDistrictName },
+    { label: t('spec.lightning'),   value: product.brightness || notSet },
+    { label: t('spec.sqm'),         value: product.sqm ? `${product.sqm} sqm` : notSet },
+    { label: t('spec.adFormat'),    value: product.adFormat || notSet },
   ];
   const whatsappNumber = settings.whatsapp.replace(/\D/g, '') || '201234567890';
 
@@ -189,10 +197,10 @@ export default function Product() {
       {/* ── Breadcrumb ───────────────────────────────────────────────── */}
       <div className="bg-white pt-4">
         <Breadcrumb items={[
-          { label: "Home", href: "/" },
-          { label: "Locations", href: "/locations" },
-          { label: location.city, href: `/locations/${location.slug}` },
-          { label: product.name },
+          { label: isAr ? 'الرئيسية' : 'Home', href: "/" },
+          { label: t('nav.locations'), href: "/locations" },
+          { label: displayCityName, href: `/locations/${location.slug}` },
+          { label: isAr && product.nameAr ? product.nameAr : (product.nameEn || product.name) },
         ]} />
       </div>
 
@@ -237,12 +245,12 @@ export default function Product() {
           transition={{ duration: 0.8, ease, delay: 0.6 }}
           className="absolute top-10 right-[120px] flex-col gap-4 hidden lg:flex">
           <div className="border border-white/10 text-right" style={{ padding: "16px 24px", background: "rgba(11,15,26,0.5)", backdropFilter: "blur(8px)" }}>
-            <p className="text-white/25 text-[9px] tracking-[0.35em] uppercase font-bold mb-1.5">Code</p>
+            <p className="text-white/25 text-[9px] tracking-[0.35em] uppercase font-bold mb-1.5">{t('spec.code')}</p>
             <p className="font-black text-white tracking-[-0.04em]" style={{ fontSize: 28 }}>{product.code || '—'}</p>
-            <p className="text-white/30 text-[10px] tracking-[0.15em]">billboard code</p>
+            <p className="text-white/30 text-[10px] tracking-[0.15em]">{t('spec.billboardCode')}</p>
           </div>
           <div className="border border-white/10 text-right" style={{ padding: "16px 24px", background: "rgba(11,15,26,0.5)", backdropFilter: "blur(8px)" }}>
-            <p className="text-white/25 text-[9px] tracking-[0.35em] uppercase font-bold mb-1.5">Ad Format</p>
+            <p className="text-white/25 text-[9px] tracking-[0.35em] uppercase font-bold mb-1.5">{t('spec.adFormat')}</p>
             <p className="font-black text-white tracking-[-0.04em]" style={{ fontSize: 22 }}>{product.adFormat || '—'}</p>
           </div>
         </motion.div>
@@ -253,12 +261,12 @@ export default function Product() {
               <motion.div initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, ease, delay: 0.2 }} className="flex items-center gap-3 mb-5">
                 <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
                 <span className="text-[10px] font-bold tracking-[0.35em] uppercase" style={{ color: "rgba(255,255,255,0.35)" }}>
-                  {product.type || 'Billboard'} · {location.city}
+                  {product.type || 'Billboard'} · {displayCityName}
                 </span>
               </motion.div>
               <div className="overflow-hidden mb-3">
                 <motion.h1 initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: 0.9, ease, delay: 0.3 }} className="font-black text-white leading-[0.88] tracking-[-0.05em]" style={{ fontSize: "clamp(40px, 5.5vw, 80px)" }}>
-                  {product.nameEn || product.name}
+                  {isAr && product.nameAr ? product.nameAr : (product.nameEn || product.name)}
                 </motion.h1>
               </div>
               <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease, delay: 0.5 }} className="text-[16px]" style={{ color: "rgba(255,255,255,0.45)" }}>
@@ -270,7 +278,7 @@ export default function Product() {
               <button onClick={() => navigate("/contact")} className="group relative overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white flex items-center active:scale-[0.97] transition-transform"
                 style={{ height: 52, padding: "0 36px", background: RED, border: "none", cursor: "pointer" }}>
                 <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: "white" }} />
-                <span className="relative z-10 group-hover:text-[#0B0F1A] transition-colors duration-300">Book this Location</span>
+                <span className="relative z-10 group-hover:text-[#0B0F1A] transition-colors duration-300">{t('product.bookLocation')}</span>
               </button>
             </motion.div>
           </div>
@@ -335,11 +343,11 @@ export default function Product() {
 
           <div className="flex flex-col justify-between" style={{ padding: '64px 72px 64px 64px', background: 'white' }}>
             <div>
-              <Eyebrow text="Specifications" />
+              <Eyebrow text={t('product.specifications')} />
               <Reveal delay={0.04}>
                 <h2 className="font-black leading-[0.9] tracking-[-0.04em] mb-10" style={{ fontSize: 'clamp(28px, 3vw, 40px)', color: NAVY }}>
-                  Outdoor Advertising in<br />
-                  <span style={{ color: 'rgba(11,15,26,0.2)' }}>{product.city || location.city || '[Not set]'}</span>
+                  {t('product.outdoorIn')}<br />
+                  <span style={{ color: 'rgba(11,15,26,0.2)' }}>{displayCityName}</span>
                 </h2>
               </Reveal>
 
@@ -356,9 +364,11 @@ export default function Product() {
 
               <Reveal delay={0.1}>
                 <div>
-                  <p className="text-[10px] font-bold tracking-[0.3em] uppercase mb-3" style={{ color: 'rgba(11,15,26,0.3)' }}>Description</p>
+                  <p className="text-[10px] font-bold tracking-[0.3em] uppercase mb-3" style={{ color: 'rgba(11,15,26,0.3)' }}>{t('product.description')}</p>
                   <p className="text-[15px] leading-[1.8]" style={{ color: 'rgba(11,15,26,0.55)' }}>
-                    {product.descriptionEn || 'No English description has been added for this billboard yet.'}
+                    {isAr && product.descriptionAr
+                      ? product.descriptionAr
+                      : (product.descriptionEn || (isAr ? 'لم يتم إضافة وصف لهذه اللوحة بعد.' : 'No description added for this billboard yet.'))}
                   </p>
                 </div>
               </Reveal>
@@ -369,7 +379,7 @@ export default function Product() {
                 <button onClick={() => navigate('/contact')} className="group relative w-full h-[54px] overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase text-white flex items-center justify-center active:scale-[0.97] transition-transform"
                   style={{ background: RED, border: 'none', cursor: 'pointer' }}>
                   <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: NAVY }} />
-                  <span className="relative z-10">Get a Quote</span>
+                  <span className="relative z-10">{t('product.getQuote')}</span>
                 </button>
                 <a href={`https://wa.me/${whatsappNumber}?text=Hi%20${encodeURIComponent(settings.companyName)}%2C%20I%27m%20interested%20in%20booking%20${encodeURIComponent(product.nameEn || product.name)}`}
                   target="_blank" rel="noopener noreferrer"
@@ -378,7 +388,7 @@ export default function Product() {
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" fill="#25D366" />
                   </svg>
-                  <span className="text-[12px] font-semibold tracking-[0.15em] uppercase group-hover:text-[#25D366] transition-colors" style={{ color: 'rgba(11,15,26,0.5)' }}>WhatsApp Enquiry</span>
+                  <span className="text-[12px] font-semibold tracking-[0.15em] uppercase group-hover:text-[#25D366] transition-colors" style={{ color: 'rgba(11,15,26,0.5)' }}>{t('product.whatsappEnquiry')}</span>
                 </a>
               </div>
             </Reveal>
@@ -396,13 +406,13 @@ export default function Product() {
               <Reveal>
                 <div className="flex items-center gap-3 mb-5">
                   <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
-                  <span className="text-[10px] font-bold tracking-[0.35em] uppercase" style={{ color: "rgba(11,15,26,0.35)" }}>Billboard Location</span>
+                  <span className="text-[10px] font-bold tracking-[0.35em] uppercase" style={{ color: "rgba(11,15,26,0.35)" }}>{t('product.billboardLocation')}</span>
                 </div>
               </Reveal>
               <Reveal delay={0.04}>
                 <h2 className="font-black leading-[0.9] tracking-[-0.04em]" style={{ fontSize: "clamp(28px, 3vw, 40px)", color: NAVY }}>
-                  Find it on<br />
-                  <span style={{ color: "rgba(11,15,26,0.2)" }}>the map.</span>
+                  {t('product.findIt')}<br />
+                  <span style={{ color: "rgba(11,15,26,0.2)" }}>{t('product.theMap')}</span>
                 </h2>
               </Reveal>
             </div>
@@ -413,7 +423,7 @@ export default function Product() {
                 <svg width="12" height="14" viewBox="0 0 13 15" fill="none" className="transition-colors group-hover:fill-[#D90429]">
                   <path d="M6.5 0C3.462 0 1 2.462 1 5.5c0 3.85 5.5 9.5 5.5 9.5S12 9.35 12 5.5C12 2.462 9.538 0 6.5 0zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fill="currentColor"/>
                 </svg>
-                Open in Google Maps →
+                {t('product.openGoogleMaps')}
               </a>
             </Reveal>
           </div>
@@ -428,7 +438,7 @@ export default function Product() {
                       <circle cx="5" cy="5" r="4" stroke="rgba(11,15,26,0.3)" strokeWidth="1.2"/>
                       <path d="M5 2v3l2 1" stroke="rgba(11,15,26,0.3)" strokeWidth="1.2" strokeLinecap="round"/>
                     </svg>
-                    <span className="text-[9px] font-bold tracking-[0.2em] uppercase" style={{ color: "rgba(11,15,26,0.35)" }}>Scroll inside map to zoom</span>
+                    <span className="text-[9px] font-bold tracking-[0.2em] uppercase" style={{ color: "rgba(11,15,26,0.35)" }}>{t('spec.scrollToZoom')}</span>
                   </div>
                 </div>
               </div>
@@ -436,7 +446,7 @@ export default function Product() {
               <div className="bg-white flex flex-col justify-between" style={{ padding: "40px 36px" }}>
                 <div>
                   <p className="text-[9px] font-bold tracking-[0.35em] uppercase mb-3" style={{ color: RED }}>{product.type}</p>
-                  <h3 className="font-black leading-[1.0] tracking-[-0.03em] mb-4" style={{ fontSize: 22, color: NAVY }}>{product.nameEn || product.name}</h3>
+                  <h3 className="font-black leading-[1.0] tracking-[-0.03em] mb-4" style={{ fontSize: 22, color: NAVY }}>{isAr && product.nameAr ? product.nameAr : (product.nameEn || product.name)}</h3>
                   <p className="text-[13px] leading-[1.6] mb-6" style={{ color: "rgba(11,15,26,0.45)" }}>{product.location}</p>
 
                   <div className="flex items-center gap-2 mb-8 py-3 border-y border-[#0B0F1A]/[0.07]">
@@ -448,10 +458,10 @@ export default function Product() {
 
                   <div className="flex flex-col gap-0 border-t border-[#0B0F1A]/[0.07]">
                     {[
-                      { label: 'Market', value: location.city },
-                      { label: 'Zone', value: product.district },
-                      { label: 'Ad Format', value: product.adFormat || '—' },
-                      { label: 'Code', value: product.code || '—' },
+                      { label: t('product.market'), value: displayCityName },
+                      { label: t('product.zone'),   value: displayDistrictName },
+                      { label: t('spec.adFormat'),  value: product.adFormat || '—' },
+                      { label: t('spec.code'),      value: product.code || '—' },
                     ].map(item => (
                       <div key={item.label} className="flex items-center justify-between py-3 border-b border-[#0B0F1A]/[0.07]">
                         <span className="text-[10px] font-semibold tracking-[0.18em] uppercase" style={{ color: "rgba(11,15,26,0.3)" }}>{item.label}</span>
@@ -465,7 +475,7 @@ export default function Product() {
                   className="mt-8 w-full h-[46px] flex items-center justify-center gap-2.5 text-[11px] font-bold tracking-[0.2em] uppercase group transition-colors"
                   style={{ border: "1.5px solid rgba(11,15,26,0.12)", textDecoration: "none", color: "rgba(11,15,26,0.5)" }}>
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                  Get Directions
+                  {t('product.getDirections')}
                 </a>
               </div>
             </div>
@@ -480,11 +490,11 @@ export default function Product() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
             <div className="col-span-4">
-              <Eyebrow text="Key Benefits" />
+              <Eyebrow text={t('product.keyBenefits')} />
               <Reveal delay={0.04}>
                 <h2 className="font-black leading-[0.9] tracking-[-0.04em]" style={{ fontSize: "clamp(28px, 3vw, 40px)", color: NAVY }}>
-                  Why this<br />
-                  <span style={{ color: "rgba(11,15,26,0.2)" }}>location works.</span>
+                  {t('product.whyThis')}<br />
+                  <span style={{ color: "rgba(11,15,26,0.2)" }}>{t('product.locationWorks')}</span>
                 </h2>
               </Reveal>
             </div>
@@ -511,9 +521,9 @@ export default function Product() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
             {[
-              { icon: "◉", label: "Market", value: location.city, sub: "Primary urban market" },
-              { icon: "◎", label: "Zone", value: product.location.split(",")[0], sub: product.location.split(",").slice(1).join(",").trim() || "Premium corridor" },
-              { icon: "◈", label: "Format", value: product.adFormat || product.type, sub: `${product.size || '—'} · ${product.brightness || 'Illuminated'}` },
+              { icon: "◉", label: t('product.market'), value: displayCityName, sub: isAr ? 'السوق الحضري الرئيسي' : 'Primary urban market' },
+              { icon: "◎", label: t('product.zone'),   value: displayDistrictName, sub: isAr ? t('product.premiumCorridor') : 'Premium corridor' },
+              { icon: "◈", label: t('product.format'), value: product.adFormat || product.type, sub: `${product.size || '—'} · ${product.brightness || t('product.illuminated')}` },
             ].map((item) => (
               <div key={item.label} className="bg-white flex items-start gap-5" style={{ padding: "32px 36px" }}>
                 <span style={{ color: RED, fontSize: 20, lineHeight: 1, marginTop: 2 }}>{item.icon}</span>
@@ -536,11 +546,11 @@ export default function Product() {
           <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
             <div className="flex items-center justify-between mb-10">
               <Reveal>
-                <p className="text-[10px] font-bold tracking-[0.35em] uppercase" style={{ color: "rgba(11,15,26,0.3)" }}>Related Billboard Locations</p>
+                <p className="text-[10px] font-bold tracking-[0.35em] uppercase" style={{ color: "rgba(11,15,26,0.3)" }}>{t('product.relatedBillboards')}</p>
               </Reveal>
               <Reveal delay={0.08}>
                 <Link to={`/locations/${location.slug}`} className="text-[11px] font-bold tracking-[0.2em] uppercase transition-colors hover:text-[#D90429]" style={{ color: "rgba(11,15,26,0.35)", textDecoration: "none" }}>
-                  View all in {location.city} →
+                  {t('product.viewAllIn')} {displayCityName} →
                 </Link>
               </Reveal>
             </div>
@@ -551,7 +561,7 @@ export default function Product() {
                     <div className="relative overflow-hidden" style={{ height: 200 }}>
                       <img src={rel.image} alt={`${rel.name} — billboard advertising ${location.city}`} className="w-full h-full object-cover transition-transform duration-600 group-hover:scale-[1.05]" style={{ opacity: 0.85 }} />
                       <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(11,15,26,0.7) 0%, transparent 60%)" }} />
-                      <span className="absolute bottom-4 left-5 font-bold text-white text-[15px]">{rel.name}</span>
+                      <span className="absolute bottom-4 left-5 font-bold text-white text-[15px]">{isAr && (rel as any).nameAr ? (rel as any).nameAr : (rel.nameEn || rel.name)}</span>
                     </div>
                     <div className="flex items-center justify-between" style={{ padding: "20px 24px" }}>
                       <div>
@@ -568,7 +578,11 @@ export default function Product() {
         </section>
       )}
 
-      <CTABanner title={`Book ${product.name} today.`} subtitle="Contact our team for availability, pricing, and campaign packages." buttonLabel="Book this Location" />
+      <CTABanner
+        title={`${t('product.bookLocation')} ${t('product.bookToday')}`}
+        subtitle={t('product.contactTeam')}
+        buttonLabel={t('product.bookLocation')}
+      />
     </>
   );
 }

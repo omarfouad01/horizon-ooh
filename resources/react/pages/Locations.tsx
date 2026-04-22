@@ -247,6 +247,7 @@ interface CardProps {
 }
 function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }: CardProps) {
   const navigate = useNavigate();
+  const { isAr, t } = useLang();
   const badges = getBadges(b.type);
   const highlighted = isHovered || isSelected;
 
@@ -289,11 +290,11 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }:
         <div className="absolute top-3 left-3 flex items-center gap-1.5">
           <span className="text-[9px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 text-white"
             style={{ background: RED, borderRadius: 3 }}>
-            {b.city}
+            {isAr && b.cityAr ? b.cityAr : b.city}
           </span>
           <span className="text-[9px] font-semibold tracking-[0.12em] uppercase px-2.5 py-1 text-white/80"
             style={{ background: "rgba(11,15,26,0.6)", backdropFilter: "blur(6px)", borderRadius: 3 }}>
-            {b.district}
+            {isAr && b.districtAr ? b.districtAr : b.district}
           </span>
         </div>
 
@@ -307,7 +308,7 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }:
 
         {/* Name overlay */}
         <div className="absolute bottom-3 left-3 right-3">
-          <p className="font-extrabold text-white leading-tight" style={{ fontSize: 15 }}>{b.nameEn || b.name}</p>
+          <p className="font-extrabold text-white leading-tight" style={{ fontSize: 15 }}>{isAr && b.nameAr ? b.nameAr : (b.nameEn || b.name)}</p>
         </div>
       </div>
 
@@ -315,7 +316,7 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }:
       <div style={{ padding: "16px 18px 18px" }}>
         {/* English name + full address */}
         <div className="mb-4 pb-4" style={{ borderBottom: "1px solid rgba(11,15,26,0.06)" }}>
-          <p className="text-[13px] font-bold text-[#0B0F1A] leading-snug mb-1">{b.nameEn || b.name}</p>
+          <p className="text-[13px] font-bold text-[#0B0F1A] leading-snug mb-1">{isAr && b.nameAr ? b.nameAr : (b.nameEn || b.name)}</p>
           <div className="flex items-start gap-1.5">
             <svg className="shrink-0 mt-[1px]" width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ color: '#D90429' }}>
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" fill="currentColor"/>
@@ -326,9 +327,9 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }:
         {/* Code / Size / Format stats row */}
         <div className="grid grid-cols-3 gap-0 mb-4" style={{ border: "1px solid rgba(11,15,26,0.07)" }}>
           {[
-            { label: "Code",   value: b.code || "—" },
-            { label: "Size",   value: b.size },
-            { label: "Format", value: b.type },
+            { label: t('spec.code'),      value: b.code || "—" },
+            { label: t('spec.size'),      value: b.size },
+            { label: t('spec.adFormat'),  value: b.type },
           ].map((stat, i) => (
             <div key={stat.label} className="flex flex-col items-center justify-center py-2.5 px-2"
               style={{ borderLeft: i > 0 ? '2px solid #D90429' : 'none' }}>
@@ -362,14 +363,14 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }:
             className="flex-1 h-9 flex items-center justify-center text-[10px] font-bold tracking-[0.18em] uppercase text-white transition-all duration-200 hover:opacity-90 active:scale-[0.97]"
             style={{ background: NAVY, border: "none", borderRadius: 5, cursor: "pointer" }}
           >
-            View Details
+            {isAr ? 'عرض التفاصيل' : 'View Details'}
           </button>
           <button
             onClick={e => { e.stopPropagation(); navigate("/contact"); }}
             className="flex-1 h-9 flex items-center justify-center text-[10px] font-bold tracking-[0.18em] uppercase transition-all duration-200 hover:bg-[rgba(217,4,41,0.06)] active:scale-[0.97]"
             style={{ border: `1.5px solid ${RED}`, color: RED, borderRadius: 5, cursor: "pointer", background: "transparent" }}
           >
-            Get Quote
+            {isAr ? 'اطلب عرض سعر' : 'Get Quote'}
           </button>
           <a
             href={`https://wa.me/201234567890?text=Hi%20HORIZON%20OOH%2C%20I%27m%20interested%20in%20${encodeURIComponent(b.name)}`}
@@ -394,9 +395,20 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }:
 // MAIN PAGE
 // ═══════════════════════════════════════════════════════════════════════════
 export default function Locations() {
-  const { locations } = useStore()
+  const { locations, districts: storeDistrictsForEnrich } = useStore()
   const { isAr, t } = useLang()
-  const allBillboards = locations.flatMap((l: any) => (l.products||[]).map((p: any) => ({ ...p, citySlug: l.slug })))
+  // Enrich each billboard with Arabic city/district names from the store
+  const allBillboards = locations.flatMap((l: any) =>
+    (l.products||[]).map((p: any) => {
+      const districtObj = storeDistrictsForEnrich.find((d: any) => d.name === p.district)
+      return {
+        ...p,
+        citySlug: l.slug,
+        cityAr: l.cityAr || '',
+        districtAr: districtObj?.nameAr || '',
+      }
+    })
+  )
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
 

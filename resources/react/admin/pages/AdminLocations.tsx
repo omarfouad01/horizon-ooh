@@ -49,14 +49,15 @@ function GovForm({ editing, onClose }: any) {
 // ── District Form ────────────────────────────────────────────────────────────
 function DistrictForm({ editing, presetLocationId, onClose }: any) {
   const { locations } = useStore()
-  const [name, setName]   = useState(editing?.name || '')
-  const [locId, setLocId] = useState(editing?.locationId || presetLocationId || '')
+  const [name,   setName]   = useState(editing?.name   || '')
+  const [nameAr, setNameAr] = useState(editing?.nameAr || '')
+  const [locId,  setLocId]  = useState(editing?.locationId || presetLocationId || '')
 
   const save = (e: React.FormEvent) => {
     e.preventDefault()
     if (!name.trim() || !locId) { toast.error('Name and Governorate are required'); return }
-    if (editing) districtStore.update(editing.id, { name, locationId: locId })
-    else         districtStore.add({ name, locationId: locId })
+    if (editing) districtStore.update(editing.id, { name, nameAr, locationId: locId })
+    else         districtStore.add({ name, nameAr, locationId: locId })
     toast.success(editing ? 'District updated' : 'District added')
     onClose()
   }
@@ -71,7 +72,10 @@ function DistrictForm({ editing, presetLocationId, onClose }: any) {
           {locations.map((l: any) => <option key={l.id} value={l.id}>{l.city}</option>)}
         </select>
       </div>
-      <Field label="District Name *" value={name} onChange={(e: any) => setName(e.target.value)} required placeholder="e.g. Nasr City" />
+      <div className="grid grid-cols-2 gap-4">
+        <Field label="District Name (English) *" value={name} onChange={(e: any) => setName(e.target.value)} required placeholder="e.g. Nasr City" />
+        <Field label="District Name (Arabic — اسم المنطقة)" value={nameAr} onChange={(e: any) => setNameAr(e.target.value)} dir="rtl" placeholder="مثال: مدينة نصر" />
+      </div>
       <div className="flex gap-3 justify-end pt-2 border-t border-gray-100">
         <Btn variant="ghost" type="button" onClick={onClose}>Cancel</Btn>
         <Btn type="submit">{editing ? 'Save' : 'Add District'}</Btn>
