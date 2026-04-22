@@ -5,6 +5,7 @@ import { useStore } from "@/store/dataStore";
 import { type ProjectCategory } from "@/data";
 import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
 import { projectHref, RED, NAVY, ease } from "@/lib/routes";
+import { useLang } from "@/i18n/LangContext";
 
 const CAT_COLORS: Record<ProjectCategory, string> = {
   Billboard: "#D90429",
@@ -24,6 +25,7 @@ function buildClientBrief(project: any, clientProjects: any[]) {
 
 export default function ProjectDetail() {
   const { projects: PROJECTS } = useStore();
+  const { isAr, t } = useLang();
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const project = PROJECTS.find((p) => p.slug === slug);
@@ -40,9 +42,9 @@ export default function ProjectDetail() {
   if (!project) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6">
-        <p style={{ color: "rgba(11,15,26,0.4)", fontSize: 17 }}>Case study not found.</p>
+        <p style={{ color: "rgba(11,15,26,0.4)", fontSize: 17 }}>{t('projects.notFound')}</p>
         <button onClick={() => navigate("/projects")} style={{ color: RED, fontWeight: 700 }}>
-          ← Back to Projects
+          {t('projects.backToProjects')}
         </button>
       </div>
     );
@@ -90,12 +92,12 @@ export default function ProjectDetail() {
 
           <div className="overflow-hidden mb-2">
             <motion.h1 initial={{ y: "100%", opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.9, ease, delay: 0.1 }} className="font-black text-white leading-[0.88] tracking-[-0.05em]" style={{ fontSize: "clamp(40px, 5.5vw, 80px)", maxWidth: 880 }}>
-              {project.title}
+              {isAr && project.titleAr ? project.titleAr : project.title}
             </motion.h1>
           </div>
           <div className="overflow-hidden mb-8">
             <motion.p initial={{ y: "100%", opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.9, ease, delay: 0.2 }} className="font-semibold" style={{ fontSize: 18, color: "rgba(255,255,255,0.4)", maxWidth: 660 }}>
-              {project.tagline}
+              {isAr && project.taglineAr ? project.taglineAr : project.tagline}
             </motion.p>
           </div>
 
@@ -123,17 +125,17 @@ export default function ProjectDetail() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div className="col-span-12 lg:col-span-4">
-              <Eyebrow text="Overview" />
+              <Eyebrow text={t('projects.overview')} />
               <Reveal delay={0.04}>
                 <h2 className="font-black leading-[0.9] tracking-[-0.04em]" style={{ fontSize: "clamp(28px, 3vw, 42px)", color: NAVY }}>
-                  The brief.
+                  {t('projects.theBrief')}
                 </h2>
               </Reveal>
             </div>
             <div className="col-span-12 lg:col-span-8">
               <Reveal delay={0.1}>
                 <p className="text-[17px] leading-[1.85]" style={{ color: "rgba(11,15,26,0.55)" }}>
-                  {project.overview}
+                  {isAr && project.overviewAr ? project.overviewAr : project.overview}
                 </p>
               </Reveal>
             </div>
@@ -145,10 +147,10 @@ export default function ProjectDetail() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div className="col-span-12 lg:col-span-4">
-              <Eyebrow text="Client" />
+              <Eyebrow text={t('projects.client')} />
               <Reveal delay={0.04}>
                 <h2 className="font-black leading-[0.9] tracking-[-0.04em]" style={{ fontSize: "clamp(28px, 3vw, 42px)", color: NAVY }}>
-                  About the client.
+                  {t('projects.aboutClient')}
                 </h2>
               </Reveal>
             </div>
@@ -182,17 +184,17 @@ export default function ProjectDetail() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
             <div className="bg-white" style={{ padding: "52px 56px" }}>
               <div className="w-5 h-[1.5px] mb-8" style={{ background: RED }} />
-              <p className="text-[10px] font-bold tracking-[0.35em] uppercase mb-5" style={{ color: "rgba(11,15,26,0.3)" }}>Objective</p>
+              <p className="text-[10px] font-bold tracking-[0.35em] uppercase mb-5" style={{ color: "rgba(11,15,26,0.3)" }}>{t('projects.objective')}</p>
               <Reveal delay={0.04}>
-                <p className="text-[16px] leading-[1.85]" style={{ color: "rgba(11,15,26,0.6)" }}>{project.objective}</p>
+                <p className="text-[16px] leading-[1.85]" style={{ color: "rgba(11,15,26,0.6)" }}>{isAr && project.objectiveAr ? project.objectiveAr : project.objective}</p>
               </Reveal>
             </div>
 
             <div className="bg-white" style={{ padding: "52px 56px" }}>
               <div className="w-5 h-[1.5px] mb-8" style={{ background: NAVY }} />
-              <p className="text-[10px] font-bold tracking-[0.35em] uppercase mb-5" style={{ color: "rgba(11,15,26,0.3)" }}>Execution</p>
+              <p className="text-[10px] font-bold tracking-[0.35em] uppercase mb-5" style={{ color: "rgba(11,15,26,0.3)" }}>{t('projects.execution')}</p>
               <Reveal delay={0.08}>
-                <p className="text-[16px] leading-[1.85]" style={{ color: "rgba(11,15,26,0.6)" }}>{project.execution}</p>
+                <p className="text-[16px] leading-[1.85]" style={{ color: "rgba(11,15,26,0.6)" }}>{isAr && project.executionAr ? project.executionAr : project.execution}</p>
               </Reveal>
             </div>
           </div>
@@ -204,11 +206,11 @@ export default function ProjectDetail() {
           <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
             <div className="mb-10">
               <Reveal>
-                <Eyebrow text="Campaign Photos" />
+                <Eyebrow text={t('projects.campaignPhotos')} />
               </Reveal>
               <Reveal delay={0.04}>
                 <h2 className="font-black leading-[0.9] tracking-[-0.04em]" style={{ fontSize: "clamp(28px, 3vw, 42px)", color: NAVY }}>
-                  Outdoor advertising campaign photos.
+                  {t('projects.galleryTitle')}
                 </h2>
               </Reveal>
             </div>
@@ -227,11 +229,11 @@ export default function ProjectDetail() {
 
       <section style={{ background: NAVY, paddingTop: 100, paddingBottom: 100 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
-          <Eyebrow text="Campaign Results" light />
+          <Eyebrow text={t('projects.results')} light />
           <Reveal delay={0.04}>
             <h2 className="font-black leading-[0.9] tracking-[-0.04em] text-white mb-16" style={{ fontSize: "clamp(36px, 4vw, 56px)" }}>
-              The numbers<br />
-              <span style={{ color: "rgba(255,255,255,0.2)" }}>don't lie.</span>
+              {t('projects.numbers')}<br />
+              <span style={{ color: "rgba(255,255,255,0.2)" }}>{t('projects.dontLie')}</span>
             </h2>
           </Reveal>
 

@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useStore, getState } from "@/store/dataStore";
 import { productHref, RED, NAVY } from "@/lib/routes";
 import LocationsMap from "@/components/LocationsMap";
+import { useLang } from "@/i18n/LangContext";
 
 const getBillboards = () => getState().locations.flatMap((l: any) => (l.products||[]).map((p: any) => ({ ...p, citySlug: l.slug })));
 
@@ -394,6 +395,7 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }:
 // ═══════════════════════════════════════════════════════════════════════════
 export default function Locations() {
   const { locations } = useStore()
+  const { isAr, t } = useLang()
   const allBillboards = locations.flatMap((l: any) => (l.products||[]).map((p: any) => ({ ...p, citySlug: l.slug })))
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -510,16 +512,16 @@ export default function Locations() {
               <div className="flex items-center gap-3 mb-4">
                 <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
                 <span className="text-[10px] font-bold tracking-[0.35em] uppercase"
-                  style={{ color: "rgba(11,15,26,0.3)" }}>Our Network</span>
+                  style={{ color: "rgba(11,15,26,0.3)" }}>{t('locations.ourNetwork')}</span>
               </div>
               <h1 className="font-black leading-[0.88] tracking-[-0.04em]"
                 style={{ fontSize: "clamp(36px, 4vw, 58px)", color: NAVY }}>
-                Advertising Locations<br />
-                <span style={{ color: "rgba(11,15,26,0.18)" }}>Across Egypt.</span>
+                {t('locations.title')}<br />
+                <span style={{ color: "rgba(11,15,26,0.18)" }}>{t('locations.titleAccent')}</span>
               </h1>
             </div>
             <p className="text-[15px] leading-[1.7]" style={{ color: "rgba(11,15,26,0.45)", maxWidth: 340 }}>
-              9,500+ premium outdoor advertising locations — from Cairo's Ring Road to Alexandria's Corniche.
+              {t('locations.subtitle')}
             </p>
           </div>
         </div>

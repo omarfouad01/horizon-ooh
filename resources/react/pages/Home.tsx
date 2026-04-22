@@ -5,6 +5,7 @@ import { motion, AnimatePresence, useInView, useScroll, useTransform } from "fra
 import { useNavigate, Link } from "react-router-dom";
 import MultiSelect from "@/components/MultiSelect";
 import LogoMarquee from "@/components/LogoMarquee";
+import { useLang } from "@/i18n/LangContext";
 // data now from store
 import { serviceHref, locationHref, projectHref, productHref, blogHref } from "@/lib/routes";
 
@@ -198,6 +199,13 @@ function HeroSection() {
   const [formats,   setFormats]   = useState<string[]>([]);
 
   const { locations: _storeLocs, districts: _storeDists, adFormats: _adFormats, homeContent: hc } = useStore();
+  const { isAr, t } = useLang();
+  // Arabic helpers for homeContent
+  const heroEyebrow   = (isAr && hc.heroEyebrowAr)  ? hc.heroEyebrowAr  : hc.heroEyebrow;
+  const heroTitleLines = (isAr && hc.heroTitleLinesAr && hc.heroTitleLinesAr.length) ? hc.heroTitleLinesAr : (hc.heroTitleLines || ['Outdoor','Advertising','Agency.']);
+  const heroStatement = (isAr && hc.heroStatementAr) ? hc.heroStatementAr : hc.heroStatement;
+  const heroCta1      = (isAr && hc.heroCta1Ar)      ? hc.heroCta1Ar      : (hc.hero_cta_primary || t('home.exploreLocations'));
+  const heroCta2      = (isAr && hc.heroCta2Ar)      ? hc.heroCta2Ar      : (hc.hero_cta_secondary || t('home.viewCaseStudies'));
   const ALL_CITIES  = _storeLocs.map((l: any) => l.city).sort();
   const ALL_FORMATS = _adFormats.map((f: any) => f.label).filter(Boolean).sort();
 
@@ -275,13 +283,13 @@ function HeroSection() {
               <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
               <span className="text-[10px] font-bold tracking-[0.38em] uppercase"
                 style={{ color: "rgba(255,255,255,0.35)" }}>
-                {hc.heroEyebrow}
+                {heroEyebrow}
               </span>
             </motion.div>
 
             {/* H1 */}
             <div className="overflow-visible mb-5">
-              {(hc.heroTitleLines || ['Outdoor','Advertising','Agency.']).map((word, i) => (
+              {heroTitleLines.map((word: string, i: number) => (
                 <div key={word} className="overflow-hidden">
                   <motion.h1
                     initial={{ y: "105%", opacity: 0 }}
@@ -316,7 +324,7 @@ function HeroSection() {
               className="text-[17px] font-medium leading-[1.6] mb-9"
               style={{ color: "rgba(255,255,255,0.6)", maxWidth: 360 }}
             >
-              {hc.heroStatement}
+              {heroStatement}
             </motion.p>
 
             {/* CTA row */}
@@ -332,7 +340,7 @@ function HeroSection() {
               >
                 <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
                   style={{ background: "#f0042e" }} />
-                <span className="relative z-10">Get a Quote</span>
+                <span className="relative z-10">{t('nav.getQuote')}</span>
               </button>
               <button
                 onClick={() => { window.location.hash = '/locations'; window.scrollTo(0,0); }}
@@ -341,7 +349,7 @@ function HeroSection() {
               >
                 <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
                   style={{ background: "rgba(255,255,255,0.07)" }} />
-                <span className="relative z-10 group-hover:text-white transition-colors duration-300">View Locations</span>
+                <span className="relative z-10 group-hover:text-white transition-colors duration-300">{heroCta1}</span>
               </button>
             </motion.div>
 
@@ -993,14 +1001,14 @@ function ResultsSection() {
 // ═══════════════════════════════════════════════════════════════════════════
 function ClientsSection() {
   const { clientBrands } = useStore();
+  const { t } = useLang();
   return (
     <section id="about" style={{ background: "#ffffff", paddingTop: 52, paddingBottom: 52, borderTop: "1px solid rgba(11,15,26,0.06)" }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         <Reveal>
           <div className="flex items-center justify-center gap-4 mb-10">
             <span className="block w-8 h-[1px]" style={{ background: "rgba(11,15,26,0.12)" }} />
-            <p className="text-[10px] font-bold tracking-[0.35em] uppercase text-center" style={{ color: "rgba(11,15,26,0.35)" }}>
-              Trusted by 100+ brands across Egypt
+            <p className="text-[10px] font-bold tracking-[0.35em] uppercase text-center" style={{ color: "rgba(11,15,26,0.35)" }}>{t('home.trustedBy')}
             </p>
             <span className="block w-8 h-[1px]" style={{ background: "rgba(11,15,26,0.12)" }} />
           </div>

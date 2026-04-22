@@ -5,6 +5,7 @@ import { useStore } from "@/store/dataStore";
 import { type ProjectCategory } from "@/data";
 import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow } from "@/components/UI";
 import { projectHref, RED, NAVY, ease } from "@/lib/routes";
+import { useLang } from "@/i18n/LangContext";
 
 const FILTERS: { label: string; value: "All" | ProjectCategory }[] = [
   { label: "All Projects", value: "All" },
@@ -121,6 +122,7 @@ function ClientCard({ client, index, active, onClick }: { client: ClientGroup; i
 }
 
 function ProjectCard({ project, index }: { project: any; index: number }) {
+  const { isAr, t } = useLang();
   return (
     <motion.div
       variants={{
@@ -173,7 +175,7 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
           </div>
 
           <h3 className="font-extrabold leading-[1.15] tracking-[-0.02em] mb-3 transition-colors duration-400 group-hover:text-[#D90429]" style={{ fontSize: 20, color: NAVY }}>
-            {project.title}
+            {isAr && project.titleAr ? project.titleAr : project.title}
           </h3>
 
           <p className="text-[13px] font-medium mb-6" style={{ color: "rgba(11,15,26,0.4)" }}>
@@ -311,6 +313,7 @@ function WhyItMatters({ pc }: { pc?: any }) {
 
 export default function Projects() {
   const { projects: PROJECTS, clientBrands, projectsContent: pc } = useStore();
+  const { isAr, t } = useLang();
   const [filter, setFilter] = useState<"All" | ProjectCategory>("All");
   const [activeClient, setActiveClient] = useState<string | null>(null);
   const gridRef = useRef<HTMLDivElement | null>(null);
@@ -361,17 +364,17 @@ export default function Projects() {
       <section className="bg-white" style={{ paddingTop: 64, paddingBottom: 40 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <Reveal>
-            <Eyebrow text={pc?.heroEyebrow || 'Projects'} />
+            <Eyebrow text={isAr && (pc as any)?.heroEyebrowAr ? (pc as any).heroEyebrowAr : (pc?.heroEyebrow || t('projects.eyebrow'))} />
           </Reveal>
           <Reveal delay={0.04}>
             <h1 className="font-black leading-[0.88] tracking-[-0.05em]" style={{ fontSize: "clamp(42px, 6vw, 86px)", color: NAVY, maxWidth: 980 }}>
-              {pc?.heroTitle || 'Clients first.'}<br />
-              <span style={{ color: "rgba(11,15,26,0.2)" }}>{pc?.heroTitleAccent || 'Then every campaign we delivered.'}</span>
+              {isAr && (pc as any)?.heroTitleAr ? (pc as any).heroTitleAr : (pc?.heroTitle || t('projects.title'))}<br />
+              <span style={{ color: "rgba(11,15,26,0.2)" }}>{isAr && (pc as any)?.heroTitleAccentAr ? (pc as any).heroTitleAccentAr : (pc?.heroTitleAccent || t('projects.titleAccent'))}</span>
             </h1>
           </Reveal>
           <Reveal delay={0.08}>
             <p className="text-[17px] leading-[1.85] mt-8" style={{ color: "rgba(11,15,26,0.5)", maxWidth: 760 }}>
-              {pc?.heroParagraph || 'Browse by client. Each client card opens the projects and campaigns we executed for that brand, so repeat work with the same client is grouped together instead of being split into unrelated cards.'}
+              {isAr && (pc as any)?.heroParagraphAr ? (pc as any).heroParagraphAr : (pc?.heroParagraph || t('projects.subtitle'))}
             </p>
           </Reveal>
         </div>

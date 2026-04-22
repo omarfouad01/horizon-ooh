@@ -4,11 +4,13 @@ import LogoMarquee from "@/components/LogoMarquee";
 import { Reveal, RevealGroup, RevealItem, PageHero, SectionHeading, CTABanner, Eyebrow } from "@/components/UI";
 import { ROUTES, RED, NAVY } from "@/lib/routes";
 import SEO from "@/components/SEO";
+import { useLang } from "@/i18n/LangContext";
 
 export default function About() {
   const store   = useStore();
   const about   = store.about;
   const navigate = useNavigate();
+  const { isAr, t } = useLang();
 
   return (
     <>
@@ -20,9 +22,9 @@ export default function About() {
 
       {/* Hero */}
       <PageHero
-        eyebrow={about.heroEyebrow}
-        title={about.heroTitle}
-        titleAccent={about.heroAccent}
+        eyebrow={isAr && (about as any).heroEyebrowAr ? (about as any).heroEyebrowAr : about.heroEyebrow}
+        title={isAr && (about as any).heroTitleAr ? (about as any).heroTitleAr : about.heroTitle}
+        titleAccent={isAr && (about as any).heroAccentAr ? (about as any).heroAccentAr : about.heroAccent}
         dark={false}
       />
 
@@ -35,15 +37,15 @@ export default function About() {
                 className="font-black leading-[0.9] tracking-[-0.04em]"
                 style={{ fontSize: "clamp(32px, 3.5vw, 48px)", color: NAVY }}
               >
-                {about.introHeadline}
+                {isAr && (about as any).introHeadlineAr ? (about as any).introHeadlineAr : about.introHeadline}
               </p>
             </Reveal>
             <Reveal delay={0.1}>
               <p className="text-[17px] leading-[1.75]" style={{ color: "rgba(11,15,26,0.5)" }}>
-                {about.introParagraph1}
+                {isAr && (about as any).introParagraph1Ar ? (about as any).introParagraph1Ar : about.introParagraph1}
               </p>
               <p className="text-[17px] leading-[1.75] mt-5" style={{ color: "rgba(11,15,26,0.5)" }}>
-                {about.introParagraph2}
+                {isAr && (about as any).introParagraph2Ar ? (about as any).introParagraph2Ar : about.introParagraph2}
               </p>
             </Reveal>
           </div>

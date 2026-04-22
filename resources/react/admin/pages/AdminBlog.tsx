@@ -117,6 +117,8 @@ function BlogForm({ editing, onClose }: { editing?: BlogPost | null; onClose: ()
     image:    editing?.image    || '',
     imageAlt: (editing as any)?.imageAlt || '',
     tags:     (editing as any)?.tags || [] as string[],
+    titleAr:   (editing as any)?.titleAr   || '',
+    excerptAr: (editing as any)?.excerptAr || '',
   })
   const [blocks, setBlocks] = useState<Block[]>(
     (editing?.body || []).map(b => ({ ...b, id: uid() })) as Block[]
@@ -169,6 +171,10 @@ function BlogForm({ editing, onClose }: { editing?: BlogPost | null; onClose: ()
       <div className="grid grid-cols-1 gap-4">
         <Field label="Title *" value={f.title} onChange={(e: any) => set('title', e.target.value)} required/>
         <TA label="Excerpt (shown in list view)" value={f.excerpt} onChange={(e: any) => set('excerpt', e.target.value)} rows={2}/>
+        {/* ── Arabic ── */}
+        <div className="pt-1 pb-0 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400">Arabic (اللغة العربية)</span><div className="flex-1 h-px bg-gray-100"/></div>
+        <Field label="Arabic Title (العنوان)" value={f.titleAr||''} onChange={(e: any) => set('titleAr', e.target.value)} dir="rtl" placeholder="عنوان المقال بالعربية"/>
+        <TA label="Arabic Excerpt (الوصف المختصر)" value={f.excerptAr||''} onChange={(e: any) => set('excerptAr', e.target.value)} rows={2} dir="rtl"/>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
         <Field label="Category"  value={f.category}  onChange={(e: any) => set('category', e.target.value)}/>

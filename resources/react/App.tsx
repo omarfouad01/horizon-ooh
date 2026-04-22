@@ -1,4 +1,5 @@
 import { Toaster } from "@/components/ui/toaster";
+import { LangProvider } from "@/i18n/LangContext";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -42,6 +43,7 @@ import AdminHomePage   from "@/admin/pages/AdminHomePage";
 const queryClient = new QueryClient();
 
 const App = () => (
+  <LangProvider>
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
@@ -90,6 +92,7 @@ const App = () => (
       </AdminAuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
+  </LangProvider>
 );
 
 export default App;

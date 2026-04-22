@@ -6,7 +6,7 @@ import toast from 'react-hot-toast'
 
 function ProjectForm({ editing, onClose }: any) {
   const { clientBrands } = useStore()
-  const init = editing || { title:'', client:'', clientLogo:'', clientLogoAlt:'', clientIndustry:'', clientDescription:'', clientPageDescription:'', campaignBrief:'', location:'', city:'', category:'Billboard', year:new Date().getFullYear().toString(), duration:'', tagline:'', overview:'', objective:'', execution:'', coverImage:'', coverImageAlt:'', heroImage:'', heroImageAlt:'', galleryImages:[] as GalleryImage[], results:[], tags:[], keywords:[], featured:false }
+  const init = editing || { title:'', client:'', clientLogo:'', clientLogoAlt:'', clientIndustry:'', clientDescription:'', clientPageDescription:'', campaignBrief:'', location:'', city:'', category:'Billboard', year:new Date().getFullYear().toString(), duration:'', tagline:'', overview:'', objective:'', execution:'', coverImage:'', coverImageAlt:'', heroImage:'', heroImageAlt:'', galleryImages:[] as GalleryImage[], results:[], tags:[], keywords:[], featured:false, titleAr:'', overviewAr:'', objectiveAr:'', executionAr:'', taglineAr:'' }
   const [f,setF]           = useState({...init})
   const [results,setRes]   = useState<any[]>(init.results||[])
   const [tags,setTags]     = useState<string[]>(init.tags||[])
@@ -85,6 +85,13 @@ function ProjectForm({ editing, onClose }: any) {
       <TA label="Overview *"   value={f.overview}   onChange={(e:any)=>set('overview',e.target.value)}   required/>
       <TA label="Objective *"  value={f.objective}  onChange={(e:any)=>set('objective',e.target.value)}  required/>
       <TA label="Execution *"  value={f.execution}  onChange={(e:any)=>set('execution',e.target.value)}  required/>
+      {/* ── Arabic Content ── */}
+      <div className="pt-2 pb-1 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400">Arabic Content (اللغة العربية)</span><div className="flex-1 h-px bg-gray-100"/></div>
+      <Field label="Arabic Title (العنوان)" value={f.titleAr||''} onChange={(e:any)=>set('titleAr',e.target.value)} dir="rtl" placeholder="مثال: حملة الإعلانات الخارجية"/>
+      <Field label="Arabic Tagline (الشعار)" value={f.taglineAr||''} onChange={(e:any)=>set('taglineAr',e.target.value)} dir="rtl"/>
+      <TA label="Arabic Overview (نظرة عامة)" value={f.overviewAr||''} onChange={(e:any)=>set('overviewAr',e.target.value)} rows={3} dir="rtl"/>
+      <TA label="Arabic Objective (الهدف)" value={f.objectiveAr||''} onChange={(e:any)=>set('objectiveAr',e.target.value)} rows={2} dir="rtl"/>
+      <TA label="Arabic Execution (التنفيذ)" value={f.executionAr||''} onChange={(e:any)=>set('executionAr',e.target.value)} rows={2} dir="rtl"/>
       <div className="grid grid-cols-2 gap-3 items-start">
         <ImagePicker label="Cover Image" value={f.coverImage} altValue={f.coverImageAlt} onChange={(url, alt) => { set('coverImage', url); set('coverImageAlt', alt) }}/>
         <ImagePicker label="Hero Image (optional)" value={f.heroImage} altValue={f.heroImageAlt} onChange={(url, alt) => { set('heroImage', url); set('heroImageAlt', alt) }}/>

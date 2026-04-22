@@ -61,6 +61,8 @@ function BrandModal({ open, brand, onClose, onSave, saving }: { open:boolean; br
   const [name,        setName]        = useState('')
   const [logoUrl,     setLogoUrl]     = useState('')
   const [description, setDescription] = useState('')
+  const [nameAr,        setNameAr]        = useState('')
+  const [descriptionAr, setDescriptionAr] = useState('')
 
   // Sync fields whenever the modal opens or the brand changes
   useEffect(() => {
@@ -68,6 +70,8 @@ function BrandModal({ open, brand, onClose, onSave, saving }: { open:boolean; br
       setName(brand?.name          || '')
       setLogoUrl(brand?.logoUrl    || '')
       setDescription(brand?.description || '')
+      setNameAr((brand as any)?.nameAr || '')
+      setDescriptionAr((brand as any)?.descriptionAr || '')
     }
   }, [open, brand])
 
@@ -75,7 +79,7 @@ function BrandModal({ open, brand, onClose, onSave, saving }: { open:boolean; br
 
   const handleSave = async () => {
     if (!name.trim()) return
-    await onSave({ name: name.trim(), logoUrl, description: description.trim() })
+    await onSave({ name: name.trim(), logoUrl, description: description.trim(), nameAr: nameAr.trim(), descriptionAr: descriptionAr.trim() } as any)
     onClose()
   }
 
@@ -111,6 +115,10 @@ function BrandModal({ open, brand, onClose, onSave, saving }: { open:boolean; br
             rows={4}
             placeholder="Write a short description of this client — it will appear in the 'About the client' section of their project pages."
           />
+          {/* ── Arabic ── */}
+          <div className="pt-1 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400">Arabic (اللغة العربية)</span><div className="flex-1 h-px bg-gray-100"/></div>
+          <Field label="Arabic Brand Name (اسم العلامة التجارية)" value={nameAr} onChange={(e:any)=>setNameAr(e.target.value)} dir="rtl" placeholder="مثال: كوكا كولا"/>
+          <TA label="Arabic Description (وصف العميل)" value={descriptionAr} onChange={(e:any)=>setDescriptionAr(e.target.value)} rows={3} dir="rtl"/>
         </div>
 
         {/* Footer — plain buttons, no Btn wrapper, no pointer-events interference */}

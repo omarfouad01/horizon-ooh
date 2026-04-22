@@ -8,7 +8,7 @@ const NAVY = '#0B0F1A', RED = '#D90429'
 
 // ── Governorate Form ────────────────────────────────────────────────────────
 function GovForm({ editing, onClose }: any) {
-  const init = editing || { city:'', headline:'', description:'', detail:'', longDescription:'', image:'', imageAlt:'', availableFormats:[] }
+  const init = editing || { city:'', headline:'', description:'', detail:'', longDescription:'', image:'', imageAlt:'', availableFormats:[], cityAr:'', descriptionAr:'', headlineAr:'' }
   const [f, setF]     = useState({ ...init })
   const [fmts, setFmts] = useState<string[]>(init.availableFormats || [])
   const set = (k: string, v: any) => setF((p: any) => ({ ...p, [k]: v }))
@@ -31,6 +31,11 @@ function GovForm({ editing, onClose }: any) {
       <Field label="Headline *"          value={f.headline}     onChange={(e: any) => set('headline', e.target.value)}     required />
       <TA    label="Short Description *" value={f.description}  onChange={(e: any) => set('description', e.target.value)}  rows={2} required />
       <TA    label="Long Description"    value={f.longDescription} onChange={(e: any) => set('longDescription', e.target.value)} rows={3} />
+      {/* ── Arabic ── */}
+      <div className="pt-1 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400">Arabic (اللغة العربية)</span><div className="flex-1 h-px bg-gray-100"/></div>
+      <Field label="Arabic City Name (اسم المدينة)" value={f.cityAr||''} onChange={(e: any) => set('cityAr', e.target.value)} dir="rtl" placeholder="مثال: القاهرة"/>
+      <Field label="Arabic Headline (العنوان)" value={f.headlineAr||''} onChange={(e: any) => set('headlineAr', e.target.value)} dir="rtl"/>
+      <TA    label="Arabic Description (الوصف)" value={f.descriptionAr||''} onChange={(e: any) => set('descriptionAr', e.target.value)} rows={2} dir="rtl"/>
       <ImagePicker label="Cover Image" value={f.image} altValue={f.imageAlt} onChange={(url, alt) => { set('image', url); set('imageAlt', alt) }} />
       <ArrayEditor label="Available Ad Formats" value={fmts} onChange={setFmts} placeholder="e.g. Unipole Billboard" />
       <div className="flex gap-3 justify-end pt-2 border-t border-gray-100">

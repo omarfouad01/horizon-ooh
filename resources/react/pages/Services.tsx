@@ -2,16 +2,18 @@ import { Link } from "react-router-dom";
 import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, PageHero, CTABanner, Eyebrow } from "@/components/UI";
 import { serviceHref, RED, NAVY } from "@/lib/routes";
+import { useLang } from "@/i18n/LangContext";
 
 export default function Services() {
   const { services: SERVICES } = useStore()
+  const { isAr, t } = useLang()
   return (
     <>
       <PageHero
-        eyebrow="What We Do"
-        title="Our Services."
-        titleAccent="Full-spectrum OOH."
-        subtitle="From roadside billboards to airport video walls — we own every outdoor touchpoint that matters in Egypt."
+        eyebrow={t('services.whatWeDo')}
+        title={t('services.title')}
+        titleAccent={t('services.titleAccent')}
+        subtitle={t('services.subtitle')}
         dark={false}
       />
 
@@ -38,7 +40,7 @@ export default function Services() {
                     className="font-bold tracking-[-0.02em] mb-4 text-[#0B0F1A] group-hover:text-white transition-colors duration-500"
                     style={{ fontSize: 22, lineHeight: 1.2 }}
                   >
-                    {service.title}
+                    {isAr && (service as any).titleAr ? (service as any).titleAr : service.title}
                   </h2>
 
                   {/* Divider */}
@@ -55,7 +57,7 @@ export default function Services() {
                   <p
                     className="text-[15px] leading-[1.7] flex-1 text-[rgba(11,15,26,0.45)] group-hover:text-white/70 transition-colors duration-500"
                   >
-                    {service.description}
+                    {isAr && (service as any).descriptionAr ? (service as any).descriptionAr : service.description}
                   </p>
 
                   {/* CTA */}
@@ -64,7 +66,7 @@ export default function Services() {
                       className="text-[11px] font-bold tracking-[0.2em] uppercase transition-colors duration-300"
                       style={{ color: RED }}
                     >
-                      Explore Service
+                      {t('services.exploreService')}
                     </span>
                     <span
                       className="opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-1 group-hover:translate-x-0"
