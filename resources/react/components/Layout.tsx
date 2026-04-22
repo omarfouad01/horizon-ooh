@@ -238,7 +238,7 @@ export function Footer() {
                 </>
               )}
             </div>
-            <p className="text-white/30 text-[14px] leading-[1.75]">{s.tagline}</p>
+            <p className="text-white/30 text-[14px] leading-[1.75]">{isAr && (s as any).taglineAr ? (s as any).taglineAr : s.tagline}</p>
             <div className="mt-8 flex items-center gap-1">
               <span className="w-6 h-[1px]" style={{ background: RED }} />
               <span className="text-white/20 text-[10px] tracking-[0.3em] uppercase ml-2">{t('footer.estd')}</span>

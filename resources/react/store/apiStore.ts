@@ -157,6 +157,7 @@ const DEMO_SETTINGS = {
   site_name:       'HORIZON OOH',
   companyName:     'HORIZON OOH',
   tagline:         "Egypt's Premium Out-of-Home Advertising Partner",
+  taglineAr:       'الشريك الأول في الإعلانات الخارجية في مصر',
   phone:           '+20 100 123 4567',
   email:           'info@horizonooh.com',
   address:         'Smart Village, Km 28, Cairo–Alexandria Desert Road, Cairo, Egypt',

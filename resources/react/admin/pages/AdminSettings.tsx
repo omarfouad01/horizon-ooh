@@ -222,7 +222,8 @@ export default function AdminSettings() {
           <div className="bg-white rounded-xl border border-gray-100 p-6 space-y-4 shadow-sm">
             <div className="grid grid-cols-2 gap-4">
               <Field label="Company Name" value={settings.companyName} onChange={(e:any)=>setSettings(p=>({...p,companyName:e.target.value}))}/>
-              <Field label="Tagline"      value={settings.tagline}     onChange={(e:any)=>setSettings(p=>({...p,tagline:e.target.value}))}/>
+              <Field label="Tagline (EN)" value={settings.tagline} onChange={(e:any)=>setSettings(p=>({...p,tagline:e.target.value}))}/>
+              <Field label="Tagline (AR) — النص تحت الشعار" value={(settings as any).taglineAr||''} onChange={(e:any)=>setSettings(p=>({...p,taglineAr:e.target.value}))} dir="rtl" placeholder="الشريك الأول في الإعلانات الخارجية في مصر"/>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <Field label="Email"   value={settings.email}   onChange={(e:any)=>setSettings(p=>({...p,email:e.target.value}))}/>
