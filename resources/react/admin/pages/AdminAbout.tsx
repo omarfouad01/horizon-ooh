@@ -151,6 +151,12 @@ export default function AdminAbout() {
               <Field label="Headline"      value={merged.heroTitle}    onChange={e=>patch({heroTitle:e.target.value})}    placeholder="About Horizon OOH."/>
               <Field label="Accent (italic)"value={merged.heroAccent}  onChange={e=>patch({heroAccent:e.target.value})}  placeholder="We control visibility."/>
             </div>
+            {/* Arabic */}
+            <div className="mt-3 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400">Arabic</span><div className="flex-1 h-px bg-gray-100"/></div>
+            <div className="grid grid-cols-2 gap-4 mt-2">
+              <Field label="Arabic Headline (العنوان)" value={(merged as any).heroTitleAr||''} onChange={e=>patch({heroTitleAr:e.target.value})} dir="rtl"/>
+              <Field label="Arabic Accent (italic)" value={(merged as any).heroAccentAr||''} onChange={e=>patch({heroAccentAr:e.target.value})} dir="rtl"/>
+            </div>
           </Card>
 
           <Card title="Intro Section — Two Columns">
@@ -159,6 +165,11 @@ export default function AdminAbout() {
               <TA    label="Right — Paragraph 1" value={merged.introParagraph1} onChange={e=>patch({introParagraph1:e.target.value})} rows={4}/>
               <TA    label="Right — Paragraph 2" value={merged.introParagraph2} onChange={e=>patch({introParagraph2:e.target.value})} rows={4}/>
             </div>
+            {/* Arabic */}
+            <div className="mt-3 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400">Arabic</span><div className="flex-1 h-px bg-gray-100"/></div>
+            <Field label="Arabic Big Headline (العنوان الكبير)" value={(merged as any).introHeadlineAr||''} onChange={e=>patch({introHeadlineAr:e.target.value})} dir="rtl"/>
+            <TA    label="Arabic Paragraph 1 (الفقرة 1)" value={(merged as any).introParagraph1Ar||''} onChange={e=>patch({introParagraph1Ar:e.target.value})} rows={3} dir="rtl"/>
+            <TA    label="Arabic Paragraph 2 (الفقرة 2)" value={(merged as any).introParagraph2Ar||''} onChange={e=>patch({introParagraph2Ar:e.target.value})} rows={3} dir="rtl"/>
           </Card>
 
           <Card title="SEO Expertise Section">
@@ -166,6 +177,10 @@ export default function AdminAbout() {
               <Field label="Section Heading" value={merged.seoHeading}   onChange={e=>patch({seoHeading:e.target.value})}/>
               <TA    label="Right Paragraph" value={merged.seoParagraph} onChange={e=>patch({seoParagraph:e.target.value})} rows={5}/>
             </div>
+            {/* Arabic */}
+            <div className="mt-3 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400">Arabic</span><div className="flex-1 h-px bg-gray-100"/></div>
+            <Field label="Arabic Heading (العنوان)" value={(merged as any).seoHeadingAr||''} onChange={e=>patch({seoHeadingAr:e.target.value})} dir="rtl"/>
+            <TA    label="Arabic Paragraph (الفقرة)" value={(merged as any).seoParagraphAr||''} onChange={e=>patch({seoParagraphAr:e.target.value})} rows={4} dir="rtl"/>
           </Card>
         </>
       )}

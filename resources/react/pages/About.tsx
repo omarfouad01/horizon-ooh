@@ -57,7 +57,7 @@ export default function About() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <Reveal>
             <h2 className="font-black text-[clamp(28px,3.5vw,44px)] tracking-[-0.03em] mb-16" style={{ color: NAVY }}>
-              {about.seoHeading}
+              {isAr && (about as any).seoHeadingAr ? (about as any).seoHeadingAr : about.seoHeading}
             </h2>
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-start">
@@ -77,7 +77,7 @@ export default function About() {
             </RevealGroup>
             <Reveal delay={0.1}>
               <p className="text-[16px] leading-[1.85]" style={{ color: "rgba(11,15,26,0.55)" }}>
-                {about.seoParagraph}
+                {isAr && (about as any).seoParagraphAr ? (about as any).seoParagraphAr : about.seoParagraph}
               </p>
             </Reveal>
           </div>

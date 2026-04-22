@@ -118,6 +118,9 @@ export default function AdminHomePage() {
             <div className="p-3 rounded-lg bg-gray-50 text-[11px] text-gray-400">
               💡 The last line uses a faded style by default (e.g. "Agency.").
             </div>
+            {/* Arabic */}
+            <div className="pt-1 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400">Arabic (اللغة العربية)</span><div className="flex-1 h-px bg-gray-100"/></div>
+            <Field label="Arabic Eyebrow (الشعار الصغير)" value={(h as any).heroEyebrowAr||''} onChange={(e:any)=>set('heroEyebrowAr',e.target.value)} dir="rtl"/>
           </SectionCard>
           <SectionCard title="Hero — Subtext & Channels">
             <Field label="Channels strip (e.g. Billboards · DOOH · Malls)"
@@ -126,6 +129,10 @@ export default function AdminHomePage() {
               value={h.heroStatement} onChange={(e:any)=>set('heroStatement',e.target.value)}/>
             <Field label="Search form title (e.g. 'Find a Billboard')"
               value={h.searchTitle} onChange={(e:any)=>set('searchTitle',e.target.value)}/>
+            {/* Arabic */}
+            <div className="pt-1 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400">Arabic (اللغة العربية)</span><div className="flex-1 h-px bg-gray-100"/></div>
+            <Field label="Arabic Tagline (الشعار)" value={(h as any).heroStatementAr||''} onChange={(e:any)=>set('heroStatementAr',e.target.value)} dir="rtl"/>
+            <Field label="Arabic Search Title (عنوان البحث)" value={(h as any).searchTitleAr||''} onChange={(e:any)=>set('searchTitleAr',e.target.value)} dir="rtl"/>
           </SectionCard>
         </>)}
 
