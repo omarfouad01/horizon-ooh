@@ -56,8 +56,11 @@ interface FilterDropdownProps {
   values: string[];
   onChange: (vals: string[]) => void;
   icon: React.ReactNode;
+  /** Optional map of English value → Arabic display label */
+  optionLabels?: Record<string, string>;
 }
-function FilterDropdown({ label, options, values, onChange, icon }: FilterDropdownProps) {
+function FilterDropdown({ label, options, values, onChange, icon, optionLabels }: FilterDropdownProps) {
+  const displayLabel = (val: string) => (optionLabels && optionLabels[val]) ? optionLabels[val] : val;
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const dropRef    = useRef<HTMLDivElement>(null);
@@ -90,7 +93,7 @@ function FilterDropdown({ label, options, values, onChange, icon }: FilterDropdo
   const triggerLabel = !hasValues
     ? label
     : values.length === 1
-      ? values[0]
+      ? displayLabel(values[0])
       : `${label} (${values.length})`;
 
   return (
@@ -209,7 +212,7 @@ function FilterDropdown({ label, options, values, onChange, icon }: FilterDropdo
                         fontWeight: checked ? 700 : 450,
                       }}
                     >
-                      {opt}
+                      {displayLabel(opt)}
                     </span>
                   </button>
                 );
@@ -451,6 +454,14 @@ export default function Locations() {
       .sort()
   })()
 
+  // ── Arabic label maps (English value → Arabic label) ─────────────────
+  const cityLabelsAr: Record<string, string> = isAr
+    ? Object.fromEntries(storeLocations.filter((l: any) => l.cityAr).map((l: any) => [l.city, l.cityAr]))
+    : {}
+  const districtLabelsAr: Record<string, string> = isAr
+    ? Object.fromEntries(storeDistricts.filter((d: any) => d.nameAr).map((d: any) => [d.name, d.nameAr]))
+    : {}
+
   // ── Filtered results ─────────────────────────────────────────────────
   const sorted = allBillboards.filter(b => {
     if (cities.length    > 0 && !cities.includes(b.city))        return false;
@@ -496,7 +507,10 @@ export default function Locations() {
     setFormats(vals); pushToUrl(cities, districts, vals);
   };
 
-  const cityLabel = cities.length === 0 ? "" : cities.length === 1 ? cities[0] : `${cities.length} cities`;
+  const cityLabelEn = cities.length === 0 ? "" : cities.length === 1 ? cities[0] : `${cities.length} cities`;
+  const cityLabel = isAr && cities.length === 1 && cityLabelsAr[cities[0]]
+    ? cityLabelsAr[cities[0]]
+    : cityLabelEn;
 
   return (
     <div className="flex flex-col min-h-screen" style={{ background: "#F7F7F8" }}>
@@ -557,7 +571,8 @@ export default function Locations() {
               style={{ color: "rgba(11,15,26,0.45)" }}>Filter:</span>
 
             <FilterDropdown
-              label="City" options={ALL_CITIES} values={cities} onChange={handleCitiesChange}
+              label={isAr ? 'المحافظة' : 'City'} options={ALL_CITIES} values={cities} onChange={handleCitiesChange}
+              optionLabels={cityLabelsAr}
               icon={
                 <svg width="11" height="13" viewBox="0 0 13 15" fill="none">
                   <path d="M6.5 0C3.462 0 1 2.462 1 5.5c0 3.85 5.5 9.5 5.5 9.5S12 9.35 12 5.5C12 2.462 9.538 0 6.5 0zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
@@ -566,7 +581,8 @@ export default function Locations() {
               }
             />
             <FilterDropdown
-              label="District" options={districtOptions} values={districts} onChange={handleDistrictsChange}
+              label={isAr ? 'المنطقة' : 'District'} options={districtOptions} values={districts} onChange={handleDistrictsChange}
+              optionLabels={districtLabelsAr}
               icon={
                 <svg width="13" height="11" viewBox="0 0 15 13" fill="none">
                   <rect x="0.5" y="5.5" width="6" height="7" stroke="currentColor" strokeWidth="1.4"/>
@@ -660,10 +676,12 @@ export default function Locations() {
                 className="lg:hidden overflow-hidden"
               >
                 <div className="pb-4 flex flex-col gap-3">
-                  <FilterDropdown label="City" options={ALL_CITIES} values={cities} onChange={handleCitiesChange}
+                  <FilterDropdown label={isAr ? 'المحافظة' : 'City'} options={ALL_CITIES} values={cities} onChange={handleCitiesChange}
+                    optionLabels={cityLabelsAr}
                     icon={<svg width="11" height="13" viewBox="0 0 13 15" fill="none"><path d="M6.5 0C3.462 0 1 2.462 1 5.5c0 3.85 5.5 9.5 5.5 9.5S12 9.35 12 5.5C12 2.462 9.538 0 6.5 0zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fill="currentColor"/></svg>}
                   />
-                  <FilterDropdown label="District" options={districtOptions} values={districts} onChange={handleDistrictsChange}
+                  <FilterDropdown label={isAr ? 'المنطقة' : 'District'} options={districtOptions} values={districts} onChange={handleDistrictsChange}
+                    optionLabels={districtLabelsAr}
                     icon={<svg width="13" height="11" viewBox="0 0 15 13" fill="none"><rect x="0.5" y="5.5" width="6" height="7" stroke="currentColor" strokeWidth="1.4"/><rect x="8.5" y="2.5" width="6" height="10" stroke="currentColor" strokeWidth="1.4"/><path d="M0 5.5L7.5 0 15 5.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/></svg>}
                   />
                   <FilterDropdown label="Format" options={ALL_FORMATS} values={formats} onChange={handleFormatsChange}
@@ -727,12 +745,12 @@ export default function Locations() {
               >
                 <div className="flex items-center gap-2 flex-wrap">
                   {[
-                    ...cities.map(v    => ({ label: "City",     value: v, clear: () => handleCitiesChange(cities.filter(x => x !== v)) })),
-                    ...districts.map(v => ({ label: "District", value: v, clear: () => handleDistrictsChange(districts.filter(x => x !== v)) })),
-                    ...formats.map(v   => ({ label: "Format",   value: v, clear: () => handleFormatsChange(formats.filter(x => x !== v)) })),
-                  ].map((chip) => (
+                    ...cities.map(v    => ({ label: isAr ? 'المحافظة' : 'City',     value: isAr && cityLabelsAr[v] ? cityLabelsAr[v] : v,     clear: () => handleCitiesChange(cities.filter(x => x !== v)) })),
+                    ...districts.map(v => ({ label: isAr ? 'المنطقة'  : 'District', value: isAr && districtLabelsAr[v] ? districtLabelsAr[v] : v, clear: () => handleDistrictsChange(districts.filter(x => x !== v)) })),
+                    ...formats.map(v   => ({ label: isAr ? 'النوع'    : 'Format',   value: v, clear: () => handleFormatsChange(formats.filter(x => x !== v)) })),
+                  ].map((chip, i) => (
                       <motion.span
-                        key={chip.label}
+                        key={i}
                         initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
                         className="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.12em] uppercase px-3 py-1.5"
                         style={{ background: NAVY, color: "white", borderRadius: 4 }}

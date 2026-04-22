@@ -216,6 +216,14 @@ function HeroSection() {
     return _storeDists.filter((d: any) => locIds.includes(d.locationId)).map((d: any) => d.name).sort();
   })();
 
+  // Arabic label maps for dropdowns
+  const cityLabelsAr: Record<string, string> = isAr
+    ? Object.fromEntries(_storeLocs.filter((l: any) => l.cityAr).map((l: any) => [l.city, l.cityAr]))
+    : {};
+  const districtLabelsAr: Record<string, string> = isAr
+    ? Object.fromEntries(_storeDists.filter((d: any) => d.nameAr).map((d: any) => [d.name, d.nameAr]))
+    : {};
+
   const hasFilters = cities.length > 0 || districts.length > 0 || formats.length > 0;
   const reset = () => { setCities([]); setDistricts([]); setFormats([]); };
 
@@ -371,8 +379,9 @@ function HeroSection() {
               <form onSubmit={handleSearch} className="flex flex-col gap-[1px]"
                 style={{ background: "rgba(255,255,255,0.06)" }}>
                 <MultiSelect
-                  label="City" options={ALL_CITIES} selected={cities}
+                  label={isAr ? 'المحافظة' : 'City'} options={ALL_CITIES} selected={cities}
                   onChange={v => { setCities(v); setDistricts([]); }}
+                  optionLabels={cityLabelsAr}
                   dark
                   icon={
                     <svg width="11" height="13" viewBox="0 0 13 15" fill="none">
@@ -382,8 +391,9 @@ function HeroSection() {
                   }
                 />
                 <MultiSelect
-                  label="District" options={districtOptions} selected={districts}
+                  label={isAr ? 'المنطقة' : 'District'} options={districtOptions} selected={districts}
                   onChange={setDistricts}
+                  optionLabels={districtLabelsAr}
                   dark
                   icon={
                     <svg width="13" height="11" viewBox="0 0 15 13" fill="none">
@@ -394,7 +404,7 @@ function HeroSection() {
                   }
                 />
                 <MultiSelect
-                  label="Format" options={ALL_FORMATS} selected={formats}
+                  label={isAr ? 'النوع' : 'Format'} options={ALL_FORMATS} selected={formats}
                   onChange={setFormats}
                   dark
                   icon={
@@ -415,7 +425,7 @@ function HeroSection() {
                     <circle cx="6" cy="6" r="4.5" stroke="white" strokeWidth="1.5"/>
                     <path d="M9.5 9.5l3 3" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
                   </svg>
-                  <span className="relative z-10">Search Billboards</span>
+                  <span className="relative z-10">{isAr ? 'بحث عن اللوحات' : 'Search Billboards'}</span>
                 </button>
               </form>
 
