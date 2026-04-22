@@ -108,6 +108,7 @@ function BlockEditor({ block, idx, total, onChange, onRemove, onMove }: {
 // ─── Blog Form ────────────────────────────────────────────────────────────────
 function BlogForm({ editing, onClose }: { editing?: BlogPost | null; onClose: () => void }) {
   const isEdit = !!editing
+  const [formTab, setFormTab] = useState<'en'|'ar'>('en')
   const [f, setF] = useState({
     title:    editing?.title    || '',
     excerpt:  editing?.excerpt  || '',
@@ -123,8 +124,12 @@ function BlogForm({ editing, onClose }: { editing?: BlogPost | null; onClose: ()
   const [blocks, setBlocks] = useState<Block[]>(
     (editing?.body || []).map(b => ({ ...b, id: uid() })) as Block[]
   )
+  const [blocksAr, setBlocksAr] = useState<Block[]>(
+    ((editing as any)?.bodyAr || []).map((b: any) => ({ ...b, id: uid() })) as Block[]
+  )
   const [tagInput, setTagInput] = useState('')
-  const [addMenu, setAddMenu]   = useState(false)
+  const [addMenu,  setAddMenu]  = useState(false)
+  const [addMenuAr,setAddMenuAr]= useState(false)
 
   const set = (k: string, v: any) => setF(p => ({ ...p, [k]: v }))
 
@@ -157,8 +162,9 @@ function BlogForm({ editing, onClose }: { editing?: BlogPost | null; onClose: ()
     e.preventDefault()
     if (!f.title.trim()) { toast.error('Title is required'); return }
     const slug = f.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
-    const body = blocks.map(({ id: _id, ...rest }) => rest)
-    const data = { ...f, slug, body }
+    const body   = blocks.map(({ id: _id, ...rest }) => rest)
+    const bodyAr = blocksAr.map(({ id: _id, ...rest }) => rest)
+    const data = { ...f, slug, body, bodyAr }
     if (isEdit && editing) blogStore.update(editing.id, data)
     else                   blogStore.add(data as any)
     toast.success(isEdit ? 'Post updated' : 'Post created')
@@ -167,15 +173,37 @@ function BlogForm({ editing, onClose }: { editing?: BlogPost | null; onClose: ()
 
   return (
     <form onSubmit={save} className="space-y-5">
-      {/* Meta */}
+      {/* Language tab switcher */}
+      <div className="flex gap-1 p-1 rounded-xl bg-gray-100 w-fit">
+        <button type="button" onClick={()=>setFormTab('en')}
+          className={`px-4 py-1.5 rounded-lg text-[12px] font-bold transition-all ${formTab==='en' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-400 hover:text-gray-600'}`}>
+          🇬🇧 English
+        </button>
+        <button type="button" onClick={()=>setFormTab('ar')}
+          className={`px-4 py-1.5 rounded-lg text-[12px] font-bold transition-all ${formTab==='ar' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-400 hover:text-gray-600'}`}
+          style={formTab==='ar' ? {color:'#D90429'} : {}}>
+          🌐 Arabic — عربي
+        </button>
+      </div>
+
+      {/* ── ENGLISH TAB ── */}
+      {formTab === 'en' && (
       <div className="grid grid-cols-1 gap-4">
         <Field label="Title *" value={f.title} onChange={(e: any) => set('title', e.target.value)} required/>
         <TA label="Excerpt (shown in list view)" value={f.excerpt} onChange={(e: any) => set('excerpt', e.target.value)} rows={2}/>
-        {/* ── Arabic ── */}
-        <div className="pt-1 pb-0 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400">Arabic (اللغة العربية)</span><div className="flex-1 h-px bg-gray-100"/></div>
-        <Field label="Arabic Title (العنوان)" value={f.titleAr||''} onChange={(e: any) => set('titleAr', e.target.value)} dir="rtl" placeholder="عنوان المقال بالعربية"/>
-        <TA label="Arabic Excerpt (الوصف المختصر)" value={f.excerptAr||''} onChange={(e: any) => set('excerptAr', e.target.value)} rows={2} dir="rtl"/>
       </div>
+      )}
+
+      {/* ── ARABIC TAB ── */}
+      {formTab === 'ar' && (
+      <div className="grid grid-cols-1 gap-4 p-4 rounded-xl" style={{background:'#FFF8F8', border:'1px solid #FFE0E0'}}>
+        <p className="text-[11px] text-gray-400">اترك الحقول فارغة لعرض النص الإنجليزي افتراضياً.</p>
+        <Field label="Arabic Title (العنوان)" value={f.titleAr||''} onChange={(e: any) => set('titleAr', e.target.value)} dir="rtl" placeholder="عنوان المقال بالعربية"/>
+        <TA label="Arabic Excerpt (الوصف المختصر)" value={f.excerptAr||''} onChange={(e: any) => set('excerptAr', e.target.value)} rows={2} dir="rtl" placeholder="ملخص المقال بالعربية"/>
+      </div>
+      )}
+      {formTab === 'en' && (
+      <>
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
         <Field label="Category"  value={f.category}  onChange={(e: any) => set('category', e.target.value)}/>
         <Field label="Read Time" value={f.readTime}   onChange={(e: any) => set('readTime', e.target.value)} placeholder="5 min read"/>
@@ -186,9 +214,12 @@ function BlogForm({ editing, onClose }: { editing?: BlogPost | null; onClose: ()
         value={f.image}
         altValue={f.imageAlt}
         onChange={(url, alt) => { set('image', url); set('imageAlt', alt) }}
-      />
+      /></>
+
+      )}
 
       {/* Tags */}
+      {formTab === 'en' && (
       <div>
         <label className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block mb-2">Tags</label>
         <div className="flex flex-wrap gap-2 mb-2">
@@ -209,11 +240,13 @@ function BlogForm({ editing, onClose }: { editing?: BlogPost | null; onClose: ()
             className="px-3 h-8 rounded-lg bg-gray-100 text-[12px] font-semibold text-gray-600 hover:bg-gray-200">Add</button>
         </div>
       </div>
+      )}
 
-      {/* Content blocks */}
+      {/* ── ENGLISH Content blocks ── */}
+      {formTab === 'en' && (
       <div>
         <div className="flex items-center justify-between mb-3">
-          <label className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Content Blocks</label>
+          <label className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Content Blocks (English)</label>
           <div className="relative">
             <button type="button" onClick={() => setAddMenu(p => !p)}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-navy text-white text-[12px] font-semibold hover:bg-navy/90 transition-colors"
@@ -252,6 +285,50 @@ function BlogForm({ editing, onClose }: { editing?: BlogPost | null; onClose: ()
           ))}
         </div>
       </div>
+      )}
+
+      {/* ── ARABIC Content blocks ── */}
+      {formTab === 'ar' && (
+      <div>
+        <div className="flex items-center justify-between mb-3">
+          <label className="text-[11px] font-bold tracking-wider uppercase" style={{color:'#D90429',fontSize:11}}>🌐 محتوى المقال بالعربية — Arabic Body Blocks</label>
+          <div className="relative">
+            <button type="button" onClick={() => setAddMenuAr(p => !p)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-white text-[12px] font-semibold hover:opacity-90 transition-colors"
+              style={{ background: '#D90429' }}>
+              <Plus size={12}/> Add Arabic Block
+            </button>
+            {addMenuAr && (
+              <div className="absolute right-0 mt-1 w-48 bg-white rounded-xl border border-gray-100 shadow-xl z-10 overflow-hidden">
+                {BLOCK_TYPES.map(bt => (
+                  <button key={bt.type} type="button" onClick={() => { const b: Block = { id: uid(), type: bt.type, content: '', items: bt.type === 'ul' ? [''] : undefined }; setBlocksAr(p => [...p, b]); setAddMenuAr(false) }}
+                    className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 text-left transition-colors">
+                    <span className="text-gray-500">{bt.icon}</span>
+                    <div>
+                      <p className="text-[13px] font-semibold text-gray-800">{bt.label}</p>
+                      <p className="text-[11px] text-gray-400">{bt.desc}</p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+        {blocksAr.length === 0 && (
+          <div className="text-center py-10 rounded-xl border-2 border-dashed text-[13px]" style={{borderColor:'#FFE0E0',color:'#D90429',opacity:0.5}}>
+            لا يوجد محتوى بعد — انقر على <strong>Add Arabic Block</strong> لبدء الكتابة
+          </div>
+        )}
+        <div className="space-y-2.5">
+          {blocksAr.map((b, i) => (
+            <BlockEditor key={b.id} block={b} idx={i} total={blocksAr.length}
+              onChange={upd => setBlocksAr(p => p.map(x => x.id === b.id ? upd : x))}
+              onRemove={() => setBlocksAr(p => p.filter(x => x.id !== b.id))}
+              onMove={dir => { const arr=[...blocksAr]; const to=i+dir; if(to>=0&&to<arr.length){[arr[i],arr[to]]=[arr[to],arr[i]]; setBlocksAr(arr)} }}/>
+          ))}
+        </div>
+      </div>
+      )}
 
       {/* Actions */}
       <div className="flex gap-3 justify-end pt-3 border-t border-gray-100 sticky bottom-0 bg-white py-3">

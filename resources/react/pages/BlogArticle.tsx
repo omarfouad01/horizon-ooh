@@ -2,11 +2,13 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
 import { blogHref, RED, NAVY } from "@/lib/routes";
+import { useLang } from "@/i18n/LangContext";
 
 export default function BlogArticle() {
   const { blogPosts: BLOG_POSTS } = useStore()
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const { isAr } = useLang();
   const post = BLOG_POSTS.find((p) => p.slug === slug);
   const related = BLOG_POSTS.filter((p) => p.slug !== slug).slice(0, 3);
 
@@ -43,12 +45,12 @@ export default function BlogArticle() {
             </div>
             <Reveal delay={0.05}>
               <h1 className="font-black leading-[1.0] tracking-[-0.04em] text-white" style={{ fontSize: "clamp(36px, 5vw, 64px)" }}>
-                {post.title}
+                {isAr && (post as any).titleAr ? (post as any).titleAr : post.title}
               </h1>
             </Reveal>
             <Reveal delay={0.12}>
               <p className="text-[18px] leading-[1.75] mt-6" style={{ color: "rgba(255,255,255,0.45)" }}>
-                {post.excerpt}
+                {isAr && (post as any).excerptAr ? (post as any).excerptAr : post.excerpt}
               </p>
             </Reveal>
           </div>
@@ -69,7 +71,7 @@ export default function BlogArticle() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             {/* Main content */}
             <article className="col-span-12 lg:col-span-8">
-              {post.body.map((block, i) => {
+              {(isAr && (post as any).bodyAr?.length ? (post as any).bodyAr : post.body).map((block: any, i: number) => {
                 if (block.type === "h2") {
                   return (
                     <Reveal key={i} delay={0.04}>
@@ -172,7 +174,7 @@ export default function BlogArticle() {
                         <img src={rel.image} alt={rel.title} className="w-14 h-12 object-cover flex-shrink-0" />
                         <div>
                           <p className="text-[13px] font-semibold leading-[1.4] transition-colors group-hover:text-[#D90429]" style={{ color: NAVY }}>
-                            {rel.title.length > 60 ? rel.title.slice(0, 60) + "…" : rel.title}
+                          {(() => { const t = isAr && (rel as any).titleAr ? (rel as any).titleAr : rel.title; return t.length > 60 ? t.slice(0,60)+'…' : t; })()}
                           </p>
                           <p className="text-[10px] font-semibold tracking-[0.15em] uppercase mt-1" style={{ color: "rgba(11,15,26,0.3)" }}>
                             {rel.readTime}
