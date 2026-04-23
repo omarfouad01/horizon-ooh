@@ -126,30 +126,68 @@ function BrandPanel() {
   );
 }
 
+// ─── Resolve API base URL ─────────────────────────────────────────────────────
+function apiBase(): string {
+  const v = (import.meta as any).env?.VITE_API_URL as string | undefined;
+  if (v && v.trim() && !v.includes('localhost') && !v.includes('127.0.0.1')) return v.replace(/\/+$/, '');
+  if (typeof window !== 'undefined') {
+    const { protocol, hostname } = window.location;
+    if (hostname !== 'localhost' && hostname !== '127.0.0.1') return `${protocol}//${hostname}/api`;
+  }
+  return (v ?? '').replace(/\/+$/, '') || 'http://localhost:8000/api';
+}
+
 export default function Signup() {
-  const [name, setName] = useState("");
-  const [company, setCompany] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirm, setConfirm] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
-  const [agreed, setAgreed] = useState(false);
+  const [name,     setName]     = useState('');
+  const [company,  setCompany]  = useState('');
+  const [phone,    setPhone]    = useState('');
+  const [email,    setEmail]    = useState('');
+  const [password, setPassword] = useState('');
+  const [confirm,  setConfirm]  = useState('');
+  const [loading,  setLoading]  = useState(false);
+  const [error,    setError]    = useState<string | null>(null);
+  const [success,  setSuccess]  = useState(false);
+  const [agreed,   setAgreed]   = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    if (!name || !email || !password || !confirm) { setError("Please fill in all required fields."); return; }
-    if (password.length < 8) { setError("Password must be at least 8 characters."); return; }
-    if (password !== confirm) { setError("Passwords do not match."); return; }
-    if (!agreed) { setError("Please agree to the terms and privacy policy."); return; }
+    if (!name || !email || !password || !confirm) { setError('Please fill in all required fields.'); return; }
+    if (password.length < 8) { setError('Password must be at least 8 characters.'); return; }
+    if (password !== confirm) { setError('Passwords do not match.'); return; }
+    if (!agreed) { setError('Please agree to the terms and privacy policy.'); return; }
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1100));
-    // Save user to admin store
-    siteUserStore.upsert(email, { name, phone: company, source: 'signup' });
-    setLoading(false);
-    setSuccess(true);
+    try {
+      const res = await fetch(`${apiBase()}/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ name, email, password, password_confirmation: confirm, phone, company }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        if (data.errors) {
+          const msgs = Object.values(data.errors as Record<string, string[]>).flat();
+          setError(msgs.join(' '));
+        } else {
+          setError(data.message || `Registration failed (${res.status})`);
+        }
+        setLoading(false);
+        return;
+      }
+      // Store session
+      const token = data.token || data.access_token || '';
+      const user  = data.user || {};
+      localStorage.setItem('horizon_token',       token);
+      localStorage.setItem('horizon_user_email', user.email || email);
+      localStorage.setItem('horizon_user_name',  user.name  || name);
+      localStorage.setItem('horizon_user_phone', user.phone || phone);
+      siteUserStore.upsert(email, { name, phone, source: 'signup' });
+      setSuccess(true);
+    } catch (_err) {
+      setError('Network error — please check your connection and try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -234,8 +272,12 @@ export default function Signup() {
                     <AuthInput label="Company" id="company" placeholder="Brand Egypt"
                       value={company} onChange={setCompany} required={false} />
                   </div>
-                  <AuthInput label="Email Address" id="email" type="email"
-                    placeholder="you@brand.com" value={email} onChange={setEmail} />
+                  <div className="grid grid-cols-2 gap-4">
+                    <AuthInput label="Email Address" id="email" type="email"
+                      placeholder="you@brand.com" value={email} onChange={setEmail} />
+                    <AuthInput label="Phone Number" id="phone" type="tel"
+                      placeholder="+20 10 0000 0000" value={phone} onChange={setPhone} required={false} />
+                  </div>
                   <PasswordInput label="Password" id="password" placeholder="Min. 8 characters"
                     value={password} onChange={setPassword} />
                   <div>

@@ -1,7 +1,7 @@
 import { Link, useLocation, Outlet, Navigate } from 'react-router-dom'
 import { useAdmin } from './AdminAuth'
 import { useState } from 'react'
-import { LayoutDashboard, MapPin, Monitor, Briefcase, BookOpen, MessageSquare, Settings, LogOut, Menu, X, ExternalLink, Layers, Info, Truck, User, Users, Bell, Home } from 'lucide-react'
+import { LayoutDashboard, MapPin, Monitor, Briefcase, BookOpen, MessageSquare, Settings, LogOut, Menu, X, ExternalLink, Layers, Info, Truck, User, Users, Bell, Home, Wand2 } from 'lucide-react'
 import clsx from 'clsx'
 import { useStore } from '@/store/dataStore'
 
@@ -19,6 +19,7 @@ const NAV = [
   { to:'/admin/users',       label:'Website Users', icon:Users },
   { to:'/admin/about',       label:'About Page',    icon:Info },
   { to:'/admin/suppliers',   label:'Suppliers',     icon:Truck },
+  { to:'/admin/simulator',   label:'Ad Simulator',  icon:Wand2 },
   { to:'/admin/settings',    label:'Settings',      icon:Settings },
 ] as const
 

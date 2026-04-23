@@ -265,6 +265,42 @@ const DEMO_PROJECTS_CONTENT = {
   ctaButton:  'Start Your Campaign',
 };
 
+// ─── Simulator types ──────────────────────────────────────────────────────────
+export interface BillboardSize {
+  id: string;
+  label: string;      // e.g. "8×16 m"
+  widthM?: number;
+  heightM?: number;
+  notes?: string;
+}
+
+export interface SimulatorTemplate {
+  id: string;
+  typeName:   string;   // billboard type (e.g. "Unipole")
+  sizeLabel:  string;   // matches BillboardSize.label
+  mockupUrl:  string;   // street photo URL
+  // corners: [TL, TR, BR, BL] as fractions 0..1 of mockup image
+  corners: [{ x:number;y:number }, { x:number;y:number }, { x:number;y:number }, { x:number;y:number }];
+  notes?: string;
+}
+
+export interface DesignUpload {
+  id: string;
+  userId:      string;
+  userName:    string;
+  userEmail:   string;
+  userPhone?:  string;
+  designUrl:   string;
+  templateId:  string;
+  typeName:    string;
+  sizeLabel:   string;
+  productId?:  string;
+  productName?: string;
+  status:      'pending' | 'reviewed' | 'approved' | 'rejected';
+  createdAt:   string;
+  notes?:      string;
+}
+
 export interface ApiState {
   locations:       any[];
   districts:       any[];
@@ -289,8 +325,11 @@ export interface ApiState {
   loaded:          boolean;
   loading:         boolean;
   error:           string | null;
-  usingDemo:       boolean;
-  reload:          () => Promise<void>;
+  usingDemo:          boolean;
+  billboardSizes:     BillboardSize[];
+  simulatorTemplates: SimulatorTemplate[];
+  designUploads:      DesignUpload[];
+  reload:             () => Promise<void>;
 }
 
 // ─── Pre-compute demo data ────────────────────────────────────────────────────
@@ -336,9 +375,12 @@ export const useApiStore = create<ApiState>((set, get) => ({
   process:      HAS_API ? [] : _demoProcess,
   results:      HAS_API ? [] : DEMO_RESULTS,
   clientBrands: HAS_API ? [] : _demoBrands,
-  suppliers:    [],
-  customers:    [],
-  siteUsers:    [],
+  suppliers:          [],
+  customers:          [],
+  siteUsers:          [],
+  billboardSizes:     [],
+  simulatorTemplates: [],
+  designUploads:      [],
   contacts:     HAS_API ? [] : _demoContacts,
   settings:        HAS_API ? {} : DEMO_SETTINGS,
   homeContent:     HAS_API ? {} : DEMO_HOME,

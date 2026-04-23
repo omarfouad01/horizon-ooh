@@ -15,7 +15,11 @@ export type {
   ApiState, AdFormatType, ClientBrand, Supplier, Customer,
   SiteUser, WhyChooseItem, AboutStat, AboutContent,
   ContactEntry, ProcessStep, ResultStat,
+  BillboardSize, SimulatorTemplate, DesignUpload,
 } from './apiStore';
+
+// Local imports for store implementations
+import type { BillboardSize, SimulatorTemplate, DesignUpload } from './apiStore';
 
 // Product type used by AdminBillboards
 export interface Product {
@@ -347,6 +351,57 @@ export const siteUserStore = {
     set(st => ({ siteUsers: st.siteUsers.filter((u: any) => u.id !== id) }));
   },
   all: () => s().siteUsers,
+};
+
+// ─── Billboard Sizes ──────────────────────────────────────────────────────────
+export const billboardSizeStore = {
+  add: (data: Omit<BillboardSize,'id'>) => {
+    const item: BillboardSize = { ...data, id: uid() };
+    set(st => ({ billboardSizes: [...(st as any).billboardSizes, item] }));
+  },
+  update: (id: string, data: Partial<BillboardSize>) => {
+    set(st => ({ billboardSizes: (st as any).billboardSizes.map((x: BillboardSize) => x.id === id ? { ...x, ...data } : x) }));
+  },
+  remove: (id: string) => {
+    set(st => ({ billboardSizes: (st as any).billboardSizes.filter((x: BillboardSize) => x.id !== id) }));
+  },
+  all: () => (s() as any).billboardSizes as BillboardSize[],
+};
+
+// ─── Simulator Templates ──────────────────────────────────────────────────────
+export const simulatorTemplateStore = {
+  add: (data: Omit<SimulatorTemplate,'id'>) => {
+    const item: SimulatorTemplate = { ...data, id: uid() };
+    set(st => ({ simulatorTemplates: [...(st as any).simulatorTemplates, item] }));
+  },
+  update: (id: string, data: Partial<SimulatorTemplate>) => {
+    set(st => ({ simulatorTemplates: (st as any).simulatorTemplates.map((x: SimulatorTemplate) => x.id === id ? { ...x, ...data } : x) }));
+  },
+  remove: (id: string) => {
+    set(st => ({ simulatorTemplates: (st as any).simulatorTemplates.filter((x: SimulatorTemplate) => x.id !== id) }));
+  },
+  all: () => (s() as any).simulatorTemplates as SimulatorTemplate[],
+};
+
+// ─── Design Uploads ───────────────────────────────────────────────────────────
+export const designUploadStore = {
+  add: (data: Omit<DesignUpload,'id'|'status'|'createdAt'>) => {
+    const item: DesignUpload = {
+      ...data,
+      id: uid(),
+      status: 'pending',
+      createdAt: new Date().toISOString(),
+    };
+    set(st => ({ designUploads: [...(st as any).designUploads, item] }));
+    return item;
+  },
+  update: (id: string, data: Partial<DesignUpload>) => {
+    set(st => ({ designUploads: (st as any).designUploads.map((x: DesignUpload) => x.id === id ? { ...x, ...data } : x) }));
+  },
+  remove: (id: string) => {
+    set(st => ({ designUploads: (st as any).designUploads.filter((x: DesignUpload) => x.id !== id) }));
+  },
+  all: () => (s() as any).designUploads as DesignUpload[],
 };
 
 // ─── Misc ─────────────────────────────────────────────────────────────────────

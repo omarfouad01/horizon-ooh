@@ -111,6 +111,17 @@ function BrandPanel() {
   );
 }
 
+// ─── Resolve API base URL ─────────────────────────────────────────────────────
+function apiBase(): string {
+  const v = (import.meta as any).env?.VITE_API_URL as string | undefined;
+  if (v && v.trim() && !v.includes('localhost') && !v.includes('127.0.0.1')) return v.replace(/\/+$/, '');
+  if (typeof window !== 'undefined') {
+    const { protocol, hostname } = window.location;
+    if (hostname !== 'localhost' && hostname !== '127.0.0.1') return `${protocol}//${hostname}/api`;
+  }
+  return (v ?? '').replace(/\/+$/, '') || 'http://localhost:8000/api';
+}
+
 // ─── LOGIN PAGE ────────────────────────────────────────────────────────────
 export default function Login() {
   const navigate = useNavigate();
@@ -124,15 +135,40 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    if (!email || !password) { setError("Please fill in all fields."); return; }
+    if (!email || !password) { setError('Please fill in all fields.'); return; }
     setLoading(true);
-    // Simulate API call — replace with real auth
-    await new Promise((r) => setTimeout(r, 1100));
-    // Record login attempt in admin users list
-    siteUserStore.upsert(email, { source: 'login' });
-    setLoading(false);
-    // navigate("/dashboard"); // uncomment when dashboard exists
-    setError("Demo mode — backend auth not yet connected.");
+    try {
+      const res = await fetch(`${apiBase()}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        // Laravel validation errors
+        if (data.errors) {
+          const msgs = Object.values(data.errors as Record<string, string[]>).flat();
+          setError(msgs.join(' '));
+        } else {
+          setError(data.message || `Login failed (${res.status})`);
+        }
+        setLoading(false);
+        return;
+      }
+      // Success — store session info
+      const token = data.token || data.access_token || '';
+      const user  = data.user || {};
+      localStorage.setItem('horizon_token',       token);
+      localStorage.setItem('horizon_user_email', user.email || email);
+      localStorage.setItem('horizon_user_name',  user.name  || '');
+      localStorage.setItem('horizon_user_phone', user.phone || '');
+      siteUserStore.upsert(email, { name: user.name, phone: user.phone, source: 'login' });
+      navigate('/');
+    } catch (_err) {
+      setError('Network error — please check your connection and try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

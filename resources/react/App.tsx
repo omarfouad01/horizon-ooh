@@ -39,6 +39,8 @@ import AdminSuppliers  from "@/admin/pages/AdminSuppliers";
 import AdminCustomers  from "@/admin/pages/AdminCustomers";
 import AdminUsers      from "@/admin/pages/AdminUsers";
 import AdminHomePage   from "@/admin/pages/AdminHomePage";
+import AdminSimulator  from "@/admin/pages/AdminSimulator";
+import DesignSimulator from "@/pages/DesignSimulator";
 
 const queryClient = new QueryClient();
 
@@ -67,6 +69,7 @@ const App = () => (
             <Route path="/contact"                           element={<Layout><Contact /></Layout>} />
             <Route path="/login"                             element={<Login />} />
             <Route path="/signup"                            element={<Signup />} />
+            <Route path="/design-simulator"                  element={<Layout><DesignSimulator /></Layout>} />
 
             {/* ── Admin Panel ──────────────────────────────────────────── */}
             <Route path="/admin/login" element={<AdminLogin />} />
@@ -84,6 +87,7 @@ const App = () => (
               <Route path="customers"   element={<AdminCustomers />} />
               <Route path="users"       element={<AdminUsers />} />
               <Route path="homepage"    element={<AdminHomePage />} />
+              <Route path="simulator"   element={<AdminSimulator />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
