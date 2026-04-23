@@ -1,23 +1,27 @@
 /**
  * DesignSimulator.tsx — Public page
  * Lets users upload their artwork and see it warped onto a billboard mockup.
+ * Supports multi-panel (double decker) templates where users upload one design per panel.
  * No login required — open to everyone.
  */
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { Upload, Download, Monitor, ChevronRight, RotateCcw, Check } from 'lucide-react';
+import { Upload, Download, Monitor, ChevronRight, RotateCcw, Check, Layers } from 'lucide-react';
 import { useStore } from '@/store/dataStore';
 import { designUploadStore } from '@/store/dataStore';
 import type { SimulatorTemplate } from '@/store/dataStore';
-import SimulatorCanvas, { type SimulatorCanvasRef, type Corner } from '@/components/SimulatorCanvas';
+import SimulatorCanvas, { type SimulatorCanvasRef, type Panel } from '@/components/SimulatorCanvas';
 
 const NAVY = '#0B0F1A';
 const RED  = '#D90429';
 
 type Step = 'format' | 'upload' | 'preview';
 
+const PANEL_ACCENT_COLORS = ['#22c55e', '#a855f7', '#f97316'];
+const PANEL_NAMES = ['Panel 1', 'Panel 2', 'Panel 3'];
+
 // ── Flat preview fallback (no template) ───────────────────────────────────────
-function FlatPreview({ designUrl }: { designUrl: string }) {
+function FlatPreview({ designUrls }: { designUrls: string[] }) {
   return (
     <div style={{
       background: '#1a1a2e', borderRadius: 12, padding: 24,
@@ -26,8 +30,10 @@ function FlatPreview({ designUrl }: { designUrl: string }) {
       <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase' }}>
         Flat Preview
       </p>
-      <img src={designUrl} alt="Your design"
-        style={{ maxWidth: '100%', maxHeight: 360, borderRadius: 8, objectFit: 'contain' }} />
+      {designUrls.filter(Boolean).map((url, i) => (
+        <img key={i} src={url} alt={`Design ${i + 1}`}
+          style={{ maxWidth: '100%', maxHeight: 300, borderRadius: 8, objectFit: 'contain', border: '2px solid rgba(255,255,255,0.1)' }} />
+      ))}
       <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: 12 }}>
         No street mockup configured for this format yet — showing flat preview.
       </p>
@@ -41,18 +47,35 @@ export default function DesignSimulator() {
   const productId = searchParams.get('product') || '';
 
   const store = useStore();
-  const { loaded, simulatorTemplates = [], adFormats } = store;
+  const { loaded, simulatorTemplates = [] } = store;
 
   const [step, setStep] = useState<Step>('format');
   const [typeFilter,   setTypeFilter]   = useState('');
   const [sizeFilter,   setSizeFilter]   = useState('');
   const [selectedTemplate, setSelectedTemplate] = useState<SimulatorTemplate | null>(null);
-  const [designUrl,  setDesignUrl]  = useState('');
+
+  // Multi-panel: one design URL per panel
+  const [designUrls, setDesignUrls] = useState<string[]>([]);
+  // Which panel we're currently uploading for (in upload step)
+  const [uploadingPanel, setUploadingPanel] = useState(0);
+
   const [downloading, setDownloading] = useState(false);
   const [saved, setSaved] = useState(false);
 
-  const canvasRef = useRef<SimulatorCanvasRef>(null);
+  const canvasRef    = useRef<SimulatorCanvasRef>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Derive panels from template
+  const getTemplatePanels = (tpl: SimulatorTemplate | null): Panel[] => {
+    if (!tpl) return [];
+    if (tpl.panels && tpl.panels.length > 0) return tpl.panels as Panel[];
+    if (tpl.corners) return [tpl.corners as Panel];
+    return [];
+  };
+
+  const panels = getTemplatePanels(selectedTemplate);
+  const panelCount = Math.max(1, panels.length);
+  const allDesignsUploaded = designUrls.filter(Boolean).length >= panelCount;
 
   // If coming from a product page, pre-filter by that product's template
   useEffect(() => {
@@ -80,30 +103,44 @@ export default function DesignSimulator() {
 
   const handleSelectTemplate = (tpl: SimulatorTemplate) => {
     setSelectedTemplate(tpl);
+    setDesignUrls([]);
+    setUploadingPanel(0);
+    setSaved(false);
     setStep('upload');
   };
 
-  const handleDesignFile = useCallback((file: File) => {
+  // Handle a design file for a specific panel
+  const handleDesignFile = useCallback((file: File, panelIdx: number) => {
     const url = URL.createObjectURL(file);
-    setDesignUrl(url);
+    setDesignUrls(prev => {
+      const next = [...prev];
+      next[panelIdx] = url;
+      return next;
+    });
     setSaved(false);
-    setStep('preview');
+    // Move to next panel if not done, else go to preview
+    setUploadingPanel(prev => {
+      const nextPanel = panelIdx + 1;
+      return nextPanel;
+    });
   }, []);
 
-  const handleFileDrop = useCallback((e: React.DragEvent) => {
+  // When all panels uploaded, auto-advance to preview
+  useEffect(() => {
+    if (step === 'upload' && designUrls.filter(Boolean).length >= panelCount && panelCount > 0) {
+      setStep('preview');
+    }
+  }, [designUrls, panelCount, step]);
+
+  const handleFileDrop = useCallback((e: React.DragEvent, panelIdx: number) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith('image/')) handleDesignFile(file);
-  }, [handleDesignFile]);
-
-  const handleFileInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) handleDesignFile(file);
+    if (file && file.type.startsWith('image/')) handleDesignFile(file, panelIdx);
   }, [handleDesignFile]);
 
   // Save upload record to dashboard
   const saveUpload = useCallback(() => {
-    if (!selectedTemplate || !designUrl || saved) return;
+    if (!selectedTemplate || designUrls.filter(Boolean).length === 0 || saved) return;
     const email = localStorage.getItem('horizon_user_email') || '';
     const name  = localStorage.getItem('horizon_user_name')  || 'Guest';
     const phone = localStorage.getItem('horizon_user_phone') || '';
@@ -112,7 +149,7 @@ export default function DesignSimulator() {
       userName:    name,
       userEmail:   email,
       userPhone:   phone,
-      designUrl,
+      designUrl:   designUrls[0],
       templateId:  selectedTemplate.id,
       typeName:    selectedTemplate.typeName,
       sizeLabel:   selectedTemplate.sizeLabel,
@@ -120,14 +157,14 @@ export default function DesignSimulator() {
       productName: (selectedTemplate as any).productName || '',
     });
     setSaved(true);
-  }, [selectedTemplate, designUrl, saved, productId]);
+  }, [selectedTemplate, designUrls, saved, productId]);
 
   // Auto-save when we reach preview
   useEffect(() => {
-    if (step === 'preview' && designUrl && selectedTemplate && !saved) {
+    if (step === 'preview' && designUrls.filter(Boolean).length > 0 && selectedTemplate && !saved) {
       saveUpload();
     }
-  }, [step, designUrl, selectedTemplate, saved, saveUpload]);
+  }, [step, designUrls, selectedTemplate, saved, saveUpload]);
 
   // Convert a data: URL to a Blob without using fetch()
   const dataUrlToBlob = (dataUrl: string): Blob => {
@@ -159,24 +196,17 @@ export default function DesignSimulator() {
     const filename = `horizon-simulation-${selectedTemplate?.typeName ?? 'billboard'}-${selectedTemplate?.sizeLabel ?? ''}.jpg`
       .replace(/\s+/g, '-').toLowerCase();
     try {
-      // Capture the composite canvas image
       const dataUrl = canvasRef.current ? await canvasRef.current.capture() : null;
-
       if (dataUrl && dataUrl.startsWith('data:')) {
-        // Convert base64 → Blob directly (no fetch needed)
         const blob = dataUrlToBlob(dataUrl);
         triggerDownload(blob, filename);
         return;
       }
-
-      // Fallback: download the user's raw uploaded design
-      if (designUrl) {
-        triggerDownload(designUrl, 'your-design.png');
-      }
+      // Fallback: download the first uploaded design
+      if (designUrls[0]) triggerDownload(designUrls[0], 'your-design.png');
     } catch (err) {
       console.error('Download error:', err);
-      // Last resort: open in new tab for manual save
-      if (designUrl) window.open(designUrl, '_blank');
+      if (designUrls[0]) window.open(designUrls[0], '_blank');
     } finally {
       setDownloading(false);
     }
@@ -185,8 +215,9 @@ export default function DesignSimulator() {
   const reset = () => {
     setStep('format');
     setSelectedTemplate(null);
-    setDesignUrl('');
+    setDesignUrls([]);
     setSaved(false);
+    setUploadingPanel(0);
     setTypeFilter('');
     setSizeFilter('');
   };
@@ -231,7 +262,6 @@ export default function DesignSimulator() {
         {/* ── STEP 1: Choose Format ──────────────────────────────────────────── */}
         {step === 'format' && (
           <div>
-            {/* No templates configured */}
             {loaded && simulatorTemplates.length === 0 && (
               <div style={{ textAlign: 'center', padding: '80px 24px' }}>
                 <Monitor size={48} color="#d1d5db" style={{ margin: '0 auto 16px' }} />
@@ -270,102 +300,197 @@ export default function DesignSimulator() {
 
                 {/* Template cards */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 20 }}>
-                  {filteredTemplates.map(tpl => (
-                    <button key={tpl.id} onClick={() => handleSelectTemplate(tpl)}
-                      style={{
-                        background: '#fff', border: '2px solid #e5e7eb', borderRadius: 14,
-                        padding: 0, cursor: 'pointer', textAlign: 'left', overflow: 'hidden',
-                        transition: 'border-color 0.2s, box-shadow 0.2s',
-                      }}
-                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = RED; (e.currentTarget as HTMLElement).style.boxShadow = `0 8px 32px rgba(217,4,41,0.12)`; }}
-                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = '#e5e7eb'; (e.currentTarget as HTMLElement).style.boxShadow = 'none'; }}
-                    >
-                      <div style={{ height: 160, overflow: 'hidden', background: '#f3f4f6' }}>
-                        {tpl.mockupUrl ? (
-                          <img src={tpl.mockupUrl} alt={tpl.typeName} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                        ) : (
-                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-                            <Monitor size={32} color="#d1d5db" />
-                          </div>
-                        )}
-                      </div>
-                      <div style={{ padding: '14px 16px' }}>
-                        <p style={{ fontWeight: 800, fontSize: 15, color: NAVY, marginBottom: 4 }}>{tpl.typeName}</p>
-                        <p style={{ fontSize: 13, color: '#6b7280', fontWeight: 600 }}>{tpl.sizeLabel}</p>
-                        {tpl.notes && <p style={{ fontSize: 12, color: '#9ca3af', marginTop: 4 }}>{tpl.notes}</p>}
-                      </div>
-                    </button>
-                  ))}
+                  {filteredTemplates.map(tpl => {
+                    const tplPanels = getTemplatePanels(tpl);
+                    const isMultiPanel = tplPanels.length > 1;
+                    return (
+                      <button key={tpl.id} onClick={() => handleSelectTemplate(tpl)}
+                        style={{
+                          background: '#fff', border: '2px solid #e5e7eb', borderRadius: 14,
+                          padding: 0, cursor: 'pointer', textAlign: 'left', overflow: 'hidden',
+                          transition: 'border-color 0.2s, box-shadow 0.2s',
+                        }}
+                        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = RED; (e.currentTarget as HTMLElement).style.boxShadow = `0 8px 32px rgba(217,4,41,0.12)`; }}
+                        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = '#e5e7eb'; (e.currentTarget as HTMLElement).style.boxShadow = 'none'; }}
+                      >
+                        <div style={{ height: 160, overflow: 'hidden', background: '#f3f4f6', position: 'relative' }}>
+                          {tpl.mockupUrl ? (
+                            <img src={tpl.mockupUrl} alt={tpl.typeName} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                          ) : (
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                              <Monitor size={32} color="#d1d5db" />
+                            </div>
+                          )}
+                          {isMultiPanel && (
+                            <div style={{
+                              position: 'absolute', top: 8, right: 8,
+                              background: 'rgba(11,15,26,0.85)', borderRadius: 20,
+                              padding: '3px 10px', display: 'flex', alignItems: 'center', gap: 4,
+                              fontSize: 10, fontWeight: 700, color: '#fff',
+                            }}>
+                              <Layers size={10} /> {tplPanels.length} panels
+                            </div>
+                          )}
+                        </div>
+                        <div style={{ padding: '14px 16px' }}>
+                          <p style={{ fontWeight: 800, fontSize: 15, color: NAVY, marginBottom: 4 }}>{tpl.typeName}</p>
+                          <p style={{ fontSize: 13, color: '#6b7280', fontWeight: 600 }}>{tpl.sizeLabel}</p>
+                          {isMultiPanel && (
+                            <p style={{ fontSize: 11, color: RED, fontWeight: 700, marginTop: 6 }}>
+                              Double Decker — {tplPanels.length} designs needed
+                            </p>
+                          )}
+                          {tpl.notes && <p style={{ fontSize: 12, color: '#9ca3af', marginTop: 4 }}>{tpl.notes}</p>}
+                        </div>
+                      </button>
+                    );
+                  })}
                 </div>
               </>
             )}
           </div>
         )}
 
-        {/* ── STEP 2: Upload Design ──────────────────────────────────────────── */}
+        {/* ── STEP 2: Upload Design(s) ───────────────────────────────────────── */}
         {step === 'upload' && selectedTemplate && (
-          <div style={{ maxWidth: 600, margin: '0 auto' }}>
-            <div style={{ background: '#fff', borderRadius: 16, padding: 32, border: '1.5px solid #e5e7eb', marginBottom: 24 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
-                <div style={{ width: 48, height: 48, background: `rgba(217,4,41,0.08)`, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Monitor size={22} color={RED} />
+          <div style={{ maxWidth: 680, margin: '0 auto' }}>
+            {/* Header */}
+            <div style={{ background: '#fff', borderRadius: 16, padding: '20px 24px', border: '1.5px solid #e5e7eb', marginBottom: 20 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <div style={{ width: 44, height: 44, background: `rgba(217,4,41,0.08)`, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {panelCount > 1 ? <Layers size={20} color={RED} /> : <Monitor size={20} color={RED} />}
                 </div>
                 <div>
                   <p style={{ fontWeight: 800, fontSize: 16, color: NAVY }}>{selectedTemplate.typeName}</p>
-                  <p style={{ fontSize: 13, color: '#6b7280', fontWeight: 600 }}>{selectedTemplate.sizeLabel}</p>
+                  <p style={{ fontSize: 13, color: '#6b7280', fontWeight: 600 }}>{selectedTemplate.sizeLabel}{panelCount > 1 ? ` — ${panelCount} panels` : ''}</p>
                 </div>
                 <button onClick={() => setStep('format')} style={{ marginLeft: 'auto', fontSize: 12, color: '#6b7280', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600 }}>
                   ← Change Format
                 </button>
               </div>
-
-              {/* Drop zone */}
-              <div
-                onDrop={handleFileDrop}
-                onDragOver={e => e.preventDefault()}
-                onClick={() => fileInputRef.current?.click()}
-                style={{
-                  border: '2px dashed #d1d5db', borderRadius: 12, padding: '48px 24px',
-                  display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12,
-                  cursor: 'pointer', transition: 'border-color 0.2s, background 0.2s',
-                  background: '#fafafa',
-                }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = RED; (e.currentTarget as HTMLElement).style.background = 'rgba(217,4,41,0.03)'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = '#d1d5db'; (e.currentTarget as HTMLElement).style.background = '#fafafa'; }}
-              >
-                <Upload size={32} color={RED} />
-                <p style={{ fontWeight: 700, fontSize: 15, color: NAVY }}>Drop your design here</p>
-                <p style={{ fontSize: 13, color: '#9ca3af' }}>or click to browse — PNG, JPG, PDF supported</p>
-              </div>
-              <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileInput} style={{ display: 'none' }} />
-
-              <p style={{ fontSize: 12, color: '#9ca3af', marginTop: 16, textAlign: 'center' }}>
-                For best results, upload your design at the exact billboard ratio ({selectedTemplate.sizeLabel}).
-              </p>
+              {panelCount > 1 && (
+                <div style={{ marginTop: 12, padding: '10px 14px', background: 'rgba(217,4,41,0.04)', borderRadius: 8, border: '1px solid rgba(217,4,41,0.12)' }}>
+                  <p style={{ fontSize: 12, fontWeight: 700, color: RED, marginBottom: 4 }}>Double Decker Format</p>
+                  <p style={{ fontSize: 12, color: '#6b7280' }}>
+                    This billboard has {panelCount} separate panels stacked above each other.
+                    Please upload {panelCount} different designs, one for each panel.
+                  </p>
+                </div>
+              )}
             </div>
+
+            {/* Upload zone(s) — one per panel */}
+            {Array.from({ length: panelCount }, (_, pi) => (
+              <div key={pi} style={{ background: '#fff', borderRadius: 16, padding: 28, border: '1.5px solid #e5e7eb', marginBottom: 16 }}>
+                {panelCount > 1 && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+                    <div style={{
+                      width: 24, height: 24, borderRadius: '50%',
+                      background: PANEL_ACCENT_COLORS[pi % PANEL_ACCENT_COLORS.length],
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: 11, fontWeight: 900, color: '#fff',
+                    }}>{pi + 1}</div>
+                    <p style={{ fontWeight: 700, fontSize: 14, color: NAVY }}>{PANEL_NAMES[pi]}</p>
+                    {designUrls[pi] && (
+                      <span style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, color: '#22c55e', fontWeight: 700 }}>
+                        <Check size={12} /> Uploaded
+                      </span>
+                    )}
+                  </div>
+                )}
+
+                {designUrls[pi] ? (
+                  /* Already uploaded — show preview + change option */
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center' }}>
+                    <img src={designUrls[pi]} alt={`Design ${pi + 1}`}
+                      style={{ maxWidth: '100%', maxHeight: 200, borderRadius: 8, objectFit: 'contain', border: '1px solid #e5e7eb' }} />
+                    <label style={{
+                      display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer',
+                      fontSize: 12, fontWeight: 700, color: '#6b7280', padding: '8px 16px',
+                      border: '1.5px solid #e5e7eb', borderRadius: 8, background: '#fafafa',
+                    }}>
+                      <Upload size={12} /> Change Design
+                      <input type="file" accept="image/*" style={{ display: 'none' }}
+                        onChange={e => { const f = e.target.files?.[0]; if (f) handleDesignFile(f, pi); }} />
+                    </label>
+                  </div>
+                ) : (
+                  /* Drop zone */
+                  <div
+                    onDrop={e => handleFileDrop(e, pi)}
+                    onDragOver={e => e.preventDefault()}
+                    onClick={() => {
+                      // Create a temp input for this panel
+                      const inp = document.createElement('input');
+                      inp.type = 'file'; inp.accept = 'image/*';
+                      inp.onchange = (ev: Event) => {
+                        const f = (ev.target as HTMLInputElement).files?.[0];
+                        if (f) handleDesignFile(f, pi);
+                      };
+                      inp.click();
+                    }}
+                    style={{
+                      border: '2px dashed #d1d5db', borderRadius: 12, padding: '40px 24px',
+                      display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12,
+                      cursor: 'pointer', transition: 'border-color 0.2s, background 0.2s',
+                      background: '#fafafa',
+                    }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = PANEL_ACCENT_COLORS[pi % PANEL_ACCENT_COLORS.length]; (e.currentTarget as HTMLElement).style.background = 'rgba(34,197,94,0.03)'; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = '#d1d5db'; (e.currentTarget as HTMLElement).style.background = '#fafafa'; }}
+                  >
+                    <Upload size={28} color={PANEL_ACCENT_COLORS[pi % PANEL_ACCENT_COLORS.length]} />
+                    <p style={{ fontWeight: 700, fontSize: 14, color: NAVY }}>
+                      {panelCount > 1 ? `Upload design for ${PANEL_NAMES[pi]}` : 'Drop your design here'}
+                    </p>
+                    <p style={{ fontSize: 12, color: '#9ca3af' }}>click to browse — PNG, JPG supported</p>
+                  </div>
+                )}
+              </div>
+            ))}
+
+            <input ref={fileInputRef} type="file" accept="image/*" style={{ display: 'none' }} />
+
+            {/* Proceed button once all designs uploaded */}
+            {allDesignsUploaded && (
+              <button onClick={() => setStep('preview')}
+                style={{
+                  width: '100%', padding: '14px 0', borderRadius: 12, border: 'none',
+                  background: RED, color: '#fff', fontWeight: 700, fontSize: 14,
+                  cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                  marginTop: 8,
+                }}>
+                Preview Simulation →
+              </button>
+            )}
+
+            <p style={{ fontSize: 12, color: '#9ca3af', marginTop: 12, textAlign: 'center' }}>
+              For best results, upload your designs at the billboard's ratio ({selectedTemplate.sizeLabel}).
+            </p>
           </div>
         )}
 
         {/* ── STEP 3: Preview ───────────────────────────────────────────────── */}
-        {step === 'preview' && selectedTemplate && designUrl && (
+        {step === 'preview' && selectedTemplate && designUrls.filter(Boolean).length > 0 && (
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: 28, alignItems: 'start' }}>
             {/* Canvas */}
             <div>
-              {selectedTemplate.mockupUrl && selectedTemplate.corners ? (
+              {selectedTemplate.mockupUrl && panels.length > 0 ? (
                 <>
                   <SimulatorCanvas
                     ref={canvasRef}
                     mockupUrl={selectedTemplate.mockupUrl}
-                    designUrl={designUrl}
-                    corners={selectedTemplate.corners}
+                    designUrls={designUrls}
+                    panels={panels}
                     style={{ borderRadius: 14, overflow: 'hidden', boxShadow: '0 8px 48px rgba(0,0,0,0.12)' }}
                   />
                   <p style={{ fontSize: 11, color: '#9ca3af', marginTop: 8, textAlign: 'center' }}>
-                    Your design warped onto the billboard surface
+                    {panels.length > 1
+                      ? `Your ${panels.length} designs warped onto the double decker billboard`
+                      : 'Your design warped onto the billboard surface'}
                   </p>
                 </>
               ) : (
-                <FlatPreview designUrl={designUrl} />
+                <FlatPreview designUrls={designUrls} />
               )}
             </div>
 
@@ -376,7 +501,13 @@ export default function DesignSimulator() {
                   Your Simulation
                 </p>
                 <p style={{ fontWeight: 800, fontSize: 16, color: NAVY, marginBottom: 4 }}>{selectedTemplate.typeName}</p>
-                <p style={{ fontSize: 13, color: '#6b7280', marginBottom: 16 }}>{selectedTemplate.sizeLabel}</p>
+                <p style={{ fontSize: 13, color: '#6b7280', marginBottom: 8 }}>{selectedTemplate.sizeLabel}</p>
+                {panels.length > 1 && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 10px', borderRadius: 8, background: 'rgba(217,4,41,0.06)', marginBottom: 12 }}>
+                    <Layers size={12} color={RED} />
+                    <span style={{ fontSize: 12, fontWeight: 600, color: RED }}>{panels.length} panels — {designUrls.filter(Boolean).length} designs uploaded</span>
+                  </div>
+                )}
                 {saved && (
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 12px', borderRadius: 8, background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.2)', marginBottom: 16 }}>
                     <Check size={13} color="#22c55e" />
@@ -393,18 +524,17 @@ export default function DesignSimulator() {
                   <Download size={15} />
                   {downloading ? 'Preparing…' : 'Download Mockup'}
                 </button>
-                {/* Change Design */}
-                <label style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-                  width: '100%', padding: '10px 0', borderRadius: 10, border: '1.5px solid #e5e7eb',
-                  background: '#fff', color: '#6b7280', fontWeight: 700, fontSize: 13,
-                  cursor: 'pointer', marginBottom: 8,
-                }}>
+                {/* Change Designs */}
+                <button onClick={() => setStep('upload')}
+                  style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                    width: '100%', padding: '10px 0', borderRadius: 10, border: '1.5px solid #e5e7eb',
+                    background: '#fff', color: '#6b7280', fontWeight: 700, fontSize: 13,
+                    cursor: 'pointer', marginBottom: 8,
+                  }}>
                   <Upload size={14} />
-                  Change Design
-                  <input type="file" accept="image/*" style={{ display: 'none' }}
-                    onChange={e => { const f = e.target.files?.[0]; if (f) handleDesignFile(f); }} />
-                </label>
+                  {panels.length > 1 ? 'Change Designs' : 'Change Design'}
+                </button>
                 <button onClick={reset}
                   style={{
                     width: '100%', padding: '10px 0', borderRadius: 10, border: '1.5px solid #e5e7eb',
@@ -418,15 +548,13 @@ export default function DesignSimulator() {
 
               <div style={{ background: '#fff', borderRadius: 14, padding: 20, border: '1.5px solid #e5e7eb' }}>
                 <p style={{ fontSize: 12, fontWeight: 700, color: NAVY, marginBottom: 8 }}>Like what you see?</p>
-                <p style={{ fontSize: 12, color: '#6b7280', lineHeight: 1.6, marginBottom: 14 }}>
-                  Contact our team to book this billboard location and launch your campaign.
+                <p style={{ fontSize: 12, color: '#6b7280', marginBottom: 12, lineHeight: 1.6 }}>
+                  Contact our team to book this location and start your campaign.
                 </p>
                 <Link to="/contact" style={{
                   display: 'block', textAlign: 'center', padding: '10px 0', borderRadius: 10,
                   background: RED, color: '#fff', fontWeight: 700, fontSize: 13, textDecoration: 'none',
-                }}>
-                  Get a Quote
-                </Link>
+                }}>Contact Us</Link>
               </div>
             </div>
           </div>

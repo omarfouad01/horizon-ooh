@@ -6,14 +6,15 @@
  *   3. Design Uploads   — view user submissions (with name, email, phone)
  */
 import { useState, useRef } from 'react';
-import { Trash2, Plus, Edit2, Download, Phone, Mail, User, Monitor, Crosshair } from 'lucide-react';
+import { Trash2, Plus, Edit2, Download, Phone, Mail, User, Monitor, Crosshair, Layers } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useStore } from '@/store/dataStore';
 import { billboardSizeStore, simulatorTemplateStore, designUploadStore } from '@/store/dataStore';
 import type { BillboardSize, SimulatorTemplate, DesignUpload } from '@/store/dataStore';
+import type { Panel } from '@/components/SimulatorCanvas';
 import { Btn, Field, TA, Sel } from '@/admin/ui';
 import { ImagePicker } from '@/admin/ui';
-import SimulatorCanvas, { type SimulatorCanvasRef, type Corner } from '@/components/SimulatorCanvas';
+import SimulatorCanvas, { type SimulatorCanvasRef } from '@/components/SimulatorCanvas';
 
 const NAVY = '#0B0F1A', RED = '#D90429';
 
@@ -41,13 +42,24 @@ function formatDate(iso: string) {
   catch { return iso; }
 }
 
-// Default corners — sensible rectangle in the middle of the image
-const DEFAULT_CORNERS: [Corner,Corner,Corner,Corner] = [
+// Default panel: sensible rectangle in the middle of the image
+const DEFAULT_PANEL: Panel = [
   { x: 0.15, y: 0.2 },
   { x: 0.85, y: 0.2 },
   { x: 0.85, y: 0.75 },
   { x: 0.15, y: 0.75 },
 ];
+
+// For double-decker: second panel placed below the first
+const DEFAULT_PANEL_2: Panel = [
+  { x: 0.15, y: 0.78 },
+  { x: 0.85, y: 0.78 },
+  { x: 0.85, y: 0.95 },
+  { x: 0.15, y: 0.95 },
+];
+
+const PANEL_LABEL_COLORS = ['#22c55e', '#a855f7', '#f97316'];
+const PANEL_NAMES = ['Panel 1', 'Panel 2', 'Panel 3'];
 
 // ── Main component ─────────────────────────────────────────────────────────────
 export default function AdminSimulator() {
@@ -149,8 +161,11 @@ export default function AdminSimulator() {
   // ── Tab: Templates ─────────────────────────────────────────────────────────
   const TemplatesTab = () => {
     const [editing, setEditing] = useState<SimulatorTemplate | null>(null);
-    const [previewDesign, setPreviewDesign] = useState('');
-    const [corners, setCorners] = useState<[Corner,Corner,Corner,Corner]>(DEFAULT_CORNERS);
+    // Multi-panel state: array of 4-corner panels
+    const [panels, setPanels] = useState<Panel[]>([DEFAULT_PANEL]);
+    const [activePanelIdx, setActivePanelIdx] = useState(0);
+    // Per-panel test designs
+    const [previewDesigns, setPreviewDesigns] = useState<string[]>([]);
     const canvasRef = useRef<SimulatorCanvasRef>(null);
 
     // Unique ad format types from adFormats in the store
@@ -160,26 +175,54 @@ export default function AdminSimulator() {
     ])).filter(Boolean).sort();
 
     const startAdd = () => {
-      setEditing({ id: '', typeName: '', sizeLabel: '', mockupUrl: '', corners: [...DEFAULT_CORNERS] as any });
-      setCorners(DEFAULT_CORNERS);
-      setPreviewDesign('');
+      setEditing({ id: '', typeName: '', sizeLabel: '', mockupUrl: '', panels: [DEFAULT_PANEL] });
+      setPanels([DEFAULT_PANEL]);
+      setActivePanelIdx(0);
+      setPreviewDesigns([]);
     };
     const startEdit = (t: SimulatorTemplate) => {
       setEditing(t);
-      setCorners(t.corners ?? DEFAULT_CORNERS);
-      setPreviewDesign('');
+      const tplPanels: Panel[] = (t.panels && t.panels.length > 0)
+        ? t.panels as Panel[]
+        : t.corners ? [t.corners as Panel] : [DEFAULT_PANEL];
+      setPanels(tplPanels);
+      setActivePanelIdx(0);
+      setPreviewDesigns([]);
     };
-    const cancel = () => { setEditing(null); setPreviewDesign(''); };
+    const cancel = () => { setEditing(null); setPreviewDesigns([]); };
+
+    const addPanel = () => {
+      if (panels.length >= 3) { toast.error('Maximum 3 panels supported'); return; }
+      const last = panels[panels.length - 1];
+      const next: Panel = panels.length === 1
+        ? DEFAULT_PANEL_2
+        : [
+            { x: last[0].x, y: Math.min(last[2].y + 0.02, 0.98) },
+            { x: last[1].x, y: Math.min(last[2].y + 0.02, 0.98) },
+            { x: last[1].x, y: Math.min(last[2].y + 0.18, 0.99) },
+            { x: last[0].x, y: Math.min(last[2].y + 0.18, 0.99) },
+          ];
+      const newPanels = [...panels, next];
+      setPanels(newPanels);
+      setActivePanelIdx(newPanels.length - 1);
+    };
+    const removePanel = (idx: number) => {
+      if (panels.length <= 1) return;
+      const newPanels = panels.filter((_, i) => i !== idx);
+      setPanels(newPanels);
+      setActivePanelIdx(Math.max(0, idx - 1));
+    };
+
     const save = () => {
       if (!editing) return;
       if (!editing.typeName || !editing.sizeLabel) { toast.error('Type and size are required'); return; }
       if (!editing.mockupUrl) { toast.error('Please upload a mockup photo'); return; }
-      const tplData = { ...editing, corners };
+      const tplData = { ...editing, panels };
       if (tplData.id) {
         simulatorTemplateStore.update(tplData.id, tplData);
         toast.success('Template updated');
       } else {
-        simulatorTemplateStore.add({ typeName: tplData.typeName, sizeLabel: tplData.sizeLabel, mockupUrl: tplData.mockupUrl, corners, notes: tplData.notes });
+        simulatorTemplateStore.add({ typeName: tplData.typeName, sizeLabel: tplData.sizeLabel, mockupUrl: tplData.mockupUrl, panels, notes: tplData.notes });
         toast.success('Template added');
       }
       setEditing(null);
@@ -226,41 +269,89 @@ export default function AdminSimulator() {
               <ImagePicker value={editing.mockupUrl} onChange={(url: string) => setEditing(t => t ? { ...t, mockupUrl: url } : t)} />
             </div>
 
-            {/* Corner point picker — shown when mockup is set */}
+            {/* Multi-panel corner picker — shown when mockup is set */}
             {editing.mockupUrl && (
               <div className="mb-5">
-                <div className="flex items-center gap-2 mb-3">
+                <div className="flex items-center gap-3 mb-4">
                   <Crosshair size={15} color={RED} />
-                  <p className="font-bold text-sm" style={{ color: NAVY }}>Set Corner Points</p>
-                  <span className="text-xs text-gray-400">— drag the colored handles to the exact corners of the billboard surface</span>
+                  <p className="font-bold text-sm" style={{ color: NAVY }}>Billboard Panels</p>
+                  <span className="text-xs text-gray-400">— one panel = one design area</span>
+                  <div className="ml-auto flex items-center gap-2">
+                    <span className="text-xs text-gray-500 font-semibold">{panels.length} panel{panels.length > 1 ? 's' : ''}</span>
+                    {panels.length < 3 && (
+                      <button onClick={addPanel}
+                        className="flex items-center gap-1 text-xs font-bold px-3 py-1.5 rounded-lg border-2 border-dashed hover:border-solid transition-all"
+                        style={{ color: RED, borderColor: RED, background: 'rgba(217,4,41,0.04)' }}
+                      >
+                        <Plus size={12} /> Add Panel
+                      </button>
+                    )}
+                  </div>
                 </div>
-                <div className="grid grid-cols-4 gap-2 mb-3 text-xs text-gray-500 font-semibold">
-                  {['🟢 TL (top-left)', '🔵 TR (top-right)', '🟡 BR (bottom-right)', '🔴 BL (bottom-left)'].map(l => (
-                    <span key={l}>{l}</span>
+
+                {/* Panel tabs */}
+                <div className="flex gap-2 mb-4">
+                  {panels.map((_, pi) => (
+                    <div key={pi} className="flex items-center gap-1">
+                      <button
+                        onClick={() => setActivePanelIdx(pi)}
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all"
+                        style={{
+                          background: activePanelIdx === pi ? PANEL_LABEL_COLORS[pi % PANEL_LABEL_COLORS.length] : '#f3f4f6',
+                          color: activePanelIdx === pi ? '#fff' : '#6b7280',
+                        }}
+                      >
+                        <Layers size={11} /> {PANEL_NAMES[pi]}
+                      </button>
+                      {panels.length > 1 && (
+                        <button onClick={() => removePanel(pi)}
+                          className="w-5 h-5 rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50"
+                        >
+                          <Trash2 size={10} />
+                        </button>
+                      )}
+                    </div>
                   ))}
                 </div>
 
-                {/* Preview design picker for live testing */}
+                <div className="text-xs text-gray-400 mb-3 p-3 bg-gray-50 rounded-lg">
+                  <span className="font-semibold">Editing: </span>{PANEL_NAMES[activePanelIdx]} — Drag handles to the exact corners of this panel's surface.
+                  <br/><span className="font-semibold">Handles: </span>🟢 TL · 🔵 TR · 🟡 BR · 🔴 BL
+                </div>
+
                 <div className="mb-3">
-                  <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider block mb-1">Test Design (optional)</label>
+                  <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider block mb-1">
+                    Test Design for {PANEL_NAMES[activePanelIdx]} (optional)
+                  </label>
                   <input type="file" accept="image/*" onChange={e => {
                     const f = e.target.files?.[0];
-                    if (f) setPreviewDesign(URL.createObjectURL(f));
+                    if (f) {
+                      const url = URL.createObjectURL(f);
+                      setPreviewDesigns(prev => { const next = [...prev]; next[activePanelIdx] = url; return next; });
+                    }
                   }} className="text-xs text-gray-500" />
-                  <p className="text-[11px] text-gray-400 mt-1">Upload a test image to see how designs look with your corner points.</p>
                 </div>
 
                 <SimulatorCanvas
                   ref={canvasRef}
                   mockupUrl={editing.mockupUrl}
-                  designUrl={previewDesign || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400"><rect width="800" height="400" fill="%23D90429" opacity="0.7"/><text x="50%25" y="50%25" fill="white" font-size="48" font-family="Arial" font-weight="bold" text-anchor="middle" dominant-baseline="middle">YOUR DESIGN</text></svg>'}
-                  corners={corners}
+                  designUrls={panels.map((_, pi) =>
+                    previewDesigns[pi] ||
+                    `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400"><rect width="800" height="400" fill="${pi === 0 ? '%23D90429' : '%230B0F1A'}" opacity="0.75"/><text x="50%25" y="50%25" fill="white" font-size="36" font-family="Arial" font-weight="bold" text-anchor="middle" dominant-baseline="middle">PANEL ${pi + 1}</text></svg>`
+                  )}
+                  panels={panels}
                   editMode={true}
-                  onCornersChange={newCorners => setCorners(newCorners)}
+                  activePanelIndex={activePanelIdx}
+                  onPanelsChange={newPanels => setPanels(newPanels)}
                   style={{ borderRadius: 10, overflow: 'hidden', border: '2px solid #e5e7eb' }}
                 />
-                <p className="text-xs text-gray-400 mt-2">
-                  Current corners: {corners.map((c,i) => `${['TL','TR','BR','BL'][i]}(${(c.x*100).toFixed(1)}%, ${(c.y*100).toFixed(1)}%)`).join(' · ')}
+                <p className="text-[11px] text-gray-400 mt-2">
+                  {panels.map((p, pi) => (
+                    <span key={pi} className="mr-4 inline-block">
+                      <span className="font-semibold" style={{ color: PANEL_LABEL_COLORS[pi % PANEL_LABEL_COLORS.length] }}>{PANEL_NAMES[pi]}:</span>{' '}
+                      {(p as Panel).map((c, ci) => `${['TL','TR','BR','BL'][ci]}(${(c.x*100).toFixed(1)}%,${(c.y*100).toFixed(1)}%)`).join(' ')}
+                    </span>
+                  ))}
                 </p>
               </div>
             )}
@@ -280,30 +371,51 @@ export default function AdminSimulator() {
               <p className="font-semibold text-sm">No templates yet. Add your first template.</p>
             </div>
           ) : (
-            simulatorTemplates.map(tpl => (
-              <div key={tpl.id} className="bg-white rounded-2xl border border-gray-100 p-5 flex gap-5 items-start">
-                <div style={{ width: 100, height: 70, borderRadius: 8, overflow: 'hidden', flexShrink: 0, background: '#f3f4f6' }}>
-                  {tpl.mockupUrl ? (
-                    <img src={tpl.mockupUrl} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  ) : (
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-                      <Monitor size={20} color="#d1d5db" />
+            simulatorTemplates.map(tpl => {
+              const tplPanels: Panel[] = (tpl.panels && tpl.panels.length > 0)
+                ? tpl.panels as Panel[]
+                : tpl.corners ? [tpl.corners as Panel] : [];
+              return (
+                <div key={tpl.id} className="bg-white rounded-2xl border border-gray-100 p-5 flex gap-5 items-start">
+                  <div style={{ width: 100, height: 70, borderRadius: 8, overflow: 'hidden', flexShrink: 0, background: '#f3f4f6' }}>
+                    {tpl.mockupUrl ? (
+                      <img src={tpl.mockupUrl} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    ) : (
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                        <Monitor size={20} color="#d1d5db" />
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <p className="font-black text-sm" style={{ color: NAVY }}>{tpl.typeName} — {tpl.sizeLabel}</p>
+                      {tplPanels.length > 1 && (
+                        <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full"
+                          style={{ background: 'rgba(217,4,41,0.08)', color: RED }}>
+                          <Layers size={10} /> {tplPanels.length} panels
+                        </span>
+                      )}
                     </div>
-                  )}
+                    {tpl.notes && <p className="text-xs text-gray-400 mt-0.5">{tpl.notes}</p>}
+                    <p className="text-[11px] text-gray-400 mt-1">
+                      {tplPanels.length > 0
+                        ? tplPanels.map((p, pi) => (
+                            <span key={pi} className="mr-3 inline-block">
+                              <span className="font-semibold">{PANEL_NAMES[pi]}:</span>{' '}
+                              {(p as Panel).map((c, ci) => `${['TL','TR','BR','BL'][ci]}(${(c.x*100).toFixed(0)}%,${(c.y*100).toFixed(0)}%)`).join(' ')}
+                            </span>
+                          ))
+                        : 'No panels set'
+                      }
+                    </p>
+                  </div>
+                  <div className="flex gap-2">
+                    <button onClick={() => startEdit(tpl)} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-700"><Edit2 size={14} /></button>
+                    <button onClick={() => remove(tpl.id)} className="p-1.5 rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-500"><Trash2 size={14} /></button>
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <p className="font-black text-sm" style={{ color: NAVY }}>{tpl.typeName} — {tpl.sizeLabel}</p>
-                  {tpl.notes && <p className="text-xs text-gray-400 mt-0.5">{tpl.notes}</p>}
-                  <p className="text-[11px] text-gray-400 mt-1">
-                    Corners: {tpl.corners?.map((c,i) => `${['TL','TR','BR','BL'][i]}(${(c.x*100).toFixed(1)}%,${(c.y*100).toFixed(1)}%)`).join(' · ') ?? 'Not set'}
-                  </p>
-                </div>
-                <div className="flex gap-2">
-                  <button onClick={() => startEdit(tpl)} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-700"><Edit2 size={14} /></button>
-                  <button onClick={() => remove(tpl.id)} className="p-1.5 rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-500"><Trash2 size={14} /></button>
-                </div>
-              </div>
-            ))
+              );
+            })
           )}
         </div>
       </div>

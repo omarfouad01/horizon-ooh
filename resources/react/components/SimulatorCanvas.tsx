@@ -1,14 +1,19 @@
 /**
  * SimulatorCanvas.tsx
- * Warps a user's design onto a billboard mockup using a proper projective
- * (homographic) transform on HTML5 Canvas — design fits EXACTLY the 4 corners.
+ * Warps one or more user designs onto a billboard mockup using a proper projective
+ * (homographic) transform on HTML5 Canvas — design fits EXACTLY each panel's corners.
  *
  * Props:
  *   mockupUrl        — URL of the street-photo background
- *   designUrl        — URL of the user's artwork (blob URL or data URL)
- *   corners          — [TL, TR, BR, BL] as fractions 0..1 of mockup dimensions
+ *   designUrls       — Array of design URLs, one per panel (blob URL or data URL)
+ *   designUrl        — Legacy: single design URL (treated as designUrls[0])
+ *   panels           — Array of 4-corner sets (one per billboard panel)
+ *                       Each entry: [TL, TR, BR, BL] as fractions 0..1
+ *   corners          — Legacy: single 4-corner set (treated as panels[0])
  *   editMode         — show drag handles + connecting lines (admin corner picker)
- *   onCornersChange  — callback when handles are moved (editMode only)
+ *   activePanelIndex — which panel's handles are shown in editMode
+ *   onPanelsChange   — callback when handles are moved (editMode only)
+ *   onCornersChange  — legacy: callback for single-panel (uses activePanelIndex=0)
  *   style            — wrapper div style
  */
 import {
@@ -17,50 +22,55 @@ import {
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 export interface Corner { x: number; y: number }  // fractions 0..1
+export type Panel = [Corner, Corner, Corner, Corner];  // TL TR BR BL
 
 export interface SimulatorCanvasRef {
   capture: () => Promise<string | null>;
 }
 
 interface Props {
-  mockupUrl:        string;
-  designUrl:        string;
-  corners:          [Corner, Corner, Corner, Corner];  // TL TR BR BL
-  editMode?:        boolean;
-  onCornersChange?: (c: [Corner, Corner, Corner, Corner]) => void;
-  style?:           React.CSSProperties;
+  mockupUrl:         string;
+  /** Multi-panel: one design URL per panel */
+  designUrls?:       string[];
+  /** Legacy single-design shorthand */
+  designUrl?:        string;
+  /** Multi-panel corner sets */
+  panels?:           Panel[];
+  /** Legacy single-panel corners */
+  corners?:          Panel;
+  editMode?:         boolean;
+  /** Which panel index is being edited (default 0) */
+  activePanelIndex?: number;
+  onPanelsChange?:   (panels: Panel[]) => void;
+  /** Legacy alias → calls onPanelsChange with only index 0 updated */
+  onCornersChange?:  (c: Panel) => void;
+  style?:            React.CSSProperties;
 }
 
 // ── Math: 8×8 Gaussian elimination ────────────────────────────────────────────
 function solve8x8(A: number[][], b: number[]): number[] {
   const n = 8;
-  // Augmented matrix [A|b]
   const M = A.map((row, i) => [...row, b[i]]);
   for (let col = 0; col < n; col++) {
-    // Partial pivoting
     let max = Math.abs(M[col][col]), piv = col;
     for (let row = col + 1; row < n; row++) {
       if (Math.abs(M[row][col]) > max) { max = Math.abs(M[row][col]); piv = row; }
     }
     [M[col], M[piv]] = [M[piv], M[col]];
-    // Normalize pivot row
     const pivot = M[col][col];
     if (Math.abs(pivot) < 1e-12) continue;
     for (let k = col; k <= n; k++) M[col][k] /= pivot;
-    // Eliminate column
     for (let row = 0; row < n; row++) {
       if (row === col) continue;
       const f = M[row][col];
       for (let k = col; k <= n; k++) M[row][k] -= f * M[col][k];
     }
   }
-  // After full Gauss-Jordan the diagonal is 1, so solution is just the RHS column
   return M.map(row => row[n]);
 }
 
 // ── Compute homography: unit-square [TL,TR,BR,BL] → dst pixel corners ─────────
-function computeHomography(dst: [Corner, Corner, Corner, Corner], W: number, H: number): number[] {
-  // src: unit-square TL(0,0) TR(1,0) BR(1,1) BL(0,1)
+function computeHomography(dst: Panel, W: number, H: number): number[] {
   const src: [number, number][] = [[0, 0], [1, 0], [1, 1], [0, 1]];
   const dstPx = dst.map(c => [c.x * W, c.y * H]) as [number, number][];
   const A: number[][] = [];
@@ -75,12 +85,12 @@ function computeHomography(dst: [Corner, Corner, Corner, Corner], W: number, H: 
   return [...h, 1];
 }
 
-// ── Inverse-map warp: for every dst pixel find the src pixel ──────────────────
+// ── Inverse-map warp ───────────────────────────────────────────────────────────
 function applyWarp(
   srcCanvas: HTMLCanvasElement,
   dstCtx: CanvasRenderingContext2D,
   dstW: number, dstH: number,
-  H: number[],   // forward homography (unit-sq → dst pixels)
+  H: number[],
 ) {
   const [a, bv, c, d, e, f, g, hv, k] = H;
   const det = a * (e * k - f * hv) - bv * (d * k - f * g) + c * (d * hv - e * g);
@@ -90,12 +100,10 @@ function applyWarp(
     (f * g - d * k) / det,  (a * k - c * g) / det,   (c * d - a * f) / det,
     (d * hv - e * g) / det, (bv * g - a * hv) / det, (a * e - bv * d) / det,
   ];
-
   const srcCtx = srcCanvas.getContext('2d')!;
   const srcW = srcCanvas.width, srcH = srcCanvas.height;
   const srcImg = srcCtx.getImageData(0, 0, srcW, srcH);
   const dstImg = dstCtx.getImageData(0, 0, dstW, dstH);
-
   for (let dy = 0; dy < dstH; dy++) {
     for (let dx = 0; dx < dstW; dx++) {
       const w2 = inv[6] * dx + inv[7] * dy + inv[8];
@@ -116,11 +124,10 @@ function applyWarp(
   dstCtx.putImageData(dstImg, 0, 0);
 }
 
-// ── Load image (blob URLs don't need crossOrigin) ─────────────────────────────
+// ── Load image helper ─────────────────────────────────────────────────────────
 function loadImg(url: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const img = new Image();
-    // Only set crossOrigin for http(s) URLs, NOT for blob: or data: URLs
     if (url.startsWith('http')) img.crossOrigin = 'anonymous';
     img.onload  = () => resolve(img);
     img.onerror = (err) => reject(err);
@@ -129,220 +136,234 @@ function loadImg(url: string): Promise<HTMLImageElement> {
 }
 
 // ── Handle colours & labels ───────────────────────────────────────────────────
-const HANDLE_COLORS = ['#22c55e', '#3b82f6', '#f59e0b', '#ef4444']; // TL TR BR BL
+// Colors cycle per-panel: each panel gets its own set of 4 colored handles
+const PANEL_COLORS = [
+  ['#22c55e', '#3b82f6', '#f59e0b', '#ef4444'],  // panel 0: green/blue/amber/red
+  ['#a855f7', '#06b6d4', '#f97316', '#ec4899'],  // panel 1: purple/cyan/orange/pink
+  ['#84cc16', '#0ea5e9', '#eab308', '#f43f5e'],  // panel 2: ...
+];
 const HANDLE_LABELS = ['TL', 'TR', 'BR', 'BL'];
 
-// ── Component ─────────────────────────────────────────────────────────────────
-const SimulatorCanvas = forwardRef<SimulatorCanvasRef, Props>(({
-  mockupUrl, designUrl, corners, editMode = false, onCornersChange, style,
-}, ref) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const canvasRef    = useRef<HTMLCanvasElement>(null);
-  // Keep images in refs so render() always has the latest without stale closures
-  const mockupRef = useRef<HTMLImageElement | null>(null);
-  const designRef = useRef<HTMLImageElement | null>(null);
-  const cornersRef = useRef<[Corner, Corner, Corner, Corner]>(corners);
+// Default panel positions
+const DEFAULT_PANEL: Panel = [
+  { x: 0.15, y: 0.2 }, { x: 0.85, y: 0.2 },
+  { x: 0.85, y: 0.75 }, { x: 0.15, y: 0.75 },
+];
 
-  const [localCorners, setLocalCorners] = useState<[Corner, Corner, Corner, Corner]>(() => corners);
-  const [dragging, setDragging] = useState<number | null>(null);
+// ── Component ─────────────────────────────────────────────────────────────────
+const SimulatorCanvas = forwardRef<SimulatorCanvasRef, Props>((
+  {
+    mockupUrl,
+    designUrls: designUrlsProp,
+    designUrl:  designUrlSingle,
+    panels:     panelsProp,
+    corners:    cornersSingle,
+    editMode = false,
+    activePanelIndex = 0,
+    onPanelsChange,
+    onCornersChange,
+    style,
+  },
+  ref,
+) => {
+  // Normalise to arrays
+  const panels: Panel[] = (panelsProp && panelsProp.length > 0)
+    ? panelsProp
+    : cornersSingle
+      ? [cornersSingle]
+      : [DEFAULT_PANEL];
+
+  const designUrls: string[] = designUrlsProp && designUrlsProp.length > 0
+    ? designUrlsProp
+    : designUrlSingle
+      ? [designUrlSingle]
+      : [];
+
+  const containerRef  = useRef<HTMLDivElement>(null);
+  const canvasRef     = useRef<HTMLCanvasElement>(null);
+  const mockupRef     = useRef<HTMLImageElement | null>(null);
+  // Array of design images, one per panel
+  const designsRef    = useRef<(HTMLImageElement | null)[]>([]);
+  const panelsRef     = useRef<Panel[]>(panels);
+  const [localPanels, setLocalPanels] = useState<Panel[]>(panels);
+  const [dragging, setDragging] = useState<{ panel: number; corner: number } | null>(null);
   const [canvasSize, setCanvasSize] = useState({ w: 800, h: 450 });
 
-  // Keep cornersRef in sync
-  useEffect(() => {
-    cornersRef.current = localCorners;
-  }, [localCorners]);
+  // Keep ref in sync
+  useEffect(() => { panelsRef.current = localPanels; }, [localPanels]);
 
-  // Sync incoming corners prop (from parent/store)
+  // Sync incoming panels/corners prop
   useEffect(() => {
-    setLocalCorners(corners);
-    cornersRef.current = corners;
-  }, [corners]);  // eslint-disable-line react-hooks/exhaustive-deps
+    const next: Panel[] = (panelsProp && panelsProp.length > 0)
+      ? panelsProp
+      : cornersSingle
+        ? [cornersSingle]
+        : [DEFAULT_PANEL];
+    setLocalPanels(next);
+    panelsRef.current = next;
+  }, [panelsProp, cornersSingle]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // ── Core render function (reads from refs — always fresh) ─────────────────
+  // ── Core render ──────────────────────────────────────────────────────────
   const renderCanvas = useCallback(() => {
     const canvas  = canvasRef.current;
     const mockup  = mockupRef.current;
     if (!canvas || !mockup) return;
-
-    const W = canvas.width;
-    const H = canvas.height;
+    const W = canvas.width, H = canvas.height;
     const ctx = canvas.getContext('2d')!;
-    const crns = cornersRef.current;
-
-    // 1. Draw mockup background
     ctx.clearRect(0, 0, W, H);
     ctx.drawImage(mockup, 0, 0, W, H);
 
-    const design = designRef.current;
-    if (!design || !design.complete || design.naturalWidth === 0) return;
+    const crns = panelsRef.current;
+    const designs = designsRef.current;
 
-    // 2. Build temp src canvas from design
-    const srcC = document.createElement('canvas');
-    srcC.width  = design.naturalWidth;
-    srcC.height = design.naturalHeight;
-    srcC.getContext('2d')!.drawImage(design, 0, 0);
-
-    // 3. Compute homography & warp into a temp dst canvas
-    const H_mat = computeHomography(crns, W, H);
-    const dstC  = document.createElement('canvas');
-    dstC.width  = W;
-    dstC.height = H;
-    const dstCtx = dstC.getContext('2d')!;
-    applyWarp(srcC, dstCtx, W, H, H_mat);
-
-    // 4. Composite warped design over mockup
-    ctx.save();
-    ctx.globalCompositeOperation = 'source-over';
-    ctx.drawImage(dstC, 0, 0);
-    ctx.restore();
-  }, []); // no deps — always reads from refs
+    for (let pi = 0; pi < crns.length; pi++) {
+      const design = designs[pi];
+      if (!design || !design.complete || design.naturalWidth === 0) continue;
+      const srcC = document.createElement('canvas');
+      srcC.width  = design.naturalWidth;
+      srcC.height = design.naturalHeight;
+      srcC.getContext('2d')!.drawImage(design, 0, 0);
+      const H_mat = computeHomography(crns[pi], W, H);
+      const dstC  = document.createElement('canvas');
+      dstC.width  = W; dstC.height = H;
+      applyWarp(srcC, dstC.getContext('2d')!, W, H, H_mat);
+      ctx.save();
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.drawImage(dstC, 0, 0);
+      ctx.restore();
+    }
+  }, []); // reads from refs — always fresh
 
   // ── Load mockup ──────────────────────────────────────────────────────────
   useEffect(() => {
     if (!mockupUrl) return;
     let cancelled = false;
-    loadImg(mockupUrl)
-      .then(img => {
-        if (cancelled) return;
-        mockupRef.current = img;
-        // Resize canvas to match mockup aspect ratio
-        const container = containerRef.current;
-        const maxW = container?.clientWidth || 800;
-        const ratio = img.naturalHeight / img.naturalWidth;
-        const w = maxW;
-        const h = Math.max(1, Math.round(maxW * ratio));
-        setCanvasSize({ w, h });
-        // Render after state update — use setTimeout to let canvas resize first
-        setTimeout(() => renderCanvas(), 0);
-      })
-      .catch(() => {});
+    loadImg(mockupUrl).then(img => {
+      if (cancelled) return;
+      mockupRef.current = img;
+      const container = containerRef.current;
+      const maxW = container?.clientWidth || 800;
+      const ratio = img.naturalHeight / img.naturalWidth;
+      const w = maxW, h = Math.max(1, Math.round(maxW * ratio));
+      setCanvasSize({ w, h });
+      setTimeout(() => renderCanvas(), 0);
+    }).catch(() => {});
     return () => { cancelled = true; };
   }, [mockupUrl, renderCanvas]);
 
-  // ── Load design ──────────────────────────────────────────────────────────
+  // ── Load designs (re-run when designUrls change) ──────────────────────
   useEffect(() => {
-    if (!designUrl) {
-      designRef.current = null;
-      renderCanvas();
-      return;
-    }
     let cancelled = false;
-    loadImg(designUrl)
-      .then(img => {
-        if (cancelled) return;
-        designRef.current = img;
+    const newDesigns: (HTMLImageElement | null)[] = new Array(panels.length).fill(null);
+    const promises = designUrls.map((url, i) => {
+      if (!url) return Promise.resolve();
+      return loadImg(url).then(img => {
+        if (!cancelled) newDesigns[i] = img;
+      }).catch(() => {});
+    });
+    Promise.all(promises).then(() => {
+      if (!cancelled) {
+        designsRef.current = newDesigns;
         renderCanvas();
-      })
-      .catch(() => {
-        designRef.current = null;
-        renderCanvas();
-      });
+      }
+    });
     return () => { cancelled = true; };
-  }, [designUrl, renderCanvas]);
+  }, [designUrls.join(','), panels.length, renderCanvas]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Re-render when corners change
+  // Re-render when panels change
   useEffect(() => {
-    cornersRef.current = localCorners;
+    panelsRef.current = localPanels;
     renderCanvas();
-  }, [localCorners, renderCanvas]);
+  }, [localPanels, renderCanvas]);
 
-  // Re-render when canvas dimensions are set
-  useEffect(() => {
-    // Canvas element dimensions changed — need to re-draw
-    setTimeout(() => renderCanvas(), 0);
-  }, [canvasSize, renderCanvas]);
+  // Re-render when canvas dimensions set
+  useEffect(() => { setTimeout(() => renderCanvas(), 0); }, [canvasSize, renderCanvas]);
 
-  // ── Drag handles ─────────────────────────────────────────────────────────
+  // ── Drag logic ────────────────────────────────────────────────────────────
   const getRelativePos = useCallback((e: React.MouseEvent | React.TouchEvent) => {
     const rect = canvasRef.current!.getBoundingClientRect();
     const clientX = 'touches' in e ? e.touches[0].clientX : (e as React.MouseEvent).clientX;
     const clientY = 'touches' in e ? e.touches[0].clientY : (e as React.MouseEvent).clientY;
     return {
-      x: Math.max(0, Math.min(1, (clientX - rect.left)  / rect.width)),
-      y: Math.max(0, Math.min(1, (clientY - rect.top)   / rect.height)),
+      x: Math.max(0, Math.min(1, (clientX - rect.left) / rect.width)),
+      y: Math.max(0, Math.min(1, (clientY - rect.top)  / rect.height)),
     };
   }, []);
 
-  const onMouseDown = useCallback((idx: number) => (e: React.MouseEvent) => {
-    if (!editMode) return;
-    e.preventDefault();
-    setDragging(idx);
-  }, [editMode]);
+  const onMouseDown = useCallback((panelIdx: number, cornerIdx: number) =>
+    (e: React.MouseEvent) => {
+      if (!editMode) return;
+      e.preventDefault();
+      setDragging({ panel: panelIdx, corner: cornerIdx });
+    }, [editMode]);
 
   const onMouseMove = useCallback((e: React.MouseEvent) => {
     if (dragging === null || !editMode) return;
     e.preventDefault();
     const pos = getRelativePos(e);
-    setLocalCorners(prev => {
-      const next = [...prev] as [Corner, Corner, Corner, Corner];
-      next[dragging] = pos;
-      onCornersChange?.(next);
+    setLocalPanels(prev => {
+      const next = prev.map(p => [...p] as Panel) as Panel[];
+      next[dragging.panel][dragging.corner] = pos;
+      onPanelsChange?.(next);
+      // Legacy callback for single-panel
+      if (dragging.panel === 0) onCornersChange?.(next[0]);
       return next;
     });
-  }, [dragging, editMode, getRelativePos, onCornersChange]);
+  }, [dragging, editMode, getRelativePos, onPanelsChange, onCornersChange]);
 
   const onMouseUp = useCallback(() => { setDragging(null); }, []);
 
-  // Touch support
   const onTouchMove = useCallback((e: React.TouchEvent) => {
     if (dragging === null || !editMode) return;
     e.preventDefault();
     const pos = getRelativePos(e);
-    setLocalCorners(prev => {
-      const next = [...prev] as [Corner, Corner, Corner, Corner];
-      next[dragging] = pos;
-      onCornersChange?.(next);
+    setLocalPanels(prev => {
+      const next = prev.map(p => [...p] as Panel) as Panel[];
+      next[dragging.panel][dragging.corner] = pos;
+      onPanelsChange?.(next);
+      if (dragging.panel === 0) onCornersChange?.(next[0]);
       return next;
     });
-  }, [dragging, editMode, getRelativePos, onCornersChange]);
+  }, [dragging, editMode, getRelativePos, onPanelsChange, onCornersChange]);
 
-  // ── Expose capture ────────────────────────────────────────────────────────
+  // ── Capture for download ──────────────────────────────────────────────────
   useImperativeHandle(ref, () => ({
     capture: async () => {
-      // Build composite on a FRESH off-screen canvas to avoid CORS-taint issues.
-      // We draw directly from the in-memory image elements (already loaded).
       const mockup = mockupRef.current;
-      const design = designRef.current;
       if (!mockup) return null;
-
       const W = canvasSize.w || mockup.naturalWidth;
       const H = canvasSize.h || mockup.naturalHeight;
       const offscreen = document.createElement('canvas');
       offscreen.width  = W;
       offscreen.height = H;
       const ctx = offscreen.getContext('2d')!;
-
-      // 1. Draw mockup
-      try { ctx.drawImage(mockup, 0, 0, W, H); } catch { /* tainted — skip */ }
-
-      // 2. Warp design if available
-      if (design && design.complete && design.naturalWidth > 0) {
+      try { ctx.drawImage(mockup, 0, 0, W, H); } catch { /* tainted */ }
+      const crns    = panelsRef.current;
+      const designs = designsRef.current;
+      for (let pi = 0; pi < crns.length; pi++) {
+        const design = designs[pi];
+        if (!design || !design.complete || design.naturalWidth === 0) continue;
         const srcC = document.createElement('canvas');
         srcC.width  = design.naturalWidth;
         srcC.height = design.naturalHeight;
         srcC.getContext('2d')!.drawImage(design, 0, 0);
-
-        const H_mat = computeHomography(cornersRef.current, W, H);
+        const H_mat = computeHomography(crns[pi], W, H);
         const dstC  = document.createElement('canvas');
-        dstC.width  = W;
-        dstC.height = H;
+        dstC.width  = W; dstC.height = H;
         applyWarp(srcC, dstC.getContext('2d')!, W, H, H_mat);
         ctx.globalCompositeOperation = 'source-over';
         ctx.drawImage(dstC, 0, 0);
       }
-
-      // 3. Try toDataURL — may still be tainted if mockup server blocks CORS
       try {
         return offscreen.toDataURL('image/jpeg', 0.92);
       } catch {
-        // CORS taint: fall back to returning the visible canvas data URL
         try { return canvasRef.current?.toDataURL('image/jpeg', 0.92) ?? null; }
         catch { return null; }
       }
     },
   }));
 
-  // ── JSX ──────────────────────────────────────────────────────────────────
+  // ── JSX ────────────────────────────────────────────────────────────────────
   return (
     <div
       ref={containerRef}
@@ -360,7 +381,7 @@ const SimulatorCanvas = forwardRef<SimulatorCanvasRef, Props>(({
         style={{ display: 'block', width: '100%', height: 'auto' }}
       />
 
-      {/* Connecting lines SVG overlay (editMode only) */}
+      {/* SVG overlay: connecting lines for ALL panels in editMode */}
       {editMode && (
         <svg
           style={{
@@ -368,62 +389,83 @@ const SimulatorCanvas = forwardRef<SimulatorCanvasRef, Props>(({
             pointerEvents: 'none', overflow: 'visible',
           }}
         >
-          {/* Draw quadrilateral outline: TL→TR→BR→BL→TL */}
-          <polygon
-            points={localCorners.map(c => `${c.x * 100}%,${c.y * 100}%`).join(' ')}
-            fill="rgba(217,4,41,0.08)"
-            stroke="rgba(255,255,255,0.85)"
-            strokeWidth="1.5"
-            strokeDasharray="6 3"
-          />
-          {/* Cross-lines TL→BR and TR→BL for alignment guides */}
-          <line
-            x1={`${localCorners[0].x * 100}%`} y1={`${localCorners[0].y * 100}%`}
-            x2={`${localCorners[2].x * 100}%`} y2={`${localCorners[2].y * 100}%`}
-            stroke="rgba(255,255,255,0.25)" strokeWidth="1" strokeDasharray="3 4"
-          />
-          <line
-            x1={`${localCorners[1].x * 100}%`} y1={`${localCorners[1].y * 100}%`}
-            x2={`${localCorners[3].x * 100}%`} y2={`${localCorners[3].y * 100}%`}
-            stroke="rgba(255,255,255,0.25)" strokeWidth="1" strokeDasharray="3 4"
-          />
+          {localPanels.map((panel, pi) => {
+            const colors = PANEL_COLORS[pi % PANEL_COLORS.length];
+            const strokeColor = pi === activePanelIndex
+              ? 'rgba(255,255,255,0.9)'
+              : 'rgba(255,255,255,0.45)';
+            return (
+              <g key={pi}>
+                <polygon
+                  points={panel.map(c => `${c.x * 100}%,${c.y * 100}%`).join(' ')}
+                  fill={`rgba(217,4,41,${pi === activePanelIndex ? '0.08' : '0.04'})`}
+                  stroke={strokeColor}
+                  strokeWidth="1.5"
+                  strokeDasharray="6 3"
+                />
+                {/* Cross-lines for alignment */}
+                <line
+                  x1={`${panel[0].x * 100}%`} y1={`${panel[0].y * 100}%`}
+                  x2={`${panel[2].x * 100}%`} y2={`${panel[2].y * 100}%`}
+                  stroke="rgba(255,255,255,0.2)" strokeWidth="1" strokeDasharray="3 4"
+                />
+                <line
+                  x1={`${panel[1].x * 100}%`} y1={`${panel[1].y * 100}%`}
+                  x2={`${panel[3].x * 100}%`} y2={`${panel[3].y * 100}%`}
+                  stroke="rgba(255,255,255,0.2)" strokeWidth="1" strokeDasharray="3 4"
+                />
+                {/* Corner handles */}
+                {panel.map((corner, ci) => (
+                  <circle
+                    key={ci}
+                    cx={`${corner.x * 100}%`}
+                    cy={`${corner.y * 100}%`}
+                    r={7}
+                    fill={colors[ci]}
+                    stroke="#fff"
+                    strokeWidth={2}
+                    opacity={pi === activePanelIndex ? 1 : 0.6}
+                  />
+                ))}
+              </g>
+            );
+          })}
         </svg>
       )}
 
-      {/* Drag handles (editMode only) */}
-      {editMode && localCorners.map((corner, idx) => (
-        <div
-          key={idx}
-          onMouseDown={onMouseDown(idx)}
-          onTouchStart={(e) => { e.preventDefault(); setDragging(idx); }}
-          title={HANDLE_LABELS[idx]}
-          style={{
-            position:     'absolute',
-            left:         `calc(${corner.x * 100}% - 12px)`,
-            top:          `calc(${corner.y * 100}% - 12px)`,
-            width:        24,
-            height:       24,
-            borderRadius: '50%',
-            background:   HANDLE_COLORS[idx],
-            border:       '2.5px solid #fff',
-            boxShadow:    dragging === idx
-              ? `0 0 0 3px ${HANDLE_COLORS[idx]}55, 0 4px 16px rgba(0,0,0,0.5)`
-              : '0 2px 10px rgba(0,0,0,0.45)',
-            cursor:       dragging === idx ? 'grabbing' : 'grab',
-            display:      'flex',
-            alignItems:   'center',
-            justifyContent: 'center',
-            fontSize:     8,
-            fontWeight:   900,
-            color:        '#fff',
-            zIndex:       20,
-            transition:   dragging === idx ? 'none' : 'box-shadow 0.15s',
-            touchAction:  'none',
-          }}
-        >
-          {HANDLE_LABELS[idx]}
-        </div>
-      ))}
+      {/* Drag handles — only for active panel in editMode */}
+      {editMode && localPanels.map((panel, pi) =>
+        (pi === activePanelIndex ? panel : []).map((corner: Corner, ci: number) => {
+          const colors = PANEL_COLORS[pi % PANEL_COLORS.length];
+          return (
+            <div
+              key={`${pi}-${ci}`}
+              onMouseDown={onMouseDown(pi, ci)}
+              onTouchStart={(e) => { e.preventDefault(); setDragging({ panel: pi, corner: ci }); }}
+              title={`Panel ${pi + 1} — ${HANDLE_LABELS[ci]}`}
+              style={{
+                position:       'absolute',
+                left:           `calc(${corner.x * 100}% - 12px)`,
+                top:            `calc(${corner.y * 100}% - 12px)`,
+                width:          24, height: 24, borderRadius: '50%',
+                background:     colors[ci],
+                border:         '2.5px solid #fff',
+                boxShadow:      dragging?.panel === pi && dragging?.corner === ci
+                  ? `0 0 0 3px ${colors[ci]}55, 0 4px 16px rgba(0,0,0,0.5)`
+                  : '0 2px 10px rgba(0,0,0,0.45)',
+                cursor:         dragging?.panel === pi && dragging?.corner === ci ? 'grabbing' : 'grab',
+                display:        'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize:       8, fontWeight: 900, color: '#fff',
+                zIndex:         20,
+                transition:     dragging ? 'none' : 'box-shadow 0.15s',
+                touchAction:    'none',
+              }}
+            >
+              {HANDLE_LABELS[ci]}
+            </div>
+          );
+        })
+      )}
     </div>
   );
 });

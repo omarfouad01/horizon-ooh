@@ -274,14 +274,28 @@ export interface BillboardSize {
   notes?: string;
 }
 
+export interface SimCorner { x: number; y: number }
+
 export interface SimulatorTemplate {
   id: string;
   typeName:   string;   // billboard type (e.g. "Unipole")
   sizeLabel:  string;   // matches BillboardSize.label
   mockupUrl:  string;   // street photo URL
-  // corners: [TL, TR, BR, BL] as fractions 0..1 of mockup image
-  corners: [{ x:number;y:number }, { x:number;y:number }, { x:number;y:number }, { x:number;y:number }];
+  // panels: array of 4-corner sets. 1 panel = single billboard, 2 panels = double decker, etc.
+  panels: SimCorner[][];  // each entry is [TL, TR, BR, BL] as fractions 0..1
+  // LEGACY: single corners array — auto-converted to panels on load
+  corners?: SimCorner[];
   notes?: string;
+}
+
+// Helper: normalise a template so it always has panels[] populated
+export function normTemplate(t: any): SimulatorTemplate {
+  const panels: SimCorner[][] = Array.isArray(t.panels) && t.panels.length > 0
+    ? t.panels
+    : Array.isArray(t.corners) && t.corners.length === 4
+      ? [t.corners]
+      : [[{ x:0.15,y:0.2 },{x:0.85,y:0.2},{x:0.85,y:0.75},{x:0.15,y:0.75}]];
+  return { ...t, panels };
 }
 
 export interface DesignUpload {
