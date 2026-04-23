@@ -392,13 +392,16 @@ export default function Product() {
                 </a>
                 <button
                   onClick={() => navigate(`/design-simulator?product=${product.id}`)}
-                  className="w-full h-[44px] flex items-center justify-center gap-2 border transition-colors duration-200 hover:border-[#D90429] group"
-                  style={{ border: '1.5px solid rgba(11,15,26,0.12)', background: 'transparent', cursor: 'pointer' }}
+                  className="group relative w-full h-[48px] overflow-hidden flex items-center justify-center gap-2.5 text-[12px] font-bold tracking-[0.18em] uppercase transition-all duration-200 active:scale-[0.97]"
+                  style={{ border: '1.5px solid #D90429', background: 'transparent', cursor: 'pointer', color: '#D90429' }}
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D90429" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  {/* Hover fill */}
+                  <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: '#D90429' }} />
+                  <svg className="relative z-10 transition-colors duration-300" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
                   </svg>
-                  <span className="text-[12px] font-semibold tracking-[0.15em] uppercase group-hover:text-[#D90429] transition-colors" style={{ color: 'rgba(11,15,26,0.5)' }}>
+                  <span className="relative z-10 group-hover:text-white transition-colors duration-300">
                     {t('product.trySimulator') || (isAr ? 'جرّب المحاكي' : 'Try Simulator')}
                   </span>
                 </button>

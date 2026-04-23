@@ -129,19 +129,29 @@ export default function DesignSimulator() {
     }
   }, [step, designUrl, selectedTemplate, saved, saveUpload]);
 
-  // Helper: trigger a reliable download from a dataURL or blob URL
-  const triggerDownload = (url: string, filename: string) => {
+  // Convert a data: URL to a Blob without using fetch()
+  const dataUrlToBlob = (dataUrl: string): Blob => {
+    const [header, b64] = dataUrl.split(',');
+    const mime = header.match(/:(.*?);/)?.[1] ?? 'image/jpeg';
+    const bytes = atob(b64);
+    const arr   = new Uint8Array(bytes.length);
+    for (let i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
+    return new Blob([arr], { type: mime });
+  };
+
+  // Trigger a file download in the browser reliably
+  const triggerDownload = (blobOrUrl: Blob | string, filename: string) => {
+    const url = blobOrUrl instanceof Blob ? URL.createObjectURL(blobOrUrl) : blobOrUrl;
     const a = document.createElement('a');
     a.href = url;
     a.download = filename;
     a.style.display = 'none';
     document.body.appendChild(a);
     a.click();
-    // Clean up after a short delay
     setTimeout(() => {
       document.body.removeChild(a);
-      if (url.startsWith('blob:')) URL.revokeObjectURL(url);
-    }, 200);
+      if (blobOrUrl instanceof Blob) URL.revokeObjectURL(url);
+    }, 300);
   };
 
   const handleDownload = async () => {
@@ -149,25 +159,23 @@ export default function DesignSimulator() {
     const filename = `horizon-simulation-${selectedTemplate?.typeName ?? 'billboard'}-${selectedTemplate?.sizeLabel ?? ''}.jpg`
       .replace(/\s+/g, '-').toLowerCase();
     try {
-      // Try to get composite image from the canvas
+      // Capture the composite canvas image
       const dataUrl = canvasRef.current ? await canvasRef.current.capture() : null;
 
       if (dataUrl && dataUrl.startsWith('data:')) {
-        // Convert dataURL → Blob → object URL (more reliable for download)
-        const res = await fetch(dataUrl);
-        const blob = await res.blob();
-        const blobUrl = URL.createObjectURL(blob);
-        triggerDownload(blobUrl, filename);
+        // Convert base64 → Blob directly (no fetch needed)
+        const blob = dataUrlToBlob(dataUrl);
+        triggerDownload(blob, filename);
         return;
       }
 
-      // Fallback: download the raw design file the user uploaded
+      // Fallback: download the user's raw uploaded design
       if (designUrl) {
         triggerDownload(designUrl, 'your-design.png');
       }
     } catch (err) {
       console.error('Download error:', err);
-      // Last resort: open in new tab so user can save manually
+      // Last resort: open in new tab for manual save
       if (designUrl) window.open(designUrl, '_blank');
     } finally {
       setDownloading(false);

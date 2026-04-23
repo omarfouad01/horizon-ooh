@@ -58,13 +58,13 @@ export function Modal({open,onClose,title,children,size='lg'}:any) {
   if(!open) return null
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{background:'rgba(11,15,26,0.55)'}}>
-      <div className={clsx('bg-white rounded-2xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-2xl',
+      <div className={clsx('bg-white rounded-2xl w-full max-h-[90vh] flex flex-col shadow-2xl',
         size==='xl'?'max-w-3xl':size==='lg'?'max-w-2xl':'max-w-xl')}>
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 flex-shrink-0">
           <h3 className="text-sm font-black text-gray-900">{title}</h3>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-700 p-1 rounded-lg hover:bg-gray-100"><X size={16}/></button>
         </div>
-        <div className="flex-1 overflow-y-auto p-6">{children}</div>
+        <div className="flex-1 overflow-y-auto overflow-x-visible p-6">{children}</div>
       </div>
     </div>
   )

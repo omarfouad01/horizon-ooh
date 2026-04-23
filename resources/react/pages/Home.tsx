@@ -472,7 +472,7 @@ function HeroSection() {
               <motion.div
                 initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }}
                 transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute top-4 right-4 z-[1000]"
+                className="absolute bottom-4 right-4 z-[1000]"
                 style={{ width: 268 }}
               >
                 <div className="overflow-hidden"
