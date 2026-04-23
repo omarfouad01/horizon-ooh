@@ -129,27 +129,46 @@ export default function DesignSimulator() {
     }
   }, [step, designUrl, selectedTemplate, saved, saveUpload]);
 
+  // Helper: trigger a reliable download from a dataURL or blob URL
+  const triggerDownload = (url: string, filename: string) => {
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    // Clean up after a short delay
+    setTimeout(() => {
+      document.body.removeChild(a);
+      if (url.startsWith('blob:')) URL.revokeObjectURL(url);
+    }, 200);
+  };
+
   const handleDownload = async () => {
     setDownloading(true);
+    const filename = `horizon-simulation-${selectedTemplate?.typeName ?? 'billboard'}-${selectedTemplate?.sizeLabel ?? ''}.jpg`
+      .replace(/\s+/g, '-').toLowerCase();
     try {
-      if (canvasRef.current) {
-        const dataUrl = await canvasRef.current.capture();
-        if (dataUrl) {
-          const a = document.createElement('a');
-          a.href = dataUrl;
-          a.download = `horizon-simulation-${selectedTemplate?.typeName}-${selectedTemplate?.sizeLabel}.jpg`
-            .replace(/\s+/g, '-').toLowerCase();
-          a.click();
-          return;
-        }
+      // Try to get composite image from the canvas
+      const dataUrl = canvasRef.current ? await canvasRef.current.capture() : null;
+
+      if (dataUrl && dataUrl.startsWith('data:')) {
+        // Convert dataURL → Blob → object URL (more reliable for download)
+        const res = await fetch(dataUrl);
+        const blob = await res.blob();
+        const blobUrl = URL.createObjectURL(blob);
+        triggerDownload(blobUrl, filename);
+        return;
       }
-      // Flat preview fallback
+
+      // Fallback: download the raw design file the user uploaded
       if (designUrl) {
-        const a = document.createElement('a');
-        a.href = designUrl;
-        a.download = 'horizon-simulation.png';
-        a.click();
+        triggerDownload(designUrl, 'your-design.png');
       }
+    } catch (err) {
+      console.error('Download error:', err);
+      // Last resort: open in new tab so user can save manually
+      if (designUrl) window.open(designUrl, '_blank');
     } finally {
       setDownloading(false);
     }

@@ -299,9 +299,46 @@ const SimulatorCanvas = forwardRef<SimulatorCanvasRef, Props>(({
   // ── Expose capture ────────────────────────────────────────────────────────
   useImperativeHandle(ref, () => ({
     capture: async () => {
-      renderCanvas();
-      await new Promise(r => setTimeout(r, 80));
-      return canvasRef.current?.toDataURL('image/jpeg', 0.92) ?? null;
+      // Build composite on a FRESH off-screen canvas to avoid CORS-taint issues.
+      // We draw directly from the in-memory image elements (already loaded).
+      const mockup = mockupRef.current;
+      const design = designRef.current;
+      if (!mockup) return null;
+
+      const W = canvasSize.w || mockup.naturalWidth;
+      const H = canvasSize.h || mockup.naturalHeight;
+      const offscreen = document.createElement('canvas');
+      offscreen.width  = W;
+      offscreen.height = H;
+      const ctx = offscreen.getContext('2d')!;
+
+      // 1. Draw mockup
+      try { ctx.drawImage(mockup, 0, 0, W, H); } catch { /* tainted — skip */ }
+
+      // 2. Warp design if available
+      if (design && design.complete && design.naturalWidth > 0) {
+        const srcC = document.createElement('canvas');
+        srcC.width  = design.naturalWidth;
+        srcC.height = design.naturalHeight;
+        srcC.getContext('2d')!.drawImage(design, 0, 0);
+
+        const H_mat = computeHomography(cornersRef.current, W, H);
+        const dstC  = document.createElement('canvas');
+        dstC.width  = W;
+        dstC.height = H;
+        applyWarp(srcC, dstC.getContext('2d')!, W, H, H_mat);
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.drawImage(dstC, 0, 0);
+      }
+
+      // 3. Try toDataURL — may still be tainted if mockup server blocks CORS
+      try {
+        return offscreen.toDataURL('image/jpeg', 0.92);
+      } catch {
+        // CORS taint: fall back to returning the visible canvas data URL
+        try { return canvasRef.current?.toDataURL('image/jpeg', 0.92) ?? null; }
+        catch { return null; }
+      }
     },
   }));
 
