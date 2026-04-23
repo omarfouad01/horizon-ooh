@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { useStore, locationStore, nextBillboardCode, type Supplier, type Product, type AdFormatType, adFormatStore } from '@/store/dataStore'
-import { Btn, PageHeader, Tbl, Th, Td, Tr, Badge, Confirm, Modal, Field } from '../ui'
+import { Btn, PageHeader, Tbl, Th, Td, Tr, Badge, Confirm, Modal, Field, Sel } from '../ui'
 import { Plus, Pencil, Trash2, X, Upload, MapPin, Settings2, ExternalLink, Copy } from 'lucide-react'
 import toast from 'react-hot-toast'
 
@@ -345,15 +345,12 @@ function BillboardForm({ editing, onClose }: any) {
       <SectionDivider label="Format & Classification"/>
       <div className="grid grid-cols-2 gap-3">
         <Lbl label="Ad Format" required>
-          <select className={sel} value={f.adFormat||'Billboard'} onChange={e=>set('adFormat',e.target.value)} required>
-            {AD_FORMATS.map(fmt => <option key={fmt} value={fmt}>{fmt}</option>)}
-          </select>
+          <Sel value={f.adFormat||'Billboard'} onChange={(e:any)=>set('adFormat',e.target.value)}
+            options={AD_FORMATS.map(fmt=>({value:fmt,label:fmt}))}/>
         </Lbl>
         <Lbl label="Type">
-          <select className={sel} value={f.type||''} onChange={e=>set('type',e.target.value)}>
-            <option value="">— Select type —</option>
-            {adFormats.map((t: AdFormatType) => <option key={t.id} value={t.label}>{t.label}</option>)}
-          </select>
+          <Sel value={f.type||''} onChange={(e:any)=>set('type',e.target.value)} placeholder="— Select type —"
+            options={[{value:'',label:'— Select type —'},...adFormats.map((t:AdFormatType)=>({value:t.label,label:t.label}))]}/>
         </Lbl>
       </div>
 
@@ -375,12 +372,8 @@ function BillboardForm({ editing, onClose }: any) {
           <input className={inp} value={f.material||''} onChange={e=>set('material',e.target.value)} placeholder="e.g. SMD / Flex / Aluminium"/>
         </Lbl>
         <Lbl label="Brightness">
-          <select className={sel} value={f.brightness||'Back Light'} onChange={e=>set('brightness',e.target.value)}>
-            <option value="Back Light">Back Light</option>
-            <option value="Internal Light">Internal Light</option>
-            <option value="Front Light">Front Light</option>
-            <option value="Unlit">Unlit</option>
-          </select>
+          <Sel value={f.brightness||'Back Light'} onChange={(e:any)=>set('brightness',e.target.value)}
+            options={['Back Light','Internal Light','Front Light','Unlit'].map(v=>({value:v,label:v}))}/>
         </Lbl>
         <Lbl label="Visibility Distance">
           <input className={inp} value={f.visibility||''} onChange={e=>set('visibility',e.target.value)} placeholder="e.g. 1.2km"/>
@@ -409,10 +402,8 @@ function BillboardForm({ editing, onClose }: any) {
       </div>
       <div className="grid grid-cols-3 gap-3">
         <Lbl label="Status">
-          <select className={sel} value={f.status||'Available'} onChange={e=>set('status',e.target.value)}>
-            <option value="Available">Available</option>
-            <option value="Not Available">Not Available</option>
-          </select>
+          <Sel value={f.status||'Available'} onChange={(e:any)=>set('status',e.target.value)}
+            options={[{value:'Available',label:'Available'},{value:'Not Available',label:'Not Available'}]}/>
         </Lbl>
         <Lbl label="Availability Date">
           <input className={inp} type="date" value={f.availability||''} onChange={e=>set('availability',e.target.value)}/>
@@ -431,12 +422,11 @@ function BillboardForm({ editing, onClose }: any) {
       {/* ── SUPPLIER ── */}
       <SectionDivider label="Supplier"/>
       <Lbl label="Assign Supplier">
-        <select className={sel} value={f.supplierId||''} onChange={e=>set('supplierId',e.target.value)}>
-          <option value="">— No supplier assigned —</option>
-          {suppliers.map((s: Supplier) => (
-            <option key={s.id} value={s.id}>{s.name}{s.category?` · ${s.category}`:''}{s.phone?` — ${s.phone}`:''}</option>
-          ))}
-        </select>
+        <Sel value={f.supplierId||''} onChange={(e:any)=>set('supplierId',e.target.value)}
+          options={[
+            {value:'',label:'— No supplier assigned —'},
+            ...suppliers.map((s:Supplier)=>({value:s.id,label:`${s.name}${s.category?` · ${s.category}`:''}${s.phone?` — ${s.phone}`:''}` }))
+          ]}/>
       </Lbl>
       {selectedSupplier && (
         <div className="p-3 rounded-xl bg-gray-50 border border-gray-100 text-[12px]">
@@ -463,16 +453,19 @@ function BillboardForm({ editing, onClose }: any) {
       <SectionDivider label="Location & Address"/>
       <div className="grid grid-cols-2 gap-3">
         <Lbl label="Governorate" required>
-          <select className={sel} value={locId} onChange={e=>handleLocChange(e.target.value)} required>
-            <option value="">Select governorate…</option>
-            {locations.map((l: any) => <option key={l.id} value={l.id}>{l.city}</option>)}
-          </select>
+          <Sel value={locId} onChange={(e:any)=>handleLocChange(e.target.value)}
+            options={[
+              {value:'',label:'Select governorate…'},
+              ...locations.map((l:any)=>({value:l.id,label:l.city}))
+            ]}/>
         </Lbl>
         <Lbl label="District" required>
-          <select className={sel} value={f.district||''} onChange={e=>set('district',e.target.value)} required disabled={!locId}>
-            <option value="">{locId ? 'Select district…' : 'Select governorate first'}</option>
-            {locDistricts.map((d: any) => <option key={d.id} value={d.name}>{d.name}</option>)}
-          </select>
+          <Sel value={f.district||''} onChange={(e:any)=>set('district',e.target.value)}
+            disabled={!locId}
+            options={[
+              {value:'',label:locId?'Select district…':'Select governorate first'},
+              ...locDistricts.map((d:any)=>({value:d.name,label:d.name}))
+            ]}/>
         </Lbl>
       </div>
       <Lbl label="Location Landmark / Name">

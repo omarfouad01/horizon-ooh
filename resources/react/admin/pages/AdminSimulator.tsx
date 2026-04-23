@@ -11,7 +11,7 @@ import toast from 'react-hot-toast';
 import { useStore } from '@/store/dataStore';
 import { billboardSizeStore, simulatorTemplateStore, designUploadStore } from '@/store/dataStore';
 import type { BillboardSize, SimulatorTemplate, DesignUpload } from '@/store/dataStore';
-import { Btn, Field, TA } from '@/admin/ui';
+import { Btn, Field, TA, Sel } from '@/admin/ui';
 import { ImagePicker } from '@/admin/ui';
 import SimulatorCanvas, { type SimulatorCanvasRef, type Corner } from '@/components/SimulatorCanvas';
 
@@ -204,24 +204,16 @@ export default function AdminSimulator() {
             </h3>
 
             <div className="grid grid-cols-2 gap-4 mb-5">
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Billboard Type *</label>
-                <select value={editing.typeName}
-                  onChange={e => setEditing(t => t ? { ...t, typeName: e.target.value } : t)}
-                  className="h-9 px-3 rounded-xl border border-gray-200 text-sm outline-none w-full">
-                  <option value="">Select type…</option>
-                  {adTypes.map(t => <option key={t} value={t}>{t}</option>)}
-                </select>
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Size *</label>
-                <select value={editing.sizeLabel}
-                  onChange={e => setEditing(t => t ? { ...t, sizeLabel: e.target.value } : t)}
-                  className="h-9 px-3 rounded-xl border border-gray-200 text-sm outline-none w-full">
-                  <option value="">Select size…</option>
-                  {billboardSizes.map(sz => <option key={sz.id} value={sz.label}>{sz.label}</option>)}
-                </select>
-              </div>
+              <Sel label="Billboard Type *"
+                value={editing.typeName}
+                onChange={(e:any) => setEditing(t => t ? { ...t, typeName: e.target.value } : t)}
+                options={[{value:'',label:'Select type…'},...adTypes.map((t:string)=>({value:t,label:t}))]}
+              />
+              <Sel label="Size *"
+                value={editing.sizeLabel}
+                onChange={(e:any) => setEditing(t => t ? { ...t, sizeLabel: e.target.value } : t)}
+                options={[{value:'',label:'Select size…'},...billboardSizes.map((sz:any)=>({value:sz.label,label:sz.label}))]}
+              />
               <div className="col-span-2">
                 <Field label="Notes" placeholder="Optional description" value={editing.notes ?? ''}
                   onChange={(e:any) => setEditing(t => t ? { ...t, notes: e.target.value } : t)} />
@@ -331,14 +323,14 @@ export default function AdminSimulator() {
             <h2 className="font-black text-lg" style={{ color: NAVY }}>Design Uploads</h2>
             <p className="text-sm text-gray-400 mt-0.5">{designUploads.length} submission{designUploads.length !== 1 ? 's' : ''} total</p>
           </div>
-          <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)}
-            className="h-9 px-3 rounded-xl border border-gray-200 text-sm font-semibold" style={{ color: NAVY }}>
-            <option value="">All Statuses</option>
-            <option value="pending">Pending</option>
-            <option value="reviewed">Reviewed</option>
-            <option value="approved">Approved</option>
-            <option value="rejected">Rejected</option>
-          </select>
+          <Sel value={statusFilter} onChange={(e:any) => setStatusFilter(e.target.value)}
+            options={[
+              {value:'',label:'All Statuses'},
+              {value:'pending',label:'Pending'},
+              {value:'reviewed',label:'Reviewed'},
+              {value:'approved',label:'Approved'},
+              {value:'rejected',label:'Rejected'},
+            ]}/>
         </div>
 
         {sorted.length === 0 ? (
@@ -416,15 +408,14 @@ export default function AdminSimulator() {
                     <td className="px-5 py-3 text-xs text-gray-500">{formatDate(u.createdAt)}</td>
                     {/* Status */}
                     <td className="px-5 py-3">
-                      <select value={u.status}
-                        onChange={e => { designUploadStore.update(u.id, { status: e.target.value as any }); toast.success('Status updated'); }}
-                        className="text-xs font-bold rounded-lg border border-gray-200 px-2 py-1 outline-none bg-white"
-                        style={{ color: STATUS_COLORS[u.status]?.text }}>
-                        <option value="pending">Pending</option>
-                        <option value="reviewed">Reviewed</option>
-                        <option value="approved">Approved</option>
-                        <option value="rejected">Rejected</option>
-                      </select>
+                      <Sel value={u.status}
+                        onChange={(e:any) => { designUploadStore.update(u.id, { status: e.target.value as any }); toast.success('Status updated'); }}
+                        options={[
+                          {value:'pending',label:'Pending'},
+                          {value:'reviewed',label:'Reviewed'},
+                          {value:'approved',label:'Approved'},
+                          {value:'rejected',label:'Rejected'},
+                        ]}/>
                     </td>
                     {/* Actions */}
                     <td className="px-5 py-3">

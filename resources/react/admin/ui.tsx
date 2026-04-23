@@ -1,6 +1,7 @@
 import clsx from 'clsx'
-import React, { useRef, useState } from 'react'
-import { X, GripVertical, Plus, Loader2, Upload, Trash2, ImagePlus } from 'lucide-react'
+import React, { useRef, useState, useEffect, useCallback } from 'react'
+import { createPortal } from 'react-dom'
+import { X, GripVertical, Plus, Loader2, Upload, Trash2, ImagePlus, ChevronDown } from 'lucide-react'
 
 const NAVY='#0B0F1A', RED='#D90429'
 
@@ -42,17 +43,124 @@ export const TA = React.forwardRef<HTMLTextAreaElement,any>(({label,error,classN
 ))
 TA.displayName='TA'
 
-// Select
-export const Sel = React.forwardRef<HTMLSelectElement,any>(({label,error,className,children,...p},ref)=>(
-  <div className="flex flex-col gap-1.5" style={{position:'relative',zIndex:10}}>
-    {label&&<label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">{label}</label>}
-    <select ref={ref} className={clsx('h-9 px-3 rounded-xl border text-sm outline-none bg-white w-full',
-      error?'border-red-400':'border-gray-200',className)}
-      style={{position:'relative',zIndex:10}} {...p}>{children}</select>
-    {error&&<span className="text-xs text-red-500">{error}</span>}
-  </div>
-))
-Sel.displayName='Sel'
+// ── Portal-based Select — never clipped by overflow containers ───────────────
+interface SelOption { value: string; label?: string }
+interface SelProps {
+  label?: string
+  error?: string
+  className?: string
+  value: string
+  onChange: (e: { target: { value: string } }) => void
+  disabled?: boolean
+  required?: boolean
+  children?: React.ReactNode  // <option> elements for SSR / fallback
+  options?: SelOption[]       // preferred: explicit option list
+  placeholder?: string
+}
+
+export function Sel({ label, error, className, value, onChange, disabled, children, options, placeholder }: SelProps) {
+  const [open, setOpen]   = useState(false)
+  const [pos,  setPos]    = useState({ top: 0, left: 0, width: 0 })
+  const triggerRef        = useRef<HTMLButtonElement>(null)
+  const dropRef           = useRef<HTMLDivElement>(null)
+
+  // Build option list from either explicit `options` prop or `<option>` children
+  const opts: SelOption[] = options ?? React.Children.toArray(children)
+    .filter((c): c is React.ReactElement => React.isValidElement(c) && (c.type as any) === 'option')
+    .map(c => ({ value: String(c.props.value ?? ''), label: String(c.props.children ?? c.props.value ?? '') }))
+
+  const selected = opts.find(o => o.value === value)
+  const displayLabel = selected?.label || placeholder || 'Select…'
+  const isEmpty = !selected || selected.value === ''
+
+  const reposition = useCallback(() => {
+    if (!triggerRef.current) return
+    const r = triggerRef.current.getBoundingClientRect()
+    setPos({ top: r.bottom + window.scrollY + 2, left: r.left + window.scrollX, width: r.width })
+  }, [])
+
+  const openDrop = () => {
+    if (disabled) return
+    reposition()
+    setOpen(true)
+  }
+
+  // Close on outside click
+  useEffect(() => {
+    if (!open) return
+    const fn = (e: MouseEvent) => {
+      const t = e.target as Node
+      if (!triggerRef.current?.contains(t) && !dropRef.current?.contains(t)) setOpen(false)
+    }
+    document.addEventListener('mousedown', fn)
+    return () => document.removeEventListener('mousedown', fn)
+  }, [open])
+
+  // Reposition on scroll/resize
+  useEffect(() => {
+    if (!open) return
+    window.addEventListener('scroll', reposition, true)
+    window.addEventListener('resize', reposition)
+    return () => {
+      window.removeEventListener('scroll', reposition, true)
+      window.removeEventListener('resize', reposition)
+    }
+  }, [open, reposition])
+
+  const pick = (val: string) => {
+    onChange({ target: { value: val } })
+    setOpen(false)
+  }
+
+  return (
+    <div className="flex flex-col gap-1.5">
+      {label && <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">{label}</label>}
+      <button
+        ref={triggerRef}
+        type="button"
+        onClick={openDrop}
+        disabled={disabled}
+        className={clsx(
+          'h-9 px-3 rounded-xl border text-sm text-left flex items-center justify-between gap-2 w-full bg-white transition-colors',
+          open ? 'border-gray-400' : 'border-gray-200 hover:border-gray-300',
+          error ? 'border-red-400' : '',
+          disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+          className,
+        )}
+      >
+        <span className={clsx('truncate', isEmpty ? 'text-gray-400' : 'text-gray-800')}>{displayLabel}</span>
+        <ChevronDown size={13} className={clsx('flex-shrink-0 text-gray-400 transition-transform', open && 'rotate-180')} />
+      </button>
+      {error && <span className="text-xs text-red-500">{error}</span>}
+
+      {open && createPortal(
+        <div
+          ref={dropRef}
+          style={{ position: 'absolute', top: pos.top, left: pos.left, width: pos.width, zIndex: 99999 }}
+          className="bg-white rounded-xl border border-gray-200 shadow-xl py-1 max-h-60 overflow-y-auto"
+        >
+          {opts.map(o => (
+            <button
+              key={o.value}
+              type="button"
+              onClick={() => pick(o.value)}
+              className={clsx(
+                'w-full text-left px-3 py-2 text-sm hover:bg-gray-50 transition-colors flex items-center gap-2',
+                o.value === value ? 'font-semibold text-gray-900 bg-gray-50' : 'text-gray-700',
+                o.value === '' ? 'text-gray-400 italic' : ''
+              )}
+            >
+              {o.value === value && <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{background:RED}} />}
+              {o.value !== value && <span className="w-1.5 h-1.5 flex-shrink-0" />}
+              {o.label}
+            </button>
+          ))}
+        </div>,
+        document.body
+      )}
+    </div>
+  )
+}
 
 // Modal
 export function Modal({open,onClose,title,children,size='lg'}:any) {
