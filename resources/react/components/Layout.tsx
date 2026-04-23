@@ -61,9 +61,9 @@ export function Navbar() {
   return (
     <>
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${navBg}`}>
-        <div className="max-w-[1440px] mx-auto h-[76px] flex items-center justify-between px-4 sm:px-8 lg:px-[80px] lg:pl-[80px] lg:pr-[80px]">
+        <div className="max-w-[1440px] mx-auto h-[76px] flex items-center justify-between px-4 sm:px-8 lg:px-[120px]">
           {/* Logo */}
-          <Link to={ROUTES.HOME} className="flex items-center gap-4 group flex-shrink-0 -ml-2 lg:-ml-4">
+          <Link to={ROUTES.HOME} className="flex items-center gap-4 group flex-shrink-0">
             <LogoMark size={54} variant="header" />
             {!store.settings.headerLogoUrl && (
               <div className="flex flex-col gap-[1px]">
@@ -78,7 +78,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-8 ml-12">
             {NAV_LINKS.map((link) => (
               <NavLink
                 key={link.href}

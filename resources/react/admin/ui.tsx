@@ -44,10 +44,11 @@ TA.displayName='TA'
 
 // Select
 export const Sel = React.forwardRef<HTMLSelectElement,any>(({label,error,className,children,...p},ref)=>(
-  <div className="flex flex-col gap-1.5">
+  <div className="flex flex-col gap-1.5" style={{position:'relative',zIndex:10}}>
     {label&&<label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">{label}</label>}
     <select ref={ref} className={clsx('h-9 px-3 rounded-xl border text-sm outline-none bg-white w-full',
-      error?'border-red-400':'border-gray-200',className)} {...p}>{children}</select>
+      error?'border-red-400':'border-gray-200',className)}
+      style={{position:'relative',zIndex:10}} {...p}>{children}</select>
     {error&&<span className="text-xs text-red-500">{error}</span>}
   </div>
 ))
@@ -57,14 +58,18 @@ Sel.displayName='Sel'
 export function Modal({open,onClose,title,children,size='lg'}:any) {
   if(!open) return null
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{background:'rgba(11,15,26,0.55)'}}>
-      <div className={clsx('bg-white rounded-2xl w-full max-h-[90vh] flex flex-col shadow-2xl',
-        size==='xl'?'max-w-3xl':size==='lg'?'max-w-2xl':'max-w-xl')}>
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 flex-shrink-0">
-          <h3 className="text-sm font-black text-gray-900">{title}</h3>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-700 p-1 rounded-lg hover:bg-gray-100"><X size={16}/></button>
+    // Outer backdrop — scrollable so very tall modals can be reached
+    <div className="fixed inset-0 z-50 overflow-y-auto" style={{background:'rgba(11,15,26,0.55)'}}>
+      <div className="flex min-h-full items-center justify-center p-4">
+        <div className={clsx('bg-white rounded-2xl w-full shadow-2xl',
+          size==='xl'?'max-w-3xl':size==='lg'?'max-w-2xl':'max-w-xl')}>
+          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+            <h3 className="text-sm font-black text-gray-900">{title}</h3>
+            <button onClick={onClose} className="text-gray-400 hover:text-gray-700 p-1 rounded-lg hover:bg-gray-100"><X size={16}/></button>
+          </div>
+          {/* No overflow clipping here — native <select> dropdowns open freely */}
+          <div className="p-6">{children}</div>
         </div>
-        <div className="flex-1 overflow-y-auto overflow-x-visible p-6">{children}</div>
       </div>
     </div>
   )

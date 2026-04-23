@@ -336,11 +336,11 @@ function HeroSection() {
               {heroStatement}
             </motion.p>
 
-            {/* CTA row */}
+            {/* CTA row — 2 buttons only, contained within left panel */}
             <motion.div
               initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, ease, delay: 0.9 }}
-              className="flex flex-col sm:flex-row items-start gap-3 mb-12"
+              className="flex flex-row items-start gap-3 mb-12 flex-wrap"
             >
               <button
                 onClick={() => { window.location.hash = '/contact'; window.scrollTo(0,0); }}
@@ -361,15 +361,6 @@ function HeroSection() {
                 <span className="relative z-10 group-hover:text-white transition-colors duration-300">
                   {isAr ? 'جرّب المحاكي' : 'Try Simulator'}
                 </span>
-              </button>
-              <button
-                onClick={() => { window.location.hash = '/locations'; window.scrollTo(0,0); }}
-                className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase cursor-pointer flex-shrink-0"
-                style={{ border: "1.5px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.65)", background: "transparent" }}
-              >
-                <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
-                  style={{ background: "rgba(255,255,255,0.07)" }} />
-                <span className="relative z-10 group-hover:text-white transition-colors duration-300">{heroCta1}</span>
               </button>
             </motion.div>
 
