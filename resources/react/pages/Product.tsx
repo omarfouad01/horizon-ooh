@@ -390,6 +390,18 @@ export default function Product() {
                   </svg>
                   <span className="text-[12px] font-semibold tracking-[0.15em] uppercase group-hover:text-[#25D366] transition-colors" style={{ color: 'rgba(11,15,26,0.5)' }}>{t('product.whatsappEnquiry')}</span>
                 </a>
+                <button
+                  onClick={() => navigate(`/design-simulator?product=${product.id}`)}
+                  className="w-full h-[44px] flex items-center justify-center gap-2 border transition-colors duration-200 hover:border-[#D90429] group"
+                  style={{ border: '1.5px solid rgba(11,15,26,0.12)', background: 'transparent', cursor: 'pointer' }}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D90429" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                  </svg>
+                  <span className="text-[12px] font-semibold tracking-[0.15em] uppercase group-hover:text-[#D90429] transition-colors" style={{ color: 'rgba(11,15,26,0.5)' }}>
+                    {t('product.trySimulator') || (isAr ? 'جرّب المحاكي' : 'Try Simulator')}
+                  </span>
+                </button>
               </div>
             </Reveal>
           </div>

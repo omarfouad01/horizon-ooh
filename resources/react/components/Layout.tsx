@@ -101,6 +101,26 @@ export function Navbar() {
               </NavLink>
             ))}
 
+            {/* Simulator link */}
+            <NavLink
+              to="/design-simulator"
+              className={({ isActive }) =>
+                `relative text-[12px] font-semibold tracking-[0.18em] uppercase transition-colors duration-200 group ${
+                  isActive ? 'text-[#D90429]' : 'text-[#0B0F1A]/40 hover:text-[#0B0F1A]'
+                }`
+              }
+            >
+              {({ isActive }) => (
+                <>
+                  SIMULATOR
+                  <span
+                    className="absolute -bottom-0.5 left-0 h-[1px] transition-all duration-300"
+                    style={{ width: isActive ? '100%' : '0%', background: RED }}
+                  />
+                </>
+              )}
+            </NavLink>
+
             {/* Language Toggle */}
             <button
               onClick={() => setLang(lang === 'en' ? 'ar' : 'en')}
@@ -175,6 +195,17 @@ export function Navbar() {
                 {t(`nav.${link.href.replace('/','') || 'home'}`) !== `nav.${link.href.replace('/','') || 'home'}` ? t(`nav.${link.href.replace('/','') || 'home'}`) : link.label}
               </NavLink>
             ))}
+            {/* Simulator — mobile */}
+            <NavLink
+              to="/design-simulator"
+              className={({ isActive }) =>
+                `text-left text-[13px] font-semibold tracking-[0.2em] uppercase transition-colors ${
+                  isActive ? 'text-[#D90429]' : 'text-[#0B0F1A]/50 hover:text-[#D90429]'
+                }`
+              }
+            >
+              SIMULATOR
+            </NavLink>
             {/* Mobile language toggle */}
             <button
               onClick={() => setLang(lang === 'en' ? 'ar' : 'en')}

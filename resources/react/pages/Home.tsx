@@ -352,6 +352,17 @@ function HeroSection() {
                 <span className="relative z-10">{t('nav.getQuote')}</span>
               </button>
               <button
+                onClick={() => { window.location.hash = '/design-simulator'; window.scrollTo(0,0); }}
+                className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase cursor-pointer flex-shrink-0"
+                style={{ border: "1.5px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.65)", background: "transparent" }}
+              >
+                <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
+                  style={{ background: "rgba(255,255,255,0.07)" }} />
+                <span className="relative z-10 group-hover:text-white transition-colors duration-300">
+                  {isAr ? 'جرّب المحاكي' : 'Try Simulator'}
+                </span>
+              </button>
+              <button
                 onClick={() => { window.location.hash = '/locations'; window.scrollTo(0,0); }}
                 className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase cursor-pointer flex-shrink-0"
                 style={{ border: "1.5px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.65)", background: "transparent" }}
