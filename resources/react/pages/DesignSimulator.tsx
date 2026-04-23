@@ -325,13 +325,18 @@ export default function DesignSimulator() {
             {/* Canvas */}
             <div>
               {selectedTemplate.mockupUrl && selectedTemplate.corners ? (
-                <SimulatorCanvas
-                  ref={canvasRef}
-                  mockupUrl={selectedTemplate.mockupUrl}
-                  designUrl={designUrl}
-                  corners={selectedTemplate.corners}
-                  style={{ borderRadius: 14, overflow: 'hidden', boxShadow: '0 8px 48px rgba(0,0,0,0.12)' }}
-                />
+                <>
+                  <SimulatorCanvas
+                    ref={canvasRef}
+                    mockupUrl={selectedTemplate.mockupUrl}
+                    designUrl={designUrl}
+                    corners={selectedTemplate.corners}
+                    style={{ borderRadius: 14, overflow: 'hidden', boxShadow: '0 8px 48px rgba(0,0,0,0.12)' }}
+                  />
+                  <p style={{ fontSize: 11, color: '#9ca3af', marginTop: 8, textAlign: 'center' }}>
+                    Your design warped onto the billboard surface
+                  </p>
+                </>
               ) : (
                 <FlatPreview designUrl={designUrl} />
               )}
@@ -361,6 +366,18 @@ export default function DesignSimulator() {
                   <Download size={15} />
                   {downloading ? 'Preparing…' : 'Download Mockup'}
                 </button>
+                {/* Change Design */}
+                <label style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                  width: '100%', padding: '10px 0', borderRadius: 10, border: '1.5px solid #e5e7eb',
+                  background: '#fff', color: '#6b7280', fontWeight: 700, fontSize: 13,
+                  cursor: 'pointer', marginBottom: 8,
+                }}>
+                  <Upload size={14} />
+                  Change Design
+                  <input type="file" accept="image/*" style={{ display: 'none' }}
+                    onChange={e => { const f = e.target.files?.[0]; if (f) handleDesignFile(f); }} />
+                </label>
                 <button onClick={reset}
                   style={{
                     width: '100%', padding: '10px 0', borderRadius: 10, border: '1.5px solid #e5e7eb',
