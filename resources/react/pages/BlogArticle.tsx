@@ -3,6 +3,7 @@ import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
 import { blogHref, RED, NAVY } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
+import SEO from "@/components/SEO";
 
 export default function BlogArticle() {
   const { blogPosts: BLOG_POSTS } = useStore()
@@ -21,8 +22,16 @@ export default function BlogArticle() {
     );
   }
 
+  const metaTitle = (post as any).metaTitle || `${isAr && (post as any).titleAr ? (post as any).titleAr : post.title} | HORIZON OOH`;
+  const metaDesc  = (post as any).metaDesc  || (isAr && (post as any).excerptAr ? (post as any).excerptAr : post.excerpt) || '';
+
   return (
     <>
+      <SEO
+        title={metaTitle}
+        description={metaDesc}
+        ogImage={post.image}
+      />
       <div className="bg-white pt-4">
         <Breadcrumb items={[{ label: t('common.home'), href: "/" }, { label: t('blog.title'), href: "/blog" }, { label: post.category }]} />
       </div>

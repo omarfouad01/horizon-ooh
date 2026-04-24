@@ -107,6 +107,16 @@ export const locationsContentStore = {
   },
 };
 
+// ─── Contact page content ─────────────────────────────────────────────────────
+export const contactContentStore = {
+  update: async (data: any) => {
+    if (HAS_API) {
+      try { await settingsApi.update({ contactContent: data }); await reload(); } catch { /* ignore */ }
+    }
+    set(st => ({ contactContent: { ...st.contactContent, ...data } }));
+  },
+};
+
 // ─── Projects page content ─────────────────────────────────────────────────────
 export const projectsContentStore = {
   update: (data: any) => {

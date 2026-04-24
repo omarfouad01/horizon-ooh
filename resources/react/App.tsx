@@ -40,8 +40,10 @@ import AdminCustomers  from "@/admin/pages/AdminCustomers";
 import AdminUsers      from "@/admin/pages/AdminUsers";
 import AdminHomePage   from "@/admin/pages/AdminHomePage";
 import AdminSimulator      from "@/admin/pages/AdminSimulator";
-import AdminLocationsPage  from "@/admin/pages/AdminLocationsPage";
-import DesignSimulator     from "@/pages/DesignSimulator";
+import AdminLocationsPage    from "@/admin/pages/AdminLocationsPage";
+import AdminContactPage      from "@/admin/pages/AdminContactPage";
+import AdminDashboardUsers   from "@/admin/pages/AdminDashboardUsers";
+import DesignSimulator       from "@/pages/DesignSimulator";
 
 const queryClient = new QueryClient();
 
@@ -88,8 +90,10 @@ const App = () => (
               <Route path="customers"   element={<AdminCustomers />} />
               <Route path="users"       element={<AdminUsers />} />
               <Route path="homepage"    element={<AdminHomePage />} />
-              <Route path="simulator"       element={<AdminSimulator />} />
-              <Route path="locations-page"   element={<AdminLocationsPage />} />
+              <Route path="simulator"         element={<AdminSimulator />} />
+              <Route path="locations-page"     element={<AdminLocationsPage />} />
+              <Route path="contact-page"       element={<AdminContactPage />} />
+              <Route path="dashboard-users"    element={<AdminDashboardUsers />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />

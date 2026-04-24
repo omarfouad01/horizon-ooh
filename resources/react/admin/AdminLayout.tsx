@@ -1,27 +1,29 @@
 import { Link, useLocation, Outlet, Navigate } from 'react-router-dom'
 import { useAdmin } from './AdminAuth'
 import { useState } from 'react'
-import { LayoutDashboard, MapPin, Monitor, Briefcase, BookOpen, MessageSquare, Settings, LogOut, Menu, X, ExternalLink, Layers, Info, Truck, User, Users, Bell, Home, Wand2 } from 'lucide-react'
+import { LayoutDashboard, MapPin, Monitor, Briefcase, BookOpen, MessageSquare, Settings, LogOut, Menu, X, ExternalLink, Layers, Info, Truck, User, Users, Bell, Home, Wand2, Phone, ShieldCheck } from 'lucide-react'
 import clsx from 'clsx'
 import { useStore } from '@/store/dataStore'
 
 const NAVY = '#0B0F1A', RED = '#D90429'
 const NAV = [
-  { to:'/admin',             label:'Dashboard',     icon:LayoutDashboard, exact:true },
-  { to:'/admin/homepage',    label:'Home Page',     icon:Home },
-  { to:'/admin/locations',      label:'Locations',      icon:MapPin },
-  { to:'/admin/locations-page',  label:'Locations Page', icon:MapPin },
-  { to:'/admin/billboards',  label:'Billboards',    icon:Monitor },
-  { to:'/admin/services',    label:'Services',      icon:Briefcase },
-  { to:'/admin/projects',    label:'Projects',      icon:Layers },
-  { to:'/admin/blog',        label:'Blog Posts',    icon:BookOpen },
-  { to:'/admin/contacts',    label:'Contacts',      icon:MessageSquare, badge: true },
-  { to:'/admin/customers',   label:'Customers',     icon:User },
-  { to:'/admin/users',       label:'Website Users', icon:Users },
-  { to:'/admin/about',       label:'About Page',    icon:Info },
-  { to:'/admin/suppliers',   label:'Suppliers',     icon:Truck },
-  { to:'/admin/simulator',   label:'Ad Simulator',  icon:Wand2 },
-  { to:'/admin/settings',    label:'Settings',      icon:Settings },
+  { to:'/admin',                label:'Dashboard',        icon:LayoutDashboard, exact:true },
+  { to:'/admin/homepage',       label:'Home Page',        icon:Home },
+  { to:'/admin/locations',      label:'Locations',        icon:MapPin },
+  { to:'/admin/locations-page', label:'Locations Page',   icon:MapPin },
+  { to:'/admin/billboards',     label:'Billboards',       icon:Monitor },
+  { to:'/admin/services',       label:'Services',         icon:Briefcase },
+  { to:'/admin/projects',       label:'Projects',         icon:Layers },
+  { to:'/admin/blog',           label:'Blog Posts',       icon:BookOpen },
+  { to:'/admin/contact-page',   label:'Contact Page',     icon:Phone },
+  { to:'/admin/contacts',       label:'Contacts',         icon:MessageSquare, badge: true },
+  { to:'/admin/customers',      label:'Customers',        icon:User },
+  { to:'/admin/users',          label:'Website Users',    icon:Users },
+  { to:'/admin/about',          label:'About Page',       icon:Info },
+  { to:'/admin/suppliers',      label:'Suppliers',        icon:Truck },
+  { to:'/admin/simulator',      label:'Ad Simulator',     icon:Wand2 },
+  { to:'/admin/dashboard-users',label:'Dashboard Users',  icon:ShieldCheck },
+  { to:'/admin/settings',       label:'Settings',         icon:Settings },
 ] as const
 
 export default function AdminLayout() {

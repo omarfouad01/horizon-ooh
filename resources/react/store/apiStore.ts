@@ -243,6 +243,32 @@ const DEMO_RESULTS: ResultStat[] = [
 // In-memory contacts for demo mode
 const _demoContacts: ContactEntry[] = [];
 
+// ─── Contact page demo content ────────────────────────────────────────────────
+export const DEMO_CONTACT_CONTENT = {
+  heroEyebrow:    'Get in Touch',
+  heroEyebrowAr:  'تواصل معنا',
+  heroTitle:      'Contact Us.',
+  heroTitleAr:    'اتصل بنا.',
+  heroAccent:     "Let's talk visibility.",
+  heroAccentAr:   'دعنا نتحدث عن الظهور.',
+  heroSubtitle:   'Ready to launch your outdoor advertising campaign? Our team will respond within 24 hours.',
+  heroSubtitleAr: 'هل أنت مستعد لإطلاق حملتك الإعلانية الخارجية؟ سيرد فريقنا خلال 24 ساعة.',
+  formLabel:      'Campaign Enquiry Form',
+  formLabelAr:    'نموذج الاستفسار عن الحملة',
+  successTitle:   'Message received.',
+  successTitleAr: 'تم استلام رسالتك.',
+  successText:    'Thank you for reaching out. One of our media strategists will be in touch within 24 hours.',
+  successTextAr:  'شكراً لتواصلك معنا. سيتواصل معك أحد خبرائنا الإعلاميين خلال 24 ساعة.',
+  infoTitle:      'Speak directly with our media team.',
+  infoTitleAr:    'تحدث مباشرة مع فريق الإعلام لدينا.',
+  responseTime:   'We respond within 24 hours.',
+  responseTimeAr: 'نرد خلال 24 ساعة.',
+  sendBtn:        'Send Message',
+  sendBtnAr:      'إرسال الرسالة',
+  hqLabel:        'Cairo HQ',
+  hqLabelAr:      'المقر الرئيسي بالقاهرة',
+};
+
 // ─── Check if a real API URL is configured ────────────────────────────────────
 const HAS_API = !!(import.meta.env.VITE_API_URL && import.meta.env.VITE_API_URL !== '/api');
 
@@ -467,6 +493,7 @@ export interface ApiState {
   homeContent:     any;
   projectsContent:  any;
   locationsContent: any;
+  contactContent:   any;
   about:            AboutContent;
   aboutContent:    AboutContent;
   loaded:          boolean;
@@ -533,6 +560,7 @@ export const useApiStore = create<ApiState>((set, get) => ({
   homeContent:     HAS_API ? {} : DEMO_HOME,
   projectsContent:  HAS_API ? {} : DEMO_PROJECTS_CONTENT,
   locationsContent: HAS_API ? {} : DEMO_LOCATIONS_CONTENT,
+  contactContent:   HAS_API ? {} : DEMO_CONTACT_CONTENT,
   about:            HAS_API ? {} as AboutContent : DEMO_ABOUT,
   aboutContent:    HAS_API ? {} as AboutContent : DEMO_ABOUT,
   loaded:       !HAS_API,   // demo data is ready immediately; API data is not
@@ -625,6 +653,7 @@ export const useApiStore = create<ApiState>((set, get) => ({
         homeContent:     Object.keys(hcRaw).length   ? hcRaw    : DEMO_HOME,
         projectsContent:  DEMO_PROJECTS_CONTENT,
         locationsContent: DEMO_LOCATIONS_CONTENT,
+        contactContent:   DEMO_CONTACT_CONTENT,
         about:            Object.keys(acRaw).length   ? acRaw    : DEMO_ABOUT,
         aboutContent:    Object.keys(acRaw).length   ? acRaw    : DEMO_ABOUT,
         loaded:    true,
@@ -685,6 +714,7 @@ export const useApiStore = create<ApiState>((set, get) => ({
         settings:     DEMO_SETTINGS,
         homeContent:      DEMO_HOME,
         locationsContent: DEMO_LOCATIONS_CONTENT,
+        contactContent:   DEMO_CONTACT_CONTENT,
         about:            DEMO_ABOUT,
         aboutContent:     DEMO_ABOUT,
         loaded:    true,
