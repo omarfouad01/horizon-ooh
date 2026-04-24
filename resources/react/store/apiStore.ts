@@ -7,7 +7,7 @@ import { create } from 'zustand';
 import {
   locationsApi, adFormatsApi, servicesApi, projectsApi,
   blogApi, trustStatsApi, processStepsApi, clientBrandsApi,
-  settingsApi, districtsApi,
+  settingsApi, districtsApi, suppliersApi, customersApi, contactsApi,
   billboardSizesApi, simulatorTemplatesApi, designUploadsApi,
 } from '@/api';
 import { LOCATIONS, SERVICES, PROJECTS, BLOG_POSTS, TRUST_STATS, PROCESS, CLIENT_BRANDS } from '@/data';
@@ -333,12 +333,17 @@ function normProject(proj: any, idx: number): any {
   const title = proj.title ?? `Project ${idx + 1}`;
   return {
     ...proj,
-    id:      String(proj.id ?? idx + 1),
+    id:            String(proj.id ?? idx + 1),
     title,
-    slug:    proj.slug    ?? toSlug(`${title}-${proj.id ?? idx + 1}`),
-    results: Array.isArray(proj.results) ? proj.results : [],
-    client:  proj.client  ?? '',
-    category: proj.category ?? 'Billboard',
+    slug:          proj.slug         ?? toSlug(`${title}-${proj.id ?? idx + 1}`),
+    results:       Array.isArray(proj.results)       ? proj.results       : [],
+    galleryImages: Array.isArray(proj.galleryImages) ? proj.galleryImages : [],
+    images:        Array.isArray(proj.images)        ? proj.images        : [],
+    tags:          Array.isArray(proj.tags)          ? proj.tags          : [],
+    stats:         Array.isArray(proj.stats)         ? proj.stats         : [],
+    client:        proj.client   ?? '',
+    category:      proj.category ?? 'Billboard',
+    titleAr:       proj.titleAr  ?? '',
   };
 }
 
@@ -348,9 +353,15 @@ function normBlogPost(post: any, idx: number): any {
   const title = post.title ?? `Post ${idx + 1}`;
   return {
     ...post,
-    id:    String(post.id ?? idx + 1),
+    id:       String(post.id ?? idx + 1),
     title,
-    slug:  post.slug ?? toSlug(`${title}-${post.id ?? idx + 1}`),
+    titleAr:  post.titleAr  ?? '',
+    slug:     post.slug ?? toSlug(`${title}-${post.id ?? idx + 1}`),
+    body:     Array.isArray(post.body)   ? post.body   : [],
+    bodyAr:   Array.isArray(post.bodyAr) ? post.bodyAr : [],
+    tags:     Array.isArray(post.tags)   ? post.tags   : [],
+    metaTitle: post.metaTitle ?? '',
+    metaDesc:  post.metaDesc  ?? '',
   };
 }
 
@@ -600,6 +611,9 @@ try {
         billboardSizesApi.all(),     // 12
         simulatorTemplatesApi.all(), // 13
         designUploadsApi.all(),      // 14
+        suppliersApi.all(),          // 15
+        customersApi.all(),          // 16
+        contactsApi.all(),           // 17
       ]);
 
       // Check if ALL critical requests failed (means no API at all)
@@ -623,9 +637,12 @@ const val = (idx: number) => results[idx].status === 'fulfilled'
       const settsRaw  = apiObj(val(9));
       const hcRaw     = apiObj(val(10));
       const acRaw     = apiObj(val(11));
-      const sizesRaw  = apiArr(val(12));
-      const tplsRaw   = apiArr(val(13));
-      const uploadsRaw= apiArr(val(14));
+      const sizesRaw    = apiArr(val(12));
+      const tplsRaw     = apiArr(val(13));
+      const uploadsRaw  = apiArr(val(14));
+      const suppliersRaw = apiArr(val(15));
+      const customersRaw = apiArr(val(16));
+      const contactsRaw  = apiArr(val(17));
 
       // Normalize every item so slug and array fields are guaranteed
       const normLocs     = locsRaw.map(normLoc).filter(Boolean);
@@ -678,6 +695,9 @@ const val = (idx: number) => results[idx].status === 'fulfilled'
         billboardSizes:     sizesRaw,
         simulatorTemplates: normTpls,
         designUploads:      uploadsRaw,
+        suppliers:          suppliersRaw,
+        customers:          customersRaw,
+        contacts:           contactsRaw.length ? contactsRaw : [],
         loaded:    true,
         loading:   false,
         usingDemo: false,

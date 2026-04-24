@@ -52,6 +52,7 @@ import {
   locationsApi, districtsApi, servicesApi, projectsApi,
   blogApi, adFormatsApi, clientBrandsApi, trustStatsApi,
   processStepsApi, settingsApi, contactsApi,
+  suppliersApi, customersApi,
   billboardSizesApi, simulatorTemplatesApi, designUploadsApi,
 } from '@/api';
 
@@ -315,16 +316,16 @@ export const resultStore = {
 
 // ─── Suppliers ────────────────────────────────────────────────────────────────
 export const supplierStore = {
-  add:    (data: any) => { set(st => ({ suppliers: [...st.suppliers, { ...data, id: data.id ?? uid() }] })); },
-  update: (id: any, data: any) => { set(st => ({ suppliers: st.suppliers.map((x: any) => x.id === id ? { ...x, ...data } : x) })); },
-  remove: (id: any) => { set(st => ({ suppliers: st.suppliers.filter((x: any) => x.id !== id) })); },
+  add:    (data: any) => apiOrLocal(() => suppliersApi.create(data), () => { set(st => ({ suppliers: [...st.suppliers, { ...data, id: data.id ?? uid() }] })); }),
+  update: (id: any, data: any) => apiOrLocal(() => suppliersApi.update(id, data), () => { set(st => ({ suppliers: st.suppliers.map((x: any) => x.id === id ? { ...x, ...data } : x) })); }),
+  remove: (id: any) => apiOrLocal(() => suppliersApi.remove(id), () => { set(st => ({ suppliers: st.suppliers.filter((x: any) => x.id !== id) })); }),
 };
 
 // ─── Customers ────────────────────────────────────────────────────────────────
 export const customerStore = {
-  add:    (data: any) => { set(st => ({ customers: [...st.customers, { ...data, id: data.id ?? uid() }] })); },
-  update: (id: any, data: any) => { set(st => ({ customers: st.customers.map((x: any) => x.id === id ? { ...x, ...data } : x) })); },
-  remove: (id: any) => { set(st => ({ customers: st.customers.filter((x: any) => x.id !== id) })); },
+  add:    (data: any) => apiOrLocal(() => customersApi.create(data), () => { set(st => ({ customers: [...st.customers, { ...data, id: data.id ?? uid() }] })); }),
+  update: (id: any, data: any) => apiOrLocal(() => customersApi.update(id, data), () => { set(st => ({ customers: st.customers.map((x: any) => x.id === id ? { ...x, ...data } : x) })); }),
+  remove: (id: any) => apiOrLocal(() => customersApi.remove(id), () => { set(st => ({ customers: st.customers.filter((x: any) => x.id !== id) })); }),
 };
 
 // ─── Contact form submissions ─────────────────────────────────────────────────
