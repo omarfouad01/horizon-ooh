@@ -270,7 +270,7 @@ function normLoc(loc: any, idx: number): any {
     city,
     cityAr:   loc.cityAr   ?? loc.city_ar   ?? '',
     slug:     loc.slug     ?? toSlug(city),
-    products: Array.isArray(loc.products)  ? loc.products.map((p: any, pi: number) => normProduct(p, pi, loc)) : [],
+    products: Array.isArray(loc.products)  ? loc.products.map((p: any, pi: number) => normProduct(p, pi, loc)).filter(Boolean) : [],
     districts: Array.isArray(loc.districts) ? loc.districts : [],
   };
 }

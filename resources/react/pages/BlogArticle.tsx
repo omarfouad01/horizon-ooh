@@ -71,7 +71,7 @@ export default function BlogArticle() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             {/* Main content */}
             <article className="col-span-12 lg:col-span-8">
-              {(isAr && (post as any).bodyAr?.length ? (post as any).bodyAr : post.body).map((block: any, i: number) => {
+              {((isAr && (post as any).bodyAr?.length ? (post as any).bodyAr : null) ?? post.body ?? []).map((block: any, i: number) => {
                 if (block.type === "h2") {
                   return (
                     <Reveal key={i} delay={0.04}>
