@@ -246,6 +246,108 @@ const _demoContacts: ContactEntry[] = [];
 // ─── Check if a real API URL is configured ────────────────────────────────────
 const HAS_API = !!(import.meta.env.VITE_API_URL && import.meta.env.VITE_API_URL !== '/api');
 
+// ─── Slug generation helper ───────────────────────────────────────────────────
+// Converts a string to a URL-safe slug (used when API returns items without slugs)
+function toSlug(str: string): string {
+  return (str ?? '')
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')   // remove non-alphanumeric
+    .replace(/[\s_]+/g, '-')    // spaces → dashes
+    .replace(/--+/g, '-')       // collapse consecutive dashes
+    .replace(/^-+|-+$/g, '')    // trim leading/trailing dashes
+    || 'item';
+}
+
+// ─── Data normalizers — guarantee all required fields exist ──────────────────
+
+/** Normalize a location object from the API */
+function normLoc(loc: any, idx: number): any {
+  if (!loc || typeof loc !== 'object') return null;
+  const city = loc.city ?? loc.name ?? `City ${idx + 1}`;
+  return {
+    ...loc,
+    id:       String(loc.id ?? idx + 1),
+    city,
+    cityAr:   loc.cityAr   ?? loc.city_ar   ?? '',
+    slug:     loc.slug     ?? toSlug(city),
+    products: Array.isArray(loc.products)  ? loc.products.map((p: any, pi: number) => normProduct(p, pi, loc)) : [],
+    districts: Array.isArray(loc.districts) ? loc.districts : [],
+  };
+}
+
+/** Normalize a billboard/product nested inside a location */
+function normProduct(p: any, idx: number, loc?: any): any {
+  if (!p || typeof p !== 'object') return null;
+  const title = p.title ?? p.name ?? `Billboard ${idx + 1}`;
+  return {
+    ...p,
+    id:    String(p.id ?? idx + 1),
+    title,
+    slug:  p.slug ?? toSlug(`${title}-${p.code ?? p.id ?? idx + 1}`),
+    code:  p.code ?? '',
+    // Ensure location fields are available on the product itself
+    citySlug: p.citySlug ?? loc?.slug ?? toSlug(loc?.city ?? ''),
+    city:     p.city     ?? loc?.city ?? '',
+  };
+}
+
+/** Normalize a project from the API */
+function normProject(proj: any, idx: number): any {
+  if (!proj || typeof proj !== 'object') return null;
+  const title = proj.title ?? `Project ${idx + 1}`;
+  return {
+    ...proj,
+    id:      String(proj.id ?? idx + 1),
+    title,
+    slug:    proj.slug    ?? toSlug(`${title}-${proj.id ?? idx + 1}`),
+    results: Array.isArray(proj.results) ? proj.results : [],
+    client:  proj.client  ?? '',
+    category: proj.category ?? 'Billboard',
+  };
+}
+
+/** Normalize a blog post from the API */
+function normBlogPost(post: any, idx: number): any {
+  if (!post || typeof post !== 'object') return null;
+  const title = post.title ?? `Post ${idx + 1}`;
+  return {
+    ...post,
+    id:    String(post.id ?? idx + 1),
+    title,
+    slug:  post.slug ?? toSlug(`${title}-${post.id ?? idx + 1}`),
+  };
+}
+
+/** Normalize a service from the API */
+function normService(svc: any, idx: number): any {
+  if (!svc || typeof svc !== 'object') return null;
+  const title = svc.title ?? svc.name ?? `Service ${idx + 1}`;
+  return {
+    ...svc,
+    id:    String(svc.id ?? idx + 1),
+    title,
+    slug:  svc.slug ?? toSlug(`${title}-${svc.id ?? idx + 1}`),
+  };
+}
+
+/** Safely extract an array from an API response — handles {data:[...]}, [...] and null */
+function apiArr(res: any): any[] {
+  if (!res) return [];
+  if (Array.isArray(res))        return res;
+  if (Array.isArray(res.data))   return res.data;
+  // Sometimes wrapped in { data: { data: [...] } } (Laravel pagination)
+  if (res.data && Array.isArray(res.data.data)) return res.data.data;
+  return [];
+}
+
+/** Safely extract a single object from an API response */
+function apiObj(res: any): any {
+  if (!res)                    return {};
+  if (typeof res === 'object' && !Array.isArray(res) && res.data === undefined) return res;
+  if (res.data && typeof res.data === 'object' && !Array.isArray(res.data)) return res.data;
+  return {};
+}
+
 // ─── State interface ──────────────────────────────────────────────────────────
 const DEMO_PROJECTS_CONTENT = {
   heroEyebrow:    'Projects',
@@ -411,40 +513,87 @@ export const useApiStore = create<ApiState>((set, get) => ({
     set({ loading: true, error: null });
 
     try {
-      const [locs, dists, fmts, svcs, projs, blog, stats, steps, brands, setts, hc, ac] =
-        await Promise.all([
-          locationsApi.all(),
-          districtsApi.all(),
-          adFormatsApi.all(),
-          servicesApi.all(),
-          projectsApi.all(),
-          blogApi.all(),
-          trustStatsApi.all(),
-          processStepsApi.all(),
-          clientBrandsApi.all(),
-          settingsApi.all(),
-          settingsApi.homeContent(),
-          settingsApi.aboutContent(),
-        ]);
+      // Use Promise.allSettled so one failing endpoint doesn't crash everything
+      const results = await Promise.allSettled([
+        locationsApi.all(),
+        districtsApi.all(),
+        adFormatsApi.all(),
+        servicesApi.all(),
+        projectsApi.all(),
+        blogApi.all(),
+        trustStatsApi.all(),
+        processStepsApi.all(),
+        clientBrandsApi.all(),
+        settingsApi.all(),
+        settingsApi.homeContent(),
+        settingsApi.aboutContent(),
+      ]);
 
-      const normFmts: AdFormatType[] = (fmts.data || []).map((f: any) => ({ ...f, label: f.label ?? f.name }));
+      // Check if ALL critical requests failed (means no API at all)
+      const allFailed = results.every(r => r.status === 'rejected');
+      if (allFailed) throw new Error('All API endpoints failed');
+
+      // Safely unwrap each result, falling back to empty/demo on individual failures
+      const val = (idx: number) => results[idx].status === 'fulfilled'
+        ? (results[idx] as PromiseFulfilledResult<any>).value
+        : null;
+
+      const locsRaw   = apiArr(val(0));
+      const distsRaw  = apiArr(val(1));
+      const fmtsRaw   = apiArr(val(2));
+      const svcsRaw   = apiArr(val(3));
+      const projsRaw  = apiArr(val(4));
+      const blogRaw   = apiArr(val(5));
+      const statsRaw  = apiArr(val(6));
+      const stepsRaw  = apiArr(val(7));
+      const brandsRaw = apiArr(val(8));
+      const settsRaw  = apiObj(val(9));
+      const hcRaw     = apiObj(val(10));
+      const acRaw     = apiObj(val(11));
+
+      // Normalize every item so slug and array fields are guaranteed
+      const normLocs     = locsRaw.map(normLoc).filter(Boolean);
+      const normSvcs     = svcsRaw.map((s: any, i: number) => normService(s, i)).filter(Boolean);
+      const normProjs    = projsRaw.map((p: any, i: number) => normProject(p, i)).filter(Boolean);
+      const normBlog     = blogRaw.map((p: any, i: number) => normBlogPost(p, i)).filter(Boolean);
+      const normFmts     = fmtsRaw.map((f: any) => ({ ...f, label: f.label ?? f.name }));
+      const normBrands   = brandsRaw.map((b: any) => ({ ...b, logoUrl: b.logoUrl ?? b.logo }));
+      const normSteps    = stepsRaw.map((p: any, i: number) => ({
+        id: String(p.id ?? i + 1), step: p.step ?? (i + 1),
+        title: p.title ?? '', description: p.description ?? p.desc ?? '', icon: p.icon ?? '',
+      }));
+
+      // Build districts from API if available, else derive from normalized locations
+      const normDists = distsRaw.length > 0
+        ? distsRaw
+        : normLocs.flatMap((loc: any, _li: number) =>
+            (loc.districts ?? []).map((d: any, di: number) => {
+              const name   = typeof d === 'string' ? d : (d.name ?? String(d));
+              const nameAr = typeof d === 'object'  ? (d.nameAr ?? '') : '';
+              return {
+                id: `${loc.id}-district-${di + 1}`, name, nameAr,
+                locationId: loc.id, location_id: loc.id,
+                location_slug: loc.slug, cityAr: loc.cityAr ?? '',
+              };
+            })
+          );
 
       set({
-        locations:       locs.data   || [],
-        districts:       dists.data  || [],
+        locations:       normLocs,
+        districts:       normDists,
         adFormats:       normFmts.length ? normFmts : AD_FORMATS_DEFAULT,
-        services:        svcs.data   || [],
-        projects:        projs.data  || [],
-        blogPosts:       blog.data   || [],
-        trustStats:      stats.data  || [],
-        processSteps:    steps.data  || [],
-        process:         steps.data  || [],
-        clientBrands:    (brands.data || []).map((b: any) => ({ ...b, logoUrl: b.logoUrl ?? b.logo })),
-        settings:        setts.data  || DEMO_SETTINGS,
-        homeContent:     hc.data     || DEMO_HOME,
+        services:        normSvcs,
+        projects:        normProjs,
+        blogPosts:       normBlog,
+        trustStats:      statsRaw,
+        processSteps:    normSteps.length ? normSteps : _demoProcess,
+        process:         normSteps.length ? normSteps : _demoProcess,
+        clientBrands:    normBrands,
+        settings:        Object.keys(settsRaw).length ? settsRaw : DEMO_SETTINGS,
+        homeContent:     Object.keys(hcRaw).length   ? hcRaw    : DEMO_HOME,
         projectsContent: DEMO_PROJECTS_CONTENT,
-        about:           ac.data     || DEMO_ABOUT,
-        aboutContent:    ac.data     || DEMO_ABOUT,
+        about:           Object.keys(acRaw).length   ? acRaw    : DEMO_ABOUT,
+        aboutContent:    Object.keys(acRaw).length   ? acRaw    : DEMO_ABOUT,
         loaded:    true,
         loading:   false,
         usingDemo: false,

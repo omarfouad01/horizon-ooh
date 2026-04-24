@@ -7,7 +7,7 @@ import { useLang } from "@/i18n/LangContext";
 export default function Blog() {
   const { blogPosts: BLOG_POSTS } = useStore()
   const { isAr, t } = useLang()
-  const featured = BLOG_POSTS[0];
+  const featured = BLOG_POSTS[0] ?? null;
   const rest = BLOG_POSTS.slice(1);
 
   return (
@@ -20,6 +20,7 @@ export default function Blog() {
       />
 
       {/* Featured post */}
+      {featured && (
       <section className="bg-white" style={{ paddingTop: 80, paddingBottom: 60 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <Reveal>
@@ -64,6 +65,7 @@ export default function Blog() {
           </Link>
         </div>
       </section>
+      )}
 
       {/* All posts grid */}
       <section className="bg-white" style={{ paddingTop: 40, paddingBottom: 120 }}>

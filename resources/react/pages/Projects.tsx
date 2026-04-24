@@ -264,7 +264,7 @@ function FeaturedProject() {
             </p>
 
             <div className="flex items-center gap-12 mb-10">
-              {featured.results.slice(0, 3).map((r) => (
+              {(featured.results || []).slice(0, 3).map((r: any) => (
                 <div key={r.metric}>
                   <p className="font-black text-white/90 tracking-[-0.04em]" style={{ fontSize: 28 }}>{r.value}</p>
                   <p className="text-white/35 text-[10px] font-semibold tracking-[0.2em] uppercase mt-1">{r.metric}</p>

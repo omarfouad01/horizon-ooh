@@ -1175,8 +1175,10 @@ function FinalCTASection() {
 // ═══════════════════════════════════════════════════════════════════════════
 function ProjectsSection() {
   const { projects: PROJECTS } = useStore()
-  const featured = PROJECTS.find((p) => p.featured)!;
-  const others   = PROJECTS.filter((p) => !p.featured).slice(0, 2);
+  const featured = PROJECTS.find((p) => p.featured) ?? PROJECTS[0] ?? null;
+  const others   = PROJECTS.filter((p) => p !== featured).slice(0, 2);
+
+  if (!featured) return null;
 
   return (
     <section className="bg-white" style={{ paddingTop: 120, paddingBottom: 120 }}>
@@ -1452,7 +1454,7 @@ function BillboardBenefitsSection() {
 function RecentBillboardsSection() {
   const { locations: LOCATIONS } = useStore()
   const ALL_BILLBOARD_PRODUCTS = LOCATIONS.flatMap((loc) =>
-    loc.products.map((p) => ({ ...p, citySlug: loc.slug, cityName: loc.city }))
+    (loc.products || []).map((p: any) => ({ ...p, citySlug: loc.slug ?? '', cityName: loc.city ?? '' }))
   );
   const RECENT_SIX = ALL_BILLBOARD_PRODUCTS.slice(0, 6);
 
