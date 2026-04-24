@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Location extends Model
 {
     protected $fillable = [
-        'slug','city','headline','detail','description',
+        'slug','city','city_ar','headline','headline_ar','detail','description','description_ar',
         'long_description','image','available_formats','sort_order',
     ];
     protected $casts = ['available_formats' => 'array'];

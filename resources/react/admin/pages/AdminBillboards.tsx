@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { useStore, locationStore, nextBillboardCode, type Supplier, type Product, type AdFormatType, adFormatStore } from '@/store/dataStore'
+import { billboardsApi } from '@/api'
 import { Btn, PageHeader, Tbl, Th, Td, Tr, Badge, Confirm, Modal, Field, Sel } from '../ui'
 import { Plus, Pencil, Trash2, X, Upload, MapPin, Settings2, ExternalLink, Copy } from 'lucide-react'
 import toast from 'react-hot-toast'
@@ -286,36 +287,72 @@ function BillboardForm({ editing, onClose }: any) {
   const isDigital = f.adFormat === 'Digital Screens'
   const selectedSupplier = f.supplierId ? suppliers.find((s: Supplier) => s.id === f.supplierId) : null
 
-  const save = (e: React.FormEvent) => {
+  const [saving, setSaving] = useState(false)
+
+  const save = async (e: React.FormEvent) => {
     e.preventDefault()
-    const targetLoc = locations.find((l: any) => l.id === locId)
-    const bb: any = {
-      ...f,
-      name:   f.nameEn || f.name || '',
-      city:   (targetLoc as any)?.city || f.city,
-      slug:   (f.nameEn || f.name || '').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''),
-      sqm:    parseSqm(f.size),
-      image:  f.images?.[0]?.url || f.image || '',
-      lat:    typeof f.lat === 'number' ? f.lat : (parseFloat(f.lat) || 0),
-      lng:    typeof f.lng === 'number' ? f.lng : (parseFloat(f.lng) || 0),
-      code:   f.code || code,
-    }
-    if (editing) {
-      if (owningLoc) {
-        locationStore.update(owningLoc.id, {
-          products: (owningLoc.products || []).map((p: any) => p.id === editing.id ? { ...bb, id: editing.id } : p)
-        })
-      }
-      toast.success('Billboard updated')
-    } else {
-      const loc = locations.find((l: any) => l.id === locId)
-      if (!loc) { toast.error('Please select a governorate'); return }
-      locationStore.update(loc.id, {
-        products: [...((loc as any).products || []), { ...bb, id: Date.now().toString(36) + Math.random().toString(36).slice(2) }]
+    setSaving(true)
+    try {
+      // Build FormData so images can be uploaded too
+      const fd = new FormData()
+      fd.append('code',           f.code || code)
+      fd.append('title',          f.nameEn || f.name || '')
+      if (f.nameAr)         fd.append('name_ar',        f.nameAr)
+      fd.append('location_id',    locId)
+      if (f.districtId)     fd.append('district_id',    f.districtId)
+      if (f.adFormat)       fd.append('format',         f.adFormat)
+      if (f.size)           fd.append('size',           f.size)
+      const sqm = parseSqm(f.size || '')
+      if (sqm)              fd.append('sqm',            String(sqm))
+      if (f.sides)          fd.append('sides',          String(f.sides || 1))
+      if (f.material)       fd.append('material',       f.material)
+      if (f.brightness)     fd.append('brightness',     f.brightness)
+      fd.append('lat',            String(typeof f.lat === 'number' ? f.lat : (parseFloat(f.lat) || 0)))
+      fd.append('lng',            String(typeof f.lng === 'number' ? f.lng : (parseFloat(f.lng) || 0)))
+      if (f.full_address || f.spot) fd.append('full_address', f.full_address || f.spot || '')
+      if (f.descriptionEn)  fd.append('description',    f.descriptionEn)
+      if (f.descriptionAr)  fd.append('description_ar', f.descriptionAr)
+      if (f.price || f.clientPrice) fd.append('price', String(f.price || f.clientPrice || 0))
+      fd.append('availability',   f.status === 'Available' ? 'available' : (f.status || 'available').toLowerCase())
+      fd.append('illuminated',    f.brightness && f.brightness !== 'No Light' ? '1' : '0')
+      fd.append('featured',       f.featured ? '1' : '0')
+      if (f.supplierId)     fd.append('supplier_id',    String(f.supplierId))
+      // Attach new image files (if any were uploaded as File objects)
+      ;(f.images || []).forEach((img: any) => {
+        if (img instanceof File) fd.append('images[]', img)
       })
-      toast.success('Billboard created')
+
+      let saved: any
+      if (editing && editing.id) {
+        const res = await billboardsApi.update(editing.id, fd)
+        saved = res.data
+        // Update in local store too so the list refreshes
+        if (owningLoc) {
+          locationStore.update(owningLoc.id, {
+            products: (owningLoc.products || []).map((p: any) => p.id === editing.id ? { ...saved, id: saved.id } : p)
+          })
+        }
+        toast.success('Billboard updated')
+      } else {
+        const loc = locations.find((l: any) => l.id === locId)
+        if (!loc) { toast.error('Please select a governorate'); setSaving(false); return }
+        const res = await billboardsApi.create(fd)
+        saved = res.data
+        // Add to local store so the list refreshes immediately
+        locationStore.update(loc.id, {
+          products: [...((loc as any).products || []), saved]
+        })
+        toast.success('Billboard created')
+      }
+      onClose()
+    } catch (err: any) {
+      const msg = err?.response?.data?.message || err?.response?.data?.errors
+        ? Object.values(err.response.data.errors as Record<string,string[]>).flat().join(', ')
+        : err?.message || 'Save failed'
+      toast.error(msg)
+    } finally {
+      setSaving(false)
     }
-    onClose()
   }
 
   return (
@@ -460,11 +497,16 @@ function BillboardForm({ editing, onClose }: any) {
             ]}/>
         </Lbl>
         <Lbl label="District" required>
-          <Sel value={f.district||''} onChange={(e:any)=>set('district',e.target.value)}
+          <Sel
+            value={f.districtId || (locDistricts.find((d:any)=>d.name===f.district)?.id || '')}
+            onChange={(e:any)=>{
+              const d = locDistricts.find((x:any)=>x.id===e.target.value||x.id===Number(e.target.value))
+              setF((p:any)=>({...p, districtId: e.target.value, district: d?.name||''}))
+            }}
             disabled={!locId}
             options={[
               {value:'',label:locId?'Select district…':'Select governorate first'},
-              ...locDistricts.map((d:any)=>({value:d.name,label:d.name}))
+              ...locDistricts.map((d:any)=>({value:String(d.id),label:d.name}))
             ]}/>
         </Lbl>
       </div>
@@ -487,7 +529,7 @@ function BillboardForm({ editing, onClose }: any) {
 
       <div className="flex gap-3 justify-end pt-3 border-t border-gray-100 mt-2">
         <Btn variant="ghost" type="button" onClick={onClose}>Cancel</Btn>
-        <Btn type="submit">{editing ? 'Save Changes' : 'Create Billboard'}</Btn>
+        <Btn type="submit" disabled={saving}>{saving ? 'Saving…' : (editing ? 'Save Changes' : 'Create Billboard')}</Btn>
       </div>
     </form>
   )

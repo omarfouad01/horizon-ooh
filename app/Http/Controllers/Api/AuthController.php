@@ -31,9 +31,41 @@ class AuthController extends Controller
                 'id'    => $user->id,
                 'name'  => $user->name,
                 'email' => $user->email,
+                'phone' => $user->phone ?? null,
                 'role'  => $user->role,
             ],
         ]);
+    }
+
+    public function register(Request $request): JsonResponse
+    {
+        $data = $request->validate([
+            'name'     => 'required|string|max:120',
+            'email'    => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6|confirmed',
+            'phone'    => 'nullable|string|max:30',
+        ]);
+
+        $user = User::create([
+            'name'     => $data['name'],
+            'email'    => $data['email'],
+            'password' => Hash::make($data['password']),
+            'phone'    => $data['phone'] ?? null,
+            'role'     => 'user',
+        ]);
+
+        $token = JWTAuth::fromUser($user);
+
+        return response()->json([
+            'token' => $token,
+            'user'  => [
+                'id'    => $user->id,
+                'name'  => $user->name,
+                'email' => $user->email,
+                'phone' => $user->phone ?? null,
+                'role'  => $user->role,
+            ],
+        ], 201);
     }
 
     public function logout(): JsonResponse
@@ -49,6 +81,7 @@ class AuthController extends Controller
             'id'    => $user->id,
             'name'  => $user->name,
             'email' => $user->email,
+            'phone' => $user->phone ?? null,
             'role'  => $user->role,
         ]);
     }

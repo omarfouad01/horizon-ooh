@@ -5,6 +5,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class District extends Model
 {
-    protected $fillable = ['location_id','name'];
+    protected $fillable = ['location_id','name','name_ar','city_ar'];
     public function location(): BelongsTo { return $this->belongsTo(Location::class); }
 }
