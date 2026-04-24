@@ -81,18 +81,23 @@ export default function AdminSimulator() {
       setForm({ label: s.label, widthM: String(s.widthM ?? ''), heightM: String(s.heightM ?? ''), notes: s.notes ?? '' });
     };
     const cancel = () => setEditing(null);
-    const save = () => {
+const save = async () => {
       if (!form.label.trim()) { toast.error('Label is required'); return; }
-      if (editing!.id) {
-        billboardSizeStore.update(editing!.id, { label: form.label, widthM: parseFloat(form.widthM) || undefined, heightM: parseFloat(form.heightM) || undefined, notes: form.notes });
-        toast.success('Size updated');
-      } else {
-        billboardSizeStore.add({ label: form.label, widthM: parseFloat(form.widthM) || undefined, heightM: parseFloat(form.heightM) || undefined, notes: form.notes });
-        toast.success('Size added');
-      }
-      setEditing(null);
+      try {
+        if (editing!.id) {
+          await billboardSizeStore.update(editing!.id, { label: form.label, widthM: parseFloat(form.widthM) || undefined, heightM: parseFloat(form.heightM) || undefined, notes: form.notes });
+          toast.success('Size updated');
+        } else {
+          await billboardSizeStore.add({ label: form.label, widthM: parseFloat(form.widthM) || undefined, heightM: parseFloat(form.heightM) || undefined, notes: form.notes });
+          toast.success('Size added');
+        }
+        setEditing(null);
+      } catch { toast.error('Save failed — check server connection'); }
     };
-    const remove = (id: string) => { billboardSizeStore.remove(id); toast.success('Removed'); };
+    const remove = async (id: string) => {
+      try { await billboardSizeStore.remove(id); toast.success('Removed'); }
+      catch { toast.error('Delete failed'); }
+    };
 
     return (
       <div>
@@ -213,21 +218,26 @@ export default function AdminSimulator() {
       setActivePanelIdx(Math.max(0, idx - 1));
     };
 
-    const save = () => {
+const save = async () => {
       if (!editing) return;
       if (!editing.typeName || !editing.sizeLabel) { toast.error('Type and size are required'); return; }
       if (!editing.mockupUrl) { toast.error('Please upload a mockup photo'); return; }
       const tplData = { ...editing, panels };
-      if (tplData.id) {
-        simulatorTemplateStore.update(tplData.id, tplData);
-        toast.success('Template updated');
-      } else {
-        simulatorTemplateStore.add({ typeName: tplData.typeName, sizeLabel: tplData.sizeLabel, mockupUrl: tplData.mockupUrl, panels, notes: tplData.notes });
-        toast.success('Template added');
-      }
-      setEditing(null);
+      try {
+        if (tplData.id) {
+          await simulatorTemplateStore.update(tplData.id, tplData);
+          toast.success('Template updated');
+        } else {
+          await simulatorTemplateStore.add({ typeName: tplData.typeName, sizeLabel: tplData.sizeLabel, mockupUrl: tplData.mockupUrl, panels, notes: tplData.notes });
+          toast.success('Template added');
+        }
+        setEditing(null);
+      } catch { toast.error('Save failed — check server connection'); }
     };
-    const remove = (id: string) => { simulatorTemplateStore.remove(id); toast.success('Removed'); };
+    const remove = async (id: string) => {
+      try { await simulatorTemplateStore.remove(id); toast.success('Removed'); }
+      catch { toast.error('Delete failed'); }
+    };
 
     return (
       <div>
@@ -521,7 +531,7 @@ export default function AdminSimulator() {
                     {/* Status */}
                     <td className="px-5 py-3">
                       <Sel value={u.status}
-                        onChange={(e:any) => { designUploadStore.update(u.id, { status: e.target.value as any }); toast.success('Status updated'); }}
+                        onChange={async (e:any) => { try { await designUploadStore.update(u.id, { status: e.target.value as any }); toast.success('Status updated'); } catch { toast.error('Update failed'); } }}
                         options={[
                           {value:'pending',label:'Pending'},
                           {value:'reviewed',label:'Reviewed'},
@@ -536,7 +546,7 @@ export default function AdminSimulator() {
                           className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-700">
                           <Download size={14} />
                         </a>
-                        <button onClick={() => { designUploadStore.remove(u.id); toast.success('Removed'); }}
+                        <button onClick={async () => { try { await designUploadStore.remove(u.id); toast.success('Removed'); } catch { toast.error('Delete failed'); } }}
                           className="p-1.5 rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-500">
                           <Trash2 size={14} />
                         </button>

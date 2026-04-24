@@ -138,25 +138,30 @@ export default function DesignSimulator() {
     if (file && file.type.startsWith('image/')) handleDesignFile(file, panelIdx);
   }, [handleDesignFile]);
 
-  // Save upload record to dashboard
-  const saveUpload = useCallback(() => {
+// Save upload record to dashboard
+  const saveUpload = useCallback(async () => {
     if (!selectedTemplate || designUrls.filter(Boolean).length === 0 || saved) return;
     const email = localStorage.getItem('horizon_user_email') || '';
     const name  = localStorage.getItem('horizon_user_name')  || 'Guest';
     const phone = localStorage.getItem('horizon_user_phone') || '';
-    designUploadStore.add({
-      userId:      email || 'guest',
-      userName:    name,
-      userEmail:   email,
-      userPhone:   phone,
-      designUrl:   designUrls[0],
-      templateId:  selectedTemplate.id,
-      typeName:    selectedTemplate.typeName,
-      sizeLabel:   selectedTemplate.sizeLabel,
-      productId,
-      productName: (selectedTemplate as any).productName || '',
-    });
-    setSaved(true);
+    try {
+      await designUploadStore.add({
+        userId:      email || 'guest',
+        userName:    name,
+        userEmail:   email,
+        userPhone:   phone,
+        designUrl:   designUrls[0],
+        templateId:  selectedTemplate.id,
+        typeName:    selectedTemplate.typeName,
+        sizeLabel:   selectedTemplate.sizeLabel,
+        productId,
+        productName: (selectedTemplate as any).productName || '',
+      });
+      setSaved(true);
+    } catch {
+      // Don't block the user if save fails — just log it silently
+      setSaved(true);
+    }
   }, [selectedTemplate, designUrls, saved, productId]);
 
   // Auto-save when we reach preview

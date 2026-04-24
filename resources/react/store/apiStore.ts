@@ -8,6 +8,7 @@ import {
   locationsApi, adFormatsApi, servicesApi, projectsApi,
   blogApi, trustStatsApi, processStepsApi, clientBrandsApi,
   settingsApi, districtsApi,
+  billboardSizesApi, simulatorTemplatesApi, designUploadsApi,
 } from '@/api';
 import { LOCATIONS, SERVICES, PROJECTS, BLOG_POSTS, TRUST_STATS, PROCESS, CLIENT_BRANDS } from '@/data';
 
@@ -581,21 +582,24 @@ export const useApiStore = create<ApiState>((set, get) => ({
     if (get().loading) return;
     set({ loading: true, error: null });
 
-    try {
+try {
       // Use Promise.allSettled so one failing endpoint doesn't crash everything
       const results = await Promise.allSettled([
-        locationsApi.all(),
-        districtsApi.all(),
-        adFormatsApi.all(),
-        servicesApi.all(),
-        projectsApi.all(),
-        blogApi.all(),
-        trustStatsApi.all(),
-        processStepsApi.all(),
-        clientBrandsApi.all(),
-        settingsApi.all(),
-        settingsApi.homeContent(),
-        settingsApi.aboutContent(),
+        locationsApi.all(),          // 0
+        districtsApi.all(),          // 1
+        adFormatsApi.all(),          // 2
+        servicesApi.all(),           // 3
+        projectsApi.all(),           // 4
+        blogApi.all(),               // 5
+        trustStatsApi.all(),         // 6
+        processStepsApi.all(),       // 7
+        clientBrandsApi.all(),       // 8
+        settingsApi.all(),           // 9
+        settingsApi.homeContent(),   // 10
+        settingsApi.aboutContent(),  // 11
+        billboardSizesApi.all(),     // 12
+        simulatorTemplatesApi.all(), // 13
+        designUploadsApi.all(),      // 14
       ]);
 
       // Check if ALL critical requests failed (means no API at all)
@@ -603,7 +607,7 @@ export const useApiStore = create<ApiState>((set, get) => ({
       if (allFailed) throw new Error('All API endpoints failed');
 
       // Safely unwrap each result, falling back to empty/demo on individual failures
-      const val = (idx: number) => results[idx].status === 'fulfilled'
+const val = (idx: number) => results[idx].status === 'fulfilled'
         ? (results[idx] as PromiseFulfilledResult<any>).value
         : null;
 
@@ -619,6 +623,9 @@ export const useApiStore = create<ApiState>((set, get) => ({
       const settsRaw  = apiObj(val(9));
       const hcRaw     = apiObj(val(10));
       const acRaw     = apiObj(val(11));
+      const sizesRaw  = apiArr(val(12));
+      const tplsRaw   = apiArr(val(13));
+      const uploadsRaw= apiArr(val(14));
 
       // Normalize every item so slug and array fields are guaranteed
       const normLocs     = locsRaw.map(normLoc).filter(Boolean);
@@ -647,24 +654,30 @@ export const useApiStore = create<ApiState>((set, get) => ({
             })
           );
 
+// Normalize simulator templates so panels[] is always populated
+      const normTpls = tplsRaw.map((t: any) => normTemplate(t));
+
       set({
-        locations:       normLocs,
-        districts:       normDists,
-        adFormats:       normFmts.length ? normFmts : AD_FORMATS_DEFAULT,
-        services:        normSvcs,
-        projects:        normProjs,
-        blogPosts:       normBlog,
-        trustStats:      statsRaw,
-        processSteps:    normSteps.length ? normSteps : _demoProcess,
-        process:         normSteps.length ? normSteps : _demoProcess,
-        clientBrands:    normBrands,
-        settings:        Object.keys(settsRaw).length ? settsRaw : DEMO_SETTINGS,
-        homeContent:     Object.keys(hcRaw).length   ? hcRaw    : DEMO_HOME,
-        projectsContent:  DEMO_PROJECTS_CONTENT,
-        locationsContent: DEMO_LOCATIONS_CONTENT,
-        contactContent:   DEMO_CONTACT_CONTENT,
-        about:            Object.keys(acRaw).length   ? acRaw    : DEMO_ABOUT,
-        aboutContent:    Object.keys(acRaw).length   ? acRaw    : DEMO_ABOUT,
+        locations:          normLocs,
+        districts:          normDists,
+        adFormats:          normFmts.length ? normFmts : AD_FORMATS_DEFAULT,
+        services:           normSvcs,
+        projects:           normProjs,
+        blogPosts:          normBlog,
+        trustStats:         statsRaw,
+        processSteps:       normSteps.length ? normSteps : _demoProcess,
+        process:            normSteps.length ? normSteps : _demoProcess,
+        clientBrands:       normBrands,
+        settings:           Object.keys(settsRaw).length ? settsRaw : DEMO_SETTINGS,
+        homeContent:        Object.keys(hcRaw).length   ? hcRaw    : DEMO_HOME,
+        projectsContent:    DEMO_PROJECTS_CONTENT,
+        locationsContent:   DEMO_LOCATIONS_CONTENT,
+        contactContent:     DEMO_CONTACT_CONTENT,
+        about:              Object.keys(acRaw).length   ? acRaw    : DEMO_ABOUT,
+        aboutContent:       Object.keys(acRaw).length   ? acRaw    : DEMO_ABOUT,
+        billboardSizes:     sizesRaw,
+        simulatorTemplates: normTpls,
+        designUploads:      uploadsRaw,
         loaded:    true,
         loading:   false,
         usingDemo: false,

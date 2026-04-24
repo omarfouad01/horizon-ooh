@@ -139,6 +139,30 @@ export const settingsApi = {
   updateAboutContent:(d: any) => api.put('/about-content', d),
 };
 
+// ─── Billboard Sizes ──────────────────────────────────────────────────────────
+export const billboardSizesApi = {
+  all:    ()           => api.get('/billboard-sizes'),
+  create: (data: any)  => api.post('/billboard-sizes', data),
+  update: (id: any, data: any) => api.put(`/billboard-sizes/${id}`, data),
+  remove: (id: any)    => api.delete(`/billboard-sizes/${id}`),
+};
+
+// ─── Simulator Templates ──────────────────────────────────────────────────────
+export const simulatorTemplatesApi = {
+  all:    ()           => api.get('/simulator-templates'),
+  create: (data: any)  => api.post('/simulator-templates', data),
+  update: (id: any, data: any) => api.put(`/simulator-templates/${id}`, data),
+  remove: (id: any)    => api.delete(`/simulator-templates/${id}`),
+};
+
+// ─── Design Uploads ───────────────────────────────────────────────────────────
+export const designUploadsApi = {
+  all:    ()           => api.get('/design-uploads'),
+  create: (data: any)  => api.post('/design-uploads', data),
+  update: (id: any, data: any) => api.put(`/design-uploads/${id}`, data),
+  remove: (id: any)    => api.delete(`/design-uploads/${id}`),
+};
+
 // ─── Users ────────────────────────────────────────────────────────────────────
 export const usersApi = {
   all:    ()           => api.get('/users'),
@@ -146,3 +170,4 @@ export const usersApi = {
   update: (id: any, data: any) => api.put(`/users/${id}`, data),
   remove: (id: any)    => api.delete(`/users/${id}`),
 };
+

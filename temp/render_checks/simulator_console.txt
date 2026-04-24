@@ -1,0 +1,31 @@
+[31m[error][0m Access to XMLHttpRequest at 'https://www.skywork.ai/website-not-found' (redirected from 'https://inihwp8sg7.skywork.website/api/billboard-sizes') from origin 'https://inihwp8sg7.skywork.website' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+[31m[error][0m Failed to load resource: net::ERR_FAILED
+[31m[error][0m Access to XMLHttpRequest at 'https://www.skywork.ai/website-not-found' (redirected from 'https://inihwp8sg7.skywork.website/api/process-steps') from origin 'https://inihwp8sg7.skywork.website' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+[31m[error][0m Failed to load resource: net::ERR_FAILED
+[31m[error][0m Access to XMLHttpRequest at 'https://www.skywork.ai/website-not-found' (redirected from 'https://inihwp8sg7.skywork.website/api/districts') from origin 'https://inihwp8sg7.skywork.website' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+[31m[error][0m Failed to load resource: net::ERR_FAILED
+[31m[error][0m Access to XMLHttpRequest at 'https://www.skywork.ai/website-not-found' (redirected from 'https://inihwp8sg7.skywork.website/api/ad-formats') from origin 'https://inihwp8sg7.skywork.website' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+[31m[error][0m Failed to load resource: net::ERR_FAILED
+[31m[error][0m Access to XMLHttpRequest at 'https://www.skywork.ai/website-not-found' (redirected from 'https://inihwp8sg7.skywork.website/api/simulator-templates') from origin 'https://inihwp8sg7.skywork.website' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+[31m[error][0m Failed to load resource: net::ERR_FAILED
+[31m[error][0m Access to XMLHttpRequest at 'https://www.skywork.ai/website-not-found' (redirected from 'https://inihwp8sg7.skywork.website/api/design-uploads') from origin 'https://inihwp8sg7.skywork.website' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+[31m[error][0m Failed to load resource: net::ERR_FAILED
+[31m[error][0m Access to XMLHttpRequest at 'https://www.skywork.ai/website-not-found' (redirected from 'https://inihwp8sg7.skywork.website/api/projects') from origin 'https://inihwp8sg7.skywork.website' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+[31m[error][0m Failed to load resource: net::ERR_FAILED
+[31m[error][0m Access to XMLHttpRequest at 'https://www.skywork.ai/website-not-found' (redirected from 'https://inihwp8sg7.skywork.website/api/clients') from origin 'https://inihwp8sg7.skywork.website' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+[31m[error][0m Failed to load resource: net::ERR_FAILED
+[31m[error][0m Access to XMLHttpRequest at 'https://www.skywork.ai/website-not-found' (redirected from 'https://inihwp8sg7.skywork.website/api/services') from origin 'https://inihwp8sg7.skywork.website' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+[31m[error][0m Failed to load resource: net::ERR_FAILED
+[31m[error][0m Access to XMLHttpRequest at 'https://www.skywork.ai/website-not-found' (redirected from 'https://inihwp8sg7.skywork.website/api/settings') from origin 'https://inihwp8sg7.skywork.website' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+[31m[error][0m Failed to load resource: net::ERR_FAILED
+[31m[error][0m Access to XMLHttpRequest at 'https://www.skywork.ai/website-not-found' (redirected from 'https://inihwp8sg7.skywork.website/api/about-content') from origin 'https://inihwp8sg7.skywork.website' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+[31m[error][0m Failed to load resource: net::ERR_FAILED
+[31m[error][0m Access to XMLHttpRequest at 'https://www.skywork.ai/website-not-found' (redirected from 'https://inihwp8sg7.skywork.website/api/trust-stats') from origin 'https://inihwp8sg7.skywork.website' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+[31m[error][0m Failed to load resource: net::ERR_FAILED
+[31m[error][0m Access to XMLHttpRequest at 'https://www.skywork.ai/website-not-found' (redirected from 'https://inihwp8sg7.skywork.website/api/home-content') from origin 'https://inihwp8sg7.skywork.website' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+[31m[error][0m Failed to load resource: net::ERR_FAILED
+[31m[error][0m Access to XMLHttpRequest at 'https://www.skywork.ai/website-not-found' (redirected from 'https://inihwp8sg7.skywork.website/api/locations') from origin 'https://inihwp8sg7.skywork.website' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+[31m[error][0m Failed to load resource: net::ERR_FAILED
+[31m[error][0m Access to XMLHttpRequest at 'https://www.skywork.ai/website-not-found' (redirected from 'https://inihwp8sg7.skywork.website/api/blog') from origin 'https://inihwp8sg7.skywork.website' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+[36m[info][0m [HORIZON] API unreachable — using demo data
+[31m[error][0m Failed to load resource: net::ERR_FAILED
