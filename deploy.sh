@@ -43,8 +43,16 @@ fi
 
 # ── 2. PHP / Composer dependencies ───────────────────────────────────────────
 echo "▸ Installing PHP dependencies (composer)..."
-composer install --no-dev --optimize-autoloader --no-interaction --quiet
-echo "  ✓ Composer done"
+#composer install --no-dev --optimize-autoloader --no-interaction --quiet
+PHP_BIN="/usr/bin/php"
+COMPOSER_BIN="$(which composer)"
+
+$PHP_BIN -d register_argc_argv=0 $COMPOSER_BIN install \
+  --no-dev \
+  --optimize-autoloader \
+  --no-interaction \
+  --quiet
+  echo "  ✓ Composer done"
 
 # ── 3. Laravel setup ─────────────────────────────────────────────────────────
 echo "▸ Generating application key (if not set)..."

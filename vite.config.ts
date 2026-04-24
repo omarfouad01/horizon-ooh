@@ -30,33 +30,34 @@ function syncDir(src: string, dest: string) {
 }
 
 /** Vite plugin: after every production build, mirror dist/ → ../public/dist/ */
-function syncToPublicDist(): import('vite').Plugin {
-  return {
-    name: 'sync-to-public-dist',
-    apply: 'build',
-    closeBundle() {
-      const projectRoot = path.resolve(__dirname);
-      const buildOut    = path.join(projectRoot, 'dist');
-      const publicDist  = path.join(projectRoot, '..', 'public', 'dist');
-      try {
-        // Wipe stale public/dist so removed assets don't linger
-        rmSync(publicDist, { recursive: true, force: true });
-        syncDir(buildOut, publicDist);
-        console.log(`\n✓ Synced dist/ → public/dist/ (Skywork preview updated)`);
-      } catch (e) {
-        // Non-fatal — local builds outside the Skywork workspace won't have ../public/
-        console.warn('sync-to-public-dist: skipped —', (e as Error).message);
-      }
-    },
-  };
-}
+// function syncToPublicDist(): import('vite').Plugin {
+//   return {
+//     name: 'sync-to-public-dist',
+//     apply: 'build',
+//     closeBundle() {
+//       const projectRoot = path.resolve(__dirname);
+//       const buildOut    = path.join(projectRoot, 'dist');
+//       const publicDist  = path.join(projectRoot, '..', 'public', 'dist');
+//       try {
+//         // Wipe stale public/dist so removed assets don't linger
+//         rmSync(publicDist, { recursive: true, force: true });
+//         syncDir(buildOut, publicDist);
+//         console.log(`\n✓ Synced dist/ → public/dist/ (Skywork preview updated)`);
+//       } catch (e) {
+//         // Non-fatal — local builds outside the Skywork workspace won't have ../public/
+//         console.warn('sync-to-public-dist: skipped —', (e as Error).message);
+//       }
+//     },
+//   };
+// }
 export default defineConfig(({ mode }) => ({
+  base: '/',
   root: '.',
   publicDir: 'resources/public-static',
   plugins: [
     tailwindcss(),
     react(),
-    syncToPublicDist(),
+    // syncToPublicDist(),
   ],
   resolve: {
     alias: {
@@ -67,8 +68,8 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    outDir: 'dist',
-    emptyOutDir: true,
+    outDir: 'public',
+    emptyOutDir: false,
     rollupOptions: {
       input: path.resolve(__dirname, 'index.html'),
     },
