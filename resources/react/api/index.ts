@@ -1,10 +1,17 @@
 import api from './client';
 
 // ─── Auth ─────────────────────────────────────────────────────────────────────
+// Primary paths: /auth/login, /auth/register  (custom Laravel API routes)
+// Fallback paths: /login, /register           (Laravel Sanctum / Fortify web routes)
 export const authApi = {
-  login:  (email: string, password: string) => api.post('/auth/login',  { email, password }),
-  logout: ()                                 => api.post('/auth/logout'),
-  me:     ()                                 => api.get('/auth/me'),
+  // Login: try /auth/login first; caller should catch 404/405 and retry /login
+  login:            (email: string, password: string) => api.post('/auth/login',    { email, password }),
+  loginFallback:    (email: string, password: string) => api.post('/login',          { email, password }),
+  // Register: try /auth/register first; caller catches 404/405 and retries /register
+  register:         (data: Record<string, string>)    => api.post('/auth/register',  data),
+  registerFallback: (data: Record<string, string>)    => api.post('/register',       data),
+  logout:           ()                                => api.post('/auth/logout'),
+  me:               ()                                => api.get('/auth/me'),
 };
 
 // ─── Locations ────────────────────────────────────────────────────────────────

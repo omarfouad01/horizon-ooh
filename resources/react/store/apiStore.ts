@@ -270,7 +270,16 @@ export const DEMO_CONTACT_CONTENT = {
 };
 
 // ─── Check if a real API URL is configured ────────────────────────────────────
-const HAS_API = !!(import.meta.env.VITE_API_URL && import.meta.env.VITE_API_URL !== '/api');
+// True when:
+//   1. VITE_API_URL is explicitly set at build time (recommended), OR
+//   2. At runtime the page is served from a real hostname (not localhost/127.0.0.1)
+//      — this handles deployments where VITE_API_URL was not set during build
+const _envUrl  = import.meta.env.VITE_API_URL as string | undefined;
+const _isRealHostname = typeof window !== 'undefined' &&
+  window.location.hostname !== 'localhost' &&
+  window.location.hostname !== '127.0.0.1' &&
+  !window.location.hostname.startsWith('192.168.');
+const HAS_API = !!(_envUrl && _envUrl !== '/api') || _isRealHostname;
 
 // ─── Slug generation helper ───────────────────────────────────────────────────
 // Converts a string to a URL-safe slug (used when API returns items without slugs)

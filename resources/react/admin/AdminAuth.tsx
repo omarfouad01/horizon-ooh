@@ -20,18 +20,44 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
   const [user,  setUser]  = useState<any>(()=>{ try { return JSON.parse(localStorage.getItem('horizon_user')||'null'); } catch { return null; } });
   const [token, setToken] = useState<string|null>(()=>localStorage.getItem('horizon_token'));
 
-  const login = async (email: string, password: string) => {
-    // ── Try real API first ───────────────────────────────────────────────────
+const login = async (email: string, password: string) => {
+    // ── Try real API first (with fallback for different route patterns) ────────
     try {
-      const res = await authApi.login(email, password);
-      const { token: t, user: u } = res.data;
+      let data: any;
+      try {
+        // Primary: /auth/login
+        const res = await authApi.login(email, password);
+        data = res.data;
+      } catch (firstErr: any) {
+        const status = firstErr?.response?.status;
+        if (status === 404 || status === 405) {
+          // Fallback: /login (Laravel Sanctum / Fortify)
+          const res = await authApi.loginFallback(email, password);
+          data = res.data;
+        } else {
+          throw firstErr;
+        }
+      }
+      const t = data.token || data.access_token;
+      const u = data.user;
+      if (!t || !u) throw new Error('Invalid API response — no token or user');
       localStorage.setItem('horizon_token', t);
       localStorage.setItem('horizon_user',  JSON.stringify(u));
       setToken(t); setUser(u);
       return;
-    } catch (_) { /* API unreachable — try demo credentials */ }
+    } catch (apiErr: any) {
+      // API unreachable or returned error — check demo credentials
+      const isNetworkErr = !apiErr?.response;
+      if (!isNetworkErr) {
+        // API replied but with an error (wrong credentials, etc.) — surface the message
+        const body = apiErr?.response?.data ?? {};
+        const msg  = body.message || `Login failed (${apiErr?.response?.status})`;
+        throw new Error(msg);
+      }
+      // Network error: fall through to demo mode
+    }
 
-    // ── Demo / preview mode ──────────────────────────────────────────────────
+    // ── Demo / preview mode (only when API is unreachable) ───────────────────
     if (email === DEMO_EMAIL && password === DEMO_PASSWORD) {
       const demoUser = { id: 0, name: 'Admin', email: DEMO_EMAIL, role: 'admin' };
       const demoToken = 'demo-token';

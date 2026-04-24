@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ROUTES, RED, NAVY, ease } from "@/lib/routes";
 import { siteUserStore } from "@/store/dataStore";
+import { authApi } from "@/api";
 
 // ─── Shared input component ───────────────────────────────────────────────
 function AuthInput({
@@ -111,17 +112,6 @@ function BrandPanel() {
   );
 }
 
-// ─── Resolve API base URL ─────────────────────────────────────────────────────
-function apiBase(): string {
-  const v = (import.meta as any).env?.VITE_API_URL as string | undefined;
-  if (v && v.trim() && !v.includes('localhost') && !v.includes('127.0.0.1')) return v.replace(/\/+$/, '');
-  if (typeof window !== 'undefined') {
-    const { protocol, hostname } = window.location;
-    if (hostname !== 'localhost' && hostname !== '127.0.0.1') return `${protocol}//${hostname}/api`;
-  }
-  return (v ?? '').replace(/\/+$/, '') || 'http://localhost:8000/api';
-}
-
 // ─── LOGIN PAGE ────────────────────────────────────────────────────────────
 export default function Login() {
   const navigate = useNavigate();
@@ -132,28 +122,36 @@ export default function Login() {
   const [error, setError] = useState<string | null>(null);
   const [showPw, setShowPw] = useState(false);
 
+// ─── Parse Laravel error response ────────────────────────────────────────────
+  function parseApiError(err: any): string {
+    const resp = err?.response;
+    if (!resp) return 'Network error — please check your connection and try again.';
+    const body = resp.data ?? {};
+    if (body.errors) {
+      return Object.values(body.errors as Record<string, string[]>).flat().join(' ');
+    }
+    return body.message || `Login failed (${resp.status})`;
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     if (!email || !password) { setError('Please fill in all fields.'); return; }
     setLoading(true);
     try {
-      const res = await fetch(`${apiBase()}/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        // Laravel validation errors
-        if (data.errors) {
-          const msgs = Object.values(data.errors as Record<string, string[]>).flat();
-          setError(msgs.join(' '));
+      // Try /auth/login first, fall back to /login (Sanctum web route)
+      let data: any;
+      try {
+        const res = await authApi.login(email, password);
+        data = res.data;
+      } catch (firstErr: any) {
+        const status = firstErr?.response?.status;
+        if (status === 404 || status === 405) {
+          const res = await authApi.loginFallback(email, password);
+          data = res.data;
         } else {
-          setError(data.message || `Login failed (${res.status})`);
+          throw firstErr;
         }
-        setLoading(false);
-        return;
       }
       // Success — store session info
       const token = data.token || data.access_token || '';
@@ -164,8 +162,8 @@ export default function Login() {
       localStorage.setItem('horizon_user_phone', user.phone || '');
       siteUserStore.upsert(email, { name: user.name, phone: user.phone, source: 'login' });
       navigate('/');
-    } catch (_err) {
-      setError('Network error — please check your connection and try again.');
+    } catch (err: any) {
+      setError(parseApiError(err));
     } finally {
       setLoading(false);
     }
