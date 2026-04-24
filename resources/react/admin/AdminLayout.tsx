@@ -9,7 +9,8 @@ const NAVY = '#0B0F1A', RED = '#D90429'
 const NAV = [
   { to:'/admin',             label:'Dashboard',     icon:LayoutDashboard, exact:true },
   { to:'/admin/homepage',    label:'Home Page',     icon:Home },
-  { to:'/admin/locations',   label:'Locations',     icon:MapPin },
+  { to:'/admin/locations',      label:'Locations',      icon:MapPin },
+  { to:'/admin/locations-page',  label:'Locations Page', icon:MapPin },
   { to:'/admin/billboards',  label:'Billboards',    icon:Monitor },
   { to:'/admin/services',    label:'Services',      icon:Briefcase },
   { to:'/admin/projects',    label:'Projects',      icon:Layers },

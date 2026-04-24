@@ -348,6 +348,36 @@ function apiObj(res: any): any {
   return {};
 }
 
+// ─── Locations page content defaults ────────────────────────────────────────
+export const DEMO_LOCATIONS_CONTENT = {
+  // Hero section
+  eyebrow:          'Our Network',
+  title:            'Advertising Locations',
+  titleAccent:      'Across Egypt.',
+  subtitle:         "9,500+ premium outdoor advertising locations — from Cairo's Ring Road to Alexandria's Corniche.",
+  eyebrowAr:        'شبكتنا',
+  titleAr:          'مواقع إعلانية',
+  titleAccentAr:    'في جميع أنحاء مصر.',
+  subtitleAr:       'أكثر من 9,500 موقع إعلاني متميز — من الطريق الدائري في القاهرة إلى كورنيش الإسكندرية.',
+  // Floating CTA bar
+  ctaHelpText:      'Need help choosing the best billboard?',
+  ctaHelpTextAr:    'تحتاج مساعدة في اختيار أفضل لوحة إعلانية؟',
+  ctaButton:        'Talk to an Expert',
+  ctaButtonAr:      'تحدث مع خبير',
+  whatsappNumber:   '+201234567890',
+  whatsappMessage:  'Hi HORIZON OOH, I need help choosing billboard locations',
+  // Location detail page
+  detailEyebrow:    'Advertising Location',
+  detailEyebrowAr:  'موقع إعلاني',
+  detailCtaButton:  'Get a Quote',
+  detailCtaButtonAr:'اطلب عرض سعر',
+  // No-results
+  noResultsTitle:   'No locations match your search',
+  noResultsTitleAr: 'لا توجد مواقع تطابق بحثك',
+  noResultsHint:    'Let us recommend the best locations for your campaign — our strategists know every market.',
+  noResultsHintAr:  'دعنا نوصي بأفضل المواقع لحملتك — خبراؤنا يعرفون كل سوق.',
+};
+
 // ─── State interface ──────────────────────────────────────────────────────────
 const DEMO_PROJECTS_CONTENT = {
   heroEyebrow:    'Projects',
@@ -435,8 +465,9 @@ export interface ApiState {
   process:         ProcessStep[];
   settings:        any;
   homeContent:     any;
-  projectsContent: any;
-  about:           AboutContent;
+  projectsContent:  any;
+  locationsContent: any;
+  about:            AboutContent;
   aboutContent:    AboutContent;
   loaded:          boolean;
   loading:         boolean;
@@ -500,8 +531,9 @@ export const useApiStore = create<ApiState>((set, get) => ({
   contacts:     HAS_API ? [] : _demoContacts,
   settings:        HAS_API ? {} : DEMO_SETTINGS,
   homeContent:     HAS_API ? {} : DEMO_HOME,
-  projectsContent: HAS_API ? {} : DEMO_PROJECTS_CONTENT,
-  about:           HAS_API ? {} as AboutContent : DEMO_ABOUT,
+  projectsContent:  HAS_API ? {} : DEMO_PROJECTS_CONTENT,
+  locationsContent: HAS_API ? {} : DEMO_LOCATIONS_CONTENT,
+  about:            HAS_API ? {} as AboutContent : DEMO_ABOUT,
   aboutContent:    HAS_API ? {} as AboutContent : DEMO_ABOUT,
   loaded:       !HAS_API,   // demo data is ready immediately; API data is not
   loading:      false,
@@ -591,8 +623,9 @@ export const useApiStore = create<ApiState>((set, get) => ({
         clientBrands:    normBrands,
         settings:        Object.keys(settsRaw).length ? settsRaw : DEMO_SETTINGS,
         homeContent:     Object.keys(hcRaw).length   ? hcRaw    : DEMO_HOME,
-        projectsContent: DEMO_PROJECTS_CONTENT,
-        about:           Object.keys(acRaw).length   ? acRaw    : DEMO_ABOUT,
+        projectsContent:  DEMO_PROJECTS_CONTENT,
+        locationsContent: DEMO_LOCATIONS_CONTENT,
+        about:            Object.keys(acRaw).length   ? acRaw    : DEMO_ABOUT,
         aboutContent:    Object.keys(acRaw).length   ? acRaw    : DEMO_ABOUT,
         loaded:    true,
         loading:   false,
@@ -650,9 +683,10 @@ export const useApiStore = create<ApiState>((set, get) => ({
         siteUsers:    [],
         contacts:     _demoContacts,
         settings:     DEMO_SETTINGS,
-        homeContent:  DEMO_HOME,
-        about:        DEMO_ABOUT,
-        aboutContent: DEMO_ABOUT,
+        homeContent:      DEMO_HOME,
+        locationsContent: DEMO_LOCATIONS_CONTENT,
+        about:            DEMO_ABOUT,
+        aboutContent:     DEMO_ABOUT,
         loaded:    true,
         loading:   false,
         usingDemo: true,

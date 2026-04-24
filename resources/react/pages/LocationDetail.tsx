@@ -2,9 +2,12 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, SectionHeading, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
 import { productHref, RED, NAVY } from "@/lib/routes";
+import { useLang } from "@/i18n/LangContext";
 
 export default function LocationDetail() {
-  const { locations: LOCATIONS } = useStore()
+  const { locations: LOCATIONS, locationsContent: _lc } = useStore() as any
+  const { isAr } = useLang()
+  const lp = _lc ?? {}
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const location = LOCATIONS.find((l) => l.slug === slug);
@@ -33,7 +36,7 @@ export default function LocationDetail() {
           style={{ minHeight: 520 }}
         >
           <div className="flex flex-col justify-center py-20 pr-16">
-            <Eyebrow text="Advertising Location" light />
+            <Eyebrow text={isAr ? (lp.detailEyebrowAr || 'موقع إعلاني') : (lp.detailEyebrow || 'Advertising Location')} light />
             <Reveal delay={0.05}>
               <h1
                 className="font-black leading-[0.88] tracking-[-0.05em] text-white mb-6"
@@ -54,7 +57,7 @@ export default function LocationDetail() {
                 style={{ background: RED }}
               >
                 <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: "white" }} />
-                <span className="relative z-10 group-hover:text-[#0B0F1A] transition-colors duration-300">Get a Quote</span>
+                <span className="relative z-10 group-hover:text-[#0B0F1A] transition-colors duration-300">{isAr ? (lp.detailCtaButtonAr || 'اطلب عرض سعر') : (lp.detailCtaButton || 'Get a Quote')}</span>
               </button>
             </Reveal>
           </div>

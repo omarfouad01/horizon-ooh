@@ -97,6 +97,16 @@ export const homeStore = {
   },
 };
 
+// ─── Locations page content ────────────────────────────────────────────────────
+export const locationsContentStore = {
+  update: async (data: any) => {
+    if (HAS_API) {
+      try { await settingsApi.update({ locationsContent: data }); await reload(); } catch { /* ignore */ }
+    }
+    set(st => ({ locationsContent: { ...st.locationsContent, ...data } }));
+  },
+};
+
 // ─── Projects page content ─────────────────────────────────────────────────────
 export const projectsContentStore = {
   update: (data: any) => {

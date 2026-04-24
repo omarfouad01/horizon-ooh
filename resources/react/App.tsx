@@ -39,8 +39,9 @@ import AdminSuppliers  from "@/admin/pages/AdminSuppliers";
 import AdminCustomers  from "@/admin/pages/AdminCustomers";
 import AdminUsers      from "@/admin/pages/AdminUsers";
 import AdminHomePage   from "@/admin/pages/AdminHomePage";
-import AdminSimulator  from "@/admin/pages/AdminSimulator";
-import DesignSimulator from "@/pages/DesignSimulator";
+import AdminSimulator      from "@/admin/pages/AdminSimulator";
+import AdminLocationsPage  from "@/admin/pages/AdminLocationsPage";
+import DesignSimulator     from "@/pages/DesignSimulator";
 
 const queryClient = new QueryClient();
 
@@ -87,7 +88,8 @@ const App = () => (
               <Route path="customers"   element={<AdminCustomers />} />
               <Route path="users"       element={<AdminUsers />} />
               <Route path="homepage"    element={<AdminHomePage />} />
-              <Route path="simulator"   element={<AdminSimulator />} />
+              <Route path="simulator"       element={<AdminSimulator />} />
+              <Route path="locations-page"   element={<AdminLocationsPage />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
