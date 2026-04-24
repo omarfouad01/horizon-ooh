@@ -1,31 +1,27 @@
-import api from './client';
+import api, { cachedGet } from './client';
 
 // ─── Auth ─────────────────────────────────────────────────────────────────────
-// Primary paths: /auth/login, /auth/register  (custom Laravel API routes)
-// Fallback paths: /login, /register           (Laravel Sanctum / Fortify web routes)
 export const authApi = {
-  // Login: try /auth/login first; caller should catch 404/405 and retry /login
-  login:            (email: string, password: string) => api.post('/auth/login',    { email, password }),
-  loginFallback:    (email: string, password: string) => api.post('/login',          { email, password }),
-  // Register: try /auth/register first; caller catches 404/405 and retries /register
-  register:         (data: Record<string, string>)    => api.post('/auth/register',  data),
-  registerFallback: (data: Record<string, string>)    => api.post('/register',       data),
-  logout:           ()                                => api.post('/auth/logout'),
-  me:               ()                                => api.get('/auth/me'),
+  login:           (email: string, password: string) => api.post('/auth/login',  { email, password }),
+  loginFallback:   (email: string, password: string) => api.post('/login',       { email, password }),
+  logout:          ()                                 => api.post('/auth/logout'),
+  me:              ()                                 => api.get('/auth/me'),
+  register:        (data: any)                        => api.post('/auth/register', data),
+  registerFallback:(data: any)                        => api.post('/register',      data),
 };
 
 // ─── Locations ────────────────────────────────────────────────────────────────
 export const locationsApi = {
-  all:    ()           => api.get('/locations'),
+  all:    ()             => cachedGet('/locations'),
   get:    (slug: string) => api.get(`/locations/${slug}`),
-  create: (data: any)  => api.post('/locations', data),
+  create: (data: any)    => api.post('/locations', data),
   update: (id: any, data: any) => api.put(`/locations/${id}`, data),
-  remove: (id: any)    => api.delete(`/locations/${id}`),
+  remove: (id: any)      => api.delete(`/locations/${id}`),
 };
 
 // ─── Districts ────────────────────────────────────────────────────────────────
 export const districtsApi = {
-  all:    (locationId?: any) => api.get('/districts', { params: locationId ? { location_id: locationId } : {} }),
+  all:    (_locationId?: any) => cachedGet('/districts'),
   create: (data: any)  => api.post('/districts', data),
   update: (id: any, data: any) => api.put(`/districts/${id}`, data),
   remove: (id: any)    => api.delete(`/districts/${id}`),
@@ -44,34 +40,32 @@ export const billboardsApi = {
 
 // ─── Services ─────────────────────────────────────────────────────────────────
 export const servicesApi = {
-  all:    ()           => api.get('/services'),
+  all:    ()             => cachedGet('/services'),
   get:    (slug: string) => api.get(`/services/${slug}`),
-  create: (data: any)  => api.post('/services', data),
+  create: (data: any)    => api.post('/services', data),
   update: (id: any, data: any) => api.put(`/services/${id}`, data),
-  remove: (id: any)    => api.delete(`/services/${id}`),
+  remove: (id: any)      => api.delete(`/services/${id}`),
 };
 
 // ─── Projects ─────────────────────────────────────────────────────────────────
 export const projectsApi = {
-  all:    ()           => api.get('/projects'),
+  all:    ()             => cachedGet('/projects'),
   get:    (slug: string) => api.get(`/projects/${slug}`),
   create: (data: FormData) => api.post('/projects', data, { headers: { 'Content-Type': 'multipart/form-data' } }),
   update: (id: any, data: FormData) => api.post(`/projects/${id}`, data, { headers: { 'Content-Type': 'multipart/form-data' } }),
-  remove: (id: any)    => api.delete(`/projects/${id}`),
+  remove: (id: any)      => api.delete(`/projects/${id}`),
 };
 
 // ─── Blog ─────────────────────────────────────────────────────────────────────
 export const blogApi = {
-  all:    (all = false) => api.get('/blog', { params: all ? { all: 1 } : {} }),
+  all:    (all = false) => all ? api.get('/blog', { params: { all: 1 } }) : cachedGet('/blog'),
   get:    (slug: string) => api.get(`/blog/${slug}`),
-  create: (data: any)  => api.post('/blog', data),
+  create: (data: any)    => api.post('/blog', data),
   update: (id: any, data: any) => api.put(`/blog/${id}`, data),
-  remove: (id: any)    => api.delete(`/blog/${id}`),
+  remove: (id: any)      => api.delete(`/blog/${id}`),
 };
 
 // ─── Contacts ─────────────────────────────────────────────────────────────────
-// Public: POST /contact  (visitor form submission)
-// Admin:  GET/PUT/DELETE /contacts  (manage enquiries, requires auth)
 export const contactsApi = {
   all:    ()           => api.get('/contacts'),
   submit: (data: any)  => api.post('/contact', data),
@@ -81,7 +75,7 @@ export const contactsApi = {
 
 // ─── Ad Formats ───────────────────────────────────────────────────────────────
 export const adFormatsApi = {
-  all:    ()           => api.get('/ad-formats'),
+  all:    ()           => cachedGet('/ad-formats'),
   create: (data: any)  => api.post('/ad-formats', data),
   update: (id: any, data: any) => api.put(`/ad-formats/${id}`, data),
   remove: (id: any)    => api.delete(`/ad-formats/${id}`),
@@ -104,9 +98,8 @@ export const customersApi = {
 };
 
 // ─── Client Brands ────────────────────────────────────────────────────────────
-// Laravel endpoint is /clients (not /client-brands)
 export const clientBrandsApi = {
-  all:    ()           => api.get('/clients'),
+  all:    ()           => cachedGet('/clients'),
   create: (data: any)  => api.post('/clients', data),
   update: (id: any, data: any) => api.put(`/clients/${id}`, data),
   remove: (id: any)    => api.delete(`/clients/${id}`),
@@ -114,7 +107,7 @@ export const clientBrandsApi = {
 
 // ─── Trust Stats ──────────────────────────────────────────────────────────────
 export const trustStatsApi = {
-  all:    ()           => api.get('/trust-stats'),
+  all:    ()           => cachedGet('/trust-stats'),
   create: (data: any)  => api.post('/trust-stats', data),
   update: (id: any, data: any) => api.put(`/trust-stats/${id}`, data),
   remove: (id: any)    => api.delete(`/trust-stats/${id}`),
@@ -122,26 +115,33 @@ export const trustStatsApi = {
 
 // ─── Process Steps ────────────────────────────────────────────────────────────
 export const processStepsApi = {
-  all:    ()           => api.get('/process-steps'),
+  all:    ()           => cachedGet('/process-steps'),
   create: (data: any)  => api.post('/process-steps', data),
   update: (id: any, data: any) => api.put(`/process-steps/${id}`, data),
   remove: (id: any)    => api.delete(`/process-steps/${id}`),
 };
 
 // ─── Settings ─────────────────────────────────────────────────────────────────
-// /home-content and /about-content are convenience aliases backed by SettingController
 export const settingsApi = {
-  all:               ()       => api.get('/settings'),
+  all:               ()       => cachedGet('/settings'),
   update:            (d: any) => api.put('/settings', d),
-  homeContent:       ()       => api.get('/home-content'),
+  homeContent:       ()       => cachedGet('/home-content'),
   updateHomeContent: (d: any) => api.put('/home-content', d),
-  aboutContent:      ()       => api.get('/about-content'),
+  aboutContent:      ()       => cachedGet('/about-content'),
   updateAboutContent:(d: any) => api.put('/about-content', d),
+};
+
+// ─── Users ────────────────────────────────────────────────────────────────────
+export const usersApi = {
+  all:    ()           => api.get('/users'),
+  create: (data: any)  => api.post('/users', data),
+  update: (id: any, data: any) => api.put(`/users/${id}`, data),
+  remove: (id: any)    => api.delete(`/users/${id}`),
 };
 
 // ─── Billboard Sizes ──────────────────────────────────────────────────────────
 export const billboardSizesApi = {
-  all:    ()           => api.get('/billboard-sizes'),
+  all:    ()           => cachedGet('/billboard-sizes'),
   create: (data: any)  => api.post('/billboard-sizes', data),
   update: (id: any, data: any) => api.put(`/billboard-sizes/${id}`, data),
   remove: (id: any)    => api.delete(`/billboard-sizes/${id}`),
@@ -149,7 +149,7 @@ export const billboardSizesApi = {
 
 // ─── Simulator Templates ──────────────────────────────────────────────────────
 export const simulatorTemplatesApi = {
-  all:    ()           => api.get('/simulator-templates'),
+  all:    ()           => cachedGet('/simulator-templates'),
   create: (data: any)  => api.post('/simulator-templates', data),
   update: (id: any, data: any) => api.put(`/simulator-templates/${id}`, data),
   remove: (id: any)    => api.delete(`/simulator-templates/${id}`),
@@ -162,12 +162,3 @@ export const designUploadsApi = {
   update: (id: any, data: any) => api.put(`/design-uploads/${id}`, data),
   remove: (id: any)    => api.delete(`/design-uploads/${id}`),
 };
-
-// ─── Users ────────────────────────────────────────────────────────────────────
-export const usersApi = {
-  all:    ()           => api.get('/users'),
-  create: (data: any)  => api.post('/users', data),
-  update: (id: any, data: any) => api.put(`/users/${id}`, data),
-  remove: (id: any)    => api.delete(`/users/${id}`),
-};
-

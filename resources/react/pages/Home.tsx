@@ -1,5 +1,5 @@
-import { useRef, useEffect, useState } from "react";
-import LeafletMap from "@/components/BillboardMap";
+import { useRef, useEffect, useState, lazy, Suspense } from "react";
+const LeafletMap = lazy(() => import("@/components/BillboardMap"));
 import { useStore, getState } from "@/store/dataStore";
 import { motion, AnimatePresence, useInView, useScroll, useTransform } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
@@ -449,14 +449,16 @@ function HeroSection() {
             background: "linear-gradient(to right, rgba(11,15,26,0.4) 0%, transparent 25%)"
           }} />
 
-          <LeafletMap
-            filtered={getBillboards()}
-            allCount={getBillboards().length}
-            selected={selectedPin}
-            onSelect={setSelectedPin}
-            className="absolute inset-0 w-full h-full"
-            style={{ zIndex: 1 }}
-          />
+          <Suspense fallback={<div className="absolute inset-0 bg-[#0b0f1a]" />}>
+            <LeafletMap
+              filtered={getBillboards()}
+              allCount={getBillboards().length}
+              selected={selectedPin}
+              onSelect={setSelectedPin}
+              className="absolute inset-0 w-full h-full"
+              style={{ zIndex: 1 }}
+            />
+          </Suspense>
 
           <AnimatePresence>
             {selectedPin && (

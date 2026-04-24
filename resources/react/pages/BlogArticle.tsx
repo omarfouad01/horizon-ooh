@@ -180,7 +180,7 @@ export default function BlogArticle() {
                         className="group flex items-start gap-4 py-5 border-b border-[#0B0F1A]/[0.07] hover:text-[#D90429] transition-colors"
                         style={{ textDecoration: "none" }}
                       >
-                        <img src={rel.image} alt={rel.title} className="w-14 h-12 object-cover flex-shrink-0" />
+                        <img src={rel.image} alt={rel.title} className="w-14 h-12 object-cover flex-shrink-0" loading="lazy" />
                         <div>
                           <p className="text-[13px] font-semibold leading-[1.4] transition-colors group-hover:text-[#D90429]" style={{ color: NAVY }}>
                           {(() => { const t = isAr && (rel as any).titleAr ? (rel as any).titleAr : rel.title; return t.length > 60 ? t.slice(0,60)+'…' : t; })()}

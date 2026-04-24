@@ -768,7 +768,7 @@ const val = (idx: number) => results[idx].status === 'fulfilled'
   },
 }));
 
-// Auto-load on first import
+// Auto-load on first import — single initiation guard
 let _initiated = false;
 useApiStore.subscribe((state) => {
   if (!_initiated && !state.loaded && !state.loading) {
@@ -776,9 +776,8 @@ useApiStore.subscribe((state) => {
     useApiStore.getState().reload();
   }
 });
-setTimeout(() => {
-  const s = useApiStore.getState();
-  if (!s.loaded && !s.loading) { _initiated = true; s.reload(); }
-  // Also reload if we have API configured but are showing demo data
-  if (HAS_API && !s.loading) { _initiated = true; s.reload(); }
-}, 0);
+// Immediate kick — runs synchronously before first render
+if (!useApiStore.getState().loaded && !useApiStore.getState().loading) {
+  _initiated = true;
+  useApiStore.getState().reload();
+}

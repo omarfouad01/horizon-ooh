@@ -218,7 +218,7 @@ export default function ProjectDetail() {
               {gallery.map((img, i) => (
                 <RevealItem key={i}>
                   <div className="overflow-hidden bg-[#F5F5F6] border border-[#0B0F1A]/[0.07]" style={{ height: 340 }}>
-                    <img src={img.url} alt={img.alt || `${project.title} campaign photography ${i + 1}`} className="w-full h-full object-cover" style={{ opacity: 0.92 }} />
+                    <img src={img.url} alt={img.alt || `${project.title} campaign photography ${i + 1}`} className="w-full h-full object-cover" style={{ opacity: 0.92 }} loading="lazy" />
                   </div>
                 </RevealItem>
               ))}
@@ -265,7 +265,7 @@ export default function ProjectDetail() {
                 <RevealItem key={p.id}>
                   <Link to={projectHref(p.slug)} className="group block overflow-hidden border border-[#0B0F1A]/[0.07] hover:border-[#D90429]/20 transition-all duration-400" style={{ textDecoration: "none" }}>
                     <div className="relative overflow-hidden" style={{ height: 200 }}>
-                      <img src={p.coverImage} alt={p.title} className="w-full h-full object-cover transition-transform duration-600 group-hover:scale-[1.05]" style={{ opacity: 0.85 }} />
+                      <img src={p.coverImage} alt={p.title} className="w-full h-full object-cover transition-transform duration-600 group-hover:scale-[1.05]" style={{ opacity: 0.85 }} loading="lazy" />
                       <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(11,15,26,0.6) 0%, transparent 60%)" }} />
                       <span className="absolute bottom-4 left-5 text-[10px] font-bold tracking-[0.2em] uppercase px-2 py-1 text-white" style={{ background: CAT_COLORS[p.category] }}>
                         {p.category}

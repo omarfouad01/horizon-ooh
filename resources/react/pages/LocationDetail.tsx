@@ -62,7 +62,7 @@ export default function LocationDetail() {
             </Reveal>
           </div>
           <div className="relative overflow-hidden">
-            <img src={location.image} alt={location.city} className="w-full h-full object-cover" style={{ opacity: 0.6 }} />
+            <img src={location.image} alt={location.city} className="w-full h-full object-cover" style={{ opacity: 0.6 }} loading="lazy" />
             <div className="absolute inset-0" style={{ background: `linear-gradient(to right, ${NAVY} 0%, rgba(11,15,26,0.15) 65%, transparent 100%)` }} />
           </div>
         </div>
