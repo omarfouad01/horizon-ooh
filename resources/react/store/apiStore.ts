@@ -692,9 +692,11 @@ const val = (idx: number) => results[idx].status === 'fulfilled'
         contactContent:     DEMO_CONTACT_CONTENT,
         about:              Object.keys(acRaw).length   ? acRaw    : DEMO_ABOUT,
         aboutContent:       Object.keys(acRaw).length   ? acRaw    : DEMO_ABOUT,
-        billboardSizes:     sizesRaw,
-        simulatorTemplates: normTpls,
-        designUploads:      uploadsRaw,
+        // For simulator data: if the API returned nothing, preserve existing store data
+        // (could have been seeded from localStorage by dataStore)
+        billboardSizes:     sizesRaw.length     ? sizesRaw  : (useApiStore.getState().billboardSizes     ?? []),
+        simulatorTemplates: normTpls.length     ? normTpls  : (useApiStore.getState().simulatorTemplates  ?? []),
+        designUploads:      uploadsRaw.length   ? uploadsRaw: (useApiStore.getState().designUploads       ?? []),
         suppliers:          suppliersRaw,
         customers:          customersRaw,
         contacts:           contactsRaw.length ? contactsRaw : [],

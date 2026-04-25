@@ -400,66 +400,55 @@ function lsSet(key: string, data: any[]) {
   try { localStorage.setItem(key, JSON.stringify(data)); } catch { /* quota */ }
 }
 
-// Load persisted demo data into store on first boot (non-API mode)
-if (!HAS_API) {
-  setTimeout(() => {
-    const savedSizes     = lsGet<BillboardSize>(LS_SIZES, []);
-    const savedTemplates = lsGet<SimulatorTemplate>(LS_TEMPLATES, []);
-    const savedUploads   = lsGet<DesignUpload>(LS_UPLOADS, []);
-    if (savedSizes.length || savedTemplates.length || savedUploads.length) {
+// Always load persisted simulator data from localStorage on first boot.
+// If a real API is configured, reload() will overwrite with fresh API data.
+// This ensures data is visible even in preview/demo environments.
+setTimeout(() => {
+  const savedSizes     = lsGet<BillboardSize>(LS_SIZES, []);
+  const savedTemplates = lsGet<SimulatorTemplate>(LS_TEMPLATES, []);
+  const savedUploads   = lsGet<DesignUpload>(LS_UPLOADS, []);
+  if (savedSizes.length || savedTemplates.length || savedUploads.length) {
+    // Only seed from localStorage if the API hasn't already loaded data
+    const cur = s();
+    if (!(cur as any).simulatorTemplates?.length) {
       set(() => ({
         billboardSizes:     savedSizes,
         simulatorTemplates: savedTemplates,
         designUploads:      savedUploads,
       }));
     }
-  }, 100);
-}
+  }
+}, 150);
 
 // ─── Billboard Sizes — API-backed ─────────────────────────────────────────────
 export const billboardSizeStore = {
   add: async (data: Omit<BillboardSize,'id'>) => {
+    const item: BillboardSize = { ...data, id: uid() };
     if (HAS_API) {
-      await apiOrLocal(
-        () => billboardSizesApi.create(data),
-        () => {}
-      );
+      try {
+        const res = await billboardSizesApi.create(data);
+        const saved = res.data?.data ?? res.data ?? item;
+        set(st => { const u = [...(st as any).billboardSizes, saved]; lsSet(LS_SIZES, u); return { billboardSizes: u }; });
+      } catch { /* API error — store locally as fallback */
+        set(st => { const u = [...(st as any).billboardSizes, item]; lsSet(LS_SIZES, u); return { billboardSizes: u }; });
+      }
     } else {
-      const item: BillboardSize = { ...data, id: uid() };
-      set(st => {
-        const updated = [...(st as any).billboardSizes, item];
-        lsSet(LS_SIZES, updated);
-        return { billboardSizes: updated };
-      });
+      set(st => { const u = [...(st as any).billboardSizes, item]; lsSet(LS_SIZES, u); return { billboardSizes: u }; });
     }
   },
   update: async (id: string, data: Partial<BillboardSize>) => {
     if (HAS_API) {
-      await apiOrLocal(
-        () => billboardSizesApi.update(id, data),
-        () => {}
-      );
-    } else {
-      set(st => {
-        const updated = (st as any).billboardSizes.map((x: BillboardSize) => x.id === id ? { ...x, ...data } : x);
-        lsSet(LS_SIZES, updated);
-        return { billboardSizes: updated };
-      });
+      try {
+        await billboardSizesApi.update(id, data);
+      } catch { /* ignore */ }
     }
+    set(st => { const u = (st as any).billboardSizes.map((x: BillboardSize) => x.id === id ? { ...x, ...data } : x); lsSet(LS_SIZES, u); return { billboardSizes: u }; });
   },
   remove: async (id: string) => {
     if (HAS_API) {
-      await apiOrLocal(
-        () => billboardSizesApi.remove(id),
-        () => {}
-      );
-    } else {
-      set(st => {
-        const updated = (st as any).billboardSizes.filter((x: BillboardSize) => x.id !== id);
-        lsSet(LS_SIZES, updated);
-        return { billboardSizes: updated };
-      });
+      try { await billboardSizesApi.remove(id); } catch { /* ignore */ }
     }
+    set(st => { const u = (st as any).billboardSizes.filter((x: BillboardSize) => x.id !== id); lsSet(LS_SIZES, u); return { billboardSizes: u }; });
   },
   all: () => (s() as any).billboardSizes as BillboardSize[],
 };
@@ -467,47 +456,30 @@ export const billboardSizeStore = {
 // ─── Simulator Templates — API-backed ─────────────────────────────────────────
 export const simulatorTemplateStore = {
   add: async (data: Omit<SimulatorTemplate,'id'>) => {
+    const item: SimulatorTemplate = { ...data, id: uid() };
     if (HAS_API) {
-      await apiOrLocal(
-        () => simulatorTemplatesApi.create(data),
-        () => {}
-      );
+      try {
+        const res = await simulatorTemplatesApi.create(data);
+        const saved = res.data?.data ?? res.data ?? item;
+        set(st => { const u = [...(st as any).simulatorTemplates, saved]; lsSet(LS_TEMPLATES, u); return { simulatorTemplates: u }; });
+      } catch {
+        set(st => { const u = [...(st as any).simulatorTemplates, item]; lsSet(LS_TEMPLATES, u); return { simulatorTemplates: u }; });
+      }
     } else {
-      const item: SimulatorTemplate = { ...data, id: uid() };
-      set(st => {
-        const updated = [...(st as any).simulatorTemplates, item];
-        lsSet(LS_TEMPLATES, updated);
-        return { simulatorTemplates: updated };
-      });
+      set(st => { const u = [...(st as any).simulatorTemplates, item]; lsSet(LS_TEMPLATES, u); return { simulatorTemplates: u }; });
     }
   },
   update: async (id: string, data: Partial<SimulatorTemplate>) => {
     if (HAS_API) {
-      await apiOrLocal(
-        () => simulatorTemplatesApi.update(id, data),
-        () => {}
-      );
-    } else {
-      set(st => {
-        const updated = (st as any).simulatorTemplates.map((x: SimulatorTemplate) => x.id === id ? { ...x, ...data } : x);
-        lsSet(LS_TEMPLATES, updated);
-        return { simulatorTemplates: updated };
-      });
+      try { await simulatorTemplatesApi.update(id, data); } catch { /* ignore */ }
     }
+    set(st => { const u = (st as any).simulatorTemplates.map((x: SimulatorTemplate) => x.id === id ? { ...x, ...data } : x); lsSet(LS_TEMPLATES, u); return { simulatorTemplates: u }; });
   },
   remove: async (id: string) => {
     if (HAS_API) {
-      await apiOrLocal(
-        () => simulatorTemplatesApi.remove(id),
-        () => {}
-      );
-    } else {
-      set(st => {
-        const updated = (st as any).simulatorTemplates.filter((x: SimulatorTemplate) => x.id !== id);
-        lsSet(LS_TEMPLATES, updated);
-        return { simulatorTemplates: updated };
-      });
+      try { await simulatorTemplatesApi.remove(id); } catch { /* ignore */ }
     }
+    set(st => { const u = (st as any).simulatorTemplates.filter((x: SimulatorTemplate) => x.id !== id); lsSet(LS_TEMPLATES, u); return { simulatorTemplates: u }; });
   },
   all: () => (s() as any).simulatorTemplates as SimulatorTemplate[],
 };
@@ -522,10 +494,13 @@ export const designUploadStore = {
       createdAt: new Date().toISOString(),
     };
     if (HAS_API) {
-      await apiOrLocal(
-        () => designUploadsApi.create(item),
-        () => {}
-      );
+      try {
+        const res = await designUploadsApi.create(item);
+        const saved = res.data?.data ?? res.data ?? item;
+        set(st => { const u = [...(st as any).designUploads, saved]; lsSet(LS_UPLOADS, u); return { designUploads: u }; });
+      } catch {
+        set(st => { const u = [...(st as any).designUploads, item]; lsSet(LS_UPLOADS, u); return { designUploads: u }; });
+      }
     } else {
       set(st => {
         const updated = [...(st as any).designUploads, item];
