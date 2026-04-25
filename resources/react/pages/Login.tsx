@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ROUTES, RED, NAVY, ease } from "@/lib/routes";
 import { siteUserStore } from "@/store/dataStore";
+import { authApi } from "@/api";
 
 // ─── Shared input component ───────────────────────────────────────────────
 function AuthInput({
@@ -126,13 +127,36 @@ export default function Login() {
     setError(null);
     if (!email || !password) { setError("Please fill in all fields."); return; }
     setLoading(true);
-    // Simulate API call — replace with real auth
-    await new Promise((r) => setTimeout(r, 1100));
-    // Record login attempt in admin users list
-    siteUserStore.upsert(email, { source: 'login' });
-    setLoading(false);
-    // navigate("/dashboard"); // uncomment when dashboard exists
-    setError("Demo mode — backend auth not yet connected.");
+    try {
+      // Try /auth/login first, then /login fallback
+      let res: any;
+      try {
+        res = await authApi.login(email, password);
+      } catch (_e1) {
+        res = await authApi.loginFallback(email, password);
+      }
+      const d = res.data?.data ?? res.data;
+      const token = d?.token ?? d?.access_token;
+      const user  = d?.user ?? d;
+      if (token) {
+        localStorage.setItem('horizon_token', token);
+        localStorage.setItem('horizon_user', JSON.stringify(user));
+      }
+      siteUserStore.upsert(email, { source: 'login' });
+      setLoading(false);
+      navigate(ROUTES.HOME);
+    } catch (err: any) {
+      setLoading(false);
+      // Parse Laravel validation errors
+      const apiErrors = err?.response?.data?.errors;
+      if (apiErrors) {
+        const msgs = Object.values(apiErrors).flat().join(' ');
+        setError(msgs);
+      } else {
+        const msg = err?.response?.data?.message ?? err?.message ?? 'Login failed. Please try again.';
+        setError(msg);
+      }
+    }
   };
 
   return (

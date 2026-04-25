@@ -21,15 +21,33 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string|null>(()=>localStorage.getItem('horizon_token'));
 
   const login = async (email: string, password: string) => {
-    // ── Try real API first ───────────────────────────────────────────────────
+    // ── Try real API (/auth/login) ───────────────────────────────────────────
     try {
       const res = await authApi.login(email, password);
-      const { token: t, user: u } = res.data;
-      localStorage.setItem('horizon_token', t);
-      localStorage.setItem('horizon_user',  JSON.stringify(u));
-      setToken(t); setUser(u);
-      return;
-    } catch (_) { /* API unreachable — try demo credentials */ }
+      const d = res.data?.data ?? res.data;
+      const t = d?.token ?? d?.access_token;
+      const u = d?.user  ?? d;
+      if (t) {
+        localStorage.setItem('horizon_token', t);
+        localStorage.setItem('horizon_user',  JSON.stringify(u));
+        setToken(t); setUser(u);
+        return;
+      }
+    } catch (_e1) {
+      // ── Try fallback route (/login) ────────────────────────────────────────
+      try {
+        const res = await authApi.loginFallback(email, password);
+        const d = res.data?.data ?? res.data;
+        const t = d?.token ?? d?.access_token;
+        const u = d?.user  ?? d;
+        if (t) {
+          localStorage.setItem('horizon_token', t);
+          localStorage.setItem('horizon_user',  JSON.stringify(u));
+          setToken(t); setUser(u);
+          return;
+        }
+      } catch (_e2) { /* fall through to demo */ }
+    }
 
     // ── Demo / preview mode ──────────────────────────────────────────────────
     if (email === DEMO_EMAIL && password === DEMO_PASSWORD) {
@@ -41,7 +59,7 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    throw new Error('Invalid credentials');
+    throw new Error('Invalid credentials. Check your email and password.');
   };
 
   const logout = () => {
