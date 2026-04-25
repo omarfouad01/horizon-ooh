@@ -68,17 +68,17 @@ export default function AdminAbout() {
   // ── Why Choose modals
   const [whyModal, setWhyModal] = useState<{ open:boolean; item:WhyChooseItem|null }>({ open:false, item:null })
   const [whyForm,  setWhyForm]  = useState({ num:'', title:'', desc:'' })
-  function openAddWhy()  { setWhyForm({num:String((merged.whyItems.length+1)).padStart(2,'0'),title:'',desc:''}); setWhyModal({open:true,item:null}) }
+  function openAddWhy()  { setWhyForm({num:String(((merged.whyItems||[]).length+1)).padStart(2,'0'),title:'',desc:''}); setWhyModal({open:true,item:null}) }
   function openEditWhy(w:WhyChooseItem){ setWhyForm({num:w.num,title:w.title,desc:w.desc}); setWhyModal({open:true,item:w}) }
   function saveWhy() {
     if (whyModal.item) {
-      patch({ whyItems: merged.whyItems.map(x => x.id===whyModal.item!.id ? {...x,...whyForm} : x) })
+      patch({ whyItems: (merged.whyItems||[]).map(x => x.id===whyModal.item!.id ? {...x,...whyForm} : x) })
     } else {
-      patch({ whyItems: [...merged.whyItems, { id:String(Date.now()), ...whyForm }] })
+      patch({ whyItems: [...(merged.whyItems||[]), { id:String(Date.now()), ...whyForm }] })
     }
     setWhyModal({open:false,item:null})
   }
-  function removeWhy(id:string) { patch({ whyItems: merged.whyItems.filter(x=>x.id!==id) }) }
+  function removeWhy(id:string) { patch({ whyItems: (merged.whyItems||[]).filter(x=>x.id!==id) }) }
 
   // ── Key Stats modals
   const [statModal, setStatModal] = useState<{ open:boolean; item:AboutStat|null }>({ open:false, item:null })
@@ -87,13 +87,13 @@ export default function AdminAbout() {
   function openEditStat(s:AboutStat){ setStatForm({value:s.value,label:s.label,sub:s.sub}); setStatModal({open:true,item:s}) }
   function saveStat() {
     if (statModal.item) {
-      patch({ keyStats: merged.keyStats.map(x => x.id===statModal.item!.id ? {...x,...statForm} : x) })
+      patch({ keyStats: (merged.keyStats||[]).map(x => x.id===statModal.item!.id ? {...x,...statForm} : x) })
     } else {
-      patch({ keyStats: [...merged.keyStats, { id:String(Date.now()), ...statForm }] })
+      patch({ keyStats: [...(merged.keyStats||[]), { id:String(Date.now()), ...statForm }] })
     }
     setStatModal({open:false,item:null})
   }
-  function removeStat(id:string) { patch({ keyStats: merged.keyStats.filter(x=>x.id!==id) }) }
+  function removeStat(id:string) { patch({ keyStats: (merged.keyStats||[]).filter(x=>x.id!==id) }) }
 
   // ── Trust Stats (direct store)
   const [tsModal, setTsModal] = useState<{ open:boolean; item:any }>({ open:false, item:null })
@@ -111,12 +111,12 @@ export default function AdminAbout() {
 
   // ── Dark paragraphs helpers
   function setPara(i:number, v:string) {
-    const arr = [...merged.darkParagraphs]
+    const arr = [...(merged.darkParagraphs||[])]
     arr[i] = v
     patch({ darkParagraphs: arr })
   }
-  function addPara()    { patch({ darkParagraphs: [...merged.darkParagraphs, ''] }) }
-  function removePara(i:number) { patch({ darkParagraphs: merged.darkParagraphs.filter((_,j)=>j!==i) }) }
+  function addPara()    { patch({ darkParagraphs: [...(merged.darkParagraphs||[]), ''] }) }
+  function removePara(i:number) { patch({ darkParagraphs: (merged.darkParagraphs||[]).filter((_,j)=>j!==i) }) }
 
   return (
     <div className="p-6 max-w-[1100px] mx-auto">
@@ -193,7 +193,7 @@ export default function AdminAbout() {
             <Field label="Accent (second line)" value={merged.darkAccent} onChange={e=>patch({darkAccent:e.target.value})} placeholder="A visibility partner."/>
           </div>
           <div className="space-y-4">
-            {merged.darkParagraphs.map((p, i) => (
+            {(merged.darkParagraphs||[]).map((p, i) => (
               <div key={i} className="relative">
                 <label className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block mb-1.5">Paragraph {i+1}</label>
                 <div className="flex gap-2">
@@ -242,7 +242,7 @@ export default function AdminAbout() {
 
           <Card title="Why Choose Items" action={<Btn onClick={openAddWhy} className="text-[12px] px-3 py-1.5 flex items-center gap-1"><Plus size={12}/>Add Item</Btn>}>
             <div className="space-y-2">
-              {merged.whyItems.map((item,i) => (
+              {(merged.whyItems||[]).map((item,i) => (
                 <div key={item.id} className="flex items-start gap-3 p-4 rounded-xl border border-gray-100 bg-gray-50/60 hover:bg-gray-50 transition-colors">
                   <span className="text-[11px] font-black tracking-wider mt-0.5 flex-shrink-0" style={{color:'#D90429',minWidth:24}}>{item.num}</span>
                   <div className="flex-1 min-w-0">
@@ -264,7 +264,7 @@ export default function AdminAbout() {
       {tab==='stats' && (
         <Card title="Key Numbers / Statistics" action={<Btn onClick={openAddStat} className="text-[12px] px-3 py-1.5 flex items-center gap-1"><Plus size={12}/>Add Stat</Btn>}>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {merged.keyStats.map(s => (
+            {(merged.keyStats||[]).map(s => (
               <div key={s.id} className="p-5 border border-gray-100 rounded-xl bg-gray-50/60 relative group">
                 <p className="text-[32px] font-black leading-none tracking-[-0.05em] mb-1" style={{color:'#D90429'}}>{s.value}</p>
                 <p className="text-[14px] font-bold text-gray-900">{s.label}</p>

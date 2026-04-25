@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useStore, projectStore } from '@/store/dataStore'
 import { Btn, PageHeader, Tbl, Th, Td, Tr, Badge, Confirm, Modal, Field, TA, Sel, ArrayEditor, ImagePicker, ImageGalleryPicker, type GalleryImage } from '../ui'
-import { Plus, Pencil, Trash2, Star, X, ChevronDown } from 'lucide-react'
+import { Plus, Pencil, Trash2, Star, X } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 function ProjectForm({ editing, onClose }: any) {
@@ -31,30 +31,23 @@ function ProjectForm({ editing, onClose }: any) {
         <Field label="Title *"  value={f.title}  onChange={(e:any)=>set('title',e.target.value)}  required/>
         {/* ── Brand dropdown sourced from Settings → Brands ── */}
         <div>
-          <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider block mb-1.5">Client Brand *</label>
-          <div className="relative">
-            <select
-              required
-              value={f.client}
-              onChange={(e: any) => {
-                const selected = clientBrands.find(b => b.name === e.target.value)
-                set('client', e.target.value)
-                if (selected) {
-                  set('clientLogo', selected.logoUrl || (selected as any).logo || '')
-                  set('clientIndustry', selected.industry || f.clientIndustry)
-                  // Auto-import description from brand if not already filled
-                  if (selected.description) set('clientDescription', selected.description)
-                }
-              }}
-              className="w-full h-9 pl-3 pr-8 rounded-xl border border-gray-200 text-[13px] text-gray-800 bg-white outline-none focus:border-[#D90429] appearance-none"
-            >
-              <option value="">— Select a brand —</option>
-              {clientBrands.map(b => (
-                <option key={b.id} value={b.name}>{b.name}</option>
-              ))}
-            </select>
-            <ChevronDown size={13} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"/>
-          </div>
+          <Sel
+            label="Client Brand *"
+            value={f.client}
+            onChange={(e: any) => {
+              const selected = clientBrands.find((b: any) => b.name === e.target.value)
+              set('client', e.target.value)
+              if (selected) {
+                set('clientLogo', selected.logoUrl || (selected as any).logo || '')
+                set('clientIndustry', selected.industry || f.clientIndustry)
+                if (selected.description) set('clientDescription', selected.description)
+              }
+            }}
+            options={[
+              {value:'',label:'— Select a brand —'},
+              ...clientBrands.map((b:any)=>({value:b.name,label:b.name}))
+            ]}
+          />
           {/* Logo preview */}
           {f.clientLogo && (
             <div className="mt-2 flex items-center gap-2">
@@ -75,9 +68,8 @@ function ProjectForm({ editing, onClose }: any) {
       <TA label="Client Page Description" value={f.clientPageDescription} onChange={(e:any)=>set('clientPageDescription',e.target.value)} />
       <TA label="Campaign Brief" value={f.campaignBrief} onChange={(e:any)=>set('campaignBrief',e.target.value)} />
       <div className="grid grid-cols-3 gap-3">
-        <Sel label="Category" value={f.category} onChange={(e:any)=>set('category',e.target.value)}>
-          {['Billboard','DOOH','Mall','Airport'].map(c=><option key={c}>{c}</option>)}
-        </Sel>
+        <Sel label="Category" value={f.category} onChange={(e:any)=>set('category',e.target.value)}
+          options={['Billboard','DOOH','Mall','Airport'].map(c=>({value:c,label:c}))}/>
         <Field label="Location" value={f.location} onChange={(e:any)=>set('location',e.target.value)}/>
         <Field label="Duration"  value={f.duration}  onChange={(e:any)=>set('duration',e.target.value)}  placeholder="6 weeks"/>
       </div>
@@ -119,9 +111,8 @@ function ProjectForm({ editing, onClose }: any) {
       </div>
       <div className="grid grid-cols-2 gap-3">
         <Field label="Year" value={f.year} onChange={(e:any)=>set('year',e.target.value)}/>
-        <Sel label="Featured" value={f.featured?'1':'0'} onChange={(e:any)=>set('featured',e.target.value==='1')}>
-          <option value="0">Not Featured</option><option value="1">Featured</option>
-        </Sel>
+        <Sel label="Featured" value={f.featured?'1':'0'} onChange={(e:any)=>set('featured',e.target.value==='1')}
+          options={[{value:'0',label:'Not Featured'},{value:'1',label:'Featured'}]}/>
       </div>
       <div className="flex gap-3 justify-end pt-2 border-t border-gray-100">
         <Btn variant="ghost" type="button" onClick={onClose}>Cancel</Btn>

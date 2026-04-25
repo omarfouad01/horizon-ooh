@@ -69,8 +69,23 @@ export default defineConfig(({ mode }) => ({
   build: {
     outDir: 'dist',
     emptyOutDir: true,
+    chunkSizeWarningLimit: 600,
     rollupOptions: {
       input: path.resolve(__dirname, 'index.html'),
+      output: {
+        // ── Manual chunk splitting for optimal caching ──
+        manualChunks(id) {
+          if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) return 'react-core';
+          if (id.includes('node_modules/react-router-dom') || id.includes('node_modules/react-router/')) return 'router';
+          if (id.includes('node_modules/framer-motion')) return 'framer-motion';
+          if (id.includes('node_modules/leaflet')) return 'leaflet';
+          if (id.includes('node_modules/@radix-ui')) return 'radix-ui';
+          if (id.includes('node_modules/recharts') || id.includes('node_modules/d3-')) return 'charts';
+          if (id.includes('node_modules/zustand') || id.includes('node_modules/@tanstack') || id.includes('node_modules/axios')) return 'data-layer';
+          if (id.includes('/resources/react/admin/')) return 'admin';
+          if (id.includes('node_modules/zod') || id.includes('node_modules/date-fns') || id.includes('node_modules/clsx') || id.includes('node_modules/class-variance-authority') || id.includes('node_modules/tailwind-merge')) return 'utils';
+        },
+      },
     },
   },
   server: {

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useStore, locationStore, districtStore } from '@/store/dataStore'
-import { Btn, PageHeader, Tbl, Th, Td, Tr, Badge, Confirm, Modal, Field, TA, ArrayEditor, ImagePicker } from '../ui'
+import { Btn, PageHeader, Tbl, Th, Td, Tr, Badge, Confirm, Modal, Field, TA, Sel, ArrayEditor, ImagePicker } from '../ui'
 import { Plus, Pencil, Trash2, MapPin, Map } from 'lucide-react'
 import toast from 'react-hot-toast'
 
@@ -64,14 +64,11 @@ function DistrictForm({ editing, presetLocationId, onClose }: any) {
 
   return (
     <form onSubmit={save} className="space-y-4">
-      <div className="flex flex-col gap-1.5">
-        <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Governorate *</label>
-        <select value={locId} onChange={e => setLocId(e.target.value)} required
-          className="h-9 px-3 rounded-xl border border-gray-200 text-sm outline-none bg-white">
-          <option value="">Select governorate…</option>
-          {locations.map((l: any) => <option key={l.id} value={l.id}>{l.city}</option>)}
-        </select>
-      </div>
+      <Sel label="Governorate *" value={locId} onChange={(e:any) => setLocId(e.target.value)}
+        options={[
+          {value:'',label:'Select governorate…'},
+          ...locations.map((l:any)=>({value:l.id,label:l.city}))
+        ]}/>
       <div className="grid grid-cols-2 gap-4">
         <Field label="District Name (English) *" value={name} onChange={(e: any) => setName(e.target.value)} required placeholder="e.g. Nasr City" />
         <Field label="District Name (Arabic — اسم المنطقة)" value={nameAr} onChange={(e: any) => setNameAr(e.target.value)} dir="rtl" placeholder="مثال: مدينة نصر" />

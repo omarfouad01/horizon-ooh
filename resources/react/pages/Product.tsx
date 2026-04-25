@@ -1,10 +1,10 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, lazy, Suspense } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
 import { RED, NAVY, ease } from "@/lib/routes";
-import ProductMap from "@/components/ProductMap";
+const ProductMap = lazy(() => import("@/components/ProductMap"));
 import { useLang } from "@/i18n/LangContext";
 
 // ─── Gallery images per billboard type ───────────────────────────────────
@@ -333,7 +333,7 @@ export default function Product() {
                   {productImages.slice(0, 4).map((img: any, i: number) => (
                     <button key={img.id} onClick={() => setDetailIdx(i)} className="relative overflow-hidden border transition-all duration-200"
                       style={{ height: 82, borderColor: i === detailIdx ? RED : 'rgba(11,15,26,0.08)' }}>
-                      <img src={img.url} alt={img.alt} className="w-full h-full object-contain bg-white" />
+                      <img src={img.url} alt={img.alt} className="w-full h-full object-contain bg-white" loading="lazy" />
                     </button>
                   ))}
                 </div>
@@ -390,6 +390,21 @@ export default function Product() {
                   </svg>
                   <span className="text-[12px] font-semibold tracking-[0.15em] uppercase group-hover:text-[#25D366] transition-colors" style={{ color: 'rgba(11,15,26,0.5)' }}>{t('product.whatsappEnquiry')}</span>
                 </a>
+                <button
+                  onClick={() => navigate(`/design-simulator?product=${product.id}`)}
+                  className="group relative w-full h-[48px] overflow-hidden flex items-center justify-center gap-2.5 text-[12px] font-bold tracking-[0.18em] uppercase transition-all duration-200 active:scale-[0.97]"
+                  style={{ border: '1.5px solid #D90429', background: 'transparent', cursor: 'pointer', color: '#D90429' }}
+                >
+                  {/* Hover fill */}
+                  <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: '#D90429' }} />
+                  <svg className="relative z-10 transition-colors duration-300" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                  </svg>
+                  <span className="relative z-10 group-hover:text-white transition-colors duration-300">
+                    {t('product.trySimulator') || (isAr ? 'جرّب المحاكي' : 'Try Simulator')}
+                  </span>
+                </button>
               </div>
             </Reveal>
           </div>
@@ -431,7 +446,9 @@ export default function Product() {
           <Reveal delay={0.06}>
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
               <div className="relative overflow-hidden" style={{ height: 480 }}>
-                <ProductMap lat={product.lat} lng={product.lng} name={product.name} type={product.type} district={product.district} city={location.city} traffic={product.traffic} size={product.size} className="absolute inset-0 w-full h-full" style={{ zIndex: 1 }} />
+                <Suspense fallback={<div className="absolute inset-0 bg-gray-100" />}>
+                  <ProductMap lat={product.lat} lng={product.lng} name={product.name} type={product.type} district={product.district} city={location.city} traffic={product.traffic} size={product.size} className="absolute inset-0 w-full h-full" style={{ zIndex: 1 }} />
+                </Suspense>
                 <div className="absolute top-4 left-4 z-[1000] pointer-events-none">
                   <div className="flex items-center gap-2" style={{ background: "rgba(255,255,255,0.92)", backdropFilter: "blur(6px)", padding: "6px 12px", boxShadow: "0 2px 12px rgba(11,15,26,0.1)" }}>
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none">

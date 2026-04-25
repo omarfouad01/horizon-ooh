@@ -5,6 +5,9 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\DistrictController;
 use App\Http\Controllers\Api\BillboardController;
+use App\Http\Controllers\Api\BillboardSizeController;
+use App\Http\Controllers\Api\SimulatorTemplateController;
+use App\Http\Controllers\Api\DesignUploadController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\BlogController;
@@ -22,7 +25,12 @@ use App\Http\Controllers\Api\SettingController;
 
 Route::get('/health', fn() => response()->json(['status' => 'ok', 'time' => now()->toISOString()]));
 
-Route::post('/auth/login',  [AuthController::class, 'login']);
+// Auth – login & register are public
+Route::post('/auth/login',    [AuthController::class, 'login']);
+Route::post('/auth/register', [AuthController::class, 'register']);
+// Fallback aliases (some Laravel setups use /login and /register under /api)
+Route::post('/login',    [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
 
 // Public contact form submission (singular: /contact)
 Route::post('/contact',     [ContactController::class, 'submit']);
@@ -42,6 +50,10 @@ Route::get('/clients',           [ClientBrandController::class, 'index']);
 Route::get('/trust-stats',       [TrustStatController::class, 'index']);
 Route::get('/process-steps',     [ProcessStepController::class, 'index']);
 Route::get('/settings',          [SettingController::class, 'index']);
+
+// Public simulator data (read-only)
+Route::get('/billboard-sizes',      [BillboardSizeController::class, 'index']);
+Route::get('/simulator-templates',  [SimulatorTemplateController::class, 'index']);
 
 // Home & About content convenience aliases (reads from settings table)
 Route::get('/home-content',  [SettingController::class, 'homeContent']);
@@ -80,6 +92,21 @@ Route::middleware('auth:api')->group(function () {
     Route::post  ('/billboards/{id}',           [BillboardController::class, 'update']);
     Route::delete('/billboards/{id}',           [BillboardController::class, 'destroy']);
     Route::delete('/billboards/{id}/images',    [BillboardController::class, 'deleteImage']);
+
+    // Billboard Sizes (admin CRUD)
+    Route::post  ('/billboard-sizes',       [BillboardSizeController::class, 'store']);
+    Route::put   ('/billboard-sizes/{id}',  [BillboardSizeController::class, 'update']);
+    Route::delete('/billboard-sizes/{id}',  [BillboardSizeController::class, 'destroy']);
+
+    // Simulator Templates (admin CRUD)
+    Route::post  ('/simulator-templates',       [SimulatorTemplateController::class, 'store']);
+    Route::put   ('/simulator-templates/{id}',  [SimulatorTemplateController::class, 'update']);
+    Route::delete('/simulator-templates/{id}',  [SimulatorTemplateController::class, 'destroy']);
+
+    // Design Uploads (admin read + status update; public POST is below)
+    Route::get   ('/design-uploads',       [DesignUploadController::class, 'index']);
+    Route::put   ('/design-uploads/{id}',  [DesignUploadController::class, 'update']);
+    Route::delete('/design-uploads/{id}',  [DesignUploadController::class, 'destroy']);
 
     // Services
     Route::post  ('/services',       [ServiceController::class, 'store']);
@@ -131,3 +158,6 @@ Route::middleware('auth:api')->group(function () {
     Route::put   ('/users/{id}',  [UserController::class, 'update']);
     Route::delete('/users/{id}',  [UserController::class, 'destroy']);
 });
+
+// Design uploads – public POST (users submit designs without auth)
+Route::post('/design-uploads', [DesignUploadController::class, 'store']);

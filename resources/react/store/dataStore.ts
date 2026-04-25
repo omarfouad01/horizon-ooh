@@ -15,7 +15,11 @@ export type {
   ApiState, AdFormatType, ClientBrand, Supplier, Customer,
   SiteUser, WhyChooseItem, AboutStat, AboutContent,
   ContactEntry, ProcessStep, ResultStat,
+  BillboardSize, SimulatorTemplate, DesignUpload,
 } from './apiStore';
+
+// Local imports for store implementations
+import type { BillboardSize, SimulatorTemplate, DesignUpload } from './apiStore';
 
 // Product type used by AdminBillboards
 export interface Product {
@@ -48,10 +52,17 @@ import {
   locationsApi, districtsApi, servicesApi, projectsApi,
   blogApi, adFormatsApi, clientBrandsApi, trustStatsApi,
   processStepsApi, settingsApi, contactsApi,
+  suppliersApi, customersApi,
+  billboardSizesApi, simulatorTemplatesApi, designUploadsApi,
 } from '@/api';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
-const HAS_API = !!(import.meta.env.VITE_API_URL && import.meta.env.VITE_API_URL !== '/api');
+const _envApiUrl  = import.meta.env.VITE_API_URL as string | undefined;
+const _isRealHost = typeof window !== 'undefined' &&
+  window.location.hostname !== 'localhost' &&
+  window.location.hostname !== '127.0.0.1' &&
+  !window.location.hostname.startsWith('192.168.');
+const HAS_API = !!(_envApiUrl && _envApiUrl !== '/api') || _isRealHost;
 const uid  = () => Date.now().toString(36) + Math.random().toString(36).slice(2);
 const s    = () => useApiStore.getState();
 const set  = useApiStore.setState;
@@ -90,6 +101,26 @@ export const homeStore = {
       try { await settingsApi.updateHomeContent(data); await reload(); } catch { /* ignore */ }
     }
     set(st => ({ homeContent: { ...st.homeContent, ...data } }));
+  },
+};
+
+// ─── Locations page content ────────────────────────────────────────────────────
+export const locationsContentStore = {
+  update: async (data: any) => {
+    if (HAS_API) {
+      try { await settingsApi.update({ locationsContent: data }); await reload(); } catch { /* ignore */ }
+    }
+    set(st => ({ locationsContent: { ...st.locationsContent, ...data } }));
+  },
+};
+
+// ─── Contact page content ─────────────────────────────────────────────────────
+export const contactContentStore = {
+  update: async (data: any) => {
+    if (HAS_API) {
+      try { await settingsApi.update({ contactContent: data }); await reload(); } catch { /* ignore */ }
+    }
+    set(st => ({ contactContent: { ...st.contactContent, ...data } }));
   },
 };
 
@@ -285,16 +316,16 @@ export const resultStore = {
 
 // ─── Suppliers ────────────────────────────────────────────────────────────────
 export const supplierStore = {
-  add:    (data: any) => { set(st => ({ suppliers: [...st.suppliers, { ...data, id: data.id ?? uid() }] })); },
-  update: (id: any, data: any) => { set(st => ({ suppliers: st.suppliers.map((x: any) => x.id === id ? { ...x, ...data } : x) })); },
-  remove: (id: any) => { set(st => ({ suppliers: st.suppliers.filter((x: any) => x.id !== id) })); },
+  add:    (data: any) => apiOrLocal(() => suppliersApi.create(data), () => { set(st => ({ suppliers: [...st.suppliers, { ...data, id: data.id ?? uid() }] })); }),
+  update: (id: any, data: any) => apiOrLocal(() => suppliersApi.update(id, data), () => { set(st => ({ suppliers: st.suppliers.map((x: any) => x.id === id ? { ...x, ...data } : x) })); }),
+  remove: (id: any) => apiOrLocal(() => suppliersApi.remove(id), () => { set(st => ({ suppliers: st.suppliers.filter((x: any) => x.id !== id) })); }),
 };
 
 // ─── Customers ────────────────────────────────────────────────────────────────
 export const customerStore = {
-  add:    (data: any) => { set(st => ({ customers: [...st.customers, { ...data, id: data.id ?? uid() }] })); },
-  update: (id: any, data: any) => { set(st => ({ customers: st.customers.map((x: any) => x.id === id ? { ...x, ...data } : x) })); },
-  remove: (id: any) => { set(st => ({ customers: st.customers.filter((x: any) => x.id !== id) })); },
+  add:    (data: any) => apiOrLocal(() => customersApi.create(data), () => { set(st => ({ customers: [...st.customers, { ...data, id: data.id ?? uid() }] })); }),
+  update: (id: any, data: any) => apiOrLocal(() => customersApi.update(id, data), () => { set(st => ({ customers: st.customers.map((x: any) => x.id === id ? { ...x, ...data } : x) })); }),
+  remove: (id: any) => apiOrLocal(() => customersApi.remove(id), () => { set(st => ({ customers: st.customers.filter((x: any) => x.id !== id) })); }),
 };
 
 // ─── Contact form submissions ─────────────────────────────────────────────────
@@ -347,6 +378,192 @@ export const siteUserStore = {
     set(st => ({ siteUsers: st.siteUsers.filter((u: any) => u.id !== id) }));
   },
   all: () => s().siteUsers,
+};
+
+// ─── localStorage helpers (demo-mode persistence) ────────────────────────────
+// When no real API is configured, we persist simulator data to localStorage
+// so it survives page reloads.
+const LS_SIZES     = 'horizon_billboard_sizes';
+const LS_TEMPLATES = 'horizon_simulator_templates';
+const LS_UPLOADS   = 'horizon_design_uploads';
+
+function lsGet<T>(key: string, fallback: T[]): T[] {
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) return fallback;
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : fallback;
+  } catch { return fallback; }
+}
+
+function lsSet(key: string, data: any[]) {
+  try { localStorage.setItem(key, JSON.stringify(data)); } catch { /* quota */ }
+}
+
+// Load persisted demo data into store on first boot (non-API mode)
+if (!HAS_API) {
+  setTimeout(() => {
+    const savedSizes     = lsGet<BillboardSize>(LS_SIZES, []);
+    const savedTemplates = lsGet<SimulatorTemplate>(LS_TEMPLATES, []);
+    const savedUploads   = lsGet<DesignUpload>(LS_UPLOADS, []);
+    if (savedSizes.length || savedTemplates.length || savedUploads.length) {
+      set(() => ({
+        billboardSizes:     savedSizes,
+        simulatorTemplates: savedTemplates,
+        designUploads:      savedUploads,
+      }));
+    }
+  }, 100);
+}
+
+// ─── Billboard Sizes — API-backed ─────────────────────────────────────────────
+export const billboardSizeStore = {
+  add: async (data: Omit<BillboardSize,'id'>) => {
+    if (HAS_API) {
+      await apiOrLocal(
+        () => billboardSizesApi.create(data),
+        () => {}
+      );
+    } else {
+      const item: BillboardSize = { ...data, id: uid() };
+      set(st => {
+        const updated = [...(st as any).billboardSizes, item];
+        lsSet(LS_SIZES, updated);
+        return { billboardSizes: updated };
+      });
+    }
+  },
+  update: async (id: string, data: Partial<BillboardSize>) => {
+    if (HAS_API) {
+      await apiOrLocal(
+        () => billboardSizesApi.update(id, data),
+        () => {}
+      );
+    } else {
+      set(st => {
+        const updated = (st as any).billboardSizes.map((x: BillboardSize) => x.id === id ? { ...x, ...data } : x);
+        lsSet(LS_SIZES, updated);
+        return { billboardSizes: updated };
+      });
+    }
+  },
+  remove: async (id: string) => {
+    if (HAS_API) {
+      await apiOrLocal(
+        () => billboardSizesApi.remove(id),
+        () => {}
+      );
+    } else {
+      set(st => {
+        const updated = (st as any).billboardSizes.filter((x: BillboardSize) => x.id !== id);
+        lsSet(LS_SIZES, updated);
+        return { billboardSizes: updated };
+      });
+    }
+  },
+  all: () => (s() as any).billboardSizes as BillboardSize[],
+};
+
+// ─── Simulator Templates — API-backed ─────────────────────────────────────────
+export const simulatorTemplateStore = {
+  add: async (data: Omit<SimulatorTemplate,'id'>) => {
+    if (HAS_API) {
+      await apiOrLocal(
+        () => simulatorTemplatesApi.create(data),
+        () => {}
+      );
+    } else {
+      const item: SimulatorTemplate = { ...data, id: uid() };
+      set(st => {
+        const updated = [...(st as any).simulatorTemplates, item];
+        lsSet(LS_TEMPLATES, updated);
+        return { simulatorTemplates: updated };
+      });
+    }
+  },
+  update: async (id: string, data: Partial<SimulatorTemplate>) => {
+    if (HAS_API) {
+      await apiOrLocal(
+        () => simulatorTemplatesApi.update(id, data),
+        () => {}
+      );
+    } else {
+      set(st => {
+        const updated = (st as any).simulatorTemplates.map((x: SimulatorTemplate) => x.id === id ? { ...x, ...data } : x);
+        lsSet(LS_TEMPLATES, updated);
+        return { simulatorTemplates: updated };
+      });
+    }
+  },
+  remove: async (id: string) => {
+    if (HAS_API) {
+      await apiOrLocal(
+        () => simulatorTemplatesApi.remove(id),
+        () => {}
+      );
+    } else {
+      set(st => {
+        const updated = (st as any).simulatorTemplates.filter((x: SimulatorTemplate) => x.id !== id);
+        lsSet(LS_TEMPLATES, updated);
+        return { simulatorTemplates: updated };
+      });
+    }
+  },
+  all: () => (s() as any).simulatorTemplates as SimulatorTemplate[],
+};
+
+// ─── Design Uploads — API-backed ──────────────────────────────────────────────
+export const designUploadStore = {
+  add: async (data: Omit<DesignUpload,'id'|'status'|'createdAt'>) => {
+    const item: DesignUpload = {
+      ...data,
+      id: uid(),
+      status: 'pending',
+      createdAt: new Date().toISOString(),
+    };
+    if (HAS_API) {
+      await apiOrLocal(
+        () => designUploadsApi.create(item),
+        () => {}
+      );
+    } else {
+      set(st => {
+        const updated = [...(st as any).designUploads, item];
+        lsSet(LS_UPLOADS, updated);
+        return { designUploads: updated };
+      });
+    }
+    return item;
+  },
+  update: async (id: string, data: Partial<DesignUpload>) => {
+    if (HAS_API) {
+      await apiOrLocal(
+        () => designUploadsApi.update(id, data),
+        () => {}
+      );
+    } else {
+      set(st => {
+        const updated = (st as any).designUploads.map((x: DesignUpload) => x.id === id ? { ...x, ...data } : x);
+        lsSet(LS_UPLOADS, updated);
+        return { designUploads: updated };
+      });
+    }
+  },
+  remove: async (id: string) => {
+    if (HAS_API) {
+      await apiOrLocal(
+        () => designUploadsApi.remove(id),
+        () => {}
+      );
+    } else {
+      set(st => {
+        const updated = (st as any).designUploads.filter((x: DesignUpload) => x.id !== id);
+        lsSet(LS_UPLOADS, updated);
+        return { designUploads: updated };
+      });
+    }
+  },
+  all: () => (s() as any).designUploads as DesignUpload[],
 };
 
 // ─── Misc ─────────────────────────────────────────────────────────────────────

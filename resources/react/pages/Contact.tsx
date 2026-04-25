@@ -9,10 +9,11 @@ import { useLang } from "@/i18n/LangContext";
 const API_URL = (import.meta.env.VITE_API_URL as string | undefined) ?? "/api";
 
 export default function Contact() {
-  const { settings } = useStore();
+  const { settings, contactContent } = useStore();
+  const cc = contactContent || {};
   const { isAr, t } = useLang();
   const CONTACT_INFO = [
-    { label: isAr ? 'المقر الرئيسي بالقاهرة' : ((settings as any).hqLabel || "Cairo HQ"), value: settings.address || "Cairo, Egypt", icon: "◉" },
+    { label: isAr ? (cc.hqLabelAr || 'المقر الرئيسي بالقاهرة') : (cc.hqLabel || (settings as any).hqLabel || 'Cairo HQ'), value: settings.address || 'Cairo, Egypt', icon: '◉' },
     { label: isAr ? 'الهاتف' : "Phone",   value: settings.phone   || "+20 2 1234 5678", icon: "◉" },
     { label: isAr ? 'البريد الإلكتروني' : "Email",   value: settings.email   || "info@horizonooh.com", icon: "◉" },
     { label: isAr ? 'ساعات العمل' : "Hours",   value: isAr ? 'الأحد – الخميس، 9:00 – 18:00 EET' : "Sun – Thu, 9:00 – 18:00 EET", icon: "◉" },
@@ -61,10 +62,10 @@ export default function Contact() {
   return (
     <>
       <PageHero
-        eyebrow={isAr ? 'تواصل معنا' : "Get in Touch"}
-        title={isAr ? 'اتصل بنا.' : "Contact Us."}
-        titleAccent={isAr ? 'دعنا نتحدث عن الظهور.' : "Let's talk visibility."}
-        subtitle={isAr ? 'هل أنت مستعد لإطلاق حملتك الإعلانية الخارجية؟ سيرد فريقنا خلال 24 ساعة.' : "Ready to launch your outdoor advertising campaign? Our team will respond within 24 hours."}
+        eyebrow={isAr ? (cc.heroEyebrowAr || 'تواصل معنا') : (cc.heroEyebrow || 'Get in Touch')}
+        title={isAr ? (cc.heroTitleAr || 'اتصل بنا.') : (cc.heroTitle || 'Contact Us.')}
+        titleAccent={isAr ? (cc.heroAccentAr || 'دعنا نتحدث عن الظهور.') : (cc.heroAccent || "Let's talk visibility.")}
+        subtitle={isAr ? (cc.heroSubtitleAr || 'هل أنت مستعد لإطلاق حملتك الإعلانية الخارجية؟ سيرد فريقنا خلال 24 ساعة.') : (cc.heroSubtitle || 'Ready to launch your outdoor advertising campaign? Our team will respond within 24 hours.')}
         dark={false}
       />
 
@@ -77,7 +78,7 @@ export default function Contact() {
             <div className="col-span-7">
               <Reveal>
                 <p className="text-[10px] font-bold tracking-[0.35em] uppercase mb-8" style={{ color: "rgba(11,15,26,0.3)" }}>
-                  {isAr ? 'نموذج الاستفسار عن الحملة' : 'Campaign Enquiry Form'}
+                  {isAr ? (cc.formLabelAr || 'نموذج الاستفسار عن الحملة') : (cc.formLabel || 'Campaign Enquiry Form')}
                 </p>
               </Reveal>
 
@@ -95,10 +96,10 @@ export default function Contact() {
                     </svg>
                   </div>
                   <h2 className="font-black leading-[1.0] tracking-[-0.03em]" style={{ fontSize: 36, color: NAVY }}>
-                    {isAr ? 'تم استلام رسالتك.' : 'Message received.'}
+                    {isAr ? (cc.successTitleAr || 'تم استلام رسالتك.') : (cc.successTitle || 'Message received.')}
                   </h2>
                   <p className="text-[17px] leading-[1.75]" style={{ color: "rgba(11,15,26,0.45)", maxWidth: 420 }}>
-                    {isAr ? 'شكراً لتواصلك معنا. سيتواصل معك أحد خبرائنا الإعلاميين خلال 24 ساعة.' : 'Thank you for reaching out. One of our media strategists will be in touch within 24 hours.'}
+                    {isAr ? (cc.successTextAr || 'شكراً لتواصلك معنا. سيتواصل معك أحد خبرائنا الإعلاميين خلال 24 ساعة.') : (cc.successText || 'Thank you for reaching out. One of our media strategists will be in touch within 24 hours.')}
                   </p>
                 </motion.div>
               ) : (
@@ -230,14 +231,14 @@ export default function Contact() {
                       >
                         <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: NAVY }} />
                         <span className="relative z-10">
-                          {loading ? (isAr ? 'جارٍ الإرسال...' : 'Sending…') : (isAr ? 'إرسال الرسالة' : 'Send Message')}
+                          {loading ? (isAr ? 'جارٍ الإرسال...' : 'Sending…') : (isAr ? (cc.sendBtnAr || 'إرسال الرسالة') : (cc.sendBtn || 'Send Message'))}
                         </span>
                         {loading && (
                           <span className="relative z-10 w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                         )}
                       </button>
                       <p className="text-[11px]" style={{ color: "rgba(11,15,26,0.3)" }}>
-                        {isAr ? 'نرد خلال 24 ساعة.' : 'We respond within 24 hours.'}
+                        {isAr ? (cc.responseTimeAr || 'نرد خلال 24 ساعة.') : (cc.responseTime || 'We respond within 24 hours.')}
                       </p>
                     </div>
                   </Reveal>
@@ -253,7 +254,7 @@ export default function Contact() {
                   <div style={{ background: NAVY, padding: "48px 48px" }}>
                     <div className="w-5 h-[1.5px] mb-8" style={{ background: RED }} />
                     <p className="font-black text-white text-[20px] tracking-[-0.02em] leading-[1.2] mb-10">
-                      {isAr ? 'تحدث مباشرة مع فريق الإعلام لدينا.' : 'Speak directly with our media team.'}
+                      {isAr ? (cc.infoTitleAr || 'تحدث مباشرة مع فريق الإعلام لدينا.') : (cc.infoTitle || 'Speak directly with our media team.')}
                     </p>
 
                     <div className="flex flex-col gap-8">

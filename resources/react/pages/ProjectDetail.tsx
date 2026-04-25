@@ -102,7 +102,7 @@ export default function ProjectDetail() {
           </div>
 
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease, delay: 0.35 }} className="flex items-center gap-12 pt-8 border-t border-white/[0.08] flex-wrap">
-            {project.results.map((r) => (
+            {(project.results || []).map((r: any) => (
               <div key={r.metric}>
                 <p className="font-black text-white tracking-[-0.04em]" style={{ fontSize: 30 }}>{r.value}</p>
                 <p className="text-[10px] font-bold tracking-[0.25em] uppercase mt-1" style={{ color: "rgba(255,255,255,0.3)" }}>{r.metric}</p>
@@ -218,7 +218,7 @@ export default function ProjectDetail() {
               {gallery.map((img, i) => (
                 <RevealItem key={i}>
                   <div className="overflow-hidden bg-[#F5F5F6] border border-[#0B0F1A]/[0.07]" style={{ height: 340 }}>
-                    <img src={img.url} alt={img.alt || `${project.title} campaign photography ${i + 1}`} className="w-full h-full object-cover" style={{ opacity: 0.92 }} />
+                    <img src={img.url} alt={img.alt || `${project.title} campaign photography ${i + 1}`} className="w-full h-full object-cover" style={{ opacity: 0.92 }} loading="lazy" />
                   </div>
                 </RevealItem>
               ))}
@@ -238,9 +238,9 @@ export default function ProjectDetail() {
           </Reveal>
 
           <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 gap-[1px]" style={{ background: "rgba(255,255,255,0.05)" }}>
-            {project.results.map((r, i) => (
-              <RevealItem key={r.metric}>
-                <div className="flex flex-col" style={{ padding: "48px 56px", background: NAVY, borderBottom: i < project.results.length - 2 ? "1px solid rgba(255,255,255,0.05)" : "none" }}>
+            {(project.results || []).map((r: any, i: number) => (
+              <RevealItem key={r.metric ?? i}>
+                <div className="flex flex-col" style={{ padding: "48px 56px", background: NAVY, borderBottom: i < (project.results || []).length - 2 ? "1px solid rgba(255,255,255,0.05)" : "none" }}>
                   <span className="font-black leading-none tracking-[-0.05em] mb-4" style={{ fontSize: "clamp(48px, 5vw, 72px)", color: RED }}>{r.value}</span>
                   <span className="font-bold text-white mb-2" style={{ fontSize: 18 }}>{r.metric}</span>
                   <span className="text-[13px] leading-[1.65]" style={{ color: "rgba(255,255,255,0.35)" }}>{r.description}</span>
@@ -265,7 +265,7 @@ export default function ProjectDetail() {
                 <RevealItem key={p.id}>
                   <Link to={projectHref(p.slug)} className="group block overflow-hidden border border-[#0B0F1A]/[0.07] hover:border-[#D90429]/20 transition-all duration-400" style={{ textDecoration: "none" }}>
                     <div className="relative overflow-hidden" style={{ height: 200 }}>
-                      <img src={p.coverImage} alt={p.title} className="w-full h-full object-cover transition-transform duration-600 group-hover:scale-[1.05]" style={{ opacity: 0.85 }} />
+                      <img src={p.coverImage} alt={p.title} className="w-full h-full object-cover transition-transform duration-600 group-hover:scale-[1.05]" style={{ opacity: 0.85 }} loading="lazy" />
                       <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(11,15,26,0.6) 0%, transparent 60%)" }} />
                       <span className="absolute bottom-4 left-5 text-[10px] font-bold tracking-[0.2em] uppercase px-2 py-1 text-white" style={{ background: CAT_COLORS[p.category] }}>
                         {p.category}

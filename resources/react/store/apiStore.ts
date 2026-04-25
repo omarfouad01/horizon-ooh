@@ -7,7 +7,8 @@ import { create } from 'zustand';
 import {
   locationsApi, adFormatsApi, servicesApi, projectsApi,
   blogApi, trustStatsApi, processStepsApi, clientBrandsApi,
-  settingsApi, districtsApi,
+  settingsApi, districtsApi, suppliersApi, customersApi, contactsApi,
+  billboardSizesApi, simulatorTemplatesApi, designUploadsApi,
 } from '@/api';
 import { LOCATIONS, SERVICES, PROJECTS, BLOG_POSTS, TRUST_STATS, PROCESS, CLIENT_BRANDS } from '@/data';
 
@@ -243,8 +244,186 @@ const DEMO_RESULTS: ResultStat[] = [
 // In-memory contacts for demo mode
 const _demoContacts: ContactEntry[] = [];
 
+// ─── Contact page demo content ────────────────────────────────────────────────
+export const DEMO_CONTACT_CONTENT = {
+  heroEyebrow:    'Get in Touch',
+  heroEyebrowAr:  'تواصل معنا',
+  heroTitle:      'Contact Us.',
+  heroTitleAr:    'اتصل بنا.',
+  heroAccent:     "Let's talk visibility.",
+  heroAccentAr:   'دعنا نتحدث عن الظهور.',
+  heroSubtitle:   'Ready to launch your outdoor advertising campaign? Our team will respond within 24 hours.',
+  heroSubtitleAr: 'هل أنت مستعد لإطلاق حملتك الإعلانية الخارجية؟ سيرد فريقنا خلال 24 ساعة.',
+  formLabel:      'Campaign Enquiry Form',
+  formLabelAr:    'نموذج الاستفسار عن الحملة',
+  successTitle:   'Message received.',
+  successTitleAr: 'تم استلام رسالتك.',
+  successText:    'Thank you for reaching out. One of our media strategists will be in touch within 24 hours.',
+  successTextAr:  'شكراً لتواصلك معنا. سيتواصل معك أحد خبرائنا الإعلاميين خلال 24 ساعة.',
+  infoTitle:      'Speak directly with our media team.',
+  infoTitleAr:    'تحدث مباشرة مع فريق الإعلام لدينا.',
+  responseTime:   'We respond within 24 hours.',
+  responseTimeAr: 'نرد خلال 24 ساعة.',
+  sendBtn:        'Send Message',
+  sendBtnAr:      'إرسال الرسالة',
+  hqLabel:        'Cairo HQ',
+  hqLabelAr:      'المقر الرئيسي بالقاهرة',
+};
+
 // ─── Check if a real API URL is configured ────────────────────────────────────
-const HAS_API = !!(import.meta.env.VITE_API_URL && import.meta.env.VITE_API_URL !== '/api');
+// True when:
+//   1. VITE_API_URL is explicitly set at build time (recommended), OR
+//   2. At runtime the page is served from a real hostname (not localhost/127.0.0.1)
+//      — this handles deployments where VITE_API_URL was not set during build
+const _envUrl  = import.meta.env.VITE_API_URL as string | undefined;
+const _isRealHostname = typeof window !== 'undefined' &&
+  window.location.hostname !== 'localhost' &&
+  window.location.hostname !== '127.0.0.1' &&
+  !window.location.hostname.startsWith('192.168.');
+const HAS_API = !!(_envUrl && _envUrl !== '/api') || _isRealHostname;
+
+// ─── Slug generation helper ───────────────────────────────────────────────────
+// Converts a string to a URL-safe slug (used when API returns items without slugs)
+function toSlug(str: string): string {
+  return (str ?? '')
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')   // remove non-alphanumeric
+    .replace(/[\s_]+/g, '-')    // spaces → dashes
+    .replace(/--+/g, '-')       // collapse consecutive dashes
+    .replace(/^-+|-+$/g, '')    // trim leading/trailing dashes
+    || 'item';
+}
+
+// ─── Data normalizers — guarantee all required fields exist ──────────────────
+
+/** Normalize a location object from the API */
+function normLoc(loc: any, idx: number): any {
+  if (!loc || typeof loc !== 'object') return null;
+  const city = loc.city ?? loc.name ?? `City ${idx + 1}`;
+  return {
+    ...loc,
+    id:       String(loc.id ?? idx + 1),
+    city,
+    cityAr:   loc.cityAr   ?? loc.city_ar   ?? '',
+    slug:     loc.slug     ?? toSlug(city),
+    products: Array.isArray(loc.products)  ? loc.products.map((p: any, pi: number) => normProduct(p, pi, loc)).filter(Boolean) : [],
+    districts: Array.isArray(loc.districts) ? loc.districts : [],
+  };
+}
+
+/** Normalize a billboard/product nested inside a location */
+function normProduct(p: any, idx: number, loc?: any): any {
+  if (!p || typeof p !== 'object') return null;
+  const title = p.title ?? p.name ?? `Billboard ${idx + 1}`;
+  return {
+    ...p,
+    id:    String(p.id ?? idx + 1),
+    title,
+    slug:  p.slug ?? toSlug(`${title}-${p.code ?? p.id ?? idx + 1}`),
+    code:  p.code ?? '',
+    // Ensure location fields are available on the product itself
+    citySlug: p.citySlug ?? loc?.slug ?? toSlug(loc?.city ?? ''),
+    city:     p.city     ?? loc?.city ?? '',
+  };
+}
+
+/** Normalize a project from the API */
+function normProject(proj: any, idx: number): any {
+  if (!proj || typeof proj !== 'object') return null;
+  const title = proj.title ?? `Project ${idx + 1}`;
+  return {
+    ...proj,
+    id:            String(proj.id ?? idx + 1),
+    title,
+    slug:          proj.slug         ?? toSlug(`${title}-${proj.id ?? idx + 1}`),
+    results:       Array.isArray(proj.results)       ? proj.results       : [],
+    galleryImages: Array.isArray(proj.galleryImages) ? proj.galleryImages : [],
+    images:        Array.isArray(proj.images)        ? proj.images        : [],
+    tags:          Array.isArray(proj.tags)          ? proj.tags          : [],
+    stats:         Array.isArray(proj.stats)         ? proj.stats         : [],
+    client:        proj.client   ?? '',
+    category:      proj.category ?? 'Billboard',
+    titleAr:       proj.titleAr  ?? '',
+  };
+}
+
+/** Normalize a blog post from the API */
+function normBlogPost(post: any, idx: number): any {
+  if (!post || typeof post !== 'object') return null;
+  const title = post.title ?? `Post ${idx + 1}`;
+  return {
+    ...post,
+    id:       String(post.id ?? idx + 1),
+    title,
+    titleAr:  post.titleAr  ?? '',
+    slug:     post.slug ?? toSlug(`${title}-${post.id ?? idx + 1}`),
+    body:     Array.isArray(post.body)   ? post.body   : [],
+    bodyAr:   Array.isArray(post.bodyAr) ? post.bodyAr : [],
+    tags:     Array.isArray(post.tags)   ? post.tags   : [],
+    metaTitle: post.metaTitle ?? '',
+    metaDesc:  post.metaDesc  ?? '',
+  };
+}
+
+/** Normalize a service from the API */
+function normService(svc: any, idx: number): any {
+  if (!svc || typeof svc !== 'object') return null;
+  const title = svc.title ?? svc.name ?? `Service ${idx + 1}`;
+  return {
+    ...svc,
+    id:    String(svc.id ?? idx + 1),
+    title,
+    slug:  svc.slug ?? toSlug(`${title}-${svc.id ?? idx + 1}`),
+  };
+}
+
+/** Safely extract an array from an API response — handles {data:[...]}, [...] and null */
+function apiArr(res: any): any[] {
+  if (!res) return [];
+  if (Array.isArray(res))        return res;
+  if (Array.isArray(res.data))   return res.data;
+  // Sometimes wrapped in { data: { data: [...] } } (Laravel pagination)
+  if (res.data && Array.isArray(res.data.data)) return res.data.data;
+  return [];
+}
+
+/** Safely extract a single object from an API response */
+function apiObj(res: any): any {
+  if (!res)                    return {};
+  if (typeof res === 'object' && !Array.isArray(res) && res.data === undefined) return res;
+  if (res.data && typeof res.data === 'object' && !Array.isArray(res.data)) return res.data;
+  return {};
+}
+
+// ─── Locations page content defaults ────────────────────────────────────────
+export const DEMO_LOCATIONS_CONTENT = {
+  // Hero section
+  eyebrow:          'Our Network',
+  title:            'Advertising Locations',
+  titleAccent:      'Across Egypt.',
+  subtitle:         "9,500+ premium outdoor advertising locations — from Cairo's Ring Road to Alexandria's Corniche.",
+  eyebrowAr:        'شبكتنا',
+  titleAr:          'مواقع إعلانية',
+  titleAccentAr:    'في جميع أنحاء مصر.',
+  subtitleAr:       'أكثر من 9,500 موقع إعلاني متميز — من الطريق الدائري في القاهرة إلى كورنيش الإسكندرية.',
+  // Floating CTA bar
+  ctaHelpText:      'Need help choosing the best billboard?',
+  ctaHelpTextAr:    'تحتاج مساعدة في اختيار أفضل لوحة إعلانية؟',
+  ctaButton:        'Talk to an Expert',
+  ctaButtonAr:      'تحدث مع خبير',
+  whatsappNumber:   '+201234567890',
+  whatsappMessage:  'Hi HORIZON OOH, I need help choosing billboard locations',
+  // Location detail page
+  detailEyebrow:    'Advertising Location',
+  detailEyebrowAr:  'موقع إعلاني',
+  detailCtaButton:  'Get a Quote',
+  detailCtaButtonAr:'اطلب عرض سعر',
+  // No-results
+  noResultsTitle:   'No locations match your search',
+  noResultsTitleAr: 'لا توجد مواقع تطابق بحثك',
+  noResultsHint:    'Let us recommend the best locations for your campaign — our strategists know every market.',
+  noResultsHintAr:  'دعنا نوصي بأفضل المواقع لحملتك — خبراؤنا يعرفون كل سوق.',
+};
 
 // ─── State interface ──────────────────────────────────────────────────────────
 const DEMO_PROJECTS_CONTENT = {
@@ -265,6 +444,56 @@ const DEMO_PROJECTS_CONTENT = {
   ctaButton:  'Start Your Campaign',
 };
 
+// ─── Simulator types ──────────────────────────────────────────────────────────
+export interface BillboardSize {
+  id: string;
+  label: string;      // e.g. "8×16 m"
+  widthM?: number;
+  heightM?: number;
+  notes?: string;
+}
+
+export interface SimCorner { x: number; y: number }
+
+export interface SimulatorTemplate {
+  id: string;
+  typeName:   string;   // billboard type (e.g. "Unipole")
+  sizeLabel:  string;   // matches BillboardSize.label
+  mockupUrl:  string;   // street photo URL
+  // panels: array of 4-corner sets. 1 panel = single billboard, 2 panels = double decker, etc.
+  panels: SimCorner[][];  // each entry is [TL, TR, BR, BL] as fractions 0..1
+  // LEGACY: single corners array — auto-converted to panels on load
+  corners?: SimCorner[];
+  notes?: string;
+}
+
+// Helper: normalise a template so it always has panels[] populated
+export function normTemplate(t: any): SimulatorTemplate {
+  const panels: SimCorner[][] = Array.isArray(t.panels) && t.panels.length > 0
+    ? t.panels
+    : Array.isArray(t.corners) && t.corners.length === 4
+      ? [t.corners]
+      : [[{ x:0.15,y:0.2 },{x:0.85,y:0.2},{x:0.85,y:0.75},{x:0.15,y:0.75}]];
+  return { ...t, panels };
+}
+
+export interface DesignUpload {
+  id: string;
+  userId:      string;
+  userName:    string;
+  userEmail:   string;
+  userPhone?:  string;
+  designUrl:   string;
+  templateId:  string;
+  typeName:    string;
+  sizeLabel:   string;
+  productId?:  string;
+  productName?: string;
+  status:      'pending' | 'reviewed' | 'approved' | 'rejected';
+  createdAt:   string;
+  notes?:      string;
+}
+
 export interface ApiState {
   locations:       any[];
   districts:       any[];
@@ -283,14 +512,19 @@ export interface ApiState {
   process:         ProcessStep[];
   settings:        any;
   homeContent:     any;
-  projectsContent: any;
-  about:           AboutContent;
+  projectsContent:  any;
+  locationsContent: any;
+  contactContent:   any;
+  about:            AboutContent;
   aboutContent:    AboutContent;
   loaded:          boolean;
   loading:         boolean;
   error:           string | null;
-  usingDemo:       boolean;
-  reload:          () => Promise<void>;
+  usingDemo:          boolean;
+  billboardSizes:     BillboardSize[];
+  simulatorTemplates: SimulatorTemplate[];
+  designUploads:      DesignUpload[];
+  reload:             () => Promise<void>;
 }
 
 // ─── Pre-compute demo data ────────────────────────────────────────────────────
@@ -336,14 +570,19 @@ export const useApiStore = create<ApiState>((set, get) => ({
   process:      HAS_API ? [] : _demoProcess,
   results:      HAS_API ? [] : DEMO_RESULTS,
   clientBrands: HAS_API ? [] : _demoBrands,
-  suppliers:    [],
-  customers:    [],
-  siteUsers:    [],
+  suppliers:          [],
+  customers:          [],
+  siteUsers:          [],
+  billboardSizes:     [],
+  simulatorTemplates: [],
+  designUploads:      [],
   contacts:     HAS_API ? [] : _demoContacts,
   settings:        HAS_API ? {} : DEMO_SETTINGS,
   homeContent:     HAS_API ? {} : DEMO_HOME,
-  projectsContent: HAS_API ? {} : DEMO_PROJECTS_CONTENT,
-  about:           HAS_API ? {} as AboutContent : DEMO_ABOUT,
+  projectsContent:  HAS_API ? {} : DEMO_PROJECTS_CONTENT,
+  locationsContent: HAS_API ? {} : DEMO_LOCATIONS_CONTENT,
+  contactContent:   HAS_API ? {} : DEMO_CONTACT_CONTENT,
+  about:            HAS_API ? {} as AboutContent : DEMO_ABOUT,
   aboutContent:    HAS_API ? {} as AboutContent : DEMO_ABOUT,
   loaded:       !HAS_API,   // demo data is ready immediately; API data is not
   loading:      false,
@@ -354,41 +593,111 @@ export const useApiStore = create<ApiState>((set, get) => ({
     if (get().loading) return;
     set({ loading: true, error: null });
 
-    try {
-      const [locs, dists, fmts, svcs, projs, blog, stats, steps, brands, setts, hc, ac] =
-        await Promise.all([
-          locationsApi.all(),
-          districtsApi.all(),
-          adFormatsApi.all(),
-          servicesApi.all(),
-          projectsApi.all(),
-          blogApi.all(),
-          trustStatsApi.all(),
-          processStepsApi.all(),
-          clientBrandsApi.all(),
-          settingsApi.all(),
-          settingsApi.homeContent(),
-          settingsApi.aboutContent(),
-        ]);
+try {
+      // Use Promise.allSettled so one failing endpoint doesn't crash everything
+      const results = await Promise.allSettled([
+        locationsApi.all(),          // 0
+        districtsApi.all(),          // 1
+        adFormatsApi.all(),          // 2
+        servicesApi.all(),           // 3
+        projectsApi.all(),           // 4
+        blogApi.all(),               // 5
+        trustStatsApi.all(),         // 6
+        processStepsApi.all(),       // 7
+        clientBrandsApi.all(),       // 8
+        settingsApi.all(),           // 9
+        settingsApi.homeContent(),   // 10
+        settingsApi.aboutContent(),  // 11
+        billboardSizesApi.all(),     // 12
+        simulatorTemplatesApi.all(), // 13
+        designUploadsApi.all(),      // 14
+        suppliersApi.all(),          // 15
+        customersApi.all(),          // 16
+        contactsApi.all(),           // 17
+      ]);
 
-      const normFmts: AdFormatType[] = (fmts.data || []).map((f: any) => ({ ...f, label: f.label ?? f.name }));
+      // Check if ALL critical requests failed (means no API at all)
+      const allFailed = results.every(r => r.status === 'rejected');
+      if (allFailed) throw new Error('All API endpoints failed');
+
+      // Safely unwrap each result, falling back to empty/demo on individual failures
+const val = (idx: number) => results[idx].status === 'fulfilled'
+        ? (results[idx] as PromiseFulfilledResult<any>).value
+        : null;
+
+      const locsRaw   = apiArr(val(0));
+      const distsRaw  = apiArr(val(1));
+      const fmtsRaw   = apiArr(val(2));
+      const svcsRaw   = apiArr(val(3));
+      const projsRaw  = apiArr(val(4));
+      const blogRaw   = apiArr(val(5));
+      const statsRaw  = apiArr(val(6));
+      const stepsRaw  = apiArr(val(7));
+      const brandsRaw = apiArr(val(8));
+      const settsRaw  = apiObj(val(9));
+      const hcRaw     = apiObj(val(10));
+      const acRaw     = apiObj(val(11));
+      const sizesRaw    = apiArr(val(12));
+      const tplsRaw     = apiArr(val(13));
+      const uploadsRaw  = apiArr(val(14));
+      const suppliersRaw = apiArr(val(15));
+      const customersRaw = apiArr(val(16));
+      const contactsRaw  = apiArr(val(17));
+
+      // Normalize every item so slug and array fields are guaranteed
+      const normLocs     = locsRaw.map(normLoc).filter(Boolean);
+      const normSvcs     = svcsRaw.map((s: any, i: number) => normService(s, i)).filter(Boolean);
+      const normProjs    = projsRaw.map((p: any, i: number) => normProject(p, i)).filter(Boolean);
+      const normBlog     = blogRaw.map((p: any, i: number) => normBlogPost(p, i)).filter(Boolean);
+      const normFmts     = fmtsRaw.map((f: any) => ({ ...f, label: f.label ?? f.name }));
+      const normBrands   = brandsRaw.map((b: any) => ({ ...b, logoUrl: b.logoUrl ?? b.logo }));
+      const normSteps    = stepsRaw.map((p: any, i: number) => ({
+        id: String(p.id ?? i + 1), step: p.step ?? (i + 1),
+        title: p.title ?? '', description: p.description ?? p.desc ?? '', icon: p.icon ?? '',
+      }));
+
+      // Build districts from API if available, else derive from normalized locations
+      const normDists = distsRaw.length > 0
+        ? distsRaw
+        : normLocs.flatMap((loc: any, _li: number) =>
+            (loc.districts ?? []).map((d: any, di: number) => {
+              const name   = typeof d === 'string' ? d : (d.name ?? String(d));
+              const nameAr = typeof d === 'object'  ? (d.nameAr ?? '') : '';
+              return {
+                id: `${loc.id}-district-${di + 1}`, name, nameAr,
+                locationId: loc.id, location_id: loc.id,
+                location_slug: loc.slug, cityAr: loc.cityAr ?? '',
+              };
+            })
+          );
+
+// Normalize simulator templates so panels[] is always populated
+      const normTpls = tplsRaw.map((t: any) => normTemplate(t));
 
       set({
-        locations:       locs.data   || [],
-        districts:       dists.data  || [],
-        adFormats:       normFmts.length ? normFmts : AD_FORMATS_DEFAULT,
-        services:        svcs.data   || [],
-        projects:        projs.data  || [],
-        blogPosts:       blog.data   || [],
-        trustStats:      stats.data  || [],
-        processSteps:    steps.data  || [],
-        process:         steps.data  || [],
-        clientBrands:    (brands.data || []).map((b: any) => ({ ...b, logoUrl: b.logoUrl ?? b.logo })),
-        settings:        setts.data  || DEMO_SETTINGS,
-        homeContent:     hc.data     || DEMO_HOME,
-        projectsContent: DEMO_PROJECTS_CONTENT,
-        about:           ac.data     || DEMO_ABOUT,
-        aboutContent:    ac.data     || DEMO_ABOUT,
+        locations:          normLocs,
+        districts:          normDists,
+        adFormats:          normFmts.length ? normFmts : AD_FORMATS_DEFAULT,
+        services:           normSvcs,
+        projects:           normProjs,
+        blogPosts:          normBlog,
+        trustStats:         statsRaw,
+        processSteps:       normSteps.length ? normSteps : _demoProcess,
+        process:            normSteps.length ? normSteps : _demoProcess,
+        clientBrands:       normBrands,
+        settings:           Object.keys(settsRaw).length ? settsRaw : DEMO_SETTINGS,
+        homeContent:        Object.keys(hcRaw).length   ? hcRaw    : DEMO_HOME,
+        projectsContent:    DEMO_PROJECTS_CONTENT,
+        locationsContent:   DEMO_LOCATIONS_CONTENT,
+        contactContent:     DEMO_CONTACT_CONTENT,
+        about:              Object.keys(acRaw).length   ? acRaw    : DEMO_ABOUT,
+        aboutContent:       Object.keys(acRaw).length   ? acRaw    : DEMO_ABOUT,
+        billboardSizes:     sizesRaw,
+        simulatorTemplates: normTpls,
+        designUploads:      uploadsRaw,
+        suppliers:          suppliersRaw,
+        customers:          customersRaw,
+        contacts:           contactsRaw.length ? contactsRaw : [],
         loaded:    true,
         loading:   false,
         usingDemo: false,
@@ -445,9 +754,11 @@ export const useApiStore = create<ApiState>((set, get) => ({
         siteUsers:    [],
         contacts:     _demoContacts,
         settings:     DEMO_SETTINGS,
-        homeContent:  DEMO_HOME,
-        about:        DEMO_ABOUT,
-        aboutContent: DEMO_ABOUT,
+        homeContent:      DEMO_HOME,
+        locationsContent: DEMO_LOCATIONS_CONTENT,
+        contactContent:   DEMO_CONTACT_CONTENT,
+        about:            DEMO_ABOUT,
+        aboutContent:     DEMO_ABOUT,
         loaded:    true,
         loading:   false,
         usingDemo: true,
@@ -457,7 +768,7 @@ export const useApiStore = create<ApiState>((set, get) => ({
   },
 }));
 
-// Auto-load on first import
+// Auto-load on first import — single initiation guard
 let _initiated = false;
 useApiStore.subscribe((state) => {
   if (!_initiated && !state.loaded && !state.loading) {
@@ -465,9 +776,8 @@ useApiStore.subscribe((state) => {
     useApiStore.getState().reload();
   }
 });
-setTimeout(() => {
-  const s = useApiStore.getState();
-  if (!s.loaded && !s.loading) { _initiated = true; s.reload(); }
-  // Also reload if we have API configured but are showing demo data
-  if (HAS_API && !s.loading) { _initiated = true; s.reload(); }
-}, 0);
+// Immediate kick — runs synchronously before first render
+if (!useApiStore.getState().loaded && !useApiStore.getState().loading) {
+  _initiated = true;
+  useApiStore.getState().reload();
+}
