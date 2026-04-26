@@ -58,4 +58,6 @@ coverage/
 supabase/.branches
 supabase/.temp
 
-
+public/app/*
+vendor/
+node_modules/

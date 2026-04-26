@@ -34,7 +34,7 @@ Route::post('/register', [AuthController::class, 'register']);
 
 // Public contact form submission (singular: /contact)
 Route::post('/contact',     [ContactController::class, 'submit']);
-
+Route::get('/districts',           [DistrictController::class, 'index']);
 Route::get('/locations',         [LocationController::class, 'index']);
 Route::get('/locations/{slug}',  [LocationController::class, 'show']);
 Route::get('/billboards',        [BillboardController::class, 'index']);
@@ -78,7 +78,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post  ('/locations',           [LocationController::class, 'store']);
     Route::put   ('/locations/{id}',      [LocationController::class, 'update']);
     Route::delete('/locations/{id}',      [LocationController::class, 'destroy']);
-    Route::get   ('/districts',           [DistrictController::class, 'index']);
+    // Route::get   ('/districts',           [DistrictController::class, 'index']);
     Route::post  ('/districts',           [DistrictController::class, 'store']);
     Route::put   ('/districts/{id}',      [DistrictController::class, 'update']);
     Route::delete('/districts/{id}',      [DistrictController::class, 'destroy']);

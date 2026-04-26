@@ -1,33 +1,22 @@
-# Apache configuration for HORIZON OOH Frontend (React SPA)
-# Place this file at the web root where index.html is served from.
+RewriteEngine On
 
-Options -Indexes
+# 1. If it's a physical file or directory in /public, serve it
+RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -d
+RewriteRule ^(.*)$ public/$1 [L]
 
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteBase /
+# 2. Redirect API or backend routes to Laravel's index.php
+# Add any other prefixes you use for Laravel here (e.g., storage, admin)
+RewriteCond %{REQUEST_URI} ^/(api|storage|telescope) [NC]
+RewriteRule ^(.*)$ public/index.php [QSA,L]
 
-    # Serve existing files and directories directly
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
+# 3. Everything else goes to your React index.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ /public/index.html [L]
 
-    # Proxy /api/* to the PHP backend folder
-    RewriteRule ^api/(.*)$ backend/api/index.php [QSA,L]
-
-    # All other routes → React SPA entry point
-    RewriteRule ^ index.html [QSA,L]
-</IfModule>
-
-<IfModule mod_headers.c>
-    # Cache static assets aggressively
-    <FilesMatch "\.(js|css|png|jpg|jpeg|gif|ico|svg|woff2|woff|ttf|eot)$">
-        Header set Cache-Control "public, max-age=31536000, immutable"
-    </FilesMatch>
-    # Never cache HTML
-    <FilesMatch "\.html$">
-        Header set Cache-Control "no-cache, no-store, must-revalidate"
-    </FilesMatch>
-    # Security
-    Header always set X-Content-Type-Options "nosniff"
-    Header always set X-Frame-Options        "SAMEORIGIN"
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php83” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php83 .php .php8 .phtml
 </IfModule>

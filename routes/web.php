@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/{any?}', function () {
-    $indexPath = public_path('app/index.html');
+    // $indexPath = public_path('app/index.html');
+    $indexPath = public_path('index.html');
 
     // If Vite hasn't built yet (e.g. fresh clone before npm run build),
     // show a friendly message instead of a 404.
