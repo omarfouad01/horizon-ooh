@@ -60,3 +60,4 @@ supabase/.temp
 
 public/app/*
 vendor/
+node_modules/
