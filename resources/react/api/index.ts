@@ -1,19 +1,34 @@
+/**
+ * api/index.ts — All API endpoint definitions.
+ *
+ * Public endpoints  → cachedGet() for read performance
+ * Admin endpoints   → direct api.post/put/delete (bypass cache)
+ * Auth endpoints    → multiple fallback paths for Laravel compatibility
+ */
 import api, { cachedGet } from './client';
 
 // ─── Auth ─────────────────────────────────────────────────────────────────────
 export const authApi = {
-  login:           (email: string, password: string) => api.post('/auth/login',  { email, password }),
-  loginFallback:   (email: string, password: string) => api.post('/login',       { email, password }),
-  logout:          ()                                 => api.post('/auth/logout'),
-  me:              ()                                 => api.get('/auth/me'),
-  register:        (data: any)                        => api.post('/auth/register', data),
-  registerFallback:(data: any)                        => api.post('/register',      data),
+  login: (email: string, password: string) =>
+    api.post('/auth/login', { email, password }),
+
+  loginFallback: (email: string, password: string) =>
+    api.post('/login', { email, password }),
+
+  logout: () => api.post('/auth/logout'),
+  me:     () => api.get('/auth/me'),
+
+  updateProfile: (data: any) => api.put('/auth/profile', data),
+
+  register: (data: any) => api.post('/auth/register', data),
+
+  registerFallback: (data: any) => api.post('/register', data),
 };
 
 // ─── Locations ────────────────────────────────────────────────────────────────
 export const locationsApi = {
   all:    ()             => cachedGet('/locations'),
-  get:    (slug: string) => api.get(`/locations/${slug}`),
+  get:    (slug: string) => cachedGet(`/locations/${slug}`),
   create: (data: any)    => api.post('/locations', data),
   update: (id: any, data: any) => api.put(`/locations/${id}`, data),
   remove: (id: any)      => api.delete(`/locations/${id}`),
@@ -21,7 +36,7 @@ export const locationsApi = {
 
 // ─── Districts ────────────────────────────────────────────────────────────────
 export const districtsApi = {
-  all:    (_locationId?: any) => cachedGet('/districts'),
+  all:    (locationId?: any) => cachedGet('/districts', locationId ? { params: { location_id: locationId } } : {}),
   create: (data: any)  => api.post('/districts', data),
   update: (id: any, data: any) => api.put(`/districts/${id}`, data),
   remove: (id: any)    => api.delete(`/districts/${id}`),
@@ -29,19 +44,19 @@ export const districtsApi = {
 
 // ─── Billboards ───────────────────────────────────────────────────────────────
 export const billboardsApi = {
-  all:        (params?: any) => api.get('/billboards', { params }),
-  get:        (slug: string) => api.get(`/billboards/${slug}`),
-  nextCode:   ()             => api.get('/billboards/next-code'),
-  create:     (data: FormData) => api.post('/billboards', data, { headers: { 'Content-Type': 'multipart/form-data' } }),
-  update:     (id: any, data: FormData) => api.post(`/billboards/${id}`, data, { headers: { 'Content-Type': 'multipart/form-data' } }),
-  remove:     (id: any)    => api.delete(`/billboards/${id}`),
-  deleteImage:(id: any, mediaId: any) => api.delete(`/billboards/${id}/images`, { data: { media_id: mediaId } }),
+  all:         (params?: any) => cachedGet('/billboards', params ? { params } : {}),
+  get:         (slug: string) => cachedGet(`/billboards/${slug}`),
+  nextCode:    ()             => api.get('/billboards/next-code'),
+  create:      (data: FormData) => api.post('/billboards', data, { headers: { 'Content-Type': 'multipart/form-data' } }),
+  update:      (id: any, data: FormData) => api.post(`/billboards/${id}`, data, { headers: { 'Content-Type': 'multipart/form-data' } }),
+  remove:      (id: any)      => api.delete(`/billboards/${id}`),
+  deleteImage: (id: any, mediaId: any) => api.delete(`/billboards/${id}/images`, { data: { media_id: mediaId } }),
 };
 
 // ─── Services ─────────────────────────────────────────────────────────────────
 export const servicesApi = {
   all:    ()             => cachedGet('/services'),
-  get:    (slug: string) => api.get(`/services/${slug}`),
+  get:    (slug: string) => cachedGet(`/services/${slug}`),
   create: (data: any)    => api.post('/services', data),
   update: (id: any, data: any) => api.put(`/services/${id}`, data),
   remove: (id: any)      => api.delete(`/services/${id}`),
@@ -50,7 +65,7 @@ export const servicesApi = {
 // ─── Projects ─────────────────────────────────────────────────────────────────
 export const projectsApi = {
   all:    ()             => cachedGet('/projects'),
-  get:    (slug: string) => api.get(`/projects/${slug}`),
+  get:    (slug: string) => cachedGet(`/projects/${slug}`),
   create: (data: FormData) => api.post('/projects', data, { headers: { 'Content-Type': 'multipart/form-data' } }),
   update: (id: any, data: FormData) => api.post(`/projects/${id}`, data, { headers: { 'Content-Type': 'multipart/form-data' } }),
   remove: (id: any)      => api.delete(`/projects/${id}`),
@@ -58,8 +73,8 @@ export const projectsApi = {
 
 // ─── Blog ─────────────────────────────────────────────────────────────────────
 export const blogApi = {
-  all:    (all = false) => all ? api.get('/blog', { params: { all: 1 } }) : cachedGet('/blog'),
-  get:    (slug: string) => api.get(`/blog/${slug}`),
+  all:    (all = false) => cachedGet('/blog', all ? { params: { all: 1 } } : {}),
+  get:    (slug: string) => cachedGet(`/blog/${slug}`),
   create: (data: any)    => api.post('/blog', data),
   update: (id: any, data: any) => api.put(`/blog/${id}`, data),
   remove: (id: any)      => api.delete(`/blog/${id}`),
@@ -131,7 +146,7 @@ export const settingsApi = {
   updateAboutContent:(d: any) => api.put('/about-content', d),
 };
 
-// ─── Users ────────────────────────────────────────────────────────────────────
+// ─── Users (dashboard / admin) ────────────────────────────────────────────────
 export const usersApi = {
   all:    ()           => api.get('/users'),
   create: (data: any)  => api.post('/users', data),

@@ -376,7 +376,7 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }:
             {isAr ? 'اطلب عرض سعر' : 'Get Quote'}
           </button>
           <a
-            href={`https://wa.me/201234567890?text=Hi%20HORIZON%20OOH%2C%20I%27m%20interested%20in%20${encodeURIComponent(b.name)}`}
+            href={`https://wa.me/${waNumber}?text=Hi%20HORIZON%20OOH%2C%20I%27m%20interested%20in%20${encodeURIComponent(b.name)}`}
             target="_blank"
             rel="noopener noreferrer"
             onClick={e => e.stopPropagation()}
@@ -398,7 +398,8 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }:
 // MAIN PAGE
 // ═══════════════════════════════════════════════════════════════════════════
 export default function Locations() {
-  const { locations, districts: storeDistrictsForEnrich, locationsContent: _lc } = useStore() as any
+  const { locations, districts: storeDistrictsForEnrich, settings } = useStore()
+  const waNumber = (settings?.whatsapp ?? '+201234567890').replace(/\D/g, '')
   const { isAr, t } = useLang()
   const lp = _lc ?? {}
   // Enrich each billboard with Arabic city/district names from the store
@@ -920,7 +921,7 @@ export default function Locations() {
             {isAr ? (lp.ctaButtonAr || t('locations.talkToExpert')) : (lp.ctaButton || t('locations.talkToExpert'))}
           </button>
           <a
-            href={`https://wa.me/${(lp.whatsappNumber || '201234567890').replace(/\D/g, '')}?text=${encodeURIComponent(lp.whatsappMessage || 'Hi HORIZON OOH, I need help choosing billboard locations')}`}
+            href={`https://wa.me/${waNumber}?text=Hi%20HORIZON%20OOH%2C%20I%20need%20help%20choosing%20billboard%20locations`}
             target="_blank" rel="noopener noreferrer"
             className="flex items-center gap-2 h-9 px-4 text-[11px] font-bold tracking-[0.15em] uppercase text-white transition-opacity hover:opacity-90 active:scale-[0.97]"
             style={{ background: "#25D366", borderRadius: 30, textDecoration: "none" }}

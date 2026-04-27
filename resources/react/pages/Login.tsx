@@ -128,35 +128,29 @@ export default function Login() {
     if (!email || !password) { setError("Please fill in all fields."); return; }
     setLoading(true);
     try {
-      // Try /auth/login first, then /login fallback
       let res: any;
       try {
         res = await authApi.login(email, password);
-      } catch (_e1) {
-        res = await authApi.loginFallback(email, password);
+      } catch (e1: any) {
+        if (e1?.response?.status === 405 || e1?.response?.status === 404) {
+          res = await authApi.loginFallback(email, password);
+        } else throw e1;
       }
-      const d = res.data?.data ?? res.data;
-      const token = d?.token ?? d?.access_token;
-      const user  = d?.user ?? d;
-      if (token) {
-        localStorage.setItem('horizon_token', token);
-        localStorage.setItem('horizon_user', JSON.stringify(user));
-      }
-      siteUserStore.upsert(email, { source: 'login' });
-      setLoading(false);
+      const { token: t, user: u } = res.data;
+      localStorage.setItem('horizon_token', t);
+      localStorage.setItem('horizon_user', JSON.stringify(u));
+      siteUserStore.upsert(email, { name: u?.name, phone: u?.phone, source: 'login' });
       navigate(ROUTES.HOME);
     } catch (err: any) {
       setLoading(false);
-      // Parse Laravel validation errors
       const apiErrors = err?.response?.data?.errors;
-      if (apiErrors) {
-        const msgs = Object.values(apiErrors).flat().join(' ');
-        setError(msgs);
+      if (apiErrors && typeof apiErrors === 'object') {
+        setError(Object.values(apiErrors).flat().join(' '));
       } else {
-        const msg = err?.response?.data?.message ?? err?.message ?? 'Login failed. Please try again.';
-        setError(msg);
+        setError(err?.response?.data?.message ?? err?.message ?? 'Login failed. Please check your credentials.');
       }
     }
+    setLoading(false);
   };
 
   return (

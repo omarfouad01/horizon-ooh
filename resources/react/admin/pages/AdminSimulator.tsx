@@ -1,598 +1,286 @@
-/**
- * AdminSimulator.tsx — Admin page
- * Three tabs:
- *   1. Billboard Sizes  — manage available sizes dropdown
- *   2. Simulator Templates — manage type+size combinations with mockup photo and corner points
- *   3. Design Uploads   — view user submissions (with name, email, phone)
- */
-import { useState, useRef } from 'react';
-import { Trash2, Plus, Edit2, Download, Phone, Mail, User, Monitor, Crosshair, Layers } from 'lucide-react';
-import toast from 'react-hot-toast';
-import { useStore } from '@/store/dataStore';
-import { billboardSizeStore, simulatorTemplateStore, designUploadStore } from '@/store/dataStore';
-import type { BillboardSize, SimulatorTemplate, DesignUpload } from '@/store/dataStore';
-import type { Panel } from '@/components/SimulatorCanvas';
-import { Btn, Field, TA, Sel } from '@/admin/ui';
-import { ImagePicker } from '@/admin/ui';
-import SimulatorCanvas, { type SimulatorCanvasRef } from '@/components/SimulatorCanvas';
+import { useState } from 'react'
+import { useStore, billboardSizeStore, simulatorTemplateStore, designUploadStore, type BillboardSize, type SimulatorTemplate, type DesignUpload } from '@/store/dataStore'
+import { Btn, PageHeader, Field, TA, Modal } from '../ui'
+import { Plus, Trash2, Pencil, Save, Image, Layers } from 'lucide-react'
+import toast from 'react-hot-toast'
 
-const NAVY = '#0B0F1A', RED = '#D90429';
+// ── Billboard Sizes ───────────────────────────────────────────────────────────
+function SizesTab() {
+  const store = useStore()
+  const sizes: BillboardSize[] = store.billboardSizes ?? []
+  const [form, setForm] = useState<Partial<BillboardSize>>({})
+  const [editing, setEditing] = useState<string | null>(null)
+  const [open, setOpen] = useState(false)
 
-// ── Status badge ───────────────────────────────────────────────────────────────
-const STATUS_COLORS: Record<string, { bg: string; text: string }> = {
-  pending:  { bg: 'rgba(245,158,11,0.1)',  text: '#d97706' },
-  reviewed: { bg: 'rgba(59,130,246,0.1)',  text: '#2563eb' },
-  approved: { bg: 'rgba(34,197,94,0.1)',   text: '#16a34a' },
-  rejected: { bg: 'rgba(239,68,68,0.1)',   text: '#dc2626' },
-};
-function StatusBadge({ status }: { status: string }) {
-  const c = STATUS_COLORS[status] || STATUS_COLORS.pending;
+  function openAdd() { setForm({}); setEditing(null); setOpen(true) }
+  function openEdit(s: BillboardSize) { setForm({ ...s }); setEditing(s.id); setOpen(true) }
+
+  async function save() {
+    if (!form.label?.trim()) { toast.error('Label is required'); return }
+    try {
+      if (editing) {
+        await billboardSizeStore.update(editing, form)
+        toast.success('Size updated')
+      } else {
+        await billboardSizeStore.add(form)
+        toast.success('Size added')
+      }
+      setOpen(false)
+    } catch (err: any) {
+      toast.error(err?.response?.data?.message ?? err?.message ?? 'Save failed')
+    }
+  }
+
+  async function del(id: string) {
+    if (!confirm('Delete this size?')) return
+    try {
+      await billboardSizeStore.remove(id)
+      toast.success('Deleted')
+    } catch { toast.error('Delete failed') }
+  }
+
   return (
-    <span style={{ ...c, padding: '2px 10px', borderRadius: 99, fontSize: 11, fontWeight: 700, textTransform: 'capitalize' }}>
-      {status}
-    </span>
-  );
+    <div>
+      <div className="flex items-center justify-between mb-4">
+        <p className="text-sm text-gray-500">{sizes.length} sizes defined</p>
+        <Btn onClick={openAdd} className="flex items-center gap-1.5 text-sm"><Plus size={14} />Add Size</Btn>
+      </div>
+
+      <div className="overflow-x-auto rounded-xl border border-gray-100">
+        <table className="w-full text-sm">
+          <thead><tr className="bg-gray-50 border-b border-gray-100">
+            <th className="text-left px-4 py-3 font-semibold text-gray-600">Label</th>
+            <th className="text-left px-4 py-3 font-semibold text-gray-600">Width (m)</th>
+            <th className="text-left px-4 py-3 font-semibold text-gray-600">Height (m)</th>
+            <th className="text-left px-4 py-3 font-semibold text-gray-600">Notes</th>
+            <th className="px-4 py-3" />
+          </tr></thead>
+          <tbody>
+            {sizes.map(s => (
+              <tr key={s.id} className="border-b border-gray-50 hover:bg-gray-50/50">
+                <td className="px-4 py-3 font-semibold">{s.label}</td>
+                <td className="px-4 py-3 text-gray-500">{s.widthM ?? '—'}</td>
+                <td className="px-4 py-3 text-gray-500">{s.heightM ?? '—'}</td>
+                <td className="px-4 py-3 text-gray-400 text-xs">{s.notes ?? ''}</td>
+                <td className="px-4 py-3 flex items-center gap-2 justify-end">
+                  <button onClick={() => openEdit(s)} className="p-1.5 rounded hover:bg-gray-100"><Pencil size={13} /></button>
+                  <button onClick={() => del(s.id)} className="p-1.5 rounded hover:bg-red-50 text-red-400"><Trash2 size={13} /></button>
+                </td>
+              </tr>
+            ))}
+            {!sizes.length && <tr><td colSpan={5} className="px-4 py-8 text-center text-gray-300">No sizes yet</td></tr>}
+          </tbody>
+        </table>
+      </div>
+
+      <Modal open={open} title={editing ? 'Edit Size' : 'Add Billboard Size'} onClose={() => setOpen(false)}
+        footer={<><Btn variant="ghost" onClick={() => setOpen(false)}>Cancel</Btn><Btn onClick={save}><Save size={14} className="mr-1" />Save</Btn></>}>
+        <div className="space-y-4">
+          <Field label="Label (e.g. 8 × 16 m)" value={form.label ?? ''} onChange={e => setForm(p => ({ ...p, label: e.target.value }))} required />
+          <div className="grid grid-cols-2 gap-4">
+            <Field label="Width (m)" type="number" value={String(form.widthM ?? '')} onChange={e => setForm(p => ({ ...p, widthM: Number(e.target.value) }))} />
+            <Field label="Height (m)" type="number" value={String(form.heightM ?? '')} onChange={e => setForm(p => ({ ...p, heightM: Number(e.target.value) }))} />
+          </div>
+          <TA label="Notes" value={form.notes ?? ''} onChange={e => setForm(p => ({ ...p, notes: e.target.value }))} rows={2} />
+        </div>
+      </Modal>
+    </div>
+  )
 }
 
-// ── Helpers ────────────────────────────────────────────────────────────────────
-const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2);
+// ── Simulator Templates ───────────────────────────────────────────────────────
+function TemplatesTab() {
+  const store = useStore()
+  const templates: SimulatorTemplate[] = store.simulatorTemplates ?? []
+  const [form, setForm] = useState<Partial<SimulatorTemplate>>({})
+  const [editing, setEditing] = useState<string | null>(null)
+  const [open, setOpen] = useState(false)
 
-function formatDate(iso: string) {
-  try { return new Date(iso).toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' }); }
-  catch { return iso; }
+  function openAdd() { setForm({ panels: [] }); setEditing(null); setOpen(true) }
+  function openEdit(t: SimulatorTemplate) { setForm({ ...t }); setEditing(t.id); setOpen(true) }
+
+  async function save() {
+    if (!form.typeName?.trim()) { toast.error('Type name is required'); return }
+    try {
+      if (editing) {
+        await simulatorTemplateStore.update(editing, form)
+        toast.success('Template updated')
+      } else {
+        await simulatorTemplateStore.add(form)
+        toast.success('Template added')
+      }
+      setOpen(false)
+    } catch (err: any) {
+      toast.error(err?.response?.data?.message ?? err?.message ?? 'Save failed')
+    }
+  }
+
+  async function del(id: string) {
+    if (!confirm('Delete this template?')) return
+    try {
+      await simulatorTemplateStore.remove(id)
+      toast.success('Deleted')
+    } catch { toast.error('Delete failed') }
+  }
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-4">
+        <p className="text-sm text-gray-500">{templates.length} templates defined</p>
+        <Btn onClick={openAdd} className="flex items-center gap-1.5 text-sm"><Plus size={14} />Add Template</Btn>
+      </div>
+
+      <div className="overflow-x-auto rounded-xl border border-gray-100">
+        <table className="w-full text-sm">
+          <thead><tr className="bg-gray-50 border-b border-gray-100">
+            <th className="text-left px-4 py-3 font-semibold text-gray-600">Type</th>
+            <th className="text-left px-4 py-3 font-semibold text-gray-600">Size</th>
+            <th className="text-left px-4 py-3 font-semibold text-gray-600">Mockup</th>
+            <th className="text-left px-4 py-3 font-semibold text-gray-600">Panels</th>
+            <th className="px-4 py-3" />
+          </tr></thead>
+          <tbody>
+            {templates.map(t => (
+              <tr key={t.id} className="border-b border-gray-50 hover:bg-gray-50/50">
+                <td className="px-4 py-3 font-semibold">{t.typeName}</td>
+                <td className="px-4 py-3 text-gray-500">{t.sizeLabel || '—'}</td>
+                <td className="px-4 py-3">
+                  {t.mockupUrl ? <img src={t.mockupUrl} alt="" className="w-16 h-10 object-cover rounded" /> : <span className="text-gray-300 text-xs">None</span>}
+                </td>
+                <td className="px-4 py-3 text-gray-500">{(t.panels?.length ?? 0)} panel(s)</td>
+                <td className="px-4 py-3 flex items-center gap-2 justify-end">
+                  <button onClick={() => openEdit(t)} className="p-1.5 rounded hover:bg-gray-100"><Pencil size={13} /></button>
+                  <button onClick={() => del(t.id)} className="p-1.5 rounded hover:bg-red-50 text-red-400"><Trash2 size={13} /></button>
+                </td>
+              </tr>
+            ))}
+            {!templates.length && <tr><td colSpan={5} className="px-4 py-8 text-center text-gray-300">No templates yet</td></tr>}
+          </tbody>
+        </table>
+      </div>
+
+      <Modal open={open} title={editing ? 'Edit Template' : 'Add Simulator Template'} onClose={() => setOpen(false)}
+        footer={<><Btn variant="ghost" onClick={() => setOpen(false)}>Cancel</Btn><Btn onClick={save}><Save size={14} className="mr-1" />Save</Btn></>}>
+        <div className="space-y-4">
+          <Field label="Type Name (e.g. Uni-Pole, Double Decker)" value={form.typeName ?? ''} onChange={e => setForm(p => ({ ...p, typeName: e.target.value }))} required />
+          <Field label="Size Label (e.g. 8×16)" value={form.sizeLabel ?? ''} onChange={e => setForm(p => ({ ...p, sizeLabel: e.target.value }))} />
+          <Field label="Mockup Image URL" value={form.mockupUrl ?? ''} onChange={e => setForm(p => ({ ...p, mockupUrl: e.target.value }))} placeholder="https://..." />
+          <TA label="Notes" value={form.notes ?? ''} onChange={e => setForm(p => ({ ...p, notes: e.target.value }))} rows={2} />
+          <p className="text-xs text-gray-400">To define corner points (design overlay area), use the simulator page directly.</p>
+        </div>
+      </Modal>
+    </div>
+  )
 }
 
-// Default panel: sensible rectangle in the middle of the image
-const DEFAULT_PANEL: Panel = [
-  { x: 0.15, y: 0.2 },
-  { x: 0.85, y: 0.2 },
-  { x: 0.85, y: 0.75 },
-  { x: 0.15, y: 0.75 },
-];
+// ── Design Uploads ────────────────────────────────────────────────────────────
+function UploadsTab() {
+  const store = useStore()
+  const uploads: DesignUpload[] = store.designUploads ?? []
+  const [search, setSearch] = useState('')
 
-// For double-decker: second panel placed below the first
-const DEFAULT_PANEL_2: Panel = [
-  { x: 0.15, y: 0.78 },
-  { x: 0.85, y: 0.78 },
-  { x: 0.85, y: 0.95 },
-  { x: 0.15, y: 0.95 },
-];
+  const filtered = uploads.filter(u => {
+    const q = search.toLowerCase()
+    return !q || (u.userName ?? '').toLowerCase().includes(q) || (u.userEmail ?? '').toLowerCase().includes(q) || (u.typeName ?? '').toLowerCase().includes(q)
+  })
 
-const PANEL_LABEL_COLORS = ['#22c55e', '#a855f7', '#f97316'];
-const PANEL_NAMES = ['Panel 1', 'Panel 2', 'Panel 3'];
+  async function del(id: string) {
+    if (!confirm('Delete this upload?')) return
+    try { await designUploadStore.remove(id); toast.success('Deleted') } catch { toast.error('Delete failed') }
+  }
 
-// ── Main component ─────────────────────────────────────────────────────────────
+  async function setStatus(id: string, status: string) {
+    try { await designUploadStore.update(id, { status }); toast.success('Status updated') } catch { toast.error('Update failed') }
+  }
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-4">
+        <p className="text-sm text-gray-500">{uploads.length} design upload(s)</p>
+        <input value={search} onChange={e => setSearch(e.target.value)}
+          placeholder="Search by name, email or type..."
+          className="px-3 py-1.5 text-sm border border-gray-200 rounded-lg w-64 outline-none focus:border-blue-400" />
+      </div>
+
+      <div className="overflow-x-auto rounded-xl border border-gray-100">
+        <table className="w-full text-sm">
+          <thead><tr className="bg-gray-50 border-b border-gray-100">
+            <th className="text-left px-4 py-3 font-semibold text-gray-600">User</th>
+            <th className="text-left px-4 py-3 font-semibold text-gray-600">Type / Size</th>
+            <th className="text-left px-4 py-3 font-semibold text-gray-600">Design</th>
+            <th className="text-left px-4 py-3 font-semibold text-gray-600">Status</th>
+            <th className="text-left px-4 py-3 font-semibold text-gray-600">Date</th>
+            <th className="px-4 py-3" />
+          </tr></thead>
+          <tbody>
+            {filtered.map(u => (
+              <tr key={u.id} className="border-b border-gray-50 hover:bg-gray-50/50">
+                <td className="px-4 py-3">
+                  <p className="font-semibold">{u.userName ?? 'Unknown'}</p>
+                  <p className="text-xs text-gray-400">{u.userEmail ?? ''}</p>
+                  {u.userPhone && <p className="text-xs text-gray-400">{u.userPhone}</p>}
+                </td>
+                <td className="px-4 py-3">
+                  <p className="font-medium">{u.typeName ?? '—'}</p>
+                  <p className="text-xs text-gray-400">{u.sizeLabel ?? ''}</p>
+                </td>
+                <td className="px-4 py-3">
+                  {u.designUrl ? <a href={u.designUrl} target="_blank" rel="noreferrer" className="text-blue-500 underline text-xs">View</a> : <span className="text-gray-300">—</span>}
+                </td>
+                <td className="px-4 py-3">
+                  <select value={u.status ?? 'pending'} onChange={e => setStatus(u.id, e.target.value)}
+                    className="text-xs border border-gray-200 rounded px-2 py-1 outline-none">
+                    <option value="pending">Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
+                  </select>
+                </td>
+                <td className="px-4 py-3 text-xs text-gray-400">{u.createdAt ? new Date(u.createdAt).toLocaleDateString() : '—'}</td>
+                <td className="px-4 py-3 flex items-center gap-2 justify-end">
+                  <button onClick={() => del(u.id)} className="p-1.5 rounded hover:bg-red-50 text-red-400"><Trash2 size={13} /></button>
+                </td>
+              </tr>
+            ))}
+            {!filtered.length && <tr><td colSpan={6} className="px-4 py-8 text-center text-gray-300">No uploads yet</td></tr>}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
+// ── Main Page ─────────────────────────────────────────────────────────────────
+type Tab = 'sizes' | 'templates' | 'uploads'
+
 export default function AdminSimulator() {
-  const store = useStore();
-  const billboardSizes:     BillboardSize[]     = (store as any).billboardSizes     ?? [];
-  const simulatorTemplates: SimulatorTemplate[] = (store as any).simulatorTemplates ?? [];
-  const designUploads:      DesignUpload[]      = (store as any).designUploads      ?? [];
+  const [tab, setTab] = useState<Tab>('sizes')
 
-  const [activeTab, setActiveTab] = useState<'sizes' | 'templates' | 'uploads'>('sizes');
-
-  // ── Tab: Sizes ─────────────────────────────────────────────────────────────
-  const SizesTab = () => {
-    const [editing, setEditing] = useState<BillboardSize | null>(null);
-    const [form, setForm] = useState({ label: '', widthM: '', heightM: '', notes: '' });
-
-    const startAdd = () => { setEditing({ id: '', label: '', notes: '' }); setForm({ label: '', widthM: '', heightM: '', notes: '' }); };
-    const startEdit = (s: BillboardSize) => {
-      setEditing(s);
-      setForm({ label: s.label, widthM: String(s.widthM ?? ''), heightM: String(s.heightM ?? ''), notes: s.notes ?? '' });
-    };
-    const cancel = () => setEditing(null);
-const save = async () => {
-      if (!form.label.trim()) { toast.error('Label is required'); return; }
-      try {
-        if (editing!.id) {
-          await billboardSizeStore.update(editing!.id, { label: form.label, widthM: parseFloat(form.widthM) || undefined, heightM: parseFloat(form.heightM) || undefined, notes: form.notes });
-          toast.success('Size updated');
-        } else {
-          await billboardSizeStore.add({ label: form.label, widthM: parseFloat(form.widthM) || undefined, heightM: parseFloat(form.heightM) || undefined, notes: form.notes });
-          toast.success('Size added');
-        }
-        setEditing(null);
-      } catch { toast.error('Save failed — check server connection'); }
-    };
-    const remove = async (id: string) => {
-      try { await billboardSizeStore.remove(id); toast.success('Removed'); }
-      catch { toast.error('Delete failed'); }
-    };
-
-    return (
-      <div>
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h2 className="font-black text-lg" style={{ color: NAVY }}>Billboard Sizes</h2>
-            <p className="text-sm text-gray-400 mt-0.5">Manage the size dropdown used when creating billboards.</p>
-          </div>
-          <Btn onClick={startAdd}><Plus size={14} /> Add Size</Btn>
-        </div>
-
-        {/* Add/Edit form */}
-        {editing !== null && (
-          <div className="bg-white rounded-2xl border border-gray-100 p-6 mb-6 shadow-sm">
-            <h3 className="font-bold text-sm mb-4" style={{ color: NAVY }}>{editing.id ? 'Edit Size' : 'New Size'}</h3>
-            <div className="grid grid-cols-2 gap-4 mb-4">
-              <Field label="Size Label *" placeholder="e.g. 8×16 m" value={form.label} onChange={(e:any) => setForm(f => ({ ...f, label: e.target.value }))} />
-              <Field label="Notes" placeholder="Optional note" value={form.notes} onChange={(e:any) => setForm(f => ({ ...f, notes: e.target.value }))} />
-              <Field label="Width (m)" type="number" placeholder="8" value={form.widthM} onChange={(e:any) => setForm(f => ({ ...f, widthM: e.target.value }))} />
-              <Field label="Height (m)" type="number" placeholder="16" value={form.heightM} onChange={(e:any) => setForm(f => ({ ...f, heightM: e.target.value }))} />
-            </div>
-            <div className="flex gap-3">
-              <Btn onClick={save}>Save</Btn>
-              <Btn variant="ghost" onClick={cancel}>Cancel</Btn>
-            </div>
-          </div>
-        )}
-
-        {/* Table */}
-        <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
-          {billboardSizes.length === 0 ? (
-            <div className="text-center py-16 text-gray-400">
-              <Monitor size={32} className="mx-auto mb-3 opacity-30" />
-              <p className="font-semibold text-sm">No sizes yet. Add your first size.</p>
-            </div>
-          ) : (
-            <table className="w-full text-sm">
-              <thead><tr className="border-b border-gray-50">
-                <th className="text-left px-5 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">Label</th>
-                <th className="text-left px-5 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">Dimensions</th>
-                <th className="text-left px-5 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">Notes</th>
-                <th className="px-5 py-3" />
-              </tr></thead>
-              <tbody>
-                {billboardSizes.map(sz => (
-                  <tr key={sz.id} className="border-b border-gray-50 hover:bg-gray-50/50">
-                    <td className="px-5 py-3 font-bold" style={{ color: NAVY }}>{sz.label}</td>
-                    <td className="px-5 py-3 text-gray-500">{sz.widthM && sz.heightM ? `${sz.widthM} × ${sz.heightM} m` : '—'}</td>
-                    <td className="px-5 py-3 text-gray-400">{sz.notes || '—'}</td>
-                    <td className="px-5 py-3">
-                      <div className="flex gap-2 justify-end">
-                        <button onClick={() => startEdit(sz)} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-700"><Edit2 size={14} /></button>
-                        <button onClick={() => remove(sz.id)} className="p-1.5 rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-500"><Trash2 size={14} /></button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </div>
-      </div>
-    );
-  };
-
-  // ── Tab: Templates ─────────────────────────────────────────────────────────
-  const TemplatesTab = () => {
-    const [editing, setEditing] = useState<SimulatorTemplate | null>(null);
-    // Multi-panel state: array of 4-corner panels
-    const [panels, setPanels] = useState<Panel[]>([DEFAULT_PANEL]);
-    const [activePanelIdx, setActivePanelIdx] = useState(0);
-    // Per-panel test designs
-    const [previewDesigns, setPreviewDesigns] = useState<string[]>([]);
-    const canvasRef = useRef<SimulatorCanvasRef>(null);
-
-    // Unique ad format types from adFormats in the store
-    const adTypes = Array.from(new Set([
-      ...store.adFormats.map((f: any) => f.name || f.label),
-      ...simulatorTemplates.map(t => t.typeName),
-    ])).filter(Boolean).sort();
-
-    const startAdd = () => {
-      setEditing({ id: '', typeName: '', sizeLabel: '', mockupUrl: '', panels: [DEFAULT_PANEL] });
-      setPanels([DEFAULT_PANEL]);
-      setActivePanelIdx(0);
-      setPreviewDesigns([]);
-    };
-    const startEdit = (t: SimulatorTemplate) => {
-      setEditing(t);
-      const tplPanels: Panel[] = (t.panels && t.panels.length > 0)
-        ? t.panels as Panel[]
-        : t.corners ? [t.corners as Panel] : [DEFAULT_PANEL];
-      setPanels(tplPanels);
-      setActivePanelIdx(0);
-      setPreviewDesigns([]);
-    };
-    const cancel = () => { setEditing(null); setPreviewDesigns([]); };
-
-    const addPanel = () => {
-      if (panels.length >= 3) { toast.error('Maximum 3 panels supported'); return; }
-      const last = panels[panels.length - 1];
-      const next: Panel = panels.length === 1
-        ? DEFAULT_PANEL_2
-        : [
-            { x: last[0].x, y: Math.min(last[2].y + 0.02, 0.98) },
-            { x: last[1].x, y: Math.min(last[2].y + 0.02, 0.98) },
-            { x: last[1].x, y: Math.min(last[2].y + 0.18, 0.99) },
-            { x: last[0].x, y: Math.min(last[2].y + 0.18, 0.99) },
-          ];
-      const newPanels = [...panels, next];
-      setPanels(newPanels);
-      setActivePanelIdx(newPanels.length - 1);
-    };
-    const removePanel = (idx: number) => {
-      if (panels.length <= 1) return;
-      const newPanels = panels.filter((_, i) => i !== idx);
-      setPanels(newPanels);
-      setActivePanelIdx(Math.max(0, idx - 1));
-    };
-
-const save = async () => {
-      if (!editing) return;
-      if (!editing.typeName || !editing.sizeLabel) { toast.error('Type and size are required'); return; }
-      if (!editing.mockupUrl) { toast.error('Please upload a mockup photo'); return; }
-      const tplData = { ...editing, panels };
-      try {
-        if (tplData.id) {
-          await simulatorTemplateStore.update(tplData.id, tplData);
-          toast.success('Template updated');
-        } else {
-          await simulatorTemplateStore.add({ typeName: tplData.typeName, sizeLabel: tplData.sizeLabel, mockupUrl: tplData.mockupUrl, panels, notes: tplData.notes });
-          toast.success('Template added');
-        }
-        setEditing(null);
-      } catch { toast.error('Save failed — check server connection'); }
-    };
-    const remove = async (id: string) => {
-      try { await simulatorTemplateStore.remove(id); toast.success('Removed'); }
-      catch { toast.error('Delete failed'); }
-    };
-
-    return (
-      <div>
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h2 className="font-black text-lg" style={{ color: NAVY }}>Simulator Templates</h2>
-            <p className="text-sm text-gray-400 mt-0.5">Configure mockup photos and corner points for each billboard type + size combination.</p>
-          </div>
-          <Btn onClick={startAdd}><Plus size={14} /> Add Template</Btn>
-        </div>
-
-        {/* Editor */}
-        {editing !== null && (
-          <div className="bg-white rounded-2xl border border-gray-100 p-6 mb-6 shadow-sm">
-            <h3 className="font-bold text-sm mb-5" style={{ color: NAVY }}>
-              {editing.id ? 'Edit Template' : 'New Template'}
-            </h3>
-
-            <div className="grid grid-cols-2 gap-4 mb-5">
-              <Sel label="Billboard Type *"
-                value={editing.typeName}
-                onChange={(e:any) => setEditing(t => t ? { ...t, typeName: e.target.value } : t)}
-                options={[{value:'',label:'Select type…'},...adTypes.map((t:string)=>({value:t,label:t}))]}
-              />
-              <Sel label="Size *"
-                value={editing.sizeLabel}
-                onChange={(e:any) => setEditing(t => t ? { ...t, sizeLabel: e.target.value } : t)}
-                options={[{value:'',label:'Select size…'},...billboardSizes.map((sz:any)=>({value:sz.label,label:sz.label}))]}
-              />
-              <div className="col-span-2">
-                <Field label="Notes" placeholder="Optional description" value={editing.notes ?? ''}
-                  onChange={(e:any) => setEditing(t => t ? { ...t, notes: e.target.value } : t)} />
-              </div>
-            </div>
-
-            {/* Mockup photo */}
-            <div className="mb-5">
-              <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider block mb-2">Mockup Photo *</label>
-              <ImagePicker value={editing.mockupUrl} onChange={(url: string) => setEditing(t => t ? { ...t, mockupUrl: url } : t)} />
-            </div>
-
-            {/* Multi-panel corner picker — shown when mockup is set */}
-            {editing.mockupUrl && (
-              <div className="mb-5">
-                <div className="flex items-center gap-3 mb-4">
-                  <Crosshair size={15} color={RED} />
-                  <p className="font-bold text-sm" style={{ color: NAVY }}>Billboard Panels</p>
-                  <span className="text-xs text-gray-400">— one panel = one design area</span>
-                  <div className="ml-auto flex items-center gap-2">
-                    <span className="text-xs text-gray-500 font-semibold">{panels.length} panel{panels.length > 1 ? 's' : ''}</span>
-                    {panels.length < 3 && (
-                      <button onClick={addPanel}
-                        className="flex items-center gap-1 text-xs font-bold px-3 py-1.5 rounded-lg border-2 border-dashed hover:border-solid transition-all"
-                        style={{ color: RED, borderColor: RED, background: 'rgba(217,4,41,0.04)' }}
-                      >
-                        <Plus size={12} /> Add Panel
-                      </button>
-                    )}
-                  </div>
-                </div>
-
-                {/* Panel tabs */}
-                <div className="flex gap-2 mb-4">
-                  {panels.map((_, pi) => (
-                    <div key={pi} className="flex items-center gap-1">
-                      <button
-                        onClick={() => setActivePanelIdx(pi)}
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all"
-                        style={{
-                          background: activePanelIdx === pi ? PANEL_LABEL_COLORS[pi % PANEL_LABEL_COLORS.length] : '#f3f4f6',
-                          color: activePanelIdx === pi ? '#fff' : '#6b7280',
-                        }}
-                      >
-                        <Layers size={11} /> {PANEL_NAMES[pi]}
-                      </button>
-                      {panels.length > 1 && (
-                        <button onClick={() => removePanel(pi)}
-                          className="w-5 h-5 rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50"
-                        >
-                          <Trash2 size={10} />
-                        </button>
-                      )}
-                    </div>
-                  ))}
-                </div>
-
-                <div className="text-xs text-gray-400 mb-3 p-3 bg-gray-50 rounded-lg">
-                  <span className="font-semibold">Editing: </span>{PANEL_NAMES[activePanelIdx]} — Drag handles to the exact corners of this panel's surface.
-                  <br/><span className="font-semibold">Handles: </span>🟢 TL · 🔵 TR · 🟡 BR · 🔴 BL
-                </div>
-
-                <div className="mb-3">
-                  <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider block mb-1">
-                    Test Design for {PANEL_NAMES[activePanelIdx]} (optional)
-                  </label>
-                  <input type="file" accept="image/*" onChange={e => {
-                    const f = e.target.files?.[0];
-                    if (f) {
-                      const url = URL.createObjectURL(f);
-                      setPreviewDesigns(prev => { const next = [...prev]; next[activePanelIdx] = url; return next; });
-                    }
-                  }} className="text-xs text-gray-500" />
-                </div>
-
-                <SimulatorCanvas
-                  ref={canvasRef}
-                  mockupUrl={editing.mockupUrl}
-                  designUrls={panels.map((_, pi) =>
-                    previewDesigns[pi] ||
-                    `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400"><rect width="800" height="400" fill="${pi === 0 ? '%23D90429' : '%230B0F1A'}" opacity="0.75"/><text x="50%25" y="50%25" fill="white" font-size="36" font-family="Arial" font-weight="bold" text-anchor="middle" dominant-baseline="middle">PANEL ${pi + 1}</text></svg>`
-                  )}
-                  panels={panels}
-                  editMode={true}
-                  activePanelIndex={activePanelIdx}
-                  onPanelsChange={newPanels => setPanels(newPanels)}
-                  style={{ borderRadius: 10, overflow: 'hidden', border: '2px solid #e5e7eb' }}
-                />
-                <p className="text-[11px] text-gray-400 mt-2">
-                  {panels.map((p, pi) => (
-                    <span key={pi} className="mr-4 inline-block">
-                      <span className="font-semibold" style={{ color: PANEL_LABEL_COLORS[pi % PANEL_LABEL_COLORS.length] }}>{PANEL_NAMES[pi]}:</span>{' '}
-                      {(p as Panel).map((c, ci) => `${['TL','TR','BR','BL'][ci]}(${(c.x*100).toFixed(1)}%,${(c.y*100).toFixed(1)}%)`).join(' ')}
-                    </span>
-                  ))}
-                </p>
-              </div>
-            )}
-
-            <div className="flex gap-3">
-              <Btn onClick={save}>Save Template</Btn>
-              <Btn variant="ghost" onClick={cancel}>Cancel</Btn>
-            </div>
-          </div>
-        )}
-
-        {/* Templates list */}
-        <div className="grid grid-cols-1 gap-4">
-          {simulatorTemplates.length === 0 ? (
-            <div className="bg-white rounded-2xl border border-gray-100 text-center py-16 text-gray-400">
-              <Monitor size={32} className="mx-auto mb-3 opacity-30" />
-              <p className="font-semibold text-sm">No templates yet. Add your first template.</p>
-            </div>
-          ) : (
-            simulatorTemplates.map(tpl => {
-              const tplPanels: Panel[] = (tpl.panels && tpl.panels.length > 0)
-                ? tpl.panels as Panel[]
-                : tpl.corners ? [tpl.corners as Panel] : [];
-              return (
-                <div key={tpl.id} className="bg-white rounded-2xl border border-gray-100 p-5 flex gap-5 items-start">
-                  <div style={{ width: 100, height: 70, borderRadius: 8, overflow: 'hidden', flexShrink: 0, background: '#f3f4f6' }}>
-                    {tpl.mockupUrl ? (
-                      <img src={tpl.mockupUrl} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    ) : (
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-                        <Monitor size={20} color="#d1d5db" />
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-0.5">
-                      <p className="font-black text-sm" style={{ color: NAVY }}>{tpl.typeName} — {tpl.sizeLabel}</p>
-                      {tplPanels.length > 1 && (
-                        <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full"
-                          style={{ background: 'rgba(217,4,41,0.08)', color: RED }}>
-                          <Layers size={10} /> {tplPanels.length} panels
-                        </span>
-                      )}
-                    </div>
-                    {tpl.notes && <p className="text-xs text-gray-400 mt-0.5">{tpl.notes}</p>}
-                    <p className="text-[11px] text-gray-400 mt-1">
-                      {tplPanels.length > 0
-                        ? tplPanels.map((p, pi) => (
-                            <span key={pi} className="mr-3 inline-block">
-                              <span className="font-semibold">{PANEL_NAMES[pi]}:</span>{' '}
-                              {(p as Panel).map((c, ci) => `${['TL','TR','BR','BL'][ci]}(${(c.x*100).toFixed(0)}%,${(c.y*100).toFixed(0)}%)`).join(' ')}
-                            </span>
-                          ))
-                        : 'No panels set'
-                      }
-                    </p>
-                  </div>
-                  <div className="flex gap-2">
-                    <button onClick={() => startEdit(tpl)} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-700"><Edit2 size={14} /></button>
-                    <button onClick={() => remove(tpl.id)} className="p-1.5 rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-500"><Trash2 size={14} /></button>
-                  </div>
-                </div>
-              );
-            })
-          )}
-        </div>
-      </div>
-    );
-  };
-
-  // ── Tab: Design Uploads ────────────────────────────────────────────────────
-  const UploadsTab = () => {
-    const [statusFilter, setStatusFilter] = useState('');
-    const filtered = statusFilter ? designUploads.filter(u => u.status === statusFilter) : designUploads;
-    const sorted   = [...filtered].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-
-    return (
-      <div>
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h2 className="font-black text-lg" style={{ color: NAVY }}>Design Uploads</h2>
-            <p className="text-sm text-gray-400 mt-0.5">{designUploads.length} submission{designUploads.length !== 1 ? 's' : ''} total</p>
-          </div>
-          <Sel value={statusFilter} onChange={(e:any) => setStatusFilter(e.target.value)}
-            options={[
-              {value:'',label:'All Statuses'},
-              {value:'pending',label:'Pending'},
-              {value:'reviewed',label:'Reviewed'},
-              {value:'approved',label:'Approved'},
-              {value:'rejected',label:'Rejected'},
-            ]}/>
-        </div>
-
-        {sorted.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-gray-100 text-center py-16 text-gray-400">
-            <Monitor size={32} className="mx-auto mb-3 opacity-30" />
-            <p className="font-semibold text-sm">No uploads yet.</p>
-          </div>
-        ) : (
-          <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-50">
-                  <th className="text-left px-5 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">Design</th>
-                  <th className="text-left px-5 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">User</th>
-                  <th className="text-left px-5 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">Contact</th>
-                  <th className="text-left px-5 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">Format</th>
-                  <th className="text-left px-5 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">Date</th>
-                  <th className="text-left px-5 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">Status</th>
-                  <th className="px-5 py-3" />
-                </tr>
-              </thead>
-              <tbody>
-                {sorted.map(u => (
-                  <tr key={u.id} className="border-b border-gray-50 hover:bg-gray-50/50">
-                    {/* Design thumbnail */}
-                    <td className="px-5 py-3">
-                      <div style={{ width: 64, height: 40, borderRadius: 6, overflow: 'hidden', background: '#f3f4f6' }}>
-                        <img src={u.designUrl} alt="design"
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                          onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
-                      </div>
-                    </td>
-                    {/* User name */}
-                    <td className="px-5 py-3">
-                      <div className="flex items-center gap-2">
-                        <div style={{ width: 28, height: 28, borderRadius: '50%', background: `rgba(217,4,41,0.1)`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                          <User size={13} color={RED} />
-                        </div>
-                        <div>
-                          <p className="font-semibold text-xs" style={{ color: NAVY }}>{u.userName || '—'}</p>
-                          {u.userId && u.userId !== 'guest' && (
-                            <p className="text-[10px] text-gray-400">ID: {u.userId}</p>
-                          )}
-                          {u.userId === 'guest' && (
-                            <p className="text-[10px] text-gray-400">Guest</p>
-                          )}
-                        </div>
-                      </div>
-                    </td>
-                    {/* Contact: email + phone */}
-                    <td className="px-5 py-3">
-                      <div className="flex flex-col gap-1">
-                        {u.userEmail && (
-                          <div className="flex items-center gap-1.5">
-                            <Mail size={11} color="#9ca3af" />
-                            <a href={`mailto:${u.userEmail}`} className="text-xs text-blue-600 hover:underline">{u.userEmail}</a>
-                          </div>
-                        )}
-                        {u.userPhone && (
-                          <div className="flex items-center gap-1.5">
-                            <Phone size={11} color="#9ca3af" />
-                            <a href={`tel:${u.userPhone}`} className="text-xs text-gray-600 hover:underline">{u.userPhone}</a>
-                          </div>
-                        )}
-                        {!u.userEmail && !u.userPhone && <span className="text-xs text-gray-400">—</span>}
-                      </div>
-                    </td>
-                    {/* Format */}
-                    <td className="px-5 py-3">
-                      <p className="font-semibold text-xs" style={{ color: NAVY }}>{u.typeName}</p>
-                      <p className="text-[11px] text-gray-400">{u.sizeLabel}</p>
-                      {u.productName && <p className="text-[11px] text-gray-400">{u.productName}</p>}
-                    </td>
-                    {/* Date */}
-                    <td className="px-5 py-3 text-xs text-gray-500">{formatDate(u.createdAt)}</td>
-                    {/* Status */}
-                    <td className="px-5 py-3">
-                      <Sel value={u.status}
-                        onChange={async (e:any) => { try { await designUploadStore.update(u.id, { status: e.target.value as any }); toast.success('Status updated'); } catch { toast.error('Update failed'); } }}
-                        options={[
-                          {value:'pending',label:'Pending'},
-                          {value:'reviewed',label:'Reviewed'},
-                          {value:'approved',label:'Approved'},
-                          {value:'rejected',label:'Rejected'},
-                        ]}/>
-                    </td>
-                    {/* Actions */}
-                    <td className="px-5 py-3">
-                      <div className="flex gap-2 justify-end">
-                        <a href={u.designUrl} download target="_blank" rel="noopener noreferrer"
-                          className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-700">
-                          <Download size={14} />
-                        </a>
-                        <button onClick={async () => { try { await designUploadStore.remove(u.id); toast.success('Removed'); } catch { toast.error('Delete failed'); } }}
-                          className="p-1.5 rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-500">
-                          <Trash2 size={14} />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </div>
-    );
-  };
-
-  // ── Layout ─────────────────────────────────────────────────────────────────
-  const tabs = [
-    { id: 'sizes',     label: 'Billboard Sizes' },
-    { id: 'templates', label: 'Simulator Templates' },
-    { id: 'uploads',   label: `Design Uploads (${designUploads.length})` },
-  ] as const;
+  const tabs: { id: Tab; label: string; icon: any }[] = [
+    { id: 'sizes',     label: 'Billboard Sizes',      icon: Layers },
+    { id: 'templates', label: 'Simulator Templates',  icon: Image },
+    { id: 'uploads',   label: 'Design Uploads',        icon: Save },
+  ]
 
   return (
-    <div className="p-6 max-w-6xl">
-      <div className="mb-6">
-        <h1 className="font-black text-2xl tracking-tight" style={{ color: NAVY }}>Ad Design Simulator</h1>
-        <p className="text-sm text-gray-400 mt-1">Manage billboard sizes, mockup templates, and user design submissions.</p>
-      </div>
+    <div className="p-6 max-w-[1100px] mx-auto">
+      <PageHeader
+        title="Ad Design Simulator"
+        subtitle="Manage billboard sizes, simulator templates, and uploaded designs"
+      />
 
       {/* Tabs */}
-      <div className="flex gap-1 mb-8 p-1 bg-gray-100 rounded-xl w-fit">
+      <div className="flex gap-1 mt-6 mb-6 bg-gray-100 p-1 rounded-xl w-fit">
         {tabs.map(t => (
-          <button key={t.id} onClick={() => setActiveTab(t.id as any)}
-            className="px-5 py-2 rounded-lg text-sm font-bold transition-all"
-            style={activeTab === t.id
-              ? { background: '#fff', color: NAVY, boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }
-              : { background: 'transparent', color: '#9ca3af' }
-            }>
-            {t.label}
+          <button key={t.id} onClick={() => setTab(t.id)}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${tab === t.id ? 'bg-white shadow text-gray-900' : 'text-gray-400 hover:text-gray-600'}`}>
+            <t.icon size={14} />{t.label}
           </button>
         ))}
       </div>
 
-      {activeTab === 'sizes'     && <SizesTab />}
-      {activeTab === 'templates' && <TemplatesTab />}
-      {activeTab === 'uploads'   && <UploadsTab />}
+      {tab === 'sizes'     && <SizesTab />}
+      {tab === 'templates' && <TemplatesTab />}
+      {tab === 'uploads'   && <UploadsTab />}
     </div>
-  );
+  )
 }

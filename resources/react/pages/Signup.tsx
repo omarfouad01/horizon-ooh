@@ -128,27 +128,16 @@ function BrandPanel() {
 }
 
 export default function Signup() {
-  const [name,     setName]     = useState('');
-  const [company,  setCompany]  = useState('');
-  const [phone,    setPhone]    = useState('');
-  const [email,    setEmail]    = useState('');
-  const [password, setPassword] = useState('');
-  const [confirm,  setConfirm]  = useState('');
-  const [loading,  setLoading]  = useState(false);
-  const [error,    setError]    = useState<string | null>(null);
-  const [success,  setSuccess]  = useState(false);
-  const [agreed,   setAgreed]   = useState(false);
-
-// ─── Parse Laravel error response ────────────────────────────────────────────
-  function parseApiError(err: any): string {
-    const resp = err?.response;
-    if (!resp) return 'Network error — please check your connection and try again.';
-    const body = resp.data ?? {};
-    if (body.errors) {
-      return Object.values(body.errors as Record<string, string[]>).flat().join(' ');
-    }
-    return body.message || `Registration failed (${resp.status})`;
-  }
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [company, setCompany] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+  const [agreed, setAgreed] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -158,37 +147,26 @@ export default function Signup() {
     if (password !== confirm) { setError('Passwords do not match.'); return; }
     if (!agreed) { setError('Please agree to the terms and privacy policy.'); return; }
     setLoading(true);
-    const payload = { name, email, password, password_confirmation: confirm, phone, company };
     try {
-      // Try /auth/register first, then fall back to /register (Sanctum web route)
-      let data: any;
+      const payload = { name, email, password, password_confirmation: confirm, phone, company };
       try {
-        const res = await authApi.register(payload);
-        data = res.data;
-      } catch (firstErr: any) {
-        // If 404/405 on /auth/register, retry on /register
-        const status = firstErr?.response?.status;
-        if (status === 404 || status === 405) {
-          const res = await authApi.registerFallback(payload);
-          data = res.data;
-        } else {
-          throw firstErr;
-        }
+        await authApi.register(payload);
+      } catch (e1: any) {
+        if (e1?.response?.status === 405 || e1?.response?.status === 404) {
+          await authApi.registerFallback(payload);
+        } else throw e1;
       }
-      // Store session
-      const token = data.token || data.access_token || '';
-      const user  = data.user || {};
-      localStorage.setItem('horizon_token',       token);
-      localStorage.setItem('horizon_user_email', user.email || email);
-      localStorage.setItem('horizon_user_name',  user.name  || name);
-      localStorage.setItem('horizon_user_phone', user.phone || phone);
       siteUserStore.upsert(email, { name, phone, source: 'signup' });
       setSuccess(true);
     } catch (err: any) {
-      setError(parseApiError(err));
-    } finally {
-      setLoading(false);
+      const apiErrors = err?.response?.data?.errors;
+      if (apiErrors && typeof apiErrors === 'object') {
+        setError(Object.values(apiErrors).flat().join(' '));
+      } else {
+        setError(err?.response?.data?.message ?? err?.message ?? 'Registration failed. Please try again.');
+      }
     }
+    setLoading(false);
   };
 
   return (
@@ -270,14 +248,14 @@ export default function Signup() {
                   <div className="grid grid-cols-2 gap-4">
                     <AuthInput label="Full Name" id="name" placeholder="Ahmed Hassan"
                       value={name} onChange={setName} />
-                    <AuthInput label="Company" id="company" placeholder="Brand Egypt"
-                      value={company} onChange={setCompany} required={false} />
+                    <AuthInput label="Phone Number" id="phone" type="tel" placeholder="+20 100 000 0000"
+                      value={phone} onChange={setPhone} required={false} />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <AuthInput label="Email Address" id="email" type="email"
                       placeholder="you@brand.com" value={email} onChange={setEmail} />
-                    <AuthInput label="Phone Number" id="phone" type="tel"
-                      placeholder="+20 10 0000 0000" value={phone} onChange={setPhone} required={false} />
+                    <AuthInput label="Company" id="company" placeholder="Brand Egypt"
+                      value={company} onChange={setCompany} required={false} />
                   </div>
                   <PasswordInput label="Password" id="password" placeholder="Min. 8 characters"
                     value={password} onChange={setPassword} />
