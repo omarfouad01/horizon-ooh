@@ -13,16 +13,15 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': SRC,
-      'react-router-dom': path.resolve(__dirname, 'src/lib/react-router-dom-proxy.tsx'),
-      'react-router-dom-original': path.resolve(__dirname, 'node_modules/react-router-dom'),
     },
   },
   define: {
     __ROUTE_MESSAGING_ENABLED__: JSON.stringify(true),
+    __APP_BUILD__: JSON.stringify('20260427-C'),
   },
   build: {
-    outDir: path.resolve(__dirname, 'dist-deploy'),
-    emptyOutDir: true,
+    outDir: path.resolve(__dirname, 'public'),
+    emptyOutDir: false,
     chunkSizeWarningLimit: 600,
     rollupOptions: {
       input: path.resolve(SRC, 'index.html'),

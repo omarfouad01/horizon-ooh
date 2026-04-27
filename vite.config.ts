@@ -98,5 +98,6 @@ export default defineConfig(({ mode }) => ({
         ? process.env.VITE_ENABLE_ROUTE_MESSAGING === 'true'
         : process.env.VITE_ENABLE_ROUTE_MESSAGING !== 'false'
     ),
+    __APP_BUILD__: JSON.stringify('20260427-C'),
   },
 }));
