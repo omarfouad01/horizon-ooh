@@ -1,4 +1,4 @@
-import{r as s,j as r}from"./react-core-D-bXyxDN.js";import"./admin-DGr_fjt6.js";import{L as i}from"./leaflet-DcPNEzH4.js";import{a as y}from"./router-DwZDU_mQ.js";import"./utils-B2rm_Apj.js";import"./data-layer-Dd3l1QeK.js";const p="#0B0F1A",l="#D90429",x="#FFFFFF";delete i.Icon.Default.prototype._getIconUrl;i.Icon.Default.mergeOptions({iconUrl:"https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",iconRetinaUrl:"https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",shadowUrl:"https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png"});function v(o=!1){const c=o?l:p,n=o?x:l;return i.divIcon({html:`<svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 32 40">
+import{r as s,j as r}from"./react-core-D-bXyxDN.js";import"./admin-C2Em6XxN.js";import{L as i}from"./leaflet-DcPNEzH4.js";import{a as y}from"./router-DwZDU_mQ.js";import"./utils-B2rm_Apj.js";import"./data-layer-Dd3l1QeK.js";const p="#0B0F1A",l="#D90429",x="#FFFFFF";delete i.Icon.Default.prototype._getIconUrl;i.Icon.Default.mergeOptions({iconUrl:"https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",iconRetinaUrl:"https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",shadowUrl:"https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png"});function v(o=!1){const c=o?l:p,n=o?x:l;return i.divIcon({html:`<svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 32 40">
       <path d="M16 0C7.163 0 0 7.163 0 16c0 10.293 14.222 23.156 15.259 24.114a1 1 0 0 0 1.482 0
         C17.778 39.156 32 26.293 32 16 32 7.163 24.837 0 16 0z" fill="${c}"/>
       <circle cx="16" cy="16" r="6" fill="${n}"/>
@@ -9,7 +9,7 @@ import{r as s,j as r}from"./react-core-D-bXyxDN.js";import"./admin-DGr_fjt6.js";
             <p style="font-size:11px;color:rgba(11,15,26,.4);margin:0 0 10px">${t.district}, ${t.city}</p>
             <div style="display:flex;gap:14px;margin-bottom:12px">
               <div><p style="font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(11,15,26,.3);margin:0 0 2px">Traffic</p>
-                <p style="font-size:12px;font-weight:700;color:${p};margin:0">${t.traffic.split(" ").slice(0,2).join(" ")}</p></div>
+                <p style="font-size:12px;font-weight:700;color:${p};margin:0">${(t.traffic??"").split(" ").slice(0,2).join(" ")||"—"}</p></div>
               <div><p style="font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(11,15,26,.3);margin:0 0 2px">Size</p>
                 <p style="font-size:12px;font-weight:700;color:${p};margin:0">${t.size}</p></div>
             </div>
@@ -26,4 +26,3 @@ import{r as s,j as r}from"./react-core-D-bXyxDN.js";import"./admin-DGr_fjt6.js";
         .horizon-popup .leaflet-popup-content { margin: 14px !important; }
         .horizon-popup .leaflet-popup-tip-container { display: none; }
       `})]})}export{E as default};
-//# sourceMappingURL=BillboardMap-D84z5AfL.js.map
