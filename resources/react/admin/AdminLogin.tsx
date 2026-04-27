@@ -15,10 +15,12 @@ export default function AdminLogin() {
     setLoading(true)
     setError('')
     try {
-      await login(email, pw)   // async — awaits API or demo fallback
+      await login(email, pw)
       navigate('/admin')
     } catch (err: any) {
-      setError(err?.message ?? 'Invalid credentials. Please try again.')
+      // Show the specific error from the API or auth logic
+      const apiMsg = (err as any)?.response?.data?.message;
+      setError(apiMsg ?? err?.message ?? 'Invalid credentials. Please try again.')
       setLoading(false)
     }
   }

@@ -2,9 +2,12 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, SectionHeading, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
 import { productHref, RED, NAVY } from "@/lib/routes";
+import { useLang } from "@/i18n/LangContext";
 
 export default function LocationDetail() {
-  const { locations: LOCATIONS } = useStore()
+  const { locations: LOCATIONS, locationsContent: _lc } = useStore() as any
+  const { isAr } = useLang()
+  const lp = _lc ?? {}
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const location = LOCATIONS.find((l) => l.slug === slug);
@@ -33,7 +36,7 @@ export default function LocationDetail() {
           style={{ minHeight: 520 }}
         >
           <div className="flex flex-col justify-center py-20 pr-16">
-            <Eyebrow text="Advertising Location" light />
+            <Eyebrow text={isAr ? (lp.detailEyebrowAr || 'موقع إعلاني') : (lp.detailEyebrow || 'Advertising Location')} light />
             <Reveal delay={0.05}>
               <h1
                 className="font-black leading-[0.88] tracking-[-0.05em] text-white mb-6"
@@ -54,12 +57,12 @@ export default function LocationDetail() {
                 style={{ background: RED }}
               >
                 <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: "white" }} />
-                <span className="relative z-10 group-hover:text-[#0B0F1A] transition-colors duration-300">Get a Quote</span>
+                <span className="relative z-10 group-hover:text-[#0B0F1A] transition-colors duration-300">{isAr ? (lp.detailCtaButtonAr || 'اطلب عرض سعر') : (lp.detailCtaButton || 'Get a Quote')}</span>
               </button>
             </Reveal>
           </div>
           <div className="relative overflow-hidden">
-            <img src={location.image} alt={location.city} className="w-full h-full object-cover" style={{ opacity: 0.6 }} />
+            <img src={location.image} alt={location.city} className="w-full h-full object-cover" style={{ opacity: 0.6 }} loading="lazy" />
             <div className="absolute inset-0" style={{ background: `linear-gradient(to right, ${NAVY} 0%, rgba(11,15,26,0.15) 65%, transparent 100%)` }} />
           </div>
         </div>
@@ -91,7 +94,7 @@ export default function LocationDetail() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <SectionHeading eyebrow="Available Formats" title={`What's available`} titleAccent={`in ${location.city}.`} />
           <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
-            {location.availableFormats.map((fmt, i) => (
+            {(location.availableFormats || []).map((fmt, i) => (
               <RevealItem key={fmt}>
                 <div className="bg-white p-8 flex items-start gap-5">
                   <span className="font-black text-[11px] tracking-[0.25em] uppercase mt-0.5 flex-shrink-0" style={{ color: RED }}>
@@ -108,12 +111,12 @@ export default function LocationDetail() {
       </section>
 
       {/* Featured Locations / Products */}
-      {location.products.length > 0 && (
+      {(location.products || []).length > 0 && (
         <section className="bg-white" style={{ paddingTop: 100, paddingBottom: 80 }}>
           <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
             <SectionHeading eyebrow="Featured Inventory" title="Prime locations" titleAccent={`in ${location.city}.`} />
             <RevealGroup className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {location.products.map((product) => (
+              {(location.products || []).map((product) => (
                 <RevealItem key={product.id}>
                   <Link
                     to={productHref(location.slug, product.slug)}

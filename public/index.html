@@ -23,8 +23,11 @@
     <meta name="twitter:description" content="Egypt's premier outdoor advertising agency. Billboard, DOOH, Mall &amp; Airport campaigns across Cairo, Alexandria &amp; nationwide. 9,500+ premium locations." />
     <meta name="twitter:image" content="https://images.unsplash.com/photo-1702231942007-b255a41475c9?w=1200&q=80" />
 
+    <!-- Preconnect to key external origins for faster DNS + TLS -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://unpkg.com" />
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
 
     <script type="application/ld+json">
     {
@@ -82,9 +85,21 @@
       }
     }
     </script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script type="module" crossorigin src="/assets/index-BhkARpRv.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-CjmuUxio.css">
+    <!-- Leaflet CSS loaded non-blocking so it doesn't delay first paint -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" /></noscript>
+    <script type="module" crossorigin src="/assets/index-CgQ6rY_H.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/leaflet-DcPNEzH4.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-core-D-bXyxDN.js">
+    <link rel="modulepreload" crossorigin href="/assets/radix-ui-DR4dVxDl.js">
+    <link rel="modulepreload" crossorigin href="/assets/utils-B2rm_Apj.js">
+    <link rel="modulepreload" crossorigin href="/assets/router-DwZDU_mQ.js">
+    <link rel="modulepreload" crossorigin href="/assets/data-layer-Dd3l1QeK.js">
+    <link rel="modulepreload" crossorigin href="/assets/admin-DGr_fjt6.js">
+    <link rel="modulepreload" crossorigin href="/assets/framer-motion-CXfSeMuE.js">
+    <link rel="stylesheet" crossorigin href="/assets/leaflet-CIGW-MKW.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-D_Nd31AA.css">
   </head>
 
   <body>

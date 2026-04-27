@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useStore, contactStore } from '@/store/dataStore'
-import { Btn, PageHeader, Tbl, Th, Td, Tr, Badge, Confirm, Modal } from '../ui'
+import { Btn, PageHeader, Tbl, Th, Td, Tr, Badge, Confirm, Modal, Sel } from '../ui'
 import { Trash2, Eye, Mail, Phone } from 'lucide-react'
 import toast from 'react-hot-toast'
 
@@ -17,12 +17,12 @@ export default function AdminContacts() {
     <div className="p-6 max-w-6xl mx-auto">
       <PageHeader title="Contacts" subtitle="Enquiries from the website"
         action={
-          <select value={filter} onChange={e=>setFilter(e.target.value)}
-            className="h-9 px-3 rounded-xl border border-gray-200 text-sm outline-none bg-white">
-            <option value="">All</option>
-            <option value="new">New</option><option value="read">Read</option>
-            <option value="replied">Replied</option><option value="archived">Archived</option>
-          </select>}/>
+          <Sel value={filter} onChange={(e:any)=>setFilter(e.target.value)}
+            options={[
+              {value:'',label:'All'},
+              {value:'new',label:'New'},{value:'read',label:'Read'},
+              {value:'replied',label:'Replied'},{value:'archived',label:'Archived'}
+            ]}/>}/>
       <Tbl>
         <thead><tr><Th>Name</Th><Th>Company</Th><Th>Message</Th><Th>Date</Th><Th>Status</Th><Th className="w-24">Actions</Th></tr></thead>
         <tbody>
@@ -57,11 +57,13 @@ export default function AdminContacts() {
           <div><p className="text-[10px] font-black text-gray-400 uppercase tracking-wider mb-2">Message</p>
             <div className="bg-gray-50 rounded-xl p-4 text-sm text-gray-700 whitespace-pre-wrap leading-relaxed">{view.message}</div></div>
           <div className="flex gap-3 items-center">
-            <select value={view.status} onChange={e=>{contactStore.update(view.id,{status:e.target.value as any});setView({...view,status:e.target.value})}}
-              className="flex-1 h-9 px-3 rounded-xl border border-gray-200 text-sm outline-none bg-white">
-              <option value="new">New</option><option value="read">Read</option>
-              <option value="replied">Replied</option><option value="archived">Archived</option>
-            </select>
+            <div className="flex-1">
+              <Sel value={view.status} onChange={(e:any)=>{contactStore.update(view.id,{status:e.target.value as any});setView({...view,status:e.target.value})}}
+                options={[
+                  {value:'new',label:'New'},{value:'read',label:'Read'},
+                  {value:'replied',label:'Replied'},{value:'archived',label:'Archived'}
+                ]}/>
+            </div>
             <a href={`mailto:${view.email}`} className="flex-1"><Btn className="w-full" size="sm">Reply by Email</Btn></a>
           </div>
         </div>}

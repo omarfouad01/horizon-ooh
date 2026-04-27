@@ -3,6 +3,7 @@ import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
 import { blogHref, RED, NAVY } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
+import SEO from "@/components/SEO";
 
 export default function BlogArticle() {
   const { blogPosts: BLOG_POSTS } = useStore()
@@ -21,8 +22,16 @@ export default function BlogArticle() {
     );
   }
 
+  const metaTitle = (post as any).metaTitle || `${isAr && (post as any).titleAr ? (post as any).titleAr : post.title} | HORIZON OOH`;
+  const metaDesc  = (post as any).metaDesc  || (isAr && (post as any).excerptAr ? (post as any).excerptAr : post.excerpt) || '';
+
   return (
     <>
+      <SEO
+        title={metaTitle}
+        description={metaDesc}
+        ogImage={post.image}
+      />
       <div className="bg-white pt-4">
         <Breadcrumb items={[{ label: t('common.home'), href: "/" }, { label: t('blog.title'), href: "/blog" }, { label: post.category }]} />
       </div>
@@ -71,7 +80,7 @@ export default function BlogArticle() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             {/* Main content */}
             <article className="col-span-12 lg:col-span-8">
-              {(isAr && (post as any).bodyAr?.length ? (post as any).bodyAr : post.body).map((block: any, i: number) => {
+              {((isAr && (post as any).bodyAr?.length ? (post as any).bodyAr : null) ?? post.body ?? []).map((block: any, i: number) => {
                 if (block.type === "h2") {
                   return (
                     <Reveal key={i} delay={0.04}>
@@ -171,7 +180,7 @@ export default function BlogArticle() {
                         className="group flex items-start gap-4 py-5 border-b border-[#0B0F1A]/[0.07] hover:text-[#D90429] transition-colors"
                         style={{ textDecoration: "none" }}
                       >
-                        <img src={rel.image} alt={rel.title} className="w-14 h-12 object-cover flex-shrink-0" />
+                        <img src={rel.image} alt={rel.title} className="w-14 h-12 object-cover flex-shrink-0" loading="lazy" />
                         <div>
                           <p className="text-[13px] font-semibold leading-[1.4] transition-colors group-hover:text-[#D90429]" style={{ color: NAVY }}>
                           {(() => { const t = isAr && (rel as any).titleAr ? (rel as any).titleAr : rel.title; return t.length > 60 ? t.slice(0,60)+'…' : t; })()}

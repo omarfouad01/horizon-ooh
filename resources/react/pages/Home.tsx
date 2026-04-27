@@ -1,5 +1,5 @@
-import { useRef, useEffect, useState } from "react";
-import LeafletMap from "@/components/BillboardMap";
+import { useRef, useEffect, useState, lazy, Suspense } from "react";
+const LeafletMap = lazy(() => import("@/components/BillboardMap"));
 import { useStore, getState } from "@/store/dataStore";
 import { motion, AnimatePresence, useInView, useScroll, useTransform } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
@@ -336,11 +336,11 @@ function HeroSection() {
               {heroStatement}
             </motion.p>
 
-            {/* CTA row */}
+            {/* CTA row — 2 buttons only, contained within left panel */}
             <motion.div
               initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, ease, delay: 0.9 }}
-              className="flex flex-col sm:flex-row items-start gap-3 mb-12"
+              className="flex flex-row items-start gap-3 mb-12 flex-wrap"
             >
               <button
                 onClick={() => { window.location.hash = '/contact'; window.scrollTo(0,0); }}
@@ -352,13 +352,15 @@ function HeroSection() {
                 <span className="relative z-10">{t('nav.getQuote')}</span>
               </button>
               <button
-                onClick={() => { window.location.hash = '/locations'; window.scrollTo(0,0); }}
+                onClick={() => { window.location.hash = '/design-simulator'; window.scrollTo(0,0); }}
                 className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase cursor-pointer flex-shrink-0"
                 style={{ border: "1.5px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.65)", background: "transparent" }}
               >
                 <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
                   style={{ background: "rgba(255,255,255,0.07)" }} />
-                <span className="relative z-10 group-hover:text-white transition-colors duration-300">{heroCta1}</span>
+                <span className="relative z-10 group-hover:text-white transition-colors duration-300">
+                  {isAr ? 'جرّب المحاكي' : 'Try Simulator'}
+                </span>
               </button>
             </motion.div>
 
@@ -447,21 +449,23 @@ function HeroSection() {
             background: "linear-gradient(to right, rgba(11,15,26,0.4) 0%, transparent 25%)"
           }} />
 
-          <LeafletMap
-            filtered={getBillboards()}
-            allCount={getBillboards().length}
-            selected={selectedPin}
-            onSelect={setSelectedPin}
-            className="absolute inset-0 w-full h-full"
-            style={{ zIndex: 1 }}
-          />
+          <Suspense fallback={<div className="absolute inset-0 bg-[#0b0f1a]" />}>
+            <LeafletMap
+              filtered={getBillboards()}
+              allCount={getBillboards().length}
+              selected={selectedPin}
+              onSelect={setSelectedPin}
+              className="absolute inset-0 w-full h-full"
+              style={{ zIndex: 1 }}
+            />
+          </Suspense>
 
           <AnimatePresence>
             {selectedPin && (
               <motion.div
                 initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }}
                 transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute top-4 right-4 z-[1000]"
+                className="absolute bottom-4 right-4 z-[1000]"
                 style={{ width: 268 }}
               >
                 <div className="overflow-hidden"
@@ -1173,8 +1177,10 @@ function FinalCTASection() {
 // ═══════════════════════════════════════════════════════════════════════════
 function ProjectsSection() {
   const { projects: PROJECTS } = useStore()
-  const featured = PROJECTS.find((p) => p.featured)!;
-  const others   = PROJECTS.filter((p) => !p.featured).slice(0, 2);
+  const featured = PROJECTS.find((p) => p.featured) ?? PROJECTS[0] ?? null;
+  const others   = PROJECTS.filter((p) => p !== featured).slice(0, 2);
+
+  if (!featured) return null;
 
   return (
     <section className="bg-white" style={{ paddingTop: 120, paddingBottom: 120 }}>
@@ -1450,7 +1456,7 @@ function BillboardBenefitsSection() {
 function RecentBillboardsSection() {
   const { locations: LOCATIONS } = useStore()
   const ALL_BILLBOARD_PRODUCTS = LOCATIONS.flatMap((loc) =>
-    loc.products.map((p) => ({ ...p, citySlug: loc.slug, cityName: loc.city }))
+    (loc.products || []).map((p: any) => ({ ...p, citySlug: loc.slug ?? '', cityName: loc.city ?? '' }))
   );
   const RECENT_SIX = ALL_BILLBOARD_PRODUCTS.slice(0, 6);
 

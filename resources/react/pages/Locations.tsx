@@ -247,8 +247,9 @@ interface CardProps {
   onHover: (id: string | null) => void;
   onSelect: (id: string | null) => void;
   cardRef: (el: HTMLDivElement | null) => void;
+  waNumber: string;
 }
-function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }: CardProps) {
+function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, waNumber }: CardProps) {
   const navigate = useNavigate();
   const { isAr, t } = useLang();
   const badges = getBadges(b.type);
@@ -376,7 +377,7 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }:
             {isAr ? 'اطلب عرض سعر' : 'Get Quote'}
           </button>
           <a
-            href={`https://wa.me/201234567890?text=Hi%20HORIZON%20OOH%2C%20I%27m%20interested%20in%20${encodeURIComponent(b.name)}`}
+            href={`https://wa.me/${waNumber}?text=Hi%20HORIZON%20OOH%2C%20I%27m%20interested%20in%20${encodeURIComponent(b.name)}`}
             target="_blank"
             rel="noopener noreferrer"
             onClick={e => e.stopPropagation()}
@@ -398,8 +399,10 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }:
 // MAIN PAGE
 // ═══════════════════════════════════════════════════════════════════════════
 export default function Locations() {
-  const { locations, districts: storeDistrictsForEnrich } = useStore()
+  const { locations, districts: storeDistrictsForEnrich, settings, locationsContent } = useStore()
+  const waNumber = (settings?.whatsapp ?? '+201234567890').replace(/\D/g, '')
   const { isAr, t } = useLang()
+  const lp = locationsContent ?? {}
   // Enrich each billboard with Arabic city/district names from the store
   const allBillboards = locations.flatMap((l: any) =>
     (l.products||[]).map((p: any) => {
@@ -538,16 +541,20 @@ export default function Locations() {
               <div className="flex items-center gap-3 mb-4">
                 <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
                 <span className="text-[10px] font-bold tracking-[0.35em] uppercase"
-                  style={{ color: "rgba(11,15,26,0.3)" }}>{t('locations.ourNetwork')}</span>
+                  style={{ color: "rgba(11,15,26,0.3)" }}>
+                  {isAr ? (lp.eyebrowAr || t('locations.ourNetwork')) : (lp.eyebrow || t('locations.ourNetwork'))}
+                </span>
               </div>
               <h1 className="font-black leading-[0.88] tracking-[-0.04em]"
                 style={{ fontSize: "clamp(36px, 4vw, 58px)", color: NAVY }}>
-                {t('locations.title')}<br />
-                <span style={{ color: "rgba(11,15,26,0.18)" }}>{t('locations.titleAccent')}</span>
+                {isAr ? (lp.titleAr || t('locations.title')) : (lp.title || t('locations.title'))}<br />
+                <span style={{ color: "rgba(11,15,26,0.18)" }}>
+                  {isAr ? (lp.titleAccentAr || t('locations.titleAccent')) : (lp.titleAccent || t('locations.titleAccent'))}
+                </span>
               </h1>
             </div>
             <p className="text-[15px] leading-[1.7]" style={{ color: "rgba(11,15,26,0.45)", maxWidth: 340 }}>
-              {t('locations.subtitle')}
+              {isAr ? (lp.subtitleAr || t('locations.subtitle')) : (lp.subtitle || t('locations.subtitle'))}
             </p>
           </div>
         </div>
@@ -786,6 +793,7 @@ export default function Locations() {
                       isSelected={selectedId === b.id}
                       onHover={setHoveredId}
                       onSelect={handlePinSelect}
+                      waNumber={waNumber}
                       cardRef={el => {
                         if (el) cardRefs.current.set(b.id, el);
                         else cardRefs.current.delete(b.id);
@@ -809,10 +817,10 @@ export default function Locations() {
                     </svg>
                   </div>
                   <h3 className="font-black text-[22px] tracking-[-0.03em] mb-3" style={{ color: NAVY }}>
-                    {t('locations.noResults')}
+                    {isAr ? (lp.noResultsTitleAr || t('locations.noResults')) : (lp.noResultsTitle || t('locations.noResults'))}
                   </h3>
                   <p className="text-[14px] leading-[1.7] mb-8" style={{ color: "rgba(11,15,26,0.45)", maxWidth: 340 }}>
-                    {t('locations.noResultsHint')}
+                    {isAr ? (lp.noResultsHintAr || t('locations.noResultsHint')) : (lp.noResultsHint || t('locations.noResultsHint'))}
                   </p>
                   <div className="flex items-center gap-3">
                     <button onClick={clearAll}
@@ -904,7 +912,7 @@ export default function Locations() {
             style={{ borderRight: "1px solid rgba(11,15,26,0.1)" }}>
             <div className="w-2 h-2 rounded-full" style={{ background: RED, animation: "pulse 2s infinite" }} />
             <span className="text-[12px] font-semibold" style={{ color: "rgba(11,15,26,0.55)" }}>
-              {t('locations.helpChoosing')}
+              {isAr ? (lp.ctaHelpTextAr || t('locations.helpChoosing')) : (lp.ctaHelpText || t('locations.helpChoosing'))}
             </span>
           </div>
           <button
@@ -912,10 +920,10 @@ export default function Locations() {
             className="flex items-center gap-2 h-9 px-4 text-[11px] font-bold tracking-[0.15em] uppercase text-white transition-opacity hover:opacity-90 active:scale-[0.97]"
             style={{ background: NAVY, border: "none", borderRadius: 30, cursor: "pointer" }}
           >
-            {t('locations.talkToExpert')}
+            {isAr ? (lp.ctaButtonAr || t('locations.talkToExpert')) : (lp.ctaButton || t('locations.talkToExpert'))}
           </button>
           <a
-            href="https://wa.me/201234567890?text=Hi%20HORIZON%20OOH%2C%20I%20need%20help%20choosing%20billboard%20locations"
+            href={`https://wa.me/${waNumber}?text=Hi%20HORIZON%20OOH%2C%20I%20need%20help%20choosing%20billboard%20locations`}
             target="_blank" rel="noopener noreferrer"
             className="flex items-center gap-2 h-9 px-4 text-[11px] font-bold tracking-[0.15em] uppercase text-white transition-opacity hover:opacity-90 active:scale-[0.97]"
             style={{ background: "#25D366", borderRadius: 30, textDecoration: "none" }}

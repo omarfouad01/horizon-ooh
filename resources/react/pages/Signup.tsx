@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ROUTES, RED, NAVY, ease } from "@/lib/routes";
 import { siteUserStore } from "@/store/dataStore";
+import { authApi } from "@/api";
 
 function AuthInput({ label, id, type = "text", placeholder, value, onChange, required = true }: {
   label: string; id: string; type?: string; placeholder: string;
@@ -128,6 +129,7 @@ function BrandPanel() {
 
 export default function Signup() {
   const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
   const [company, setCompany] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -140,16 +142,31 @@ export default function Signup() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    if (!name || !email || !password || !confirm) { setError("Please fill in all required fields."); return; }
-    if (password.length < 8) { setError("Password must be at least 8 characters."); return; }
-    if (password !== confirm) { setError("Passwords do not match."); return; }
-    if (!agreed) { setError("Please agree to the terms and privacy policy."); return; }
+    if (!name || !email || !password || !confirm) { setError('Please fill in all required fields.'); return; }
+    if (password.length < 8) { setError('Password must be at least 8 characters.'); return; }
+    if (password !== confirm) { setError('Passwords do not match.'); return; }
+    if (!agreed) { setError('Please agree to the terms and privacy policy.'); return; }
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1100));
-    // Save user to admin store
-    siteUserStore.upsert(email, { name, phone: company, source: 'signup' });
+    try {
+      const payload = { name, email, password, password_confirmation: confirm, phone, company };
+      try {
+        await authApi.register(payload);
+      } catch (e1: any) {
+        if (e1?.response?.status === 405 || e1?.response?.status === 404) {
+          await authApi.registerFallback(payload);
+        } else throw e1;
+      }
+      siteUserStore.upsert(email, { name, phone, source: 'signup' });
+      setSuccess(true);
+    } catch (err: any) {
+      const apiErrors = err?.response?.data?.errors;
+      if (apiErrors && typeof apiErrors === 'object') {
+        setError(Object.values(apiErrors).flat().join(' '));
+      } else {
+        setError(err?.response?.data?.message ?? err?.message ?? 'Registration failed. Please try again.');
+      }
+    }
     setLoading(false);
-    setSuccess(true);
   };
 
   return (
@@ -231,11 +248,15 @@ export default function Signup() {
                   <div className="grid grid-cols-2 gap-4">
                     <AuthInput label="Full Name" id="name" placeholder="Ahmed Hassan"
                       value={name} onChange={setName} />
+                    <AuthInput label="Phone Number" id="phone" type="tel" placeholder="+20 100 000 0000"
+                      value={phone} onChange={setPhone} required={false} />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <AuthInput label="Email Address" id="email" type="email"
+                      placeholder="you@brand.com" value={email} onChange={setEmail} />
                     <AuthInput label="Company" id="company" placeholder="Brand Egypt"
                       value={company} onChange={setCompany} required={false} />
                   </div>
-                  <AuthInput label="Email Address" id="email" type="email"
-                    placeholder="you@brand.com" value={email} onChange={setEmail} />
                   <PasswordInput label="Password" id="password" placeholder="Min. 8 characters"
                     value={password} onChange={setPassword} />
                   <div>

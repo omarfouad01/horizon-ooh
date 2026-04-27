@@ -110,16 +110,18 @@ function BlogForm({ editing, onClose }: { editing?: BlogPost | null; onClose: ()
   const isEdit = !!editing
   const [formTab, setFormTab] = useState<'en'|'ar'>('en')
   const [f, setF] = useState({
-    title:    editing?.title    || '',
-    excerpt:  editing?.excerpt  || '',
-    category: editing?.category || 'Industry Guide',
-    readTime: editing?.readTime || '5 min read',
-    date:     editing?.date     || '',
-    image:    editing?.image    || '',
-    imageAlt: (editing as any)?.imageAlt || '',
-    tags:     (editing as any)?.tags || [] as string[],
-    titleAr:   (editing as any)?.titleAr   || '',
-    excerptAr: (editing as any)?.excerptAr || '',
+    title:       editing?.title    || '',
+    excerpt:     editing?.excerpt  || '',
+    category:    editing?.category || 'Industry Guide',
+    readTime:    editing?.readTime || '5 min read',
+    date:        editing?.date     || '',
+    image:       editing?.image    || '',
+    imageAlt:    (editing as any)?.imageAlt    || '',
+    tags:        (editing as any)?.tags        || [] as string[],
+    titleAr:     (editing as any)?.titleAr     || '',
+    excerptAr:   (editing as any)?.excerptAr   || '',
+    metaTitle:   (editing as any)?.metaTitle   || '',
+    metaDesc:    (editing as any)?.metaDesc    || '',
   })
   const [blocks, setBlocks] = useState<Block[]>(
     (editing?.body || []).map(b => ({ ...b, id: uid() })) as Block[]
@@ -164,7 +166,7 @@ function BlogForm({ editing, onClose }: { editing?: BlogPost | null; onClose: ()
     const slug = f.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
     const body   = blocks.map(({ id: _id, ...rest }) => rest)
     const bodyAr = blocksAr.map(({ id: _id, ...rest }) => rest)
-    const data = { ...f, slug, body, bodyAr }
+    const data = { ...f, slug, body, bodyAr, metaTitle: f.metaTitle, metaDesc: f.metaDesc }
     if (isEdit && editing) blogStore.update(editing.id, data)
     else                   blogStore.add(data as any)
     toast.success(isEdit ? 'Post updated' : 'Post created')
@@ -214,8 +216,21 @@ function BlogForm({ editing, onClose }: { editing?: BlogPost | null; onClose: ()
         value={f.image}
         altValue={f.imageAlt}
         onChange={(url, alt) => { set('image', url); set('imageAlt', alt) }}
-      /></>
-
+      />
+      {/* SEO */}
+      <div className="p-4 rounded-xl border border-gray-100" style={{background:'#F9FAFB'}}>
+        <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-3">🔍 SEO Meta Tags</p>
+        <div className="space-y-3">
+          <Field label="Meta Title (overrides page title in Google)" value={f.metaTitle} onChange={(e: any) => set('metaTitle', e.target.value)} placeholder={`${f.title} | HORIZON OOH`}/>
+          <Field label="Meta Description (shown in search results, 150–160 chars)" value={f.metaDesc} onChange={(e: any) => set('metaDesc', e.target.value)} placeholder="Write a compelling 1–2 sentence summary of this post for Google…"/>
+          {f.metaDesc && (
+            <p className={`text-[11px] font-medium ${ f.metaDesc.length > 160 ? 'text-red-500' : f.metaDesc.length > 130 ? 'text-amber-500' : 'text-green-600'}`}>
+              {f.metaDesc.length} / 160 chars {f.metaDesc.length > 160 ? '— too long!' : f.metaDesc.length > 130 ? '— almost there' : '— good length'}
+            </p>
+          )}
+        </div>
+      </div>
+      </>
       )}
 
       {/* Tags */}

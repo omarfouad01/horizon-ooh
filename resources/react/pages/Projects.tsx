@@ -106,7 +106,7 @@ function ClientCard({ client, index, active, onClick }: { client: ClientGroup; i
         <div className="absolute bottom-0 left-0 right-0 p-6">
           {client.logo ? (
             <div className="mb-3">
-              <img src={client.logo} alt={client.name} style={{ height: 28, width: 'auto', objectFit: 'contain', maxWidth: 120, filter: 'brightness(10)', opacity: 0.85 }}/>
+              <img src={client.logo} alt={client.name} style={{ height: 28, width: 'auto', objectFit: 'contain', maxWidth: 120, filter: 'brightness(10)', opacity: 0.85 }} loading="lazy" />
             </div>
           ) : (
             <p className="text-white/45 text-[10px] font-bold tracking-[0.28em] uppercase mb-2"><ClientsLabel /></p>
@@ -242,7 +242,7 @@ function FeaturedProject() {
         </Reveal>
 
         <Link to={projectHref(featured.slug)} className="group relative block overflow-hidden" style={{ textDecoration: "none", height: 560 }}>
-          <img src={featured.heroImage} alt={`${featured.title} — outdoor advertising case study Egypt`} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" style={{ opacity: 0.8 }} />
+          <img src={featured.heroImage} alt={`${featured.title} — outdoor advertising case study Egypt`} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" style={{ opacity: 0.8 }} loading="lazy" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(11,15,26,0.88) 0%, rgba(11,15,26,0.5) 50%, rgba(11,15,26,0.15) 100%)" }} />
 
           <div className="absolute inset-0 flex flex-col justify-end" style={{ padding: "60px 80px" }}>
@@ -264,7 +264,7 @@ function FeaturedProject() {
             </p>
 
             <div className="flex items-center gap-12 mb-10">
-              {featured.results.slice(0, 3).map((r) => (
+              {(featured.results || []).slice(0, 3).map((r: any) => (
                 <div key={r.metric}>
                   <p className="font-black text-white/90 tracking-[-0.04em]" style={{ fontSize: 28 }}>{r.value}</p>
                   <p className="text-white/35 text-[10px] font-semibold tracking-[0.2em] uppercase mt-1">{r.metric}</p>

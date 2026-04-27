@@ -30,33 +30,34 @@ function syncDir(src: string, dest: string) {
 }
 
 /** Vite plugin: after every production build, mirror dist/ → ../public/dist/ */
-function syncToPublicDist(): import('vite').Plugin {
-  return {
-    name: 'sync-to-public-dist',
-    apply: 'build',
-    closeBundle() {
-      const projectRoot = path.resolve(__dirname);
-      const buildOut    = path.join(projectRoot, 'dist');
-      const publicDist  = path.join(projectRoot, '..', 'public', 'dist');
-      try {
-        // Wipe stale public/dist so removed assets don't linger
-        rmSync(publicDist, { recursive: true, force: true });
-        syncDir(buildOut, publicDist);
-        console.log(`\n✓ Synced dist/ → public/dist/ (Skywork preview updated)`);
-      } catch (e) {
-        // Non-fatal — local builds outside the Skywork workspace won't have ../public/
-        console.warn('sync-to-public-dist: skipped —', (e as Error).message);
-      }
-    },
-  };
-}
+// function syncToPublicDist(): import('vite').Plugin {
+//   return {
+//     name: 'sync-to-public-dist',
+//     apply: 'build',
+//     closeBundle() {
+//       const projectRoot = path.resolve(__dirname);
+//       const buildOut    = path.join(projectRoot, 'dist');
+//       const publicDist  = path.join(projectRoot, '..', 'public', 'dist');
+//       try {
+//         // Wipe stale public/dist so removed assets don't linger
+//         rmSync(publicDist, { recursive: true, force: true });
+//         syncDir(buildOut, publicDist);
+//         console.log(`\n✓ Synced dist/ → public/dist/ (Skywork preview updated)`);
+//       } catch (e) {
+//         // Non-fatal — local builds outside the Skywork workspace won't have ../public/
+//         console.warn('sync-to-public-dist: skipped —', (e as Error).message);
+//       }
+//     },
+//   };
+// }
 export default defineConfig(({ mode }) => ({
+  base: '/',
   root: '.',
   publicDir: 'resources/public-static',
   plugins: [
     tailwindcss(),
     react(),
-    syncToPublicDist(),
+    // syncToPublicDist(),
   ],
   resolve: {
     alias: {
@@ -67,10 +68,24 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    outDir: 'dist',
-    emptyOutDir: true,
+    outDir: 'public',
+    emptyOutDir: false,
     rollupOptions: {
       input: path.resolve(__dirname, 'index.html'),
+      output: {
+        // ── Manual chunk splitting for optimal caching ──
+        manualChunks(id) {
+          if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) return 'react-core';
+          if (id.includes('node_modules/react-router-dom') || id.includes('node_modules/react-router/')) return 'router';
+          if (id.includes('node_modules/framer-motion')) return 'framer-motion';
+          if (id.includes('node_modules/leaflet')) return 'leaflet';
+          if (id.includes('node_modules/@radix-ui')) return 'radix-ui';
+          if (id.includes('node_modules/recharts') || id.includes('node_modules/d3-')) return 'charts';
+          if (id.includes('node_modules/zustand') || id.includes('node_modules/@tanstack') || id.includes('node_modules/axios')) return 'data-layer';
+          if (id.includes('/resources/react/admin/')) return 'admin';
+          if (id.includes('node_modules/zod') || id.includes('node_modules/date-fns') || id.includes('node_modules/clsx') || id.includes('node_modules/class-variance-authority') || id.includes('node_modules/tailwind-merge')) return 'utils';
+        },
+      },
     },
   },
   server: {

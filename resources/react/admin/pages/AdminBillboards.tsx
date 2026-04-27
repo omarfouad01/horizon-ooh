@@ -2,7 +2,8 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { useStore, locationStore, nextBillboardCode, type Supplier, type Product, type AdFormatType, adFormatStore } from '@/store/dataStore'
-import { Btn, PageHeader, Tbl, Th, Td, Tr, Badge, Confirm, Modal, Field } from '../ui'
+import { billboardsApi } from '@/api'
+import { Btn, PageHeader, Tbl, Th, Td, Tr, Badge, Confirm, Modal, Field, Sel } from '../ui'
 import { Plus, Pencil, Trash2, X, Upload, MapPin, Settings2, ExternalLink, Copy } from 'lucide-react'
 import toast from 'react-hot-toast'
 
@@ -286,36 +287,72 @@ function BillboardForm({ editing, onClose }: any) {
   const isDigital = f.adFormat === 'Digital Screens'
   const selectedSupplier = f.supplierId ? suppliers.find((s: Supplier) => s.id === f.supplierId) : null
 
-  const save = (e: React.FormEvent) => {
+  const [saving, setSaving] = useState(false)
+
+  const save = async (e: React.FormEvent) => {
     e.preventDefault()
-    const targetLoc = locations.find((l: any) => l.id === locId)
-    const bb: any = {
-      ...f,
-      name:   f.nameEn || f.name || '',
-      city:   (targetLoc as any)?.city || f.city,
-      slug:   (f.nameEn || f.name || '').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''),
-      sqm:    parseSqm(f.size),
-      image:  f.images?.[0]?.url || f.image || '',
-      lat:    typeof f.lat === 'number' ? f.lat : (parseFloat(f.lat) || 0),
-      lng:    typeof f.lng === 'number' ? f.lng : (parseFloat(f.lng) || 0),
-      code:   f.code || code,
-    }
-    if (editing) {
-      if (owningLoc) {
-        locationStore.update(owningLoc.id, {
-          products: (owningLoc.products || []).map((p: any) => p.id === editing.id ? { ...bb, id: editing.id } : p)
-        })
-      }
-      toast.success('Billboard updated')
-    } else {
-      const loc = locations.find((l: any) => l.id === locId)
-      if (!loc) { toast.error('Please select a governorate'); return }
-      locationStore.update(loc.id, {
-        products: [...((loc as any).products || []), { ...bb, id: Date.now().toString(36) + Math.random().toString(36).slice(2) }]
+    setSaving(true)
+    try {
+      // Build FormData so images can be uploaded too
+      const fd = new FormData()
+      fd.append('code',           f.code || code)
+      fd.append('title',          f.nameEn || f.name || '')
+      if (f.nameAr)         fd.append('name_ar',        f.nameAr)
+      fd.append('location_id',    locId)
+      if (f.districtId)     fd.append('district_id',    f.districtId)
+      if (f.adFormat)       fd.append('format',         f.adFormat)
+      if (f.size)           fd.append('size',           f.size)
+      const sqm = parseSqm(f.size || '')
+      if (sqm)              fd.append('sqm',            String(sqm))
+      if (f.sides)          fd.append('sides',          String(f.sides || 1))
+      if (f.material)       fd.append('material',       f.material)
+      if (f.brightness)     fd.append('brightness',     f.brightness)
+      fd.append('lat',            String(typeof f.lat === 'number' ? f.lat : (parseFloat(f.lat) || 0)))
+      fd.append('lng',            String(typeof f.lng === 'number' ? f.lng : (parseFloat(f.lng) || 0)))
+      if (f.full_address || f.spot) fd.append('full_address', f.full_address || f.spot || '')
+      if (f.descriptionEn)  fd.append('description',    f.descriptionEn)
+      if (f.descriptionAr)  fd.append('description_ar', f.descriptionAr)
+      if (f.price || f.clientPrice) fd.append('price', String(f.price || f.clientPrice || 0))
+      fd.append('availability',   f.status === 'Available' ? 'available' : (f.status || 'available').toLowerCase())
+      fd.append('illuminated',    f.brightness && f.brightness !== 'No Light' ? '1' : '0')
+      fd.append('featured',       f.featured ? '1' : '0')
+      if (f.supplierId)     fd.append('supplier_id',    String(f.supplierId))
+      // Attach new image files (if any were uploaded as File objects)
+      ;(f.images || []).forEach((img: any) => {
+        if (img instanceof File) fd.append('images[]', img)
       })
-      toast.success('Billboard created')
+
+      let saved: any
+      if (editing && editing.id) {
+        const res = await billboardsApi.update(editing.id, fd)
+        saved = res.data
+        // Update in local store too so the list refreshes
+        if (owningLoc) {
+          locationStore.update(owningLoc.id, {
+            products: (owningLoc.products || []).map((p: any) => p.id === editing.id ? { ...saved, id: saved.id } : p)
+          })
+        }
+        toast.success('Billboard updated')
+      } else {
+        const loc = locations.find((l: any) => l.id === locId)
+        if (!loc) { toast.error('Please select a governorate'); setSaving(false); return }
+        const res = await billboardsApi.create(fd)
+        saved = res.data
+        // Add to local store so the list refreshes immediately
+        locationStore.update(loc.id, {
+          products: [...((loc as any).products || []), saved]
+        })
+        toast.success('Billboard created')
+      }
+      onClose()
+    } catch (err: any) {
+      const msg = err?.response?.data?.message || err?.response?.data?.errors
+        ? Object.values(err.response.data.errors as Record<string,string[]>).flat().join(', ')
+        : err?.message || 'Save failed'
+      toast.error(msg)
+    } finally {
+      setSaving(false)
     }
-    onClose()
   }
 
   return (
@@ -345,15 +382,12 @@ function BillboardForm({ editing, onClose }: any) {
       <SectionDivider label="Format & Classification"/>
       <div className="grid grid-cols-2 gap-3">
         <Lbl label="Ad Format" required>
-          <select className={sel} value={f.adFormat||'Billboard'} onChange={e=>set('adFormat',e.target.value)} required>
-            {AD_FORMATS.map(fmt => <option key={fmt} value={fmt}>{fmt}</option>)}
-          </select>
+          <Sel value={f.adFormat||'Billboard'} onChange={(e:any)=>set('adFormat',e.target.value)}
+            options={AD_FORMATS.map(fmt=>({value:fmt,label:fmt}))}/>
         </Lbl>
         <Lbl label="Type">
-          <select className={sel} value={f.type||''} onChange={e=>set('type',e.target.value)}>
-            <option value="">— Select type —</option>
-            {adFormats.map((t: AdFormatType) => <option key={t.id} value={t.label}>{t.label}</option>)}
-          </select>
+          <Sel value={f.type||''} onChange={(e:any)=>set('type',e.target.value)} placeholder="— Select type —"
+            options={[{value:'',label:'— Select type —'},...adFormats.map((t:AdFormatType)=>({value:t.label,label:t.label}))]}/>
         </Lbl>
       </div>
 
@@ -375,12 +409,8 @@ function BillboardForm({ editing, onClose }: any) {
           <input className={inp} value={f.material||''} onChange={e=>set('material',e.target.value)} placeholder="e.g. SMD / Flex / Aluminium"/>
         </Lbl>
         <Lbl label="Brightness">
-          <select className={sel} value={f.brightness||'Back Light'} onChange={e=>set('brightness',e.target.value)}>
-            <option value="Back Light">Back Light</option>
-            <option value="Internal Light">Internal Light</option>
-            <option value="Front Light">Front Light</option>
-            <option value="Unlit">Unlit</option>
-          </select>
+          <Sel value={f.brightness||'Back Light'} onChange={(e:any)=>set('brightness',e.target.value)}
+            options={['Back Light','Internal Light','Front Light','Unlit'].map(v=>({value:v,label:v}))}/>
         </Lbl>
         <Lbl label="Visibility Distance">
           <input className={inp} value={f.visibility||''} onChange={e=>set('visibility',e.target.value)} placeholder="e.g. 1.2km"/>
@@ -409,10 +439,8 @@ function BillboardForm({ editing, onClose }: any) {
       </div>
       <div className="grid grid-cols-3 gap-3">
         <Lbl label="Status">
-          <select className={sel} value={f.status||'Available'} onChange={e=>set('status',e.target.value)}>
-            <option value="Available">Available</option>
-            <option value="Not Available">Not Available</option>
-          </select>
+          <Sel value={f.status||'Available'} onChange={(e:any)=>set('status',e.target.value)}
+            options={[{value:'Available',label:'Available'},{value:'Not Available',label:'Not Available'}]}/>
         </Lbl>
         <Lbl label="Availability Date">
           <input className={inp} type="date" value={f.availability||''} onChange={e=>set('availability',e.target.value)}/>
@@ -431,12 +459,11 @@ function BillboardForm({ editing, onClose }: any) {
       {/* ── SUPPLIER ── */}
       <SectionDivider label="Supplier"/>
       <Lbl label="Assign Supplier">
-        <select className={sel} value={f.supplierId||''} onChange={e=>set('supplierId',e.target.value)}>
-          <option value="">— No supplier assigned —</option>
-          {suppliers.map((s: Supplier) => (
-            <option key={s.id} value={s.id}>{s.name}{s.category?` · ${s.category}`:''}{s.phone?` — ${s.phone}`:''}</option>
-          ))}
-        </select>
+        <Sel value={f.supplierId||''} onChange={(e:any)=>set('supplierId',e.target.value)}
+          options={[
+            {value:'',label:'— No supplier assigned —'},
+            ...suppliers.map((s:Supplier)=>({value:s.id,label:`${s.name}${s.category?` · ${s.category}`:''}${s.phone?` — ${s.phone}`:''}` }))
+          ]}/>
       </Lbl>
       {selectedSupplier && (
         <div className="p-3 rounded-xl bg-gray-50 border border-gray-100 text-[12px]">
@@ -463,16 +490,24 @@ function BillboardForm({ editing, onClose }: any) {
       <SectionDivider label="Location & Address"/>
       <div className="grid grid-cols-2 gap-3">
         <Lbl label="Governorate" required>
-          <select className={sel} value={locId} onChange={e=>handleLocChange(e.target.value)} required>
-            <option value="">Select governorate…</option>
-            {locations.map((l: any) => <option key={l.id} value={l.id}>{l.city}</option>)}
-          </select>
+          <Sel value={locId} onChange={(e:any)=>handleLocChange(e.target.value)}
+            options={[
+              {value:'',label:'Select governorate…'},
+              ...locations.map((l:any)=>({value:l.id,label:l.city}))
+            ]}/>
         </Lbl>
         <Lbl label="District" required>
-          <select className={sel} value={f.district||''} onChange={e=>set('district',e.target.value)} required disabled={!locId}>
-            <option value="">{locId ? 'Select district…' : 'Select governorate first'}</option>
-            {locDistricts.map((d: any) => <option key={d.id} value={d.name}>{d.name}</option>)}
-          </select>
+          <Sel
+            value={f.districtId || (locDistricts.find((d:any)=>d.name===f.district)?.id || '')}
+            onChange={(e:any)=>{
+              const d = locDistricts.find((x:any)=>x.id===e.target.value||x.id===Number(e.target.value))
+              setF((p:any)=>({...p, districtId: e.target.value, district: d?.name||''}))
+            }}
+            disabled={!locId}
+            options={[
+              {value:'',label:locId?'Select district…':'Select governorate first'},
+              ...locDistricts.map((d:any)=>({value:String(d.id),label:d.name}))
+            ]}/>
         </Lbl>
       </div>
       <Lbl label="Location Landmark / Name">
@@ -494,7 +529,7 @@ function BillboardForm({ editing, onClose }: any) {
 
       <div className="flex gap-3 justify-end pt-3 border-t border-gray-100 mt-2">
         <Btn variant="ghost" type="button" onClick={onClose}>Cancel</Btn>
-        <Btn type="submit">{editing ? 'Save Changes' : 'Create Billboard'}</Btn>
+        <Btn type="submit" disabled={saving}>{saving ? 'Saving…' : (editing ? 'Save Changes' : 'Create Billboard')}</Btn>
       </div>
     </form>
   )
