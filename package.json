@@ -1,7 +1,7 @@
 {
-  "name": "horizon-ooh-v2",
+  "name": "horizon-ooh-v3",
   "private": true,
-  "version": "2.1.0",
+  "version": "3.0.0",
   "type": "module",
   "scripts": {
     "dev": "VITE_ENABLE_ROUTE_MESSAGING=true vite",
