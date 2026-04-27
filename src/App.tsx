@@ -1,4 +1,5 @@
-// Horizon OOH v2.1.0 - build 20260427
+// Horizon OOH v2.1.0 - build 20260427-B
+const _BUILD = '20260427-B'; // cache-bust
 import { Toaster } from "@/components/ui/toaster";
 import { LangProvider } from "@/i18n/LangContext";
 import { Toaster as Sonner } from "@/components/ui/sonner";
