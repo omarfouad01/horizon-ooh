@@ -1,4 +1,3 @@
-import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { LangProvider } from "@/i18n/LangContext";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -95,9 +94,8 @@ const App = () => (
               <Route path="contact-page"   element={<AdminContactPage />} />
             </Route>
 
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </HashRouter>
       </AdminAuthProvider>
     </TooltipProvider>

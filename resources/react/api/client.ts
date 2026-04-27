@@ -31,11 +31,6 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
 });
 
-// ─── In-memory GET cache (60-second TTL) ─────────────────────────────────────
-const _cache = new Map<string, { data: any; ts: number }>();
-const CACHE_TTL = 60_000;
-const _inflight = new Map<string, Promise<any>>();
-
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('horizon_token');
   if (token) config.headers.Authorization = `Bearer ${token}`;

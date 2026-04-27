@@ -132,40 +132,6 @@ export const contactContentStore = {
   },
 };
 
-// ─── Locations page content ────────────────────────────────────────────────────
-export const locationsContentStore = {
-  update: async (data: any) => {
-    if (HAS_API) {
-      try { await settingsApi.update({ locationsContent: data }); await reload(); } catch { /* ignore */ }
-    }
-    set(st => ({ locationsContent: { ...st.locationsContent, ...data } }));
-  },
-};
-
-// ─── Contact page content ─────────────────────────────────────────────────────
-export const contactContentStore = {
-  update: async (data: any) => {
-    set(() => ({ homeContent: data }));
-    if (HAS_API_LOCAL) { const r = await settingsApi.updateHomeContent(data); reload().catch(()=>{}); return r; }
-  },
-};
-
-// ─── Locations page content ───────────────────────────────────────────────────
-export const locationsContentStore = {
-  update: async (data: any) => {
-    set(() => ({ locationsContent: data }));
-    if (HAS_API_LOCAL) { const r = await settingsApi.update({ locations_page_content: JSON.stringify(data) }); reload().catch(()=>{}); return r; }
-  },
-};
-
-// ─── Contact page content ─────────────────────────────────────────────────────
-export const contactContentStore = {
-  update: async (data: any) => {
-    set(() => ({ contactContent: data }));
-    if (HAS_API_LOCAL) { const r = await settingsApi.update({ contact_page_content: JSON.stringify(data) }); reload().catch(()=>{}); return r; }
-  },
-};
-
 // ─── Projects content ─────────────────────────────────────────────────────────
 export const projectsContentStore = {
   update: async (data: any) => {
