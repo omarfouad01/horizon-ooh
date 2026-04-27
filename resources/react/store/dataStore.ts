@@ -99,41 +99,56 @@ setTimeout(() => {
 
 // ─── Settings ─────────────────────────────────────────────────────────────────
 export const settingsStore = {
-  update: (data: any) => apiOrLocal(() => settingsApi.update(data), () => set(() => ({ settings: data }))),
+  update: async (data: any) => {
+    set(st => ({ settings: { ...st.settings, ...data } }));
+    if (HAS_API_LOCAL) { const r = await settingsApi.update(data); reload().catch(()=>{}); return r; }
+  },
 };
 
 // ─── Home content ─────────────────────────────────────────────────────────────
 export const homeStore = {
-  update: (data: any) => apiOrLocal(() => settingsApi.updateHomeContent(data), () => set(() => ({ homeContent: data }))),
+  update: async (data: any) => {
+    set(() => ({ homeContent: data }));
+    if (HAS_API_LOCAL) { const r = await settingsApi.updateHomeContent(data); reload().catch(()=>{}); return r; }
+  },
 };
 
 // ─── Locations page content ───────────────────────────────────────────────────
 export const locationsContentStore = {
-  update: (data: any) => apiOrLocal(
-    () => settingsApi.update({ locations_page_content: JSON.stringify(data) }),
-    () => set(() => ({ locationsContent: data }))
-  ),
+  update: async (data: any) => {
+    set(() => ({ locationsContent: data }));
+    if (HAS_API_LOCAL) { const r = await settingsApi.update({ locations_page_content: JSON.stringify(data) }); reload().catch(()=>{}); return r; }
+  },
 };
 
 // ─── Contact page content ─────────────────────────────────────────────────────
 export const contactContentStore = {
-  update: (data: any) => apiOrLocal(
-    () => settingsApi.update({ contact_page_content: JSON.stringify(data) }),
-    () => set(() => ({ contactContent: data }))
-  ),
+  update: async (data: any) => {
+    set(() => ({ contactContent: data }));
+    if (HAS_API_LOCAL) { const r = await settingsApi.update({ contact_page_content: JSON.stringify(data) }); reload().catch(()=>{}); return r; }
+  },
 };
 
 // ─── Projects content ─────────────────────────────────────────────────────────
 export const projectsContentStore = {
-  update: (data: any) => apiOrLocal(
-    () => settingsApi.update({ projects_page_content: JSON.stringify(data) }),
-    () => set(() => ({ projectsContent: data }))
-  ),
+  update: async (data: any) => {
+    set(() => ({ projectsContent: data }));
+    if (HAS_API_LOCAL) { const r = await settingsApi.update({ projects_page_content: JSON.stringify(data) }); reload().catch(()=>{}); return r; }
+  },
 };
 
 // ─── About content ────────────────────────────────────────────────────────────
 export const aboutStore = {
-  update: (data: any) => apiOrLocal(() => settingsApi.updateAboutContent(data), () => set(() => ({ about: data, aboutContent: data }))),
+  update: async (data: any) => {
+    // Always update local state immediately for snappy UI
+    set(st => ({ about: { ...st.about, ...data }, aboutContent: { ...st.aboutContent, ...data } }));
+    if (HAS_API_LOCAL) {
+      const res = await settingsApi.updateAboutContent(data);
+      // Reload to sync with server (non-blocking)
+      reload().catch(() => {});
+      return res;
+    }
+  },
 };
 
 // ─── Locations ────────────────────────────────────────────────────────────────

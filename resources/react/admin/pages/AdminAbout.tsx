@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useStore, aboutStore, trustStatStore, type AboutContent, type WhyChooseItem, type AboutStat } from '@/store/dataStore'
 import { Btn, Field, TA, PageHeader } from '../ui'
 import { Save, Plus, Trash2, Pencil, X, ChevronUp, ChevronDown, GripVertical } from 'lucide-react'
+import toast from 'react-hot-toast'
 
 // ── Inline small Modal ────────────────────────────────────────────────────────
 function InlineModal({ open, title, onClose, children }: { open:boolean;title:string;onClose:()=>void;children:React.ReactNode }) {
@@ -58,11 +59,17 @@ export default function AdminAbout() {
 
   function patch(p: Partial<AboutContent>) { setDraft(d => ({...d,...p})) }
 
-  function save() {
-    aboutStore.update(merged)
-    setDraft({})
-    setSaved(true)
-    setTimeout(() => setSaved(false), 2500)
+  async function save(overrideData?: Partial<AboutContent>) {
+    const data = overrideData ? { ...merged, ...overrideData } : merged;
+    try {
+      await aboutStore.update(data)
+      setDraft({})
+      setSaved(true)
+      toast.success('About page saved!')
+      setTimeout(() => setSaved(false), 2500)
+    } catch (err: any) {
+      toast.error(err?.response?.data?.message ?? err?.message ?? 'Save failed — please try again')
+    }
   }
 
   // ── Why Choose modals
@@ -71,14 +78,22 @@ export default function AdminAbout() {
   function openAddWhy()  { setWhyForm({num:String((merged.whyItems.length+1)).padStart(2,'0'),title:'',desc:''}); setWhyModal({open:true,item:null}) }
   function openEditWhy(w:WhyChooseItem){ setWhyForm({num:w.num,title:w.title,desc:w.desc}); setWhyModal({open:true,item:w}) }
   function saveWhy() {
+    let newItems: WhyChooseItem[]
     if (whyModal.item) {
-      patch({ whyItems: merged.whyItems.map(x => x.id===whyModal.item!.id ? {...x,...whyForm} : x) })
+      newItems = merged.whyItems.map(x => x.id===whyModal.item!.id ? {...x,...whyForm} : x)
     } else {
-      patch({ whyItems: [...merged.whyItems, { id:String(Date.now()), ...whyForm }] })
+      newItems = [...merged.whyItems, { id:String(Date.now()), ...whyForm }]
     }
+    patch({ whyItems: newItems })
     setWhyModal({open:false,item:null})
+    // Auto-save immediately so items persist on refresh
+    save({ whyItems: newItems })
   }
-  function removeWhy(id:string) { patch({ whyItems: merged.whyItems.filter(x=>x.id!==id) }) }
+  function removeWhy(id:string) {
+    const newItems = merged.whyItems.filter(x=>x.id!==id)
+    patch({ whyItems: newItems })
+    save({ whyItems: newItems })
+  }
 
   // ── Key Stats modals
   const [statModal, setStatModal] = useState<{ open:boolean; item:AboutStat|null }>({ open:false, item:null })
@@ -86,14 +101,22 @@ export default function AdminAbout() {
   function openAddStat()  { setStatForm({value:'',label:'',sub:''}); setStatModal({open:true,item:null}) }
   function openEditStat(s:AboutStat){ setStatForm({value:s.value,label:s.label,sub:s.sub}); setStatModal({open:true,item:s}) }
   function saveStat() {
+    let newStats: AboutStat[]
     if (statModal.item) {
-      patch({ keyStats: merged.keyStats.map(x => x.id===statModal.item!.id ? {...x,...statForm} : x) })
+      newStats = merged.keyStats.map(x => x.id===statModal.item!.id ? {...x,...statForm} : x)
     } else {
-      patch({ keyStats: [...merged.keyStats, { id:String(Date.now()), ...statForm }] })
+      newStats = [...merged.keyStats, { id:String(Date.now()), ...statForm }]
     }
+    patch({ keyStats: newStats })
     setStatModal({open:false,item:null})
+    // Auto-save immediately so stats persist on refresh
+    save({ keyStats: newStats })
   }
-  function removeStat(id:string) { patch({ keyStats: merged.keyStats.filter(x=>x.id!==id) }) }
+  function removeStat(id:string) {
+    const newStats = merged.keyStats.filter(x=>x.id!==id)
+    patch({ keyStats: newStats })
+    save({ keyStats: newStats })
+  }
 
   // ── Trust Stats (direct store)
   const [tsModal, setTsModal] = useState<{ open:boolean; item:any }>({ open:false, item:null })

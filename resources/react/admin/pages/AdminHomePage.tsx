@@ -58,9 +58,13 @@ export default function AdminHomePage() {
 
   function set(k: string, v: any) { setH(p => ({ ...p, [k]: v })) }
 
-  function save() {
-    homeStore.update(h)
-    toast.success('Home page content saved')
+  async function save() {
+    try {
+      await homeStore.update(h)
+      toast.success('Home page content saved')
+    } catch (err: any) {
+      toast.error(err?.response?.data?.message ?? err?.message ?? 'Save failed — please try again')
+    }
   }
 
   function reset() {
