@@ -156,30 +156,18 @@ const DEMO_SETTINGS = {
   tagline:         "Egypt's Premium Out-of-Home Advertising Partner",
   phone:           '+20 100 123 4567',
   email:           'info@horizonooh.com',
-  address:         'Smart Village, Km 28, Cairo\u2013Alexandria Desert Road, Cairo, Egypt',
+  address:         'Smart Village, Km 28, Cairo–Alexandria Desert Road, Cairo, Egypt',
   hqLabel:         'Cairo HQ',
   whatsapp:        '+201234567890',
-  metaDescription: "HORIZON OOH is Egypt's #1 outdoor advertising company \u2014 billboards, DOOH, mall, airport and transit advertising across all 27 governorates.",
-  headerLogoUrl:   '',
-  footerLogoUrl:   '',
-  faviconUrl:      '',
-  homeCoverageLimit: 9,
-  // Flat legacy fields kept for backwards compat
+  metaDescription: "HORIZON OOH is Egypt's #1 outdoor advertising company — billboards, DOOH, mall, airport and transit advertising across all 27 governorates.",
   facebook:        'https://facebook.com/horizonooh',
   instagram:       'https://instagram.com/horizonooh',
   linkedin:        'https://linkedin.com/company/horizonooh',
   youtube:         '',
   twitter:         '',
-  tiktok:          '',
-  // Nested socialLinks object consumed by the Footer
-  socialLinks: {
-    facebook:  'https://facebook.com/horizonooh',
-    instagram: 'https://instagram.com/horizonooh',
-    linkedin:  'https://linkedin.com/company/horizonooh',
-    twitter:   '',
-    tiktok:    '',
-    youtube:   '',
-  },
+  headerLogoUrl:   '',
+  footerLogoUrl:   '',
+  faviconUrl:      '',
 };
 
 const DEMO_HOME = {

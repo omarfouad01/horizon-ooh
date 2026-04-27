@@ -68,17 +68,17 @@ export default function AdminAbout() {
   // ── Why Choose modals
   const [whyModal, setWhyModal] = useState<{ open:boolean; item:WhyChooseItem|null }>({ open:false, item:null })
   const [whyForm,  setWhyForm]  = useState({ num:'', title:'', desc:'' })
-  function openAddWhy()  { setWhyForm({num:String((merged.whyItems.length+1)).padStart(2,'0'),title:'',desc:''}); setWhyModal({open:true,item:null}) }
+  function openAddWhy()  { setWhyForm({num:String(((merged.whyItems||[]).length+1)).padStart(2,'0'),title:'',desc:''}); setWhyModal({open:true,item:null}) }
   function openEditWhy(w:WhyChooseItem){ setWhyForm({num:w.num,title:w.title,desc:w.desc}); setWhyModal({open:true,item:w}) }
   function saveWhy() {
     if (whyModal.item) {
-      patch({ whyItems: merged.whyItems.map(x => x.id===whyModal.item!.id ? {...x,...whyForm} : x) })
+      patch({ whyItems: (merged.whyItems||[]).map(x => x.id===whyModal.item!.id ? {...x,...whyForm} : x) })
     } else {
-      patch({ whyItems: [...merged.whyItems, { id:String(Date.now()), ...whyForm }] })
+      patch({ whyItems: [...(merged.whyItems||[]), { id:String(Date.now()), ...whyForm }] })
     }
     setWhyModal({open:false,item:null})
   }
-  function removeWhy(id:string) { patch({ whyItems: merged.whyItems.filter(x=>x.id!==id) }) }
+  function removeWhy(id:string) { patch({ whyItems: (merged.whyItems||[]).filter(x=>x.id!==id) }) }
 
   // ── Key Stats modals
   const [statModal, setStatModal] = useState<{ open:boolean; item:AboutStat|null }>({ open:false, item:null })
@@ -87,13 +87,13 @@ export default function AdminAbout() {
   function openEditStat(s:AboutStat){ setStatForm({value:s.value,label:s.label,sub:s.sub}); setStatModal({open:true,item:s}) }
   function saveStat() {
     if (statModal.item) {
-      patch({ keyStats: merged.keyStats.map(x => x.id===statModal.item!.id ? {...x,...statForm} : x) })
+      patch({ keyStats: (merged.keyStats||[]).map(x => x.id===statModal.item!.id ? {...x,...statForm} : x) })
     } else {
-      patch({ keyStats: [...merged.keyStats, { id:String(Date.now()), ...statForm }] })
+      patch({ keyStats: [...(merged.keyStats||[]), { id:String(Date.now()), ...statForm }] })
     }
     setStatModal({open:false,item:null})
   }
-  function removeStat(id:string) { patch({ keyStats: merged.keyStats.filter(x=>x.id!==id) }) }
+  function removeStat(id:string) { patch({ keyStats: (merged.keyStats||[]).filter(x=>x.id!==id) }) }
 
   // ── Trust Stats (direct store)
   const [tsModal, setTsModal] = useState<{ open:boolean; item:any }>({ open:false, item:null })

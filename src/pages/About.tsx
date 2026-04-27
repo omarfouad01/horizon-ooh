@@ -100,7 +100,7 @@ export default function About() {
               </Reveal>
             </div>
             <div className="col-span-12 lg:col-span-7 flex flex-col gap-6">
-              {about.darkParagraphs.map((para, i) => (
+              {(about.darkParagraphs || []).map((para, i) => (
                 <Reveal key={i} delay={0.05 * i}>
                   <p className="text-[16px] leading-[1.8]" style={{ color: "rgba(255,255,255,0.45)" }}>
                     {para}
@@ -122,7 +122,7 @@ export default function About() {
           />
 
           <RevealGroup className="flex flex-col gap-0 border-t border-[#0B0F1A]/[0.07]">
-            {about.whyItems.map((item) => (
+            {(about.whyItems || []).map((item) => (
               <RevealItem key={item.id}>
                 <div
                   className="group flex items-start gap-10 py-8 border-b border-[#0B0F1A]/[0.07] hover:bg-[#F5F5F6] transition-colors duration-300 px-4 -mx-4 cursor-default"
@@ -160,11 +160,11 @@ export default function About() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <SectionHeading eyebrow="By the Numbers" title="The scale behind" titleAccent="every campaign." />
           <RevealGroup className="grid grid-cols-1 sm:grid-cols-3 border-t border-[#0B0F1A]/[0.08]">
-            {about.keyStats.map((stat, i) => (
+            {(about.keyStats || []).map((stat, i) => (
               <RevealItem key={stat.id}>
                 <div
                   className="flex flex-col py-14 px-10"
-                  style={{ borderRight: i < about.keyStats.length - 1 ? "1px solid rgba(11,15,26,0.08)" : "none" }}
+                  style={{ borderRight: i < (about.keyStats || []).length - 1 ? "1px solid rgba(11,15,26,0.08)" : "none" }}
                 >
                   <span
                     className="font-black leading-none tracking-[-0.05em] mb-4"

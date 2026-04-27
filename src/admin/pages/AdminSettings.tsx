@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useStore, settingsStore, trustStatStore, brandStore, processStore, resultStore, resetToDefaults, type ClientBrand } from '@/store/dataStore'
 import { Btn, PageHeader, Field, TA } from '../ui'
 import { Save, Plus, Trash2, RotateCcw, Upload, X, Pencil } from 'lucide-react'
@@ -94,7 +94,12 @@ export default function AdminSettings() {
   const [proc,     setProc]     = useState([...s.process])
   const [results,  setResults]  = useState([...s.results])
 
-  // Sync when store changes (e.g. after logoUrl upload)
+  // Sync local state when store changes (e.g. after API reload or logoUrl upload)
+  useEffect(() => { setSettings({ ...s.settings }) }, [s.settings])
+  useEffect(() => { setStats([...s.trustStats]) },    [s.trustStats])
+  useEffect(() => { setProc([...s.process]) },        [s.process])
+  useEffect(() => { setResults([...s.results]) },     [s.results])
+
   const saveGeneral = () => { settingsStore.update(settings); toast.success('Settings saved') }
   const saveLogo    = () => { settingsStore.update({ headerLogoUrl: settings.headerLogoUrl, footerLogoUrl: settings.footerLogoUrl, faviconUrl: settings.faviconUrl }); toast.success('Logos & favicon saved') }
   const saveStats   = () => { stats.forEach(st => trustStatStore.update(st.id, st)); toast.success('Stats saved') }

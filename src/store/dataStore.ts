@@ -49,7 +49,21 @@ const set = useApiStore.setState;
 // ─── Settings ─────────────────────────────────────────────────────────────────
 export const settingsStore = {
   update: (data: any) => {
-    set(st => ({ settings: { ...st.settings, ...data } }));
+    set(st => {
+      const merged = { ...st.settings, ...data };
+      // Keep nested socialLinks in sync with any flat social fields saved
+      const existingSocial = merged.socialLinks || {};
+      merged.socialLinks = {
+        facebook:  merged.facebook  ?? existingSocial.facebook  ?? '',
+        instagram: merged.instagram ?? existingSocial.instagram ?? '',
+        linkedin:  merged.linkedin  ?? existingSocial.linkedin  ?? '',
+        twitter:   merged.twitter   ?? existingSocial.twitter   ?? '',
+        tiktok:    merged.tiktok    ?? existingSocial.tiktok    ?? '',
+        youtube:   merged.youtube   ?? existingSocial.youtube   ?? '',
+        ...( data.socialLinks || {} ),
+      };
+      return { settings: merged };
+    });
   },
 };
 

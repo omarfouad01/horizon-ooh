@@ -18,7 +18,7 @@ export default function AdminUsers() {
 
   const filtered = store.siteUsers.filter(u => {
     const q = search.toLowerCase()
-    const matchQ = !q || u.name.toLowerCase().includes(q) || u.email.toLowerCase().includes(q)
+    const matchQ = !q || (u.name||'').toLowerCase().includes(q) || (u.email||'').toLowerCase().includes(q)
     const matchS = !srcFilter || u.source === srcFilter
     return matchQ && matchS
   })
