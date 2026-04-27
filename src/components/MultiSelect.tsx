@@ -10,10 +10,12 @@ interface Props {
   selected: string[];
   onChange: (vals: string[]) => void;
   icon: React.ReactNode;
-  dark?: boolean; // dark-mode variant for navy backgrounds
+  dark?: boolean;
+  /** Optional map of English value → Arabic display label */
+  optionLabels?: Record<string, string>;
 }
 
-export default function MultiSelect({ label, options, selected, onChange, icon, dark = false }: Props) {
+export default function MultiSelect({ label, options, selected, onChange, icon, dark = false, optionLabels }: Props) {
   const [open, setOpen]           = useState(false);
   const [dropPos, setDropPos]     = useState({ top: 0, left: 0, width: 0 });
   const [query, setQuery]         = useState("");
@@ -70,17 +72,22 @@ export default function MultiSelect({ label, options, selected, onChange, icon, 
     onChange(selected.includes(val) ? selected.filter(v => v !== val) : [...selected, val]);
   };
 
+  const displayLabel = (val: string) => (optionLabels && optionLabels[val]) ? optionLabels[val] : val;
+
   const triggerLabel = selected.length === 0
     ? `All ${label}s`
     : selected.length === 1
-      ? selected[0]
+      ? displayLabel(selected[0])
       : selected.length <= 2
-        ? selected.join(", ")
+        ? selected.map(displayLabel).join(", ")
         : `${selected.length} ${label}s`;
 
-  const filteredOptions = options.filter(opt =>
-    opt.toLowerCase().includes(query.trim().toLowerCase())
-  );
+  const filteredOptions = options.filter(opt => {
+    const enMatch = opt.toLowerCase().includes(query.trim().toLowerCase());
+    const arLabel = optionLabels ? optionLabels[opt] : '';
+    const arMatch = arLabel ? arLabel.includes(query.trim()) : false;
+    return enMatch || arMatch;
+  });
 
   return (
     <div className="relative flex-1 min-w-0">
@@ -196,7 +203,7 @@ export default function MultiSelect({ label, options, selected, onChange, icon, 
                     </svg>
                   )}
                 </span>
-                <span>{opt}</span>
+                <span>{displayLabel(opt)}</span>
               </button>
             );
           })}

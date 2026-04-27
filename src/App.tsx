@@ -1,4 +1,6 @@
+// Horizon OOH v2.1.0 - build 20260427
 import { Toaster } from "@/components/ui/toaster";
+import { LangProvider } from "@/i18n/LangContext";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -18,10 +20,11 @@ import BlogArticle from "@/pages/BlogArticle";
 import Contact from "@/pages/Contact";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
+import DesignSimulator from "@/pages/DesignSimulator";
 import NotFound from "./pages/not-found/Index";
 import { Toaster as HotToaster } from "react-hot-toast";
 
-// ── Admin Panel ──────────────────────────────────────────────────────────────
+// ── Admin Panel (non-lazy — always small) ────────────────────────────────────
 import { AdminAuthProvider } from "@/admin/AdminAuth";
 import AdminLayout   from "@/admin/AdminLayout";
 import AdminLogin    from "@/admin/AdminLogin";
@@ -36,12 +39,17 @@ import AdminSettings   from "@/admin/pages/AdminSettings";
 import AdminAbout      from "@/admin/pages/AdminAbout";
 import AdminSuppliers  from "@/admin/pages/AdminSuppliers";
 import AdminCustomers  from "@/admin/pages/AdminCustomers";
-import AdminUsers      from "@/admin/pages/AdminUsers";
-import AdminHomePage   from "@/admin/pages/AdminHomePage";
+import AdminUsers         from "@/admin/pages/AdminUsers";
+import AdminHomePage      from "@/admin/pages/AdminHomePage";
+import AdminSimulator     from "@/admin/pages/AdminSimulator";
+import AdminLocationsPage    from "@/admin/pages/AdminLocationsPage";
+import AdminContactPage      from "@/admin/pages/AdminContactPage";
+import AdminDashboardUsers   from "@/admin/pages/AdminDashboardUsers";
 
 const queryClient = new QueryClient();
 
 const App = () => (
+  <LangProvider>
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
@@ -65,6 +73,7 @@ const App = () => (
             <Route path="/contact"                           element={<Layout><Contact /></Layout>} />
             <Route path="/login"                             element={<Login />} />
             <Route path="/signup"                            element={<Signup />} />
+            <Route path="/design-simulator"                  element={<DesignSimulator />} />
 
             {/* ── Admin Panel ──────────────────────────────────────────── */}
             <Route path="/admin/login" element={<AdminLogin />} />
@@ -80,8 +89,12 @@ const App = () => (
               <Route path="about"       element={<AdminAbout />} />
               <Route path="suppliers"   element={<AdminSuppliers />} />
               <Route path="customers"   element={<AdminCustomers />} />
-              <Route path="users"       element={<AdminUsers />} />
-              <Route path="homepage"    element={<AdminHomePage />} />
+              <Route path="users"           element={<AdminUsers />} />
+              <Route path="homepage"        element={<AdminHomePage />} />
+              <Route path="simulator"       element={<AdminSimulator />} />
+              <Route path="locations-page"   element={<AdminLocationsPage />} />
+              <Route path="contact-page"     element={<AdminContactPage />} />
+              <Route path="dashboard-users"  element={<AdminDashboardUsers />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
@@ -90,6 +103,7 @@ const App = () => (
       </AdminAuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
+  </LangProvider>
 );
 
 export default App;

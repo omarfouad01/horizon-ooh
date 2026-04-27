@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useStore, aboutStore, trustStatStore, type AboutContent, type WhyChooseItem, type AboutStat } from '@/store/dataStore'
 import { Btn, Field, TA, PageHeader } from '../ui'
 import { Save, Plus, Trash2, Pencil, X, ChevronUp, ChevronDown, GripVertical } from 'lucide-react'
+import toast from 'react-hot-toast'
 
 // ── Inline small Modal ────────────────────────────────────────────────────────
 function InlineModal({ open, title, onClose, children }: { open:boolean;title:string;onClose:()=>void;children:React.ReactNode }) {
@@ -58,27 +59,41 @@ export default function AdminAbout() {
 
   function patch(p: Partial<AboutContent>) { setDraft(d => ({...d,...p})) }
 
-  function save() {
-    aboutStore.update(merged)
-    setDraft({})
-    setSaved(true)
-    setTimeout(() => setSaved(false), 2500)
+  async function save(overrideData?: Partial<AboutContent>) {
+    const data = overrideData ? { ...merged, ...overrideData } : merged;
+    try {
+      await aboutStore.update(data)
+      setDraft({})
+      setSaved(true)
+      toast.success('About page saved!')
+      setTimeout(() => setSaved(false), 2500)
+    } catch (err: any) {
+      toast.error(err?.response?.data?.message ?? err?.message ?? 'Save failed — please try again')
+    }
   }
 
   // ── Why Choose modals
   const [whyModal, setWhyModal] = useState<{ open:boolean; item:WhyChooseItem|null }>({ open:false, item:null })
   const [whyForm,  setWhyForm]  = useState({ num:'', title:'', desc:'' })
-  function openAddWhy()  { setWhyForm({num:String((merged.whyItems.length+1)).padStart(2,'0'),title:'',desc:''}); setWhyModal({open:true,item:null}) }
+  function openAddWhy()  { setWhyForm({num:String(((merged.whyItems||[]).length+1)).padStart(2,'0'),title:'',desc:''}); setWhyModal({open:true,item:null}) }
   function openEditWhy(w:WhyChooseItem){ setWhyForm({num:w.num,title:w.title,desc:w.desc}); setWhyModal({open:true,item:w}) }
   function saveWhy() {
+    let newItems: WhyChooseItem[]
     if (whyModal.item) {
-      patch({ whyItems: merged.whyItems.map(x => x.id===whyModal.item!.id ? {...x,...whyForm} : x) })
+      newItems = merged.whyItems.map(x => x.id===whyModal.item!.id ? {...x,...whyForm} : x)
     } else {
-      patch({ whyItems: [...merged.whyItems, { id:String(Date.now()), ...whyForm }] })
+      newItems = [...merged.whyItems, { id:String(Date.now()), ...whyForm }]
     }
+    patch({ whyItems: newItems })
     setWhyModal({open:false,item:null})
+    // Auto-save immediately so items persist on refresh
+    save({ whyItems: newItems })
   }
-  function removeWhy(id:string) { patch({ whyItems: merged.whyItems.filter(x=>x.id!==id) }) }
+  function removeWhy(id:string) {
+    const newItems = merged.whyItems.filter(x=>x.id!==id)
+    patch({ whyItems: newItems })
+    save({ whyItems: newItems })
+  }
 
   // ── Key Stats modals
   const [statModal, setStatModal] = useState<{ open:boolean; item:AboutStat|null }>({ open:false, item:null })
@@ -86,14 +101,22 @@ export default function AdminAbout() {
   function openAddStat()  { setStatForm({value:'',label:'',sub:''}); setStatModal({open:true,item:null}) }
   function openEditStat(s:AboutStat){ setStatForm({value:s.value,label:s.label,sub:s.sub}); setStatModal({open:true,item:s}) }
   function saveStat() {
+    let newStats: AboutStat[]
     if (statModal.item) {
-      patch({ keyStats: merged.keyStats.map(x => x.id===statModal.item!.id ? {...x,...statForm} : x) })
+      newStats = merged.keyStats.map(x => x.id===statModal.item!.id ? {...x,...statForm} : x)
     } else {
-      patch({ keyStats: [...merged.keyStats, { id:String(Date.now()), ...statForm }] })
+      newStats = [...merged.keyStats, { id:String(Date.now()), ...statForm }]
     }
+    patch({ keyStats: newStats })
     setStatModal({open:false,item:null})
+    // Auto-save immediately so stats persist on refresh
+    save({ keyStats: newStats })
   }
-  function removeStat(id:string) { patch({ keyStats: merged.keyStats.filter(x=>x.id!==id) }) }
+  function removeStat(id:string) {
+    const newStats = merged.keyStats.filter(x=>x.id!==id)
+    patch({ keyStats: newStats })
+    save({ keyStats: newStats })
+  }
 
   // ── Trust Stats (direct store)
   const [tsModal, setTsModal] = useState<{ open:boolean; item:any }>({ open:false, item:null })
@@ -111,12 +134,12 @@ export default function AdminAbout() {
 
   // ── Dark paragraphs helpers
   function setPara(i:number, v:string) {
-    const arr = [...merged.darkParagraphs]
+    const arr = [...(merged.darkParagraphs||[])]
     arr[i] = v
     patch({ darkParagraphs: arr })
   }
-  function addPara()    { patch({ darkParagraphs: [...merged.darkParagraphs, ''] }) }
-  function removePara(i:number) { patch({ darkParagraphs: merged.darkParagraphs.filter((_,j)=>j!==i) }) }
+  function addPara()    { patch({ darkParagraphs: [...(merged.darkParagraphs||[]), ''] }) }
+  function removePara(i:number) { patch({ darkParagraphs: (merged.darkParagraphs||[]).filter((_,j)=>j!==i) }) }
 
   return (
     <div className="p-6 max-w-[1100px] mx-auto">
@@ -151,6 +174,12 @@ export default function AdminAbout() {
               <Field label="Headline"      value={merged.heroTitle}    onChange={e=>patch({heroTitle:e.target.value})}    placeholder="About Horizon OOH."/>
               <Field label="Accent (italic)"value={merged.heroAccent}  onChange={e=>patch({heroAccent:e.target.value})}  placeholder="We control visibility."/>
             </div>
+            {/* Arabic */}
+            <div className="mt-3 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400">Arabic</span><div className="flex-1 h-px bg-gray-100"/></div>
+            <div className="grid grid-cols-2 gap-4 mt-2">
+              <Field label="Arabic Headline (العنوان)" value={(merged as any).heroTitleAr||''} onChange={e=>patch({heroTitleAr:e.target.value})} dir="rtl"/>
+              <Field label="Arabic Accent (italic)" value={(merged as any).heroAccentAr||''} onChange={e=>patch({heroAccentAr:e.target.value})} dir="rtl"/>
+            </div>
           </Card>
 
           <Card title="Intro Section — Two Columns">
@@ -159,6 +188,11 @@ export default function AdminAbout() {
               <TA    label="Right — Paragraph 1" value={merged.introParagraph1} onChange={e=>patch({introParagraph1:e.target.value})} rows={4}/>
               <TA    label="Right — Paragraph 2" value={merged.introParagraph2} onChange={e=>patch({introParagraph2:e.target.value})} rows={4}/>
             </div>
+            {/* Arabic */}
+            <div className="mt-3 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400">Arabic</span><div className="flex-1 h-px bg-gray-100"/></div>
+            <Field label="Arabic Big Headline (العنوان الكبير)" value={(merged as any).introHeadlineAr||''} onChange={e=>patch({introHeadlineAr:e.target.value})} dir="rtl"/>
+            <TA    label="Arabic Paragraph 1 (الفقرة 1)" value={(merged as any).introParagraph1Ar||''} onChange={e=>patch({introParagraph1Ar:e.target.value})} rows={3} dir="rtl"/>
+            <TA    label="Arabic Paragraph 2 (الفقرة 2)" value={(merged as any).introParagraph2Ar||''} onChange={e=>patch({introParagraph2Ar:e.target.value})} rows={3} dir="rtl"/>
           </Card>
 
           <Card title="SEO Expertise Section">
@@ -166,6 +200,10 @@ export default function AdminAbout() {
               <Field label="Section Heading" value={merged.seoHeading}   onChange={e=>patch({seoHeading:e.target.value})}/>
               <TA    label="Right Paragraph" value={merged.seoParagraph} onChange={e=>patch({seoParagraph:e.target.value})} rows={5}/>
             </div>
+            {/* Arabic */}
+            <div className="mt-3 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400">Arabic</span><div className="flex-1 h-px bg-gray-100"/></div>
+            <Field label="Arabic Heading (العنوان)" value={(merged as any).seoHeadingAr||''} onChange={e=>patch({seoHeadingAr:e.target.value})} dir="rtl"/>
+            <TA    label="Arabic Paragraph (الفقرة)" value={(merged as any).seoParagraphAr||''} onChange={e=>patch({seoParagraphAr:e.target.value})} rows={4} dir="rtl"/>
           </Card>
         </>
       )}
@@ -178,7 +216,7 @@ export default function AdminAbout() {
             <Field label="Accent (second line)" value={merged.darkAccent} onChange={e=>patch({darkAccent:e.target.value})} placeholder="A visibility partner."/>
           </div>
           <div className="space-y-4">
-            {merged.darkParagraphs.map((p, i) => (
+            {(merged.darkParagraphs||[]).map((p, i) => (
               <div key={i} className="relative">
                 <label className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block mb-1.5">Paragraph {i+1}</label>
                 <div className="flex gap-2">
@@ -187,6 +225,24 @@ export default function AdminAbout() {
                 </div>
               </div>
             ))}
+          </div>
+          {/* ── Arabic ── */}
+          <div className="mt-4 pt-2 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{color:'#D90429'}}>🌐 Arabic — اللغة العربية</span><div className="flex-1 h-px bg-red-100"/></div>
+          <div className="grid grid-cols-2 gap-4 mt-3">
+            <Field label="Arabic Title (العنوان)" value={(merged as any).darkTitleAr||''} onChange={e=>patch({darkTitleAr:e.target.value})} dir="rtl" placeholder="أكثر من مجرد إعلان."/>
+            <Field label="Arabic Accent (النص البارز)" value={(merged as any).darkAccentAr||''} onChange={e=>patch({darkAccentAr:e.target.value})} dir="rtl" placeholder="شريك الظهور الحقيقي."/>
+          </div>
+          <div className="mt-3 space-y-3">
+            {((merged as any).darkParagraphsAr || ['']).map((p: string, i: number) => (
+              <div key={i} className="relative">
+                <label className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block mb-1.5">Arabic Paragraph {i+1} (الفقرة {i+1})</label>
+                <div className="flex gap-2">
+                  <TA value={p} onChange={e=>{ const a=[...((merged as any).darkParagraphsAr||[''])]; a[i]=e.target.value; patch({darkParagraphsAr:a}) }} rows={3} dir="rtl"/>
+                  {i > 0 && <button onClick={()=>{ const a=[...((merged as any).darkParagraphsAr||[])]; a.splice(i,1); patch({darkParagraphsAr:a}) }} className="text-gray-300 hover:text-red-500 transition-colors self-start mt-1 p-1"><Trash2 size={14}/></button>}
+                </div>
+              </div>
+            ))}
+            <button type="button" onClick={()=>{ const a=[...((merged as any).darkParagraphsAr||['']),''] ; patch({darkParagraphsAr:a}) }} className="mt-1 text-[11px] font-semibold text-gray-400 hover:text-gray-700 flex items-center gap-1 transition-colors">+ Add Arabic Paragraph</button>
           </div>
         </Card>
       )}
@@ -199,11 +255,17 @@ export default function AdminAbout() {
               <Field label="Title"  value={merged.whyTitle}  onChange={e=>patch({whyTitle:e.target.value})}  placeholder="Five reasons brands"/>
               <Field label="Accent" value={merged.whyAccent} onChange={e=>patch({whyAccent:e.target.value})} placeholder="choose us."/>
             </div>
+            {/* ── Arabic ── */}
+            <div className="mt-3 pt-2 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{color:'#D90429'}}>🌐 Arabic — اللغة العربية</span><div className="flex-1 h-px bg-red-100"/></div>
+            <div className="grid grid-cols-2 gap-4 mt-2">
+              <Field label="Arabic Title (العنوان)" value={(merged as any).whyTitleAr||''} onChange={e=>patch({whyTitleAr:e.target.value})} dir="rtl" placeholder="خمسة أسباب تجعل العلامات التجارية"/>
+              <Field label="Arabic Accent (النص البارز)" value={(merged as any).whyAccentAr||''} onChange={e=>patch({whyAccentAr:e.target.value})} dir="rtl" placeholder="تختارنا."/>
+            </div>
           </Card>
 
           <Card title="Why Choose Items" action={<Btn onClick={openAddWhy} className="text-[12px] px-3 py-1.5 flex items-center gap-1"><Plus size={12}/>Add Item</Btn>}>
             <div className="space-y-2">
-              {merged.whyItems.map((item,i) => (
+              {(merged.whyItems||[]).map((item,i) => (
                 <div key={item.id} className="flex items-start gap-3 p-4 rounded-xl border border-gray-100 bg-gray-50/60 hover:bg-gray-50 transition-colors">
                   <span className="text-[11px] font-black tracking-wider mt-0.5 flex-shrink-0" style={{color:'#D90429',minWidth:24}}>{item.num}</span>
                   <div className="flex-1 min-w-0">
@@ -225,7 +287,7 @@ export default function AdminAbout() {
       {tab==='stats' && (
         <Card title="Key Numbers / Statistics" action={<Btn onClick={openAddStat} className="text-[12px] px-3 py-1.5 flex items-center gap-1"><Plus size={12}/>Add Stat</Btn>}>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {merged.keyStats.map(s => (
+            {(merged.keyStats||[]).map(s => (
               <div key={s.id} className="p-5 border border-gray-100 rounded-xl bg-gray-50/60 relative group">
                 <p className="text-[32px] font-black leading-none tracking-[-0.05em] mb-1" style={{color:'#D90429'}}>{s.value}</p>
                 <p className="text-[14px] font-bold text-gray-900">{s.label}</p>

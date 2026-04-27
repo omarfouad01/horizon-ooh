@@ -1,6 +1,7 @@
 import clsx from 'clsx'
-import React, { useRef } from 'react'
-import { X, GripVertical, Plus, Loader2, Upload, Trash2, ImagePlus } from 'lucide-react'
+import React, { useRef, useState, useEffect, useCallback } from 'react'
+import { createPortal } from 'react-dom'
+import { X, GripVertical, Plus, Loader2, Upload, Trash2, ImagePlus, ChevronDown } from 'lucide-react'
 
 const NAVY='#0B0F1A', RED='#D90429'
 
@@ -42,29 +43,141 @@ export const TA = React.forwardRef<HTMLTextAreaElement,any>(({label,error,classN
 ))
 TA.displayName='TA'
 
-// Select
-export const Sel = React.forwardRef<HTMLSelectElement,any>(({label,error,className,children,...p},ref)=>(
-  <div className="flex flex-col gap-1.5">
-    {label&&<label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">{label}</label>}
-    <select ref={ref} className={clsx('h-9 px-3 rounded-xl border text-sm outline-none bg-white w-full',
-      error?'border-red-400':'border-gray-200',className)} {...p}>{children}</select>
-    {error&&<span className="text-xs text-red-500">{error}</span>}
-  </div>
-))
-Sel.displayName='Sel'
+// ── Portal-based Select — never clipped by overflow containers ───────────────
+interface SelOption { value: string; label?: string }
+interface SelProps {
+  label?: string
+  error?: string
+  className?: string
+  value: string
+  onChange: (e: { target: { value: string } }) => void
+  disabled?: boolean
+  required?: boolean
+  children?: React.ReactNode  // <option> elements for SSR / fallback
+  options?: SelOption[]       // preferred: explicit option list
+  placeholder?: string
+}
+
+export function Sel({ label, error, className, value, onChange, disabled, children, options, placeholder }: SelProps) {
+  const [open, setOpen]   = useState(false)
+  const [pos,  setPos]    = useState({ top: 0, left: 0, width: 0 })
+  const triggerRef        = useRef<HTMLButtonElement>(null)
+  const dropRef           = useRef<HTMLDivElement>(null)
+
+  // Build option list from either explicit `options` prop or `<option>` children
+  const opts: SelOption[] = options ?? React.Children.toArray(children)
+    .filter((c): c is React.ReactElement => React.isValidElement(c) && (c.type as any) === 'option')
+    .map(c => ({ value: String(c.props.value ?? ''), label: String(c.props.children ?? c.props.value ?? '') }))
+
+  const selected = opts.find(o => o.value === value)
+  const displayLabel = selected?.label || placeholder || 'Select…'
+  const isEmpty = !selected || selected.value === ''
+
+  const reposition = useCallback(() => {
+    if (!triggerRef.current) return
+    const r = triggerRef.current.getBoundingClientRect()
+    setPos({ top: r.bottom + window.scrollY + 2, left: r.left + window.scrollX, width: r.width })
+  }, [])
+
+  const openDrop = () => {
+    if (disabled) return
+    reposition()
+    setOpen(true)
+  }
+
+  // Close on outside click
+  useEffect(() => {
+    if (!open) return
+    const fn = (e: MouseEvent) => {
+      const t = e.target as Node
+      if (!triggerRef.current?.contains(t) && !dropRef.current?.contains(t)) setOpen(false)
+    }
+    document.addEventListener('mousedown', fn)
+    return () => document.removeEventListener('mousedown', fn)
+  }, [open])
+
+  // Reposition on scroll/resize
+  useEffect(() => {
+    if (!open) return
+    window.addEventListener('scroll', reposition, true)
+    window.addEventListener('resize', reposition)
+    return () => {
+      window.removeEventListener('scroll', reposition, true)
+      window.removeEventListener('resize', reposition)
+    }
+  }, [open, reposition])
+
+  const pick = (val: string) => {
+    onChange({ target: { value: val } })
+    setOpen(false)
+  }
+
+  return (
+    <div className="flex flex-col gap-1.5">
+      {label && <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">{label}</label>}
+      <button
+        ref={triggerRef}
+        type="button"
+        onClick={openDrop}
+        disabled={disabled}
+        className={clsx(
+          'h-9 px-3 rounded-xl border text-sm text-left flex items-center justify-between gap-2 w-full bg-white transition-colors',
+          open ? 'border-gray-400' : 'border-gray-200 hover:border-gray-300',
+          error ? 'border-red-400' : '',
+          disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+          className,
+        )}
+      >
+        <span className={clsx('truncate', isEmpty ? 'text-gray-400' : 'text-gray-800')}>{displayLabel}</span>
+        <ChevronDown size={13} className={clsx('flex-shrink-0 text-gray-400 transition-transform', open && 'rotate-180')} />
+      </button>
+      {error && <span className="text-xs text-red-500">{error}</span>}
+
+      {open && createPortal(
+        <div
+          ref={dropRef}
+          style={{ position: 'absolute', top: pos.top, left: pos.left, width: pos.width, zIndex: 99999 }}
+          className="bg-white rounded-xl border border-gray-200 shadow-xl py-1 max-h-60 overflow-y-auto"
+        >
+          {opts.map(o => (
+            <button
+              key={o.value}
+              type="button"
+              onClick={() => pick(o.value)}
+              className={clsx(
+                'w-full text-left px-3 py-2 text-sm hover:bg-gray-50 transition-colors flex items-center gap-2',
+                o.value === value ? 'font-semibold text-gray-900 bg-gray-50' : 'text-gray-700',
+                o.value === '' ? 'text-gray-400 italic' : ''
+              )}
+            >
+              {o.value === value && <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{background:RED}} />}
+              {o.value !== value && <span className="w-1.5 h-1.5 flex-shrink-0" />}
+              {o.label}
+            </button>
+          ))}
+        </div>,
+        document.body
+      )}
+    </div>
+  )
+}
 
 // Modal
 export function Modal({open,onClose,title,children,size='lg'}:any) {
   if(!open) return null
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{background:'rgba(11,15,26,0.55)'}}>
-      <div className={clsx('bg-white rounded-2xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-2xl',
-        size==='xl'?'max-w-3xl':size==='lg'?'max-w-2xl':'max-w-xl')}>
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-          <h3 className="text-sm font-black text-gray-900">{title}</h3>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-700 p-1 rounded-lg hover:bg-gray-100"><X size={16}/></button>
+    // Outer backdrop — scrollable so very tall modals can be reached
+    <div className="fixed inset-0 z-50 overflow-y-auto" style={{background:'rgba(11,15,26,0.55)'}}>
+      <div className="flex min-h-full items-center justify-center p-4">
+        <div className={clsx('bg-white rounded-2xl w-full shadow-2xl',
+          size==='xl'?'max-w-3xl':size==='lg'?'max-w-2xl':'max-w-xl')}>
+          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+            <h3 className="text-sm font-black text-gray-900">{title}</h3>
+            <button onClick={onClose} className="text-gray-400 hover:text-gray-700 p-1 rounded-lg hover:bg-gray-100"><X size={16}/></button>
+          </div>
+          {/* No overflow clipping here — native <select> dropdowns open freely */}
+          <div className="p-6">{children}</div>
         </div>
-        <div className="flex-1 overflow-y-auto p-6">{children}</div>
       </div>
     </div>
   )
@@ -152,13 +265,41 @@ export function ArrayEditor({label,value,onChange,placeholder}:any) {
   )
 }
 
-// ── Shared helper ─────────────────────────────────────────────────────────────
-function readFileAsDataURL(file: File): Promise<string> {
+// ── Shared helpers ────────────────────────────────────────────────────────────
+const MAX_PX = 1600   // max width/height after resize
+const QUALITY = 0.82  // JPEG quality
+const MAX_MB  = 5     // hard limit before even trying
+
+function compressImage(file: File): Promise<string> {
   return new Promise((res, rej) => {
-    const r = new FileReader()
-    r.onload = () => res(r.result as string)
-    r.onerror = rej
-    r.readAsDataURL(file)
+    if (file.size > MAX_MB * 1024 * 1024) {
+      rej(new Error(`"${file.name}" is ${(file.size / 1024 / 1024).toFixed(1)} MB — please use an image under ${MAX_MB} MB.`))
+      return
+    }
+    const reader = new FileReader()
+    reader.onerror = rej
+    reader.onload = (ev) => {
+      const src = ev.target?.result as string
+      const img = new Image()
+      img.onerror = rej
+      img.onload = () => {
+        let { width, height } = img
+        // Scale down if larger than MAX_PX on either axis
+        if (width > MAX_PX || height > MAX_PX) {
+          const ratio = Math.min(MAX_PX / width, MAX_PX / height)
+          width  = Math.round(width  * ratio)
+          height = Math.round(height * ratio)
+        }
+        const canvas = document.createElement('canvas')
+        canvas.width  = width
+        canvas.height = height
+        const ctx = canvas.getContext('2d')!
+        ctx.drawImage(img, 0, 0, width, height)
+        res(canvas.toDataURL('image/jpeg', QUALITY))
+      }
+      img.src = src
+    }
+    reader.readAsDataURL(file)
   })
 }
 
@@ -178,6 +319,8 @@ export function ImagePicker({
   onChange: (url: string, alt: string) => void
 }) {
   const ref = useRef<HTMLInputElement>(null)
+  const [busy, setBusy] = useState(false)
+  const [err,  setErr]  = useState<string | null>(null)
 
   function openPicker(e: React.MouseEvent) {
     e.preventDefault()
@@ -188,10 +331,18 @@ export function ImagePicker({
   async function pick(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
     if (!file) return
-    const url = await readFileAsDataURL(file)
-    const autoAlt = file.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ')
-    onChange(url, altValue || autoAlt)
     e.target.value = ''
+    setBusy(true)
+    setErr(null)
+    try {
+      const url = await compressImage(file)
+      const autoAlt = file.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ')
+      onChange(url, altValue || autoAlt)
+    } catch (ex: any) {
+      setErr(ex?.message ?? 'Failed to process image')
+    } finally {
+      setBusy(false)
+    }
   }
 
   return (
@@ -207,9 +358,9 @@ export function ImagePicker({
             </div>
           </div>
         ) : (
-          <button type="button" onClick={openPicker}
-            className="w-28 h-20 rounded-xl border-2 border-dashed border-gray-200 hover:border-gray-400 hover:bg-gray-50 transition-colors flex flex-col items-center justify-center gap-1.5 text-gray-400 flex-shrink-0">
-            <ImagePlus size={18}/>
+          <button type="button" onClick={openPicker} disabled={busy}
+            className="w-28 h-20 rounded-xl border-2 border-dashed border-gray-200 hover:border-gray-400 hover:bg-gray-50 transition-colors flex flex-col items-center justify-center gap-1.5 text-gray-400 flex-shrink-0 disabled:opacity-50">
+            {busy ? <Loader2 size={18} className="animate-spin"/> : <ImagePlus size={18}/>}
             <span className="text-[10px] font-medium">Upload image</span>
           </button>
         )}
@@ -228,6 +379,7 @@ export function ImagePicker({
           </p>
         </div>
       </div>
+      {err && <p className="text-[11px] text-red-500 mt-2 flex items-center gap-1"><X size={11}/>{err}</p>}
       <input ref={ref} type="file" accept="image/*" className="hidden" onChange={pick}/>
     </div>
   )
@@ -254,15 +406,27 @@ export function ImageGalleryPicker({
     ref.current?.click()
   }
 
+  const [uploading, setUploading] = useState(false)
+  const [uploadErr, setUploadErr] = useState<string | null>(null)
+
   async function pick(e: React.ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files || [])
     if (!files.length) return
-    const newImgs = await Promise.all(files.map(async f => ({
-      url: await readFileAsDataURL(f),
-      alt: f.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' '),
-    })))
-    onChange([...value, ...newImgs])
     e.target.value = ''
+    setUploading(true)
+    setUploadErr(null)
+    const added: GalleryImage[] = []
+    for (const f of files) {
+      try {
+        const url = await compressImage(f)
+        added.push({ url, alt: f.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ') })
+      } catch (err: any) {
+        setUploadErr(err?.message ?? `Failed to process "${f.name}"`)
+        break
+      }
+    }
+    if (added.length) onChange([...value, ...added])
+    setUploading(false)
   }
 
   function updateAlt(i: number, alt: string) {
@@ -292,12 +456,18 @@ export function ImageGalleryPicker({
             />
           </div>
         ))}
-        <button type="button" onClick={openPicker}
-          className="w-24 h-20 rounded-xl border-2 border-dashed border-gray-200 hover:border-gray-400 hover:bg-gray-50 transition-colors flex flex-col items-center justify-center gap-1 text-gray-400">
-          <Upload size={16}/><span className="text-[10px]">Add photos</span>
+        <button type="button" onClick={openPicker} disabled={uploading}
+          className="w-24 h-20 rounded-xl border-2 border-dashed border-gray-200 hover:border-gray-400 hover:bg-gray-50 transition-colors flex flex-col items-center justify-center gap-1 text-gray-400 disabled:opacity-50 disabled:pointer-events-none">
+          {uploading ? <Loader2 size={16} className="animate-spin"/> : <Upload size={16}/>}
+          <span className="text-[10px]">{uploading ? 'Processing…' : 'Add photos'}</span>
         </button>
       </div>
-      <p className="text-[10px] text-gray-400 mt-2">Filenames are auto-used as alt text — edit each one below its thumbnail.</p>
+      {uploadErr && (
+        <p className="text-[11px] text-red-500 mt-2 flex items-center gap-1">
+          <X size={11} className="flex-shrink-0"/>{uploadErr}
+        </p>
+      )}
+      <p className="text-[10px] text-gray-400 mt-1.5">Max {MAX_MB} MB per image · auto-compressed to {MAX_PX}px · edit alt text below each thumbnail.</p>
       <input ref={ref} type="file" accept="image/*" multiple className="hidden" onChange={pick}/>
     </div>
   )

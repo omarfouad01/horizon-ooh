@@ -2,27 +2,30 @@ import { Link } from "react-router-dom";
 import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, PageHero, CTABanner } from "@/components/UI";
 import { blogHref, RED, NAVY } from "@/lib/routes";
+import { useLang } from "@/i18n/LangContext";
 
 export default function Blog() {
   const { blogPosts: BLOG_POSTS } = useStore()
-  const featured = BLOG_POSTS[0];
+  const { isAr, t } = useLang()
+  const featured = BLOG_POSTS[0] ?? null;
   const rest = BLOG_POSTS.slice(1);
 
   return (
     <>
       <PageHero
-        eyebrow="Insights & Strategy"
-        title="Outdoor Advertising"
-        titleAccent="Insights & Articles."
-        subtitle="Expert guides, industry analysis, and creative strategy for OOH advertising in Egypt."
+        eyebrow={t('blog.insights')}
+        title={t('blog.title')}
+        titleAccent={t('blog.titleAccent')}
+        subtitle={t('blog.subtitle')}
       />
 
       {/* Featured post */}
+      {featured && (
       <section className="bg-white" style={{ paddingTop: 80, paddingBottom: 60 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <Reveal>
             <p className="text-[10px] font-bold tracking-[0.35em] uppercase mb-6" style={{ color: "rgba(11,15,26,0.3)" }}>
-              Featured Article
+              {t('blog.featuredArticle')}
             </p>
           </Reveal>
           <Link
@@ -49,26 +52,27 @@ export default function Blog() {
                 className="font-black leading-[1.1] tracking-[-0.03em] text-white mb-6 group-hover:text-white transition-colors"
                 style={{ fontSize: "clamp(24px, 2.5vw, 36px)" }}
               >
-                {featured.title}
+                {isAr && (featured as any).titleAr ? (featured as any).titleAr : featured.title}
               </h2>
               <p className="text-[15px] leading-[1.7] mb-10" style={{ color: "rgba(255,255,255,0.4)" }}>
-                {featured.excerpt}
+                {isAr && (featured as any).excerptAr ? (featured as any).excerptAr : featured.excerpt}
               </p>
               <div className="flex items-center gap-2">
-                <span className="text-[11px] font-bold tracking-[0.2em] uppercase" style={{ color: RED }}>Read Article</span>
+                <span className="text-[11px] font-bold tracking-[0.2em] uppercase" style={{ color: RED }}>{t('blog.readArticle')}</span>
                 <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 text-lg" style={{ color: RED }}>→</span>
               </div>
             </div>
           </Link>
         </div>
       </section>
+      )}
 
       {/* All posts grid */}
       <section className="bg-white" style={{ paddingTop: 40, paddingBottom: 120 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <Reveal>
             <p className="text-[10px] font-bold tracking-[0.35em] uppercase mb-10" style={{ color: "rgba(11,15,26,0.3)" }}>
-              All Articles
+            {t('blog.allArticles')}
             </p>
           </Reveal>
           <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
@@ -106,15 +110,15 @@ export default function Blog() {
                       className="font-bold leading-[1.2] tracking-[-0.02em] mb-4 flex-1 transition-colors duration-500 text-[#0B0F1A] group-hover:text-white"
                       style={{ fontSize: 18 }}
                     >
-                      {post.title}
+                      {isAr && (post as any).titleAr ? (post as any).titleAr : post.title}
                     </h3>
                     <p
                       className="text-[13px] leading-[1.65] mb-6 transition-colors duration-500 text-[rgba(11,15,26,0.45)] group-hover:text-white/35"
                     >
-                      {post.excerpt.length > 100 ? post.excerpt.slice(0, 100) + "…" : post.excerpt}
+                      {(() => { const ex = isAr && (post as any).excerptAr ? (post as any).excerptAr : post.excerpt; return ex.length > 100 ? ex.slice(0, 100) + "…" : ex; })()}
                     </p>
                     <div className="flex items-center gap-2">
-                      <span className="text-[11px] font-bold tracking-[0.2em] uppercase" style={{ color: RED }}>Read More</span>
+                      <span className="text-[11px] font-bold tracking-[0.2em] uppercase" style={{ color: RED }}>{t('blog.readMore')}</span>
                       <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 text-base" style={{ color: RED }}>→</span>
                     </div>
                   </div>
@@ -126,9 +130,9 @@ export default function Blog() {
       </section>
 
       <CTABanner
-        title="Ready to apply these insights?"
-        subtitle="Talk to our strategists and turn OOH knowledge into campaign results."
-        buttonLabel="Get a Quote"
+        title={t('blog.ctaTitle')}
+        subtitle={t('blog.ctaSubtitle')}
+        buttonLabel={t('blog.ctaButton')}
         dark={false}
       />
     </>

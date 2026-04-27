@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ROUTES, RED, NAVY, ease } from "@/lib/routes";
 import { siteUserStore } from "@/store/dataStore";
+import { authApi } from "@/api";
 
 // ─── Shared input component ───────────────────────────────────────────────
 function AuthInput({
@@ -126,13 +127,30 @@ export default function Login() {
     setError(null);
     if (!email || !password) { setError("Please fill in all fields."); return; }
     setLoading(true);
-    // Simulate API call — replace with real auth
-    await new Promise((r) => setTimeout(r, 1100));
-    // Record login attempt in admin users list
-    siteUserStore.upsert(email, { source: 'login' });
+    try {
+      let res: any;
+      try {
+        res = await authApi.login(email, password);
+      } catch (e1: any) {
+        if (e1?.response?.status === 405 || e1?.response?.status === 404) {
+          res = await authApi.loginFallback(email, password);
+        } else throw e1;
+      }
+      const { token: t, user: u } = res.data;
+      localStorage.setItem('horizon_token', t);
+      localStorage.setItem('horizon_user', JSON.stringify(u));
+      siteUserStore.upsert(email, { name: u?.name, phone: u?.phone, source: 'login' });
+      navigate(ROUTES.HOME);
+    } catch (err: any) {
+      setLoading(false);
+      const apiErrors = err?.response?.data?.errors;
+      if (apiErrors && typeof apiErrors === 'object') {
+        setError(Object.values(apiErrors).flat().join(' '));
+      } else {
+        setError(err?.response?.data?.message ?? err?.message ?? 'Login failed. Please check your credentials.');
+      }
+    }
     setLoading(false);
-    // navigate("/dashboard"); // uncomment when dashboard exists
-    setError("Demo mode — backend auth not yet connected.");
   };
 
   return (

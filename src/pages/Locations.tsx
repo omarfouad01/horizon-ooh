@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useStore, getState } from "@/store/dataStore";
 import { productHref, RED, NAVY } from "@/lib/routes";
 import LocationsMap from "@/components/LocationsMap";
+import { useLang } from "@/i18n/LangContext";
 
 const getBillboards = () => getState().locations.flatMap((l: any) => (l.products||[]).map((p: any) => ({ ...p, citySlug: l.slug })));
 
@@ -55,8 +56,11 @@ interface FilterDropdownProps {
   values: string[];
   onChange: (vals: string[]) => void;
   icon: React.ReactNode;
+  /** Optional map of English value → Arabic display label */
+  optionLabels?: Record<string, string>;
 }
-function FilterDropdown({ label, options, values, onChange, icon }: FilterDropdownProps) {
+function FilterDropdown({ label, options, values, onChange, icon, optionLabels }: FilterDropdownProps) {
+  const displayLabel = (val: string) => (optionLabels && optionLabels[val]) ? optionLabels[val] : val;
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const dropRef    = useRef<HTMLDivElement>(null);
@@ -89,7 +93,7 @@ function FilterDropdown({ label, options, values, onChange, icon }: FilterDropdo
   const triggerLabel = !hasValues
     ? label
     : values.length === 1
-      ? values[0]
+      ? displayLabel(values[0])
       : `${label} (${values.length})`;
 
   return (
@@ -208,7 +212,7 @@ function FilterDropdown({ label, options, values, onChange, icon }: FilterDropdo
                         fontWeight: checked ? 700 : 450,
                       }}
                     >
-                      {opt}
+                      {displayLabel(opt)}
                     </span>
                   </button>
                 );
@@ -243,9 +247,11 @@ interface CardProps {
   onHover: (id: string | null) => void;
   onSelect: (id: string | null) => void;
   cardRef: (el: HTMLDivElement | null) => void;
+  waNumber: string;
 }
-function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }: CardProps) {
+function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, waNumber }: CardProps) {
   const navigate = useNavigate();
+  const { isAr, t } = useLang();
   const badges = getBadges(b.type);
   const highlighted = isHovered || isSelected;
 
@@ -288,11 +294,11 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }:
         <div className="absolute top-3 left-3 flex items-center gap-1.5">
           <span className="text-[9px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 text-white"
             style={{ background: RED, borderRadius: 3 }}>
-            {b.city}
+            {isAr && b.cityAr ? b.cityAr : b.city}
           </span>
           <span className="text-[9px] font-semibold tracking-[0.12em] uppercase px-2.5 py-1 text-white/80"
             style={{ background: "rgba(11,15,26,0.6)", backdropFilter: "blur(6px)", borderRadius: 3 }}>
-            {b.district}
+            {isAr && b.districtAr ? b.districtAr : b.district}
           </span>
         </div>
 
@@ -306,7 +312,7 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }:
 
         {/* Name overlay */}
         <div className="absolute bottom-3 left-3 right-3">
-          <p className="font-extrabold text-white leading-tight" style={{ fontSize: 15 }}>{b.nameEn || b.name}</p>
+          <p className="font-extrabold text-white leading-tight" style={{ fontSize: 15 }}>{isAr && b.nameAr ? b.nameAr : (b.nameEn || b.name)}</p>
         </div>
       </div>
 
@@ -314,7 +320,7 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }:
       <div style={{ padding: "16px 18px 18px" }}>
         {/* English name + full address */}
         <div className="mb-4 pb-4" style={{ borderBottom: "1px solid rgba(11,15,26,0.06)" }}>
-          <p className="text-[13px] font-bold text-[#0B0F1A] leading-snug mb-1">{b.nameEn || b.name}</p>
+          <p className="text-[13px] font-bold text-[#0B0F1A] leading-snug mb-1">{isAr && b.nameAr ? b.nameAr : (b.nameEn || b.name)}</p>
           <div className="flex items-start gap-1.5">
             <svg className="shrink-0 mt-[1px]" width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ color: '#D90429' }}>
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" fill="currentColor"/>
@@ -325,9 +331,9 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }:
         {/* Code / Size / Format stats row */}
         <div className="grid grid-cols-3 gap-0 mb-4" style={{ border: "1px solid rgba(11,15,26,0.07)" }}>
           {[
-            { label: "Code",   value: b.code || "—" },
-            { label: "Size",   value: b.size },
-            { label: "Format", value: b.type },
+            { label: t('spec.code'),      value: b.code || "—" },
+            { label: t('spec.size'),      value: b.size },
+            { label: t('spec.adFormat'),  value: b.type },
           ].map((stat, i) => (
             <div key={stat.label} className="flex flex-col items-center justify-center py-2.5 px-2"
               style={{ borderLeft: i > 0 ? '2px solid #D90429' : 'none' }}>
@@ -361,17 +367,17 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }:
             className="flex-1 h-9 flex items-center justify-center text-[10px] font-bold tracking-[0.18em] uppercase text-white transition-all duration-200 hover:opacity-90 active:scale-[0.97]"
             style={{ background: NAVY, border: "none", borderRadius: 5, cursor: "pointer" }}
           >
-            View Details
+            {isAr ? 'عرض التفاصيل' : 'View Details'}
           </button>
           <button
             onClick={e => { e.stopPropagation(); navigate("/contact"); }}
             className="flex-1 h-9 flex items-center justify-center text-[10px] font-bold tracking-[0.18em] uppercase transition-all duration-200 hover:bg-[rgba(217,4,41,0.06)] active:scale-[0.97]"
             style={{ border: `1.5px solid ${RED}`, color: RED, borderRadius: 5, cursor: "pointer", background: "transparent" }}
           >
-            Get Quote
+            {isAr ? 'اطلب عرض سعر' : 'Get Quote'}
           </button>
           <a
-            href={`https://wa.me/201234567890?text=Hi%20HORIZON%20OOH%2C%20I%27m%20interested%20in%20${encodeURIComponent(b.name)}`}
+            href={`https://wa.me/${waNumber}?text=Hi%20HORIZON%20OOH%2C%20I%27m%20interested%20in%20${encodeURIComponent(b.name)}`}
             target="_blank"
             rel="noopener noreferrer"
             onClick={e => e.stopPropagation()}
@@ -393,8 +399,22 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }:
 // MAIN PAGE
 // ═══════════════════════════════════════════════════════════════════════════
 export default function Locations() {
-  const { locations } = useStore()
-  const allBillboards = locations.flatMap((l: any) => (l.products||[]).map((p: any) => ({ ...p, citySlug: l.slug })))
+  const { locations, districts: storeDistrictsForEnrich, settings, locationsContent } = useStore()
+  const waNumber = (settings?.whatsapp ?? '+201234567890').replace(/\D/g, '')
+  const { isAr, t } = useLang()
+  const lp = locationsContent ?? {}
+  // Enrich each billboard with Arabic city/district names from the store
+  const allBillboards = locations.flatMap((l: any) =>
+    (l.products||[]).map((p: any) => {
+      const districtObj = storeDistrictsForEnrich.find((d: any) => d.name === p.district)
+      return {
+        ...p,
+        citySlug: l.slug,
+        cityAr: l.cityAr || '',
+        districtAr: districtObj?.nameAr || '',
+      }
+    })
+  )
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -436,6 +456,14 @@ export default function Locations() {
       .map((d: any) => d.name)
       .sort()
   })()
+
+  // ── Arabic label maps (English value → Arabic label) ─────────────────
+  const cityLabelsAr: Record<string, string> = isAr
+    ? Object.fromEntries(storeLocations.filter((l: any) => l.cityAr).map((l: any) => [l.city, l.cityAr]))
+    : {}
+  const districtLabelsAr: Record<string, string> = isAr
+    ? Object.fromEntries(storeDistricts.filter((d: any) => d.nameAr).map((d: any) => [d.name, d.nameAr]))
+    : {}
 
   // ── Filtered results ─────────────────────────────────────────────────
   const sorted = allBillboards.filter(b => {
@@ -482,7 +510,10 @@ export default function Locations() {
     setFormats(vals); pushToUrl(cities, districts, vals);
   };
 
-  const cityLabel = cities.length === 0 ? "" : cities.length === 1 ? cities[0] : `${cities.length} cities`;
+  const cityLabelEn = cities.length === 0 ? "" : cities.length === 1 ? cities[0] : `${cities.length} cities`;
+  const cityLabel = isAr && cities.length === 1 && cityLabelsAr[cities[0]]
+    ? cityLabelsAr[cities[0]]
+    : cityLabelEn;
 
   return (
     <div className="flex flex-col min-h-screen" style={{ background: "#F7F7F8" }}>
@@ -497,11 +528,11 @@ export default function Locations() {
             <button onClick={() => navigate("/")}
               className="text-[11px] font-semibold tracking-[0.12em] uppercase transition-colors hover:text-[#D90429]"
               style={{ color: "rgba(11,15,26,0.35)", background: "none", border: "none", cursor: "pointer" }}>
-              Home
+              {t('common.home')}
             </button>
             <span style={{ color: "rgba(11,15,26,0.2)", fontSize: 12 }}>›</span>
             <span className="text-[11px] font-semibold tracking-[0.12em] uppercase" style={{ color: NAVY }}>
-              Locations
+              {t('nav.locations')}
             </span>
           </div>
 
@@ -510,16 +541,20 @@ export default function Locations() {
               <div className="flex items-center gap-3 mb-4">
                 <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
                 <span className="text-[10px] font-bold tracking-[0.35em] uppercase"
-                  style={{ color: "rgba(11,15,26,0.3)" }}>Our Network</span>
+                  style={{ color: "rgba(11,15,26,0.3)" }}>
+                  {isAr ? (lp.eyebrowAr || t('locations.ourNetwork')) : (lp.eyebrow || t('locations.ourNetwork'))}
+                </span>
               </div>
               <h1 className="font-black leading-[0.88] tracking-[-0.04em]"
                 style={{ fontSize: "clamp(36px, 4vw, 58px)", color: NAVY }}>
-                Advertising Locations<br />
-                <span style={{ color: "rgba(11,15,26,0.18)" }}>Across Egypt.</span>
+                {isAr ? (lp.titleAr || t('locations.title')) : (lp.title || t('locations.title'))}<br />
+                <span style={{ color: "rgba(11,15,26,0.18)" }}>
+                  {isAr ? (lp.titleAccentAr || t('locations.titleAccent')) : (lp.titleAccent || t('locations.titleAccent'))}
+                </span>
               </h1>
             </div>
             <p className="text-[15px] leading-[1.7]" style={{ color: "rgba(11,15,26,0.45)", maxWidth: 340 }}>
-              9,500+ premium outdoor advertising locations — from Cairo's Ring Road to Alexandria's Corniche.
+              {isAr ? (lp.subtitleAr || t('locations.subtitle')) : (lp.subtitle || t('locations.subtitle'))}
             </p>
           </div>
         </div>
@@ -540,10 +575,11 @@ export default function Locations() {
           <div className="hidden lg:flex items-center gap-3 py-4">
             {/* Filters label */}
             <span className="text-[11px] font-bold tracking-[0.25em] uppercase mr-1 flex-shrink-0"
-              style={{ color: "rgba(11,15,26,0.45)" }}>Filter:</span>
+              style={{ color: "rgba(11,15,26,0.45)" }}>{t('locations.filterLabel')}</span>
 
             <FilterDropdown
-              label="City" options={ALL_CITIES} values={cities} onChange={handleCitiesChange}
+              label={isAr ? 'المحافظة' : 'City'} options={ALL_CITIES} values={cities} onChange={handleCitiesChange}
+              optionLabels={cityLabelsAr}
               icon={
                 <svg width="11" height="13" viewBox="0 0 13 15" fill="none">
                   <path d="M6.5 0C3.462 0 1 2.462 1 5.5c0 3.85 5.5 9.5 5.5 9.5S12 9.35 12 5.5C12 2.462 9.538 0 6.5 0zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"
@@ -552,7 +588,8 @@ export default function Locations() {
               }
             />
             <FilterDropdown
-              label="District" options={districtOptions} values={districts} onChange={handleDistrictsChange}
+              label={isAr ? 'المنطقة' : 'District'} options={districtOptions} values={districts} onChange={handleDistrictsChange}
+              optionLabels={districtLabelsAr}
               icon={
                 <svg width="13" height="11" viewBox="0 0 15 13" fill="none">
                   <rect x="0.5" y="5.5" width="6" height="7" stroke="currentColor" strokeWidth="1.4"/>
@@ -562,7 +599,7 @@ export default function Locations() {
               }
             />
             <FilterDropdown
-              label="Format" options={ALL_FORMATS} values={formats} onChange={handleFormatsChange}
+              label={t('locations.formatLabel')} options={ALL_FORMATS} values={formats} onChange={handleFormatsChange}
               icon={
                 <svg width="13" height="11" viewBox="0 0 15 13" fill="none">
                   <rect x="0.5" y="0.5" width="14" height="12" stroke="currentColor" strokeWidth="1.4"/>
@@ -580,7 +617,7 @@ export default function Locations() {
                   className="flex items-center gap-1.5 h-10 px-3 text-[11px] font-bold tracking-[0.15em] uppercase transition-colors hover:text-[#D90429]"
                   style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(11,15,26,0.35)" }}
                 >
-                  <XIcon size={8} /> Clear all
+                  <XIcon size={8} /> {t('common.clearAll')}
                 </motion.button>
               )}
             </AnimatePresence>
@@ -593,7 +630,7 @@ export default function Locations() {
               style={{ background: "rgba(11,15,26,0.06)", borderRadius: 8 }}>
               <span className="text-[13px] font-black" style={{ color: NAVY }}>{sorted.length}</span>
               <span className="text-[10px] font-bold tracking-[0.15em] uppercase"
-                style={{ color: "rgba(11,15,26,0.45)" }}>locations</span>
+                style={{ color: "rgba(11,15,26,0.45)" }}>{t('common.locations')}</span>
             </div>
           </div>
 
@@ -612,7 +649,7 @@ export default function Locations() {
               <svg width="13" height="11" viewBox="0 0 14 12" fill="none">
                 <path d="M1 2h12M3 6h8M5 10h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
-              Filters {hasFilters && `(${cities.length + districts.length + formats.length})`}
+              {t('common.filters')} {hasFilters && `(${cities.length + districts.length + formats.length})`}
               <ChevronDown />
             </button>
             <button
@@ -629,7 +666,7 @@ export default function Locations() {
                 <path d="M5 1L1 3v10l4-2 4 2 4-2V1l-4 2-4-2z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M5 1v10M9 3v10" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
               </svg>
-              {mobileMapOpen ? "List" : "Map"}
+              {mobileMapOpen ? t('common.list') : t('common.map')}
             </button>
             <div className="px-3 py-2 flex-shrink-0"
               style={{ background: "rgba(11,15,26,0.05)", borderRadius: 6 }}>
@@ -646,20 +683,22 @@ export default function Locations() {
                 className="lg:hidden overflow-hidden"
               >
                 <div className="pb-4 flex flex-col gap-3">
-                  <FilterDropdown label="City" options={ALL_CITIES} values={cities} onChange={handleCitiesChange}
+                  <FilterDropdown label={isAr ? 'المحافظة' : 'City'} options={ALL_CITIES} values={cities} onChange={handleCitiesChange}
+                    optionLabels={cityLabelsAr}
                     icon={<svg width="11" height="13" viewBox="0 0 13 15" fill="none"><path d="M6.5 0C3.462 0 1 2.462 1 5.5c0 3.85 5.5 9.5 5.5 9.5S12 9.35 12 5.5C12 2.462 9.538 0 6.5 0zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fill="currentColor"/></svg>}
                   />
-                  <FilterDropdown label="District" options={districtOptions} values={districts} onChange={handleDistrictsChange}
+                  <FilterDropdown label={isAr ? 'المنطقة' : 'District'} options={districtOptions} values={districts} onChange={handleDistrictsChange}
+                    optionLabels={districtLabelsAr}
                     icon={<svg width="13" height="11" viewBox="0 0 15 13" fill="none"><rect x="0.5" y="5.5" width="6" height="7" stroke="currentColor" strokeWidth="1.4"/><rect x="8.5" y="2.5" width="6" height="10" stroke="currentColor" strokeWidth="1.4"/><path d="M0 5.5L7.5 0 15 5.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/></svg>}
                   />
-                  <FilterDropdown label="Format" options={ALL_FORMATS} values={formats} onChange={handleFormatsChange}
+                  <FilterDropdown label={t('locations.formatLabel')} options={ALL_FORMATS} values={formats} onChange={handleFormatsChange}
                     icon={<svg width="13" height="11" viewBox="0 0 15 13" fill="none"><rect x="0.5" y="0.5" width="14" height="12" stroke="currentColor" strokeWidth="1.4"/><path d="M3 4h9M3 6.5h6M3 9h4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>}
                   />
               {hasFilters && (
                 <button onClick={() => { clearAll(); }}
                   className="text-[10px] font-bold tracking-[0.15em] uppercase flex items-center gap-1.5"
                   style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(11,15,26,0.4)" }}>
-                  <XIcon size={8}/> Clear all filters
+                  <XIcon size={8}/> {t('common.clearAll')}
                 </button>
               )}
                 </div>
@@ -691,13 +730,13 @@ export default function Locations() {
             <div className="flex items-center justify-between">
               <p className="text-[13px] font-semibold" style={{ color: "rgba(11,15,26,0.55)" }}>
                 <span className="font-black" style={{ color: NAVY }}>{sorted.length} </span>
-                {cityLabel ? <>premium billboard location{sorted.length !== 1 ? "s" : ""} in <span style={{ color: RED }}>{cityLabel}</span></> : "premium billboard locations"}
+                {cityLabel ? <>{t('locations.premiumBillboards')} {t('common.in')} <span style={{ color: RED }}>{cityLabel}</span></> : t('locations.premiumBillboards')}
               </p>
               {hasFilters && (
                 <button onClick={clearAll}
                   className="text-[10px] font-bold tracking-[0.15em] uppercase transition-colors hover:text-[#D90429]"
                   style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(11,15,26,0.3)" }}>
-                  Clear filters
+                  {t('common.clearFilters')}
                 </button>
               )}
             </div>
@@ -713,12 +752,12 @@ export default function Locations() {
               >
                 <div className="flex items-center gap-2 flex-wrap">
                   {[
-                    ...cities.map(v    => ({ label: "City",     value: v, clear: () => handleCitiesChange(cities.filter(x => x !== v)) })),
-                    ...districts.map(v => ({ label: "District", value: v, clear: () => handleDistrictsChange(districts.filter(x => x !== v)) })),
-                    ...formats.map(v   => ({ label: "Format",   value: v, clear: () => handleFormatsChange(formats.filter(x => x !== v)) })),
-                  ].map((chip) => (
+                    ...cities.map(v    => ({ label: t('locations.cityLabel'),     value: isAr && cityLabelsAr[v] ? cityLabelsAr[v] : v,     clear: () => handleCitiesChange(cities.filter(x => x !== v)) })),
+                    ...districts.map(v => ({ label: t('locations.districtLabel'), value: isAr && districtLabelsAr[v] ? districtLabelsAr[v] : v, clear: () => handleDistrictsChange(districts.filter(x => x !== v)) })),
+                    ...formats.map(v   => ({ label: t('locations.formatLabel'),   value: v, clear: () => handleFormatsChange(formats.filter(x => x !== v)) })),
+                  ].map((chip, i) => (
                       <motion.span
-                        key={chip.label}
+                        key={i}
                         initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
                         className="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.12em] uppercase px-3 py-1.5"
                         style={{ background: NAVY, color: "white", borderRadius: 4 }}
@@ -754,6 +793,7 @@ export default function Locations() {
                       isSelected={selectedId === b.id}
                       onHover={setHoveredId}
                       onSelect={handlePinSelect}
+                      waNumber={waNumber}
                       cardRef={el => {
                         if (el) cardRefs.current.set(b.id, el);
                         else cardRefs.current.delete(b.id);
@@ -777,21 +817,21 @@ export default function Locations() {
                     </svg>
                   </div>
                   <h3 className="font-black text-[22px] tracking-[-0.03em] mb-3" style={{ color: NAVY }}>
-                    No locations match your search
+                    {isAr ? (lp.noResultsTitleAr || t('locations.noResults')) : (lp.noResultsTitle || t('locations.noResults'))}
                   </h3>
                   <p className="text-[14px] leading-[1.7] mb-8" style={{ color: "rgba(11,15,26,0.45)", maxWidth: 340 }}>
-                    Let us recommend the best locations for your campaign — our strategists know every market.
+                    {isAr ? (lp.noResultsHintAr || t('locations.noResultsHint')) : (lp.noResultsHint || t('locations.noResultsHint'))}
                   </p>
                   <div className="flex items-center gap-3">
                     <button onClick={clearAll}
                       className="h-11 px-6 text-[11px] font-bold tracking-[0.2em] uppercase text-white transition-opacity hover:opacity-90"
                       style={{ background: RED, border: "none", borderRadius: 6, cursor: "pointer" }}>
-                      Show All Locations
+                      {t('locations.showAll')}
                     </button>
                     <button onClick={() => navigate("/contact")}
                       className="h-11 px-6 text-[11px] font-bold tracking-[0.2em] uppercase transition-all hover:border-[#D90429] hover:text-[#D90429]"
                       style={{ background: "transparent", border: `1.5px solid rgba(11,15,26,0.15)`, borderRadius: 6, cursor: "pointer", color: "rgba(11,15,26,0.5)" }}>
-                      Contact Us
+                      {t('common.contactUs')}
                     </button>
                   </div>
                 </motion.div>
@@ -824,7 +864,7 @@ export default function Locations() {
                   <path d="M16 0C7.163 0 0 7.163 0 16c0 10.293 14.222 23.156 15.259 24.114a1 1 0 0 0 1.482 0C17.778 39.156 32 26.293 32 16 32 7.163 24.837 0 16 0z" fill={NAVY}/>
                   <circle cx="16" cy="16" r="6" fill={RED}/>
                 </svg>
-                <span className="text-[9px] font-bold tracking-[0.18em] uppercase" style={{ color: NAVY }}>Billboard</span>
+                <span className="text-[9px] font-bold tracking-[0.18em] uppercase" style={{ color: NAVY }}>{t('common.billboard')}</span>
               </div>
               <div className="flex items-center gap-2 px-3 py-2"
                 style={{ background: "rgba(255,255,255,0.95)", backdropFilter: "blur(6px)", borderRadius: 6, boxShadow: "0 2px 12px rgba(11,15,26,0.1)" }}>
@@ -832,7 +872,7 @@ export default function Locations() {
                   <path d="M16 0C7.163 0 0 7.163 0 16c0 10.293 14.222 23.156 15.259 24.114a1 1 0 0 0 1.482 0C17.778 39.156 32 26.293 32 16 32 7.163 24.837 0 16 0z" fill={RED}/>
                   <circle cx="16" cy="16" r="6" fill="white}"/>
                 </svg>
-                <span className="text-[9px] font-bold tracking-[0.18em] uppercase" style={{ color: NAVY }}>Selected</span>
+                <span className="text-[9px] font-bold tracking-[0.18em] uppercase" style={{ color: NAVY }}>{t('common.selected')}</span>
               </div>
             </div>
 
@@ -843,7 +883,7 @@ export default function Locations() {
                 <svg width="8" height="8" viewBox="0 0 8 8" fill={RED}>
                   <circle cx="4" cy="4" r="4"/>
                 </svg>
-                <span className="text-[9px] font-bold tracking-[0.15em] uppercase text-white">{sorted.length} pins</span>
+                <span className="text-[9px] font-bold tracking-[0.15em] uppercase text-white">{sorted.length} {t('common.pins')}</span>
               </div>
             </div>
           </div>
@@ -872,7 +912,7 @@ export default function Locations() {
             style={{ borderRight: "1px solid rgba(11,15,26,0.1)" }}>
             <div className="w-2 h-2 rounded-full" style={{ background: RED, animation: "pulse 2s infinite" }} />
             <span className="text-[12px] font-semibold" style={{ color: "rgba(11,15,26,0.55)" }}>
-              Need help choosing the best billboard?
+              {isAr ? (lp.ctaHelpTextAr || t('locations.helpChoosing')) : (lp.ctaHelpText || t('locations.helpChoosing'))}
             </span>
           </div>
           <button
@@ -880,10 +920,10 @@ export default function Locations() {
             className="flex items-center gap-2 h-9 px-4 text-[11px] font-bold tracking-[0.15em] uppercase text-white transition-opacity hover:opacity-90 active:scale-[0.97]"
             style={{ background: NAVY, border: "none", borderRadius: 30, cursor: "pointer" }}
           >
-            Talk to an Expert
+            {isAr ? (lp.ctaButtonAr || t('locations.talkToExpert')) : (lp.ctaButton || t('locations.talkToExpert'))}
           </button>
           <a
-            href="https://wa.me/201234567890?text=Hi%20HORIZON%20OOH%2C%20I%20need%20help%20choosing%20billboard%20locations"
+            href={`https://wa.me/${waNumber}?text=Hi%20HORIZON%20OOH%2C%20I%20need%20help%20choosing%20billboard%20locations`}
             target="_blank" rel="noopener noreferrer"
             className="flex items-center gap-2 h-9 px-4 text-[11px] font-bold tracking-[0.15em] uppercase text-white transition-opacity hover:opacity-90 active:scale-[0.97]"
             style={{ background: "#25D366", borderRadius: 30, textDecoration: "none" }}

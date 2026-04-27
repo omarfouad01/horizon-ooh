@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useStore, locationStore, districtStore } from '@/store/dataStore'
-import { Btn, PageHeader, Tbl, Th, Td, Tr, Badge, Confirm, Modal, Field, TA, ArrayEditor, ImagePicker } from '../ui'
+import { Btn, PageHeader, Tbl, Th, Td, Tr, Badge, Confirm, Modal, Field, TA, Sel, ArrayEditor, ImagePicker } from '../ui'
 import { Plus, Pencil, Trash2, MapPin, Map } from 'lucide-react'
 import toast from 'react-hot-toast'
 
@@ -8,7 +8,7 @@ const NAVY = '#0B0F1A', RED = '#D90429'
 
 // ── Governorate Form ────────────────────────────────────────────────────────
 function GovForm({ editing, onClose }: any) {
-  const init = editing || { city:'', headline:'', description:'', detail:'', longDescription:'', image:'', imageAlt:'', availableFormats:[] }
+  const init = editing || { city:'', headline:'', description:'', detail:'', longDescription:'', image:'', imageAlt:'', availableFormats:[], cityAr:'', descriptionAr:'', headlineAr:'' }
   const [f, setF]     = useState({ ...init })
   const [fmts, setFmts] = useState<string[]>(init.availableFormats || [])
   const set = (k: string, v: any) => setF((p: any) => ({ ...p, [k]: v }))
@@ -31,6 +31,11 @@ function GovForm({ editing, onClose }: any) {
       <Field label="Headline *"          value={f.headline}     onChange={(e: any) => set('headline', e.target.value)}     required />
       <TA    label="Short Description *" value={f.description}  onChange={(e: any) => set('description', e.target.value)}  rows={2} required />
       <TA    label="Long Description"    value={f.longDescription} onChange={(e: any) => set('longDescription', e.target.value)} rows={3} />
+      {/* ── Arabic ── */}
+      <div className="pt-1 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400">Arabic (اللغة العربية)</span><div className="flex-1 h-px bg-gray-100"/></div>
+      <Field label="Arabic City Name (اسم المدينة)" value={f.cityAr||''} onChange={(e: any) => set('cityAr', e.target.value)} dir="rtl" placeholder="مثال: القاهرة"/>
+      <Field label="Arabic Headline (العنوان)" value={f.headlineAr||''} onChange={(e: any) => set('headlineAr', e.target.value)} dir="rtl"/>
+      <TA    label="Arabic Description (الوصف)" value={f.descriptionAr||''} onChange={(e: any) => set('descriptionAr', e.target.value)} rows={2} dir="rtl"/>
       <ImagePicker label="Cover Image" value={f.image} altValue={f.imageAlt} onChange={(url, alt) => { set('image', url); set('imageAlt', alt) }} />
       <ArrayEditor label="Available Ad Formats" value={fmts} onChange={setFmts} placeholder="e.g. Unipole Billboard" />
       <div className="flex gap-3 justify-end pt-2 border-t border-gray-100">
@@ -44,29 +49,30 @@ function GovForm({ editing, onClose }: any) {
 // ── District Form ────────────────────────────────────────────────────────────
 function DistrictForm({ editing, presetLocationId, onClose }: any) {
   const { locations } = useStore()
-  const [name, setName]   = useState(editing?.name || '')
-  const [locId, setLocId] = useState(editing?.locationId || presetLocationId || '')
+  const [name,   setName]   = useState(editing?.name   || '')
+  const [nameAr, setNameAr] = useState(editing?.nameAr || '')
+  const [locId,  setLocId]  = useState(editing?.locationId || presetLocationId || '')
 
   const save = (e: React.FormEvent) => {
     e.preventDefault()
     if (!name.trim() || !locId) { toast.error('Name and Governorate are required'); return }
-    if (editing) districtStore.update(editing.id, { name, locationId: locId })
-    else         districtStore.add({ name, locationId: locId })
+    if (editing) districtStore.update(editing.id, { name, nameAr, locationId: locId })
+    else         districtStore.add({ name, nameAr, locationId: locId })
     toast.success(editing ? 'District updated' : 'District added')
     onClose()
   }
 
   return (
     <form onSubmit={save} className="space-y-4">
-      <div className="flex flex-col gap-1.5">
-        <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Governorate *</label>
-        <select value={locId} onChange={e => setLocId(e.target.value)} required
-          className="h-9 px-3 rounded-xl border border-gray-200 text-sm outline-none bg-white">
-          <option value="">Select governorate…</option>
-          {locations.map((l: any) => <option key={l.id} value={l.id}>{l.city}</option>)}
-        </select>
+      <Sel label="Governorate *" value={locId} onChange={(e:any) => setLocId(e.target.value)}
+        options={[
+          {value:'',label:'Select governorate…'},
+          ...locations.map((l:any)=>({value:l.id,label:l.city}))
+        ]}/>
+      <div className="grid grid-cols-2 gap-4">
+        <Field label="District Name (English) *" value={name} onChange={(e: any) => setName(e.target.value)} required placeholder="e.g. Nasr City" />
+        <Field label="District Name (Arabic — اسم المنطقة)" value={nameAr} onChange={(e: any) => setNameAr(e.target.value)} dir="rtl" placeholder="مثال: مدينة نصر" />
       </div>
-      <Field label="District Name *" value={name} onChange={(e: any) => setName(e.target.value)} required placeholder="e.g. Nasr City" />
       <div className="flex gap-3 justify-end pt-2 border-t border-gray-100">
         <Btn variant="ghost" type="button" onClick={onClose}>Cancel</Btn>
         <Btn type="submit">{editing ? 'Save' : 'Add District'}</Btn>

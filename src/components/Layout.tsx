@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { NAV_LINKS } from "@/data";
 import { ROUTES, RED, NAVY } from "@/lib/routes";
 import { useStore } from "@/store/dataStore";
+import { useLang } from "@/i18n/LangContext";
 
 // ─── Logo component (shared between Navbar & Footer) ──────────────────────────
 function LogoMark({ size = 54, variant = 'header' }: { size?: number; variant?: 'header' | 'footer' }) {
@@ -41,6 +42,7 @@ export function Navbar() {
   const isHome = location.pathname === "/";
   const store = useStore();
   const companyName: string = store.settings?.companyName ?? 'HORIZON OOH';
+  const { lang, setLang, t, isAr } = useLang();
 
   useEffect(() => { setMenuOpen(false); }, [location.pathname]);
 
@@ -76,7 +78,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-8 ml-12">
             {NAV_LINKS.map((link) => (
               <NavLink
                 key={link.href}
@@ -89,7 +91,7 @@ export function Navbar() {
               >
                 {({ isActive }) => (
                   <>
-                    {link.label}
+                    {t(`nav.${link.href.replace('/','') || 'home'}`) !== `nav.${link.href.replace('/','') || 'home'}` ? t(`nav.${link.href.replace('/','') || 'home'}`) : link.label}
                     <span
                       className="absolute -bottom-0.5 left-0 h-[1px] transition-all duration-300"
                       style={{ width: isActive ? "100%" : "0%", background: RED }}
@@ -98,6 +100,38 @@ export function Navbar() {
                 )}
               </NavLink>
             ))}
+
+            {/* Simulator link */}
+            <NavLink
+              to="/design-simulator"
+              className={({ isActive }) =>
+                `relative text-[12px] font-semibold tracking-[0.18em] uppercase transition-colors duration-200 group ${
+                  isActive ? 'text-[#D90429]' : 'text-[#0B0F1A]/40 hover:text-[#0B0F1A]'
+                }`
+              }
+            >
+              {({ isActive }) => (
+                <>
+                  SIMULATOR
+                  <span
+                    className="absolute -bottom-0.5 left-0 h-[1px] transition-all duration-300"
+                    style={{ width: isActive ? '100%' : '0%', background: RED }}
+                  />
+                </>
+              )}
+            </NavLink>
+
+            {/* Language Toggle */}
+            <button
+              onClick={() => setLang(lang === 'en' ? 'ar' : 'en')}
+              className="h-[34px] px-3 text-[11px] font-bold tracking-[0.12em] uppercase flex items-center gap-1.5 border transition-colors duration-200 hover:border-[#0B0F1A] hover:text-[#0B0F1A] rounded-sm"
+              style={{ borderColor: "rgba(11,15,26,0.15)", color: "rgba(11,15,26,0.45)" }}
+              aria-label="Toggle language"
+            >
+              <span className="text-base leading-none">{isAr ? '🇬🇧' : '🇪🇬'}</span>
+              <span>{isAr ? 'EN' : 'عربي'}</span>
+            </button>
+
             <Link
               to="/login"
               className="h-[40px] px-5 text-[11px] font-bold tracking-[0.18em] uppercase flex items-center gap-2 border transition-colors duration-200 hover:border-[#0B0F1A] hover:text-[#0B0F1A]"
@@ -107,7 +141,7 @@ export function Navbar() {
                 <circle cx="8" cy="5" r="3" stroke="currentColor" strokeWidth="1.5"/>
                 <path d="M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
-              Login
+              {t('nav.login')}
             </Link>
             <Link
               to={ROUTES.CONTACT}
@@ -115,7 +149,7 @@ export function Navbar() {
               style={{ background: RED }}
             >
               <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" style={{ background: NAVY }} />
-              <span className="relative z-10">Get a Quote</span>
+              <span className="relative z-10">{t('nav.getQuote')}</span>
             </Link>
           </div>
 
@@ -158,16 +192,35 @@ export function Navbar() {
                   }`
                 }
               >
-                {link.label}
+                {t(`nav.${link.href.replace('/','') || 'home'}`) !== `nav.${link.href.replace('/','') || 'home'}` ? t(`nav.${link.href.replace('/','') || 'home'}`) : link.label}
               </NavLink>
             ))}
-            <Link to="/login" className="flex items-center gap-2 text-[13px] font-semibold tracking-[0.2em] uppercase text-[#0B0F1A]/50 hover:text-[#D90429] transition-colors">Login</Link>
+            {/* Simulator — mobile */}
+            <NavLink
+              to="/design-simulator"
+              className={({ isActive }) =>
+                `text-left text-[13px] font-semibold tracking-[0.2em] uppercase transition-colors ${
+                  isActive ? 'text-[#D90429]' : 'text-[#0B0F1A]/50 hover:text-[#D90429]'
+                }`
+              }
+            >
+              SIMULATOR
+            </NavLink>
+            {/* Mobile language toggle */}
+            <button
+              onClick={() => setLang(lang === 'en' ? 'ar' : 'en')}
+              className="flex items-center gap-2 text-[13px] font-semibold tracking-[0.2em] uppercase text-[#0B0F1A]/50 hover:text-[#D90429] transition-colors"
+            >
+              <span className="text-base">{isAr ? '🇬🇧' : '🇪🇬'}</span>
+              <span>{isAr ? 'EN' : 'عربي'}</span>
+            </button>
+            <Link to="/login" className="flex items-center gap-2 text-[13px] font-semibold tracking-[0.2em] uppercase text-[#0B0F1A]/50 hover:text-[#D90429] transition-colors">{t('nav.login')}</Link>
             <Link
               to={ROUTES.CONTACT}
               className="mt-2 h-[44px] px-8 text-white text-[11px] font-bold tracking-[0.2em] uppercase w-fit flex items-center active:scale-[0.97] transition-transform"
               style={{ background: RED }}
             >
-              Get a Quote
+              {t('nav.getQuote')}
             </Link>
           </motion.div>
         )}
@@ -180,6 +233,7 @@ export function Navbar() {
 export function Footer() {
   const store = useStore();
   const s = store.settings;
+  const { t, isAr } = useLang();
 
   return (
     <footer style={{ background: NAVY }} className="relative overflow-hidden">
@@ -215,10 +269,10 @@ export function Footer() {
                 </>
               )}
             </div>
-            <p className="text-white/30 text-[14px] leading-[1.75]">{s.tagline}</p>
+            <p className="text-white/30 text-[14px] leading-[1.75]">{isAr && (s as any).taglineAr ? (s as any).taglineAr : s.tagline}</p>
             <div className="mt-8 flex items-center gap-1">
               <span className="w-6 h-[1px]" style={{ background: RED }} />
-              <span className="text-white/20 text-[10px] tracking-[0.3em] uppercase ml-2">Est. 2008, Cairo</span>
+              <span className="text-white/20 text-[10px] tracking-[0.3em] uppercase ml-2">{t('footer.estd')}</span>
             </div>
             {/* Social links */}
             {s.socialLinks && (
@@ -237,44 +291,44 @@ export function Footer() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
             {[
               {
-                heading: "Services",
+                heading: t('footer.services'),
                 links: [
-                  { label: "Billboard", href: "/services/billboard-advertising" },
-                  { label: "DOOH", href: "/services/digital-out-of-home" },
-                  { label: "Mall Advertising", href: "/services/mall-advertising" },
-                  { label: "Airport", href: "/services/airport-advertising" },
-                  { label: "Street Furniture", href: "/services/street-furniture" },
+                  { label: t('footer.billboard'),       href: "/services/billboard-advertising" },
+                  { label: t('footer.dooh'),             href: "/services/digital-out-of-home" },
+                  { label: t('footer.mall'),             href: "/services/mall-advertising" },
+                  { label: t('footer.airport'),          href: "/services/airport-advertising" },
+                  { label: t('footer.streetFurniture'),  href: "/services/street-furniture" },
                 ],
               },
               {
-                heading: "Locations",
+                heading: t('footer.locations'),
                 links: [
-                  { label: "Cairo", href: "/locations/cairo" },
-                  { label: "Giza", href: "/locations/giza" },
-                  { label: "Alexandria", href: "/locations/alexandria" },
-                  { label: "North Coast", href: "/locations/matrouh" },
-                  { label: "All Locations", href: "/locations" },
+                  { label: t('footer.cairo'),       href: "/locations/cairo" },
+                  { label: t('footer.giza'),        href: "/locations/giza" },
+                  { label: t('footer.alexandria'),  href: "/locations/alexandria" },
+                  { label: t('footer.northCoast'),  href: "/locations/matrouh" },
+                  { label: t('footer.allLocations'),href: "/locations" },
                 ],
               },
               {
-                heading: "Company",
+                heading: t('footer.company'),
                 links: [
-                  { label: "About Us", href: "/about" },
-                  { label: "Blog", href: "/blog" },
-                  { label: "Contact", href: "/contact" },
+                  { label: t('footer.about'),   href: "/about" },
+                  { label: t('footer.blog'),    href: "/blog" },
+                  { label: t('footer.contact'), href: "/contact" },
                 ],
               },
               {
-                heading: "Contact",
+                heading: t('footer.contact'),
                 links: [
-                  { label: s.email,   href: `mailto:${s.email}` },
-                  { label: s.phone ?? '', href: `tel:${(s.phone ?? '').replace(/\s/g,'')}` },
-                  { label: s.address, href: "/contact" },
+                  { label: s.email,        href: `mailto:${s.email}` },
+                  { label: s.phone ?? '',  href: `tel:${(s.phone ?? '').replace(/\s/g,'')}` },
+                  { label: s.address,      href: "/contact" },
                 ],
               },
             ].map(({ heading, links }) => (
               <div key={heading}>
-                <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase font-bold mb-5">{heading}</p>
+                <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase font-bold mb-5" dir={isAr ? 'rtl' : undefined}>{heading}</p>
                 <div className="flex flex-col gap-3">
                   {links.map((l) => (
                     <Link
@@ -293,14 +347,14 @@ export function Footer() {
 
         {/* Bottom */}
         <div className="pt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-          <p className="text-white/20 text-[11px] tracking-[0.2em]">© 2026 {s.companyName} · All rights reserved</p>
+          <p className="text-white/20 text-[11px] tracking-[0.2em]">© 2026 {s.companyName} · {t('footer.rights')}</p>
           <div className="flex items-center gap-5">
-            {["Privacy", "Terms", "Sitemap"].map((item) => (
+            {[t('footer.privacy'), t('footer.terms'), t('footer.sitemap')].map((item) => (
               <span key={item} className="text-white/20 text-[11px] tracking-[0.15em] hover:text-white/50 cursor-pointer transition-colors">{item}</span>
             ))}
             <div className="flex items-center gap-1.5 ml-1">
               <span className="w-1.5 h-1.5 block animate-pulse" style={{ background: RED }} />
-              <span className="text-white/20 text-[10px] tracking-[0.2em] uppercase">Made in Egypt</span>
+              <span className="text-white/20 text-[10px] tracking-[0.2em] uppercase">{t('footer.madeIn')}</span>
             </div>
           </div>
         </div>

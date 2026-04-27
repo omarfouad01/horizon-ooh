@@ -49,8 +49,8 @@ export default function LogoMarquee({ brands, speed = 40, light = true }: LogoMa
 
   // Duplicate list to create seamless loop
   const items = [...brands, ...brands]
-  const textColor = light ? 'rgba(11,15,26,0.2)' : 'rgba(255,255,255,0.25)'
-  const hoverFilter = light ? 'grayscale(0)' : 'grayscale(0) brightness(1.3)'
+  const textColor   = light ? 'rgba(11,15,26,0.2)' : 'rgba(255,255,255,0.25)'
+  const hoverFilter  = light ? 'grayscale(0) brightness(1)' : 'grayscale(0) brightness(1.3)'
 
   return (
     <div
@@ -76,18 +76,18 @@ export default function LogoMarquee({ brands, speed = 40, light = true }: LogoMa
                 draggable={false}
                 style={{
                   height: 64, width: 'auto', objectFit: 'contain', maxWidth: 180,
-                  opacity: 0.35, filter: 'grayscale(1)',
+                  opacity: 0.85, filter: 'grayscale(0)',
                   transition: 'opacity .25s, filter .25s',
                 }}
                 onMouseEnter={e => {
                   const el = e.currentTarget as HTMLImageElement
-                  el.style.opacity = '0.8'
+                  el.style.opacity = '1'
                   el.style.filter  = hoverFilter
                 }}
                 onMouseLeave={e => {
                   const el = e.currentTarget as HTMLImageElement
-                  el.style.opacity = '0.35'
-                  el.style.filter  = 'grayscale(1)'
+                  el.style.opacity = '0.85'
+                  el.style.filter  = 'grayscale(0)'
                 }}
               />
             ) : (

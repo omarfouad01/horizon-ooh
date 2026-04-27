@@ -1,14 +1,15 @@
-import { useRef, useEffect, useState } from "react";
-import LeafletMap from "@/components/BillboardMap";
+import { useRef, useEffect, useState, lazy, Suspense } from "react";
+const LeafletMap = lazy(() => import("@/components/BillboardMap"));
 import { useStore, getState } from "@/store/dataStore";
 import { motion, AnimatePresence, useInView, useScroll, useTransform } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 import MultiSelect from "@/components/MultiSelect";
 import LogoMarquee from "@/components/LogoMarquee";
+import { useLang } from "@/i18n/LangContext";
 // data now from store
 import { serviceHref, locationHref, projectHref, productHref, blogHref } from "@/lib/routes";
 
-// Cities, districts and formats are driven by the store (admin-managed)
+// Billboards helper (cities/formats are now computed inside HeroSection)
 const getBillboards = () => getState().locations.flatMap((l: any) => (l.products||[]).map((p: any) => ({ ...p, citySlug: l.slug })));
 
 // ─── Constants ───────────────────────────────────────────────────────────
@@ -188,17 +189,24 @@ function OutlineButton({
 function HeroSection() {
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const textY    = useTransform(scrollYProgress, [0, 1], ["0%", "8%"]);
-  const bgScale  = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
-  const bgOpacity= useTransform(scrollYProgress, [0, 1], [0.22, 0.14]);
+  const textY     = useTransform(scrollYProgress, [0, 1], ["0%", "8%"]);
+  const bgScale   = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
+  const bgOpacity = useTransform(scrollYProgress, [0, 1], [0.22, 0.14]);
 
   const navigate = useNavigate();
   const [cities,    setCities]    = useState<string[]>([]);
   const [districts, setDistricts] = useState<string[]>([]);
   const [formats,   setFormats]   = useState<string[]>([]);
-  const [selectedPin, setSelectedPin] = useState<(ReturnType<typeof getBillboards>)[0] | null>(null);
 
   const { locations: _storeLocs, districts: _storeDists, adFormats: _adFormats, homeContent: hc } = useStore();
+  const { isAr, t } = useLang();
+  // Arabic helpers for hero section only
+  const heroEyebrow    = (isAr && hc.heroEyebrowAr)  ? hc.heroEyebrowAr  : hc.heroEyebrow;
+  const heroTitleLines = (isAr && hc.heroTitleLinesAr && hc.heroTitleLinesAr.length) ? hc.heroTitleLinesAr : (hc.heroTitleLines || ['Outdoor','Advertising','Agency.']);
+  const heroStatement  = (isAr && hc.heroStatementAr) ? hc.heroStatementAr : hc.heroStatement;
+  const heroChannels   = (isAr && hc.heroChannelsAr)  ? hc.heroChannelsAr  : hc.heroChannels;
+  const heroCta1       = (isAr && hc.heroCta1Ar)      ? hc.heroCta1Ar      : (hc.hero_cta_primary || t('home.exploreLocations'));
+  const heroCta2       = (isAr && hc.heroCta2Ar)      ? hc.heroCta2Ar      : (hc.hero_cta_secondary || t('home.viewCaseStudies'));
   const ALL_CITIES  = _storeLocs.map((l: any) => l.city).sort();
   const ALL_FORMATS = _adFormats.map((f: any) => f.label).filter(Boolean).sort();
 
@@ -208,8 +216,19 @@ function HeroSection() {
     return _storeDists.filter((d: any) => locIds.includes(d.locationId)).map((d: any) => d.name).sort();
   })();
 
+  // Arabic label maps for dropdowns
+  const cityLabelsAr: Record<string, string> = isAr
+    ? Object.fromEntries(_storeLocs.filter((l: any) => l.cityAr).map((l: any) => [l.city, l.cityAr]))
+    : {};
+  const districtLabelsAr: Record<string, string> = isAr
+    ? Object.fromEntries(_storeDists.filter((d: any) => d.nameAr).map((d: any) => [d.name, d.nameAr]))
+    : {};
+
   const hasFilters = cities.length > 0 || districts.length > 0 || formats.length > 0;
   const reset = () => { setCities([]); setDistricts([]); setFormats([]); };
+
+  // ── Map pin selection ─────────────────────────────────────────────
+  const [selectedPin, setSelectedPin] = useState<(ReturnType<typeof getBillboards>)[0] | null>(null);
 
   function handleSearch(e?: React.FormEvent) {
     if (e) e.preventDefault();
@@ -227,71 +246,59 @@ function HeroSection() {
       className="relative overflow-hidden"
       style={{ minHeight: "100svh", background: NAVY }}
     >
-      {/* ── BACKGROUND: parallax billboard image ─────────────────────── */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
-        style={{ scale: bgScale }}
-      >
+      {/* ── BACKGROUND parallax image ──────────────────────── */}
+      <motion.div className="absolute inset-0 pointer-events-none" style={{ scale: bgScale }}>
         <motion.img
           src="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?w=1600&q=85&fit=crop"
-          alt=""
-          aria-hidden
+          alt="" aria-hidden
           className="w-full h-full object-cover"
           style={{ opacity: bgOpacity }}
         />
       </motion.div>
 
-      {/* ── LAYERED GRADIENTS ────────────────────────────────────────── */}
-      {/* Main dark-to-darker gradient */}
+      {/* ── GRADIENTS & EFFECTS ────────────────────────────── */}
       <div className="absolute inset-0 pointer-events-none" style={{
         background: `linear-gradient(135deg, ${NAVY} 0%, #060912 100%)`
       }} />
-      {/* Vignette overlay */}
       <div className="absolute inset-0 pointer-events-none" style={{
         background: "radial-gradient(ellipse 85% 80% at 50% 50%, transparent 40%, rgba(0,0,0,0.55) 100%)"
       }} />
-      {/* Red glow — left focal point */}
       <div className="absolute pointer-events-none" style={{
         left: "-8%", top: "15%", width: "45%", height: "60%",
         background: "radial-gradient(ellipse at center, rgba(217,4,41,0.10) 0%, transparent 70%)",
         filter: "blur(40px)"
       }} />
-      {/* Subtle horizontal grid lines */}
       <div className="absolute inset-0 pointer-events-none" style={{
         backgroundImage: "linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px)",
         backgroundSize: "100% 80px"
       }} />
-      {/* Vertical accent line */}
       <div className="absolute top-0 bottom-0 pointer-events-none hidden lg:block" style={{
         left: "44%", width: "1px",
         background: "linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.06) 20%, rgba(255,255,255,0.06) 80%, transparent 100%)"
       }} />
 
-      {/* ── LAYOUT ───────────────────────────────────────────────────── */}
       <div className="relative z-10 w-full flex flex-col lg:flex-row" style={{ minHeight: "100svh" }}>
-
-        {/* ════ LEFT PANEL ════════════════════════════════════════════ */}
+        {/* ═══ LEFT PANEL ══════════════════════════════════════ */}
         <div className="flex flex-col justify-between px-6 sm:px-10 lg:pl-[120px] lg:pr-14
           pt-[104px] pb-10 lg:pt-[148px] lg:pb-14
           w-full lg:w-[44%] xl:w-[42%] flex-shrink-0">
-
           <motion.div style={{ y: textY }} className="flex flex-col gap-0">
-
-            {/* ─ Eyebrow ─────────────────────────────────────────── */}
+            {/* Eyebrow */}
             <motion.div
               initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, ease, delay: 0.1 }}
               className="flex items-center gap-3 mb-9"
             >
               <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
-              <span className="text-[10px] font-bold tracking-[0.38em] uppercase" style={{ color: "rgba(255,255,255,0.35)" }}>
-                {hc.heroEyebrow}
+              <span className="text-[10px] font-bold tracking-[0.38em] uppercase"
+                style={{ color: "rgba(255,255,255,0.35)" }}>
+                {heroEyebrow}
               </span>
             </motion.div>
 
-            {/* ─ H1 ──────────────────────────────────────────────── */}
+            {/* H1 */}
             <div className="overflow-visible mb-5">
-              {(hc.heroTitleLines || ['Outdoor','Advertising','Agency.']).map((word, i) => (
+              {heroTitleLines.map((word: string, i: number) => (
                 <div key={word} className="overflow-hidden">
                   <motion.h1
                     initial={{ y: "105%", opacity: 0 }}
@@ -309,71 +316,74 @@ function HeroSection() {
               ))}
             </div>
 
-            {/* ─ Channels pill row ───────────────────────────────── */}
+            {/* Channels */}
             <motion.p
               initial={{ opacity: 0 }} animate={{ opacity: 1 }}
               transition={{ duration: 0.7, delay: 0.6 }}
               className="text-[11px] font-bold tracking-[0.24em] uppercase mb-5"
               style={{ color: "rgba(255,255,255,0.25)" }}
             >
-              {hc.heroChannels}
+              {heroChannels}
             </motion.p>
 
-            {/* ─ Statement ───────────────────────────────────────── */}
+            {/* Statement */}
             <motion.p
               initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, ease, delay: 0.75 }}
               className="text-[17px] font-medium leading-[1.6] mb-9"
               style={{ color: "rgba(255,255,255,0.6)", maxWidth: 360 }}
             >
-              {hc.heroStatement}
+              {heroStatement}
             </motion.p>
 
-            {/* ─ CTA row ─────────────────────────────────────────── */}
+            {/* CTA row — 2 buttons only, contained within left panel */}
             <motion.div
               initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, ease, delay: 0.9 }}
-              className="flex flex-col sm:flex-row items-start gap-3 mb-12"
+              className="flex flex-row items-start gap-3 mb-12 flex-wrap"
             >
-              {/* Primary CTA — solid red */}
               <button
                 onClick={() => { window.location.hash = '/contact'; window.scrollTo(0,0); }}
                 className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase text-white cursor-pointer flex-shrink-0"
-                style={{ background: RED }}
+                style={{ background: RED, border: "none" }}
               >
-                <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-350 ease-out"
+                <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
                   style={{ background: "#f0042e" }} />
-                <span className="relative z-10">Get a Quote</span>
+                <span className="relative z-10">{t('nav.getQuote')}</span>
               </button>
-              {/* Secondary CTA — white ghost */}
               <button
-                onClick={() => { window.location.hash = '/locations'; window.scrollTo(0,0); }}
+                onClick={() => { window.location.hash = '/design-simulator'; window.scrollTo(0,0); }}
                 className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase cursor-pointer flex-shrink-0"
-                style={{ border: "1.5px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.65)" }}
+                style={{ border: "1.5px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.65)", background: "transparent" }}
               >
-                <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-350 ease-out"
+                <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
                   style={{ background: "rgba(255,255,255,0.07)" }} />
-                <span className="relative z-10 group-hover:text-white transition-colors duration-350">View Locations</span>
+                <span className="relative z-10 group-hover:text-white transition-colors duration-300">
+                  {isAr ? 'جرّب المحاكي' : 'Try Simulator'}
+                </span>
               </button>
             </motion.div>
 
-            {/* ─ Search form divider ──────────────────────────────── */}
+            {/* ── Divider ───────────────────────────────────────────── */}
             <motion.div
               initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-              transition={{ delay: 1.05, duration: 0.5 }}
+              transition={{ delay: 1.1, duration: 0.5 }}
             >
               <div className="flex items-center gap-3 mb-4">
                 <span className="block w-4 h-[1px]" style={{ background: RED }} />
-                <p className="text-[9px] font-bold tracking-[0.35em] uppercase" style={{ color: "rgba(255,255,255,0.22)" }}>
+                <p className="text-[9px] font-bold tracking-[0.35em] uppercase"
+                  style={{ color: "rgba(255,255,255,0.22)" }}>
                   {hc.searchTitle}
                 </p>
               </div>
 
               {/* Search form */}
-              <form onSubmit={handleSearch} className="flex flex-col gap-[1px]" style={{ background: "rgba(255,255,255,0.06)" }}>
+              <form onSubmit={handleSearch} className="flex flex-col gap-[1px]"
+                style={{ background: "rgba(255,255,255,0.06)" }}>
                 <MultiSelect
-                  label="City" options={ALL_CITIES} selected={cities}
+                  label={isAr ? 'المحافظة' : 'City'} options={ALL_CITIES} selected={cities}
                   onChange={v => { setCities(v); setDistricts([]); }}
+                  optionLabels={cityLabelsAr}
                   dark
                   icon={
                     <svg width="11" height="13" viewBox="0 0 13 15" fill="none">
@@ -383,8 +393,9 @@ function HeroSection() {
                   }
                 />
                 <MultiSelect
-                  label="District" options={districtOptions} selected={districts}
+                  label={isAr ? 'المنطقة' : 'District'} options={districtOptions} selected={districts}
                   onChange={setDistricts}
+                  optionLabels={districtLabelsAr}
                   dark
                   icon={
                     <svg width="13" height="11" viewBox="0 0 15 13" fill="none">
@@ -395,7 +406,7 @@ function HeroSection() {
                   }
                 />
                 <MultiSelect
-                  label="Format" options={ALL_FORMATS} selected={formats}
+                  label={isAr ? 'النوع' : 'Format'} options={ALL_FORMATS} selected={formats}
                   onChange={setFormats}
                   dark
                   icon={
@@ -416,7 +427,7 @@ function HeroSection() {
                     <circle cx="6" cy="6" r="4.5" stroke="white" strokeWidth="1.5"/>
                     <path d="M9.5 9.5l3 3" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
                   </svg>
-                  <span className="relative z-10">Search Billboards</span>
+                  <span className="relative z-10">{isAr ? 'بحث عن اللوحات' : 'Search Billboards'}</span>
                 </button>
               </form>
 
@@ -431,37 +442,41 @@ function HeroSection() {
           </motion.div>
         </div>
 
-        {/* ════ RIGHT PANEL — map ═════════════════════════════════════ */}
+        {/* ═══ RIGHT PANEL — map ════════════════════════════════════ */}
         <div className="relative flex-1 overflow-hidden" style={{ minHeight: "clamp(420px, 55vh, 100svh)" }}>
-          {/* Dark tint over map for contrast */}
+          {/* Left edge fade */}
           <div className="absolute inset-0 pointer-events-none z-[2]" style={{
-            background: "linear-gradient(to right, rgba(11,15,26,0.35) 0%, transparent 30%)"
+            background: "linear-gradient(to right, rgba(11,15,26,0.4) 0%, transparent 25%)"
           }} />
 
-          <LeafletMap
-            filtered={getBillboards()}
-            allCount={getBillboards().length}
-            selected={selectedPin}
-            onSelect={setSelectedPin}
-            className="absolute inset-0 w-full h-full"
-            style={{ zIndex: 1 }}
-          />
+          <Suspense fallback={<div className="absolute inset-0 bg-[#0b0f1a]" />}>
+            <LeafletMap
+              filtered={getBillboards()}
+              allCount={getBillboards().length}
+              selected={selectedPin}
+              onSelect={setSelectedPin}
+              className="absolute inset-0 w-full h-full"
+              style={{ zIndex: 1 }}
+            />
+          </Suspense>
 
-          {/* Pin quick-preview card */}
           <AnimatePresence>
             {selectedPin && (
               <motion.div
                 initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }}
                 transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute top-4 right-4 z-[1000]"
+                className="absolute bottom-4 right-4 z-[1000]"
                 style={{ width: 268 }}
               >
-                <div className="overflow-hidden" style={{ background: NAVY, boxShadow: "0 8px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.07)" }}>
+                <div className="overflow-hidden"
+                  style={{ background: NAVY, boxShadow: "0 8px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.07)" }}>
                   <div className="relative overflow-hidden" style={{ height: 120 }}>
                     <img src={selectedPin.image} alt={selectedPin.name}
                       className="w-full h-full object-cover" style={{ opacity: 0.7 }}/>
-                    <div className="absolute inset-0" style={{ background: "linear-gradient(to top,rgba(11,15,26,.85) 0%,transparent 55%)" }}/>
-                    <span className="absolute bottom-2.5 left-3 text-[9px] font-bold tracking-[0.18em] uppercase" style={{ color: "rgba(255,255,255,0.4)" }}>
+                    <div className="absolute inset-0"
+                      style={{ background: "linear-gradient(to top,rgba(11,15,26,.85) 0%,transparent 55%)" }}/>
+                    <span className="absolute bottom-2.5 left-3 text-[9px] font-bold tracking-[0.18em] uppercase"
+                      style={{ color: "rgba(255,255,255,0.4)" }}>
                       {selectedPin.district} · {selectedPin.city}
                     </span>
                     <button onClick={() => setSelectedPin(null)}
@@ -508,6 +523,9 @@ function StatementSection() {
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.96, 1, 1, 0.96]);
   const { homeContent: hc } = useStore();
+  const { isAr } = useLang();
+  const statementEyebrow = (isAr && hc.statementEyebrowAr) ? hc.statementEyebrowAr : hc.statementEyebrow;
+  const statementLines   = (isAr && hc.statementLinesAr && hc.statementLinesAr.length) ? hc.statementLinesAr : (hc.statementLines || []);
 
   return (
     <section
@@ -535,11 +553,11 @@ function StatementSection() {
             transition={{ duration: 1.1, ease }}
             className="text-white/20 text-[12px] font-bold tracking-[0.4em] uppercase"
           >
-            {hc.statementEyebrow}
+            {statementEyebrow}
           </motion.p>
         </div>
 
-        {(hc.statementLines || []).map((line, i) => (
+        {statementLines.map((line: string, i: number) => (
           <div key={i} className="overflow-hidden">
             <motion.h2
               initial={{ y: "100%" }}
@@ -714,6 +732,10 @@ function FeatureSection() {
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
   const imgScale = useTransform(scrollYProgress, [0, 1], [1.12, 1.0]);
   const { homeContent: hc } = useStore();
+  const { isAr } = useLang();
+  const featureLine1   = (isAr && hc.featureTitleLine1Ar) ? hc.featureTitleLine1Ar : hc.featureTitleLine1;
+  const featureLine2   = (isAr && hc.featureTitleLine2Ar) ? hc.featureTitleLine2Ar : hc.featureTitleLine2;
+  const featureBullets = (isAr && hc.featureBulletsAr && hc.featureBulletsAr.length) ? hc.featureBulletsAr : (hc.featureBullets || []);
 
   return (
     <section ref={sectionRef} className="overflow-hidden" style={{ background: NAVY }}>
@@ -733,12 +755,12 @@ function FeatureSection() {
               className="font-black leading-[0.88] tracking-[-0.05em] text-white mb-14"
               style={{ fontSize: "clamp(60px, 6vw, 88px)" }}
             >
-              {hc.featureTitleLine1}<br />{hc.featureTitleLine2}
+              {featureLine1}<br />{featureLine2}
             </h2>
           </Reveal>
 
           <RevealGroup className="flex flex-col gap-7 mb-14">
-            {(hc.featureBullets || []).map((bullet) => (
+            {featureBullets.map((bullet: string) => (
               <RevealItem key={bullet}>
                 <div className="flex items-start gap-5">
                   <span className="mt-2 flex-shrink-0 w-[5px] h-[5px]" style={{ background: RED }} />
@@ -997,23 +1019,23 @@ function ResultsSection() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// 9. CLIENTS / TRUST — placed directly after hero
+// 9. CLIENTS / TRUST — sits directly beneath the hero
 // ═══════════════════════════════════════════════════════════════════════════
 function ClientsSection() {
   const { clientBrands } = useStore();
+  const { t } = useLang();
   return (
-    <section id="about" style={{ background: NAVY, paddingTop: 52, paddingBottom: 52, borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+    <section id="about" style={{ background: "#ffffff", paddingTop: 52, paddingBottom: 52, borderTop: "1px solid rgba(11,15,26,0.06)" }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         <Reveal>
           <div className="flex items-center justify-center gap-4 mb-10">
-            <span className="block w-8 h-[1px]" style={{ background: "rgba(255,255,255,0.1)" }} />
-            <p className="text-[10px] font-bold tracking-[0.35em] uppercase text-center" style={{ color: "rgba(255,255,255,0.25)" }}>
-              Trusted by 100+ brands across Egypt
+            <span className="block w-8 h-[1px]" style={{ background: "rgba(11,15,26,0.12)" }} />
+            <p className="text-[10px] font-bold tracking-[0.35em] uppercase text-center" style={{ color: "rgba(11,15,26,0.35)" }}>{t('home.trustedBy')}
             </p>
-            <span className="block w-8 h-[1px]" style={{ background: "rgba(255,255,255,0.1)" }} />
+            <span className="block w-8 h-[1px]" style={{ background: "rgba(11,15,26,0.12)" }} />
           </div>
         </Reveal>
-        <LogoMarquee brands={clientBrands} speed={45} light={false} />
+        <LogoMarquee brands={clientBrands} speed={45} light={true} />
       </div>
     </section>
   );
@@ -1027,6 +1049,9 @@ function SignatureSection() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const x = useTransform(scrollYProgress, [0, 1], ["-4%", "4%"]);
   const { homeContent: hc } = useStore();
+  const { isAr } = useLang();
+  const signatureEyebrow = (isAr && hc.signatureEyebrowAr) ? hc.signatureEyebrowAr : hc.signatureEyebrow;
+  const signatureLines   = (isAr && hc.signatureLinesAr && hc.signatureLinesAr.length) ? hc.signatureLinesAr : (hc.signatureLines || []);
 
   return (
     <section
@@ -1047,12 +1072,12 @@ function SignatureSection() {
           <div className="flex items-center justify-center gap-5 mb-12">
             <span className="block w-12 h-[1px]" style={{ background: "rgba(255,255,255,0.1)" }} />
             <span className="text-[10px] font-bold tracking-[0.4em] uppercase" style={{ color: "rgba(255,255,255,0.2)" }}>
-              {hc.signatureEyebrow}
+              {signatureEyebrow}
             </span>
             <span className="block w-12 h-[1px]" style={{ background: "rgba(255,255,255,0.1)" }} />
           </div>
         </Reveal>
-        {(hc.signatureLines || []).map((line, i) => (
+        {signatureLines.map((line: string, i: number) => (
           <div key={i} className="overflow-hidden">
             <motion.h2
               initial={{ y: "100%" }}
@@ -1083,6 +1108,12 @@ function SignatureSection() {
 // ═══════════════════════════════════════════════════════════════════════════
 function FinalCTASection() {
   const { homeContent: hc } = useStore();
+  const { isAr } = useLang();
+  const finalLine1     = (isAr && hc.finalCtaTitleLine1Ar) ? hc.finalCtaTitleLine1Ar : hc.finalCtaTitleLine1;
+  const finalLine2     = (isAr && hc.finalCtaTitleLine2Ar) ? hc.finalCtaTitleLine2Ar : hc.finalCtaTitleLine2;
+  const finalSubtext   = (isAr && hc.finalCtaSubtextAr)    ? hc.finalCtaSubtextAr    : hc.finalCtaSubtext;
+  const finalPrimary   = (isAr && hc.finalCtaPrimaryTextAr)   ? hc.finalCtaPrimaryTextAr   : hc.finalCtaPrimaryText;
+  const finalSecondary = (isAr && hc.finalCtaSecondaryTextAr) ? hc.finalCtaSecondaryTextAr : hc.finalCtaSecondaryText;
   return (
     <section id="contact" className="bg-white" style={{ paddingTop: 160, paddingBottom: 160 }}>
       <div className="max-w-[1440px] mx-auto text-center">
@@ -1098,14 +1129,14 @@ function FinalCTASection() {
         <Reveal delay={0.08}>
           <h2 className="font-black leading-[0.9] tracking-[-0.04em] mx-auto mb-8"
             style={{ fontSize: "clamp(44px, 5vw, 72px)", color: NAVY, maxWidth: 720 }}>
-            {hc.finalCtaTitleLine1}<br />
-            <span style={{ color: "rgba(11,15,26,0.2)" }}>{hc.finalCtaTitleLine2}</span>
+            {finalLine1}<br />
+            <span style={{ color: "rgba(11,15,26,0.2)" }}>{finalLine2}</span>
           </h2>
         </Reveal>
         <Reveal delay={0.16}>
           <p className="text-[18px] leading-[1.65] mx-auto mb-14"
             style={{ color: "rgba(11,15,26,0.4)", maxWidth: 380 }}>
-            {hc.finalCtaSubtext}
+            {finalSubtext}
           </p>
         </Reveal>
         <Reveal delay={0.24}>
@@ -1114,13 +1145,13 @@ function FinalCTASection() {
               className="inline-flex items-center h-[56px] px-11 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white relative group cursor-pointer border-0"
               style={{ background: RED }}>
               <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out" style={{ background: NAVY }}/>
-              <span className="relative z-10">{hc.finalCtaPrimaryText}</span>
+              <span className="relative z-10">{finalPrimary}</span>
             </a>
             <a onClick={() => { window.location.hash = '/contact'; window.scrollTo(0,0); }}
               className="group relative inline-flex items-center h-[56px] px-11 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase transition-colors duration-300 cursor-pointer border-0 bg-transparent"
               style={{ border: `1.5px solid ${NAVY}`, color: NAVY }}>
               <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out" style={{ background: NAVY }}/>
-              <span className="relative z-10 group-hover:text-white transition-colors duration-400">{hc.finalCtaSecondaryText}</span>
+              <span className="relative z-10 group-hover:text-white transition-colors duration-400">{finalSecondary}</span>
             </a>
           </div>
         </Reveal>
@@ -1146,8 +1177,10 @@ function FinalCTASection() {
 // ═══════════════════════════════════════════════════════════════════════════
 function ProjectsSection() {
   const { projects: PROJECTS } = useStore()
-  const featured = PROJECTS.find((p) => p.featured)!;
-  const others   = PROJECTS.filter((p) => !p.featured).slice(0, 2);
+  const featured = PROJECTS.find((p) => p.featured) ?? PROJECTS[0] ?? null;
+  const others   = PROJECTS.filter((p) => p !== featured).slice(0, 2);
+
+  if (!featured) return null;
 
   return (
     <section className="bg-white" style={{ paddingTop: 120, paddingBottom: 120 }}>
@@ -1423,7 +1456,7 @@ function BillboardBenefitsSection() {
 function RecentBillboardsSection() {
   const { locations: LOCATIONS } = useStore()
   const ALL_BILLBOARD_PRODUCTS = LOCATIONS.flatMap((loc) =>
-    loc.products.map((p) => ({ ...p, citySlug: loc.slug, cityName: loc.city }))
+    (loc.products || []).map((p: any) => ({ ...p, citySlug: loc.slug ?? '', cityName: loc.city ?? '' }))
   );
   const RECENT_SIX = ALL_BILLBOARD_PRODUCTS.slice(0, 6);
 

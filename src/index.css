@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -35,6 +35,7 @@
 :root {
   /* Typography */
   --font-sans: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-arabic: Cairo, Tajawal, 'Segoe UI', sans-serif;
   --font-mono: JetBrains Mono, 'Courier New', monospace;
 
   /* Radius */
@@ -223,6 +224,22 @@
   ::-webkit-scrollbar-thumb:hover {
     background: rgba(217, 4, 41, 0.35);
   }
+}
+
+/* ─── Arabic / RTL Support ──────────────────────────────────────────── */
+html[dir="rtl"] body,
+html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3,
+html[dir="rtl"] h4, html[dir="rtl"] h5, html[dir="rtl"] h6,
+html[dir="rtl"] p, html[dir="rtl"] span, html[dir="rtl"] a,
+html[dir="rtl"] button, html[dir="rtl"] input, html[dir="rtl"] textarea {
+  font-family: Cairo, Tajawal, 'Segoe UI', sans-serif;
+}
+
+html[dir="rtl"] .tracking-\[0\.38em\],
+html[dir="rtl"] .tracking-\[0\.3em\],
+html[dir="rtl"] .tracking-\[0\.2em\],
+html[dir="rtl"] .tracking-\[0\.18em\] {
+  letter-spacing: 0.02em;
 }
 
 /* ─── Global transitions ─────────────────────────────────────────────── */

@@ -5,13 +5,14 @@ import { useStore } from "@/store/dataStore";
 import { type ProjectCategory } from "@/data";
 import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow } from "@/components/UI";
 import { projectHref, RED, NAVY, ease } from "@/lib/routes";
+import { useLang } from "@/i18n/LangContext";
 
-const FILTERS: { label: string; value: "All" | ProjectCategory }[] = [
-  { label: "All Projects", value: "All" },
-  { label: "Billboards", value: "Billboard" },
-  { label: "DOOH", value: "DOOH" },
-  { label: "Malls", value: "Mall" },
-  { label: "Airports", value: "Airport" },
+const FILTER_KEYS: { labelKey: string; value: "All" | ProjectCategory }[] = [
+  { labelKey: 'projects.filterAll',        value: "All" },
+  { labelKey: 'projects.filterBillboards', value: "Billboard" },
+  { labelKey: 'projects.filterDOOH',       value: "DOOH" },
+  { labelKey: 'projects.filterMalls',      value: "Mall" },
+  { labelKey: 'projects.filterAirports',   value: "Airport" },
 ];
 
 const CAT_COLORS: Record<ProjectCategory, string> = {
@@ -23,7 +24,7 @@ const CAT_COLORS: Record<ProjectCategory, string> = {
 
 type ClientGroup = {
   name: string;
-  logo: string;            // logo URL resolved from clientBrands
+  logo: string;
   projects: any[];
   categories: ProjectCategory[];
   latestYear: string;
@@ -35,6 +36,32 @@ function buildClientBlurb(projects: any[]) {
   const cities = Array.from(new Set(projects.map((p) => p.city).filter(Boolean)));
   const categories = Array.from(new Set(projects.map((p) => p.category).filter(Boolean)));
   return `${projects.length} campaign${projects.length > 1 ? "s" : ""} delivered${cities.length ? ` across ${cities.join(", ")}` : ""}${categories.length ? ` · ${categories.join(" / ")}` : ""}.`;
+}
+
+// ─── Tiny translated label components ────────────────────────────────────────
+function LatestCampaignLabel()    { const { t } = useLang(); return <>{t('projects.latestCampaign')}</>; }
+function FeaturedCampaignLabel()  { const { t } = useLang(); return <>{t('projects.featuredCampaign')}</>; }
+function ViewCaseStudyLabel()     { const { t } = useLang(); return <>{t('projects.viewCaseStudy')}</>; }
+function FilterItemLabel({ labelKey }: { labelKey: string }) { const { t } = useLang(); return <>{t(labelKey as any)}</>; }
+function ClientsLabel()           { const { t } = useLang(); return <>{t('projects.clientsLabel')}</>; }
+function ClientCampaignsLabel({ selectedClient }: { selectedClient: any }) {
+  const { t } = useLang();
+  return <>{selectedClient ? `${selectedClient.name} ${t('projects.clientCampaigns')}` : t('projects.clientsLabel')}</>;
+}
+function SelectedClientLabel()    { const { t } = useLang(); return <>{t('projects.selectedClient')}</>; }
+function CampaignCountLabel({ count }: { count: number }) {
+  const { t } = useLang();
+  return <>{count} {t('projects.clientCampaigns')}</>;
+}
+function NoProjectsLabel()        { const { t } = useLang(); return <>{t('projects.noProjects')}</>; }
+function SelectClientLabel()      { const { t } = useLang(); return <>{t('projects.selectClient')}</>; }
+function FeaturedTitle({ featured }: { featured: any }) {
+  const { isAr } = useLang();
+  return <>{isAr && featured.titleAr ? featured.titleAr : featured.title}</>;
+}
+function FeaturedTagline({ featured }: { featured: any }) {
+  const { isAr } = useLang();
+  return <>{isAr && featured.taglineAr ? featured.taglineAr : featured.tagline}</>;
 }
 
 function ClientCard({ client, index, active, onClick }: { client: ClientGroup; index: number; active: boolean; onClick: () => void }) {
@@ -76,17 +103,14 @@ function ClientCard({ client, index, active, onClick }: { client: ClientGroup; i
           <span className="text-[10px] font-semibold tracking-[0.2em] text-white/55">{client.latestYear}</span>
         </div>
 
-        {/* Client logo overlay in bottom-right of image */}
-        {client.logo && (
-          <div className="absolute bottom-4 right-4">
-            <div className="bg-white/90 backdrop-blur-sm px-3 py-2 rounded" style={{ boxShadow: "0 2px 12px rgba(11,15,26,0.18)" }}>
-              <img src={client.logo} alt={client.name} className="h-7 w-auto max-w-[80px] object-contain" />
-            </div>
-          </div>
-        )}
-
         <div className="absolute bottom-0 left-0 right-0 p-6">
-          <p className="text-white/45 text-[10px] font-bold tracking-[0.28em] uppercase mb-2">Client</p>
+          {client.logo ? (
+            <div className="mb-3">
+              <img src={client.logo} alt={client.name} style={{ height: 28, width: 'auto', objectFit: 'contain', maxWidth: 120, filter: 'brightness(10)', opacity: 0.85 }} loading="lazy" />
+            </div>
+          ) : (
+            <p className="text-white/45 text-[10px] font-bold tracking-[0.28em] uppercase mb-2"><ClientsLabel /></p>
+          )}
           <h3 className="text-white font-black tracking-[-0.02em] leading-tight" style={{ fontSize: 24 }}>{client.name}</h3>
         </div>
       </div>
@@ -108,7 +132,7 @@ function ClientCard({ client, index, active, onClick }: { client: ClientGroup; i
         <div className="flex items-center justify-between pt-5 border-t border-[#0B0F1A]/[0.07]">
           <div>
             <p className="text-[10px] font-bold tracking-[0.2em] uppercase mb-1" style={{ color: "rgba(11,15,26,0.3)" }}>
-              Latest campaign
+              <LatestCampaignLabel />
             </p>
             <p className="font-black tracking-[-0.03em]" style={{ fontSize: 18, color: NAVY }}>
               {client.projects[0]?.title}
@@ -124,6 +148,7 @@ function ClientCard({ client, index, active, onClick }: { client: ClientGroup; i
 }
 
 function ProjectCard({ project, index }: { project: any; index: number }) {
+  const { isAr, t } = useLang();
   return (
     <motion.div
       variants={{
@@ -176,14 +201,11 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
           </div>
 
           <h3 className="font-extrabold leading-[1.15] tracking-[-0.02em] mb-3 transition-colors duration-400 group-hover:text-[#D90429]" style={{ fontSize: 20, color: NAVY }}>
-            {project.title}
+            {isAr && project.titleAr ? project.titleAr : project.title}
           </h3>
 
           <p className="text-[13px] font-medium mb-6" style={{ color: "rgba(11,15,26,0.4)" }}>
-            {project.clients && project.clients.length > 1
-              ? project.clients.join(" & ")
-              : project.client
-            } · {project.duration}
+            {project.client} · {project.duration}
           </p>
 
           <div className="flex items-center justify-between pt-5 border-t border-[#0B0F1A]/[0.07]">
@@ -215,12 +237,12 @@ function FeaturedProject() {
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         <Reveal>
           <p className="text-[10px] font-bold tracking-[0.35em] uppercase mb-6" style={{ color: "rgba(11,15,26,0.3)" }}>
-            Featured Campaign
+            <FeaturedCampaignLabel />
           </p>
         </Reveal>
 
         <Link to={projectHref(featured.slug)} className="group relative block overflow-hidden" style={{ textDecoration: "none", height: 560 }}>
-          <img src={featured.heroImage} alt={`${featured.title} — outdoor advertising case study Egypt`} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" style={{ opacity: 0.8 }} />
+          <img src={featured.heroImage} alt={`${featured.title} — outdoor advertising case study Egypt`} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" style={{ opacity: 0.8 }} loading="lazy" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(11,15,26,0.88) 0%, rgba(11,15,26,0.5) 50%, rgba(11,15,26,0.15) 100%)" }} />
 
           <div className="absolute inset-0 flex flex-col justify-end" style={{ padding: "60px 80px" }}>
@@ -234,15 +256,15 @@ function FeaturedProject() {
             </div>
 
             <h2 className="font-black text-white leading-[0.9] tracking-[-0.04em] mb-5" style={{ fontSize: "clamp(36px, 4.5vw, 64px)", maxWidth: 680 }}>
-              {featured.title}
+              <FeaturedTitle featured={featured} />
             </h2>
 
             <p className="text-white/55 text-[17px] leading-[1.65] mb-10" style={{ maxWidth: 520 }}>
-              {featured.tagline}
+              <FeaturedTagline featured={featured} />
             </p>
 
             <div className="flex items-center gap-12 mb-10">
-              {featured.results.slice(0, 3).map((r) => (
+              {(featured.results || []).slice(0, 3).map((r: any) => (
                 <div key={r.metric}>
                   <p className="font-black text-white/90 tracking-[-0.04em]" style={{ fontSize: 28 }}>{r.value}</p>
                   <p className="text-white/35 text-[10px] font-semibold tracking-[0.2em] uppercase mt-1">{r.metric}</p>
@@ -251,7 +273,7 @@ function FeaturedProject() {
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="text-white font-bold text-[12px] tracking-[0.2em] uppercase">View Case Study</span>
+              <span className="text-white font-bold text-[12px] tracking-[0.2em] uppercase"><ViewCaseStudyLabel /></span>
               <span className="text-xl opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0" style={{ color: RED }}>
                 →
               </span>
@@ -270,17 +292,23 @@ function FeaturedProject() {
   );
 }
 
-function WhyItMatters() {
+function WhyItMatters({ pc }: { pc?: any }) {
+  const { isAr, t } = useLang();
+  const stats = [
+    { value: pc?.stat1Value || '+178%', label: pc?.stat1Label || 'Avg. brand recall lift',  sub: pc?.stat1Sub || 'Across all 2025 campaigns' },
+    { value: pc?.stat2Value || '4.1×',  label: pc?.stat2Label || 'Average campaign ROI',    sub: pc?.stat2Sub || 'vs. media investment' },
+    { value: pc?.stat3Value || '100+',  label: pc?.stat3Label || 'Campaigns delivered',     sub: pc?.stat3Sub || 'In 2024–2025' },
+  ];
   return (
     <section style={{ background: "#F5F5F6", paddingTop: 100, paddingBottom: 100 }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           <div className="col-span-12 lg:col-span-4">
-            <Eyebrow text="Why It Works" />
+            <Eyebrow text={isAr && (pc as any)?.whyEyebrowAr ? (pc as any).whyEyebrowAr : (pc?.whyEyebrow || t('projects.whyEyebrow'))} />
             <Reveal delay={0.04}>
               <h2 className="font-black leading-[0.9] tracking-[-0.04em]" style={{ fontSize: "clamp(32px, 3.5vw, 48px)", color: NAVY }}>
-                Why outdoor advertising works<br />
-                <span style={{ color: "rgba(11,15,26,0.2)" }}>in Egypt.</span>
+                {isAr && (pc as any)?.whyTitleAr ? (pc as any).whyTitleAr : (pc?.whyTitle || t('projects.whyTitle'))}<br />
+                <span style={{ color: "rgba(11,15,26,0.2)" }}>{isAr && (pc as any)?.whyTitleAccentAr ? (pc as any).whyTitleAccentAr : (pc?.whyTitleAccent || t('projects.whyTitleAccent'))}</span>
               </h2>
             </Reveal>
           </div>
@@ -288,19 +316,12 @@ function WhyItMatters() {
           <div className="col-span-12 lg:col-span-8">
             <Reveal delay={0.1}>
               <p className="text-[17px] leading-[1.85] mb-6" style={{ color: "rgba(11,15,26,0.5)" }}>
-                Egypt's outdoor advertising market is among the fastest-growing in the MENA region — driven by rapid urbanisation, a young and mobile population, and a commuter culture that places millions of consumers in front of billboards, DOOH screens, and mall formats every single day. Unlike digital advertising, outdoor advertising in Egypt cannot be skipped, blocked, or scrolled past.
-              </p>
-              <p className="text-[17px] leading-[1.85] mb-6" style={{ color: "rgba(11,15,26,0.5)" }}>
-                Our billboard campaigns in Cairo, DOOH campaigns across New Cairo and Sheikh Zayed, and airport advertising at Cairo International consistently outperform digital channel benchmarks on brand recall, purchase intent, and consumer trust. Across 100+ campaigns delivered in 2024–2025, the average brand recall lift was <strong style={{ color: NAVY }}>+178%</strong> — and the average campaign ROI was <strong style={{ color: NAVY }}>4.1×</strong>.
+                {isAr && (pc as any)?.whyParagraph1Ar ? (pc as any).whyParagraph1Ar : (pc?.whyParagraph1 || "Egypt's outdoor advertising market is among the fastest-growing in the MENA region — driven by rapid urbanisation, a young and mobile population, and a commuter culture that places millions of consumers in front of billboards, DOOH screens, and mall formats every single day. Unlike digital advertising, outdoor advertising in Egypt cannot be skipped, blocked, or scrolled past.")}
               </p>
             </Reveal>
 
             <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-              {[
-                { value: "+178%", label: "Avg. brand recall lift", sub: "Across all 2025 campaigns" },
-                { value: "4.1×", label: "Average campaign ROI", sub: "vs. media investment" },
-                { value: "100+", label: "Campaigns delivered", sub: "In 2024–2025" },
-              ].map((stat) => (
+              {stats.map((stat) => (
                 <RevealItem key={stat.label}>
                   <div className="bg-white p-8 border border-[#0B0F1A]/[0.07]">
                     <p className="font-black leading-none tracking-[-0.04em] mb-3" style={{ fontSize: 40, color: RED }}>{stat.value}</p>
@@ -318,48 +339,39 @@ function WhyItMatters() {
 }
 
 export default function Projects() {
-  const { projects: PROJECTS, clientBrands } = useStore();
+  const { projects: PROJECTS, clientBrands, projectsContent: pc } = useStore();
+  const { isAr, t } = useLang();
   const [filter, setFilter] = useState<"All" | ProjectCategory>("All");
   const [activeClient, setActiveClient] = useState<string | null>(null);
   const gridRef = useRef<HTMLDivElement | null>(null);
   const inView = useInView(gridRef, { once: true, margin: "-10% 0px" });
+
+  // Brand logo lookup keyed by brand name
+  const brandLogoMap = useMemo(() => {
+    const m: Record<string, string> = {};
+    clientBrands.forEach(b => { m[b.name] = b.logoUrl || (b as any).logo || ''; });
+    return m;
+  }, [clientBrands]);
 
   const filteredProjects = useMemo(
     () => PROJECTS.filter((p) => (filter === "All" ? true : p.category === filter)),
     [PROJECTS, filter]
   );
 
-  // Helper: resolve logo URL for a client name
-  const logoOf = (name: string, project?: any): string => {
-    // 1. from clientLogos on the project itself
-    if (project?.clientLogos?.[name]) return project.clientLogos[name];
-    // 2. from clientBrands store
-    const brand = clientBrands.find(b => b.name === name);
-    if (brand) return brand.logoUrl || brand.logo || '';
-    return '';
-  };
-
   const clientGroups = useMemo<ClientGroup[]>(() => {
     const map = new Map<string, any[]>();
     filteredProjects.forEach((project) => {
-      // Support multi-client: expand project into each client bucket
-      const clientList: string[] = project.clients && project.clients.length > 0
-        ? project.clients
-        : [project.client || "Unknown Client"];
-      clientList.forEach(name => {
-        if (!map.has(name)) map.set(name, []);
-        map.get(name)!.push(project);
-      });
+      const key = project.client || "Unknown Client";
+      if (!map.has(key)) map.set(key, []);
+      map.get(key)!.push(project);
     });
 
     return Array.from(map.entries())
       .map(([name, projects]) => {
         const ordered = [...projects].sort((a, b) => Number(b.year) - Number(a.year));
-        // Resolve logo: check project.clientLogos first, then clientBrands store
-        const logo = logoOf(name, ordered[0]);
         return {
           name,
-          logo,
+          logo: brandLogoMap[name] || ordered[0]?.clientLogo || '',
           projects: ordered,
           categories: Array.from(new Set(ordered.map((p) => p.category))),
           latestYear: ordered[0]?.year || "",
@@ -368,8 +380,7 @@ export default function Projects() {
         };
       })
       .sort((a, b) => b.projects.length - a.projects.length || a.name.localeCompare(b.name));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filteredProjects, clientBrands]);
+  }, [filteredProjects, brandLogoMap]);
 
   const selectedClient = activeClient && clientGroups.some((c) => c.name === activeClient)
     ? clientGroups.find((c) => c.name === activeClient) || null
@@ -380,17 +391,17 @@ export default function Projects() {
       <section className="bg-white" style={{ paddingTop: 64, paddingBottom: 40 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <Reveal>
-            <Eyebrow text="Projects" />
+            <Eyebrow text={isAr && (pc as any)?.heroEyebrowAr ? (pc as any).heroEyebrowAr : (pc?.heroEyebrow || t('projects.eyebrow'))} />
           </Reveal>
           <Reveal delay={0.04}>
             <h1 className="font-black leading-[0.88] tracking-[-0.05em]" style={{ fontSize: "clamp(42px, 6vw, 86px)", color: NAVY, maxWidth: 980 }}>
-              Clients first.<br />
-              <span style={{ color: "rgba(11,15,26,0.2)" }}>Then every campaign we delivered.</span>
+              {isAr && (pc as any)?.heroTitleAr ? (pc as any).heroTitleAr : (pc?.heroTitle || t('projects.title'))}<br />
+              <span style={{ color: "rgba(11,15,26,0.2)" }}>{isAr && (pc as any)?.heroTitleAccentAr ? (pc as any).heroTitleAccentAr : (pc?.heroTitleAccent || t('projects.titleAccent'))}</span>
             </h1>
           </Reveal>
           <Reveal delay={0.08}>
             <p className="text-[17px] leading-[1.85] mt-8" style={{ color: "rgba(11,15,26,0.5)", maxWidth: 760 }}>
-              Browse by client. Each client card opens the projects and campaigns we executed for that brand, so repeat work with the same client is grouped together instead of being split into unrelated cards.
+              {isAr && (pc as any)?.heroParagraphAr ? (pc as any).heroParagraphAr : (pc?.heroParagraph || t('projects.subtitle'))}
             </p>
           </Reveal>
         </div>
@@ -401,7 +412,7 @@ export default function Projects() {
       <section className="bg-white" style={{ paddingTop: 20, paddingBottom: 100 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <div className="flex flex-wrap items-center gap-3 mb-12">
-            {FILTERS.map((item) => {
+            {FILTER_KEYS.map((item) => {
               const active = filter === item.value;
               return (
                 <button
@@ -417,7 +428,7 @@ export default function Projects() {
                     color: active ? "white" : NAVY,
                   }}
                 >
-                  {item.label}
+                  <FilterItemLabel labelKey={item.labelKey} />
                 </button>
               );
             })}
@@ -427,12 +438,12 @@ export default function Projects() {
             <div>
               <Reveal>
                 <p className="text-[10px] font-bold tracking-[0.35em] uppercase mb-8" style={{ color: "rgba(11,15,26,0.3)" }}>
-                  Clients
+                  <ClientsLabel />
                 </p>
               </Reveal>
               {clientGroups.length === 0 ? (
                 <div className="border border-[#0B0F1A]/[0.08] bg-[#F5F5F6] p-8">
-                  <p style={{ color: "rgba(11,15,26,0.45)" }}>No projects found for this category.</p>
+                  <p style={{ color: "rgba(11,15,26,0.45)" }}><NoProjectsLabel /></p>
                 </div>
               ) : (
                 <motion.div initial="hidden" animate={inView ? "visible" : "hidden"} className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -452,29 +463,21 @@ export default function Projects() {
             <div className="xl:sticky xl:top-28">
               <Reveal>
                 <p className="text-[10px] font-bold tracking-[0.35em] uppercase mb-8" style={{ color: "rgba(11,15,26,0.3)" }}>
-                  {selectedClient ? `${selectedClient.name} campaigns` : "Client campaigns"}
+                  <ClientCampaignsLabel selectedClient={selectedClient} />
                 </p>
               </Reveal>
 
               {selectedClient ? (
                 <div className="border border-[#0B0F1A]/[0.07] bg-[#F5F5F6] p-6 sm:p-8">
                   <div className="flex items-start justify-between gap-4 mb-6">
-                    <div className="flex items-center gap-4">
-                      {/* Client logo in the detail panel */}
-                      {selectedClient.logo && (
-                        <div className="flex-shrink-0 bg-white border border-[#0B0F1A]/[0.07] rounded flex items-center justify-center" style={{ width: 72, height: 48 }}>
-                          <img src={selectedClient.logo} alt={selectedClient.name} className="max-h-8 max-w-[60px] object-contain" />
-                        </div>
-                      )}
-                      <div>
-                        <p className="text-[10px] font-bold tracking-[0.3em] uppercase mb-2" style={{ color: RED }}>Selected client</p>
-                        <h2 className="font-black tracking-[-0.03em] leading-[0.95]" style={{ fontSize: "clamp(28px, 3vw, 40px)", color: NAVY }}>
-                          {selectedClient.name}
-                        </h2>
-                      </div>
+                    <div>
+                      <p className="text-[10px] font-bold tracking-[0.3em] uppercase mb-2" style={{ color: RED }}><SelectedClientLabel /></p>
+                      <h2 className="font-black tracking-[-0.03em] leading-[0.95]" style={{ fontSize: "clamp(28px, 3vw, 40px)", color: NAVY }}>
+                        {selectedClient.name}
+                      </h2>
                     </div>
                     <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "rgba(11,15,26,0.3)" }}>
-                      {selectedClient.projects.length} campaign{selectedClient.projects.length > 1 ? "s" : ""}
+                      <CampaignCountLabel count={selectedClient.projects.length} />
                     </span>
                   </div>
 
@@ -492,7 +495,7 @@ export default function Projects() {
                 </div>
               ) : (
                 <div className="border border-[#0B0F1A]/[0.08] bg-[#F5F5F6] p-8">
-                  <p style={{ color: "rgba(11,15,26,0.45)" }}>Select a client to see all projects and campaigns executed for them.</p>
+                  <p style={{ color: "rgba(11,15,26,0.45)" }}><SelectClientLabel /></p>
                 </div>
               )}
             </div>
@@ -500,9 +503,13 @@ export default function Projects() {
         </div>
       </section>
 
-      <WhyItMatters />
+      <WhyItMatters pc={pc} />
 
-      <CTABanner title="Ready to be our next success story?" subtitle="Let's plan a campaign tailored to your audience, locations, and business goals." buttonLabel="Start Your Campaign" />
+      <CTABanner
+        title={isAr && (pc as any)?.ctaTitleAr ? (pc as any).ctaTitleAr : (pc?.ctaTitle || t('projects.ctaTitle'))}
+        subtitle={isAr && (pc as any)?.ctaSubtitleAr ? (pc as any).ctaSubtitleAr : (pc?.ctaSubtitle || t('projects.ctaSubtitle'))}
+        buttonLabel={isAr && (pc as any)?.ctaButtonAr ? (pc as any).ctaButtonAr : (pc?.ctaButton || t('projects.ctaButton'))}
+      />
     </>
   );
 }

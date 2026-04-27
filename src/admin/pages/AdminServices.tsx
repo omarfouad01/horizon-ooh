@@ -5,7 +5,7 @@ import { Plus, Pencil, Trash2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 function ServiceForm({ editing, onClose }: any) {
-  const init = editing || { title:'', shortTitle:'', tagline:'', description:'', longDescription:'', whatIs:'', whereUsed:'', image:'', imageAlt:'', icon:'', benefits:[], process:[] }
+  const init = editing || { title:'', shortTitle:'', tagline:'', description:'', longDescription:'', whatIs:'', whereUsed:'', image:'', imageAlt:'', icon:'', benefits:[], process:[], titleAr:'', descriptionAr:'', longDescriptionAr:'' }
   const [f, setF]         = useState({...init})
   const [benefits, setBen] = useState<string[]>(init.benefits||[])
   const [proc, setProc]    = useState<string[]>(init.process||[])
@@ -31,6 +31,11 @@ function ServiceForm({ editing, onClose }: any) {
       <TA label="Long Description *"  value={f.longDescription} onChange={(e:any)=>set('longDescription',e.target.value)} rows={3} required/>
       <TA label="What Is It *"        value={f.whatIs}         onChange={(e:any)=>set('whatIs',e.target.value)}          rows={3} required/>
       <TA label="Where Used *"        value={f.whereUsed}      onChange={(e:any)=>set('whereUsed',e.target.value)}       rows={2} required/>
+      {/* ── Arabic Content ── */}
+      <div className="pt-2 pb-1 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400">Arabic Content (اللغة العربية)</span><div className="flex-1 h-px bg-gray-100"/></div>
+      <Field label="Arabic Title (العنوان)" value={f.titleAr||''} onChange={(e:any)=>set('titleAr',e.target.value)} dir="rtl" placeholder="مثال: لوحات إعلانية"/>
+      <TA label="Arabic Short Description (الوصف المختصر)" value={f.descriptionAr||''} onChange={(e:any)=>set('descriptionAr',e.target.value)} rows={2} dir="rtl"/>
+      <TA label="Arabic Long Description (الوصف التفصيلي)" value={f.longDescriptionAr||''} onChange={(e:any)=>set('longDescriptionAr',e.target.value)} rows={3} dir="rtl"/>
       <ImagePicker label="Service Image" value={f.image} altValue={f.imageAlt} onChange={(url, alt) => { set('image', url); set('imageAlt', alt) }}/>
       <ArrayEditor label="Benefits"      value={benefits} onChange={setBen}  placeholder="Add a benefit…"/>
       <ArrayEditor label="Process Steps" value={proc}     onChange={setProc} placeholder="Add a step…"/>
