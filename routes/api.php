@@ -20,9 +20,6 @@ use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\SettingController;
-use App\Http\Controllers\Api\BillboardSizeController;
-use App\Http\Controllers\Api\SimulatorTemplateController;
-use App\Http\Controllers\Api\DesignUploadController;
 
 // ── Public endpoints ─────────────────────────────────────────────────────────
 
