@@ -108,7 +108,7 @@ export default function ServiceDetail() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <SectionHeading eyebrow="Key Benefits" title="Why it works." />
           <RevealGroup className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {service.benefits.map((benefit, i) => (
+            {(service.benefits || []).map((benefit, i) => (
               <RevealItem key={i}>
                 <div className="bg-white border border-[#0B0F1A]/[0.07] p-10">
                   <span className="font-black text-[11px] tracking-[0.25em] uppercase block mb-6" style={{ color: "rgba(11,15,26,0.2)" }}>
@@ -151,7 +151,7 @@ export default function ServiceDetail() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <SectionHeading eyebrow="Campaign Process" title={`Our ${service.shortTitle} Campaign Process`} titleAccent="" />
           <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
-            {service.process.map((step, i) => (
+            {(service.process || []).map((step, i) => (
               <RevealItem key={i}>
                 <div className="bg-white p-10">
                   <span className="font-black text-[11px] tracking-[0.25em] uppercase block mb-5" style={{ color: RED }}>

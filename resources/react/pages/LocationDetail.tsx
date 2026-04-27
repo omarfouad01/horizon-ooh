@@ -94,7 +94,7 @@ export default function LocationDetail() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <SectionHeading eyebrow="Available Formats" title={`What's available`} titleAccent={`in ${location.city}.`} />
           <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
-            {location.availableFormats.map((fmt, i) => (
+            {(location.availableFormats || []).map((fmt, i) => (
               <RevealItem key={fmt}>
                 <div className="bg-white p-8 flex items-start gap-5">
                   <span className="font-black text-[11px] tracking-[0.25em] uppercase mt-0.5 flex-shrink-0" style={{ color: RED }}>
@@ -111,12 +111,12 @@ export default function LocationDetail() {
       </section>
 
       {/* Featured Locations / Products */}
-      {location.products.length > 0 && (
+      {(location.products || []).length > 0 && (
         <section className="bg-white" style={{ paddingTop: 100, paddingBottom: 80 }}>
           <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
             <SectionHeading eyebrow="Featured Inventory" title="Prime locations" titleAccent={`in ${location.city}.`} />
             <RevealGroup className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {location.products.map((product) => (
+              {(location.products || []).map((product) => (
                 <RevealItem key={product.id}>
                   <Link
                     to={productHref(location.slug, product.slug)}
