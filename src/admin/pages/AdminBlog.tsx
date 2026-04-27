@@ -160,17 +160,27 @@ function BlogForm({ editing, onClose }: { editing?: BlogPost | null; onClose: ()
     setTagInput('')
   }
 
-  function save(e: React.FormEvent) {
+  const [saving, setSaving] = useState(false)
+
+  async function save(e: React.FormEvent) {
     e.preventDefault()
     if (!f.title.trim()) { toast.error('Title is required'); return }
+    setSaving(true)
     const slug = f.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
     const body   = blocks.map(({ id: _id, ...rest }) => rest)
     const bodyAr = blocksAr.map(({ id: _id, ...rest }) => rest)
     const data = { ...f, slug, body, bodyAr, metaTitle: f.metaTitle, metaDesc: f.metaDesc }
-    if (isEdit && editing) blogStore.update(editing.id, data)
-    else                   blogStore.add(data as any)
-    toast.success(isEdit ? 'Post updated' : 'Post created')
-    onClose()
+    try {
+      if (isEdit && editing) await blogStore.update(editing.id, data)
+      else                   await blogStore.add(data as any)
+      toast.success(isEdit ? 'Post updated' : 'Post created')
+      onClose()
+    } catch (err: any) {
+      const msg = err?.response?.data?.message || err?.message || 'Save failed'
+      toast.error(msg)
+    } finally {
+      setSaving(false)
+    }
   }
 
   return (
@@ -348,7 +358,7 @@ function BlogForm({ editing, onClose }: { editing?: BlogPost | null; onClose: ()
       {/* Actions */}
       <div className="flex gap-3 justify-end pt-3 border-t border-gray-100 sticky bottom-0 bg-white py-3">
         <Btn variant="ghost" type="button" onClick={onClose}>Cancel</Btn>
-        <Btn type="submit">{isEdit ? 'Save Changes' : 'Publish Post'}</Btn>
+        <Btn type="submit" disabled={saving}>{saving ? 'Saving…' : (isEdit ? 'Save Changes' : 'Publish Post')}</Btn>
       </div>
     </form>
   )

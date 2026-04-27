@@ -13,13 +13,23 @@ function GovForm({ editing, onClose }: any) {
   const [fmts, setFmts] = useState<string[]>(init.availableFormats || [])
   const set = (k: string, v: any) => setF((p: any) => ({ ...p, [k]: v }))
 
-  const save = (e: React.FormEvent) => {
+  const [saving, setSaving] = useState(false)
+
+  const save = async (e: React.FormEvent) => {
     e.preventDefault()
+    setSaving(true)
     const data = { ...f, availableFormats: fmts, products: editing?.products || [], slug: f.city.toLowerCase().replace(/\s+/g, '-') }
-    if (editing) locationStore.update(editing.id, data)
-    else         locationStore.add(data)
-    toast.success(editing ? 'Governorate updated' : 'Governorate created')
-    onClose()
+    try {
+      if (editing) await locationStore.update(editing.id, data)
+      else         await locationStore.add(data)
+      toast.success(editing ? 'Governorate updated' : 'Governorate created')
+      onClose()
+    } catch (err: any) {
+      const msg = err?.response?.data?.message || err?.message || 'Save failed'
+      toast.error(msg)
+    } finally {
+      setSaving(false)
+    }
   }
 
   return (
@@ -40,7 +50,7 @@ function GovForm({ editing, onClose }: any) {
       <ArrayEditor label="Available Ad Formats" value={fmts} onChange={setFmts} placeholder="e.g. Unipole Billboard" />
       <div className="flex gap-3 justify-end pt-2 border-t border-gray-100">
         <Btn variant="ghost" type="button" onClick={onClose}>Cancel</Btn>
-        <Btn type="submit">{editing ? 'Save Changes' : 'Add Governorate'}</Btn>
+        <Btn type="submit" disabled={saving}>{saving ? 'Saving…' : (editing ? 'Save Changes' : 'Add Governorate')}</Btn>
       </div>
     </form>
   )
@@ -53,13 +63,23 @@ function DistrictForm({ editing, presetLocationId, onClose }: any) {
   const [nameAr, setNameAr] = useState(editing?.nameAr || '')
   const [locId,  setLocId]  = useState(editing?.locationId || presetLocationId || '')
 
-  const save = (e: React.FormEvent) => {
+  const [saving, setSaving] = useState(false)
+
+  const save = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!name.trim() || !locId) { toast.error('Name and Governorate are required'); return }
-    if (editing) districtStore.update(editing.id, { name, nameAr, locationId: locId })
-    else         districtStore.add({ name, nameAr, locationId: locId })
-    toast.success(editing ? 'District updated' : 'District added')
-    onClose()
+    setSaving(true)
+    try {
+      if (editing) await districtStore.update(editing.id, { name, nameAr, locationId: locId })
+      else         await districtStore.add({ name, nameAr, locationId: locId })
+      toast.success(editing ? 'District updated' : 'District added')
+      onClose()
+    } catch (err: any) {
+      const msg = err?.response?.data?.message || err?.message || 'Save failed'
+      toast.error(msg)
+    } finally {
+      setSaving(false)
+    }
   }
 
   return (
@@ -75,7 +95,7 @@ function DistrictForm({ editing, presetLocationId, onClose }: any) {
       </div>
       <div className="flex gap-3 justify-end pt-2 border-t border-gray-100">
         <Btn variant="ghost" type="button" onClick={onClose}>Cancel</Btn>
-        <Btn type="submit">{editing ? 'Save' : 'Add District'}</Btn>
+        <Btn type="submit" disabled={saving}>{saving ? 'Saving…' : (editing ? 'Save' : 'Add District')}</Btn>
       </div>
     </form>
   )

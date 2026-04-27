@@ -16,12 +16,22 @@ function ProjectForm({ editing, onClose }: any) {
     rawGallery.map((g: any) => typeof g === 'string' ? { url: g, alt: '' } : g)
   )
   const set = (k:string,v:any) => setF((p:any)=>({...p,[k]:v}))
-  const save = (e:React.FormEvent) => {
+  const [saving, setSaving] = useState(false)
+  const save = async (e:React.FormEvent) => {
     e.preventDefault()
+    setSaving(true)
     const data = { ...f, results, tags, galleryImages, slug: f.title.toLowerCase().replace(/[^a-z0-9]+/g,'-'), heroImage: f.heroImage || f.coverImage }
-    if (editing) projectStore.update(editing.id, data)
-    else         projectStore.add(data)
-    toast.success(editing?'Updated':'Created'); onClose()
+    try {
+      if (editing) await projectStore.update(editing.id, data)
+      else         await projectStore.add(data)
+      toast.success(editing ? 'Project updated' : 'Project created')
+      onClose()
+    } catch (err: any) {
+      const msg = err?.response?.data?.message || err?.message || 'Save failed'
+      toast.error(msg)
+    } finally {
+      setSaving(false)
+    }
   }
   const addResult=()=>setRes(r=>[...r,{metric:'',value:'',description:''}])
   const updateResult=(i:number,k:string,v:string)=>setRes(r=>r.map((x:any,j:number)=>j===i?{...x,[k]:v}:x))
@@ -116,7 +126,7 @@ function ProjectForm({ editing, onClose }: any) {
       </div>
       <div className="flex gap-3 justify-end pt-2 border-t border-gray-100">
         <Btn variant="ghost" type="button" onClick={onClose}>Cancel</Btn>
-        <Btn type="submit">{editing?'Save':'Create Project'}</Btn>
+        <Btn type="submit" disabled={saving}>{saving ? 'Saving…' : (editing ? 'Save' : 'Create Project')}</Btn>
       </div>
     </form>
   )

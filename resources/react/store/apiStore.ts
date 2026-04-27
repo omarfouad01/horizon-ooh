@@ -19,10 +19,12 @@ import { LOCATIONS, SERVICES, PROJECTS, BLOG_POSTS, TRUST_STATS, PROCESS, CLIENT
 
 // ─── Runtime API detection ────────────────────────────────────────────────────
 const _envApiUrl = import.meta.env.VITE_API_URL as string | undefined;
-const _isRealHost = typeof window !== 'undefined' &&
-  window.location.hostname !== 'localhost' &&
-  window.location.hostname !== '127.0.0.1' &&
-  !window.location.hostname.startsWith('192.168.');
+const _PREVIEW_HOSTS = ['skywork.website', 'skywork.ai', 'vercel.app', 'netlify.app', 'pages.dev', 'surge.sh', 'github.io'];
+const _hostname = typeof window !== 'undefined' ? window.location.hostname : '';
+const _isPreview = _PREVIEW_HOSTS.some(h => _hostname === h || _hostname.endsWith('.' + h));
+const _isLocalhost = _hostname === 'localhost' || _hostname === '127.0.0.1' ||
+  _hostname.startsWith('192.168.') || _hostname.startsWith('10.');
+const _isRealHost = !_isLocalhost && !_isPreview;
 export const HAS_API = !!(_envApiUrl && _envApiUrl.trim() && _envApiUrl !== '/api') || _isRealHost;
 
 // ─── Types ────────────────────────────────────────────────────────────────────

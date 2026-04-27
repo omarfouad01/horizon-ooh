@@ -10,12 +10,22 @@ function ServiceForm({ editing, onClose }: any) {
   const [benefits, setBen] = useState<string[]>(init.benefits||[])
   const [proc, setProc]    = useState<string[]>(init.process||[])
   const set = (k:string,v:any) => setF((p:any)=>({...p,[k]:v}))
-  const save = (e:React.FormEvent) => {
+  const [saving, setSaving] = useState(false)
+  const save = async (e:React.FormEvent) => {
     e.preventDefault()
+    setSaving(true)
     const data = { ...f, benefits, process: proc, slug: f.shortTitle.toLowerCase().replace(/[^a-z0-9]+/g,'-') }
-    if (editing) serviceStore.update(editing.id, data)
-    else         serviceStore.add(data)
-    toast.success(editing?'Updated':'Created'); onClose()
+    try {
+      if (editing) await serviceStore.update(editing.id, data)
+      else         await serviceStore.add(data)
+      toast.success(editing ? 'Service updated' : 'Service created')
+      onClose()
+    } catch (err: any) {
+      const msg = err?.response?.data?.message || err?.message || 'Save failed'
+      toast.error(msg)
+    } finally {
+      setSaving(false)
+    }
   }
   return (
     <form onSubmit={save} className="space-y-4">
@@ -41,7 +51,7 @@ function ServiceForm({ editing, onClose }: any) {
       <ArrayEditor label="Process Steps" value={proc}     onChange={setProc} placeholder="Add a step…"/>
       <div className="flex gap-3 justify-end pt-2 border-t border-gray-100">
         <Btn variant="ghost" type="button" onClick={onClose}>Cancel</Btn>
-        <Btn type="submit">{editing?'Save':'Create Service'}</Btn>
+        <Btn type="submit" disabled={saving}>{saving ? 'Saving…' : (editing ? 'Save' : 'Create Service')}</Btn>
       </div>
     </form>
   )
