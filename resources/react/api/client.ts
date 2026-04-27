@@ -40,7 +40,12 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (r) => r,
   (err) => {
-    if (err.response?.status === 401) {
+    // Only clear auth token when a dedicated auth endpoint returns 401/403
+    // (not for every protected resource — that would log the admin out on any
+    //  forbidden read, e.g. /api/suppliers returning 401 in preview mode)
+    const url: string = err.config?.url ?? '';
+    const isAuthRoute = /\/(auth\/login|login|auth\/logout|logout)($|\?)/i.test(url);
+    if (isAuthRoute && err.response?.status === 401) {
       localStorage.removeItem('horizon_token');
       localStorage.removeItem('horizon_user');
     }

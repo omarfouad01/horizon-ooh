@@ -94,7 +94,7 @@ export default function LeafletMap({ filtered, allCount, selected, onSelect, cla
             <p style="font-size:11px;color:rgba(11,15,26,.4);margin:0 0 10px">${b.district}, ${b.city}</p>
             <div style="display:flex;gap:14px;margin-bottom:12px">
               <div><p style="font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(11,15,26,.3);margin:0 0 2px">Traffic</p>
-                <p style="font-size:12px;font-weight:700;color:${NAVY};margin:0">${b.traffic.split(" ").slice(0,2).join(" ")}</p></div>
+                <p style="font-size:12px;font-weight:700;color:${NAVY};margin:0">${(b.traffic ?? '').split(' ').slice(0,2).join(' ') || '—'}</p></div>
               <div><p style="font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(11,15,26,.3);margin:0 0 2px">Size</p>
                 <p style="font-size:12px;font-weight:700;color:${NAVY};margin:0">${b.size}</p></div>
             </div>
