@@ -247,8 +247,9 @@ interface CardProps {
   onHover: (id: string | null) => void;
   onSelect: (id: string | null) => void;
   cardRef: (el: HTMLDivElement | null) => void;
+  waNumber: string;
 }
-function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }: CardProps) {
+function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, waNumber }: CardProps) {
   const navigate = useNavigate();
   const { isAr, t } = useLang();
   const badges = getBadges(b.type);
@@ -398,10 +399,10 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef }:
 // MAIN PAGE
 // ═══════════════════════════════════════════════════════════════════════════
 export default function Locations() {
-  const { locations, districts: storeDistrictsForEnrich, settings } = useStore()
+  const { locations, districts: storeDistrictsForEnrich, settings, locationsContent } = useStore()
   const waNumber = (settings?.whatsapp ?? '+201234567890').replace(/\D/g, '')
   const { isAr, t } = useLang()
-  const lp = _lc ?? {}
+  const lp = locationsContent ?? {}
   // Enrich each billboard with Arabic city/district names from the store
   const allBillboards = locations.flatMap((l: any) =>
     (l.products||[]).map((p: any) => {
@@ -792,6 +793,7 @@ export default function Locations() {
                       isSelected={selectedId === b.id}
                       onHover={setHoveredId}
                       onSelect={handlePinSelect}
+                      waNumber={waNumber}
                       cardRef={el => {
                         if (el) cardRefs.current.set(b.id, el);
                         else cardRefs.current.delete(b.id);

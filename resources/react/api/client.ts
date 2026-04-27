@@ -61,9 +61,10 @@ export async function cachedGet<T = any>(url: string, config?: object): Promise<
   if (_pending.has(url)) return _pending.get(url) as Promise<T>;
 
   const req = api.get<T>(url, config).then((res) => {
-    _cache.set(url, { data: res, ts: Date.now() });
+    const data = (res as any).data !== undefined ? (res as any).data : res;
+    _cache.set(url, { data, ts: Date.now() });
     _pending.delete(url);
-    return res;
+    return data as T;
   }).catch((err) => {
     _pending.delete(url);
     throw err;

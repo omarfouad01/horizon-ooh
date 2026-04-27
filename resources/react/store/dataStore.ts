@@ -29,7 +29,6 @@ export interface Product {
 }
 
 import { useApiStore } from './apiStore';
-import type { BillboardSize, SimulatorTemplate, DesignUpload } from './apiStore';
 export const getState = () => useApiStore.getState();
 
 // ─── API imports ──────────────────────────────────────────────────────────────

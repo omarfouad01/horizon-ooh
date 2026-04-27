@@ -22,7 +22,7 @@ function SizesTab() {
         await billboardSizeStore.update(editing, form)
         toast.success('Size updated')
       } else {
-        await billboardSizeStore.add(form)
+        await billboardSizeStore.add(form as Omit<BillboardSize, 'id'>)
         toast.success('Size added')
       }
       setOpen(false)
@@ -106,7 +106,7 @@ function TemplatesTab() {
         await simulatorTemplateStore.update(editing, form)
         toast.success('Template updated')
       } else {
-        await simulatorTemplateStore.add(form)
+        await simulatorTemplateStore.add(form as Omit<SimulatorTemplate, 'id'>)
         toast.success('Template added')
       }
       setOpen(false)

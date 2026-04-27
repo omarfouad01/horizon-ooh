@@ -75,7 +75,6 @@ export default function DesignSimulator() {
     setSaving(true);
     try {
       await designUploadStore.add({
-        id: String(Date.now()),
         userId:      user?.id ?? '',
         userName:    user?.name ?? 'Guest',
         userEmail:   user?.email ?? '',
@@ -84,8 +83,6 @@ export default function DesignSimulator() {
         templateId:  selectedTemplate.id,
         typeName:    selectedTemplate.typeName,
         sizeLabel:   selectedTemplate.sizeLabel ?? '',
-        status:      'pending',
-        createdAt:   new Date().toISOString(),
       });
       toast.success('Design saved to dashboard!');
     } catch (err: any) {
