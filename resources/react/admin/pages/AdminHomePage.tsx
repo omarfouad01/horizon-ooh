@@ -114,7 +114,7 @@ export default function AdminHomePage() {
             <Field label="Eyebrow text (small tag above headline)"
               value={h.heroEyebrow} onChange={(e:any)=>set('heroEyebrow',e.target.value)}/>
             <StringListEditor label="H1 Title Lines (each on a new line)"
-              value={h.heroTitleLines} onChange={v=>set('heroTitleLines',v)}/>
+              value={h.heroTitleLines || []} onChange={v=>set('heroTitleLines',v)}/>
             <div className="p-3 rounded-lg bg-gray-50 text-[11px] text-gray-400">
               💡 The last line uses a faded style by default (e.g. "Agency.").
             </div>
@@ -148,7 +148,7 @@ export default function AdminHomePage() {
             <Field label="Eyebrow (e.g. 'A thought')"
               value={h.statementEyebrow} onChange={(e:any)=>set('statementEyebrow',e.target.value)}/>
             <StringListEditor label="Quote lines (each becomes a separate animated line)"
-              value={h.statementLines} onChange={v=>set('statementLines',v)}/>
+              value={h.statementLines || []} onChange={v=>set('statementLines',v)}/>
             <div className="p-3 rounded-lg bg-gray-50 text-[11px] text-gray-400">
               💡 The <strong>second line</strong> is displayed in red; all others are white.
             </div>
@@ -174,7 +174,7 @@ export default function AdminHomePage() {
               <Field label="Title line 2 (white)" value={h.featureTitleLine2} onChange={(e:any)=>set('featureTitleLine2',e.target.value)}/>
             </div>
             <StringListEditor label="Feature bullets (3 bullet points)"
-              value={h.featureBullets} onChange={v=>set('featureBullets',v)}/>
+              value={h.featureBullets || []} onChange={v=>set('featureBullets',v)}/>
             {/* ── Arabic ── */}
             <div className="pt-2 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{color:'#D90429'}}>🌐 Arabic — اللغة العربية</span><div className="flex-1 h-px bg-red-100"/></div>
             <div className="grid grid-cols-2 gap-4">
@@ -199,7 +199,7 @@ export default function AdminHomePage() {
             <Field label="Eyebrow (e.g. 'Brand Philosophy')"
               value={h.signatureEyebrow} onChange={(e:any)=>set('signatureEyebrow',e.target.value)}/>
             <StringListEditor label="Signature lines (each on a new line)"
-              value={h.signatureLines} onChange={v=>set('signatureLines',v)}/>
+              value={h.signatureLines || []} onChange={v=>set('signatureLines',v)}/>
             <div className="p-3 rounded-lg bg-gray-50 text-[11px] text-gray-400">
               💡 The <strong>second line</strong> is displayed in red; all others are white.
             </div>
@@ -227,7 +227,7 @@ export default function AdminHomePage() {
               <Field label="Secondary button text" value={h.finalCtaSecondaryText} onChange={(e:any)=>set('finalCtaSecondaryText',e.target.value)}/>
             </div>
             <StringListEditor label="Trust badges (3 micro-labels at the bottom)"
-              value={h.finalCtaBadges} onChange={v=>set('finalCtaBadges',v)}/>
+              value={h.finalCtaBadges || []} onChange={v=>set('finalCtaBadges',v)}/>
             {/* ── Arabic ── */}
             <div className="pt-2 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{color:'#D90429'}}>🌐 Arabic — اللغة العربية</span><div className="flex-1 h-px bg-red-100"/></div>
             <div className="grid grid-cols-2 gap-4">

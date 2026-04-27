@@ -17,18 +17,27 @@ use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\SettingController;
+use App\Http\Controllers\Api\BillboardSizeController;
+use App\Http\Controllers\Api\SimulatorTemplateController;
+use App\Http\Controllers\Api\DesignUploadController;
 
 // ── Public endpoints ─────────────────────────────────────────────────────────
 
 Route::get('/health', fn() => response()->json(['status' => 'ok', 'time' => now()->toISOString()]));
 
-Route::post('/auth/login',  [AuthController::class, 'login']);
+// Auth
+Route::post('/auth/login',     [AuthController::class, 'login']);
+Route::post('/auth/register',  [AuthController::class, 'register']);
+Route::post('/login',          [AuthController::class, 'login']);
+Route::post('/register',       [AuthController::class, 'register']);
 
 // Public contact form submission (singular: /contact)
-Route::post('/contact',     [ContactController::class, 'submit']);
+Route::post('/contact', [ContactController::class, 'submit']);
 
+// Public read endpoints
 Route::get('/locations',         [LocationController::class, 'index']);
 Route::get('/locations/{slug}',  [LocationController::class, 'show']);
+Route::get('/districts',         [DistrictController::class, 'index']);
 Route::get('/billboards',        [BillboardController::class, 'index']);
 Route::get('/billboards/{slug}', [BillboardController::class, 'show']);
 Route::get('/services',          [ServiceController::class, 'index']);
@@ -42,44 +51,47 @@ Route::get('/clients',           [ClientBrandController::class, 'index']);
 Route::get('/trust-stats',       [TrustStatController::class, 'index']);
 Route::get('/process-steps',     [ProcessStepController::class, 'index']);
 Route::get('/settings',          [SettingController::class, 'index']);
+Route::get('/home-content',      [SettingController::class, 'homeContent']);
+Route::get('/about-content',     [SettingController::class, 'aboutContent']);
 
-// Home & About content convenience aliases (reads from settings table)
-Route::get('/home-content',  [SettingController::class, 'homeContent']);
-Route::get('/about-content', [SettingController::class, 'aboutContent']);
+// Simulator public reads
+Route::get('/billboard-sizes',     [BillboardSizeController::class, 'index']);
+Route::get('/simulator-templates', [SimulatorTemplateController::class, 'index']);
+
+// Design upload (public POST so visitors can submit without account)
+Route::post('/design-uploads',     [DesignUploadController::class, 'store']);
 
 // ── Authenticated (admin) endpoints ──────────────────────────────────────────
 
 Route::middleware('auth:api')->group(function () {
 
-    Route::post  ('/auth/logout', [AuthController::class, 'logout']);
-    Route::get   ('/auth/me',     [AuthController::class, 'me']);
+    Route::post('/auth/logout', [AuthController::class, 'logout']);
+    Route::get ('/auth/me',     [AuthController::class, 'me']);
 
-    // Dashboard
+    // User profile update
+    Route::put('/auth/profile', [AuthController::class, 'updateProfile']);
+
+    // Dashboard stats
     Route::get('/dashboard/stats', [SettingController::class, 'dashboardStats']);
     Route::put('/settings',        [SettingController::class, 'bulkUpdate']);
+    Route::put('/home-content',    [SettingController::class, 'updateHomeContent']);
+    Route::put('/about-content',   [SettingController::class, 'updateAboutContent']);
 
-    // Home & About content update (admin-only writes)
-    Route::put('/home-content',  [SettingController::class, 'updateHomeContent']);
-    Route::put('/about-content', [SettingController::class, 'updateAboutContent']);
-
-    // Locations & Districts
-    Route::post  ('/locations',           [LocationController::class, 'store']);
-    Route::put   ('/locations/{id}',      [LocationController::class, 'update']);
-    Route::delete('/locations/{id}',      [LocationController::class, 'destroy']);
-    Route::get   ('/districts',           [DistrictController::class, 'index']);
-    Route::post  ('/districts',           [DistrictController::class, 'store']);
-    Route::put   ('/districts/{id}',      [DistrictController::class, 'update']);
-    Route::delete('/districts/{id}',      [DistrictController::class, 'destroy']);
+    // Locations & Districts (write)
+    Route::post  ('/locations',       [LocationController::class, 'store']);
+    Route::put   ('/locations/{id}',  [LocationController::class, 'update']);
+    Route::delete('/locations/{id}',  [LocationController::class, 'destroy']);
+    Route::post  ('/districts',       [DistrictController::class, 'store']);
+    Route::put   ('/districts/{id}',  [DistrictController::class, 'update']);
+    Route::delete('/districts/{id}',  [DistrictController::class, 'destroy']);
 
     // Billboards
-    // Note: next-code MUST be registered before {slug}/{id} wildcard routes
-    Route::get   ('/billboards/next-code',      [BillboardController::class, 'nextCode']);
-    Route::post  ('/billboards',                [BillboardController::class, 'store']);
-    // Accept both PUT and POST for updates (POST used by frontend for multipart/form-data uploads)
-    Route::put   ('/billboards/{id}',           [BillboardController::class, 'update']);
-    Route::post  ('/billboards/{id}',           [BillboardController::class, 'update']);
-    Route::delete('/billboards/{id}',           [BillboardController::class, 'destroy']);
-    Route::delete('/billboards/{id}/images',    [BillboardController::class, 'deleteImage']);
+    Route::get   ('/billboards/next-code',   [BillboardController::class, 'nextCode']);
+    Route::post  ('/billboards',             [BillboardController::class, 'store']);
+    Route::put   ('/billboards/{id}',        [BillboardController::class, 'update']);
+    Route::post  ('/billboards/{id}',        [BillboardController::class, 'update']);  // multipart
+    Route::delete('/billboards/{id}',        [BillboardController::class, 'destroy']);
+    Route::delete('/billboards/{id}/images', [BillboardController::class, 'deleteImage']);
 
     // Services
     Route::post  ('/services',       [ServiceController::class, 'store']);
@@ -87,10 +99,9 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/services/{id}',  [ServiceController::class, 'destroy']);
 
     // Projects
-    // Accept both PUT and POST for updates (POST used by frontend for multipart/form-data uploads)
     Route::post  ('/projects',       [ProjectController::class, 'store']);
     Route::put   ('/projects/{id}',  [ProjectController::class, 'update']);
-    Route::post  ('/projects/{id}',  [ProjectController::class, 'update']);
+    Route::post  ('/projects/{id}',  [ProjectController::class, 'update']);  // multipart
     Route::delete('/projects/{id}',  [ProjectController::class, 'destroy']);
 
     // Blog
@@ -98,17 +109,17 @@ Route::middleware('auth:api')->group(function () {
     Route::put   ('/blog/{id}',  [BlogController::class, 'update']);
     Route::delete('/blog/{id}',  [BlogController::class, 'destroy']);
 
-    // Contact enquiries (plural: /contacts for admin CRUD)
-    Route::get   ('/contacts',         [ContactController::class, 'index']);
-    Route::put   ('/contacts/{id}',    [ContactController::class, 'update']);
-    Route::delete('/contacts/{id}',    [ContactController::class, 'destroy']);
+    // Contacts (admin read/update/delete)
+    Route::get   ('/contacts',       [ContactController::class, 'index']);
+    Route::put   ('/contacts/{id}',  [ContactController::class, 'update']);
+    Route::delete('/contacts/{id}',  [ContactController::class, 'destroy']);
 
     // Ad Formats
     Route::post  ('/ad-formats',       [AdFormatController::class, 'store']);
     Route::put   ('/ad-formats/{id}',  [AdFormatController::class, 'update']);
     Route::delete('/ad-formats/{id}',  [AdFormatController::class, 'destroy']);
 
-    // Clients / Brands  (frontend uses /clients — not /client-brands)
+    // Clients / Brands
     Route::post  ('/clients',       [ClientBrandController::class, 'store']);
     Route::put   ('/clients/{id}',  [ClientBrandController::class, 'update']);
     Route::delete('/clients/{id}',  [ClientBrandController::class, 'destroy']);
@@ -122,12 +133,34 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/process-steps/{id}',  [ProcessStepController::class, 'destroy']);
 
     // Suppliers & Customers
-    Route::apiResource('/suppliers', SupplierController::class)->except(['show']);
-    Route::apiResource('/customers', CustomerController::class)->except(['show']);
+    Route::get   ('/suppliers',       [SupplierController::class, 'index']);
+    Route::post  ('/suppliers',       [SupplierController::class, 'store']);
+    Route::put   ('/suppliers/{id}',  [SupplierController::class, 'update']);
+    Route::delete('/suppliers/{id}',  [SupplierController::class, 'destroy']);
 
-    // Users
+    Route::get   ('/customers',       [CustomerController::class, 'index']);
+    Route::post  ('/customers',       [CustomerController::class, 'store']);
+    Route::put   ('/customers/{id}',  [CustomerController::class, 'update']);
+    Route::delete('/customers/{id}',  [CustomerController::class, 'destroy']);
+
+    // Users management
     Route::get   ('/users',       [UserController::class, 'index']);
     Route::post  ('/users',       [UserController::class, 'store']);
     Route::put   ('/users/{id}',  [UserController::class, 'update']);
     Route::delete('/users/{id}',  [UserController::class, 'destroy']);
+
+    // Billboard Sizes (admin write)
+    Route::post  ('/billboard-sizes',       [BillboardSizeController::class, 'store']);
+    Route::put   ('/billboard-sizes/{id}',  [BillboardSizeController::class, 'update']);
+    Route::delete('/billboard-sizes/{id}',  [BillboardSizeController::class, 'destroy']);
+
+    // Simulator Templates (admin write)
+    Route::post  ('/simulator-templates',       [SimulatorTemplateController::class, 'store']);
+    Route::put   ('/simulator-templates/{id}',  [SimulatorTemplateController::class, 'update']);
+    Route::delete('/simulator-templates/{id}',  [SimulatorTemplateController::class, 'destroy']);
+
+    // Design Uploads (admin read/update/delete)
+    Route::get   ('/design-uploads',       [DesignUploadController::class, 'index']);
+    Route::put   ('/design-uploads/{id}',  [DesignUploadController::class, 'update']);
+    Route::delete('/design-uploads/{id}',  [DesignUploadController::class, 'destroy']);
 });
