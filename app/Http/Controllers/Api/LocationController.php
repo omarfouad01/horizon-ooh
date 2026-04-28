@@ -126,13 +126,17 @@ class LocationController extends Controller
             'price'          => $b->price,
             'availability'   => $b->availability,
             'illuminated'    => $b->illuminated,
-            'lat'            => $b->lat,
-            'lng'            => $b->lng,
+            'lat'            => $b->lat !== null ? (float) $b->lat : null,
+            'lng'            => $b->lng !== null ? (float) $b->lng : null,
             'full_address'   => $b->full_address,
             'description'    => $b->description,
             'descriptionAr'  => $b->description_ar,
             'featured'       => $b->featured,
-            'images'         => $b->images->pluck('url')->filter()->values(),
+            'images'         => $b->images->map(fn($i) => [
+                'id'         => $i->id,
+                'url'        => $i->url,
+                'is_primary' => $i->is_primary ?? false,
+            ])->filter(fn($i) => !empty($i['url']))->values(),
         ];
     }
 }

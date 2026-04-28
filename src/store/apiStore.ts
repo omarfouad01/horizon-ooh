@@ -187,7 +187,17 @@ function safeArr(v: any): any[] {
 function normProduct(p: any, idx: number): any {
   if (!p) return null;
   const slug = p.slug ?? p.code ?? toSlug(p.title ?? p.name ?? `product-${idx+1}`);
-  return { ...p, slug, id: p.id ?? slug, title: p.title ?? p.name ?? '' };
+  // Ensure lat/lng are numbers (API may return strings)
+  const lat = p.lat !== undefined && p.lat !== null ? parseFloat(p.lat) : undefined;
+  const lng = p.lng !== undefined && p.lng !== null ? parseFloat(p.lng) : undefined;
+  const safeImages = safeArr(p.images);
+  return {
+    ...p,
+    slug, id: p.id ?? slug, title: p.title ?? p.name ?? '',
+    lat: !isNaN(lat as number) ? lat : undefined,
+    lng: !isNaN(lng as number) ? lng : undefined,
+    images: safeImages,
+  };
 }
 function normLoc(loc: any): any {
   if (!loc) return null;

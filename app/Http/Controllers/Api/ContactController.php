@@ -17,7 +17,7 @@ class ContactController extends Controller
             'phone'   => 'nullable|string|max:30',
             'company' => 'nullable|string|max:200',
             'subject' => 'nullable|string|max:255',
-            'message' => 'required|string|min:10|max:2000',
+            'message' => 'required|string|min:1|max:2000',
         ]);
 
         // Honeypot

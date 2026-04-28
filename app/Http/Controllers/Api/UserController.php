@@ -31,9 +31,16 @@ class UserController extends Controller
             'password' => 'required|string|min:8',
             'role'     => 'nullable|string',
             'phone'    => 'nullable|string',
+            'source'   => 'nullable|string',
+            'notes'    => 'nullable|string',
         ]);
+        // Explicitly hash password — do NOT rely on model cast to avoid double-hashing
         $data['password'] = Hash::make($data['password']);
-        $u = User::create($data);
+        // Remove cast to prevent double-hash: temporarily unguard the hashed field
+        $u = new User();
+        $u->fill(array_diff_key($data, ['password' => '']));
+        $u->password = $data['password']; // set pre-hashed password directly
+        $u->save();
         return response()->json(['id' => $u->id, 'name' => $u->name, 'email' => $u->email, 'role' => $u->role], 201);
     }
 
@@ -46,11 +53,17 @@ class UserController extends Controller
             'password' => 'nullable|string|min:8',
             'role'     => 'nullable|string',
             'phone'    => 'nullable|string',
+            'source'   => 'nullable|string',
             'notes'    => 'nullable|string',
         ]);
-        if (!empty($data['password'])) $data['password'] = Hash::make($data['password']);
-        else unset($data['password']);
-        $u->update($data);
+        if (!empty($data['password'])) {
+            // Set pre-hashed password directly to avoid double-hashing from model cast
+            $data['password'] = Hash::make($data['password']);
+            $u->password = $data['password'];
+            unset($data['password']);
+        }
+        $u->fill(array_diff_key($data, ['password' => '']));
+        $u->save();
         return response()->json(['id' => $u->id, 'name' => $u->name, 'email' => $u->email, 'role' => $u->role]);
     }
 

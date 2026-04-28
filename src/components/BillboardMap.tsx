@@ -75,8 +75,12 @@ export default function LeafletMap({ filtered, allCount, selected, onSelect, cla
     markersRef.current = [];
 
     filtered.forEach(b => {
+      // Guard: skip billboards without valid numeric coordinates
+      const lat = typeof b.lat === 'number' ? b.lat : parseFloat(b.lat);
+      const lng = typeof b.lng === 'number' ? b.lng : parseFloat(b.lng);
+      if (isNaN(lat) || isNaN(lng)) return;
       const isActive = selected?.id === b.id;
-      const marker = L.marker([b.lat, b.lng], { icon: makePin(isActive), zIndexOffset: isActive ? 1000 : 0 })
+      const marker = L.marker([lat, lng], { icon: makePin(isActive), zIndexOffset: isActive ? 1000 : 0 })
         .addTo(map);
 
       marker.on("click", () => onSelect(selected?.id === b.id ? null : b));
@@ -109,8 +113,13 @@ export default function LeafletMap({ filtered, allCount, selected, onSelect, cla
     });
 
     // Fit map to filtered results
-    if (filtered.length > 0 && filtered.length < allCount) {
-      map.fitBounds(L.latLngBounds(filtered.map(b => [b.lat, b.lng] as [number, number])), { padding: [50, 50], maxZoom: 13 });
+    const validFiltered = filtered.filter(b => {
+      const lat = typeof b.lat === 'number' ? b.lat : parseFloat(b.lat);
+      const lng = typeof b.lng === 'number' ? b.lng : parseFloat(b.lng);
+      return !isNaN(lat) && !isNaN(lng);
+    });
+    if (validFiltered.length > 0 && validFiltered.length < allCount) {
+      map.fitBounds(L.latLngBounds(validFiltered.map(b => [parseFloat(b.lat), parseFloat(b.lng)] as [number, number])), { padding: [50, 50], maxZoom: 13 });
     } else if (filtered.length === allCount) {
       map.setView([30.0444, 31.2357], 7);
     }

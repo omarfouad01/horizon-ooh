@@ -46,13 +46,14 @@ class AuthController extends Controller
             'phone'    => 'nullable|string|max:30',
         ]);
 
-        $user = User::create([
-            'name'     => $data['name'],
-            'email'    => $data['email'],
-            'password' => Hash::make($data['password']),
-            'phone'    => $data['phone'] ?? null,
-            'role'     => 'user',
-        ]);
+        // Create user — set password directly to avoid double-hashing from model cast
+        $user = new User();
+        $user->name     = $data['name'];
+        $user->email    = $data['email'];
+        $user->phone    = $data['phone'] ?? null;
+        $user->role     = 'user';
+        $user->password = Hash::make($data['password']);
+        $user->save();
 
         $token = JWTAuth::fromUser($user);
 
@@ -100,18 +101,18 @@ class AuthController extends Controller
     {
         $user = $request->user();
         $data = $request->validate([
-            'name'         => 'sometimes|string|max:120',
-            'phone'        => 'nullable|string|max:30',
-            'password'     => 'nullable|string|min:6|confirmed',
+            'name'     => 'sometimes|string|max:120',
+            'phone'    => 'nullable|string|max:30',
+            'password' => 'nullable|string|min:6|confirmed',
         ]);
 
         if (!empty($data['password'])) {
-            $data['password'] = \Illuminate\Support\Facades\Hash::make($data['password']);
-        } else {
+            // Set password directly to avoid double-hashing from model cast
+            $user->password = \Illuminate\Support\Facades\Hash::make($data['password']);
             unset($data['password']);
         }
-
-        $user->update($data);
+        $user->fill(array_diff_key($data, ['password' => '']));
+        $user->save();
 
         return response()->json([
             'id'    => $user->id,

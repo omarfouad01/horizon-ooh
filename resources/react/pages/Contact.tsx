@@ -1,5 +1,4 @@
-import { contactStore, siteUserStore, useStore } from "@/store/dataStore"
-import { contactsApi } from "@/api";
+import { contactStore, siteUserStore, useStore } from "@/store/dataStore";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Reveal, RevealGroup, RevealItem, PageHero, Eyebrow } from "@/components/UI";
@@ -30,30 +29,21 @@ export default function Contact() {
     setLoading(true);
     setApiError(null);
 
-    // ── Always save to local store immediately ─────────────────────────────
-    contactStore.add({
+    const payload = {
       name:    form.name    || "",
       email:   form.email   || "",
-      phone:   (form as any).phone,
-      company: (form as any).company,
-      subject: (form as any).subject || (form as any).service,
+      phone:   form.phone   || "",
+      company: form.company || "",
       message: form.message || "",
-    });
-    // Track as site user
+    };
+
+    // Track as site user immediately in local state
     if (form.email) {
-      siteUserStore.upsert(form.email, { name: form.name, phone: (form as any).phone, source: 'contact' });
+      siteUserStore.upsert(form.email, { name: form.name, phone: form.phone, source: 'contact' });
     }
 
-    // ── Also try sending to PHP API (non-blocking) ────────────────────────
-    try {
-      await contactsApi.submit({
-        name:    form.name,
-        email:   form.email,
-        phone:   form.phone,
-        company: form.company,
-        message: form.message,
-      });
-    } catch (_) { /* ignore — data already saved to local store */ }
+    // contactStore.add handles both API submission and local state update
+    await contactStore.add(payload);
 
     setLoading(false);
     setSubmitted(true);
