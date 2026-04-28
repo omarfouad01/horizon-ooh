@@ -162,21 +162,27 @@ export function Sel({ label, error, className, value, onChange, disabled, childr
   )
 }
 
-// Modal
-export function Modal({open,onClose,title,children,size='lg'}:any) {
+// Modal — supports optional `footer` prop for action buttons
+export function Modal({open,onClose,title,children,size='lg',footer,wide}:any) {
   if(!open) return null
   return (
     // Outer backdrop — scrollable so very tall modals can be reached
     <div className="fixed inset-0 z-50 overflow-y-auto" style={{background:'rgba(11,15,26,0.55)'}}>
       <div className="flex min-h-full items-center justify-center p-4">
         <div className={clsx('bg-white rounded-2xl w-full shadow-2xl',
-          size==='xl'?'max-w-3xl':size==='lg'?'max-w-2xl':'max-w-xl')}>
+          wide?'max-w-4xl':size==='xl'?'max-w-3xl':size==='lg'?'max-w-2xl':'max-w-xl')}>
           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
             <h3 className="text-sm font-black text-gray-900">{title}</h3>
             <button onClick={onClose} className="text-gray-400 hover:text-gray-700 p-1 rounded-lg hover:bg-gray-100"><X size={16}/></button>
           </div>
           {/* No overflow clipping here — native <select> dropdowns open freely */}
           <div className="p-6">{children}</div>
+          {/* Footer with action buttons (Save / Cancel) */}
+          {footer && (
+            <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-100 bg-gray-50/50 rounded-b-2xl">
+              {footer}
+            </div>
+          )}
         </div>
       </div>
     </div>

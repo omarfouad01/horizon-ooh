@@ -85,4 +85,30 @@ class AuthController extends Controller
             'role'  => $user->role,
         ]);
     }
+
+    public function updateProfile(Request $request): JsonResponse
+    {
+        $user = $request->user();
+        $data = $request->validate([
+            'name'         => 'sometimes|string|max:120',
+            'phone'        => 'nullable|string|max:30',
+            'password'     => 'nullable|string|min:6|confirmed',
+        ]);
+
+        if (!empty($data['password'])) {
+            $data['password'] = \Illuminate\Support\Facades\Hash::make($data['password']);
+        } else {
+            unset($data['password']);
+        }
+
+        $user->update($data);
+
+        return response()->json([
+            'id'    => $user->id,
+            'name'  => $user->name,
+            'email' => $user->email,
+            'phone' => $user->phone ?? null,
+            'role'  => $user->role,
+        ]);
+    }
 }
