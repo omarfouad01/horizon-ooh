@@ -14,7 +14,8 @@ function ServiceForm({ editing, onClose }: any) {
   const save = async (e:React.FormEvent) => {
     e.preventDefault()
     setSaving(true)
-    const data = { ...f, benefits, process: proc, slug: f.shortTitle.toLowerCase().replace(/[^a-z0-9]+/g,'-') }
+    // Backend 'name' field is required — map from 'title' (UI label)
+    const data = { ...f, name: f.title || f.name, benefits, process: proc, slug: f.shortTitle.toLowerCase().replace(/[^a-z0-9]+/g,'-') }
     try {
       if (editing) await serviceStore.update(editing.id, data)
       else         await serviceStore.add(data)

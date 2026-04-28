@@ -104,9 +104,10 @@ export default function AdminAbout() {
   function saveStat() {
     let newStats: AboutStat[]
     if (statModal.item) {
-      newStats = merged.keyStats.map(x => x.id===statModal.item!.id ? {...x,...statForm} : x)
+      const _stats = merged.keyStats || []
+      newStats = _stats.map(x => x.id===statModal.item!.id ? {...x,...statForm} : x)
     } else {
-      newStats = [...merged.keyStats, { id:String(Date.now()), ...statForm }]
+      newStats = [...(merged.keyStats||[]), { id:String(Date.now()), ...statForm }]
     }
     patch({ keyStats: newStats })
     setStatModal({open:false,item:null})
@@ -114,7 +115,7 @@ export default function AdminAbout() {
     save({ keyStats: newStats })
   }
   function removeStat(id:string) {
-    const newStats = merged.keyStats.filter(x=>x.id!==id)
+    const newStats = (merged.keyStats||[]).filter(x=>x.id!==id)
     patch({ keyStats: newStats })
     save({ keyStats: newStats })
   }

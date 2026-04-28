@@ -66,8 +66,8 @@ export const servicesApi = {
 export const projectsApi = {
   all:    ()             => cachedGet('/projects'),
   get:    (slug: string) => cachedGet(`/projects/${slug}`),
-  create: (data: FormData) => api.post('/projects', data, { headers: { 'Content-Type': 'multipart/form-data' } }),
-  update: (id: any, data: FormData) => api.post(`/projects/${id}`, data, { headers: { 'Content-Type': 'multipart/form-data' } }),
+  create: (data: any)    => api.post('/projects', data),
+  update: (id: any, data: any) => api.put(`/projects/${id}`, data),
   remove: (id: any)      => api.delete(`/projects/${id}`),
 };
 

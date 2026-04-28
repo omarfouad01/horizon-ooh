@@ -200,9 +200,9 @@ export const serviceStore = {
 
 // ─── Projects ─────────────────────────────────────────────────────────────────
 export const projectStore = {
-  add:    (data: FormData | any) => apiOrLocal(() => projectsApi.create(data instanceof FormData ? data : (() => { const fd = new FormData(); Object.entries(data).forEach(([k,v]) => fd.append(k, String(v))); return fd; })()), () => set(st => ({ projects: [...st.projects, { ...data, id: uid() }] }))),
-  update: (id: any, data: FormData | any) => apiOrLocal(() => projectsApi.update(id, data instanceof FormData ? data : (() => { const fd = new FormData(); Object.entries(data).forEach(([k,v]) => fd.append(k, String(v))); return fd; })()), () => set(st => ({ projects: st.projects.map((x: any) => x.id === id ? { ...x, ...data } : x) }))),
-  remove: (id: any) => apiOrLocal(() => projectsApi.remove(id), () => set(st => ({ projects: st.projects.filter((x: any) => x.id !== id) }))),
+  add:    (data: any) => apiOrLocal(() => projectsApi.create(data),           () => set(st => ({ projects: [...st.projects, { ...data, id: uid() }] }))),
+  update: (id: any, data: any) => apiOrLocal(() => projectsApi.update(id, data), () => set(st => ({ projects: st.projects.map((x: any) => x.id === id ? { ...x, ...data } : x) }))),
+  remove: (id: any) => apiOrLocal(() => projectsApi.remove(id),               () => set(st => ({ projects: st.projects.filter((x: any) => x.id !== id) }))),
 };
 
 // ─── Blog ─────────────────────────────────────────────────────────────────────
