@@ -68,6 +68,16 @@ class AuthController extends Controller
         ], 201);
     }
 
+    public function refresh(): JsonResponse
+    {
+        try {
+            $newToken = JWTAuth::parseToken()->refresh();
+            return response()->json(['token' => $newToken]);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Token cannot be refreshed'], 401);
+        }
+    }
+
     public function logout(): JsonResponse
     {
         try { JWTAuth::invalidate(JWTAuth::getToken()); } catch (\Exception) {}

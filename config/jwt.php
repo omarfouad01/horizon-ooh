@@ -101,7 +101,7 @@ return [
     |
     */
 
-    'ttl' => env('JWT_TTL', 60),
+    'ttl' => env('JWT_TTL', 10080),  // Default 7 days (10080 min). Set JWT_TTL in .env to override.
 
     /*
     |--------------------------------------------------------------------------

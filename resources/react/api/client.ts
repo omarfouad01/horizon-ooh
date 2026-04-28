@@ -37,18 +37,51 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// Track if a token refresh is in progress (avoid parallel refresh storms)
+let _refreshPromise: Promise<string | null> | null = null;
+
+async function tryRefreshToken(): Promise<string | null> {
+  const token = localStorage.getItem('horizon_token');
+  if (!token || token === 'demo-token') return null;
+  try {
+    const res = await axios.post(
+      resolveBaseURL().replace(/\/api$/, '') + '/api/auth/refresh',
+      {},
+      { headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' } }
+    );
+    const newToken: string = res.data?.token ?? res.data?.access_token;
+    if (newToken) {
+      localStorage.setItem('horizon_token', newToken);
+      return newToken;
+    }
+  } catch { /* refresh failed — fall through to logout */ }
+  return null;
+}
+
 api.interceptors.response.use(
   (r) => r,
-  (err) => {
-    // Only clear auth token when a dedicated auth endpoint returns 401/403
-    // (not for every protected resource — that would log the admin out on any
-    //  forbidden read, e.g. /api/suppliers returning 401 in preview mode)
+  async (err) => {
     const url: string = err.config?.url ?? '';
-    const isAuthRoute = /\/(auth\/login|login|auth\/logout|logout)($|\?)/i.test(url);
-    if (isAuthRoute && err.response?.status === 401) {
+    const status: number = err.response?.status;
+
+    // On 401 from a protected (non-auth) route — try refreshing the token once
+    const isAuthRoute = /\/(auth\/login|login|auth\/logout|logout|auth\/refresh)($|\?)/i.test(url);
+    if (status === 401 && !isAuthRoute && !err.config?._retried) {
+      if (!_refreshPromise) {
+        _refreshPromise = tryRefreshToken().finally(() => { _refreshPromise = null; });
+      }
+      const newToken = await _refreshPromise;
+      if (newToken) {
+        // Retry the original request with the fresh token
+        err.config._retried = true;
+        err.config.headers.Authorization = `Bearer ${newToken}`;
+        return api(err.config);
+      }
+      // Refresh failed — clear credentials
       localStorage.removeItem('horizon_token');
       localStorage.removeItem('horizon_user');
     }
+
     return Promise.reject(err);
   },
 );

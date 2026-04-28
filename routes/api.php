@@ -25,12 +25,13 @@ use App\Http\Controllers\Api\SettingController;
 
 Route::get('/health', fn() => response()->json(['status' => 'ok', 'time' => now()->toISOString()]));
 
-// Auth
+// Auth — public endpoints
 Route::post('/auth/login',     [AuthController::class, 'login']);
 Route::post('/auth/register',  [AuthController::class, 'register']);
 Route::post('/login',          [AuthController::class, 'login']);
 Route::post('/register',       [AuthController::class, 'register']);
-
+// Token refresh — accepts expired token, returns a fresh one
+Route::post('/auth/refresh',   [AuthController::class, 'refresh']);
 // Public contact form submission (singular: /contact)
 Route::post('/contact', [ContactController::class, 'submit']);
 
