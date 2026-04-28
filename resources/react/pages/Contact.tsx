@@ -1,12 +1,10 @@
 import { contactStore, siteUserStore, useStore } from "@/store/dataStore"
+import { contactsApi } from "@/api";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Reveal, RevealGroup, RevealItem, PageHero, Eyebrow } from "@/components/UI";
 import { RED, NAVY, ease } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
-
-// PHP API endpoint — reads from Vite env, falls back to relative path.
-const API_URL = (import.meta.env.VITE_API_URL as string | undefined) ?? "/api";
 
 export default function Contact() {
   const { settings, contactContent } = useStore();
@@ -46,14 +44,16 @@ export default function Contact() {
       siteUserStore.upsert(form.email, { name: form.name, phone: (form as any).phone, source: 'contact' });
     }
 
-    // ── Also try sending to PHP API (optional, non-blocking) ───────────────
+    // ── Also try sending to PHP API (non-blocking) ────────────────────────
     try {
-      await fetch(`${API_URL}/contact`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+      await contactsApi.submit({
+        name:    form.name,
+        email:   form.email,
+        phone:   form.phone,
+        company: form.company,
+        message: form.message,
       });
-    } catch (_) { /* ignore — data already saved to store */ }
+    } catch (_) { /* ignore — data already saved to local store */ }
 
     setLoading(false);
     setSubmitted(true);

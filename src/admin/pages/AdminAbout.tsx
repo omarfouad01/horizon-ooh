@@ -79,10 +79,11 @@ export default function AdminAbout() {
   function openEditWhy(w:WhyChooseItem){ setWhyForm({num:w.num,title:w.title,desc:w.desc}); setWhyModal({open:true,item:w}) }
   function saveWhy() {
     let newItems: WhyChooseItem[]
+    const currentItems = merged.whyItems || []
     if (whyModal.item) {
-      newItems = merged.whyItems.map(x => x.id===whyModal.item!.id ? {...x,...whyForm} : x)
+      newItems = currentItems.map(x => x.id===whyModal.item!.id ? {...x,...whyForm} : x)
     } else {
-      newItems = [...merged.whyItems, { id:String(Date.now()), ...whyForm }]
+      newItems = [...currentItems, { id:String(Date.now()), ...whyForm }]
     }
     patch({ whyItems: newItems })
     setWhyModal({open:false,item:null})
@@ -90,7 +91,7 @@ export default function AdminAbout() {
     save({ whyItems: newItems })
   }
   function removeWhy(id:string) {
-    const newItems = merged.whyItems.filter(x=>x.id!==id)
+    const newItems = (merged.whyItems || []).filter(x=>x.id!==id)
     patch({ whyItems: newItems })
     save({ whyItems: newItems })
   }

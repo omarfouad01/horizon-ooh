@@ -1,10 +1,25 @@
-import { useState, useEffect } from "react";
-import { NavLink, Link, useLocation } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { NAV_LINKS } from "@/data";
 import { ROUTES, RED, NAVY } from "@/lib/routes";
 import { useStore } from "@/store/dataStore";
 import { useLang } from "@/i18n/LangContext";
+import { authApi } from "@/api";
+
+// ─── Site auth helpers ─────────────────────────────────────────────────────
+function getSiteUser(): { name: string; email: string } | null {
+  try {
+    const raw = localStorage.getItem('horizon_site_user');
+    if (!raw) return null;
+    const u = JSON.parse(raw);
+    return u && u.email ? u : null;
+  } catch { return null; }
+}
+function clearSiteUser() {
+  localStorage.removeItem('horizon_site_user');
+  localStorage.removeItem('horizon_site_token');
+}
 
 // ─── Logo component (shared between Navbar & Footer) ──────────────────────────
 function LogoMark({ size = 54, variant = 'header' }: { size?: number; variant?: 'header' | 'footer' }) {
@@ -38,11 +53,38 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [scrollPct, setScrollPct] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [siteUser, setSiteUser] = useState<{ name: string; email: string } | null>(getSiteUser);
+  const profileRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
+  const navigate = useNavigate();
   const isHome = location.pathname === "/";
   const store = useStore();
   const companyName: string = store.settings?.companyName ?? 'HORIZON OOH';
   const { lang, setLang, t, isAr } = useLang();
+
+  // Sync user state when navigating (e.g. after login)
+  useEffect(() => { setSiteUser(getSiteUser()); }, [location.pathname]);
+
+  // Close profile dropdown on outside click
+  useEffect(() => {
+    if (!profileOpen) return;
+    const fn = (e: MouseEvent) => {
+      if (profileRef.current && !profileRef.current.contains(e.target as Node)) {
+        setProfileOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', fn);
+    return () => document.removeEventListener('mousedown', fn);
+  }, [profileOpen]);
+
+  function handleLogout() {
+    clearSiteUser();
+    setSiteUser(null);
+    setProfileOpen(false);
+    try { authApi.logout().catch(() => {}); } catch { /* ignore */ }
+    navigate('/');
+  }
 
   useEffect(() => { setMenuOpen(false); }, [location.pathname]);
 
@@ -132,17 +174,67 @@ export function Navbar() {
               <span>{isAr ? 'EN' : 'عربي'}</span>
             </button>
 
-            <Link
-              to="/login"
-              className="h-[40px] px-5 text-[11px] font-bold tracking-[0.18em] uppercase flex items-center gap-2 border transition-colors duration-200 hover:border-[#0B0F1A] hover:text-[#0B0F1A]"
-              style={{ borderColor: "rgba(11,15,26,0.2)", color: "rgba(11,15,26,0.55)" }}
-            >
-              <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
-                <circle cx="8" cy="5" r="3" stroke="currentColor" strokeWidth="1.5"/>
-                <path d="M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-              </svg>
-              {t('nav.login')}
-            </Link>
+            {siteUser ? (
+              /* ── Profile button (logged in) ── */
+              <div className="relative" ref={profileRef}>
+                <button
+                  onClick={() => setProfileOpen(p => !p)}
+                  className="h-[40px] px-4 text-[11px] font-bold tracking-[0.14em] uppercase flex items-center gap-2 border transition-colors duration-200 hover:border-[#0B0F1A] hover:text-[#0B0F1A] rounded-sm"
+                  style={{ borderColor: "rgba(11,15,26,0.2)", color: "rgba(11,15,26,0.7)" }}
+                >
+                  <span className="w-6 h-6 rounded-full flex items-center justify-center text-white text-[10px] font-black flex-shrink-0" style={{ background: '#D90429' }}>
+                    {(siteUser.name || siteUser.email).slice(0, 1).toUpperCase()}
+                  </span>
+                  <span className="hidden sm:inline max-w-[100px] truncate">{siteUser.name || siteUser.email}</span>
+                  <svg width="9" height="9" viewBox="0 0 10 10" fill="none" className={`transition-transform ${profileOpen ? 'rotate-180' : ''}`}>
+                    <path d="M1.5 3.5l3 3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                  </svg>
+                </button>
+                <AnimatePresence>
+                  {profileOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -4 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute right-0 top-[calc(100%+6px)] bg-white border border-gray-200 rounded-xl shadow-xl py-2 min-w-[180px] z-[9999]"
+                    >
+                      <div className="px-4 py-2 border-b border-gray-100 mb-1">
+                        <p className="text-[12px] font-bold text-gray-900 truncate">{siteUser.name}</p>
+                        <p className="text-[11px] text-gray-400 truncate">{siteUser.email}</p>
+                      </div>
+                      <Link
+                        to="/profile"
+                        onClick={() => setProfileOpen(false)}
+                        className="flex items-center gap-2 px-4 py-2 text-[12px] font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
+                      >
+                        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="currentColor" strokeWidth="1.5"/><path d="M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                        {isAr ? 'ملف شخصي' : 'My Profile'}
+                      </Link>
+                      <button
+                        onClick={handleLogout}
+                        className="w-full flex items-center gap-2 px-4 py-2 text-[12px] font-semibold text-red-500 hover:bg-red-50 transition-colors"
+                      >
+                        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M6 2H3a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3M10 11l3-3-3-3M13 8H6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                        {isAr ? 'تسجيل الخروج' : 'Sign Out'}
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                className="h-[40px] px-5 text-[11px] font-bold tracking-[0.18em] uppercase flex items-center gap-2 border transition-colors duration-200 hover:border-[#0B0F1A] hover:text-[#0B0F1A]"
+                style={{ borderColor: "rgba(11,15,26,0.2)", color: "rgba(11,15,26,0.55)" }}
+              >
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="5" r="3" stroke="currentColor" strokeWidth="1.5"/>
+                  <path d="M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+                {t('nav.login')}
+              </Link>
+            )}
             <Link
               to={ROUTES.CONTACT}
               className="h-[40px] px-7 text-[11px] font-bold tracking-[0.2em] uppercase text-white flex items-center relative overflow-hidden group active:scale-[0.97] transition-transform"
@@ -214,7 +306,16 @@ export function Navbar() {
               <span className="text-base">{isAr ? '🇬🇧' : '🇪🇬'}</span>
               <span>{isAr ? 'EN' : 'عربي'}</span>
             </button>
-            <Link to="/login" className="flex items-center gap-2 text-[13px] font-semibold tracking-[0.2em] uppercase text-[#0B0F1A]/50 hover:text-[#D90429] transition-colors">{t('nav.login')}</Link>
+            {siteUser ? (
+              <div className="flex flex-col gap-0.5">
+                <span className="text-[12px] font-bold text-[#0B0F1A]/70">{siteUser.name || siteUser.email}</span>
+                <button onClick={handleLogout} className="text-left text-[12px] font-semibold text-red-500 hover:text-red-700 transition-colors">
+                  {isAr ? 'تسجيل الخروج' : 'Sign Out'}
+                </button>
+              </div>
+            ) : (
+              <Link to="/login" className="flex items-center gap-2 text-[13px] font-semibold tracking-[0.2em] uppercase text-[#0B0F1A]/50 hover:text-[#D90429] transition-colors">{t('nav.login')}</Link>
+            )}
             <Link
               to={ROUTES.CONTACT}
               className="mt-2 h-[44px] px-8 text-white text-[11px] font-bold tracking-[0.2em] uppercase w-fit flex items-center active:scale-[0.97] transition-transform"

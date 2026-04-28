@@ -157,6 +157,8 @@ export default function Signup() {
         } else throw e1;
       }
       siteUserStore.upsert(email, { name, phone, source: 'signup' });
+      // Save site user for navbar profile display
+      localStorage.setItem('horizon_site_user', JSON.stringify({ name, email }));
       setSuccess(true);
     } catch (err: any) {
       const apiErrors = err?.response?.data?.errors;

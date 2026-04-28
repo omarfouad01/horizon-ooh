@@ -20,6 +20,7 @@ import BlogArticle from "@/pages/BlogArticle";
 import Contact from "@/pages/Contact";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
+import Profile from "@/pages/Profile";
 import DesignSimulator from "@/pages/DesignSimulator";
 import NotFound from "./pages/not-found/Index";
 import { Toaster as HotToaster } from "react-hot-toast";
@@ -73,7 +74,8 @@ const App = () => (
             <Route path="/contact"                           element={<Layout><Contact /></Layout>} />
             <Route path="/login"                             element={<Login />} />
             <Route path="/signup"                            element={<Signup />} />
-            <Route path="/design-simulator"                  element={<DesignSimulator />} />
+            <Route path="/profile"                           element={<Layout><Profile /></Layout>} />
+            <Route path="/design-simulator"                  element={<Layout><DesignSimulator /></Layout>} />
 
             {/* ── Admin Panel ──────────────────────────────────────────── */}
             <Route path="/admin/login" element={<AdminLogin />} />

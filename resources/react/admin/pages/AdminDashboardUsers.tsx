@@ -379,11 +379,9 @@ export default function AdminDashboardUsers() {
       </div>
 
       {/* Form modal */}
-      {form && (
-        <Modal title={edit ? `Edit — ${edit.name}` : 'Add Dashboard User'} onClose={() => closeForm(false)} wide>
-          <UserForm editing={edit} onClose={closeForm} />
-        </Modal>
-      )}
+      <Modal open={form} title={edit ? `Edit — ${edit.name}` : 'Add Dashboard User'} onClose={() => closeForm(false)} wide>
+        <UserForm editing={edit} onClose={closeForm} />
+      </Modal>
 
       {/* Delete confirm */}
       <Confirm

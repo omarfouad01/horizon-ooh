@@ -138,7 +138,10 @@ export default function Login() {
       }
       const { token: t, user: u } = res.data;
       localStorage.setItem('horizon_token', t);
+      localStorage.setItem('horizon_site_token', t);
       localStorage.setItem('horizon_user', JSON.stringify(u));
+      // Save site user for navbar profile display
+      localStorage.setItem('horizon_site_user', JSON.stringify({ name: u?.name ?? '', email: u?.email ?? email }));
       siteUserStore.upsert(email, { name: u?.name, phone: u?.phone, source: 'login' });
       navigate(ROUTES.HOME);
     } catch (err: any) {
