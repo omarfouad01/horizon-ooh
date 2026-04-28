@@ -119,7 +119,11 @@ export default function LeafletMap({ filtered, allCount, selected, onSelect, cla
       return !isNaN(lat) && !isNaN(lng);
     });
     if (validFiltered.length > 0 && validFiltered.length < allCount) {
-      map.fitBounds(L.latLngBounds(validFiltered.map(b => [parseFloat(b.lat), parseFloat(b.lng)] as [number, number])), { padding: [50, 50], maxZoom: 13 });
+      map.fitBounds(L.latLngBounds(validFiltered.map(b => {
+        const lat = typeof b.lat === 'number' ? b.lat : parseFloat(String(b.lat));
+        const lng = typeof b.lng === 'number' ? b.lng : parseFloat(String(b.lng));
+        return [lat, lng] as [number, number];
+      })), { padding: [50, 50], maxZoom: 13 });
     } else if (filtered.length === allCount) {
       map.setView([30.0444, 31.2357], 7);
     }
