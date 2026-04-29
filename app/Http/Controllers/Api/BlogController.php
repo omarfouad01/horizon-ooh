@@ -6,6 +6,7 @@ use App\Models\BlogPost;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
+use Illuminate\Database\QueryException;
 
 class BlogController extends Controller
 {
@@ -48,22 +49,37 @@ class BlogController extends Controller
 
     public function store(Request $request): JsonResponse
     {
-        $data = $this->validated($request);
-        $data['slug']         = Str::slug($data['title'] ?? ('post-' . time()));
-        $data['published_at'] = $data['published_at'] ?? now();
-        $data = $this->normalize($data);
-        $post = BlogPost::create($data);
-        return response()->json($this->transform($post), 201);
+        try {
+            $data = $this->validated($request);
+            $data['slug']         = $this->uniqueSlug(Str::slug($data['title'] ?? ('post-' . time())));
+            $data['published_at'] = $data['published_at'] ?? now();
+            $data = $this->normalize($data);
+            $data = $this->stripUnknownKeys($data);
+            $post = BlogPost::create($data);
+            return response()->json($this->transform($post), 201);
+        } catch (QueryException $e) {
+            return response()->json(['message' => 'Database error: ' . $e->getMessage()], 500);
+        }
     }
 
     public function update(Request $request, int $id): JsonResponse
     {
-        $post = BlogPost::findOrFail($id);
-        $data = $this->validated($request, true);
-        if (isset($data['title'])) $data['slug'] = Str::slug($data['title']);
-        $data = $this->normalize($data);
-        $post->update($data);
-        return response()->json($this->transform($post));
+        try {
+            $post = BlogPost::findOrFail($id);
+            $data = $this->validated($request, true);
+            if (isset($data['title'])) {
+                $newSlug = Str::slug($data['title']);
+                if ($newSlug !== $post->slug) {
+                    $data['slug'] = $this->uniqueSlug($newSlug, $post->id);
+                }
+            }
+            $data = $this->normalize($data);
+            $data = $this->stripUnknownKeys($data);
+            $post->update($data);
+            return response()->json($this->transform($post));
+        } catch (QueryException $e) {
+            return response()->json(['message' => 'Database error: ' . $e->getMessage()], 500);
+        }
     }
 
     public function destroy(int $id): JsonResponse
@@ -99,6 +115,25 @@ class BlogController extends Controller
             'published_at' => 'nullable|date',
             'sort_order'   => 'nullable|integer',
         ]);
+    }
+
+    private function uniqueSlug(string $base, ?int $excludeId = null): string
+    {
+        $slug = $base;
+        $n    = 1;
+        while (true) {
+            $q = BlogPost::where('slug', $slug);
+            if ($excludeId) $q->where('id', '!=', $excludeId);
+            if (!$q->exists()) break;
+            $slug = $base . '-' . $n++;
+        }
+        return $slug;
+    }
+
+    private function stripUnknownKeys(array $data): array
+    {
+        $allowed = (new BlogPost)->getFillable();
+        return array_intersect_key($data, array_flip(array_merge($allowed, ['slug'])));
     }
 
     private function normalize(array $d): array

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Database\QueryException;
 
 class ProjectController extends Controller
 {
@@ -69,22 +70,39 @@ class ProjectController extends Controller
 
     public function store(Request $request): JsonResponse
     {
-        $data = $this->validated($request);
-        $data['slug'] = Str::slug($data['title'] ?? ('project-' . time()));
-        $data = $this->handleCover($request, $data);
-        $data = $this->normalize($data);
-        return response()->json($this->transform(Project::create($data)), 201);
+        try {
+            $data = $this->validated($request);
+            $data['slug'] = $this->uniqueSlug(Str::slug($data['title'] ?? ('project-' . time())));
+            $data = $this->handleCover($request, $data);
+            $data = $this->normalize($data);
+            // Remove any keys not in $fillable to avoid mass-assignment issues
+            $data = $this->stripUnknownKeys($data);
+            return response()->json($this->transform(Project::create($data)), 201);
+        } catch (QueryException $e) {
+            return response()->json(['message' => 'Database error: ' . $e->getMessage()], 500);
+        }
     }
 
     public function update(Request $request, int $id): JsonResponse
     {
-        $p    = Project::findOrFail($id);
-        $data = $this->validated($request, true);
-        if (isset($data['title'])) $data['slug'] = Str::slug($data['title']);
-        $data = $this->handleCover($request, $data, $p->cover_image);
-        $data = $this->normalize($data);
-        $p->update($data);
-        return response()->json($this->transform($p));
+        try {
+            $p    = Project::findOrFail($id);
+            $data = $this->validated($request, true);
+            if (isset($data['title'])) {
+                $newSlug = Str::slug($data['title']);
+                // Only enforce uniqueness if slug changed
+                if ($newSlug !== $p->slug) {
+                    $data['slug'] = $this->uniqueSlug($newSlug, $p->id);
+                }
+            }
+            $data = $this->handleCover($request, $data, $p->cover_image);
+            $data = $this->normalize($data);
+            $data = $this->stripUnknownKeys($data);
+            $p->update($data);
+            return response()->json($this->transform($p));
+        } catch (QueryException $e) {
+            return response()->json(['message' => 'Database error: ' . $e->getMessage()], 500);
+        }
     }
 
     public function destroy(int $id): JsonResponse
@@ -157,6 +175,28 @@ class ProjectController extends Controller
             'featured'              => 'nullable|boolean',
             'sort_order'            => 'nullable|integer',
         ]);
+    }
+
+    /** Generate a unique slug, appending -N if necessary */
+    private function uniqueSlug(string $base, ?int $excludeId = null): string
+    {
+        $slug = $base;
+        $n    = 1;
+        while (true) {
+            $q = Project::where('slug', $slug);
+            if ($excludeId) $q->where('id', '!=', $excludeId);
+            if (!$q->exists()) break;
+            $slug = $base . '-' . $n++;
+        }
+        return $slug;
+    }
+
+    /** Strip keys not in Project::$fillable to prevent mass-assignment errors */
+    private function stripUnknownKeys(array $data): array
+    {
+        $allowed = (new Project)->getFillable();
+        // Also allow 'slug' which is fillable but may not appear in $fillable explicitly
+        return array_intersect_key($data, array_flip(array_merge($allowed, ['slug'])));
     }
 
     private function handleCover(Request $request, array $data, ?string $old = null): array

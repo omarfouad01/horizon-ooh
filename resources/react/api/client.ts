@@ -77,9 +77,8 @@ api.interceptors.response.use(
         err.config.headers.Authorization = `Bearer ${newToken}`;
         return api(err.config);
       }
-      // Refresh failed — clear credentials
-      localStorage.removeItem('horizon_token');
-      localStorage.removeItem('horizon_user');
+      // Refresh failed — do NOT clear credentials so the user can still navigate
+      // The request will fail with 401; admin UI will catch and show error.
     }
 
     return Promise.reject(err);

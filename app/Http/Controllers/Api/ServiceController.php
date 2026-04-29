@@ -6,6 +6,7 @@ use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
+use Illuminate\Database\QueryException;
 
 class ServiceController extends Controller
 {
@@ -50,21 +51,37 @@ class ServiceController extends Controller
 
     public function store(Request $request): JsonResponse
     {
-        $data = $this->validated($request);
-        $data['slug'] = Str::slug($data['short_title'] ?? $data['name']);
-        $svc = Service::create($this->normalize($data));
-        return response()->json($this->transform($svc), 201);
+        try {
+            $data = $this->validated($request);
+            $base = Str::slug($data['short_title'] ?? $data['name']);
+            $data['slug'] = $this->uniqueSlug($base);
+            $normalized   = $this->normalize($data);
+            $normalized   = $this->stripUnknownKeys($normalized);
+            $svc = Service::create($normalized);
+            return response()->json($this->transform($svc), 201);
+        } catch (QueryException $e) {
+            return response()->json(['message' => 'Database error: ' . $e->getMessage()], 500);
+        }
     }
 
     public function update(Request $request, int $id): JsonResponse
     {
-        $svc  = Service::findOrFail($id);
-        $data = $this->validated($request, true);
-        if (isset($data['name']) || isset($data['short_title'])) {
-            $data['slug'] = Str::slug($data['short_title'] ?? $data['name']);
+        try {
+            $svc  = Service::findOrFail($id);
+            $data = $this->validated($request, true);
+            if (isset($data['name']) || isset($data['short_title'])) {
+                $newSlug = Str::slug($data['short_title'] ?? $data['name']);
+                if ($newSlug !== $svc->slug) {
+                    $data['slug'] = $this->uniqueSlug($newSlug, $svc->id);
+                }
+            }
+            $normalized = $this->normalize($data);
+            $normalized = $this->stripUnknownKeys($normalized);
+            $svc->update($normalized);
+            return response()->json($this->transform($svc));
+        } catch (QueryException $e) {
+            return response()->json(['message' => 'Database error: ' . $e->getMessage()], 500);
         }
-        $svc->update($this->normalize($data));
-        return response()->json($this->transform($svc));
     }
 
     public function destroy(int $id): JsonResponse
@@ -105,6 +122,25 @@ class ServiceController extends Controller
             'long_description_ar'  => 'nullable|string',
             'longDescriptionAr'    => 'nullable|string',
         ]);
+    }
+
+    private function uniqueSlug(string $base, ?int $excludeId = null): string
+    {
+        $slug = $base;
+        $n    = 1;
+        while (true) {
+            $q = Service::where('slug', $slug);
+            if ($excludeId) $q->where('id', '!=', $excludeId);
+            if (!$q->exists()) break;
+            $slug = $base . '-' . $n++;
+        }
+        return $slug;
+    }
+
+    private function stripUnknownKeys(array $data): array
+    {
+        $allowed = (new Service)->getFillable();
+        return array_intersect_key($data, array_flip(array_merge($allowed, ['slug'])));
     }
 
     /** Convert camelCase keys sent from React to snake_case for Eloquent */

@@ -375,10 +375,16 @@ function BillboardForm({ editing, onClose }: any) {
       }
       onClose()
     } catch (err: any) {
-      const msg = err?.response?.data?.message || err?.response?.data?.errors
-        ? Object.values(err.response.data.errors as Record<string,string[]>).flat().join(', ')
-        : err?.message || 'Save failed'
-      toast.error(msg)
+      const resData = err?.response?.data
+      const errors  = resData?.errors as Record<string,string[]> | undefined
+      const msg = errors
+        ? Object.values(errors).flat().join(', ')
+        : resData?.message || err?.message || 'Save failed'
+      if (err?.response?.status === 401) {
+        toast.error('Session expired. Please log in again.')
+      } else {
+        toast.error(msg)
+      }
     } finally {
       setSaving(false)
     }

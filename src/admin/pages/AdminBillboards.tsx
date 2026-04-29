@@ -239,11 +239,16 @@ const AD_FORMATS = ['Billboard','Digital Screens','Mall Advertising','Airport Ad
 function BillboardForm({ editing, onClose }: any) {
   const { locations, districts, suppliers, adFormats } = useStore()
 
+  // Find owning location: first by nested products, then by locationId from API, then by citySlug
   const owningLoc = editing
-    ? locations.find((l: any) => (l.products || []).some((p: any) => p.id === editing.id))
+    ? (locations.find((l: any) => (l.products || []).some((p: any) => p.id === editing.id))
+      ?? locations.find((l: any) => l.id === editing.locationId || l.id === String(editing.locationId))
+      ?? locations.find((l: any) => l.slug === editing.citySlug))
     : null
 
-  const [locId, setLocId] = useState<string>(owningLoc?.id || '')
+  const [locId, setLocId] = useState<string>(
+    owningLoc?.id || String(editing?.locationId || editing?.location_id || '')
+  )
 
   // Generate a code if creating new
   const [code] = useState<string>(() => editing?.code || nextBillboardCode())
@@ -267,16 +272,27 @@ function BillboardForm({ editing, onClose }: any) {
   const [f, setF] = useState<any>(() => {
     const ed = editing || {}
     // Map API field names → form field names so edit form pre-fills correctly
+    // Images from API come as [{id, url, is_primary}] objects — normalize for the uploader
+    const rawImages = Array.isArray(ed.images) ? ed.images : []
+    const normalizedImages = rawImages.map((img: any) =>
+      typeof img === 'string' ? { id: img, url: img, alt: '' } : img
+    )
     return {
       ...empty,
       ...ed,
-      nameEn:       ed.nameEn       || ed.title       || ed.name        || '',
-      nameAr:       ed.nameAr       || ed.name_ar     || '',
-      adFormat:     ed.adFormat     || ed.format      || ed.type        || 'Billboard',
+      nameEn:        ed.nameEn        || ed.title       || ed.name        || '',
+      nameAr:        ed.nameAr        || ed.name_ar     || '',
+      adFormat:      ed.adFormat      || ed.format      || ed.type        || 'Billboard',
       descriptionEn: ed.descriptionEn || ed.description || '',
       descriptionAr: ed.descriptionAr || ed.description_ar || '',
-      full_address:  ed.full_address  || ed.location   || ed.spot || '',
-      districtId:   ed.districtId    || ed.district_id || '',
+      full_address:  ed.full_address  || ed.location    || ed.spot        || '',
+      districtId:    String(ed.districtId || ed.district_id || ''),
+      lat:           ed.lat !== undefined ? ed.lat : 0,
+      lng:           ed.lng !== undefined ? ed.lng : 0,
+      traffic:       ed.traffic       || '',
+      visibility:    ed.visibility    || '',
+      supplierId:    String(ed.supplierId || ed.supplier_id || ''),
+      images:        normalizedImages,
     }
   })
   const set = (k: string, v: any) => setF((p: any) => {
@@ -336,10 +352,13 @@ function BillboardForm({ editing, onClose }: any) {
       if (editing && editing.id) {
         const res = await billboardsApi.update(editing.id, fd)
         saved = res.data
-        // Update in local store too so the list refreshes
-        if (owningLoc) {
-          locationStore.update(owningLoc.id, {
-            products: (owningLoc.products || []).map((p: any) => p.id === editing.id ? { ...saved, id: saved.id } : p)
+        // Update in local store — find owning location dynamically in case owningLoc was null
+        const currentOwningLoc = owningLoc
+          || locations.find((l: any) => l.id === locId)
+          || locations.find((l: any) => (l.products || []).some((p: any) => p.id === editing.id))
+        if (currentOwningLoc) {
+          locationStore.update(currentOwningLoc.id, {
+            products: (currentOwningLoc.products || []).map((p: any) => p.id === editing.id ? { ...p, ...saved } : p)
           })
         }
         toast.success('Billboard updated')
@@ -356,10 +375,16 @@ function BillboardForm({ editing, onClose }: any) {
       }
       onClose()
     } catch (err: any) {
-      const msg = err?.response?.data?.message || err?.response?.data?.errors
-        ? Object.values(err.response.data.errors as Record<string,string[]>).flat().join(', ')
-        : err?.message || 'Save failed'
-      toast.error(msg)
+      const resData = err?.response?.data
+      const errors  = resData?.errors as Record<string,string[]> | undefined
+      const msg = errors
+        ? Object.values(errors).flat().join(', ')
+        : resData?.message || err?.message || 'Save failed'
+      if (err?.response?.status === 401) {
+        toast.error('Session expired. Please log in again.')
+      } else {
+        toast.error(msg)
+      }
     } finally {
       setSaving(false)
     }

@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ClientBrand;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Database\QueryException;
 
 class ClientBrandController extends Controller
 {
@@ -33,56 +34,71 @@ class ClientBrandController extends Controller
 
     public function store(Request $request): JsonResponse
     {
-        $data = $request->validate([
-            'name'           => 'required|string|max:120',
-            'logo'           => 'nullable|string',
-            'logo_url'       => 'nullable|string',
-            'logoUrl'        => 'nullable|string',
-            'industry'       => 'nullable|string',
-            'website'        => 'nullable|string',
-            'description'    => 'nullable|string',
-            'nameAr'         => 'nullable|string',
-            'name_ar'        => 'nullable|string',
-            'descriptionAr'  => 'nullable|string',
-            'description_ar' => 'nullable|string',
-            'sort_order'     => 'nullable|integer',
-        ]);
+        try {
+            $data = $request->validate([
+                'name'           => 'required|string|max:120',
+                'logo'           => 'nullable|string',
+                'logo_url'       => 'nullable|string',
+                'logoUrl'        => 'nullable|string',
+                'industry'       => 'nullable|string',
+                'website'        => 'nullable|string',
+                'description'    => 'nullable|string',
+                'nameAr'         => 'nullable|string',
+                'name_ar'        => 'nullable|string',
+                'descriptionAr'  => 'nullable|string',
+                'description_ar' => 'nullable|string',
+                'sort_order'     => 'nullable|integer',
+            ]);
 
-        // Normalize camelCase → snake_case
-        if (!isset($data['logo_url']) && isset($data['logoUrl']))           $data['logo_url']        = $data['logoUrl'];
-        if (!isset($data['name_ar']) && isset($data['nameAr']))             $data['name_ar']          = $data['nameAr'];
-        if (!isset($data['description_ar']) && isset($data['descriptionAr'])) $data['description_ar'] = $data['descriptionAr'];
-        unset($data['logoUrl'], $data['nameAr'], $data['descriptionAr']);
+            // Normalize camelCase → snake_case
+            if (!isset($data['logo_url']) && isset($data['logoUrl']))             $data['logo_url']       = $data['logoUrl'];
+            if (!isset($data['name_ar']) && isset($data['nameAr']))               $data['name_ar']        = $data['nameAr'];
+            if (!isset($data['description_ar']) && isset($data['descriptionAr'])) $data['description_ar'] = $data['descriptionAr'];
+            unset($data['logoUrl'], $data['nameAr'], $data['descriptionAr']);
 
-        $b = ClientBrand::create($data);
-        return response()->json($this->transform($b), 201);
+            // Only keep fillable keys
+            $allowed = (new ClientBrand)->getFillable();
+            $data = array_intersect_key($data, array_flip($allowed));
+
+            $b = ClientBrand::create($data);
+            return response()->json($this->transform($b), 201);
+        } catch (QueryException $e) {
+            return response()->json(['message' => 'Database error: ' . $e->getMessage()], 500);
+        }
     }
 
     public function update(Request $request, int $id): JsonResponse
     {
-        $b    = ClientBrand::findOrFail($id);
-        $data = $request->validate([
-            'name'           => 'sometimes|string|max:120',
-            'logo'           => 'nullable|string',
-            'logo_url'       => 'nullable|string',
-            'logoUrl'        => 'nullable|string',
-            'industry'       => 'nullable|string',
-            'website'        => 'nullable|string',
-            'description'    => 'nullable|string',
-            'nameAr'         => 'nullable|string',
-            'name_ar'        => 'nullable|string',
-            'descriptionAr'  => 'nullable|string',
-            'description_ar' => 'nullable|string',
-            'sort_order'     => 'nullable|integer',
-        ]);
+        try {
+            $b    = ClientBrand::findOrFail($id);
+            $data = $request->validate([
+                'name'           => 'sometimes|string|max:120',
+                'logo'           => 'nullable|string',
+                'logo_url'       => 'nullable|string',
+                'logoUrl'        => 'nullable|string',
+                'industry'       => 'nullable|string',
+                'website'        => 'nullable|string',
+                'description'    => 'nullable|string',
+                'nameAr'         => 'nullable|string',
+                'name_ar'        => 'nullable|string',
+                'descriptionAr'  => 'nullable|string',
+                'description_ar' => 'nullable|string',
+                'sort_order'     => 'nullable|integer',
+            ]);
 
-        if (!isset($data['logo_url']) && isset($data['logoUrl']))             $data['logo_url']        = $data['logoUrl'];
-        if (!isset($data['name_ar']) && isset($data['nameAr']))               $data['name_ar']          = $data['nameAr'];
-        if (!isset($data['description_ar']) && isset($data['descriptionAr'])) $data['description_ar']   = $data['descriptionAr'];
-        unset($data['logoUrl'], $data['nameAr'], $data['descriptionAr']);
+            if (!isset($data['logo_url']) && isset($data['logoUrl']))             $data['logo_url']       = $data['logoUrl'];
+            if (!isset($data['name_ar']) && isset($data['nameAr']))               $data['name_ar']        = $data['nameAr'];
+            if (!isset($data['description_ar']) && isset($data['descriptionAr'])) $data['description_ar'] = $data['descriptionAr'];
+            unset($data['logoUrl'], $data['nameAr'], $data['descriptionAr']);
 
-        $b->update($data);
-        return response()->json($this->transform($b));
+            $allowed = (new ClientBrand)->getFillable();
+            $data = array_intersect_key($data, array_flip($allowed));
+
+            $b->update($data);
+            return response()->json($this->transform($b));
+        } catch (QueryException $e) {
+            return response()->json(['message' => 'Database error: ' . $e->getMessage()], 500);
+        }
     }
 
     public function destroy(int $id): JsonResponse

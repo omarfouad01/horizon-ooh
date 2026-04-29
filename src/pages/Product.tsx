@@ -123,7 +123,7 @@ export default function Product() {
   const heroRef  = useRef<HTMLElement>(null);
 
   const location = LOCATIONS.find((l) => l.slug === citySlug);
-  const product  = location?.products.find((p) => p.slug === slug);
+  const product  = (location?.products || []).find((p: any) => p.slug === slug);
 
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroImgY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
@@ -470,7 +470,7 @@ export default function Product() {
                     <svg width="11" height="13" viewBox="0 0 13 15" fill="none" className="flex-shrink-0">
                       <path d="M6.5 0C3.462 0 1 2.462 1 5.5c0 3.85 5.5 9.5 5.5 9.5S12 9.35 12 5.5C12 2.462 9.538 0 6.5 0zm0 7.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fill="rgba(11,15,26,0.25)"/>
                     </svg>
-                    <span className="font-mono text-[11px]" style={{ color: "rgba(11,15,26,0.35)" }}>{product.lat.toFixed(4)}°N, {product.lng.toFixed(4)}°E</span>
+                    <span className="font-mono text-[11px]" style={{ color: "rgba(11,15,26,0.35)" }}>{typeof product.lat === 'number' ? product.lat.toFixed(4) : (parseFloat(product.lat)||0).toFixed(4)}°N, {typeof product.lng === 'number' ? product.lng.toFixed(4) : (parseFloat(product.lng)||0).toFixed(4)}°E</span>
                   </div>
 
                   <div className="flex flex-col gap-0 border-t border-[#0B0F1A]/[0.07]">
@@ -517,7 +517,7 @@ export default function Product() {
             </div>
             <div className="col-span-8">
               <RevealGroup className="flex flex-col gap-0 border-t border-[#0B0F1A]/[0.07]">
-                {product.benefits.map((benefit, i) => (
+                {(product.benefits || []).map((benefit: string, i: number) => (
                   <RevealItem key={i}>
                     <div className="flex items-start gap-6 py-6 border-b border-[#0B0F1A]/[0.07]">
                       <span className="font-black text-[11px] tracking-[0.25em] uppercase mt-0.5 flex-shrink-0" style={{ color: RED, minWidth: 28 }}>{String(i + 1).padStart(2, '0')}</span>
