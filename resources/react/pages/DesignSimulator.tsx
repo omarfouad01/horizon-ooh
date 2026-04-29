@@ -400,8 +400,7 @@ export default function DesignSimulator() {
                           mockupUrl={selectedTemplate.mockupUrl}
                           designUrls={designFiles}
                           panels={selectedTemplate.panels!}
-                          containerWidth={700}
-                          containerHeight={460}
+                          style={{ borderRadius: 12, overflow: 'hidden' }}
                         />
                       ) : (
                         <div className="text-center">

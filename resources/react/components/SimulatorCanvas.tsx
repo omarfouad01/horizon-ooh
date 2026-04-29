@@ -1,215 +1,330 @@
 /**
  * SimulatorCanvas.tsx — Renders uploaded design(s) onto a billboard mockup
- * using CSS perspective transform (homography projection).
- * Corners are stored in NATURAL image coordinates (0..naturalWidth, 0..naturalHeight).
- * At render time they are scaled to the displayed container dimensions.
+ * using a real per-pixel homographic warp on HTML5 Canvas.
+ *
+ * Corner coordinates are stored in NATURAL image pixels (0..naturalWidth, 0..naturalHeight).
+ * Corners are stored as {x, y} objects in each panel array [TL, TR, BR, BL].
+ *
+ * The canvas renders at the natural mockup resolution for maximum quality,
+ * then the canvas element is scaled down via CSS to fit the container.
  */
-import { useEffect, useRef, forwardRef, useImperativeHandle, useState } from 'react';
+import {
+  useEffect, useRef, forwardRef, useImperativeHandle, useState, useCallback,
+} from 'react';
 import type { SimPanel, SimCorner } from '@/store/dataStore';
 
-interface Props {
-  mockupUrl: string;
-  designUrls: string[];      // one per panel
-  panels: SimPanel[];        // each panel = 4 corners [{x,y}] in natural image coords
-  containerWidth?: number;
-  containerHeight?: number;
-}
+// ── Public types ────────────────────────────────────────────────────────────
 
 export interface SimulatorCanvasHandle {
-  capture: () => Promise<string | null>;  // returns data URL
+  /** Returns a PNG data-URL of the composite, or null on failure */
+  capture: () => Promise<string | null>;
 }
 
-// Compute homography 3×3 matrix mapping unit-square src to 4 dst corners
+interface Props {
+  mockupUrl:       string;
+  designUrls:      string[];   // one per panel; may contain empty strings
+  panels:          SimPanel[]; // each panel = 4 corners in NATURAL mockup px [TL,TR,BR,BL]
+  style?:          React.CSSProperties;
+  /** Also forward Panel/Corner types for places that import from here */
+}
+
+// Re-export aliases so importers that previously used Panel/Corner from here still work
+export type Corner = SimCorner;
+export type Panel  = SimPanel;
+export type { SimulatorCanvasHandle as SimulatorCanvasRef };
+
+// ── 8×8 Gaussian elimination ────────────────────────────────────────────────
+
+function solve8x8(A: number[][], b: number[]): number[] {
+  const n = 8;
+  const M = A.map((row, i) => [...row, b[i]]);
+  for (let col = 0; col < n; col++) {
+    let maxVal = Math.abs(M[col][col]);
+    let pivRow = col;
+    for (let row = col + 1; row < n; row++) {
+      if (Math.abs(M[row][col]) > maxVal) { maxVal = Math.abs(M[row][col]); pivRow = row; }
+    }
+    [M[col], M[pivRow]] = [M[pivRow], M[col]];
+    const pivot = M[col][col];
+    if (Math.abs(pivot) < 1e-12) continue;
+    for (let k = col; k <= n; k++) M[col][k] /= pivot;
+    for (let row = 0; row < n; row++) {
+      if (row === col) continue;
+      const f = M[row][col];
+      for (let k = col; k <= n; k++) M[row][k] -= f * M[col][k];
+    }
+  }
+  return M.map(row => row[n]);
+}
+
+/**
+ * Compute the 3×3 projective homography H such that
+ *   H * [sx, sy, 1]^T  ≅  [dx, dy, 1]^T
+ *
+ * src = 4 source points in the DESIGN coordinate system (unit square corners)
+ * dst = 4 destination points in CANVAS pixels
+ *
+ * Returns [h0..h8] (row-major, H[2][2] == 1 normalised)
+ */
 function computeHomography(
-  dst: [SimCorner, SimCorner, SimCorner, SimCorner]
+  srcCorners: [SimCorner, SimCorner, SimCorner, SimCorner],
+  dstCorners: [SimCorner, SimCorner, SimCorner, SimCorner],
 ): number[] {
-  const [tl, tr, br, bl] = dst;
-  const adjugate = (m: number[][]): number[][] => {
-    const [[a,b,c],[d,e,f],[g,h,i]] = m;
-    return [
-      [e*i-f*h, c*h-b*i, b*f-c*e],
-      [f*g-d*i, a*i-c*g, c*d-a*f],
-      [d*h-e*g, b*g-a*h, a*e-b*d],
-    ];
-  };
-  const mul = (a: number[][], b: number[][]): number[][] => {
-    const r: number[][] = [[0,0,0],[0,0,0],[0,0,0]];
-    for (let i=0;i<3;i++) for (let j=0;j<3;j++) for (let k=0;k<3;k++) r[i][j]+=a[i][k]*b[k][j];
-    return r;
-  };
-  const basis = (p1: SimCorner, p2: SimCorner, p3: SimCorner, p4: SimCorner): number[][] => {
-    const m: number[][] = [
-      [p1.x-p3.x, p2.x-p3.x, p3.x],
-      [p1.y-p3.y, p2.y-p3.y, p3.y],
-      [1,         1,          1   ],
-    ];
-    const adj = adjugate(m);
-    const res = [
-      adj[0][0]*p4.x + adj[0][1]*p4.y + adj[0][2],
-      adj[1][0]*p4.x + adj[1][1]*p4.y + adj[1][2],
-      adj[2][0]*p4.x + adj[2][1]*p4.y + adj[2][2],
-    ];
-    return [
-      [m[0][0]*res[0], m[0][1]*res[1], m[0][2]*res[2]],
-      [m[1][0]*res[0], m[1][1]*res[1], m[1][2]*res[2]],
-      [m[2][0]*res[0], m[2][1]*res[1], m[2][2]*res[2]],
-    ];
-  };
-  // Map unit square to dst
-  const srcBasis = basis({x:0,y:0},{x:1,y:0},{x:1,y:1},{x:0,y:1});
-  const dstBasis = basis(tl, tr, br, bl);
-  const t = mul(dstBasis, adjugate(srcBasis));
-  const s = t[2][2];
-  return [
-    t[0][0]/s, t[1][0]/s, 0, t[2][0]/s,
-    t[0][1]/s, t[1][1]/s, 0, t[2][1]/s,
-    0,         0,         1, 0,
-    t[0][2]/s, t[1][2]/s, 0, 1,
-  ];
+  const A: number[][] = [];
+  const b: number[]   = [];
+
+  for (let i = 0; i < 4; i++) {
+    const sx = srcCorners[i].x, sy = srcCorners[i].y;
+    const dx = dstCorners[i].x, dy = dstCorners[i].y;
+
+    A.push([sx, sy, 1, 0,  0,  0, -sx * dx, -sy * dx]);
+    b.push(dx);
+
+    A.push([0,  0,  0, sx, sy, 1, -sx * dy, -sy * dy]);
+    b.push(dy);
+  }
+
+  const h = solve8x8(A, b);
+  // h = [h00, h01, h02, h10, h11, h12, h20, h21], H[2][2] = 1
+  return [...h, 1]; // 9 elements
 }
 
-// Scale corners from natural image coords to displayed container coords
-function scaleCorners(
-  corners: SimCorner[],
-  naturalW: number, naturalH: number,
-  displayW: number, displayH: number,
-  offsetX: number, offsetY: number,
-): SimCorner[] {
-  if (!naturalW || !naturalH) return corners;
-  const scaleX = displayW / naturalW;
-  const scaleY = displayH / naturalH;
-  return corners.map(c => ({
-    x: c.x * scaleX + offsetX,
-    y: c.y * scaleY + offsetY,
-  }));
+// ── Pixel-level inverse warp ────────────────────────────────────────────────
+
+/**
+ * Warp the design image onto dstCtx using an inverse pixel map:
+ * For every pixel in the destination (canvas), compute where it comes from
+ * in the source (design) and sample bilinearly.
+ *
+ * @param srcCanvas  — design image on an off-screen canvas
+ * @param dstCtx     — destination canvas context (full-size mockup)
+ * @param W          — canvas width
+ * @param H          — canvas height
+ * @param H_fwd      — 9-element homography: src design pixels → dst canvas pixels
+ * @param panel      — 4 dst corners (to build a clipping poly)
+ * @param dW         — design canvas width
+ * @param dH         — design canvas height
+ */
+function warpDesign(
+  srcCanvas: HTMLCanvasElement,
+  dstCtx:    CanvasRenderingContext2D,
+  W: number, H: number,
+  H_fwd: number[],
+  panel: SimPanel,
+  dW: number, dH: number,
+): void {
+  // Compute inverse homography (dst → src)
+  const [a,b,c,d,e,f,g,hh] = H_fwd;
+  const k = 1;
+  const det = a*(e*k - f*hh) - b*(d*k - f*g) + c*(d*hh - e*g);
+  if (Math.abs(det) < 1e-10) return;
+
+  const inv: number[] = [
+    (e*k - f*hh)/det, (c*hh - b*k)/det, (b*f - c*e)/det,
+    (f*g - d*k)/det,  (a*k - c*g)/det,  (c*d - a*f)/det,
+    (d*hh - e*g)/det, (b*g - a*hh)/det, (a*e - b*d)/det,
+  ];
+
+  // Bounding box of the panel in dst coords (to limit pixel scan)
+  const pxs = panel.map(p => p.x);
+  const pys = panel.map(p => p.y);
+  const x0 = Math.max(0, Math.floor(Math.min(...pxs)));
+  const y0 = Math.max(0, Math.floor(Math.min(...pys)));
+  const x1 = Math.min(W - 1, Math.ceil(Math.max(...pxs)));
+  const y1 = Math.min(H - 1, Math.ceil(Math.max(...pys)));
+
+  const srcCtx  = srcCanvas.getContext('2d', { willReadFrequently: true })!;
+  const srcData = srcCtx.getImageData(0, 0, dW, dH);
+  const dstData = dstCtx.getImageData(x0, y0, x1 - x0 + 1, y1 - y0 + 1);
+  const sw = dW, sh = dH;
+
+  for (let py = y0; py <= y1; py++) {
+    for (let px = x0; px <= x1; px++) {
+      // Map dst pixel → src design pixel
+      const ww = inv[6] * px + inv[7] * py + inv[8];
+      if (Math.abs(ww) < 1e-10) continue;
+      const sx = (inv[0] * px + inv[1] * py + inv[2]) / ww;
+      const sy = (inv[3] * px + inv[4] * py + inv[5]) / ww;
+
+      // Clamp to design bounds
+      if (sx < 0 || sy < 0 || sx >= sw - 1 || sy >= sh - 1) continue;
+
+      // Bilinear sample
+      const x0s = Math.floor(sx), y0s = Math.floor(sy);
+      const xf   = sx - x0s,       yf   = sy - y0s;
+      const x1s = x0s + 1,          y1s  = y0s + 1;
+
+      const idx00 = (y0s * sw + x0s) * 4;
+      const idx10 = (y0s * sw + x1s) * 4;
+      const idx01 = (y1s * sw + x0s) * 4;
+      const idx11 = (y1s * sw + x1s) * 4;
+
+      const r = srcData.data[idx00]*((1-xf)*(1-yf)) + srcData.data[idx10]*(xf*(1-yf))
+              + srcData.data[idx01]*((1-xf)*yf)      + srcData.data[idx11]*(xf*yf);
+      const g = srcData.data[idx00+1]*((1-xf)*(1-yf)) + srcData.data[idx10+1]*(xf*(1-yf))
+              + srcData.data[idx01+1]*((1-xf)*yf)      + srcData.data[idx11+1]*(xf*yf);
+      const bv = srcData.data[idx00+2]*((1-xf)*(1-yf)) + srcData.data[idx10+2]*(xf*(1-yf))
+               + srcData.data[idx01+2]*((1-xf)*yf)      + srcData.data[idx11+2]*(xf*yf);
+      const al = srcData.data[idx00+3]*((1-xf)*(1-yf)) + srcData.data[idx10+3]*(xf*(1-yf))
+               + srcData.data[idx01+3]*((1-xf)*yf)      + srcData.data[idx11+3]*(xf*yf);
+
+      const di = ((py - y0) * (x1 - x0 + 1) + (px - x0)) * 4;
+      const a_src = al / 255;
+      dstData.data[di]   = Math.round(r  * a_src + dstData.data[di]   * (1 - a_src));
+      dstData.data[di+1] = Math.round(g  * a_src + dstData.data[di+1] * (1 - a_src));
+      dstData.data[di+2] = Math.round(bv * a_src + dstData.data[di+2] * (1 - a_src));
+      dstData.data[di+3] = Math.min(255, dstData.data[di+3] + Math.round(al));
+    }
+  }
+
+  dstCtx.putImageData(dstData, x0, y0);
 }
+
+// ── Load image helper ───────────────────────────────────────────────────────
+
+function loadImage(url: string): Promise<HTMLImageElement> {
+  return new Promise((res, rej) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload  = () => res(img);
+    img.onerror = rej;
+    img.src = url;
+  });
+}
+
+// ── Component ───────────────────────────────────────────────────────────────
 
 const SimulatorCanvas = forwardRef<SimulatorCanvasHandle, Props>(
-  ({ mockupUrl, designUrls, panels, containerWidth = 800, containerHeight = 600 }, ref) => {
-    const mockupRef   = useRef<HTMLImageElement>(null);
-    const containerRef = useRef<HTMLDivElement>(null);
-    const [imgSize, setImgSize] = useState({ natW: 0, natH: 0, dispW: 0, dispH: 0, offX: 0, offY: 0 });
+  ({ mockupUrl, designUrls, panels, style }, ref) => {
+    const canvasRef    = useRef<HTMLCanvasElement>(null);
+    const [renderDone, setRenderDone] = useState(false);
+    const [error, setError]           = useState<string | null>(null);
 
-    // Measure rendered image dimensions (object-fit: contain leaves letterbox)
+    // ── Render composite onto canvas ───────────────────────────────────────
+    const renderComposite = useCallback(async (
+      mockupSrc: string,
+      designs:   string[],
+      pnls:      SimPanel[],
+    ) => {
+      setRenderDone(false);
+      setError(null);
+
+      if (!mockupSrc) return;
+
+      let mockupImg: HTMLImageElement;
+      try {
+        mockupImg = await loadImage(mockupSrc);
+      } catch {
+        setError('Failed to load mockup image');
+        return;
+      }
+
+      const natW = mockupImg.naturalWidth  || 1200;
+      const natH = mockupImg.naturalHeight || 800;
+
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      canvas.width  = natW;
+      canvas.height = natH;
+
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      // Draw mockup
+      ctx.drawImage(mockupImg, 0, 0, natW, natH);
+
+      // Warp each design onto its panel
+      for (let i = 0; i < pnls.length; i++) {
+        const designUrl = designs[i];
+        const panel     = pnls[i];
+
+        if (!designUrl || !panel || panel.length < 4) continue;
+
+        let designImg: HTMLImageElement;
+        try {
+          designImg = await loadImage(designUrl);
+        } catch {
+          continue; // skip unloadable design
+        }
+
+        const dW = designImg.naturalWidth  || 1000;
+        const dH = designImg.naturalHeight || 1000;
+
+        // Draw design to off-screen canvas
+        const srcCanvas = document.createElement('canvas');
+        srcCanvas.width  = dW;
+        srcCanvas.height = dH;
+        srcCanvas.getContext('2d')!.drawImage(designImg, 0, 0, dW, dH);
+
+        // Normalise corners: ensure we have exactly 4 corners in natural px
+        const dst = panel.slice(0, 4) as [SimCorner, SimCorner, SimCorner, SimCorner];
+
+        // Source corners = corners of the design image
+        const src: [SimCorner, SimCorner, SimCorner, SimCorner] = [
+          { x: 0,  y: 0  },  // TL
+          { x: dW, y: 0  },  // TR
+          { x: dW, y: dH },  // BR
+          { x: 0,  y: dH },  // BL
+        ];
+
+        // Compute forward homography: design pixels → canvas pixels
+        const H_fwd = computeHomography(src, dst);
+
+        // Pixel-level inverse warp
+        warpDesign(srcCanvas, ctx, natW, natH, H_fwd, dst, dW, dH);
+      }
+
+      setRenderDone(true);
+    }, []);
+
+    // Re-render whenever inputs change
     useEffect(() => {
-      const img = mockupRef.current;
-      if (!img) return;
-      const measure = () => {
-        const natW = img.naturalWidth  || containerWidth;
-        const natH = img.naturalHeight || containerHeight;
-        const contW = containerWidth;
-        const contH = containerHeight;
-        // object-fit: contain
-        const scale = Math.min(contW / natW, contH / natH);
-        const dispW = natW * scale;
-        const dispH = natH * scale;
-        const offX  = (contW - dispW) / 2;
-        const offY  = (contH - dispH) / 2;
-        setImgSize({ natW, natH, dispW, dispH, offX, offY });
-      };
-      if (img.complete && img.naturalWidth) { measure(); }
-      else { img.onload = measure; }
-    }, [mockupUrl, containerWidth, containerHeight]);
+      renderComposite(mockupUrl, designUrls, panels);
+    }, [mockupUrl, designUrls, panels, renderComposite]); // eslint-disable-line react-hooks/exhaustive-deps
 
+    // ── capture() for download ─────────────────────────────────────────────
     useImperativeHandle(ref, () => ({
       capture: async () => {
+        const canvas = canvasRef.current;
+        if (!canvas) return null;
         try {
-          const img = mockupRef.current;
-          if (!img) return null;
-          const natW = img.naturalWidth  || containerWidth;
-          const natH = img.naturalHeight || containerHeight;
-          const canvas = document.createElement('canvas');
-          canvas.width  = natW;
-          canvas.height = natH;
-          const ctx = canvas.getContext('2d');
-          if (!ctx) return null;
-          // Draw mockup at natural size
-          ctx.drawImage(img, 0, 0, natW, natH);
-          // Draw each design panel (corners already in natural coords)
-          for (let i = 0; i < panels.length; i++) {
-            const designUrl = designUrls[i];
-            if (!designUrl || !panels[i] || panels[i].length < 4) continue;
-            const panel = panels[i];
-            await new Promise<void>((resolve) => {
-              const dImg = new Image();
-              dImg.crossOrigin = 'anonymous';
-              dImg.onload = () => {
-                ctx.save();
-                ctx.beginPath();
-                ctx.moveTo(panel[0].x, panel[0].y);
-                ctx.lineTo(panel[1].x, panel[1].y);
-                ctx.lineTo(panel[2].x, panel[2].y);
-                ctx.lineTo(panel[3].x, panel[3].y);
-                ctx.closePath();
-                ctx.clip();
-                const xs = panel.map(p => p.x);
-                const ys = panel.map(p => p.y);
-                const minX = Math.min(...xs), maxX = Math.max(...xs);
-                const minY = Math.min(...ys), maxY = Math.max(...ys);
-                ctx.drawImage(dImg, minX, minY, maxX - minX, maxY - minY);
-                ctx.restore();
-                resolve();
-              };
-              dImg.onerror = () => resolve();
-              dImg.src = designUrl;
-            });
-          }
           return canvas.toDataURL('image/png');
         } catch {
           return null;
         }
-      }
+      },
     }));
 
     return (
-      <div ref={containerRef} style={{ position: 'relative', width: containerWidth, height: containerHeight, maxWidth: '100%' }}>
-        {/* Mockup background */}
-        <img
-          ref={mockupRef}
-          src={mockupUrl}
-          alt="Billboard mockup"
-          crossOrigin="anonymous"
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain' }}
+      <div style={{ position: 'relative', width: '100%', ...style }}>
+        <canvas
+          ref={canvasRef}
+          style={{
+            display:  'block',
+            width:    '100%',
+            height:   'auto',
+            borderRadius: style?.borderRadius ?? 12,
+          }}
         />
-
-        {/* Design overlays — use CSS matrix3d */}
-        {imgSize.natW > 0 && panels.map((panel, i) => {
-          const designUrl = designUrls[i];
-          if (!designUrl || !panel || panel.length < 4) return null;
-
-          // Scale corners from natural → display coords
-          const scaled = scaleCorners(
-            panel,
-            imgSize.natW, imgSize.natH,
-            imgSize.dispW, imgSize.dispH,
-            imgSize.offX, imgSize.offY,
-          ) as [SimCorner, SimCorner, SimCorner, SimCorner];
-
-          // Compute homography mapping unit square → scaled corners
-          const matrix = computeHomography(scaled);
-
-          // Design image at 1×1 px then scaled via matrix to fill quadrilateral
-          const SRC = 1000;
-
-          return (
-            <img
-              key={i}
-              src={designUrl}
-              alt={`Design ${i + 1}`}
-              style={{
-                position:       'absolute',
-                top:            0,
-                left:           0,
-                width:          SRC,
-                height:         SRC,
-                transform:      `matrix3d(${matrix.join(',')})`,
-                transformOrigin:'0 0',
-                objectFit:      'fill',
-                pointerEvents:  'none',
-              }}
-            />
-          );
-        })}
+        {!renderDone && !error && (
+          <div style={{
+            position: 'absolute', inset: 0,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            background: 'rgba(0,0,0,0.15)',
+            color: '#fff', fontSize: 13, fontWeight: 600,
+            borderRadius: 12,
+          }}>
+            Rendering…
+          </div>
+        )}
+        {error && (
+          <div style={{
+            padding: 24, textAlign: 'center',
+            color: '#ef4444', fontSize: 13,
+          }}>
+            {error}
+          </div>
+        )}
       </div>
     );
   }
