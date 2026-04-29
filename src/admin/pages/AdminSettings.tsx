@@ -170,7 +170,23 @@ export default function AdminSettings() {
   const saveGeneral = () => { settingsStore.update(settings); toast.success('Settings saved') }
   const saveLogo    = () => { settingsStore.update({ headerLogoUrl: settings.headerLogoUrl, footerLogoUrl: settings.footerLogoUrl, faviconUrl: settings.faviconUrl }); toast.success('Logos & favicon saved') }
   const saveStats   = () => { stats.forEach(st => trustStatStore.update(st.id, st)); toast.success('Stats saved') }
-  const saveProc    = () => { proc.forEach(p => processStore.update(p.id, p)); toast.success('Process saved') }
+  const saveProc = async () => {
+    try {
+      // Identify which steps exist in the store (real DB ids vs local temp ids)
+      const storeIds = new Set(s.processSteps.map((x: any) => String(x.id)));
+      for (const p of proc) {
+        const isNew = !storeIds.has(String(p.id));
+        if (isNew) {
+          await processStore.add({ step: p.step, title: p.title || p.label || '', description: p.description, icon: p.icon, label: p.label, sort_order: p.sort_order });
+        } else {
+          await processStore.update(p.id, { step: p.step, title: p.title || p.label || '', description: p.description, icon: p.icon, label: p.label, sort_order: p.sort_order });
+        }
+      }
+      toast.success('Process saved');
+    } catch (err: any) {
+      toast.error(err?.response?.data?.message ?? err?.message ?? 'Failed to save process steps');
+    }
+  }
   const saveResults = () => { resultStore.set(results); toast.success('Results saved') }
   const reset = () => { if(confirm('Reset ALL content to factory defaults? This cannot be undone.')) { resetToDefaults(); toast.success('Reset complete'); window.location.reload() } }
 
@@ -372,17 +388,17 @@ export default function AdminSettings() {
           <div className="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
             <div className="space-y-3 mb-4">
               {proc.map((p,i)=>(
-                <div key={p.id} className="grid grid-cols-4 gap-3 items-center">
-                  <Field placeholder="01"    value={p.step}        onChange={(e:any)=>setProc(s=>s.map((x,j)=>j===i?{...x,step:e.target.value}:x))}/>
-                  <Field placeholder="Label" value={p.label}       onChange={(e:any)=>setProc(s=>s.map((x,j)=>j===i?{...x,label:e.target.value}:x))}/>
-                  <div className="col-span-2 flex gap-2">
-                    <Field placeholder="Description" value={p.description} onChange={(e:any)=>setProc(s=>s.map((x,j)=>j===i?{...x,description:e.target.value}:x))} className="flex-1"/>
-                    <button onClick={()=>{ processStore.remove(p.id); setProc(s=>s.filter((_,j)=>j!==i)) }} className="text-red-400 hover:text-red-600 p-1.5"><Trash2 size={14}/></button>
+                <div key={p.id} className="grid grid-cols-4 gap-3 items-start">
+                  <Field label="Step" placeholder="01" value={p.step} onChange={(e:any)=>setProc(s=>s.map((x,j)=>j===i?{...x,step:e.target.value}:x))}/>
+                  <Field label="Label (short)" placeholder="e.g. Planning" value={p.label} onChange={(e:any)=>setProc(s=>s.map((x,j)=>j===i?{...x,label:e.target.value}:x))}/>
+                  <div className="col-span-2 flex gap-2 items-start">
+                    <Field label="Description" placeholder="What happens in this step…" value={p.description} onChange={(e:any)=>setProc(s=>s.map((x,j)=>j===i?{...x,description:e.target.value}:x))} className="flex-1"/>
+                    <button onClick={()=>{ processStore.remove(p.id); setProc(s=>s.filter((_,j)=>j!==i)) }} className="text-red-400 hover:text-red-600 p-1.5 mt-6"><Trash2 size={14}/></button>
                   </div>
                 </div>
               ))}
             </div>
-            <Btn onClick={()=>{ const n:any={id:Date.now().toString(),step:`0${proc.length+1}`,label:'',description:''}; processStore.add(n); setProc((s:any[])=>[...s,n]) }} className="text-[12px] px-3 py-1.5 flex items-center gap-1"><Plus size={12}/>Add Step</Btn>
+            <Btn onClick={()=>{ const n:any={id:Date.now().toString(),step:`0${proc.length+1}`,label:'',description:''}; setProc((s:any[])=>[...s,n]) }} className="text-[12px] px-3 py-1.5 flex items-center gap-1"><Plus size={12}/>Add Step</Btn>
           </div>
           <Btn onClick={saveProc} className="flex items-center gap-2"><Save size={14}/>Save Process</Btn>
         </div>

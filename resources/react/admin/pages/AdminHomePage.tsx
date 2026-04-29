@@ -47,8 +47,52 @@ function StringListEditor({ label, value, onChange }: { label:string; value:stri
   )
 }
 
+// ─── Object List Editor (for market insight cols / why billboard items) ────────
+function ObjListEditor({ label, value, fields, onChange }: {
+  label: string;
+  value: any[];
+  fields: Array<{ key: string; placeholder: string; multiline?: boolean }>;
+  onChange: (v: any[]) => void;
+}) {
+  function update(i: number, k: string, v: string) { const a = [...value]; a[i] = { ...a[i], [k]: v }; onChange(a); }
+  function add()    { onChange([...value, {}]); }
+  function remove(i: number) { onChange(value.filter((_, j) => j !== i)); }
+
+  return (
+    <div>
+      <label className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block mb-2">{label}</label>
+      <div className="space-y-3">
+        {value.map((item, i) => (
+          <div key={i} className="border border-gray-200 rounded-xl p-3 space-y-2 bg-gray-50/50">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-bold text-gray-400 uppercase">Item {i + 1}</span>
+              <button type="button" onClick={() => remove(i)} className="text-[11px] text-red-400 hover:text-red-600 px-2 font-bold">✕ Remove</button>
+            </div>
+            {fields.map(f => (
+              f.multiline ? (
+                <textarea key={f.key} value={item[f.key] || ''} onChange={e => update(i, f.key, e.target.value)}
+                  placeholder={f.placeholder}
+                  className="w-full px-3 py-2 rounded-xl border border-gray-200 text-sm outline-none focus:border-gray-400 resize-none"
+                  rows={3}/>
+              ) : (
+                <input key={f.key} value={item[f.key] || ''} onChange={e => update(i, f.key, e.target.value)}
+                  placeholder={f.placeholder}
+                  className="w-full h-9 px-3 rounded-xl border border-gray-200 text-sm outline-none focus:border-gray-400"/>
+              )
+            ))}
+          </div>
+        ))}
+      </div>
+      <button type="button" onClick={add}
+        className="mt-2 text-[11px] font-semibold text-gray-400 hover:text-gray-700 flex items-center gap-1 transition-colors">
+        + Add item
+      </button>
+    </div>
+  );
+}
+
 // ─── Tabs ─────────────────────────────────────────────────────────────────────
-const TABS = ['Hero', 'Statement', 'Feature', 'Signature', 'Final CTA'] as const
+const TABS = ['Hero', 'Statement', 'Feature', 'Signature', 'Final CTA', 'Market Insights', 'Why Billboard'] as const
 type Tab = typeof TABS[number]
 
 export default function AdminHomePage() {
@@ -244,6 +288,80 @@ export default function AdminHomePage() {
               <Field label="Arabic Primary Button (زر رئيسي)" value={(h as any).finalCtaPrimaryTextAr||''} onChange={(e:any)=>set('finalCtaPrimaryTextAr',e.target.value)} dir="rtl"/>
               <Field label="Arabic Secondary Button (زر ثانوي)" value={(h as any).finalCtaSecondaryTextAr||''} onChange={(e:any)=>set('finalCtaSecondaryTextAr',e.target.value)} dir="rtl"/>
             </div>
+          </SectionCard>
+        </>)}
+
+        {/* ── MARKET INSIGHTS ─────────────────────────────────────── */}
+        {tab === 'Market Insights' && (<>
+          <SectionCard title="Market Insights Section — Eyebrow & Title">
+            <Field label="Eyebrow (small tag, e.g. 'Market Insights')" value={h.marketInsightEyebrow || ''} onChange={(e:any)=>set('marketInsightEyebrow',e.target.value)} placeholder="Market Insights"/>
+            <Field label="Main Title" value={h.marketInsightTitle || ''} onChange={(e:any)=>set('marketInsightTitle',e.target.value)} placeholder="Why Outdoor Advertising Works in Egypt"/>
+            {/* ── Arabic ── */}
+            <div className="pt-2 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{color:'#D90429'}}>🌐 Arabic — اللغة العربية</span><div className="flex-1 h-px bg-red-100"/></div>
+            <Field label="Arabic Eyebrow (الشعار الصغير)" value={h.marketInsightEyebrowAr || ''} onChange={(e:any)=>set('marketInsightEyebrowAr',e.target.value)} dir="rtl" placeholder="رؤى السوق"/>
+            <Field label="Arabic Title (العنوان الرئيسي)" value={h.marketInsightTitleAr || ''} onChange={(e:any)=>set('marketInsightTitleAr',e.target.value)} dir="rtl" placeholder="لماذا ينجح الإعلان الخارجي في مصر؟"/>
+          </SectionCard>
+          <SectionCard title="Market Insights — 3 Columns (English)">
+            <div className="p-3 rounded-lg bg-gray-50 text-[11px] text-gray-400 mb-2">💡 Leave empty to use built-in default text. Each item has a Title and a Body paragraph.</div>
+            <ObjListEditor
+              label="Insight Columns"
+              value={h.marketInsightCols || []}
+              fields={[
+                { key: 'title', placeholder: 'Column title, e.g. Egypt\'s Fastest-Growing OOH Market' },
+                { key: 'body',  placeholder: 'Column body paragraph…', multiline: true },
+              ]}
+              onChange={v=>set('marketInsightCols',v)}
+            />
+          </SectionCard>
+          <SectionCard title="Market Insights — 3 Columns (Arabic)">
+            <div className="p-3 rounded-lg bg-red-50 text-[11px] text-gray-500 mb-2">💡 Leave empty to fall back to English content in Arabic mode.</div>
+            <ObjListEditor
+              label="Insight Columns (AR)"
+              value={h.marketInsightColsAr || []}
+              fields={[
+                { key: 'title', placeholder: 'عنوان العمود بالعربية' },
+                { key: 'body',  placeholder: 'نص العمود بالعربية…', multiline: true },
+              ]}
+              onChange={v=>set('marketInsightColsAr',v)}
+            />
+          </SectionCard>
+        </>)}
+
+        {/* ── WHY BILLBOARD ────────────────────────────────────────── */}
+        {tab === 'Why Billboard' && (<>
+          <SectionCard title="Why Billboard Section — Eyebrow & Title">
+            <Field label="Eyebrow (small tag, e.g. 'Why Billboard')" value={h.whyBillboardEyebrow || ''} onChange={(e:any)=>set('whyBillboardEyebrow',e.target.value)} placeholder="Why Billboard"/>
+            <Field label="Main Title" value={h.whyBillboardTitle || ''} onChange={(e:any)=>set('whyBillboardTitle',e.target.value)} placeholder="Benefits of Billboard Advertising in Egypt"/>
+            {/* ── Arabic ── */}
+            <div className="pt-2 flex items-center gap-3"><span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{color:'#D90429'}}>🌐 Arabic — اللغة العربية</span><div className="flex-1 h-px bg-red-100"/></div>
+            <Field label="Arabic Eyebrow (الشعار الصغير)" value={h.whyBillboardEyebrowAr || ''} onChange={(e:any)=>set('whyBillboardEyebrowAr',e.target.value)} dir="rtl" placeholder="لماذا اللوحات الإعلانية"/>
+            <Field label="Arabic Title (العنوان الرئيسي)" value={h.whyBillboardTitleAr || ''} onChange={(e:any)=>set('whyBillboardTitleAr',e.target.value)} dir="rtl" placeholder="فوائد الإعلانات الخارجية في مصر"/>
+          </SectionCard>
+          <SectionCard title="Why Billboard — 4 Benefit Cards (English)">
+            <div className="p-3 rounded-lg bg-gray-50 text-[11px] text-gray-400 mb-2">💡 Leave empty to use built-in default benefits. Each card has an optional Number (e.g. 01), a Title and a Body.</div>
+            <ObjListEditor
+              label="Benefit Cards"
+              value={h.whyBillboardItems || []}
+              fields={[
+                { key: 'num',   placeholder: 'Number, e.g. 01 (optional)' },
+                { key: 'title', placeholder: 'Benefit title, e.g. 24/7 Visibility' },
+                { key: 'body',  placeholder: 'Benefit description…', multiline: true },
+              ]}
+              onChange={v=>set('whyBillboardItems',v)}
+            />
+          </SectionCard>
+          <SectionCard title="Why Billboard — 4 Benefit Cards (Arabic)">
+            <div className="p-3 rounded-lg bg-red-50 text-[11px] text-gray-500 mb-2">💡 Leave empty to fall back to English content in Arabic mode.</div>
+            <ObjListEditor
+              label="Benefit Cards (AR)"
+              value={h.whyBillboardItemsAr || []}
+              fields={[
+                { key: 'num',   placeholder: 'رقم، مثال: 01 (اختياري)' },
+                { key: 'title', placeholder: 'عنوان الميزة بالعربية' },
+                { key: 'body',  placeholder: 'وصف الميزة بالعربية…', multiline: true },
+              ]}
+              onChange={v=>set('whyBillboardItemsAr',v)}
+            />
           </SectionCard>
         </>)}
 
