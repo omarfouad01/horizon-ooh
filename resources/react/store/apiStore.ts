@@ -216,6 +216,15 @@ function normProduct(p: any, idx: number): any {
     location: fullAddress,
     full_address: fullAddress,
     spot: fullAddress,
+    // District ID mapping (API returns district_id)
+    districtId: p.districtId ?? p.district_id ?? '',
+    // Traffic & audience fields
+    traffic: p.traffic ?? '',
+    visibility: p.visibility ?? '',
+    // Safety arrays for Product page — API may not return these
+    benefits: safeArr(p.benefits),
+    specs: safeArr(p.specs),
+    relatedSlugs: safeArr(p.relatedSlugs ?? p.related_slugs),
     // Primary image URL for card display
     image: imageUrl,
     lat: !isNaN(lat as number) ? lat : undefined,
