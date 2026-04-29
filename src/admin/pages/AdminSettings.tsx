@@ -176,15 +176,30 @@ export default function AdminSettings() {
       const storeIds = new Set(s.processSteps.map((x: any) => String(x.id)));
       for (const p of proc) {
         const isNew = !storeIds.has(String(p.id));
+        // Parse step and sort_order to integers — backend requires integer, not string like "01"
+        const stepInt = p.step !== undefined && p.step !== '' ? parseInt(String(p.step), 10) : null;
+        const sortInt = p.sort_order !== undefined && p.sort_order !== '' ? parseInt(String(p.sort_order), 10) : null;
+        const payload = {
+          step:        isNaN(stepInt as number) ? null : stepInt,
+          title:       p.title || p.label || '',
+          description: p.description || '',
+          icon:        p.icon || '',
+          label:       p.label || '',
+          sort_order:  isNaN(sortInt as number) ? null : sortInt,
+        };
         if (isNew) {
-          await processStore.add({ step: p.step, title: p.title || p.label || '', description: p.description, icon: p.icon, label: p.label, sort_order: p.sort_order });
+          await processStore.add(payload);
         } else {
-          await processStore.update(p.id, { step: p.step, title: p.title || p.label || '', description: p.description, icon: p.icon, label: p.label, sort_order: p.sort_order });
+          await processStore.update(p.id, payload);
         }
       }
-      toast.success('Process saved');
+      toast.success('Process steps saved!');
     } catch (err: any) {
-      toast.error(err?.response?.data?.message ?? err?.message ?? 'Failed to save process steps');
+      const msg = err?.response?.data?.message
+        ?? (err?.response?.data?.errors ? Object.values(err.response.data.errors).flat().join(', ') : null)
+        ?? err?.message
+        ?? 'Failed to save process steps';
+      toast.error(msg);
     }
   }
   const saveResults = () => { resultStore.set(results); toast.success('Results saved') }
@@ -398,7 +413,7 @@ export default function AdminSettings() {
                 </div>
               ))}
             </div>
-            <Btn onClick={()=>{ const n:any={id:Date.now().toString(),step:`0${proc.length+1}`,label:'',description:''}; setProc((s:any[])=>[...s,n]) }} className="text-[12px] px-3 py-1.5 flex items-center gap-1"><Plus size={12}/>Add Step</Btn>
+            <Btn onClick={()=>{ const n:any={id:Date.now().toString(),step:proc.length+1,label:'',description:'',sort_order:proc.length}; setProc((s:any[])=>[...s,n]) }} className="text-[12px] px-3 py-1.5 flex items-center gap-1"><Plus size={12}/>Add Step</Btn>
           </div>
           <Btn onClick={saveProc} className="flex items-center gap-2"><Save size={14}/>Save Process</Btn>
         </div>
