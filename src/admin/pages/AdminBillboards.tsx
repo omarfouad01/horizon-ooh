@@ -266,8 +266,18 @@ function BillboardForm({ editing, onClose }: any) {
 
   const [f, setF] = useState<any>(() => {
     const ed = editing || {}
-    // Map legacy `name` field to `nameEn` so the form pre-fills correctly
-    return { ...empty, ...ed, nameEn: (ed as any).nameEn || (ed as any).name || '' }
+    // Map API field names → form field names so edit form pre-fills correctly
+    return {
+      ...empty,
+      ...ed,
+      nameEn:       ed.nameEn       || ed.title       || ed.name        || '',
+      nameAr:       ed.nameAr       || ed.name_ar     || '',
+      adFormat:     ed.adFormat     || ed.format      || ed.type        || 'Billboard',
+      descriptionEn: ed.descriptionEn || ed.description || '',
+      descriptionAr: ed.descriptionAr || ed.description_ar || '',
+      full_address:  ed.full_address  || ed.location   || ed.spot || '',
+      districtId:   ed.districtId    || ed.district_id || '',
+    }
   })
   const set = (k: string, v: any) => setF((p: any) => {
     const next = { ...p, [k]: v }
@@ -596,7 +606,8 @@ export default function AdminBillboards() {
 
   const filtered = allBillboards.filter(b => {
     if (govFilter    && b._locId   !== govFilter)   return false
-    if (fmtFilter    && b.adFormat !== fmtFilter)    return false
+    // adFormat may come as `format` from API; both are normalized in normProduct but check all
+    if (fmtFilter    && (b.adFormat || b.format || b.type) !== fmtFilter)    return false
     if (statusFilter && b.status   !== statusFilter) return false
     if (codeSearch) {
       const q = codeSearch.toLowerCase()
@@ -607,10 +618,16 @@ export default function AdminBillboards() {
     return true
   })
 
-  const deleteBb = (bb: any) => {
+  const deleteBb = async (bb: any) => {
     const loc = locations.find((l: any) => l.id === bb._locId)
-    if (loc) locationStore.update(loc.id, { products: ((loc as any).products || []).filter((p: any) => p.id !== bb.id) })
-    toast.success('Deleted')
+    try {
+      await billboardsApi.remove(bb.id)
+      if (loc) locationStore.update(loc.id, { products: ((loc as any).products || []).filter((p: any) => p.id !== bb.id) })
+      toast.success('Billboard deleted')
+    } catch (err: any) {
+      const msg = err?.response?.data?.message || err?.message || 'Delete failed'
+      toast.error(msg)
+    }
     setDel(null)
   }
 

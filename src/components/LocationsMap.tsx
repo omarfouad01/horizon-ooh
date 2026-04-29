@@ -77,7 +77,11 @@ export default function LocationsMap({
     // Add new markers
     billboards.forEach(b => {
       if (markersRef.current.has(b.id)) return;
-      const marker = L.marker([b.lat, b.lng], { icon: makePin("default") }).addTo(map);
+      // Skip billboards with invalid coordinates to prevent crashes
+      const lat = typeof b.lat === 'number' ? b.lat : parseFloat(b.lat as any);
+      const lng = typeof b.lng === 'number' ? b.lng : parseFloat(b.lng as any);
+      if (isNaN(lat) || isNaN(lng) || lat === 0 || lng === 0) return;
+      const marker = L.marker([lat, lng], { icon: makePin("default") }).addTo(map);
 
       marker.on("mouseover", () => onHover(b.id));
       marker.on("mouseout",  () => onHover(null));
@@ -91,7 +95,7 @@ export default function LocationsMap({
           <p style="font-size:10px;color:rgba(11,15,26,.4);margin:0 0 8px">${b.district}, ${b.city}</p>
           <div style="display:flex;gap:12px">
             <div><p style="font-size:7px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(11,15,26,.3);margin:0 0 1px">Traffic</p>
-              <p style="font-size:11px;font-weight:700;color:${NAVY};margin:0">${b.traffic.split(" ").slice(0,2).join(" ")}</p></div>
+              <p style="font-size:11px;font-weight:700;color:${NAVY};margin:0">${(b.traffic || '').split(" ").slice(0,2).join(" ") || '—'}</p></div>
             <div><p style="font-size:7px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(11,15,26,.3);margin:0 0 1px">Size</p>
               <p style="font-size:11px;font-weight:700;color:${NAVY};margin:0">${b.size}</p></div>
           </div>
@@ -107,7 +111,13 @@ export default function LocationsMap({
 
     // Fit bounds
     if (billboards.length > 0) {
-      const bounds = L.latLngBounds(billboards.map(b => [b.lat, b.lng] as [number, number]));
+      const validBillboards = billboards.filter(b => {
+        const la = typeof b.lat === 'number' ? b.lat : parseFloat(b.lat as any);
+        const lo = typeof b.lng === 'number' ? b.lng : parseFloat(b.lng as any);
+        return !isNaN(la) && !isNaN(lo) && (la !== 0 || lo !== 0);
+      });
+      if (validBillboards.length === 0) return;
+      const bounds = L.latLngBounds(validBillboards.map(b => [b.lat as number, b.lng as number] as [number, number]));
       map.fitBounds(bounds, { padding: [48, 48], maxZoom: 14, animate: true });
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -126,7 +136,11 @@ export default function LocationsMap({
   useEffect(() => {
     if (!selectedId || !mapRef.current) return;
     const b = billboards.find(x => x.id === selectedId);
-    if (b) mapRef.current.panTo([b.lat, b.lng], { animate: true, duration: 0.5 });
+    if (b) {
+      const la = typeof b.lat === 'number' ? b.lat : parseFloat(b.lat as any);
+      const lo = typeof b.lng === 'number' ? b.lng : parseFloat(b.lng as any);
+      if (!isNaN(la) && !isNaN(lo)) mapRef.current.panTo([la, lo], { animate: true, duration: 0.5 });
+    }
   }, [selectedId, billboards]);
 
   return (

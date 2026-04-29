@@ -191,9 +191,33 @@ function normProduct(p: any, idx: number): any {
   const lat = p.lat !== undefined && p.lat !== null ? parseFloat(p.lat) : undefined;
   const lng = p.lng !== undefined && p.lng !== null ? parseFloat(p.lng) : undefined;
   const safeImages = safeArr(p.images);
+  // Extract primary image URL for easy display
+  const primaryImg = safeImages.find((img: any) => img?.is_primary) ?? safeImages[0];
+  const imageUrl = typeof primaryImg === 'string' ? primaryImg : (primaryImg?.url ?? '');
+  // Normalize API field names → frontend field names
+  const nameEn = p.nameEn ?? p.title ?? p.name ?? '';
+  const adFormat = p.adFormat ?? p.format ?? p.type ?? '';
+  const fullAddress = p.full_address ?? p.location ?? p.spot ?? '';
   return {
     ...p,
-    slug, id: p.id ?? slug, title: p.title ?? p.name ?? '',
+    slug, id: p.id ?? slug,
+    title: nameEn,
+    name: nameEn,
+    nameEn,
+    // Keep nameAr from API
+    nameAr: p.nameAr ?? p.name_ar ?? '',
+    descriptionEn: p.descriptionEn ?? p.description ?? '',
+    descriptionAr: p.descriptionAr ?? p.description_ar ?? '',
+    // adFormat / type: API returns `format`, frontend uses `adFormat` and `type`
+    adFormat,
+    type: adFormat,
+    format: adFormat,
+    // Address / location
+    location: fullAddress,
+    full_address: fullAddress,
+    spot: fullAddress,
+    // Primary image URL for card display
+    image: imageUrl,
     lat: !isNaN(lat as number) ? lat : undefined,
     lng: !isNaN(lng as number) ? lng : undefined,
     images: safeImages,
