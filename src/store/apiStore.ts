@@ -250,8 +250,30 @@ function normBlogPost(p: any, i: number): any {
 }
 function normService(s: any, i: number): any {
   if (!s) return null;
-  const slug = s.slug ?? toSlug(s.shortTitle ?? s.short_title ?? s.name ?? `service-${i+1}`);
-  return { ...s, slug, id: s.id ?? slug, name: s.name ?? '', benefits: safeArr(s.benefits) };
+  const slug       = s.slug ?? toSlug(s.shortTitle ?? s.short_title ?? s.name ?? `service-${i+1}`);
+  // Map API snake_case / name field to what ServiceDetail.tsx expects
+  const title      = s.title      ?? s.name      ?? '';
+  const shortTitle = s.shortTitle ?? s.short_title ?? title;
+  const tagline    = s.tagline    ?? '';
+  const longDescription = s.longDescription ?? s.long_description ?? s.description ?? '';
+  const whatIs     = s.whatIs     ?? s.what_is    ?? '';
+  const whereUsed  = s.whereUsed  ?? s.where_used  ?? '';
+  return {
+    ...s,
+    slug,
+    id:              s.id ?? slug,
+    name:            title,          // keep `name` for backwards compat
+    title,                            // used by ServiceDetail SEO
+    shortTitle,                       // used by ServiceDetail component
+    tagline,
+    longDescription,
+    whatIs,
+    whereUsed,
+    benefits:        safeArr(s.benefits),
+    process:         safeArr(s.process),
+    features:        safeArr(s.features),
+    stats:           safeArr(s.stats),
+  };
 }
 function normTemplate(t: any): SimulatorTemplate {
   if (!t) return { id: '', typeName: '', sizeLabel: '' };

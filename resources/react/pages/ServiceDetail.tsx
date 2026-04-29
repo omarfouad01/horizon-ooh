@@ -27,7 +27,7 @@ export default function ServiceDetail() {
       <SEO
         title={`${service.title} in Egypt | HORIZON OOH`}
         description={service.longDescription.substring(0, 160)}
-        keywords={`${service.title.toLowerCase()} Egypt, outdoor advertising Egypt, OOH advertising Egypt, ${service.shortTitle.toLowerCase()} Cairo`}
+        keywords={`${(service.title ?? '').toLowerCase()} Egypt, outdoor advertising Egypt, OOH advertising Egypt, ${(service.shortTitle ?? '').toLowerCase()} Cairo`}
       />
       {/* Breadcrumb */}
       <div className="bg-white pt-4">
