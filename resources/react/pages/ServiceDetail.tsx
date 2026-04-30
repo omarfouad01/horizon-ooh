@@ -167,34 +167,40 @@ export default function ServiceDetail() {
         </div>
       </section>
 
-      {/* Why Choose HORIZON OOH */}
-      <section style={{ background: "#fff", paddingTop: 100, paddingBottom: 100 }}>
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
-          <Reveal>
-            <h2 className="font-black text-[clamp(28px,3.5vw,44px)] tracking-[-0.03em] mb-12" style={{ color: NAVY }}>
-              Why Choose HORIZON OOH for {service.shortTitle} Advertising?
-            </h2>
-          </Reveal>
-          <RevealGroup className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <RevealItem>
-              <p className="text-[15px] leading-[1.8]" style={{ color: "rgba(11,15,26,0.6)" }}>
-                HORIZON OOH operates Egypt's largest outdoor advertising network, with 9,500+ premium locations spanning Cairo, Alexandria, and every major Egyptian city. Explore our <Link to="/services" className="underline" style={{ color: RED }}>full range of services</Link> to discover the right format for your campaign objectives.
-              </p>
-            </RevealItem>
-            <RevealItem>
-              <p className="text-[15px] leading-[1.8]" style={{ color: "rgba(11,15,26,0.6)" }}>
-                Our award-winning creative and planning teams have delivered over 500 successful outdoor advertising campaigns in Egypt for brands including Vodafone, CIB Bank, Toyota, Nestlé, and Samsung. View our <Link to="/projects" className="underline" style={{ color: RED }}>case studies and projects</Link> to see the results we deliver.
-              </p>
-            </RevealItem>
-            <RevealItem>
-              <p className="text-[15px] leading-[1.8]" style={{ color: "rgba(11,15,26,0.6)" }}>
-                From site selection and creative production to campaign monitoring and post-campaign reporting, HORIZON OOH is your end-to-end outdoor advertising partner in Egypt. <Link to="/contact" className="underline" style={{ color: RED }}>Contact our team</Link> to receive a tailored media plan and quotation.
-              </p>
-            </RevealItem>
-          </RevealGroup>
-
-        </div>
-      </section>
+      {/* Why Choose HORIZON OOH — controlled from dashboard */}
+      {(() => {
+        const whyCols: { title?: string; text?: string }[] = (service as any).whyChoose ?? [];
+        // Only render section if at least one column has text
+        const hasContent = whyCols.some(c => c?.text?.trim());
+        if (!hasContent) return null;
+        return (
+          <section style={{ background: '#fff', paddingTop: 100, paddingBottom: 100 }}>
+            <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
+              <Reveal>
+                <h2 className="font-black text-[clamp(28px,3.5vw,44px)] tracking-[-0.03em] mb-12" style={{ color: NAVY }}>
+                  Why Choose HORIZON OOH for {service.shortTitle} Advertising?
+                </h2>
+              </Reveal>
+              <RevealGroup className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                {whyCols.map((col, i) =>
+                  col?.text?.trim() ? (
+                    <RevealItem key={i}>
+                      {col.title && (
+                        <h3 className="font-extrabold text-[16px] mb-3 tracking-[-0.01em]" style={{ color: NAVY }}>
+                          {col.title}
+                        </h3>
+                      )}
+                      <p className="text-[15px] leading-[1.8]" style={{ color: 'rgba(11,15,26,0.6)' }}>
+                        {col.text}
+                      </p>
+                    </RevealItem>
+                  ) : null
+                )}
+              </RevealGroup>
+            </div>
+          </section>
+        );
+      })()}
 
       {/* Other services */}
       <section style={{ background: "#F5F5F6", paddingTop: 80, paddingBottom: 80 }}>

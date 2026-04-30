@@ -269,13 +269,15 @@ function normService(s: any, i: number): any {
   const longDescription = s.longDescription ?? s.long_description ?? s.description ?? '';
   const whatIs     = s.whatIs     ?? s.what_is    ?? '';
   const whereUsed  = s.whereUsed  ?? s.where_used  ?? '';
+  // whyChoose: array of {title,text} objects (3 columns in ServiceDetail)
+  const whyChoose  = safeArr(s.whyChoose ?? s.why_choose);
   return {
     ...s,
     slug,
     id:              s.id ?? slug,
-    name:            title,          // keep `name` for backwards compat
-    title,                            // used by ServiceDetail SEO
-    shortTitle,                       // used by ServiceDetail component
+    name:            title,
+    title,
+    shortTitle,
     tagline,
     longDescription,
     whatIs,
@@ -284,6 +286,7 @@ function normService(s: any, i: number): any {
     process:         safeArr(s.process),
     features:        safeArr(s.features),
     stats:           safeArr(s.stats),
+    whyChoose,
   };
 }
 function normTemplate(t: any): SimulatorTemplate {

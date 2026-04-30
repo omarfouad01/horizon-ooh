@@ -29,7 +29,9 @@ class ServiceController extends Controller
             'imageAlt'          => $s->image_alt,
             'features'          => $s->features ?? [],
             'benefits'          => $s->benefits ?? [],
+            'process'           => $s->process ?? [],
             'stats'             => $s->stats ?? [],
+            'whyChoose'         => $s->why_choose ?? [],
             'sort_order'        => $s->sort_order,
             'titleAr'           => $s->title_ar,
             'descriptionAr'     => $s->description_ar,
@@ -113,7 +115,12 @@ class ServiceController extends Controller
             'imageAlt'           => 'nullable|string',
             'features'           => 'nullable|array',
             'benefits'           => 'nullable|array',
+            'process'            => 'nullable|array',
             'stats'              => 'nullable|array',
+            'why_choose'         => 'nullable|array',
+            'whyChoose'          => 'nullable|array',
+            'whyChoose.*.title'  => 'nullable|string',
+            'whyChoose.*.text'   => 'nullable|string',
             'sort_order'         => 'nullable|integer',
             'title_ar'           => 'nullable|string',
             'titleAr'            => 'nullable|string',
@@ -155,6 +162,7 @@ class ServiceController extends Controller
             'titleAr'           => 'title_ar',
             'descriptionAr'     => 'description_ar',
             'longDescriptionAr' => 'long_description_ar',
+            'whyChoose'         => 'why_choose',
         ];
         foreach ($map as $camel => $snake) {
             if (array_key_exists($camel, $d)) {
