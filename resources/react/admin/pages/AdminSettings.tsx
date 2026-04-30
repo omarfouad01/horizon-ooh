@@ -162,7 +162,14 @@ export default function AdminSettings() {
   const [tab,      setTab]      = useState<Tab>('general')
   const [settings, setSettings] = useState({ ...s.settings })
   const [stats,    setStats]    = useState([...s.trustStats])
-  const [proc,     setProc]     = useState([...s.process])
+  // Use processSteps (the canonical API-loaded array) with label fallback
+  const [proc,     setProc]     = useState(
+    (s.processSteps?.length ? s.processSteps : s.process).map((p: any, i: number) => ({
+      ...p,
+      label:      p.label ?? p.title ?? '',
+      sort_order: p.sort_order ?? i,
+    }))
+  )
   const [results,  setResults]  = useState([...s.results])
   const [projContent, setProjContent] = useState({ ...s.projectsContent })
 
@@ -172,21 +179,28 @@ export default function AdminSettings() {
   const saveStats   = () => { stats.forEach(st => trustStatStore.update(st.id, st)); toast.success('Stats saved') }
   const saveProc = async () => {
     try {
-      // Identify which steps exist in the store (real DB ids vs local temp ids)
-      const storeIds = new Set(s.processSteps.map((x: any) => String(x.id)));
-      for (const p of proc) {
-        const isNew = !storeIds.has(String(p.id));
-        // Parse step and sort_order to integers — backend requires integer, not string like "01"
-        const stepInt = p.step !== undefined && p.step !== '' ? parseInt(String(p.step), 10) : null;
-        const sortInt = p.sort_order !== undefined && p.sort_order !== '' ? parseInt(String(p.sort_order), 10) : null;
+      // Use numeric IDs (< 1e10) as "existing in DB" — temp Date.now() IDs are very large
+      const isDbId = (id: any) => {
+        const n = Number(id);
+        return !isNaN(n) && n > 0 && n < 1_000_000_000;
+      };
+
+      for (let i = 0; i < proc.length; i++) {
+        const p = proc[i];
+        const isNew = !isDbId(p.id);
+
+        // Always send valid integers — never null (DB columns are NOT NULL)
+        const stepVal = parseInt(String(p.step), 10);
+        const sortVal = parseInt(String(p.sort_order ?? i), 10);
         const payload = {
-          step:        isNaN(stepInt as number) ? null : stepInt,
-          title:       p.title || p.label || '',
-          description: p.description || '',
-          icon:        p.icon || '',
-          label:       p.label || '',
-          sort_order:  isNaN(sortInt as number) ? null : sortInt,
+          step:        isNaN(stepVal) ? (i + 1) : stepVal,
+          title:       (p.title || p.label || '').trim() || `Step ${i + 1}`,
+          description: (p.description || '').trim(),
+          icon:        (p.icon || '').trim(),
+          label:       (p.label || p.title || '').trim(),
+          sort_order:  isNaN(sortVal) ? i : sortVal,
         };
+
         if (isNew) {
           await processStore.add(payload);
         } else {
@@ -194,6 +208,8 @@ export default function AdminSettings() {
         }
       }
       toast.success('Process steps saved!');
+      // Reload store so cards immediately reflect new data
+      setTimeout(() => { window.location.reload(); }, 800);
     } catch (err: any) {
       const msg = err?.response?.data?.message
         ?? (err?.response?.data?.errors ? Object.values(err.response.data.errors).flat().join(', ') : null)

@@ -399,7 +399,15 @@ export const useApiStore = create<ApiState>((set, get) => ({
     const normBlog   = blogRaw.map((p: any, i: number) => normBlogPost(p, i)).filter(Boolean);
     const normFmts   = fmtsRaw.map((f: any) => ({ ...f, label: f.label ?? f.name }));
     const normBrands = brandsRaw.map((b: any) => ({ ...b, logoUrl: b.logoUrl ?? b.logo }));
-    const normSteps  = stepsRaw.map((p: any, i: number) => ({ id:String(p.id??i+1), step:p.step??(i+1), title:p.title??'', description:p.description??p.desc??'', icon:p.icon??'' }));
+    const normSteps  = stepsRaw.map((p: any, i: number) => ({
+      id:          String(p.id ?? i + 1),
+      step:        p.step ?? (i + 1),
+      title:       p.title ?? p.label ?? '',
+      label:       p.label ?? p.title ?? '',
+      description: p.description ?? p.desc ?? '',
+      icon:        p.icon ?? '',
+      sort_order:  p.sort_order ?? i,
+    }));
     const normTpls   = tplsRaw.map((t: any) => normTemplate(t));
 
     // Districts: prefer API data, fallback to deriving from locations
