@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { IconPicker, ServiceIcon } from '@/components/IconPicker'
 import { useStore, serviceStore } from '@/store/dataStore'
 import { Btn, PageHeader, Tbl, Th, Td, Tr, Badge, Confirm, Modal, Field, TA, ArrayEditor, ImagePicker } from '../ui'
 import { Plus, Pencil, Trash2 } from 'lucide-react'
@@ -94,8 +95,8 @@ function ServiceForm({ editing, onClose }: any) {
       </div>
       <div className="grid grid-cols-2 gap-3">
         <Field label="Tagline *" value={f.tagline} onChange={(e: any) => set('tagline', e.target.value)} required />
-        <Field label="Icon (2 chars)" value={f.icon} onChange={(e: any) => set('icon', e.target.value)} placeholder="BB" />
       </div>
+      <IconPicker value={f.icon || ''} onChange={(v) => set('icon', v)} />
       <TA label="Short Description *" value={f.description}    onChange={(e: any) => set('description', e.target.value)}    rows={2} required />
       <TA label="Long Description *"  value={f.longDescription} onChange={(e: any) => set('longDescription', e.target.value)} rows={3} required />
       <TA label="What Is It *"        value={f.whatIs}         onChange={(e: any) => set('whatIs', e.target.value)}          rows={3} required />
@@ -146,6 +147,7 @@ export default function AdminServices() {
       <Tbl>
         <thead>
           <tr>
+            <Th className="w-12">Icon</Th>
             <Th>Title</Th>
             <Th>Tagline</Th>
             <Th>Description</Th>
@@ -155,10 +157,16 @@ export default function AdminServices() {
         </thead>
         <tbody>
           {services.length === 0 && (
-            <tr><Td colSpan={5} className="text-center py-10 text-xs text-gray-400">No services yet</Td></tr>
+            <tr><Td colSpan={6} className="text-center py-10 text-xs text-gray-400">No services yet</Td></tr>
           )}
           {services.map(s => (
             <Tr key={s.id}>
+              <Td className="w-12">
+                {(s as any).icon
+                  ? <span className="w-9 h-9 flex items-center justify-center rounded-xl bg-gray-50 border border-gray-100"><ServiceIcon icon={(s as any).icon} size={20} color="#0B0F1A" /></span>
+                  : <span className="w-9 h-9 flex items-center justify-center rounded-xl bg-gray-50 border border-dashed border-gray-200 text-gray-300 text-[10px] font-bold">–</span>
+                }
+              </Td>
               <Td>
                 <div className="font-semibold">{s.title}</div>
                 <div className="text-xs text-gray-400">{s.shortTitle}</div>

@@ -3,6 +3,7 @@ import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, PageHero, CTABanner, Eyebrow } from "@/components/UI";
 import { serviceHref, RED, NAVY } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
+import { ServiceIcon } from "@/components/IconPicker";
 
 export default function Services() {
   const { services: SERVICES } = useStore()
@@ -28,12 +29,26 @@ export default function Services() {
                   className="group bg-white hover:bg-[#0B0F1A] transition-colors duration-500 flex flex-col h-full"
                   style={{ padding: "48px 40px 44px", textDecoration: "none" }}
                 >
-                  {/* Number */}
-                  <span
-                    className="font-black text-[11px] tracking-[0.25em] uppercase mb-10 text-[rgba(11,15,26,0.15)] group-hover:text-white/15 transition-colors duration-500"
-                  >
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
+                  {/* Icon or Number */}
+                  <div className="flex items-center justify-between mb-10">
+                    {(service as any).icon ? (
+                      <span className="w-12 h-12 flex items-center justify-center rounded-2xl transition-colors duration-500"
+                            style={{ background: 'rgba(11,15,26,0.05)' }}>
+                        <ServiceIcon
+                          icon={(service as any).icon}
+                          size={26}
+                          className="text-[#0B0F1A] group-hover:text-white transition-colors duration-500"
+                        />
+                      </span>
+                    ) : (
+                      <span className="font-black text-[11px] tracking-[0.25em] uppercase text-[rgba(11,15,26,0.15)] group-hover:text-white/15 transition-colors duration-500">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                    )}
+                    <span className="font-black text-[11px] tracking-[0.25em] uppercase text-[rgba(11,15,26,0.15)] group-hover:text-white/15 transition-colors duration-500">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  </div>
 
                   {/* Title */}
                   <h2
