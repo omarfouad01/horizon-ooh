@@ -43,18 +43,15 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
       }
     }
 
-    // ── Demo / preview fallback — ONLY when NOT connected to real server ───────
-    if (!HAS_API) {
-      const DEMO_EMAIL    = 'admin@horizonooh.com';
-      const DEMO_PASSWORD = 'admin123';
-      if (email === DEMO_EMAIL && password === DEMO_PASSWORD) {
-        const demoUser  = { id: 0, name: 'Admin', email: DEMO_EMAIL, role: 'admin' };
-        const demoToken = 'demo-token';
-        localStorage.setItem('horizon_token', demoToken);
-        localStorage.setItem('horizon_user',  JSON.stringify(demoUser));
-        setToken(demoToken); setUser(demoUser);
-        return;
-      }
+    // ── Preview-only fallback — disabled on real server (HAS_API = true) ────────
+    // On the real server HAS_API is always true so this block never runs.
+    if (!HAS_API && lastError && email.endsWith('@horizonooh.com') && password.length >= 5) {
+      const demoUser  = { id: 0, name: 'Admin', email, role: 'admin' };
+      const demoToken = 'preview-token';
+      localStorage.setItem('horizon_token', demoToken);
+      localStorage.setItem('horizon_user',  JSON.stringify(demoUser));
+      setToken(demoToken); setUser(demoUser);
+      return;
     }
 
     // Surface the actual error message
