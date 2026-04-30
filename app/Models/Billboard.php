@@ -8,7 +8,7 @@ class Billboard extends Model
 {
     protected $fillable = [
         'code', 'slug', 'title', 'name_ar', 'location_id', 'district_id',
-        'format', 'size', 'sqm', 'sides', 'material', 'brightness',
+        'format', 'type', 'quantity', 'size', 'sqm', 'sides', 'material', 'brightness',
         'width', 'height', 'price', 'availability', 'illuminated',
         'lat', 'lng', 'full_address', 'description', 'description_ar',
         'featured', 'sort_order', 'supplier_id',

@@ -52,6 +52,8 @@ class BillboardController extends Controller
             'location_id'    => 'required|exists:locations,id',
             'district_id'    => 'nullable|exists:districts,id',
             'format'         => 'nullable|string',
+            'type'           => 'nullable|string',
+            'quantity'       => 'nullable|integer',
             'size'           => 'nullable|string',
             'sqm'            => 'nullable|numeric',
             'sides'          => 'nullable|integer',
@@ -90,6 +92,8 @@ class BillboardController extends Controller
             'location_id'    => 'sometimes|exists:locations,id',
             'district_id'    => 'nullable|exists:districts,id',
             'format'         => 'nullable|string',
+            'type'           => 'nullable|string',
+            'quantity'       => 'nullable|integer',
             'size'           => 'nullable|string',
             'sqm'            => 'nullable|numeric',
             'sides'          => 'nullable|integer',
@@ -111,7 +115,7 @@ class BillboardController extends Controller
         ]);
 
         if (isset($data['code']) || isset($data['title'])) {
-            $data['slug'] = $this->makeSlug($data['code'] ?? $b->code, $data['title'] ?? $b->title ?? '');
+            $data['slug'] = $this->makeSlug($data['code'] ?? $b->code, $data['title'] ?? $b->title ?? '', $id);
         }
 
         $b->update($data);
@@ -158,13 +162,17 @@ class BillboardController extends Controller
         }
     }
 
-    private function makeSlug(string $code, string $title): string
+    private function makeSlug(string $code, string $title, ?int $excludeId = null): string
     {
         $base = Str::slug($code . ($title ? '-' . $title : ''));
         $slug = $base;
         $i    = 1;
-        while (Billboard::where('slug', $slug)->exists()) {
-            $slug = $base . '-' . $i++;
+        $query = Billboard::where('slug', $slug);
+        if ($excludeId) $query->where('id', '!=', $excludeId);
+        while ($query->clone()->exists()) {
+            $slug  = $base . '-' . $i++;
+            $query = Billboard::where('slug', $slug);
+            if ($excludeId) $query->where('id', '!=', $excludeId);
         }
         return $slug;
     }
@@ -185,6 +193,8 @@ class BillboardController extends Controller
             'districtAr'     => $b->district?->name_ar,
             'district_id'    => $b->district_id,
             'format'         => $b->format,
+            'type'           => $b->type,
+            'quantity'        => $b->quantity,
             'size'           => $b->size,
             'sqm'            => $b->sqm,
             'sides'          => $b->sides,

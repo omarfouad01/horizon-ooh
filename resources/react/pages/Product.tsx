@@ -574,18 +574,84 @@ export default function Product() {
             <RevealGroup className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {related.map((rel) => (
                 <RevealItem key={rel.id}>
-                  <Link to={`/locations/${citySlug}/billboards/${rel.slug}`} className="group block overflow-hidden border border-[#0B0F1A]/[0.08] hover:border-[#D90429]/25 transition-all duration-400" style={{ textDecoration: "none" }}>
-                    <div className="relative overflow-hidden" style={{ height: 200 }}>
-                      <img src={rel.image} alt={`${rel.name} — billboard advertising ${location.city}`} className="w-full h-full object-cover transition-transform duration-600 group-hover:scale-[1.05]" style={{ opacity: 0.85 }} />
-                      <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(11,15,26,0.7) 0%, transparent 60%)" }} />
-                      <span className="absolute bottom-4 left-5 font-bold text-white text-[15px]">{isAr && (rel as any).nameAr ? (rel as any).nameAr : (rel.nameEn || rel.name)}</span>
+                  {/* ── Same card design as Home page recent billboards ── */}
+                  <Link
+                    to={`/locations/${citySlug}/billboards/${rel.slug}`}
+                    className="group block border border-[#0B0F1A]/[0.08] hover:border-[#D90429]/25 transition-colors duration-300 overflow-hidden relative"
+                    aria-label={`View billboard: ${rel.name}`}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    {/* Image with overlay */}
+                    <div className="relative overflow-hidden" style={{ height: 220 }}>
+                      <motion.img
+                        src={rel.image}
+                        alt={`billboard advertising ${location.city} — ${rel.name}`}
+                        className="w-full h-full object-cover"
+                        style={{ transformOrigin: 'center' }}
+                        whileHover={{ scale: 1.04 }}
+                        transition={{ duration: 0.6, ease }}
+                        loading="lazy"
+                      />
+                      {/* Bottom-to-top navy gradient overlay */}
+                      <div
+                        className="absolute inset-0 pointer-events-none"
+                        style={{ background: 'linear-gradient(to top, rgba(11,15,26,0.70) 0%, transparent 60%)' }}
+                      />
+                      {/* City chip — top left */}
+                      <span
+                        className="absolute top-3 left-3 text-white text-[10px] font-bold tracking-[0.25em] uppercase px-3 py-1"
+                        style={{ background: RED }}
+                      >
+                        {location.city}
+                      </span>
                     </div>
-                    <div className="flex items-center justify-between" style={{ padding: "20px 24px" }}>
-                      <div>
-                        <p className="font-semibold text-[13px] transition-colors group-hover:text-[#D90429]" style={{ color: NAVY }}>{rel.type} · {rel.size}</p>
-                        <p className="text-[11px] mt-0.5" style={{ color: "rgba(11,15,26,0.35)" }}>{rel.traffic}</p>
+
+                    {/* Card body */}
+                    <div className="p-6 bg-white relative">
+                      {/* Name + arrow row */}
+                      <div className="flex items-start justify-between gap-3 mb-1">
+                        <h3 className="text-[#0B0F1A] font-bold text-[16px] tracking-[-0.01em] leading-snug flex-1 min-w-0">
+                          {isAr && (rel as any).nameAr ? (rel as any).nameAr : (rel.nameEn || rel.name)}
+                        </h3>
+                        {/* Arrow — visible on hover */}
+                        <motion.div
+                          className="shrink-0 w-8 h-8 flex items-center justify-center mt-0.5"
+                          style={{ color: RED }}
+                          initial={{ x: -4, opacity: 0 }}
+                          whileHover={{ x: 0, opacity: 1 }}
+                          transition={{ duration: 0.3, ease }}
+                        >
+                          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                            <path d="M3 9h12M9 3l6 6-6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </motion.div>
                       </div>
-                      <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 text-lg" style={{ color: RED }}>→</span>
+                      {/* Full address */}
+                      <div className="flex items-start gap-1.5 mb-4">
+                        <svg className="shrink-0 mt-[1px]" width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ color: RED }}>
+                          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" fill="currentColor"/>
+                        </svg>
+                        <p className="text-[#0B0F1A]/50 text-[12px] leading-snug">
+                          {rel.location || rel.full_address || ''}
+                        </p>
+                      </div>
+                      {/* Code / Size / Format */}
+                      <div className="grid grid-cols-3 gap-0 border border-[#0B0F1A]/[0.07]">
+                        {[
+                          { label: 'Code',   value: (rel as any).code || '—' },
+                          { label: 'Size',   value: rel.size || '—' },
+                          { label: 'Format', value: rel.type || rel.adFormat || '—' },
+                        ].map((stat, i) => (
+                          <div
+                            key={stat.label}
+                            className="flex flex-col items-center justify-center py-3 px-2"
+                            style={{ borderLeft: i > 0 ? '2px solid #D90429' : 'none' }}
+                          >
+                            <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-[#0B0F1A]/30 mb-1">{stat.label}</span>
+                            <span className="text-[12px] font-bold text-[#0B0F1A] text-center leading-tight">{stat.value}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </Link>
                 </RevealItem>

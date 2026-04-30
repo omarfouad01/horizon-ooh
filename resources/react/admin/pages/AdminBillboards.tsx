@@ -197,11 +197,17 @@ function InlineMapPicker({
 }
 
 // ── Image uploader ────────────────────────────────────────────────────────────
-function ImageUploader({ images, onChange }: { images:{url:string;alt:string}[]; onChange:(imgs:{url:string;alt:string}[])=>void }) {
+// Each item: { url: string (preview/existing URL or data:), alt: string, file?: File }
+type ImgItem = { url: string; alt: string; file?: File }
+function ImageUploader({ images, onChange }: { images: ImgItem[]; onChange:(imgs: ImgItem[])=>void }) {
   const ref = useRef<HTMLInputElement>(null)
   async function pick(e: React.ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files || [])
-    const results = await Promise.all(files.map(async f => ({ url: await readAsDataURL(f), alt: f.name.replace(/\.[^.]+$/, '') })))
+    const results: ImgItem[] = await Promise.all(files.map(async f => ({
+      url: await readAsDataURL(f),
+      alt: f.name.replace(/\.[^.]+$/, ''),
+      file: f,          // keep the File so we can upload it
+    })))
     onChange([...images, ...results])
     e.target.value = ''
   }
@@ -269,20 +275,27 @@ function BillboardForm({ editing, onClose }: any) {
     specs:[], benefits:[], relatedSlugs:[],
   }
 
-  const [f, setF] = useState<any>(() => {
+const [f, setF] = useState<any>(() => {
     const ed = editing || {}
     // Map API field names → form field names so edit form pre-fills correctly
     // Images from API come as [{id, url, is_primary}] objects — normalize for the uploader
     const rawImages = Array.isArray(ed.images) ? ed.images : []
-    const normalizedImages = rawImages.map((img: any) =>
-      typeof img === 'string' ? { id: img, url: img, alt: '' } : img
+    const normalizedImages: ImgItem[] = rawImages.map((img: any) =>
+      typeof img === 'string'
+        ? { url: img, alt: '' }
+        : { url: img.url || '', alt: img.alt || '' }
+      // Note: no `file` field here — existing server images don't need re-uploading
     )
     return {
       ...empty,
       ...ed,
       nameEn:        ed.nameEn        || ed.title       || ed.name        || '',
       nameAr:        ed.nameAr        || ed.name_ar     || '',
-      adFormat:      ed.adFormat      || ed.format      || ed.type        || 'Billboard',
+      // adFormat = the 'format' column (Billboard/Digital/Mall…)
+      adFormat:      ed.adFormat      || ed.format      || 'Billboard',
+      // type = the sub-type (Unipole/Rooftop/…) — stored in 'type' column
+      type:          ed.type          || '',
+      quantity:      ed.quantity      || 1,
       descriptionEn: ed.descriptionEn || ed.description || '',
       descriptionAr: ed.descriptionAr || ed.description_ar || '',
       full_address:  ed.full_address  || ed.location    || ed.spot        || '',
@@ -315,7 +328,7 @@ function BillboardForm({ editing, onClose }: any) {
 
   const [saving, setSaving] = useState(false)
 
-  const save = async (e: React.FormEvent) => {
+const save = async (e: React.FormEvent) => {
     e.preventDefault()
     setSaving(true)
     try {
@@ -327,25 +340,28 @@ function BillboardForm({ editing, onClose }: any) {
       fd.append('location_id',    locId)
       if (f.districtId)     fd.append('district_id',    f.districtId)
       if (f.adFormat)       fd.append('format',         f.adFormat)
+      // Send type as its own field (Unipole / Rooftop / etc.)
+      if (f.type)           fd.append('type',           f.type)
       if (f.size)           fd.append('size',           f.size)
       const sqm = parseSqm(f.size || '')
       if (sqm)              fd.append('sqm',            String(sqm))
-      if (f.sides)          fd.append('sides',          String(f.sides || 1))
+      fd.append('sides',          String(f.sides || 1))
       if (f.material)       fd.append('material',       f.material)
       if (f.brightness)     fd.append('brightness',     f.brightness)
       fd.append('lat',            String(typeof f.lat === 'number' ? f.lat : (parseFloat(f.lat) || 0)))
       fd.append('lng',            String(typeof f.lng === 'number' ? f.lng : (parseFloat(f.lng) || 0)))
-      if (f.full_address || f.spot) fd.append('full_address', f.full_address || f.spot || '')
+      fd.append('full_address',   f.full_address || f.spot || '')
       if (f.descriptionEn)  fd.append('description',    f.descriptionEn)
       if (f.descriptionAr)  fd.append('description_ar', f.descriptionAr)
       if (f.price || f.clientPrice) fd.append('price', String(f.price || f.clientPrice || 0))
+      fd.append('quantity',       String(f.quantity || 1))
       fd.append('availability',   f.status === 'Available' ? 'available' : (f.status || 'available').toLowerCase())
       fd.append('illuminated',    f.brightness && f.brightness !== 'No Light' ? '1' : '0')
       fd.append('featured',       f.featured ? '1' : '0')
       if (f.supplierId)     fd.append('supplier_id',    String(f.supplierId))
-      // Attach new image files (if any were uploaded as File objects)
-      ;(f.images || []).forEach((img: any) => {
-        if (img instanceof File) fd.append('images[]', img)
+      // Attach new image files only (items with a .file property are newly uploaded)
+      ;(f.images || []).forEach((img: ImgItem) => {
+        if (img.file instanceof File) fd.append('images[]', img.file)
       })
 
       let saved: any

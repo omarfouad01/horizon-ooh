@@ -188,15 +188,22 @@ function normProduct(p: any, idx: number): any {
   if (!p) return null;
   const slug = p.slug ?? p.code ?? toSlug(p.title ?? p.name ?? `product-${idx+1}`);
   // Ensure lat/lng are numbers (API may return strings)
-  const lat = p.lat !== undefined && p.lat !== null ? parseFloat(p.lat) : undefined;
-  const lng = p.lng !== undefined && p.lng !== null ? parseFloat(p.lng) : undefined;
+  const lat = p.lat !== undefined && p.lat !== null ? parseFloat(String(p.lat)) : undefined;
+  const lng = p.lng !== undefined && p.lng !== null ? parseFloat(String(p.lng)) : undefined;
   const safeImages = safeArr(p.images);
-  // Extract primary image URL for easy display
-  const primaryImg = safeImages.find((img: any) => img?.is_primary) ?? safeImages[0];
-  const imageUrl = typeof primaryImg === 'string' ? primaryImg : (primaryImg?.url ?? '');
+  // Normalize image objects: each must be { url, alt, is_primary }
+  const normImages = safeImages.map((img: any) =>
+    typeof img === 'string' ? { url: img, alt: '', is_primary: false } : img
+  ).filter((img: any) => img && typeof img.url === 'string' && img.url.length > 0);
+  // Primary image URL for card display — prefer is_primary, fallback first image
+  const primaryImg = normImages.find((img: any) => img?.is_primary) ?? normImages[0];
+  const imageUrl = primaryImg?.url ?? '';
   // Normalize API field names → frontend field names
   const nameEn = p.nameEn ?? p.title ?? p.name ?? '';
-  const adFormat = p.adFormat ?? p.format ?? p.type ?? '';
+  // format = ad category (Billboard / Digital / Mall…)
+  const adFormat = p.adFormat ?? p.format ?? '';
+  // type = billboard sub-type (Unipole / Rooftop / Bridge Panel…) — separate from format
+  const typeName = p.type ?? '';
   const fullAddress = p.full_address ?? p.location ?? p.spot ?? '';
   return {
     ...p,
@@ -208,16 +215,19 @@ function normProduct(p: any, idx: number): any {
     nameAr: p.nameAr ?? p.name_ar ?? '',
     descriptionEn: p.descriptionEn ?? p.description ?? '',
     descriptionAr: p.descriptionAr ?? p.description_ar ?? '',
-    // adFormat / type: API returns `format`, frontend uses `adFormat` and `type`
+    // adFormat = broad category (Billboard/Digital/Mall); format = same for backward compat
     adFormat,
-    type: adFormat,
     format: adFormat,
+    // type = specific subtype (Unipole / Rooftop / …) — from the `type` column, not format
+    type: typeName,
     // Address / location
     location: fullAddress,
     full_address: fullAddress,
     spot: fullAddress,
     // District ID mapping (API returns district_id)
     districtId: p.districtId ?? p.district_id ?? '',
+    supplierId: p.supplierId ?? p.supplier_id ?? '',
+    quantity: p.quantity ?? 1,
     // Traffic & audience fields
     traffic: p.traffic ?? '',
     visibility: p.visibility ?? '',
@@ -225,11 +235,12 @@ function normProduct(p: any, idx: number): any {
     benefits: safeArr(p.benefits),
     specs: safeArr(p.specs),
     relatedSlugs: safeArr(p.relatedSlugs ?? p.related_slugs),
+    // Normalized images array — always objects {url,alt,is_primary}
+    images: normImages,
     // Primary image URL for card display
     image: imageUrl,
-    lat: !isNaN(lat as number) ? lat : undefined,
-    lng: !isNaN(lng as number) ? lng : undefined,
-    images: safeImages,
+    lat: lat !== undefined && !isNaN(lat) ? lat : undefined,
+    lng: lng !== undefined && !isNaN(lng) ? lng : undefined,
   };
 }
 function normLoc(loc: any): any {
