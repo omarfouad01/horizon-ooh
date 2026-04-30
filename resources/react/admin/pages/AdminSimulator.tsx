@@ -14,10 +14,12 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 import {
   useStore,
   billboardSizeStore, simulatorTemplateStore, designUploadStore,
+  HAS_API,
   type BillboardSize, type SimulatorTemplate, type DesignUpload, type SimPanel, type SimCorner,
 } from '@/store/dataStore'
+import { designUploadsApi } from '@/api'
 import { Btn, PageHeader, Field, TA, Modal, ImagePicker } from '../ui'
-import { Plus, Trash2, Pencil, Save, Image, Layers, X, Move } from 'lucide-react'
+import { Plus, Trash2, Pencil, Save, Image, Layers, X, Move, RefreshCw, Loader2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 // ─── Colours & Labels ────────────────────────────────────────────────────────
@@ -576,9 +578,32 @@ function TemplatesTab() {
 
 // ─── Design Uploads Tab ───────────────────────────────────────────────────────
 function UploadsTab() {
-  const store   = useStore()
-  const uploads: DesignUpload[] = store.designUploads ?? []
-  const [search, setSearch] = useState('')
+  // Fetch live from API every time this tab is shown
+  const [uploads, setUploads] = useState<DesignUpload[]>([])
+  const [loading, setLoading] = useState(true)
+  const [search,  setSearch]  = useState('')
+
+  const fetchUploads = useCallback(async () => {
+    setLoading(true)
+    try {
+      if (HAS_API) {
+        const res = await designUploadsApi.all()
+        const data = res.data
+        setUploads(Array.isArray(data) ? data : (data?.data ?? []))
+      } else {
+        // Preview mode — use store
+        const storeUploads = useStore.getState().designUploads ?? []
+        setUploads(storeUploads)
+      }
+    } catch (err) {
+      console.error('[UploadsTab] fetch failed', err)
+      toast.error('Could not load design uploads')
+    } finally {
+      setLoading(false)
+    }
+  }, [])
+
+  useEffect(() => { fetchUploads() }, [fetchUploads])
 
   const filtered = uploads.filter(u => {
     const q = search.toLowerCase()
@@ -590,19 +615,50 @@ function UploadsTab() {
 
   async function del(id: string) {
     if (!confirm('Delete this upload?')) return
-    try { await designUploadStore.remove(id); toast.success('Deleted') }
-    catch { toast.error('Delete failed') }
+    try {
+      if (HAS_API) {
+        await designUploadsApi.remove(id)
+        setUploads(prev => prev.filter(u => u.id !== id))
+      } else {
+        await designUploadStore.remove(id)
+      }
+      toast.success('Deleted')
+    } catch { toast.error('Delete failed') }
   }
 
   async function setStatus(id: string, status: string) {
-    try { await designUploadStore.update(id, { status }); toast.success('Status updated') }
-    catch { toast.error('Update failed') }
+    try {
+      if (HAS_API) {
+        await designUploadsApi.update(id, { status })
+        setUploads(prev => prev.map(u => u.id === id ? { ...u, status } : u))
+      } else {
+        await designUploadStore.update(id, { status })
+      }
+      toast.success('Status updated')
+    } catch { toast.error('Update failed') }
+  }
+
+  const STATUS_BADGE: Record<string, string> = {
+    pending:  'bg-yellow-50 text-yellow-700 border-yellow-200',
+    reviewed: 'bg-blue-50 text-blue-700 border-blue-200',
+    approved: 'bg-green-50 text-green-700 border-green-200',
+    rejected: 'bg-red-50 text-red-500 border-red-200',
   }
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-4">
-        <p className="text-sm text-gray-500">{uploads.length} design upload(s)</p>
+      <div className="flex items-center justify-between mb-4 gap-3">
+        <div className="flex items-center gap-3">
+          <p className="text-sm text-gray-500 font-medium">{uploads.length} design upload(s)</p>
+          <button
+            onClick={fetchUploads}
+            disabled={loading}
+            className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-700 transition-colors disabled:opacity-40"
+            title="Refresh uploads"
+          >
+            {loading ? <Loader2 size={14} className="animate-spin" /> : <RefreshCw size={14} />}
+          </button>
+        </div>
         <input
           value={search}
           onChange={e => setSearch(e.target.value)}
@@ -611,13 +667,18 @@ function UploadsTab() {
         />
       </div>
 
+      {loading ? (
+        <div className="flex items-center justify-center py-16 text-gray-400 gap-2">
+          <Loader2 size={18} className="animate-spin" /> Loading uploads…
+        </div>
+      ) : (
       <div className="overflow-x-auto rounded-xl border border-gray-100">
         <table className="w-full text-sm">
           <thead><tr className="bg-gray-50 border-b border-gray-100">
             <th className="text-left px-4 py-3 font-semibold text-gray-600">User</th>
             <th className="text-left px-4 py-3 font-semibold text-gray-600">Phone</th>
             <th className="text-left px-4 py-3 font-semibold text-gray-600">Type / Size</th>
-            <th className="text-left px-4 py-3 font-semibold text-gray-600">Design</th>
+            <th className="text-left px-4 py-3 font-semibold text-gray-600">Design Preview</th>
             <th className="text-left px-4 py-3 font-semibold text-gray-600">Status</th>
             <th className="text-left px-4 py-3 font-semibold text-gray-600">Date</th>
             <th className="px-4 py-3" />
@@ -626,44 +687,59 @@ function UploadsTab() {
             {filtered.map(u => (
               <tr key={u.id} className="border-b border-gray-50 hover:bg-gray-50/50">
                 <td className="px-4 py-3">
-                  <p className="font-semibold">{u.userName  ?? 'Unknown'}</p>
+                  <p className="font-semibold text-gray-900">{u.userName  ?? 'Unknown'}</p>
                   <p className="text-xs text-gray-400">{u.userEmail ?? ''}</p>
                 </td>
                 <td className="px-4 py-3 text-xs text-gray-500">{u.userPhone ?? '—'}</td>
                 <td className="px-4 py-3">
-                  <p className="font-medium">{u.typeName ?? '—'}</p>
+                  <p className="font-medium text-gray-800">{u.typeName ?? '—'}</p>
                   <p className="text-xs text-gray-400">{u.sizeLabel ?? ''}</p>
                 </td>
                 <td className="px-4 py-3">
-                  {u.designUrl
-                    ? <a href={u.designUrl} target="_blank" rel="noreferrer" className="text-blue-500 underline text-xs">View</a>
-                    : <span className="text-gray-300">—</span>}
+                  {u.designUrl ? (
+                    <a href={u.designUrl} target="_blank" rel="noreferrer">
+                      <img
+                        src={u.designUrl}
+                        alt="design"
+                        className="w-20 h-12 object-cover rounded border border-gray-100 hover:opacity-80 transition-opacity"
+                        onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}
+                      />
+                    </a>
+                  ) : (
+                    <span className="text-gray-300 text-xs">—</span>
+                  )}
                 </td>
                 <td className="px-4 py-3">
                   <select
                     value={u.status ?? 'pending'}
                     onChange={e => setStatus(u.id, e.target.value)}
-                    className="text-xs border border-gray-200 rounded px-2 py-1 outline-none"
+                    className={`text-xs border rounded px-2 py-1 outline-none font-semibold ${
+                      STATUS_BADGE[u.status ?? 'pending'] ?? 'border-gray-200'
+                    }`}
                   >
                     <option value="pending">Pending</option>
+                    <option value="reviewed">Reviewed</option>
                     <option value="approved">Approved</option>
                     <option value="rejected">Rejected</option>
                   </select>
                 </td>
                 <td className="px-4 py-3 text-xs text-gray-400">
-                  {u.createdAt ? new Date(u.createdAt).toLocaleDateString() : '—'}
+                  {u.createdAt ? new Date(u.createdAt).toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'2-digit' }) : '—'}
                 </td>
                 <td className="px-4 py-3 flex items-center gap-2 justify-end">
-                  <button onClick={() => del(u.id)} className="p-1.5 rounded hover:bg-red-50 text-red-400"><Trash2 size={13} /></button>
+                  <button onClick={() => del(u.id)} className="p-1.5 rounded hover:bg-red-50 text-red-400" title="Delete"><Trash2 size={13} /></button>
                 </td>
               </tr>
             ))}
             {!filtered.length && (
-              <tr><td colSpan={7} className="px-4 py-8 text-center text-gray-300">No uploads yet</td></tr>
+              <tr><td colSpan={7} className="px-4 py-8 text-center text-gray-300">
+                {loading ? 'Loading…' : uploads.length === 0 ? 'No design uploads yet — users will appear here after submitting designs.' : 'No results matching search.'}
+              </td></tr>
             )}
           </tbody>
         </table>
       </div>
+      )}
     </div>
   )
 }

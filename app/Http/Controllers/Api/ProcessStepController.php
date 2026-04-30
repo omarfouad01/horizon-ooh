@@ -55,18 +55,18 @@ class ProcessStepController extends Controller
      */
     private function normalize(array $data): array
     {
-        // Cast step to integer (handles "01", "1", 1, etc.)
+        // Cast step to integer — NEVER null (DB column is NOT NULL DEFAULT 1)
         if (isset($data['step']) && $data['step'] !== null && $data['step'] !== '') {
             $data['step'] = (int) $data['step'];
         } else {
-            $data['step'] = null;
+            $data['step'] = 1;
         }
 
-        // Cast sort_order to integer
+        // Cast sort_order to integer — NEVER null (DB column is NOT NULL DEFAULT 0)
         if (isset($data['sort_order']) && $data['sort_order'] !== null && $data['sort_order'] !== '') {
             $data['sort_order'] = (int) $data['sort_order'];
         } else {
-            $data['sort_order'] = null;
+            $data['sort_order'] = 0;
         }
 
         // Ensure title is never empty — fall back to label
