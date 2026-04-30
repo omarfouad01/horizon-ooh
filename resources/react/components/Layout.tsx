@@ -336,6 +336,41 @@ export function Footer() {
   const s = store.settings;
   const { t, isAr } = useLang();
 
+  // ── Dynamic services links from real store data ──────────────────────────
+  const serviceLinks = store.services.length
+    ? store.services
+        .slice(0, 6) // cap at 6 to keep footer tidy
+        .map((svc: any) => ({
+          label: isAr && svc.titleAr ? svc.titleAr : (svc.title ?? svc.name ?? ''),
+          href:  `/services/${svc.slug}`,
+        }))
+    : [
+        { label: t('footer.billboard'),      href: '/services/billboard-advertising' },
+        { label: t('footer.dooh'),            href: '/services/digital-out-of-home'   },
+        { label: t('footer.mall'),            href: '/services/mall-advertising'       },
+        { label: t('footer.airport'),         href: '/services/airport-advertising'    },
+        { label: t('footer.streetFurniture'), href: '/services/street-furniture'       },
+      ];
+
+  // ── Dynamic locations links from real store data ──────────────────────────
+  const locationLinks = store.locations.length
+    ? [
+        ...store.locations
+          .slice(0, 4) // show top 4 cities
+          .map((loc: any) => ({
+            label: isAr && loc.cityAr ? loc.cityAr : (loc.city ?? loc.name ?? ''),
+            href:  `/locations/${loc.slug}`,
+          })),
+        { label: isAr ? 'كل المواقع' : t('footer.allLocations'), href: '/locations' },
+      ]
+    : [
+        { label: t('footer.cairo'),       href: '/locations/cairo'     },
+        { label: t('footer.giza'),        href: '/locations/giza'      },
+        { label: t('footer.alexandria'),  href: '/locations/alexandria' },
+        { label: t('footer.northCoast'),  href: '/locations/matrouh'   },
+        { label: t('footer.allLocations'),href: '/locations'            },
+      ];
+
   return (
     <footer style={{ background: NAVY }} className="relative overflow-hidden">
       {/* Decorative watermark */}
@@ -390,26 +425,14 @@ export function Footer() {
 
           {/* Links grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
-            {[
+          {[
               {
                 heading: t('footer.services'),
-                links: [
-                  { label: t('footer.billboard'),       href: "/services/billboard-advertising" },
-                  { label: t('footer.dooh'),             href: "/services/digital-out-of-home" },
-                  { label: t('footer.mall'),             href: "/services/mall-advertising" },
-                  { label: t('footer.airport'),          href: "/services/airport-advertising" },
-                  { label: t('footer.streetFurniture'),  href: "/services/street-furniture" },
-                ],
+                links: serviceLinks,
               },
               {
                 heading: t('footer.locations'),
-                links: [
-                  { label: t('footer.cairo'),       href: "/locations/cairo" },
-                  { label: t('footer.giza'),        href: "/locations/giza" },
-                  { label: t('footer.alexandria'),  href: "/locations/alexandria" },
-                  { label: t('footer.northCoast'),  href: "/locations/matrouh" },
-                  { label: t('footer.allLocations'),href: "/locations" },
-                ],
+                links: locationLinks,
               },
               {
                 heading: t('footer.company'),
