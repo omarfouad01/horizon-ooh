@@ -60,7 +60,15 @@ export default function AdminAbout() {
   function patch(p: Partial<AboutContent>) { setDraft(d => ({...d,...p})) }
 
   async function save(overrideData?: Partial<AboutContent>) {
-    const data = overrideData ? { ...merged, ...overrideData } : merged;
+    // Guard: if called directly from an onClick, React passes the MouseEvent
+    // as the first argument. Detect and discard DOM/Event objects to prevent
+    // "Converting circular structure to JSON" errors.
+    const isPlainObject = (v: unknown): v is Partial<AboutContent> =>
+      v !== null && typeof v === 'object' && !(v instanceof Event) &&
+      !(typeof HTMLElement !== 'undefined' && v instanceof HTMLElement) &&
+      !('nativeEvent' in (v as object)) && !('_reactName' in (v as object));
+    const safeOverride = overrideData && isPlainObject(overrideData) ? overrideData : undefined;
+    const data = safeOverride ? { ...merged, ...safeOverride } : merged;
     try {
       await aboutStore.update(data)
       setDraft({})
@@ -149,7 +157,7 @@ export default function AdminAbout() {
         title="About Us"
         subtitle="Control every text section on the About page"
         action={
-          <Btn onClick={save} className="flex items-center gap-2">
+          <Btn onClick={() => save()} className="flex items-center gap-2">
             <Save size={14}/>
             {saved ? '✓ Saved!' : 'Save All Changes'}
           </Btn>
