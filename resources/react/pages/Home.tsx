@@ -1555,10 +1555,7 @@ function RecentBillboardsSection() {
                   >
                     {product.cityName}
                   </span>
-                  {/* NEW badge — top right */}
-                  <span className="absolute top-3 right-3 text-[#0B0F1A] bg-white text-[10px] font-bold tracking-[0.25em] uppercase px-2 py-1">
-                    NEW
-                  </span>
+                  {/* NEW badge removed */}
                 </div>
 
                 {/* Card body */}

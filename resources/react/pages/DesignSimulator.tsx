@@ -6,6 +6,7 @@
  * - Auto-saves upload to dashboard silently (no "Save to My Account" button)
  */
 import { useState, useRef, useCallback, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { useLang } from '@/i18n/LangContext';
 import { Link } from 'react-router-dom';
 import { useStore, designUploadStore } from '@/store/dataStore';
@@ -428,6 +429,83 @@ export default function DesignSimulator() {
           </div>
         )}
       </div>
+
+      {/* ── Final CTA ─────────────────────────────────────────────────────── */}
+      <section className="bg-white" style={{ paddingTop: 120, paddingBottom: 120 }}>
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px] text-center">
+          {/* Eyebrow */}
+          <motion.div
+            className="flex items-center justify-center gap-4 mb-10"
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.6 }}
+          >
+            <span className="block w-5 h-[1.5px] bg-[#D90429]" />
+            <span className="text-[10px] font-bold tracking-[0.35em] uppercase text-[#0B0F1A]/30">
+              {t('sim.ctaEyebrow') || 'Ready to Go Live?'}
+            </span>
+            <span className="block w-5 h-[1.5px] bg-[#D90429]" />
+          </motion.div>
+
+          {/* Headline */}
+          <motion.h2
+            className="font-black leading-[0.9] tracking-[-0.04em] mx-auto mb-8"
+            style={{ fontSize: 'clamp(40px,4.5vw,68px)', color: '#0B0F1A', maxWidth: 720 }}
+            initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.08 }}
+          >
+            {t('sim.ctaTitle1') || 'Turn your design'}<br />
+            <span style={{ color: 'rgba(11,15,26,0.2)' }}>{t('sim.ctaTitle2') || 'into a real campaign.'}</span>
+          </motion.h2>
+
+          {/* Sub text */}
+          <motion.p
+            className="text-[18px] leading-[1.65] mx-auto mb-14 text-[#0B0F1A]/40"
+            style={{ maxWidth: 400 }}
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.16 }}
+          >
+            {t('sim.ctaSubtext') || 'Our team is ready to help you pick the perfect locations and launch your campaign.'}
+          </motion.p>
+
+          {/* Buttons */}
+          <motion.div
+            className="flex items-center justify-center gap-5 mb-16 flex-wrap"
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.24 }}
+          >
+            <Link
+              to="/contact"
+              className="inline-flex items-center h-[56px] px-11 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white relative group"
+              style={{ background: '#D90429' }}
+            >
+              <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out bg-[#0B0F1A]" />
+              <span className="relative z-10">{t('sim.ctaContact') || 'Contact Us'}</span>
+            </Link>
+            <Link
+              to="/locations"
+              className="group relative inline-flex items-center h-[56px] px-11 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase transition-colors duration-300"
+              style={{ border: '1.5px solid #0B0F1A', color: '#0B0F1A' }}
+            >
+              <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out bg-[#0B0F1A]" />
+              <span className="relative z-10 group-hover:text-white transition-colors duration-400">{t('sim.ctaLocations') || 'View Locations'}</span>
+            </Link>
+          </motion.div>
+
+          {/* Trust badges */}
+          <motion.div
+            className="flex items-center justify-center gap-10 pt-10 border-t border-[#0B0F1A]/[0.06] flex-wrap"
+            initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
+            viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.32 }}
+          >
+            {['9,500+ Locations', '100+ Brands', 'Egypt-wide Coverage'].map(label => (
+              <div key={label} className="flex items-center gap-2.5">
+                <span className="block w-1 h-1 bg-[#D90429]" />
+                <span className="text-[11px] font-semibold tracking-[0.15em] uppercase text-[#0B0F1A]/30">{label}</span>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
     </div>
   );
 }
