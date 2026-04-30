@@ -93,14 +93,25 @@ export interface ResultStat {
   sublabel?: string; [key: string]: any;
 }
 export interface LocationsPageContent {
-  heroEyebrow?: string; heroTitle?: string; heroSubtitle?: string;
-  heroEyebrowAr?: string; heroTitleAr?: string; heroSubtitleAr?: string;
-  ctaHelpText?: string; ctaHelpTextAr?: string;
-  ctaTalkText?: string; ctaTalkTextAr?: string;
+  // ── Keys the website (Locations.tsx) reads directly ──
+  eyebrow?: string;        eyebrowAr?: string;
+  title?: string;          titleAr?: string;
+  titleAccent?: string;    titleAccentAr?: string;
+  subtitle?: string;       subtitleAr?: string;
+  ctaHelpText?: string;    ctaHelpTextAr?: string;
+  ctaButton?: string;      ctaButtonAr?: string;
   ctaWhatsApp?: string;
-  noResultsText?: string; noResultsTextAr?: string;
+  noResultsTitle?: string; noResultsTitleAr?: string;
+  noResultsHint?: string;  noResultsHintAr?: string;
+  // ── Legacy aliases (kept for backward compat) ──
+  heroEyebrow?: string;    heroEyebrowAr?: string;
+  heroTitle?: string;      heroTitleAr?: string;
+  heroSubtitle?: string;   heroSubtitleAr?: string;
+  ctaHelpTextLegacy?: string;
+  ctaTalkText?: string;    ctaTalkTextAr?: string;
+  noResultsText?: string;
   locationDetailEyebrow?: string; locationDetailEyebrowAr?: string;
-  locationDetailCta?: string; locationDetailCtaAr?: string;
+  locationDetailCta?: string;     locationDetailCtaAr?: string;
   [key: string]: any;
 }
 export interface ContactPageContent {
@@ -155,7 +166,22 @@ const DEMO_SETTINGS = { tagline: 'Egypt\'s #1 Out-of-Home Advertising Network', 
 const DEMO_HOME: Record<string, any> = { heroHeadline:'Where Brands Come to Life', heroSubheadline:'Egypt\'s largest OOH network', heroCta1:'Explore Locations', heroCta2:'Talk to Us', heroCta1Ar:'استكشف المواقع', heroCta2Ar:'تواصل معنا', heroHeadlineAr:'حيث تحيا العلامات التجارية', heroSubheadlineAr:'أكبر شبكة إعلانات خارجية في مصر', statementTitle:'We don\'t just sell space', statementTitleAr:'لا نبيع مساحات فحسب', signatureItems:[], signatureItemsAr:[], finalCtaHeadline:'Ready to make an impact?', finalCtaHeadlineAr:'هل أنت مستعد؟', finalCtaCta1:'Get Started', finalCtaCta2:'View Locations', finalCtaCta1Ar:'ابدأ الآن', finalCtaCta2Ar:'عرض المواقع' };
 const DEMO_ABOUT: AboutContent = { heroTitle:'About Horizon OOH', heroAccent:'We Are Horizon', whyItems:[], keyStats:[], stats:[], whyChoose:[], darkParagraphs:[] };
 const DEMO_PROJECTS_CONTENT = { heroEyebrow:'Our Work', heroTitle:'Projects That Make an Impact', featured:null };
-const DEMO_LOCATIONS_CONTENT: LocationsPageContent = { heroEyebrow:'Our Network', heroTitle:'Advertising Locations', heroSubtitle:'Discover premium outdoor advertising locations across Egypt.', ctaHelpText:'Need help choosing a location?', ctaTalkText:'Talk to an expert', ctaWhatsApp:'+201000000000', noResultsText:'No locations found', locationDetailEyebrow:'Advertising Location', locationDetailCta:'Get a Quote' };
+const DEMO_LOCATIONS_CONTENT: LocationsPageContent = {
+  // Canonical keys matching what Locations.tsx reads
+  eyebrow:        'Our Network',
+  title:          'Advertising Locations',
+  titleAccent:    'across Egypt.',
+  subtitle:       'Discover premium outdoor advertising locations across Egypt.',
+  ctaHelpText:    'Need help choosing a location?',
+  ctaButton:      'Talk to an expert',
+  ctaWhatsApp:    '+201000000000',
+  noResultsTitle: 'No locations found',
+  noResultsHint:  'Try adjusting your filters.',
+  // Legacy aliases
+  heroEyebrow:    'Our Network',
+  heroTitle:      'Advertising Locations',
+  heroSubtitle:   'Discover premium outdoor advertising locations across Egypt.',
+};
 const DEMO_CONTACT_CONTENT: ContactPageContent = { heroTitle:'Contact Us', heroSubtitle:'Get in touch with our team', formTitle:'Send us a message', whatsappNumber:'+201000000000', phone:'+20 2 1234 5678', email:'info@horizonooh.com', address:'Cairo, Egypt' };
 const _demoContacts: ContactEntry[] = [];
 const _demoProcess: ProcessStep[] = (PROCESS as any[]).map((p: any, i: number) => ({ id: p.id ?? String(i+1), step: p.step ?? (i+1), title: p.title ?? '', description: p.description ?? p.desc ?? '', icon: p.icon ?? '' }));
@@ -442,7 +468,34 @@ export const useApiStore = create<ApiState>((set, get) => ({
       about:              Object.keys(acRaw).length    ? acRaw    : DEMO_ABOUT,
       aboutContent:       Object.keys(acRaw).length    ? acRaw    : DEMO_ABOUT,
       projectsContent:    (() => { try { const v = settsRaw['projects_page_content']; return typeof v === 'string' ? JSON.parse(v) : (v ?? DEMO_PROJECTS_CONTENT); } catch { return DEMO_PROJECTS_CONTENT; } })(),
-      locationsContent:   (() => { try { const v = settsRaw['locations_page_content']; return typeof v === 'string' ? JSON.parse(v) : (v ?? DEMO_LOCATIONS_CONTENT); } catch { return DEMO_LOCATIONS_CONTENT; } })(),
+      locationsContent:   (() => {
+        try {
+          const v = settsRaw['locations_page_content'];
+          const raw: any = typeof v === 'string' ? JSON.parse(v) : (v ?? {});
+          if (!raw || !Object.keys(raw).length) return DEMO_LOCATIONS_CONTENT;
+          // Normalise: map legacy hero* keys → canonical keys used by Locations.tsx
+          return {
+            ...raw,
+            eyebrow:        raw.eyebrow        ?? raw.heroEyebrow    ?? DEMO_LOCATIONS_CONTENT.eyebrow,
+            eyebrowAr:      raw.eyebrowAr      ?? raw.heroEyebrowAr  ?? '',
+            title:          raw.title          ?? raw.heroTitle       ?? DEMO_LOCATIONS_CONTENT.title,
+            titleAr:        raw.titleAr        ?? raw.heroTitleAr     ?? '',
+            titleAccent:    raw.titleAccent    ?? DEMO_LOCATIONS_CONTENT.titleAccent,
+            titleAccentAr:  raw.titleAccentAr  ?? '',
+            subtitle:       raw.subtitle       ?? raw.heroSubtitle    ?? DEMO_LOCATIONS_CONTENT.subtitle,
+            subtitleAr:     raw.subtitleAr     ?? raw.heroSubtitleAr  ?? '',
+            ctaHelpText:    raw.ctaHelpText    ?? raw.ctaHelp         ?? DEMO_LOCATIONS_CONTENT.ctaHelpText,
+            ctaHelpTextAr:  raw.ctaHelpTextAr  ?? raw.ctaHelpAr      ?? '',
+            ctaButton:      raw.ctaButton      ?? raw.ctaTalkText     ?? raw.ctaExpert  ?? DEMO_LOCATIONS_CONTENT.ctaButton,
+            ctaButtonAr:    raw.ctaButtonAr    ?? raw.ctaTalkTextAr   ?? raw.ctaExpertAr ?? '',
+            ctaWhatsApp:    raw.ctaWhatsApp    ?? raw.whatsappNumber  ?? DEMO_LOCATIONS_CONTENT.ctaWhatsApp,
+            noResultsTitle: raw.noResultsTitle ?? raw.noResults       ?? raw.noResultsText ?? DEMO_LOCATIONS_CONTENT.noResultsTitle,
+            noResultsTitleAr: raw.noResultsTitleAr ?? raw.noResultsAr ?? '',
+            noResultsHint:  raw.noResultsHint  ?? DEMO_LOCATIONS_CONTENT.noResultsHint,
+            noResultsHintAr: raw.noResultsHintAr ?? '',
+          };
+        } catch { return DEMO_LOCATIONS_CONTENT; }
+      })(),
       contactContent:     (() => { try { const v = settsRaw['contact_page_content'];  return typeof v === 'string' ? JSON.parse(v) : (v ?? DEMO_CONTACT_CONTENT);  } catch { return DEMO_CONTACT_CONTENT;  } })(),
       suppliers:          suppRaw,
       customers:          custRaw,
