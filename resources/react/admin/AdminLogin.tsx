@@ -18,8 +18,7 @@ export default function AdminLogin() {
       await login(email, pw)
       navigate('/admin')
     } catch (err: any) {
-      // Show the specific error from the API or auth logic
-      const apiMsg = (err as any)?.response?.data?.message;
+      const apiMsg = (err as any)?.response?.data?.message
       setError(apiMsg ?? err?.message ?? 'Invalid credentials. Please try again.')
       setLoading(false)
     }
@@ -40,7 +39,7 @@ export default function AdminLogin() {
         {/* Card */}
         <div className="bg-white rounded-2xl border border-gray-100 p-8 shadow-lg">
           <h1 className="text-xl font-black text-gray-900 mb-1">Sign In</h1>
-          <p className="text-sm text-gray-400 mb-8">Admin access only</p>
+          <p className="text-sm text-gray-400 mb-8">Authorized access only</p>
 
           <form onSubmit={submit} className="space-y-5">
             <div>
@@ -49,6 +48,7 @@ export default function AdminLogin() {
                 type="email" value={email} onChange={e => setEmail(e.target.value)} required
                 autoComplete="username"
                 className="w-full h-10 px-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-gray-400"
+                placeholder="your@email.com"
               />
             </div>
             <div>
@@ -57,6 +57,7 @@ export default function AdminLogin() {
                 type="password" value={pw} onChange={e => setPw(e.target.value)} required
                 autoComplete="current-password"
                 className="w-full h-10 px-3.5 rounded-xl border border-gray-200 text-sm outline-none focus:border-gray-400"
+                placeholder="••••••••"
               />
             </div>
 
@@ -72,26 +73,11 @@ export default function AdminLogin() {
               {loading ? 'Signing in…' : 'Sign In'}
             </button>
           </form>
-
-          {/* Demo credentials hint */}
-          <div className="mt-5 p-3 rounded-xl bg-gray-50 border border-gray-100">
-            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Demo Credentials</p>
-            <div className="space-y-1">
-              <div className="flex justify-between items-center">
-                <span className="text-xs text-gray-500">Email</span>
-                <code className="text-xs font-mono font-bold text-gray-700 bg-white px-2 py-0.5 rounded border">
-                  admin@horizonooh.com
-                </code>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-xs text-gray-500">Password</span>
-                <code className="text-xs font-mono font-bold text-gray-700 bg-white px-2 py-0.5 rounded border">
-                  admin123
-                </code>
-              </div>
-            </div>
-          </div>
         </div>
+
+        <p className="text-center text-[11px] text-gray-400 mt-6">
+          © 2026 Horizon OOH — Restricted Access
+        </p>
       </div>
     </div>
   )

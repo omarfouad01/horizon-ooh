@@ -91,12 +91,13 @@ function UserForm({ editing, onClose }: UserFormProps) {
       if (HAS_API) {
         // ── Real API ───────────────────────────────────────────────────────
         const payload: any = {
-          name:  f.name.trim(),
-          email: f.email.trim(),
-          role:  f.role,
-          phone: f.phone.trim() || undefined,
+          name:   f.name.trim(),
+          email:  f.email.trim(),
+          role:   f.role,
+          source: 'dashboard',
         }
-        if (f.password) payload.password = f.password
+        if (f.phone.trim())  payload.phone    = f.phone.trim()
+        if (f.password)      payload.password = f.password
 
         if (isEdit && editing) {
           await usersApi.update(editing.id, payload)
