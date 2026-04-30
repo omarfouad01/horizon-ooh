@@ -139,8 +139,8 @@ export default function Login() {
       localStorage.setItem('horizon_token', t);
       localStorage.setItem('horizon_site_token', t);
       localStorage.setItem('horizon_user', JSON.stringify(u));
-      // Save site user for navbar / profile page (include phone from server response)
-      localStorage.setItem('horizon_site_user', JSON.stringify({ name: u?.name ?? '', email: u?.email ?? email, phone: u?.phone ?? '' }));
+      // Save site user for navbar / profile page (include phone + company from server response)
+      localStorage.setItem('horizon_site_user', JSON.stringify({ name: u?.name ?? '', email: u?.email ?? email, phone: u?.phone ?? '', company: u?.company ?? '' }));
       navigate(ROUTES.HOME);
     } catch (err: any) {
       setLoading(false);

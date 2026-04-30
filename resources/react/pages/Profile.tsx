@@ -38,9 +38,10 @@ export default function Profile() {
   const navigate = useNavigate();
   const { isAr } = useLang();
 
-  const [user, setUser] = useState<{ name: string; email: string; phone?: string } | null>(null);
+  const [user, setUser] = useState<{ name: string; email: string; phone?: string; company?: string } | null>(null);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [company, setCompany] = useState("");
   const [currentPw, setCurrentPw] = useState("");
   const [newPw, setNewPw] = useState("");
   const [loading, setLoading] = useState(false);
@@ -53,6 +54,7 @@ export default function Profile() {
         setUser(u);
         setName(u.name || '');
         setPhone(u.phone || '');
+        setCompany(u.company || '');
       } else {
         // Not logged in, redirect
         navigate(ROUTES.HOME);
@@ -67,7 +69,7 @@ export default function Profile() {
     if (!name.trim()) { toast.error(isAr ? 'الاسم مطلوب' : 'Name is required'); return; }
     setLoading(true);
     try {
-      const payload: any = { name, phone };
+      const payload: any = { name, phone, company };
       if (newPw && currentPw) {
         payload.current_password = currentPw;
         payload.password = newPw;
@@ -76,15 +78,12 @@ export default function Profile() {
       const res = await authApi.updateProfile(payload);
       const updated = res?.data?.user || res?.data;
       if (updated) {
-        const newUser = { name: updated.name || name, email: updated.email || user?.email || '', phone: updated.phone || phone };
+        const newUser = { name: updated.name || name, email: updated.email || user?.email || '', phone: updated.phone || phone, company: updated.company || company };
         localStorage.setItem('horizon_site_user', JSON.stringify(newUser));
         setUser(newUser);
-        if (user?.email) {
-          siteUserStore.upsert(user.email, { name: newUser.name, phone: newUser.phone, source: 'profile' });
-        }
       } else {
         // Update locally even if API doesn't return data
-        const newUser = { name, email: user?.email || '', phone };
+        const newUser = { name, email: user?.email || '', phone, company };
         localStorage.setItem('horizon_site_user', JSON.stringify(newUser));
         setUser(newUser);
       }
@@ -96,7 +95,7 @@ export default function Profile() {
         toast.error(Object.values(apiErr).flat().join(' '));
       } else {
         // Update locally even on API failure (preview / offline)
-        const newUser = { name, email: user?.email || '', phone };
+        const newUser = { name, email: user?.email || '', phone, company };
         localStorage.setItem('horizon_site_user', JSON.stringify(newUser));
         setUser(newUser);
         toast.success(isAr ? 'تم تحديث البيانات محلياً' : 'Profile updated locally.');
@@ -145,6 +144,8 @@ export default function Profile() {
                 value={user.email} readOnly />
               <AuthInput label={isAr ? 'رقم الهاتف' : 'Phone Number'} id="phone" type="tel" placeholder="+20 xxx xxx xxxx"
                 value={phone} onChange={setPhone} required={false} />
+              <AuthInput label={isAr ? 'اسم الشركة' : 'Company Name'} id="company" placeholder={isAr ? 'اسم شركتك' : 'Your company name'}
+                value={company} onChange={setCompany} required={false} />
 
               {/* Password change section */}
               <div className="pt-4 border-t border-gray-100">

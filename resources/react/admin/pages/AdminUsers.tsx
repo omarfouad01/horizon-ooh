@@ -11,6 +11,7 @@ interface WebsiteUser {
   name: string
   email: string
   phone?: string
+  company?: string
   source?: string
   role?: string
   created_at?: string
@@ -30,8 +31,8 @@ const defaultBadge = { label: 'User', bg: 'bg-gray-50 text-gray-600 border-gray-
 
 // ─── Demo data (preview mode) ─────────────────────────────────────────────────
 const DEMO_USERS: WebsiteUser[] = [
-  { id: 1, name: 'Ahmed Hassan', email: 'ahmed@example.com', phone: '+20 100 123 4567', source: 'website', created_at: new Date().toISOString() },
-  { id: 2, name: 'Sara Mohamed', email: 'sara@example.com', phone: '+20 112 987 6543', source: 'website', created_at: new Date().toISOString() },
+  { id: 1, name: 'Ahmed Hassan', email: 'ahmed@example.com', phone: '+20 100 123 4567', company: 'Horizon Media', source: 'website', created_at: new Date().toISOString() },
+  { id: 2, name: 'Sara Mohamed', email: 'sara@example.com', phone: '+20 112 987 6543', company: 'OOH Egypt', source: 'website', created_at: new Date().toISOString() },
 ]
 
 // ─── Main component ─────────────────────────────────────────────────────────────
@@ -89,7 +90,8 @@ export default function AdminUsers() {
     return (
       u.name?.toLowerCase().includes(q) ||
       u.email?.toLowerCase().includes(q) ||
-      u.phone?.toLowerCase().includes(q)
+      u.phone?.toLowerCase().includes(q) ||
+      u.company?.toLowerCase().includes(q)
     )
   })
 
@@ -214,6 +216,12 @@ export default function AdminUsers() {
                       <span>{u.phone}</span>
                     </div>
                   )}
+                  {u.company && (
+                    <div className="flex items-center gap-2 text-[12px] text-gray-600">
+                      <span className="text-gray-400 flex-shrink-0 text-[10px] font-bold">🏢</span>
+                      <span className="truncate">{u.company}</span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Footer */}
@@ -269,6 +277,14 @@ export default function AdminUsers() {
                 </div>
               )}
             </div>
+
+            {/* Company */}
+            {(view as any).company && (
+              <div>
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Company</p>
+                <p className="text-[13px] text-gray-700">{(view as any).company}</p>
+              </div>
+            )}
 
             {/* Dates */}
             <div className="grid grid-cols-2 gap-4 text-[12px] text-gray-500">

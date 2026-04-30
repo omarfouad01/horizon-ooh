@@ -33,6 +33,7 @@ class UserController extends Controller
             'password' => ['required', 'string', Password::min(8)],
             'role'     => 'nullable|string|in:admin,editor,viewer',
             'phone'    => 'nullable|string|max:30',
+            'company'  => 'nullable|string|max:120',
             'source'   => 'nullable|string|max:50',
             'notes'    => 'nullable|string',
         ]);
@@ -41,7 +42,6 @@ class UserController extends Controller
         $data['password'] = Hash::make($data['password']);
         $data['role']     = $data['role'] ?? 'editor';
 
-        // Use direct insert to bypass any model mutation
         $u = User::create($data);
 
         return response()->json($this->transform($u), 201);
@@ -56,6 +56,7 @@ class UserController extends Controller
             'password' => ['nullable', 'string', Password::min(8)],
             'role'     => 'nullable|string|in:admin,editor,viewer',
             'phone'    => 'nullable|string|max:30',
+            'company'  => 'nullable|string|max:120',
             'source'   => 'nullable|string|max:50',
             'notes'    => 'nullable|string',
         ]);
@@ -86,6 +87,7 @@ class UserController extends Controller
             'email'      => $u->email,
             'role'       => $u->role ?? 'editor',
             'phone'      => $u->phone,
+            'company'    => $u->company ?? null,
             'source'     => $u->source ?? 'website',
             'notes'      => $u->notes,
             'created_at' => $u->created_at?->toISOString(),

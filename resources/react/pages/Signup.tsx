@@ -155,8 +155,8 @@ export default function Signup() {
           await authApi.registerFallback(payload);
         } else throw e1;
       }
-      // Save full user info (including phone) for navbar / profile page
-      localStorage.setItem('horizon_site_user', JSON.stringify({ name, email, phone: phone || '' }));
+      // Save full user info (including phone + company) for navbar / profile page
+      localStorage.setItem('horizon_site_user', JSON.stringify({ name, email, phone: phone || '', company: company || '' }));
       setSuccess(true);
     } catch (err: any) {
       const apiErrors = err?.response?.data?.errors;

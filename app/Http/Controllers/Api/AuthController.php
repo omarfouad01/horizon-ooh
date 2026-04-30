@@ -28,11 +28,12 @@ class AuthController extends Controller
         return response()->json([
             'token' => $token,
             'user'  => [
-                'id'    => $user->id,
-                'name'  => $user->name,
-                'email' => $user->email,
-                'phone' => $user->phone ?? null,
-                'role'  => $user->role,
+                'id'      => $user->id,
+                'name'    => $user->name,
+                'email'   => $user->email,
+                'phone'   => $user->phone   ?? null,
+                'company' => $user->company ?? null,
+                'role'    => $user->role,
             ],
         ]);
     }
@@ -44,13 +45,15 @@ class AuthController extends Controller
             'email'    => 'required|email|unique:users,email',
             'password' => 'required|string|min:6|confirmed',
             'phone'    => 'nullable|string|max:30',
+            'company'  => 'nullable|string|max:120',
         ]);
 
         // Create user — set password directly to avoid double-hashing from model cast
         $user = new User();
         $user->name     = $data['name'];
         $user->email    = $data['email'];
-        $user->phone    = $data['phone'] ?? null;
+        $user->phone    = $data['phone']   ?? null;
+        $user->company  = $data['company'] ?? null;
         $user->role     = 'user';
         $user->source   = 'website';
         $user->password = Hash::make($data['password']);
@@ -61,11 +64,12 @@ class AuthController extends Controller
         return response()->json([
             'token' => $token,
             'user'  => [
-                'id'    => $user->id,
-                'name'  => $user->name,
-                'email' => $user->email,
-                'phone' => $user->phone ?? null,
-                'role'  => $user->role,
+                'id'      => $user->id,
+                'name'    => $user->name,
+                'email'   => $user->email,
+                'phone'   => $user->phone   ?? null,
+                'company' => $user->company ?? null,
+                'role'    => $user->role,
             ],
         ], 201);
     }
@@ -90,11 +94,12 @@ class AuthController extends Controller
     {
         $user = $request->user();
         return response()->json([
-            'id'    => $user->id,
-            'name'  => $user->name,
-            'email' => $user->email,
-            'phone' => $user->phone ?? null,
-            'role'  => $user->role,
+            'id'      => $user->id,
+            'name'    => $user->name,
+            'email'   => $user->email,
+            'phone'   => $user->phone   ?? null,
+            'company' => $user->company ?? null,
+            'role'    => $user->role,
         ]);
     }
 
@@ -104,6 +109,7 @@ class AuthController extends Controller
         $data = $request->validate([
             'name'     => 'sometimes|string|max:120',
             'phone'    => 'nullable|string|max:30',
+            'company'  => 'nullable|string|max:120',
             'password' => 'nullable|string|min:6|confirmed',
         ]);
 
@@ -116,11 +122,12 @@ class AuthController extends Controller
         $user->save();
 
         return response()->json([
-            'id'    => $user->id,
-            'name'  => $user->name,
-            'email' => $user->email,
-            'phone' => $user->phone ?? null,
-            'role'  => $user->role,
+            'id'      => $user->id,
+            'name'    => $user->name,
+            'email'   => $user->email,
+            'phone'   => $user->phone   ?? null,
+            'company' => $user->company ?? null,
+            'role'    => $user->role,
         ]);
     }
 }
