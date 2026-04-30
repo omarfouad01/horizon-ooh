@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ROUTES, RED, NAVY, ease } from "@/lib/routes";
-import { siteUserStore } from "@/store/dataStore";
 import { authApi } from "@/api";
 
 function AuthInput({ label, id, type = "text", placeholder, value, onChange, required = true }: {
@@ -156,7 +155,6 @@ export default function Signup() {
           await authApi.registerFallback(payload);
         } else throw e1;
       }
-      siteUserStore.upsert(email, { name, phone, source: 'signup' });
       // Save site user for navbar profile display
       localStorage.setItem('horizon_site_user', JSON.stringify({ name, email }));
       setSuccess(true);

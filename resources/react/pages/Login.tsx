@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ROUTES, RED, NAVY, ease } from "@/lib/routes";
-import { siteUserStore } from "@/store/dataStore";
 import { authApi } from "@/api";
 
 // ─── Shared input component ───────────────────────────────────────────────
@@ -142,7 +141,6 @@ export default function Login() {
       localStorage.setItem('horizon_user', JSON.stringify(u));
       // Save site user for navbar profile display
       localStorage.setItem('horizon_site_user', JSON.stringify({ name: u?.name ?? '', email: u?.email ?? email }));
-      siteUserStore.upsert(email, { name: u?.name, phone: u?.phone, source: 'login' });
       navigate(ROUTES.HOME);
     } catch (err: any) {
       setLoading(false);

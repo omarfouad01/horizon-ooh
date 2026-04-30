@@ -10,9 +10,19 @@ use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        return response()->json(User::orderBy('name')->get()->map(fn($u) => $this->transform($u)));
+        $q = User::orderBy('created_at', 'desc');
+
+        // Optional filters
+        if ($request->filled('source')) {
+            $q->where('source', $request->source);
+        }
+        if ($request->filled('role')) {
+            $q->where('role', $request->role);
+        }
+
+        return response()->json($q->get()->map(fn($u) => $this->transform($u)));
     }
 
     public function store(Request $request): JsonResponse
@@ -71,14 +81,16 @@ class UserController extends Controller
     private function transform(User $u): array
     {
         return [
-            'id'        => $u->id,
-            'name'      => $u->name,
-            'email'     => $u->email,
-            'role'      => $u->role ?? 'editor',
-            'phone'     => $u->phone,
-            'source'    => $u->source,
-            'notes'     => $u->notes,
-            'createdAt' => $u->created_at?->toISOString(),
+            'id'         => $u->id,
+            'name'       => $u->name,
+            'email'      => $u->email,
+            'role'       => $u->role ?? 'editor',
+            'phone'      => $u->phone,
+            'source'     => $u->source ?? 'website',
+            'notes'      => $u->notes,
+            'created_at' => $u->created_at?->toISOString(),
+            // camelCase alias kept for dashboard users page
+            'createdAt'  => $u->created_at?->toISOString(),
         ];
     }
 }
