@@ -28,6 +28,14 @@ class LocationController extends Controller
 
     public function store(Request $request): JsonResponse
     {
+        // Accept camelCase aliases from frontend
+        $request->merge([
+            'city_ar'          => $request->input('city_ar') ?? $request->input('cityAr'),
+            'headline_ar'      => $request->input('headline_ar') ?? $request->input('headlineAr'),
+            'description_ar'   => $request->input('description_ar') ?? $request->input('descriptionAr'),
+            'long_description' => $request->input('long_description') ?? $request->input('longDescription'),
+            'available_formats'=> $request->input('available_formats') ?? $request->input('availableFormats'),
+        ]);
         $data = $request->validate([
             'city'              => 'required|string|max:120',
             'city_ar'           => 'nullable|string|max:120',
@@ -50,6 +58,14 @@ class LocationController extends Controller
     public function update(Request $request, int $id): JsonResponse
     {
         $loc  = Location::findOrFail($id);
+        // Accept camelCase aliases from frontend
+        $request->merge([
+            'city_ar'          => $request->input('city_ar') ?? $request->input('cityAr'),
+            'headline_ar'      => $request->input('headline_ar') ?? $request->input('headlineAr'),
+            'description_ar'   => $request->input('description_ar') ?? $request->input('descriptionAr'),
+            'long_description' => $request->input('long_description') ?? $request->input('longDescription'),
+            'available_formats'=> $request->input('available_formats') ?? $request->input('availableFormats'),
+        ]);
         $data = $request->validate([
             'city'              => 'sometimes|string|max:120',
             'city_ar'           => 'nullable|string|max:120',

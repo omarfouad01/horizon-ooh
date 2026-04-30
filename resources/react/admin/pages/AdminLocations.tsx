@@ -18,7 +18,20 @@ function GovForm({ editing, onClose }: any) {
   const save = async (e: React.FormEvent) => {
     e.preventDefault()
     setSaving(true)
-    const data = { ...f, availableFormats: fmts, products: editing?.products || [], slug: f.city.toLowerCase().replace(/\s+/g, '-') }
+    const data = {
+      city:             f.city,
+      city_ar:          f.cityAr || '',
+      headline:         f.headline,
+      headline_ar:      f.headlineAr || '',
+      detail:           f.detail,
+      description:      f.description,
+      description_ar:   f.descriptionAr || '',
+      long_description: f.longDescription || '',
+      image:            f.image || '',
+      available_formats: fmts,
+      products:         editing?.products || [],
+      slug:             f.city.toLowerCase().replace(/\s+/g, '-'),
+    }
     try {
       if (editing) await locationStore.update(editing.id, data)
       else         await locationStore.add(data)
@@ -70,8 +83,8 @@ function DistrictForm({ editing, presetLocationId, onClose }: any) {
     if (!name.trim() || !locId) { toast.error('Name and Governorate are required'); return }
     setSaving(true)
     try {
-      if (editing) await districtStore.update(editing.id, { name, nameAr, locationId: locId })
-      else         await districtStore.add({ name, nameAr, locationId: locId })
+      if (editing) await districtStore.update(editing.id, { name, name_ar: nameAr, location_id: locId })
+      else         await districtStore.add({ name, name_ar: nameAr, location_id: locId })
       toast.success(editing ? 'District updated' : 'District added')
       onClose()
     } catch (err: any) {

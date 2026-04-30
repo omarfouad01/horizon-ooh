@@ -6,6 +6,7 @@
  * - Auto-saves upload to dashboard silently (no "Save to My Account" button)
  */
 import { useState, useRef, useCallback, useEffect } from 'react';
+import { useLang } from '@/i18n/LangContext';
 import { Link } from 'react-router-dom';
 import { useStore, designUploadStore } from '@/store/dataStore';
 import SimulatorCanvas, { type SimulatorCanvasHandle } from '@/components/SimulatorCanvas';
@@ -22,7 +23,6 @@ function getSiteUser() {
 }
 
 const PANEL_COLORS = ['#D90429', '#7C3AED', '#D97706'];
-const PANEL_LABELS = ['Panel 1', 'Panel 2', 'Panel 3'];
 
 // ─── Step indicator ───────────────────────────────────────────────────────────
 function StepDot({ n, label, active, done }: { n: number; label: string; active: boolean; done: boolean }) {
@@ -41,8 +41,9 @@ function StepDot({ n, label, active, done }: { n: number; label: string; active:
 function UploadZone({ index, panelCount, value, onChange }: {
   index: number; panelCount: number; value: string; onChange: (url: string) => void;
 }) {
+  const { t } = useLang();
   const color = PANEL_COLORS[index % PANEL_COLORS.length];
-  const label = PANEL_LABELS[index] ?? `Panel ${index + 1}`;
+  const label = `Panel ${index + 1}`;
   return (
     <div>
       {panelCount > 1 && (
@@ -60,7 +61,7 @@ function UploadZone({ index, panelCount, value, onChange }: {
         ) : (
           <>
             <Upload size={22} className="text-gray-300 mb-1.5" />
-            <span className="text-gray-400 text-xs font-medium">Click to upload (JPG / PNG)</span>
+            <span className="text-gray-400 text-xs font-medium">{t('sim.clickToUpload')}</span>
           </>
         )}
         <input type="file" accept="image/*" className="hidden" onChange={e => {
@@ -74,7 +75,7 @@ function UploadZone({ index, panelCount, value, onChange }: {
       </label>
       {value && (
         <button onClick={() => onChange('')} className="text-xs text-gray-400 hover:text-red-500 mt-1 ml-1 transition-colors">
-          ↺ Change design
+          {t('sim.changeDesign')}
         </button>
       )}
     </div>
@@ -138,6 +139,7 @@ function FormatCard({ t, selected, onClick }: {
 // ─── Main page ────────────────────────────────────────────────────────────────
 export default function DesignSimulator() {
   const store = useStore();
+  const { t, isAr } = useLang();
   const canvasRef = useRef<SimulatorCanvasHandle>(null);
 
   const templates: SimulatorTemplate[] = (store.simulatorTemplates ?? []).filter(
@@ -201,7 +203,7 @@ export default function DesignSimulator() {
     setDownloading(true);
     try {
       const dataUrl = await canvasRef.current.capture();
-      if (!dataUrl) { toast.error('Could not generate image'); return; }
+      if (!dataUrl) { toast.error(t('sim.downloadFailed')); return; }
       const arr  = dataUrl.split(',');
       const mime = arr[0].match(/:(.*?);/)?.[1] ?? 'image/png';
       const bstr = atob(arr[1]);
@@ -215,10 +217,10 @@ export default function DesignSimulator() {
       document.body.appendChild(a);
       a.click();
       setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
-      toast.success('Mockup downloaded!');
-    } catch { toast.error('Download failed'); }
+      toast.success(t('sim.mockupDownloaded'));
+    } catch { toast.error(t('sim.downloadFailed')); }
     finally { setDownloading(false); }
-  }, []);
+  }, [t]);
 
   // ─── Render ─────────────────────────────────────────────────────────────────
   return (
@@ -226,26 +228,26 @@ export default function DesignSimulator() {
 
       {/* ── Dark Hero ── */}
       <div className="bg-[#0B0F1A] text-white pt-12 pb-10 px-4">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto" dir={isAr ? 'rtl' : 'ltr'}>
           <p className="text-[#D90429] text-[11px] font-black tracking-[0.22em] uppercase mb-3">
-            Ad Design Simulator
+            {t('sim.eyebrow')}
           </p>
           <h1 className="text-4xl md:text-6xl font-black mb-3 leading-tight">
-            See Your Brand on{' '}
-            <span className="text-[#D90429]">Any Billboard</span>
+            {t('sim.title')}{' '}
+            <span className="text-[#D90429]">{t('sim.titleAccent')}</span>
           </h1>
           <p className="text-white/55 text-sm md:text-base max-w-lg mb-8">
-            Upload your artwork and preview it on Egypt's outdoor advertising network.
+            {t('sim.subtitle')}
           </p>
 
           {/* Step indicators — only show when logged in */}
           {user && (
-            <div className="flex items-center gap-3 flex-wrap">
-              <StepDot n={1} label="Format"  active={step === 1} done={step > 1} />
+            <div className={`flex items-center gap-3 flex-wrap ${isAr ? 'flex-row-reverse' : ''}`}>
+              <StepDot n={1} label={t('sim.step1')} active={step === 1} done={step > 1} />
               <ChevronRight size={14} className="text-white/20" />
-              <StepDot n={2} label="Upload"  active={step === 2} done={step > 2} />
+              <StepDot n={2} label={t('sim.step2')} active={step === 2} done={step > 2} />
               <ChevronRight size={14} className="text-white/20" />
-              <StepDot n={3} label="Preview" active={step === 3} done={false} />
+              <StepDot n={3} label={t('sim.step3')} active={step === 3} done={false} />
             </div>
           )}
         </div>
@@ -261,9 +263,9 @@ export default function DesignSimulator() {
               <div className="w-16 h-16 rounded-full bg-[#D90429]/10 flex items-center justify-center mx-auto mb-5">
                 <LogIn size={30} className="text-[#D90429]" />
               </div>
-              <h2 className="text-2xl font-black text-gray-900 mb-3">Sign in to use the Simulator</h2>
+              <h2 className="text-2xl font-black text-gray-900 mb-3">{t('sim.signInRequired')}</h2>
               <p className="text-gray-500 text-sm mb-8 leading-relaxed">
-                Create a free account or log in to preview your designs on real billboard formats and download professional mockups.
+                {t('sim.signInDesc')}
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Link
@@ -271,13 +273,13 @@ export default function DesignSimulator() {
                   className="flex items-center justify-center gap-2 px-6 py-3 bg-[#D90429] text-white font-bold rounded-xl text-sm hover:bg-[#b8031f] transition-colors"
                 >
                   <LogIn size={16} />
-                  Login to My Account
+                  {t('sim.loginBtn')}
                 </Link>
                 <Link
                   to="/signup"
                   className="flex items-center justify-center gap-2 px-6 py-3 border-2 border-gray-200 text-gray-700 font-bold rounded-xl text-sm hover:border-gray-400 transition-colors"
                 >
-                  Create Free Account
+                  {t('sim.createAccount')}
                 </Link>
               </div>
             </div>
@@ -288,12 +290,12 @@ export default function DesignSimulator() {
         {user && allTemplates.length === 0 && (
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-12 text-center max-w-lg mx-auto">
             <AlertCircle size={36} className="text-amber-400 mx-auto mb-4" />
-            <h2 className="text-lg font-bold text-gray-900 mb-2">Simulator Coming Soon</h2>
+            <h2 className="text-lg font-bold text-gray-900 mb-2">{t('sim.templatesComingSoon')}</h2>
             <p className="text-gray-500 text-sm mb-6">
-              Our team is setting up billboard mockups. Check back soon or contact us to book a location.
+              {t('sim.comingSoonDesc')}
             </p>
             <Link to="/contact" className="inline-block px-6 py-2.5 bg-[#D90429] text-white font-bold rounded-xl text-sm hover:bg-[#b8031f] transition-colors">
-              Contact Our Team
+              {t('sim.contactTeam')}
             </Link>
           </div>
         )}
@@ -306,22 +308,22 @@ export default function DesignSimulator() {
             <section>
               <div className="flex items-center gap-2 mb-5">
                 <span className="w-6 h-6 rounded-full bg-[#D90429] text-white text-[11px] flex items-center justify-center font-black">1</span>
-                <h2 className="text-base font-black text-gray-900 uppercase tracking-widest">Choose Your Format</h2>
+                <h2 className="text-base font-black text-gray-900 uppercase tracking-widest">{t('sim.chooseFormat')}</h2>
               </div>
 
               {templates.length === 0 ? (
                 <div className="flex items-start gap-2 text-xs text-amber-700 bg-amber-50 rounded-xl px-4 py-3 border border-amber-100 max-w-md">
                   <AlertCircle size={13} className="mt-0.5 shrink-0" />
-                  <span>Templates are being set up. Check back soon.</span>
+                  <span>{t('sim.templatesSetup')}</span>
                 </div>
               ) : (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                  {templates.map(t => (
+                  {templates.map(tpl => (
                     <FormatCard
-                      key={t.id}
-                      t={t}
-                      selected={selectedTemplate?.id === t.id}
-                      onClick={() => handleTemplateSelect(t)}
+                      key={tpl.id}
+                      t={tpl}
+                      selected={selectedTemplate?.id === tpl.id}
+                      onClick={() => handleTemplateSelect(tpl)}
                     />
                   ))}
                 </div>
@@ -338,13 +340,13 @@ export default function DesignSimulator() {
                     <div className="flex items-center gap-2 mb-4">
                       <span className="w-6 h-6 rounded-full bg-[#D90429] text-white text-[11px] flex items-center justify-center font-black">2</span>
                       <h3 className="text-xs font-black text-gray-500 uppercase tracking-widest">
-                        Upload Your Design{panelCount > 1 ? 's' : ''}
+                        {panelCount > 1 ? t('sim.uploadDesigns') : t('sim.uploadDesign')}
                       </h3>
                     </div>
 
                     {panelCount > 1 && (
                       <p className="text-xs text-purple-600 bg-purple-50 rounded-lg px-3 py-2 mb-3 font-semibold border border-purple-100">
-                        {panelCount === 2 ? 'Double Decker' : 'Multi-Panel'} — {panelCount} designs needed
+                        {panelCount === 2 ? t('sim.doubleDecker') : t('sim.multiPanel')} — {panelCount} {t('sim.designsNeeded')}
                       </p>
                     )}
 
@@ -368,7 +370,7 @@ export default function DesignSimulator() {
                         className="mt-5 w-full flex items-center justify-center gap-2 bg-[#0B0F1A] text-white font-bold py-3 rounded-xl hover:bg-black transition-colors disabled:opacity-50 text-sm"
                       >
                         <Download size={15} />
-                        {downloading ? 'Generating...' : 'Download Mockup'}
+                        {downloading ? t('sim.generating') : t('sim.downloadMockup')}
                       </button>
                     )}
                   </div>
@@ -380,7 +382,7 @@ export default function DesignSimulator() {
                     <div className="border-b border-gray-100 px-5 py-3 flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <span className="w-6 h-6 rounded-full bg-[#D90429] text-white text-[11px] flex items-center justify-center font-black">3</span>
-                        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Live Preview</p>
+                        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">{t('sim.livePreview')}</p>
                       </div>
                       <p className="text-xs text-gray-500">
                         {selectedTemplate.typeName}{selectedTemplate.sizeLabel ? ` · ${selectedTemplate.sizeLabel}` : ''}
@@ -391,8 +393,8 @@ export default function DesignSimulator() {
                       {!designFiles.some(Boolean) ? (
                         <div className="text-center">
                           <Upload size={52} className="text-gray-200 mx-auto mb-4" />
-                          <p className="text-gray-400 font-semibold text-sm">Upload your design{panelCount > 1 ? 's' : ''}</p>
-                          <p className="text-gray-300 text-xs mt-1">The preview will appear here automatically</p>
+                          <p className="text-gray-400 font-semibold text-sm">{t('sim.uploadFirst')}{panelCount > 1 ? 's' : ''}</p>
+                          <p className="text-gray-300 text-xs mt-1">{t('sim.previewAuto')}</p>
                         </div>
                       ) : selectedTemplate.mockupUrl && (selectedTemplate.panels?.length ?? 0) > 0 ? (
                         <SimulatorCanvas
@@ -412,7 +414,7 @@ export default function DesignSimulator() {
                             />
                           )}
                           <p className="text-xs text-amber-600 bg-amber-50 rounded-lg px-3 py-2 border border-amber-100 inline-block">
-                            Template corners not yet configured — contact admin
+                            {t('sim.cornersNotSet')}
                           </p>
                         </div>
                       )}
