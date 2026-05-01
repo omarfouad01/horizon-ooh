@@ -228,9 +228,16 @@
 
 /* ─── Arabic / RTL Support ──────────────────────────────────────────── */
 html[dir="rtl"],
-html[dir="rtl"] * {
+html[dir="rtl"] *:not([dir="ltr"]):not([dir="ltr"] *) {
   font-family: Cairo, Tajawal, 'Segoe UI', sans-serif !important;
   letter-spacing: 0 !important;
+}
+
+/* Explicitly LTR-marked elements (e.g. LogoMarquee) keep their own direction */
+html[dir="rtl"] [dir="ltr"] {
+  direction: ltr !important;
+  text-align: left !important;
+  letter-spacing: inherit !important;
 }
 
 html[dir="rtl"] h1,

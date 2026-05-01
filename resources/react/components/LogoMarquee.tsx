@@ -53,11 +53,15 @@ export default function LogoMarquee({ brands, speed = 40, light = true }: LogoMa
   const hoverFilter  = light ? 'grayscale(0) brightness(1)' : 'grayscale(0) brightness(1.3)'
 
   return (
+    // dir="ltr" forces left-to-right scroll regardless of page RTL direction (Arabic mode)
+    // Without this, RTL mode reverses overflow clipping and translateX direction,
+    // making logos invisible / scrolling out of the visible area.
     <div
+      dir="ltr"
       className="relative overflow-hidden select-none"
       onMouseEnter={() => { pausedRef.current = true  }}
       onMouseLeave={() => { pausedRef.current = false }}
-      style={{ cursor: 'default' }}
+      style={{ cursor: 'default', direction: 'ltr' }}
     >
       {/* Left/right fade edges */}
       <div className="pointer-events-none absolute inset-y-0 left-0 w-20 z-10"
@@ -65,7 +69,7 @@ export default function LogoMarquee({ brands, speed = 40, light = true }: LogoMa
       <div className="pointer-events-none absolute inset-y-0 right-0 w-20 z-10"
            style={{ background: `linear-gradient(to left, ${light ? 'white' : 'transparent'}, transparent)` }}/>
 
-      <div ref={trackRef} className="flex items-center gap-16 will-change-transform" style={{ width: 'max-content', padding: '0 28px' }}>
+      <div ref={trackRef} className="flex items-center gap-16 will-change-transform" style={{ width: 'max-content', padding: '0 28px', direction: 'ltr' }}>
         {items.map((brand, i) => (
           <div key={`${brand.id}-${i}`} className="flex-shrink-0 flex items-center justify-center" style={{ height: 72, minWidth: 120 }}>
             {brand.logoUrl ? (
