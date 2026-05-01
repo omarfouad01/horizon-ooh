@@ -165,14 +165,18 @@ export default function AdminSettings() {
 
   // Simulator page content — stored inside homeContent with sim_ prefix
   const [simContent, setSimContent] = useState<Record<string,string>>({
-    eyebrow:    (s.homeContent as any)?.sim_eyebrow    ?? 'Ad Design Simulator',
-    title:      (s.homeContent as any)?.sim_title      ?? 'See Your Brand',
-    titleAccent:(s.homeContent as any)?.sim_titleAccent?? 'on Any Billboard',
-    subtitle:   (s.homeContent as any)?.sim_subtitle   ?? 'Upload your design and instantly preview it on real billboards across Egypt.',
-    ctaEyebrow: (s.homeContent as any)?.sim_ctaEyebrow ?? 'Ready to Go Live?',
-    ctaTitle1:  (s.homeContent as any)?.sim_ctaTitle1  ?? 'Turn your design',
-    ctaTitle2:  (s.homeContent as any)?.sim_ctaTitle2  ?? 'into a real campaign.',
-    ctaSubtext: (s.homeContent as any)?.sim_ctaSubtext ?? 'Our team is ready to help you pick the perfect locations and launch your campaign.',
+    eyebrow:      (s.homeContent as any)?.sim_eyebrow      ?? 'Ad Design Simulator',
+    title:        (s.homeContent as any)?.sim_title        ?? 'See Your Brand',
+    titleAccent:  (s.homeContent as any)?.sim_titleAccent  ?? 'on Any Billboard',
+    subtitle:     (s.homeContent as any)?.sim_subtitle     ?? 'Upload your design and instantly preview it on real billboards across Egypt.',
+    ctaEyebrow:   (s.homeContent as any)?.sim_ctaEyebrow   ?? 'Ready to Go Live?',
+    ctaTitle1:    (s.homeContent as any)?.sim_ctaTitle1    ?? 'Turn your design',
+    ctaTitle2:    (s.homeContent as any)?.sim_ctaTitle2    ?? 'into a real campaign.',
+    ctaSubtext:   (s.homeContent as any)?.sim_ctaSubtext   ?? 'Our team is ready to help you pick the perfect locations and launch your campaign.',
+    ctaBtn1Label: (s.homeContent as any)?.sim_ctaBtn1Label ?? 'Contact Us',
+    ctaBtn1Link:  (s.homeContent as any)?.sim_ctaBtn1Link  ?? '/contact',
+    ctaBtn2Label: (s.homeContent as any)?.sim_ctaBtn2Label ?? 'View Locations',
+    ctaBtn2Link:  (s.homeContent as any)?.sim_ctaBtn2Link  ?? '/locations',
   })
   const setSim = (k: string, v: string) => setSimContent(p => ({ ...p, [k]: v }))
   const saveSimulator = async () => {
@@ -555,6 +559,20 @@ export default function AdminSettings() {
                 <Field label="CTA Title Line 2 (accent)" value={simContent.ctaTitle2} onChange={(e:any)=>setSim('ctaTitle2',e.target.value)} placeholder="into a real campaign."/>
               </div>
               <TA label="CTA Sub-text" value={simContent.ctaSubtext} onChange={(e:any)=>setSim('ctaSubtext',e.target.value)} rows={2} className="mt-3" placeholder="Our team is ready to help…"/>
+
+              {/* CTA Buttons */}
+              <div className="mt-4 pt-4 border-t border-gray-100">
+                <p className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-3">CTA Buttons</p>
+                <div className="grid grid-cols-2 gap-4">
+                  <Field label="Button 1 Label" value={simContent.ctaBtn1Label} onChange={(e:any)=>setSim('ctaBtn1Label',e.target.value)} placeholder="Contact Us"/>
+                  <Field label="Button 1 Link" value={simContent.ctaBtn1Link} onChange={(e:any)=>setSim('ctaBtn1Link',e.target.value)} placeholder="/contact"/>
+                </div>
+                <div className="grid grid-cols-2 gap-4 mt-3">
+                  <Field label="Button 2 Label" value={simContent.ctaBtn2Label} onChange={(e:any)=>setSim('ctaBtn2Label',e.target.value)} placeholder="View Locations"/>
+                  <Field label="Button 2 Link" value={simContent.ctaBtn2Link} onChange={(e:any)=>setSim('ctaBtn2Link',e.target.value)} placeholder="/locations"/>
+                </div>
+                <p className="text-[10px] text-gray-400 mt-2">Use relative paths like <code className="bg-gray-100 px-1 rounded">/contact</code> or <code className="bg-gray-100 px-1 rounded">/locations</code></p>
+              </div>
             </div>
           </div>
           <Btn onClick={saveSimulator} className="flex items-center gap-2"><Save size={14}/>Save Simulator Page Content</Btn>

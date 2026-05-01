@@ -6,36 +6,54 @@ use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\QueryException;
 
 class ServiceController extends Controller
 {
+    /** Cached list of actual DB columns for 'services' */
+    private static ?array $columns = null;
+
+    private static function cols(): array
+    {
+        if (self::$columns === null) {
+            self::$columns = Schema::getColumnListing('services');
+        }
+        return self::$columns;
+    }
+
+    /** Safely read a column that may not exist in older deployments */
+    private function col(Service $s, string $column): mixed
+    {
+        return in_array($column, self::cols()) ? $s->{$column} : null;
+    }
+
     private function transform(Service $s): array
     {
         return [
             'id'                => $s->id,
             'slug'              => $s->slug,
             'name'              => $s->name,
-            'shortTitle'        => $s->short_title,
-            'tagline'           => $s->tagline,
+            'shortTitle'        => $this->col($s, 'short_title'),
+            'tagline'           => $this->col($s, 'tagline'),
             'icon'              => $s->icon,
             'eyebrow'           => $s->eyebrow,
             'headline'          => $s->headline,
             'description'       => $s->description,
-            'longDescription'   => $s->long_description,
-            'whatIs'            => $s->what_is,
-            'whereUsed'         => $s->where_used,
+            'longDescription'   => $this->col($s, 'long_description'),
+            'whatIs'            => $this->col($s, 'what_is'),
+            'whereUsed'         => $this->col($s, 'where_used'),
             'image'             => $s->image,
-            'imageAlt'          => $s->image_alt,
+            'imageAlt'          => $this->col($s, 'image_alt'),
             'features'          => $s->features ?? [],
-            'benefits'          => $s->benefits ?? [],
-            'process'           => $s->process ?? [],
+            'benefits'          => $this->col($s, 'benefits') ?? [],
+            'process'           => $this->col($s, 'process') ?? [],
             'stats'             => $s->stats ?? [],
-            'whyChoose'         => $s->why_choose ?? [],
+            'whyChoose'         => $this->col($s, 'why_choose') ?? [],
             'sort_order'        => $s->sort_order,
-            'titleAr'           => $s->title_ar,
-            'descriptionAr'     => $s->description_ar,
-            'longDescriptionAr' => $s->long_description_ar,
+            'titleAr'           => $this->col($s, 'title_ar'),
+            'descriptionAr'     => $this->col($s, 'description_ar'),
+            'longDescriptionAr' => $this->col($s, 'long_description_ar'),
         ];
     }
 
@@ -55,14 +73,16 @@ class ServiceController extends Controller
     {
         try {
             $data = $this->validated($request);
-            $base = Str::slug($data['short_title'] ?? $data['name']);
+            $base = Str::slug($data['short_title'] ?? $data['name'] ?? 'service');
             $data['slug'] = $this->uniqueSlug($base);
             $normalized   = $this->normalize($data);
-            $normalized   = $this->stripUnknownKeys($normalized);
+            $normalized   = $this->safeData($normalized);
             $svc = Service::create($normalized);
             return response()->json($this->transform($svc), 201);
         } catch (QueryException $e) {
             return response()->json(['message' => 'Database error: ' . $e->getMessage()], 500);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 422);
         }
     }
 
@@ -78,11 +98,13 @@ class ServiceController extends Controller
                 }
             }
             $normalized = $this->normalize($data);
-            $normalized = $this->stripUnknownKeys($normalized);
+            $normalized = $this->safeData($normalized);
             $svc->update($normalized);
             return response()->json($this->transform($svc));
         } catch (QueryException $e) {
             return response()->json(['message' => 'Database error: ' . $e->getMessage()], 500);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 422);
         }
     }
 
@@ -133,7 +155,7 @@ class ServiceController extends Controller
 
     private function uniqueSlug(string $base, ?int $excludeId = null): string
     {
-        $slug = $base;
+        $slug = $base ?: 'service';
         $n    = 1;
         while (true) {
             $q = Service::where('slug', $slug);
@@ -144,10 +166,11 @@ class ServiceController extends Controller
         return $slug;
     }
 
-    private function stripUnknownKeys(array $data): array
+    /** Filter out columns that do not exist yet in the DB (schema-safe) */
+    private function safeData(array $data): array
     {
-        $allowed = (new Service)->getFillable();
-        return array_intersect_key($data, array_flip(array_merge($allowed, ['slug'])));
+        $allowed = array_merge(self::cols(), ['slug']);
+        return array_intersect_key($data, array_flip($allowed));
     }
 
     /** Convert camelCase keys sent from React to snake_case for Eloquent */

@@ -150,7 +150,11 @@ export default function DesignSimulator() {
   const simCtaEyebrow  = hc.sim_ctaEyebrow  || t('sim.ctaEyebrow')  || 'Ready to Go Live?';
   const simCtaTitle1   = hc.sim_ctaTitle1   || t('sim.ctaTitle1')   || 'Turn your design';
   const simCtaTitle2   = hc.sim_ctaTitle2   || t('sim.ctaTitle2')   || 'into a real campaign.';
-  const simCtaSubtext  = hc.sim_ctaSubtext  || t('sim.ctaSubtext')  || 'Our team is ready to help you pick the perfect locations and launch your campaign.';
+  const simCtaSubtext   = hc.sim_ctaSubtext   || t('sim.ctaSubtext')   || 'Our team is ready to help you pick the perfect locations and launch your campaign.';
+  const simCtaBtn1Label = hc.sim_ctaBtn1Label || t('sim.ctaContact')   || 'Contact Us';
+  const simCtaBtn1Link  = hc.sim_ctaBtn1Link  || '/contact';
+  const simCtaBtn2Label = hc.sim_ctaBtn2Label || t('sim.ctaLocations') || 'View Locations';
+  const simCtaBtn2Link  = hc.sim_ctaBtn2Link  || '/locations';
   const canvasRef = useRef<SimulatorCanvasHandle>(null);
 
   const templates: SimulatorTemplate[] = (store.simulatorTemplates ?? []).filter(
@@ -484,20 +488,20 @@ export default function DesignSimulator() {
             viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.24 }}
           >
             <Link
-              to="/contact"
+              to={simCtaBtn1Link}
               className="inline-flex items-center h-[56px] px-11 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white relative group"
               style={{ background: '#D90429' }}
             >
               <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out bg-[#0B0F1A]" />
-              <span className="relative z-10">{t('sim.ctaContact') || 'Contact Us'}</span>
+              <span className="relative z-10">{simCtaBtn1Label}</span>
             </Link>
             <Link
-              to="/locations"
+              to={simCtaBtn2Link}
               className="group relative inline-flex items-center h-[56px] px-11 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase transition-colors duration-300"
               style={{ border: '1.5px solid #0B0F1A', color: '#0B0F1A' }}
             >
               <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out bg-[#0B0F1A]" />
-              <span className="relative z-10 group-hover:text-white transition-colors duration-400">{t('sim.ctaLocations') || 'View Locations'}</span>
+              <span className="relative z-10 group-hover:text-white transition-colors duration-400">{simCtaBtn2Label}</span>
             </Link>
           </motion.div>
 
@@ -507,7 +511,11 @@ export default function DesignSimulator() {
             initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
             viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.32 }}
           >
-            {['9,500+ Locations', '100+ Brands', 'Egypt-wide Coverage'].map(label => (
+            {[
+              `9,500+ ${t('home.statsLocations') || 'Locations'}`,
+              `100+ ${t('home.statsBrands') || 'Brands'}`,
+              t('sim.ctaCoverage') || 'Egypt-wide Coverage'
+            ].map(label => (
               <div key={label} className="flex items-center gap-2.5">
                 <span className="block w-1 h-1 bg-[#D90429]" />
                 <span className="text-[11px] font-semibold tracking-[0.15em] uppercase text-[#0B0F1A]/30">{label}</span>

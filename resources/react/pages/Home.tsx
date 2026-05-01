@@ -600,6 +600,15 @@ function StatementSection() {
 // ═══════════════════════════════════════════════════════════════════════════
 function TrustStrip() {
   const { trustStats: TRUST_STATS } = useStore()
+  const { isAr, t } = useLang()
+  // Map common stat labels to translation keys
+  const statLabel = (label: string) => {
+    const lower = label.toLowerCase()
+    if (lower.includes('location')) return t('home.statsLocations') || label
+    if (lower.includes('brand'))    return t('home.statsBrands')    || label
+    if (lower.includes('city') || lower.includes('cities')) return t('home.statsCities') || label
+    return label
+  }
   return (
     <section className="bg-white py-[80px] border-y border-[#0B0F1A]/[0.06]">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
@@ -622,7 +631,7 @@ function TrustStrip() {
                   className="font-semibold tracking-[0.22em] uppercase"
                   style={{ fontSize: 11, color: "rgba(11,15,26,0.3)" }}
                 >
-                  {stat.label}
+                  {isAr ? statLabel(stat.label) : stat.label}
                 </div>
               </div>
             </RevealItem>
@@ -638,27 +647,28 @@ function TrustStrip() {
 // ═══════════════════════════════════════════════════════════════════════════
 function ServicesSection() {
   const { services: SERVICES } = useStore()
+  const { isAr, t } = useLang()
   return (
     <section id="services" className="bg-white" style={{ paddingTop: 120, paddingBottom: 140 }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         {/* Header row */}
         <div className="flex items-end justify-between mb-20 gap-8">
           <div>
-            <Eyebrow text="Our Services" />
+            <Eyebrow text={t('home.ourServices') || 'Our Services'} />
             <Reveal delay={0.05}>
               <h2
                 className="font-black leading-[0.9] tracking-[-0.04em]"
                 style={{ fontSize: "clamp(44px, 4.5vw, 64px)", color: NAVY }}
               >
-                Every channel.
+                {t('home.servicesTitle') || 'Full-spectrum'}
                 <br />
-                <span style={{ color: "rgba(11,15,26,0.2)" }}>Every market.</span>
+                <span style={{ color: "rgba(11,15,26,0.2)" }}>{t('home.servicesAccent') || 'OOH.'}</span>
               </h2>
             </Reveal>
           </div>
-          <Reveal delay={0.15} className="max-w-[260px] text-right">
+          <Reveal delay={0.15} className={`max-w-[260px] ${isAr ? 'text-left' : 'text-right'}`}>
             <p className="text-[15px] leading-[1.7]" style={{ color: "rgba(11,15,26,0.4)" }}>
-              Full-spectrum outdoor media solutions across Egypt's major urban centres.
+              {t('home.servicesSubtitle') || "Full-spectrum outdoor media solutions across Egypt's major urban centres."}
             </p>
           </Reveal>
         </div>
@@ -699,14 +709,14 @@ function ServicesSection() {
                   className="font-bold leading-[1.2] tracking-[-0.01em] mb-3 text-[#0B0F1A] group-hover:text-white transition-colors duration-500"
                   style={{ fontSize: 20 }}
                 >
-                  {service.title}
+                  {isAr && (service as any).titleAr ? (service as any).titleAr : service.title}
                 </h3>
 
                 {/* Description */}
                 <p
                   className="text-[13px] leading-[1.65] mb-5 text-[rgba(11,15,26,0.45)] group-hover:text-white/75 transition-colors duration-500"
                 >
-                  {service.description}
+                  {isAr && (service as any).descriptionAr ? (service as any).descriptionAr : service.description}
                 </p>
 
                 {/* Divider line */}
@@ -721,7 +731,7 @@ function ServicesSection() {
                     className="text-[11px] font-bold tracking-[0.2em] uppercase opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0"
                     style={{ color: RED }}
                   >
-                    Explore
+                    {t('common.explore') || 'Explore'}
                   </span>
                   <span
                     className="text-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0"
@@ -822,6 +832,7 @@ function FeatureSection() {
 // ═══════════════════════════════════════════════════════════════════════════
 function LocationsSection() {
   const { locations: LOCATIONS, settings } = useStore()
+  const { isAr, t } = useLang()
   // Featured cities always shown first; limit from settings applies to remaining slots
   const FEATURED_SLUGS = ['cairo', 'giza', 'alexandria', 'matrouh', 'luxor', 'aswan']
   const featuredFirst = [
@@ -836,19 +847,19 @@ function LocationsSection() {
         {/* Header */}
         <div className="flex items-end justify-between mb-16">
           <div>
-            <Eyebrow text="Coverage" />
+            <Eyebrow text={t('home.coverageEyebrow') || 'Our Coverage'} />
             <Reveal delay={0.05}>
               <h2
                 className="font-black leading-[0.9] tracking-[-0.04em]"
                 style={{ fontSize: "clamp(44px, 4.5vw, 64px)", color: NAVY }}
               >
-                From Cairo<br />
-                <span style={{ color: "rgba(11,15,26,0.2)" }}>to the Coast.</span>
+                {t('home.coverageTitle') || 'We cover'}<br />
+                <span style={{ color: "rgba(11,15,26,0.2)" }}>{t('home.coverageAccent') || 'every corner.'}</span>
               </h2>
             </Reveal>
           </div>
           <Reveal delay={0.2}>
-            <OutlineButton label="View All Locations" onClick={() => { window.location.hash = '/locations'; window.scrollTo(0,0); }} />
+            <OutlineButton label={t('home.viewAllLocations') || 'View All Locations'} onClick={() => { window.location.hash = '/locations'; window.scrollTo(0,0); }} />
           </Reveal>
         </div>
 
@@ -876,12 +887,12 @@ function LocationsSection() {
                   className="font-extrabold tracking-[-0.02em] mb-3 text-[#0B0F1A] group-hover:text-white transition-colors duration-500"
                   style={{ fontSize: 26, lineHeight: 1.1 }}
                 >
-                  {loc.city}
+                  {isAr && (loc as any).cityAr ? (loc as any).cityAr : loc.city}
                 </h3>
                 <p
                   className="text-[13px] leading-[1.6] text-[rgba(11,15,26,0.45)] group-hover:text-white/70 transition-colors duration-500"
                 >
-                  {loc.detail}
+                  {isAr && (loc as any).detailAr ? (loc as any).detailAr : loc.detail}
                 </p>
               </div>
             </RevealItem>
@@ -897,19 +908,20 @@ function LocationsSection() {
 // ═══════════════════════════════════════════════════════════════════════════
 function ProcessSection() {
   const { process: PROCESS } = useStore()
+  const { isAr, t } = useLang()
   return (
     <section style={{ background: NAVY, padding: "120px 0 140px" }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         <div className="flex items-end justify-between mb-20">
           <div>
-            <Eyebrow text="How We Work" light />
+            <Eyebrow text={t('home.howWeWork') || 'How We Work'} light />
             <Reveal delay={0.05}>
               <h2
                 className="font-black text-white leading-[0.9] tracking-[-0.04em]"
                 style={{ fontSize: "clamp(44px, 4.5vw, 64px)" }}
               >
-                Campaign in<br />
-                <span style={{ color: "rgba(255,255,255,0.2)" }}>4 steps.</span>
+                {t('home.campaignIn') || 'Campaign in'}<br />
+                <span style={{ color: "rgba(255,255,255,0.2)" }}>{t('home.fourSteps') || '4 steps.'}</span>
               </h2>
             </Reveal>
           </div>
@@ -944,7 +956,7 @@ function ProcessSection() {
                   className="font-extrabold text-white tracking-[-0.03em]"
                   style={{ fontSize: 28 }}
                 >
-                  {step.label}
+                  {isAr && (step as any).labelAr ? (step as any).labelAr : step.label}
                 </h3>
 
                 {/* Rule */}
@@ -952,7 +964,7 @@ function ProcessSection() {
 
                 {/* Description */}
                 <p className="text-[14px] leading-[1.7]" style={{ color: "rgba(255,255,255,0.35)" }}>
-                  {step.description}
+                  {isAr && (step as any).descriptionAr ? (step as any).descriptionAr : step.description}
                 </p>
               </div>
             </RevealItem>
@@ -1497,6 +1509,7 @@ function BillboardBenefitsSection() {
 // ─── Recently Added Billboards Section ──────────────────────────────────────
 function RecentBillboardsSection() {
   const { locations: LOCATIONS } = useStore()
+  const { isAr, t } = useLang()
   const ALL_BILLBOARD_PRODUCTS = LOCATIONS.flatMap((loc) =>
     (loc.products || []).map((p: any) => ({ ...p, citySlug: loc.slug ?? '', cityName: loc.city ?? '' }))
   );
@@ -1513,24 +1526,24 @@ function RecentBillboardsSection() {
           <div className="flex items-start justify-between mb-16 gap-8 flex-wrap">
             <div>
               <p className="text-[#0B0F1A]/30 text-[10px] tracking-[0.35em] uppercase mb-4">
-                Recently Added
+                {t('home.recentAdded') || 'Recently Added'}
               </p>
               <h2
                 id="recent-billboards-heading"
                 className="text-[#0B0F1A] font-black text-[clamp(28px,3.5vw,48px)] tracking-[-0.02em]"
                 style={{ maxWidth: 640 }}
               >
-                Recently Added Billboards in Egypt
+                {t('home.recentTitleAccent') || 'Recently Added Billboards in Egypt'}
               </h2>
               <p className="text-[#0B0F1A]/50 text-[15px] mt-4 max-w-[480px] leading-relaxed">
-                New outdoor advertising locations across Cairo, Alexandria &amp; nationwide.
+                {t('home.recentSubtitle') || 'New outdoor advertising locations across Cairo, Alexandria & nationwide.'}
               </p>
             </div>
             <Link
               to="/locations"
               className="shrink-0 self-center border border-[#0B0F1A]/20 text-[#0B0F1A] text-[13px] font-semibold tracking-[0.08em] uppercase px-6 py-3 hover:border-[#D90429] hover:text-[#D90429] transition-colors duration-300"
             >
-              View All Locations
+              {t('home.viewAllLocations') || 'View All Locations'}
             </Link>
           </div>
         </Reveal>
@@ -1578,7 +1591,7 @@ function RecentBillboardsSection() {
                   {/* Name + arrow row */}
                   <div className="flex items-start justify-between gap-3 mb-1">
                     <h3 className="text-[#0B0F1A] font-bold text-[16px] tracking-[-0.01em] leading-snug flex-1 min-w-0">
-                      {(product as any).nameEn || product.name}
+                      {isAr && (product as any).nameAr ? (product as any).nameAr : ((product as any).nameEn || product.name)}
                     </h3>
                     {/* Arrow — visible on hover */}
                     <motion.div
@@ -1605,9 +1618,9 @@ function RecentBillboardsSection() {
                   {/* Code / Size / Format */}
                   <div className="grid grid-cols-3 gap-0 border border-[#0B0F1A]/[0.07]">
                     {[
-                      { label: "Code",   value: (product as any).code || "—" },
-                      { label: "Size",   value: product.size },
-                      { label: "Format", value: product.type },
+                      { label: t('product.labelCode')   || 'Code',   value: (product as any).code || '—' },
+                      { label: t('product.labelSize')   || 'Size',   value: product.size },
+                      { label: t('product.labelFormat') || 'Format', value: product.type },
                     ].map((stat, i) => (
                       <div
                         key={stat.label}

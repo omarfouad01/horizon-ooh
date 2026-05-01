@@ -71,6 +71,26 @@ export const UI: Record<string, Record<Lang, string>> = {
   'home.exploreLocations': { en: 'Explore Locations',  ar: 'استكشف المواقع' },
   'home.viewCaseStudies':  { en: 'View Case Studies',  ar: 'عرض دراسات الحالة' },
 
+  // Home – dynamic section headings
+  'home.recentAdded':      { en: 'Recently Added',       ar: 'أحدث الإضافات' },
+  'home.recentTitle':      { en: 'Our latest',           ar: 'أحدث' },
+  'home.recentTitleAccent':{ en: 'billboard locations.', ar: 'مواقعنا الإعلانية.' },
+  'home.recentSubtitle':   { en: 'Fresh inventory just added to our network — explore the newest outdoor advertising spaces across Egypt.', ar: 'مخزون جديد تم إضافته للتو — استكشف أحدث مواقع الإعلان الخارجي في مصر.' },
+  'home.viewAllLocations': { en: 'View All Locations',   ar: 'عرض جميع المواقع' },
+  'home.coverageEyebrow':  { en: 'Our Coverage',         ar: 'تغطيتنا' },
+  'home.coverageTitle':    { en: 'We cover',             ar: 'نغطي' },
+  'home.coverageAccent':   { en: 'every corner.',        ar: 'كل ركن.' },
+  'home.howWeWork':        { en: 'How We Work',          ar: 'كيف نعمل' },
+  'home.campaignIn':       { en: 'Campaign in',          ar: 'حملة في' },
+  'home.fourSteps':        { en: '4 steps.',             ar: '٤ خطوات.' },
+  'home.statsLocations':   { en: 'Locations',            ar: 'موقع' },
+  'home.statsBrands':      { en: 'Brands',               ar: 'علامة تجارية' },
+  'home.statsCities':      { en: 'Cities',               ar: 'مدينة' },
+  'home.ourServices':      { en: 'Our Services',         ar: 'خدماتنا' },
+  'home.servicesTitle':    { en: 'Full-spectrum',        ar: 'حلول' },
+  'home.servicesAccent':   { en: 'OOH.',                 ar: 'خارجية شاملة.' },
+  'home.servicesSubtitle': { en: 'From static billboards to digital screens — every format, every market.', ar: 'من اللوحات الثابتة إلى الشاشات الرقمية — كل الأشكال في كل الأسواق.' },
+
   // ── Services ──
   'services.whatWeDo':     { en: 'What We Do',    ar: 'ما نقدمه' },
   'services.title':        { en: 'Our Services.', ar: 'خدماتنا.' },
@@ -212,6 +232,7 @@ export const UI: Record<string, Record<Lang, string>> = {
   'common.projects':       { en: 'project',       ar: 'مشروع' },
   'common.in':             { en: 'in',            ar: 'في' },
   'common.pins':           { en: 'pins',          ar: 'دبابيس' },
+  'common.explore':        { en: 'Explore',       ar: 'استكشف' },
 
   // ── Locations page ──
   'locations.filterLabel':    { en: 'Filter:',                  ar: 'تصفية:' },
@@ -310,6 +331,15 @@ export const UI: Record<string, Record<Lang, string>> = {
   'sim.panels':            { en: 'panels',                           ar: 'ألواح' },
   'sim.mockupDownloaded':  { en: 'Mockup downloaded!',               ar: 'تم تحميل النموذج!' },
   'sim.downloadFailed':    { en: 'Download failed',                   ar: 'فشل التحميل' },
+
+  // Simulator CTA section
+  'sim.ctaEyebrow':        { en: 'Ready to Go Live?',                ar: 'هل أنت مستعد للإطلاق؟' },
+  'sim.ctaTitle1':         { en: 'Turn your design',                 ar: 'حوّل تصميمك' },
+  'sim.ctaTitle2':         { en: 'into a real campaign.',            ar: 'إلى حملة إعلانية حقيقية.' },
+  'sim.ctaSubtext':        { en: 'Our team is ready to help you pick the perfect locations and launch your campaign.', ar: 'فريقنا جاهز لمساعدتك في اختيار أفضل المواقع وإطلاق حملتك.' },
+  'sim.ctaContact':        { en: 'Contact Us',                       ar: 'تواصل معنا' },
+  'sim.ctaLocations':      { en: 'View Locations',                   ar: 'استعرض المواقع' },
+  'sim.ctaCoverage':       { en: 'Egypt-wide Coverage',              ar: 'تغطية على مستوى مصر' },
 
   // ── Auth / Profile ──
   'auth.profile':          { en: 'My Profile',                       ar: 'ملفي الشخصي' },
