@@ -357,7 +357,9 @@ export function ImagePicker({
       <div className="flex items-start gap-3">
         {value ? (
           <div className="relative group flex-shrink-0">
-            <img src={value} alt={altValue || 'preview'} className="w-28 h-20 object-cover rounded-xl border border-gray-200"/>
+            <img src={value} alt={altValue || 'preview'} className="w-28 h-20 object-cover rounded-xl border border-gray-200"
+              onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}
+            />
             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-center justify-center gap-1.5">
               <button type="button" onClick={openPicker} title="Replace" className="bg-white/20 hover:bg-white/40 text-white rounded-lg p-1.5 transition-colors"><Upload size={13}/></button>
               <button type="button" onClick={() => onChange('', '')} title="Remove" className="bg-white/20 hover:bg-red-500 text-white rounded-lg p-1.5 transition-colors"><Trash2 size={13}/></button>

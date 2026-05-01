@@ -141,6 +141,16 @@ function FormatCard({ t, selected, onClick }: {
 export default function DesignSimulator() {
   const store = useStore();
   const { t, isAr } = useLang();
+  // Read simulator text from homeContent (controlled by admin dashboard)
+  const hc = (store.homeContent ?? {}) as Record<string, string>;
+  const simEyebrow     = hc.sim_eyebrow     || t('sim.eyebrow')     || 'Ad Design Simulator';
+  const simTitle       = hc.sim_title       || t('sim.title')       || 'See Your Brand';
+  const simTitleAccent = hc.sim_titleAccent || t('sim.titleAccent') || 'on Any Billboard';
+  const simSubtitle    = hc.sim_subtitle    || t('sim.subtitle')    || 'Upload your design and instantly preview it on real billboards across Egypt.';
+  const simCtaEyebrow  = hc.sim_ctaEyebrow  || t('sim.ctaEyebrow')  || 'Ready to Go Live?';
+  const simCtaTitle1   = hc.sim_ctaTitle1   || t('sim.ctaTitle1')   || 'Turn your design';
+  const simCtaTitle2   = hc.sim_ctaTitle2   || t('sim.ctaTitle2')   || 'into a real campaign.';
+  const simCtaSubtext  = hc.sim_ctaSubtext  || t('sim.ctaSubtext')  || 'Our team is ready to help you pick the perfect locations and launch your campaign.';
   const canvasRef = useRef<SimulatorCanvasHandle>(null);
 
   const templates: SimulatorTemplate[] = (store.simulatorTemplates ?? []).filter(
@@ -231,14 +241,14 @@ export default function DesignSimulator() {
       <div className="bg-[#0B0F1A] text-white pt-12 pb-10 px-4">
         <div className="max-w-6xl mx-auto" dir={isAr ? 'rtl' : 'ltr'}>
           <p className="text-[#D90429] text-[11px] font-black tracking-[0.22em] uppercase mb-3">
-            {t('sim.eyebrow')}
+            {simEyebrow}
           </p>
           <h1 className="text-4xl md:text-6xl font-black mb-3 leading-tight">
-            {t('sim.title')}{' '}
-            <span className="text-[#D90429]">{t('sim.titleAccent')}</span>
+            {simTitle}{' '}
+            <span className="text-[#D90429]">{simTitleAccent}</span>
           </h1>
           <p className="text-white/55 text-sm md:text-base max-w-lg mb-8">
-            {t('sim.subtitle')}
+            {simSubtitle}
           </p>
 
           {/* Step indicators — only show when logged in */}
@@ -441,7 +451,7 @@ export default function DesignSimulator() {
           >
             <span className="block w-5 h-[1.5px] bg-[#D90429]" />
             <span className="text-[10px] font-bold tracking-[0.35em] uppercase text-[#0B0F1A]/30">
-              {t('sim.ctaEyebrow') || 'Ready to Go Live?'}
+              {simCtaEyebrow}
             </span>
             <span className="block w-5 h-[1.5px] bg-[#D90429]" />
           </motion.div>
@@ -453,8 +463,8 @@ export default function DesignSimulator() {
             initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.08 }}
           >
-            {t('sim.ctaTitle1') || 'Turn your design'}<br />
-            <span style={{ color: 'rgba(11,15,26,0.2)' }}>{t('sim.ctaTitle2') || 'into a real campaign.'}</span>
+            {simCtaTitle1}<br />
+            <span style={{ color: 'rgba(11,15,26,0.2)' }}>{simCtaTitle2}</span>
           </motion.h2>
 
           {/* Sub text */}
@@ -464,7 +474,7 @@ export default function DesignSimulator() {
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.16 }}
           >
-            {t('sim.ctaSubtext') || 'Our team is ready to help you pick the perfect locations and launch your campaign.'}
+            {simCtaSubtext}
           </motion.p>
 
           {/* Buttons */}

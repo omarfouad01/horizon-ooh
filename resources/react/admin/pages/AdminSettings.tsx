@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { useStore, settingsStore, trustStatStore, brandStore, processStore, resultStore, projectsContentStore, resetToDefaults, type ClientBrand } from '@/store/dataStore'
+import { useStore, settingsStore, trustStatStore, brandStore, processStore, resultStore, projectsContentStore, homeStore, resetToDefaults, type ClientBrand } from '@/store/dataStore'
 import { Btn, PageHeader, Field, TA } from '../ui'
 import { Save, Plus, Trash2, RotateCcw, Upload, X, Pencil } from 'lucide-react'
 import toast from 'react-hot-toast'
@@ -154,7 +154,7 @@ function BrandModal({ open, brand, onClose, onSave, saving }: { open:boolean; br
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-const TABS = ['general','social','logo','brands','stats','process','results','projects','reset'] as const
+const TABS = ['general','social','logo','brands','stats','process','results','projects','simulator','reset'] as const
 type Tab = typeof TABS[number]
 
 export default function AdminSettings() {
@@ -162,6 +162,25 @@ export default function AdminSettings() {
   const [tab,      setTab]      = useState<Tab>('general')
   const [settings, setSettings] = useState({ ...s.settings })
   const [stats,    setStats]    = useState([...s.trustStats])
+
+  // Simulator page content — stored inside homeContent with sim_ prefix
+  const [simContent, setSimContent] = useState<Record<string,string>>({
+    eyebrow:    (s.homeContent as any)?.sim_eyebrow    ?? 'Ad Design Simulator',
+    title:      (s.homeContent as any)?.sim_title      ?? 'See Your Brand',
+    titleAccent:(s.homeContent as any)?.sim_titleAccent?? 'on Any Billboard',
+    subtitle:   (s.homeContent as any)?.sim_subtitle   ?? 'Upload your design and instantly preview it on real billboards across Egypt.',
+    ctaEyebrow: (s.homeContent as any)?.sim_ctaEyebrow ?? 'Ready to Go Live?',
+    ctaTitle1:  (s.homeContent as any)?.sim_ctaTitle1  ?? 'Turn your design',
+    ctaTitle2:  (s.homeContent as any)?.sim_ctaTitle2  ?? 'into a real campaign.',
+    ctaSubtext: (s.homeContent as any)?.sim_ctaSubtext ?? 'Our team is ready to help you pick the perfect locations and launch your campaign.',
+  })
+  const setSim = (k: string, v: string) => setSimContent(p => ({ ...p, [k]: v }))
+  const saveSimulator = async () => {
+    const payload = { ...s.homeContent }
+    Object.entries(simContent).forEach(([k, v]) => { (payload as any)[`sim_${k}`] = v })
+    await homeStore.update(payload)
+    toast.success('Simulator page content saved')
+  }
   // Use processSteps (the canonical API-loaded array) with label fallback
   const [proc,     setProc]     = useState(
     (s.processSteps?.length ? s.processSteps : s.process).map((p: any, i: number) => ({
@@ -258,7 +277,7 @@ export default function AdminSettings() {
           <button key={t} onClick={()=>setTab(t)}
             className="px-4 py-2 rounded-lg text-[12px] font-bold capitalize transition-all"
             style={tab===t ? {background:'white',color:'#0B0F1A',boxShadow:'0 1px 3px rgba(11,15,26,0.1)'} : {color:'rgba(11,15,26,0.4)'}}>
-            {t === 'logo' ? 'Logo & Favicon' : t === 'reset' ? '⚠ Reset' : t === 'projects' ? 'Projects Page' : t}
+            {t === 'logo' ? 'Logo & Favicon' : t === 'reset' ? '⚠ Reset' : t === 'projects' ? 'Projects Page' : t === 'simulator' ? '🎬 Simulator Page' : t}
           </button>
         ))}
       </div>
@@ -503,6 +522,42 @@ export default function AdminSettings() {
             </div>
           </div>
           <Btn onClick={()=>{ projectsContentStore.update(projContent); toast.success('Projects page content saved') }} className="flex items-center gap-2"><Save size={14}/>Save Projects Page Content</Btn>
+        </div>
+      )}
+
+      {/* ── SIMULATOR PAGE ──────────────────────────────────────── */}
+      {tab==='simulator' && (
+        <div className="space-y-5">
+          <div className="bg-white rounded-xl border border-gray-100 p-6 space-y-5 shadow-sm">
+            <p className="text-[12px] text-gray-400">Control the text that appears on the public <strong>/simulator</strong> page.</p>
+
+            {/* Hero section */}
+            <div className="border-b border-gray-100 pb-5">
+              <p className="text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-3">Hero Section</p>
+              <div className="grid grid-cols-2 gap-4">
+                <Field label="Eyebrow (small red label)" value={simContent.eyebrow} onChange={(e:any)=>setSim('eyebrow',e.target.value)} placeholder="Ad Design Simulator"/>
+                <Field label="Title (first line)" value={simContent.title} onChange={(e:any)=>setSim('title',e.target.value)} placeholder="See Your Brand"/>
+              </div>
+              <div className="grid grid-cols-2 gap-4 mt-3">
+                <Field label="Title Accent (red highlighted)" value={simContent.titleAccent} onChange={(e:any)=>setSim('titleAccent',e.target.value)} placeholder="on Any Billboard"/>
+              </div>
+              <TA label="Subtitle" value={simContent.subtitle} onChange={(e:any)=>setSim('subtitle',e.target.value)} rows={2} className="mt-3" placeholder="Upload your design and instantly preview it…"/>
+            </div>
+
+            {/* CTA section */}
+            <div>
+              <p className="text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-3">Bottom CTA Section</p>
+              <div className="grid grid-cols-2 gap-4">
+                <Field label="CTA Eyebrow" value={simContent.ctaEyebrow} onChange={(e:any)=>setSim('ctaEyebrow',e.target.value)} placeholder="Ready to Go Live?"/>
+                <Field label="CTA Title Line 1" value={simContent.ctaTitle1} onChange={(e:any)=>setSim('ctaTitle1',e.target.value)} placeholder="Turn your design"/>
+              </div>
+              <div className="grid grid-cols-1 gap-4 mt-3">
+                <Field label="CTA Title Line 2 (accent)" value={simContent.ctaTitle2} onChange={(e:any)=>setSim('ctaTitle2',e.target.value)} placeholder="into a real campaign."/>
+              </div>
+              <TA label="CTA Sub-text" value={simContent.ctaSubtext} onChange={(e:any)=>setSim('ctaSubtext',e.target.value)} rows={2} className="mt-3" placeholder="Our team is ready to help…"/>
+            </div>
+          </div>
+          <Btn onClick={saveSimulator} className="flex items-center gap-2"><Save size={14}/>Save Simulator Page Content</Btn>
         </div>
       )}
 

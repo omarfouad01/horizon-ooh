@@ -32,20 +32,16 @@ export default function Services() {
                   {/* Icon or Number */}
                   <div className="flex items-center justify-between mb-10">
                     {(service as any).icon ? (
-                      <span className="w-12 h-12 flex items-center justify-center rounded-2xl transition-colors duration-500"
-                            style={{ background: 'rgba(11,15,26,0.05)' }}>
+                      <span className="w-12 h-12 flex items-center justify-center rounded-2xl border border-[rgba(11,15,26,0.07)] group-hover:border-white/10 transition-all duration-500"
+                            style={{ background: 'rgba(11,15,26,0.04)' }}>
                         <ServiceIcon
                           icon={(service as any).icon}
-                          size={26}
+                          size={24}
                           className="text-[#0B0F1A] group-hover:text-white transition-colors duration-500"
                         />
                       </span>
-                    ) : (
-                      <span className="font-black text-[11px] tracking-[0.25em] uppercase text-[rgba(11,15,26,0.15)] group-hover:text-white/15 transition-colors duration-500">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                    )}
-                    <span className="font-black text-[11px] tracking-[0.25em] uppercase text-[rgba(11,15,26,0.15)] group-hover:text-white/15 transition-colors duration-500">
+                    ) : null}
+                    <span className="font-black text-[11px] tracking-[0.25em] uppercase text-[rgba(11,15,26,0.15)] group-hover:text-white/15 transition-colors duration-500 ml-auto">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                   </div>

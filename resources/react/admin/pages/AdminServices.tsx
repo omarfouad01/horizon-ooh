@@ -93,9 +93,7 @@ function ServiceForm({ editing, onClose }: any) {
         <Field label="Title *"       value={f.title}      onChange={(e: any) => set('title', e.target.value)}      required />
         <Field label="Short Title *" value={f.shortTitle} onChange={(e: any) => set('shortTitle', e.target.value)} required />
       </div>
-      <div className="grid grid-cols-2 gap-3">
-        <Field label="Tagline *" value={f.tagline} onChange={(e: any) => set('tagline', e.target.value)} required />
-      </div>
+      <Field label="Tagline *" value={f.tagline} onChange={(e: any) => set('tagline', e.target.value)} required />
       <IconPicker value={f.icon || ''} onChange={(v) => set('icon', v)} />
       <TA label="Short Description *" value={f.description}    onChange={(e: any) => set('description', e.target.value)}    rows={2} required />
       <TA label="Long Description *"  value={f.longDescription} onChange={(e: any) => set('longDescription', e.target.value)} rows={3} required />
@@ -193,19 +191,21 @@ export default function AdminServices() {
         </tbody>
       </Tbl>
 
-      {form && (
-        <Modal title={edit ? 'Edit Service' : 'Add Service'} onClose={() => { setForm(false); setEdit(null) }} wide>
-          <ServiceForm editing={edit} onClose={() => { setForm(false); setEdit(null) }} />
-        </Modal>
-      )}
+      <Modal
+        open={form}
+        title={edit ? 'Edit Service' : 'Add Service'}
+        onClose={() => { setForm(false); setEdit(null) }}
+        wide
+      >
+        <ServiceForm editing={edit} onClose={() => { setForm(false); setEdit(null) }} />
+      </Modal>
 
-      {del && (
-        <Confirm
-          message={`Delete "${del.title}"? This cannot be undone.`}
-          onConfirm={async () => { await serviceStore.remove(del.id); setDel(null); toast.success('Service deleted') }}
-          onCancel={() => setDel(null)}
-        />
-      )}
+      <Confirm
+        open={!!del}
+        message={`Delete "${del?.title}"? This cannot be undone.`}
+        onConfirm={async () => { await serviceStore.remove(del.id); setDel(null); toast.success('Service deleted') }}
+        onCancel={() => setDel(null)}
+      />
     </div>
   )
 }

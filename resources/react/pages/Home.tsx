@@ -672,29 +672,22 @@ function ServicesSection() {
                 style={{ padding: "40px 36px 40px" }}
                 onClick={() => { window.location.hash = serviceHref(service.slug); window.scrollTo(0,0); }}
               >
-                {/* Icon or Number */}
+                {/* Icon + Number row */}
                 <div className="flex items-center justify-between mb-10">
                   {(service as any).icon ? (
                     <span
-                      className="w-11 h-11 flex items-center justify-center rounded-xl transition-colors duration-500"
-                      style={{ background: 'rgba(11,15,26,0.06)' }}
+                      className="w-10 h-10 flex items-center justify-center rounded-xl border border-[rgba(11,15,26,0.07)] group-hover:border-white/10 transition-all duration-500"
+                      style={{ background: 'rgba(11,15,26,0.04)' }}
                     >
                       <ServiceIcon
                         icon={(service as any).icon}
-                        size={22}
+                        size={20}
                         className="text-[#0B0F1A] group-hover:text-white transition-colors duration-500"
                       />
                     </span>
-                  ) : (
-                    <p
-                      className="font-black tracking-[-0.04em] leading-none text-[rgba(11,15,26,0.12)] group-hover:text-white/10 transition-colors duration-500"
-                      style={{ fontSize: 11, letterSpacing: "0.1em" }}
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </p>
-                  )}
+                  ) : null}
                   <p
-                    className="font-black tracking-[-0.04em] leading-none text-[rgba(11,15,26,0.12)] group-hover:text-white/10 transition-colors duration-500"
+                    className="font-black tracking-[-0.04em] leading-none text-[rgba(11,15,26,0.12)] group-hover:text-white/10 transition-colors duration-500 ml-auto"
                     style={{ fontSize: 11, letterSpacing: "0.1em" }}
                   >
                     {String(i + 1).padStart(2, "0")}
