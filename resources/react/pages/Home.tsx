@@ -648,11 +648,13 @@ function TrustStrip() {
 function ServicesSection() {
   const { services: SERVICES } = useStore()
   const { isAr, t } = useLang()
+  // Limit to first 6 services
+  const visible = SERVICES.slice(0, 6)
   return (
     <section id="services" className="bg-white" style={{ paddingTop: 120, paddingBottom: 140 }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         {/* Header row */}
-        <div className="flex items-end justify-between mb-20 gap-8">
+        <div className="flex items-end justify-between mb-16 gap-8">
           <div>
             <Eyebrow text={t('home.ourServices') || 'Our Services'} />
             <Reveal delay={0.05}>
@@ -673,77 +675,91 @@ function ServicesSection() {
           </Reveal>
         </div>
 
-        {/* Grid */}
-        <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-[#0B0F1A]/[0.07]">
-          {SERVICES.map((service, i) => (
+        {/* Grid — white background, thin border separators, no gap fill */}
+        <div style={{ border: '1px solid rgba(11,15,26,0.08)' }}>
+        <RevealGroup
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {visible.map((service, i) => (
             <RevealItem key={service.id}>
-              <div
-                className="group bg-white hover:bg-[#0B0F1A] transition-colors duration-500 cursor-pointer relative overflow-hidden"
-                style={{ padding: "40px 36px 40px" }}
-                onClick={() => { window.location.hash = serviceHref(service.slug); window.scrollTo(0,0); }}
+              <Link
+                to={serviceHref(service.slug)}
+                className="group bg-white hover:bg-[#0B0F1A] transition-colors duration-500 flex flex-col h-full"
+                style={{
+                  padding: '48px 40px 44px',
+                  textDecoration: 'none',
+                  borderRight: (i % 3 !== 2) ? '1px solid rgba(11,15,26,0.08)' : 'none',
+                  borderBottom: (i < visible.length - (visible.length % 3 || 3)) ? '1px solid rgba(11,15,26,0.08)' : 'none',
+                }}
               >
                 {/* Icon + Number row */}
                 <div className="flex items-center justify-between mb-10">
                   {(service as any).icon ? (
                     <span
-                      className="w-10 h-10 flex items-center justify-center rounded-xl border border-[rgba(11,15,26,0.07)] group-hover:border-white/10 transition-all duration-500"
+                      className="w-12 h-12 flex items-center justify-center rounded-2xl border border-[rgba(11,15,26,0.07)] group-hover:border-white/10 transition-all duration-500"
                       style={{ background: 'rgba(11,15,26,0.04)' }}
                     >
                       <ServiceIcon
                         icon={(service as any).icon}
-                        size={20}
+                        size={24}
                         className="text-[#0B0F1A] group-hover:text-white transition-colors duration-500"
                       />
                     </span>
                   ) : null}
-                  <p
-                    className="font-black tracking-[-0.04em] leading-none text-[rgba(11,15,26,0.12)] group-hover:text-white/10 transition-colors duration-500 ml-auto"
-                    style={{ fontSize: 11, letterSpacing: "0.1em" }}
+                  <span
+                    className="font-black text-[11px] tracking-[0.25em] uppercase text-[rgba(11,15,26,0.15)] group-hover:text-white/15 transition-colors duration-500 ml-auto"
                   >
-                    {String(i + 1).padStart(2, "0")}
-                  </p>
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
                 </div>
 
                 {/* Title */}
                 <h3
-                  className="font-bold leading-[1.2] tracking-[-0.01em] mb-3 text-[#0B0F1A] group-hover:text-white transition-colors duration-500"
-                  style={{ fontSize: 20 }}
+                  className="font-bold tracking-[-0.02em] mb-4 text-[#0B0F1A] group-hover:text-white transition-colors duration-500"
+                  style={{ fontSize: 22, lineHeight: 1.2 }}
                 >
                   {isAr && (service as any).titleAr ? (service as any).titleAr : service.title}
                 </h3>
 
-                {/* Description */}
+                {/* Dual divider — gray default, red on hover */}
+                <div className="relative mb-5">
+                  <div
+                    className="w-8 h-[1px] transition-all duration-500 group-hover:w-12"
+                    style={{ background: 'rgba(11,15,26,0.15)' }}
+                  />
+                  <div
+                    className="w-8 h-[1px] -mt-[1px] opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:w-12"
+                    style={{ background: RED }}
+                  />
+                </div>
+
+                {/* Short description */}
                 <p
-                  className="text-[13px] leading-[1.65] mb-5 text-[rgba(11,15,26,0.45)] group-hover:text-white/75 transition-colors duration-500"
+                  className="text-[15px] leading-[1.7] flex-1 text-[rgba(11,15,26,0.45)] group-hover:text-white/70 transition-colors duration-500"
                 >
                   {isAr && (service as any).descriptionAr ? (service as any).descriptionAr : service.description}
                 </p>
 
-                {/* Divider line */}
-                <div
-                  className="w-8 h-[1px] mb-4 transition-all duration-500 group-hover:w-12 group-hover:bg-[#D90429]"
-                  style={{ background: "rgba(11,15,26,0.15)" }}
-                />
-
-                {/* Hover-reveal arrow */}
-                <div className="flex items-center justify-between mt-auto">
+                {/* CTA — always visible */}
+                <div className="flex items-center gap-2 mt-8">
                   <span
-                    className="text-[11px] font-bold tracking-[0.2em] uppercase opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0"
+                    className="text-[11px] font-bold tracking-[0.2em] uppercase transition-colors duration-300"
                     style={{ color: RED }}
                   >
-                    {t('common.explore') || 'Explore'}
+                    {t('services.exploreService') || 'Explore Service'}
                   </span>
                   <span
-                    className="text-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0"
-                    style={{ color: RED, lineHeight: 1 }}
+                    className="opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-1 group-hover:translate-x-0"
+                    style={{ color: RED, fontSize: 18, lineHeight: 1 }}
                   >
                     →
                   </span>
                 </div>
-              </div>
+              </Link>
             </RevealItem>
           ))}
         </RevealGroup>
+        </div>
       </div>
     </section>
   );
