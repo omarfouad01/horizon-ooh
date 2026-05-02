@@ -1634,9 +1634,9 @@ function RecentBillboardsSection() {
                   {/* Code / Size / Format */}
                   <div className="grid grid-cols-3 gap-0 border border-[#0B0F1A]/[0.07]">
                     {[
-                      { label: t('product.labelCode')   || 'Code',   value: (product as any).code || '—' },
-                      { label: t('product.labelSize')   || 'Size',   value: product.size },
-                      { label: t('product.labelFormat') || 'Format', value: product.type },
+                      { label: t('spec.code')      || 'Code',   value: (product as any).code || '—' },
+                      { label: t('spec.size')      || 'Size',   value: product.size },
+                      { label: t('spec.adFormat')  || 'Format', value: product.type },
                     ].map((stat, i) => (
                       <div
                         key={stat.label}

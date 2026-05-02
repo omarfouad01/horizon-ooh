@@ -299,6 +299,8 @@ const [f, setF] = useState<any>(() => {
       descriptionEn: ed.descriptionEn || ed.description || '',
       descriptionAr: ed.descriptionAr || ed.description_ar || '',
       full_address:  ed.full_address  || ed.location    || ed.spot        || '',
+      // location is used by the map picker to display/edit the address
+      location:      ed.full_address  || ed.location    || ed.spot        || '',
       districtId:    String(ed.districtId || ed.district_id || ''),
       lat:           ed.lat !== undefined ? ed.lat : 0,
       lng:           ed.lng !== undefined ? ed.lng : 0,
@@ -350,7 +352,7 @@ const save = async (e: React.FormEvent) => {
       if (f.brightness)     fd.append('brightness',     f.brightness)
       fd.append('lat',            String(typeof f.lat === 'number' ? f.lat : (parseFloat(f.lat) || 0)))
       fd.append('lng',            String(typeof f.lng === 'number' ? f.lng : (parseFloat(f.lng) || 0)))
-      fd.append('full_address',   f.full_address || f.spot || '')
+      fd.append('full_address',   f.full_address || f.location || f.spot || '')
       if (f.descriptionEn)  fd.append('description',    f.descriptionEn)
       if (f.descriptionAr)  fd.append('description_ar', f.descriptionAr)
       if (f.price || f.clientPrice) fd.append('price', String(f.price || f.clientPrice || 0))
