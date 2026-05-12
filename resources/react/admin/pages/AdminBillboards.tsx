@@ -594,36 +594,117 @@ function AdFormatManager({ open, onClose }: { open:boolean; onClose:()=>void }) 
   const [newLabel, setNewLabel] = useState('')
   const [editId,   setEditId]   = useState<string|null>(null)
   const [editLabel,setEditLabel]= useState('')
+  const [saving,   setSaving]   = useState(false)
+
+  const doAdd = async () => {
+    const val = newLabel.trim()
+    if (!val) return
+    setSaving(true)
+    try {
+      await adFormatStore.add({ name: val, label: val })
+      setNewLabel('')
+      toast.success(`Type "${val}" added`)
+    } catch { toast.error('Failed to add type') }
+    setSaving(false)
+  }
+
+  const doUpdate = async (id: string | number, label: string) => {
+    setSaving(true)
+    try {
+      await adFormatStore.update(id, { name: label, label })
+      setEditId(null)
+      toast.success('Type updated')
+    } catch { toast.error('Failed to update type') }
+    setSaving(false)
+  }
+
+  const doRemove = async (id: string | number, label: string) => {
+    if (!confirm(`Delete "${label}"?`)) return
+    setSaving(true)
+    try {
+      await adFormatStore.remove(id)
+      toast.success(`Type "${label}" deleted`)
+    } catch { toast.error('Failed to delete type') }
+    setSaving(false)
+  }
+
   if (!open) return null
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{background:'rgba(11,15,26,0.55)'}}>
       <div className="bg-white rounded-xl w-full max-w-sm shadow-2xl overflow-hidden">
         <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
-          <h3 className="text-[14px] font-bold text-gray-900">Manage Billboard Types</h3>
+          <div>
+            <h3 className="text-[14px] font-bold text-gray-900">Manage Billboard Types</h3>
+            <p className="text-[11px] text-gray-400 mt-0.5">These appear in the Type dropdown when adding a billboard</p>
+          </div>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-700 p-1 rounded-lg hover:bg-gray-100"><X size={15}/></button>
         </div>
-        <div className="p-5 space-y-3 max-h-[60vh] overflow-y-auto">
+        <div className="p-5 space-y-2 max-h-[55vh] overflow-y-auto">
+          {adFormats.length === 0 && (
+            <p className="text-[12px] text-gray-400 text-center py-4">No types yet. Add one below.</p>
+          )}
           {adFormats.map((t: AdFormatType) => (
-            <div key={t.id} className="flex items-center gap-2">
+            <div key={t.id} className="flex items-center gap-2 py-1">
               {editId===t.id ? (
                 <>
-                  <input className="flex-1 h-8 px-3 rounded-lg border border-gray-200 text-sm outline-none" value={editLabel} onChange={e=>setEditLabel(e.target.value)}
-                    onKeyDown={e=>{if(e.key==='Enter'){adFormatStore.update(t.id,{label:editLabel});setEditId(null)}}} autoFocus/>
-                  <button onClick={()=>{adFormatStore.update(t.id,{label:editLabel});setEditId(null)}} className="text-[11px] font-bold text-green-600 px-2">Save</button>
+                  <input
+                    className="flex-1 h-8 px-3 rounded-lg border border-blue-300 text-sm outline-none focus:ring-2 focus:ring-blue-100"
+                    value={editLabel}
+                    onChange={e=>setEditLabel(e.target.value)}
+                    onKeyDown={e=>{
+                      if (e.key==='Enter') doUpdate(t.id, editLabel)
+                      if (e.key==='Escape') setEditId(null)
+                    }}
+                    autoFocus
+                    disabled={saving}
+                  />
+                  <button
+                    onClick={()=>doUpdate(t.id, editLabel)}
+                    disabled={saving}
+                    className="text-[11px] font-bold text-green-600 px-2 hover:text-green-700 disabled:opacity-50"
+                  >Save</button>
+                  <button
+                    onClick={()=>setEditId(null)}
+                    className="text-[11px] text-gray-400 hover:text-gray-600 px-1"
+                  >Cancel</button>
                 </>
               ) : (
                 <>
-                  <span className="flex-1 text-[13px] text-gray-800">{t.label}</span>
-                  <button onClick={()=>{setEditId(t.id);setEditLabel(t.label)}} className="text-gray-400 hover:text-gray-700 p-1"><Pencil size={12}/></button>
-                  <button onClick={()=>adFormatStore.remove(t.id)} className="text-gray-400 hover:text-red-500 p-1"><Trash2 size={12}/></button>
+                  <span className="flex-1 text-[13px] text-gray-800 font-medium">{t.label || t.name}</span>
+                  <button
+                    onClick={()=>{setEditId(t.id);setEditLabel(t.label || t.name)}}
+                    className="text-gray-400 hover:text-gray-700 p-1 rounded hover:bg-gray-100"
+                    title="Edit"
+                  ><Pencil size={12}/></button>
+                  <button
+                    onClick={()=>doRemove(t.id, t.label || t.name)}
+                    className="text-gray-400 hover:text-red-500 p-1 rounded hover:bg-red-50"
+                    title="Delete"
+                    disabled={saving}
+                  ><Trash2 size={12}/></button>
                 </>
               )}
             </div>
           ))}
-          <div className="flex gap-2 pt-1 border-t border-gray-100">
-            <input className="flex-1 h-8 px-3 rounded-lg border border-gray-200 text-sm outline-none" value={newLabel} onChange={e=>setNewLabel(e.target.value)}
-              placeholder="New type name…" onKeyDown={e=>{if(e.key==='Enter'&&newLabel.trim()){adFormatStore.add({label:newLabel.trim()});setNewLabel('')}}}/>
-            <Btn onClick={()=>{if(newLabel.trim()){adFormatStore.add({label:newLabel.trim()});setNewLabel('')}}} className="text-[11px] px-3 py-1.5 flex items-center gap-1"><Plus size={11}/>Add</Btn>
+        </div>
+        {/* Add new */}
+        <div className="px-5 pb-5 pt-3 border-t border-gray-100">
+          <div className="flex gap-2">
+            <input
+              className="flex-1 h-9 px-3 rounded-lg border border-gray-200 text-sm outline-none focus:border-blue-300 focus:ring-2 focus:ring-blue-100"
+              value={newLabel}
+              onChange={e=>setNewLabel(e.target.value)}
+              placeholder="e.g. Mega Unipole, Bridge Panel…"
+              onKeyDown={e=>{ if(e.key==='Enter') doAdd() }}
+              disabled={saving}
+            />
+            <Btn
+              onClick={doAdd}
+              disabled={saving || !newLabel.trim()}
+              className="text-[11px] px-3 py-1.5 flex items-center gap-1 whitespace-nowrap"
+            >
+              <Plus size={11}/>{saving ? 'Saving…' : 'Add Type'}
+            </Btn>
           </div>
         </div>
       </div>
