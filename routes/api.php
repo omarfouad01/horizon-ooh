@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\AdFormatController;
+use App\Http\Controllers\Api\BillboardFormatController;
 use App\Http\Controllers\Api\ClientBrandController;
 use App\Http\Controllers\Api\TrustStatController;
 use App\Http\Controllers\Api\ProcessStepController;
@@ -47,7 +48,8 @@ Route::get('/projects',          [ProjectController::class, 'index']);
 Route::get('/projects/{slug}',   [ProjectController::class, 'show']);
 Route::get('/blog',              [BlogController::class, 'index']);
 Route::get('/blog/{slug}',       [BlogController::class, 'show']);
-Route::get('/ad-formats',        [AdFormatController::class, 'index']);
+Route::get('/ad-formats',         [AdFormatController::class, 'index']);
+Route::get('/billboard-formats',   [BillboardFormatController::class, 'index']);
 Route::get('/clients',           [ClientBrandController::class, 'index']);
 Route::get('/trust-stats',       [TrustStatController::class, 'index']);
 Route::get('/process-steps',     [ProcessStepController::class, 'index']);
@@ -115,10 +117,15 @@ Route::middleware('auth:api')->group(function () {
     Route::put   ('/contacts/{id}',  [ContactController::class, 'update']);
     Route::delete('/contacts/{id}',  [ContactController::class, 'destroy']);
 
-    // Ad Formats
-    Route::post  ('/ad-formats',       [AdFormatController::class, 'store']);
-    Route::put   ('/ad-formats/{id}',  [AdFormatController::class, 'update']);
-    Route::delete('/ad-formats/{id}',  [AdFormatController::class, 'destroy']);
+    // Ad Format Types (Type dropdown — Unipole, Rooftop, etc.)
+    Route::post  ('/ad-formats',              [AdFormatController::class, 'store']);
+    Route::put   ('/ad-formats/{id}',         [AdFormatController::class, 'update']);
+    Route::delete('/ad-formats/{id}',         [AdFormatController::class, 'destroy']);
+
+    // Billboard Formats (Ad Format dropdown — Billboard, Digital, Mall, etc.)
+    Route::post  ('/billboard-formats',       [BillboardFormatController::class, 'store']);
+    Route::put   ('/billboard-formats/{id}',  [BillboardFormatController::class, 'update']);
+    Route::delete('/billboard-formats/{id}',  [BillboardFormatController::class, 'destroy']);
 
     // Clients / Brands
     Route::post  ('/clients',       [ClientBrandController::class, 'store']);

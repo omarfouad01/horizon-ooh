@@ -9,7 +9,7 @@
  */
 import { create } from 'zustand';
 import {
-  locationsApi, adFormatsApi, servicesApi, projectsApi,
+  locationsApi, adFormatsApi, billboardFormatsApi, servicesApi, projectsApi,
   blogApi, trustStatsApi, processStepsApi, clientBrandsApi,
   settingsApi, districtsApi,
   suppliersApi, customersApi, contactsApi,
@@ -123,11 +123,16 @@ export interface ContactPageContent {
   [key: string]: any;
 }
 
+export interface BillboardFormatType {
+  id: string; name: string; slug: string; label?: string; sort_order?: number;
+}
+
 export interface ApiState {
   loaded: boolean; loading: boolean; usingDemo: boolean; error: string | null;
   locations:       any[];
   districts:       any[];
-  adFormats:       AdFormatType[];
+  adFormats:       AdFormatType[];        // Type dropdown (Unipole, Rooftop…)
+  billboardFormats: BillboardFormatType[]; // Ad Format dropdown (Billboard, Digital…)
   services:        any[];
   projects:        any[];
   blogPosts:       any[];
@@ -154,6 +159,13 @@ export interface ApiState {
 }
 
 // ─── Demo / default data ──────────────────────────────────────────────────────
+const BILLBOARD_FORMATS_DEFAULT: BillboardFormatType[] = [
+  { id:'1', name:'Billboard',           slug:'billboard',            label:'Billboard' },
+  { id:'2', name:'Digital Screens',     slug:'digital-screens',      label:'Digital Screens' },
+  { id:'3', name:'Mall Advertising',    slug:'mall-advertising',     label:'Mall Advertising' },
+  { id:'4', name:'Airport Advertising', slug:'airport-advertising',  label:'Airport Advertising' },
+  { id:'5', name:'Transit Ads',         slug:'transit-ads',          label:'Transit Ads' },
+];
 const AD_FORMATS_DEFAULT: AdFormatType[] = [
   { id:'1', name:'Unipole',      slug:'unipole',      label:'Unipole' },
   { id:'2', name:'Mega Unipole', slug:'mega-unipole', label:'Mega Unipole' },
@@ -333,7 +345,7 @@ function normTemplate(t: any): SimulatorTemplate {
 // ─── Store ────────────────────────────────────────────────────────────────────
 export const useApiStore = create<ApiState>((set, get) => ({
   loaded: false, loading: false, usingDemo: false, error: null,
-  locations: [], districts: [], adFormats: AD_FORMATS_DEFAULT,
+  locations: [], districts: [], adFormats: AD_FORMATS_DEFAULT, billboardFormats: BILLBOARD_FORMATS_DEFAULT,
   services: [], projects: [], blogPosts: [],
   trustStats: [], processSteps: _demoProcess, process: _demoProcess,
   results: DEMO_RESULTS, clientBrands: [], suppliers: [], customers: [],
@@ -364,7 +376,7 @@ export const useApiStore = create<ApiState>((set, get) => ({
           : { id:b.id??String(i+1), name:b.name??b, logoUrl:b.logoUrl??b.logo??'', logo:b.logo??'' }
       );
       set({
-        locations: LOCATIONS as any[], districts, adFormats: AD_FORMATS_DEFAULT,
+        locations: LOCATIONS as any[], districts, adFormats: AD_FORMATS_DEFAULT, billboardFormats: BILLBOARD_FORMATS_DEFAULT,
         services: SERVICES as any[], projects: PROJECTS as any[], blogPosts: BLOG_POSTS as any[],
         trustStats: TRUST_STATS as any[], processSteps: _demoProcess, process: _demoProcess,
         results: DEMO_RESULTS, clientBrands: normBrands,
@@ -381,31 +393,32 @@ export const useApiStore = create<ApiState>((set, get) => ({
 
     // Real API mode — use Promise.allSettled so one failure doesn't break everything
     const results = await Promise.allSettled([
-      locationsApi.all(),          // 0
-      districtsApi.all(),          // 1
-      adFormatsApi.all(),          // 2
-      servicesApi.all(),           // 3
-      projectsApi.all(),           // 4
-      blogApi.all(),               // 5
-      trustStatsApi.all(),         // 6
-      processStepsApi.all(),       // 7
-      clientBrandsApi.all(),       // 8
-      settingsApi.all(),           // 9
-      settingsApi.homeContent(),   // 10
-      settingsApi.aboutContent(),  // 11
-      billboardSizesApi.all(),     // 12
-      simulatorTemplatesApi.all(), // 13
-      designUploadsApi.all(),      // 14
-      suppliersApi.all(),          // 15
-      customersApi.all(),          // 16
-      contactsApi.all(),           // 17
+      locationsApi.all(),           // 0
+      districtsApi.all(),           // 1
+      adFormatsApi.all(),           // 2 — Types (Unipole, Rooftop…)
+      servicesApi.all(),            // 3
+      projectsApi.all(),            // 4
+      blogApi.all(),                // 5
+      trustStatsApi.all(),          // 6
+      processStepsApi.all(),        // 7
+      clientBrandsApi.all(),        // 8
+      settingsApi.all(),            // 9
+      settingsApi.homeContent(),    // 10
+      settingsApi.aboutContent(),   // 11
+      billboardSizesApi.all(),      // 12
+      simulatorTemplatesApi.all(),  // 13
+      designUploadsApi.all(),       // 14
+      suppliersApi.all(),           // 15
+      customersApi.all(),           // 16
+      contactsApi.all(),            // 17
+      billboardFormatsApi.all(),    // 18 — Ad Formats (Billboard, Digital…)
     ]);
 
     const val = (i: number) => results[i].status === 'fulfilled' ? (results[i] as PromiseFulfilledResult<any>).value : null;
 
     const locsRaw    = apiArr(val(0));
     const distsRaw   = apiArr(val(1));
-    const fmtsRaw    = apiArr(val(2));
+    const fmtsRaw    = apiArr(val(2));   // Types (Unipole…)
     const svcsRaw    = apiArr(val(3));
     const projsRaw   = apiArr(val(4));
     const blogRaw    = apiArr(val(5));
@@ -421,12 +434,14 @@ export const useApiStore = create<ApiState>((set, get) => ({
     const suppRaw    = apiArr(val(15));
     const custRaw    = apiArr(val(16));
     const contsRaw   = apiArr(val(17));
+    const bbFmtsRaw  = apiArr(val(18));  // Ad Formats (Billboard, Digital…)
 
     const normLocs   = locsRaw.map(normLoc).filter(Boolean);
     const normSvcs   = svcsRaw.map((s: any, i: number) => normService(s, i)).filter(Boolean);
     const normProjs  = projsRaw.map((p: any, i: number) => normProject(p, i)).filter(Boolean);
     const normBlog   = blogRaw.map((p: any, i: number) => normBlogPost(p, i)).filter(Boolean);
     const normFmts   = fmtsRaw.map((f: any) => ({ ...f, label: f.label ?? f.name }));
+    const normBbFmts = bbFmtsRaw.map((f: any) => ({ ...f, label: f.label ?? f.name }));
     const normBrands = brandsRaw.map((b: any) => ({ ...b, logoUrl: b.logoUrl ?? b.logo }));
     const normSteps  = stepsRaw.map((p: any, i: number) => ({
       id:          String(p.id ?? i + 1),
@@ -455,7 +470,8 @@ export const useApiStore = create<ApiState>((set, get) => ({
     set({
       locations:          normLocs.length ? normLocs : (LOCATIONS as any[]),
       districts:          normDists,
-      adFormats:          normFmts.length ? normFmts : AD_FORMATS_DEFAULT,
+      adFormats:          normFmts.length   ? normFmts   : AD_FORMATS_DEFAULT,
+      billboardFormats:   normBbFmts.length ? normBbFmts : BILLBOARD_FORMATS_DEFAULT,
       services:           normSvcs,
       projects:           normProjs,
       blogPosts:          normBlog,

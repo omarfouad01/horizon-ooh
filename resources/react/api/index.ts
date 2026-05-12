@@ -88,12 +88,20 @@ export const contactsApi = {
   remove: (id: any)    => api.delete(`/contacts/${id}`),
 };
 
-// ─── Ad Formats ───────────────────────────────────────────────────────────────
+// ─── Ad Format Types (Type dropdown — Unipole, Rooftop, etc.) ───────────────
 export const adFormatsApi = {
   all:    ()           => cachedGet('/ad-formats'),
   create: (data: any)  => api.post('/ad-formats', data),
   update: (id: any, data: any) => api.put(`/ad-formats/${id}`, data),
   remove: (id: any)    => api.delete(`/ad-formats/${id}`),
+};
+
+// ─── Billboard Formats (Ad Format dropdown — Billboard, Digital, Mall, etc.) ──
+export const billboardFormatsApi = {
+  all:    ()           => cachedGet('/billboard-formats'),
+  create: (data: any)  => api.post('/billboard-formats', data),
+  update: (id: any, data: any) => api.put(`/billboard-formats/${id}`, data),
+  remove: (id: any)    => api.delete(`/billboard-formats/${id}`),
 };
 
 // ─── Suppliers ────────────────────────────────────────────────────────────────

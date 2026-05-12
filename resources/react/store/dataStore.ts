@@ -10,7 +10,7 @@ export { HAS_API } from './apiStore';
 
 // Re-export types
 export type {
-  ApiState, AdFormatType, ClientBrand, Supplier, Customer, SiteUser,
+  ApiState, AdFormatType, BillboardFormatType, ClientBrand, Supplier, Customer, SiteUser,
   WhyChooseItem, AboutStat, AboutContent, ContactEntry, ProcessStep, ResultStat,
   BillboardSize, SimulatorTemplate, SimCorner, SimPanel, DesignUpload,
   LocationsPageContent, ContactPageContent,
@@ -34,7 +34,7 @@ export const getState = () => useApiStore.getState();
 // ─── API imports ──────────────────────────────────────────────────────────────
 import {
   locationsApi, districtsApi, servicesApi, projectsApi,
-  blogApi, adFormatsApi, clientBrandsApi, trustStatsApi,
+  blogApi, adFormatsApi, billboardFormatsApi, clientBrandsApi, trustStatsApi,
   processStepsApi, settingsApi, contactsApi, billboardsApi,
   suppliersApi, customersApi, usersApi,
   billboardSizesApi, simulatorTemplatesApi, designUploadsApi,
@@ -212,11 +212,18 @@ export const blogStore = {
   remove: (id: any)          => apiOrLocal(() => blogApi.remove(id),              () => set(st => ({ blogPosts: st.blogPosts.filter((x: any) => x.id !== id) }))),
 };
 
-// ─── Ad Formats ───────────────────────────────────────────────────────────────
+// ─── Ad Format Types (Type dropdown — Unipole, Rooftop…) ─────────────────────
 export const adFormatStore = {
-  add:    (data: any)        => apiOrLocal(() => adFormatsApi.create(data),       () => set(st => ({ adFormats: [...st.adFormats, { ...data, id: uid() }] }))),
-  update: (id: any, data: any) => apiOrLocal(() => adFormatsApi.update(id, data), () => set(st => ({ adFormats: st.adFormats.map((x: any) => x.id === id ? { ...x, ...data } : x) }))),
-  remove: (id: any)          => apiOrLocal(() => adFormatsApi.remove(id),         () => set(st => ({ adFormats: st.adFormats.filter((x: any) => x.id !== id) }))),
+  add:    (data: any)          => apiOrLocal(() => adFormatsApi.create(data),         () => set(st => ({ adFormats: [...st.adFormats, { ...data, id: uid() }] }))),
+  update: (id: any, data: any) => apiOrLocal(() => adFormatsApi.update(id, data),     () => set(st => ({ adFormats: st.adFormats.map((x: any) => x.id === id ? { ...x, ...data } : x) }))),
+  remove: (id: any)            => apiOrLocal(() => adFormatsApi.remove(id),           () => set(st => ({ adFormats: st.adFormats.filter((x: any) => x.id !== id) }))),
+};
+
+// ─── Billboard Formats (Ad Format dropdown — Billboard, Digital, Mall…) ────────
+export const billboardFormatStore = {
+  add:    (data: any)          => apiOrLocal(() => billboardFormatsApi.create(data),       () => set(st => ({ billboardFormats: [...(st.billboardFormats??[]), { ...data, id: uid() }] }))),
+  update: (id: any, data: any) => apiOrLocal(() => billboardFormatsApi.update(id, data),  () => set(st => ({ billboardFormats: (st.billboardFormats??[]).map((x: any) => x.id === id ? { ...x, ...data } : x) }))),
+  remove: (id: any)            => apiOrLocal(() => billboardFormatsApi.remove(id),        () => set(st => ({ billboardFormats: (st.billboardFormats??[]).filter((x: any) => x.id !== id) }))),
 };
 
 // ─── Client Brands ────────────────────────────────────────────────────────────

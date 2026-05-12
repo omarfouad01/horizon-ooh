@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import { useStore, locationStore, nextBillboardCode, type Supplier, type Product, type AdFormatType, adFormatStore } from '@/store/dataStore'
+import { useStore, locationStore, nextBillboardCode, type Supplier, type Product, type AdFormatType, type BillboardFormatType, adFormatStore, billboardFormatStore } from '@/store/dataStore'
 import { billboardsApi } from '@/api'
 import { Btn, PageHeader, Tbl, Th, Td, Tr, Badge, Confirm, Modal, Field, Sel } from '../ui'
 import { Plus, Pencil, Trash2, X, Upload, MapPin, Settings2, ExternalLink, Copy } from 'lucide-react'
@@ -240,10 +240,13 @@ function ImageUploader({ images, onChange }: { images: ImgItem[]; onChange:(imgs
 }
 
 // ── Billboard Form ────────────────────────────────────────────────────────────
-const AD_FORMATS = ['Billboard','Digital Screens','Mall Advertising','Airport Advertising','Transit Ads']
+// AD_FORMATS is now dynamic from billboardFormats store — this fallback is used in demo/preview only
+const AD_FORMATS_FALLBACK = ['Billboard','Digital Screens','Mall Advertising','Airport Advertising','Transit Ads']
 
 function BillboardForm({ editing, onClose }: any) {
-  const { locations, districts, suppliers, adFormats } = useStore()
+  const { locations, districts, suppliers, adFormats, billboardFormats } = useStore()
+  // Use dynamic billboard formats (Ad Format dropdown); fallback to static list in demo mode
+  const bbFormats = (billboardFormats && billboardFormats.length > 0) ? billboardFormats : AD_FORMATS_FALLBACK.map((f,i) => ({ id: String(i+1), name: f, slug: f.toLowerCase().replace(/\s+/g,'-'), label: f }))
 
   // Find owning location: first by nested products, then by locationId from API, then by citySlug
   const owningLoc = editing
@@ -435,8 +438,8 @@ const save = async (e: React.FormEvent) => {
       <SectionDivider label="Format & Classification"/>
       <div className="grid grid-cols-2 gap-3">
         <Lbl label="Ad Format" required>
-          <Sel value={f.adFormat||'Billboard'} onChange={(e:any)=>set('adFormat',e.target.value)}
-            options={AD_FORMATS.map(fmt=>({value:fmt,label:fmt}))}/>
+          <Sel value={f.adFormat||''} onChange={(e:any)=>set('adFormat',e.target.value)}
+            options={[{value:'',label:'— Select format —'},...bbFormats.map((fmt: BillboardFormatType)=>({value:fmt.label??fmt.name,label:fmt.label??fmt.name}))]}/>
         </Lbl>
         <Lbl label="Type">
           <Sel value={f.type||''} onChange={(e:any)=>set('type',e.target.value)} placeholder="— Select type —"
@@ -712,6 +715,108 @@ function AdFormatManager({ open, onClose }: { open:boolean; onClose:()=>void }) 
   )
 }
 
+// ── Billboard Format Manager (Ad Format dropdown: Billboard, Digital, Mall…) ───
+function BillboardFormatManager({ open, onClose }: { open:boolean; onClose:()=>void }) {
+  const { billboardFormats } = useStore()
+  const fmts = (billboardFormats && billboardFormats.length > 0) ? billboardFormats : []
+  const [newLabel, setNewLabel] = useState('')
+  const [editId,   setEditId]   = useState<string|null>(null)
+  const [editLabel,setEditLabel]= useState('')
+  const [saving,   setSaving]   = useState(false)
+
+  const doAdd = async () => {
+    const val = newLabel.trim()
+    if (!val) return
+    setSaving(true)
+    try {
+      await billboardFormatStore.add({ name: val, label: val })
+      setNewLabel('')
+      toast.success(`Ad Format "${val}" added`)
+    } catch { toast.error('Failed to add ad format') }
+    setSaving(false)
+  }
+
+  const doUpdate = async (id: string | number, label: string) => {
+    setSaving(true)
+    try {
+      await billboardFormatStore.update(id, { name: label, label })
+      setEditId(null)
+      toast.success('Ad Format updated')
+    } catch { toast.error('Failed to update ad format') }
+    setSaving(false)
+  }
+
+  const doRemove = async (id: string | number, label: string) => {
+    if (!confirm(`Delete "${label}"?`)) return
+    setSaving(true)
+    try {
+      await billboardFormatStore.remove(id)
+      toast.success(`Ad Format "${label}" deleted`)
+    } catch { toast.error('Failed to delete ad format') }
+    setSaving(false)
+  }
+
+  if (!open) return null
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{background:'rgba(11,15,26,0.55)'}}>
+      <div className="bg-white rounded-xl w-full max-w-sm shadow-2xl overflow-hidden">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+          <div>
+            <h3 className="text-[14px] font-bold text-gray-900">Manage Ad Formats</h3>
+            <p className="text-[11px] text-gray-400 mt-0.5">These appear in the Ad Format dropdown (e.g. Billboard, Digital Screens)</p>
+          </div>
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-700 p-1 rounded-lg hover:bg-gray-100"><X size={15}/></button>
+        </div>
+        <div className="p-5 space-y-2 max-h-[55vh] overflow-y-auto">
+          {fmts.length === 0 && (
+            <p className="text-[12px] text-gray-400 text-center py-4">No ad formats yet. Add one below.</p>
+          )}
+          {fmts.map((t: BillboardFormatType) => (
+            <div key={t.id} className="flex items-center gap-2 py-1">
+              {editId===t.id ? (
+                <>
+                  <input
+                    className="flex-1 h-8 px-3 rounded-lg border border-blue-300 text-sm outline-none focus:ring-2 focus:ring-blue-100"
+                    value={editLabel}
+                    onChange={e=>setEditLabel(e.target.value)}
+                    onKeyDown={e=>{
+                      if (e.key==='Enter') doUpdate(t.id, editLabel)
+                      if (e.key==='Escape') setEditId(null)
+                    }}
+                    autoFocus disabled={saving}
+                  />
+                  <button onClick={()=>doUpdate(t.id, editLabel)} disabled={saving} className="text-[11px] font-bold text-green-600 px-2 hover:text-green-700 disabled:opacity-50">Save</button>
+                  <button onClick={()=>setEditId(null)} className="text-[11px] text-gray-400 hover:text-gray-600 px-1">Cancel</button>
+                </>
+              ) : (
+                <>
+                  <span className="flex-1 text-[13px] text-gray-800 font-medium">{t.label || t.name}</span>
+                  <button onClick={()=>{setEditId(t.id);setEditLabel(t.label||t.name)}} className="text-gray-400 hover:text-gray-700 p-1 rounded hover:bg-gray-100" title="Edit"><Pencil size={12}/></button>
+                  <button onClick={()=>doRemove(t.id, t.label||t.name)} className="text-gray-400 hover:text-red-500 p-1 rounded hover:bg-red-50" title="Delete" disabled={saving}><Trash2 size={12}/></button>
+                </>
+              )}
+            </div>
+          ))}
+        </div>
+        <div className="px-5 pb-5 pt-3 border-t border-gray-100">
+          <div className="flex gap-2">
+            <input
+              className="flex-1 h-9 px-3 rounded-lg border border-gray-200 text-sm outline-none focus:border-blue-300 focus:ring-2 focus:ring-blue-100"
+              value={newLabel} onChange={e=>setNewLabel(e.target.value)}
+              placeholder="e.g. Billboard, Digital Screens, Mall…"
+              onKeyDown={e=>{ if(e.key==='Enter') doAdd() }}
+              disabled={saving}
+            />
+            <Btn onClick={doAdd} disabled={saving || !newLabel.trim()} className="text-[11px] px-3 py-1.5 flex items-center gap-1 whitespace-nowrap">
+              <Plus size={11}/>{saving ? 'Saving…' : 'Add Format'}
+            </Btn>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // ── Main list ──────────────────────────────────────────────────────────────────
 export default function AdminBillboards() {
   const store = useStore()
@@ -726,7 +831,10 @@ export default function AdminBillboards() {
   const [fmtFilter, setFmtFilter] = useState('')
   const [statusFilter, setStatusFilter] = useState('')
   const [codeSearch, setCodeSearch] = useState('')
-  const [typesMgr, setTypesMgr] = useState(false)
+  const [typesMgr,  setTypesMgr]  = useState(false)
+  const [fmtsMgr,   setFmtsMgr]   = useState(false)
+  const { billboardFormats: bbFmtsStore } = useStore()
+  const bbFmtsMain = (bbFmtsStore && bbFmtsStore.length > 0) ? bbFmtsStore : AD_FORMATS_FALLBACK.map((f,i) => ({ id: String(i+1), name: f, slug: f.toLowerCase().replace(/\s+/g,'-'), label: f }))
 
   const filtered = allBillboards.filter(b => {
     if (govFilter    && b._locId   !== govFilter)   return false
@@ -765,6 +873,9 @@ export default function AdminBillboards() {
             <Btn onClick={()=>setTypesMgr(true)} className="flex items-center gap-1.5 bg-gray-100 text-gray-700 hover:bg-gray-200">
               <Settings2 size={13}/> Manage Types
             </Btn>
+            <Btn onClick={()=>setFmtsMgr(true)} className="flex items-center gap-1.5 bg-gray-100 text-gray-700 hover:bg-gray-200">
+              <Settings2 size={13}/> Manage Ad Formats
+            </Btn>
             <Btn onClick={() => { setEdit(null); setForm(true) }} className="flex items-center gap-1.5">
               <Plus size={13}/> Add Billboard
             </Btn>
@@ -797,7 +908,7 @@ export default function AdminBillboards() {
         </select>
         <select value={fmtFilter} onChange={e=>setFmtFilter(e.target.value)} className="h-9 px-3 rounded-xl border border-gray-200 text-sm outline-none bg-white">
           <option value="">All Formats</option>
-          {AD_FORMATS.map(f=><option key={f} value={f}>{f}</option>)}
+          {bbFmtsMain.map((f: any)=><option key={f.id} value={f.label??f.name}>{f.label??f.name}</option>)}
         </select>
         <select value={statusFilter} onChange={e=>setStatusFilter(e.target.value)} className="h-9 px-3 rounded-xl border border-gray-200 text-sm outline-none bg-white">
           <option value="">All Statuses</option>
@@ -878,6 +989,7 @@ export default function AdminBillboards() {
       <Confirm open={!!del} title="Delete Billboard" message={`Delete "${del?.nameEn||del?.name}"?`}
         onConfirm={()=>deleteBb(del)} onCancel={()=>setDel(null)}/>
       <AdFormatManager open={typesMgr} onClose={()=>setTypesMgr(false)}/>
+      <BillboardFormatManager open={fmtsMgr} onClose={()=>setFmtsMgr(false)}/>
     </div>
   )
 }
