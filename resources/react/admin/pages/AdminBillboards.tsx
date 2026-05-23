@@ -827,25 +827,31 @@ export default function AdminBillboards() {
   const [form,    setForm]    = useState(false)
   const [edit,    setEdit]    = useState<any>(null)
   const [del,     setDel]     = useState<any>(null)
-  const [govFilter, setGovFilter] = useState('')
-  const [fmtFilter, setFmtFilter] = useState('')
-  const [statusFilter, setStatusFilter] = useState('')
-  const [codeSearch, setCodeSearch] = useState('')
+  const [govFilter,      setGovFilter]      = useState('')
+  const [fmtFilter,      setFmtFilter]      = useState('')
+  const [statusFilter,   setStatusFilter]   = useState('')
+  const [supplierFilter, setSupplierFilter] = useState('')
+  const [codeSearch,     setCodeSearch]     = useState('')
   const [typesMgr,  setTypesMgr]  = useState(false)
   const [fmtsMgr,   setFmtsMgr]   = useState(false)
   const { billboardFormats: bbFmtsStore } = useStore()
   const bbFmtsMain = (bbFmtsStore && bbFmtsStore.length > 0) ? bbFmtsStore : AD_FORMATS_FALLBACK.map((f,i) => ({ id: String(i+1), name: f, slug: f.toLowerCase().replace(/\s+/g,'-'), label: f }))
 
   const filtered = allBillboards.filter(b => {
-    if (govFilter    && b._locId   !== govFilter)   return false
+    if (govFilter      && b._locId !== govFilter)                                              return false
     // adFormat may come as `format` from API; both are normalized in normProduct but check all
-    if (fmtFilter    && (b.adFormat || b.format || b.type) !== fmtFilter)    return false
-    if (statusFilter && b.status   !== statusFilter) return false
+    if (fmtFilter      && (b.adFormat || b.format || b.type) !== fmtFilter)                  return false
+    if (statusFilter   && b.status  !== statusFilter)                                          return false
+    if (supplierFilter && String(b.supplierId || b.supplier_id || '') !== supplierFilter)      return false
     if (codeSearch) {
       const q = codeSearch.toLowerCase()
-      const matchCode = (b.code||'').toLowerCase().includes(q)
-      const matchName = ((b.nameEn||b.name||'')).toLowerCase().includes(q)
-      if (!matchCode && !matchName) return false
+      const matchCode     = (b.code||'').toLowerCase().includes(q)
+      const matchName     = (b.nameEn||b.name||'').toLowerCase().includes(q)
+      const matchSupplier = (() => {
+        const sup = suppliers.find((s: Supplier) => s.id === (b.supplierId || b.supplier_id))
+        return sup ? (sup.name||'').toLowerCase().includes(q) : false
+      })()
+      if (!matchCode && !matchName && !matchSupplier) return false
     }
     return true
   })
@@ -915,8 +921,15 @@ export default function AdminBillboards() {
           <option value="Available">Available</option>
           <option value="Not Available">Not Available</option>
         </select>
-        {(govFilter||fmtFilter||statusFilter||codeSearch) && (
-          <button onClick={()=>{setGovFilter('');setFmtFilter('');setStatusFilter('');setCodeSearch('')}} className="text-xs text-gray-400 hover:text-gray-700 font-semibold px-2">Clear all</button>
+        {/* Supplier filter */}
+        <select value={supplierFilter} onChange={e=>setSupplierFilter(e.target.value)} className="h-9 px-3 rounded-xl border border-gray-200 text-sm outline-none bg-white min-w-[160px]">
+          <option value="">All Suppliers</option>
+          {suppliers.map((s: Supplier) => (
+            <option key={s.id} value={s.id}>{s.name}</option>
+          ))}
+        </select>
+        {(govFilter||fmtFilter||statusFilter||supplierFilter||codeSearch) && (
+          <button onClick={()=>{setGovFilter('');setFmtFilter('');setStatusFilter('');setSupplierFilter('');setCodeSearch('')}} className="text-xs text-gray-400 hover:text-gray-700 font-semibold px-2">Clear all</button>
         )}
         <span className="ml-auto text-xs text-gray-400 self-center">{filtered.length} of {allBillboards.length} shown</span>
       </div>
