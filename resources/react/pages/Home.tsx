@@ -1057,14 +1057,14 @@ function ResultsSection() {
           </Reveal>
         </div>
 
-        {/* Stats */}
-        <RevealGroup className="grid grid-cols-1 sm:grid-cols-3">
+        {/* Stats — dynamic columns, border between each card */}
+        <RevealGroup className={`grid grid-cols-1 sm:grid-cols-${Math.min(RESULTS.length, 3) || 3}`}>
           {RESULTS.map((r, i) => (
-            <RevealItem key={r.label}>
+            <RevealItem key={r.id ?? r.label ?? i}>
               <div
                 className="flex flex-col py-16 px-10"
                 style={{
-                  borderRight: i < 2 ? "1px solid rgba(11,15,26,0.07)" : "none",
+                  borderRight: (i + 1) % Math.min(RESULTS.length, 3) !== 0 ? "1px solid rgba(11,15,26,0.07)" : "none",
                 }}
               >
                 {/* Big number */}
@@ -1088,7 +1088,7 @@ function ResultsSection() {
                   className="text-[12px] tracking-[0.2em] uppercase font-semibold"
                   style={{ color: "rgba(11,15,26,0.3)" }}
                 >
-                  {r.sublabel}
+                  {(r as any).sublabel ?? (r as any).description ?? ''}
                 </p>
 
                 {/* Red underline */}

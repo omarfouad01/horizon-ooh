@@ -462,15 +462,18 @@ export default function AdminSettings() {
       {tab==='results' && (
         <div className="space-y-5">
           <div className="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
+            <p className="text-[12px] text-gray-400 mb-4">Each result card appears on the Home page &ldquo;Numbers that speak&rdquo; section. Add as many as you need.</p>
             <div className="space-y-3">
               {results.map((r,i)=>(
-                <div key={i} className="grid grid-cols-3 gap-3">
-                  <Field placeholder="Value e.g. 2.7×" value={r.value}    onChange={(e:any)=>setResults(s=>s.map((x,j)=>j===i?{...x,value:e.target.value}:x))}/>
-                  <Field placeholder="Label"            value={r.label}    onChange={(e:any)=>setResults(s=>s.map((x,j)=>j===i?{...x,label:e.target.value}:x))}/>
-                  <Field placeholder="Sub-label"        value={r.sublabel} onChange={(e:any)=>setResults(s=>s.map((x,j)=>j===i?{...x,sublabel:e.target.value}:x))}/>
+                <div key={r.id} className="flex gap-3 items-start">
+                  <Field placeholder="Value e.g. 2.7×"                  value={r.value}    onChange={(e:any)=>setResults(s=>s.map((x,j)=>j===i?{...x,value:e.target.value}:x))} className="flex-1"/>
+                  <Field placeholder="Label e.g. Avg. ROI"              value={r.label}    onChange={(e:any)=>setResults(s=>s.map((x,j)=>j===i?{...x,label:e.target.value}:x))} className="flex-1"/>
+                  <Field placeholder="Sub-label e.g. Across campaigns"  value={r.sublabel} onChange={(e:any)=>setResults(s=>s.map((x,j)=>j===i?{...x,sublabel:e.target.value}:x))} className="flex-1"/>
+                  <button onClick={()=>setResults(s=>s.filter((_,j)=>j!==i))} className="text-red-400 hover:text-red-600 p-1.5 mt-0.5 flex-shrink-0" title="Remove result"><Trash2 size={14}/></button>
                 </div>
               ))}
             </div>
+            <Btn onClick={()=>setResults(s=>[...s,{id:String(Date.now()),value:'',label:'',sublabel:''}])} className="text-[12px] px-3 py-1.5 flex items-center gap-1 mt-4"><Plus size={12}/>Add Result</Btn>
           </div>
           <Btn onClick={saveResults} className="flex items-center gap-2"><Save size={14}/>Save Results</Btn>
         </div>

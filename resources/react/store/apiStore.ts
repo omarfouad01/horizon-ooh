@@ -516,7 +516,12 @@ export const useApiStore = create<ApiState>((set, get) => ({
       suppliers:          suppRaw,
       customers:          custRaw,
       contacts:           contsRaw,
-      results:            DEMO_RESULTS,
+      // Results: prefer those saved in homeContent (via dashboard Results tab), fallback to demo
+      results: (() => {
+        const hcResults = hcRaw?.results;
+        if (Array.isArray(hcResults) && hcResults.length > 0) return hcResults;
+        return DEMO_RESULTS;
+      })(),
       // Simulator: keep existing store data if API returned nothing (localStorage seeded)
       billboardSizes:     sizesRaw.length  ? sizesRaw  : cur.billboardSizes,
       simulatorTemplates: normTpls.length  ? normTpls  : cur.simulatorTemplates,
