@@ -913,7 +913,7 @@ export default function Locations() {
         >
           <div className="relative w-full h-full">
             <LocationsMap
-              billboards={sorted}
+              billboards={paginatedBillboards}
               hoveredId={hoveredId}
               selectedId={selectedId}
               onHover={setHoveredId}
@@ -949,7 +949,7 @@ export default function Locations() {
                 <svg width="8" height="8" viewBox="0 0 8 8" fill={RED}>
                   <circle cx="4" cy="4" r="4"/>
                 </svg>
-                <span className="text-[9px] font-bold tracking-[0.15em] uppercase text-white">{sorted.length} {t('common.pins')}</span>
+                <span className="text-[9px] font-bold tracking-[0.15em] uppercase text-white">{paginatedBillboards.length} / {sorted.length} {t('common.pins')}</span>
               </div>
             </div>
           </div>
