@@ -208,15 +208,37 @@ function HeroSection() {
   const heroChannels   = (isAr && hc.heroChannelsAr)  ? hc.heroChannelsAr  : hc.heroChannels;
   const heroCta1       = (isAr && hc.heroCta1Ar)      ? hc.heroCta1Ar      : (hc.hero_cta_primary || t('home.exploreLocations'));
   const heroCta2       = (isAr && hc.heroCta2Ar)      ? hc.heroCta2Ar      : (hc.hero_cta_secondary || t('home.viewCaseStudies'));
-  const ALL_CITIES  = _storeLocs.map((l: any) => l.city).sort();
+  // ── Only show cities/districts that have at least 1 billboard ──────────
+  // Collect all billboard city names and district names that are actually assigned
+  const _allBillboards   = _storeLocs.flatMap((l: any) => l.products || []);
+  const _assignedCities  = new Set(_allBillboards.map((b: any) => b.city).filter(Boolean));
+  const _assignedDistricts = new Set(_allBillboards.map((b: any) => b.district).filter(Boolean));
+
+  const ALL_CITIES  = _storeLocs
+    .filter((l: any) => (l.products || []).length > 0 || _assignedCities.has(l.city))
+    .map((l: any) => l.city)
+    .sort();
   // Format dropdown = billboard_formats table (Billboard, Digital, Mall…)
   const _bbFmtsList = (_bbFormats && _bbFormats.length > 0) ? _bbFormats : _adFormats;
   const ALL_FORMATS = _bbFmtsList.map((f: any) => f.label ?? f.name).filter(Boolean).sort();
 
   const districtOptions = (() => {
-    if (cities.length === 0) return _storeDists.map((d: any) => d.name).sort();
-    const locIds = _storeLocs.filter((l: any) => cities.includes(l.city)).map((l: any) => l.id);
-    return _storeDists.filter((d: any) => locIds.includes(d.locationId)).map((d: any) => d.name).sort();
+    if (cities.length === 0) {
+      // Show only districts that have at least 1 billboard
+      return _storeDists
+        .filter((d: any) => _assignedDistricts.has(d.name))
+        .map((d: any) => d.name)
+        .sort();
+    }
+    // Selected cities: further narrow to districts with billboards in those cities
+    const selectedLocs = _storeLocs.filter((l: any) => cities.includes(l.city));
+    const locBillboards = selectedLocs.flatMap((l: any) => l.products || []);
+    const locAssignedDistricts = new Set(locBillboards.map((b: any) => b.district).filter(Boolean));
+    const locIds = selectedLocs.map((l: any) => l.id);
+    return _storeDists
+      .filter((d: any) => locIds.includes(d.locationId) && locAssignedDistricts.has(d.name))
+      .map((d: any) => d.name)
+      .sort();
   })();
 
   // Arabic label maps for dropdowns

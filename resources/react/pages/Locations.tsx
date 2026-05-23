@@ -444,17 +444,36 @@ export default function Locations() {
 
   // District options come from store.districts, narrowed by selected cities
   const { locations: storeLocations, districts: storeDistricts, adFormats, billboardFormats } = useStore()
-  const ALL_CITIES  = storeLocations.map((l: any) => l.city).sort()
+
+  // ── Only expose cities/districts that have at least 1 billboard ────────
+  // Build sets of city names and district names that are actually assigned to billboards
+  const _assignedCities    = new Set(allBillboards.map((b: any) => b.city).filter(Boolean));
+  const _assignedDistricts = new Set(allBillboards.map((b: any) => b.district).filter(Boolean));
+
+  const ALL_CITIES  = storeLocations
+    .filter((l: any) => _assignedCities.has(l.city))
+    .map((l: any) => l.city)
+    .sort()
+
   // Format dropdown = billboard_formats table (Billboard, Digital, Mall…); fallback to ad_formats
   const _fmtSource  = (billboardFormats && billboardFormats.length > 0) ? billboardFormats : adFormats
   const ALL_FORMATS = _fmtSource.map((f: any) => f.label ?? f.name).filter(Boolean).sort()
+
   const districtOptions = (() => {
-    if (cities.length === 0) return storeDistricts.map((d: any) => d.name).sort()
-    const locIds = storeLocations
-      .filter((l: any) => cities.includes(l.city))
-      .map((l: any) => l.id)
+    if (cities.length === 0) {
+      // No city filter — show only districts that have at least 1 billboard
+      return storeDistricts
+        .filter((d: any) => _assignedDistricts.has(d.name))
+        .map((d: any) => d.name)
+        .sort()
+    }
+    // City filter active — narrow to districts with billboards in those cities
+    const selectedLocs      = storeLocations.filter((l: any) => cities.includes(l.city));
+    const locBillboards     = selectedLocs.flatMap((l: any) => l.products || []);
+    const locAssignedDists  = new Set(locBillboards.map((b: any) => b.district).filter(Boolean));
+    const locIds            = selectedLocs.map((l: any) => l.id);
     return storeDistricts
-      .filter((d: any) => locIds.includes(d.locationId))
+      .filter((d: any) => locIds.includes(d.locationId) && locAssignedDists.has(d.name))
       .map((d: any) => d.name)
       .sort()
   })()
