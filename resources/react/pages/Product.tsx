@@ -180,7 +180,7 @@ export default function Product() {
   const notSet = '[Not set]'
   const specRows = [
     { label: t('spec.code'),        value: product.code || notSet },
-    { label: t('spec.type'),        value: product.type || notSet },
+    { label: t('spec.type'),        value: product.type || notSet },         // Type (from ad_formats / Manage Types)
     { label: t('spec.sides'),       value: product.sides ? String(product.sides) : notSet },
     { label: t('spec.size'),        value: product.size || notSet },
     { label: t('spec.quantity'),    value: product.quantity ? String(product.quantity) : notSet },
@@ -188,7 +188,7 @@ export default function Product() {
     { label: t('spec.district'),    value: displayDistrictName },
     { label: t('spec.lightning'),   value: product.brightness || notSet },
     { label: t('spec.sqm'),         value: product.sqm ? `${product.sqm} sqm` : notSet },
-    { label: t('spec.adFormat'),    value: product.adFormat || notSet },
+    { label: t('spec.adFormat'),    value: product.adFormat || notSet },      // Ad Format (from billboard_formats / Manage Ad Formats)
   ];
   const whatsappNumber = settings.whatsapp.replace(/\D/g, '') || '201234567890';
 
@@ -462,7 +462,7 @@ export default function Product() {
 
               <div className="bg-white flex flex-col justify-between" style={{ padding: "40px 36px" }}>
                 <div>
-                  <p className="text-[9px] font-bold tracking-[0.35em] uppercase mb-3" style={{ color: RED }}>{product.type}</p>
+                  <p className="text-[9px] font-bold tracking-[0.35em] uppercase mb-3" style={{ color: RED }}>{product.type || product.adFormat}</p>
                   <h3 className="font-black leading-[1.0] tracking-[-0.03em] mb-4" style={{ fontSize: 22, color: NAVY }}>{isAr && product.nameAr ? product.nameAr : (product.nameEn || product.name)}</h3>
                   <p className="text-[13px] leading-[1.6] mb-6" style={{ color: "rgba(11,15,26,0.45)" }}>{product.location}</p>
 
@@ -477,7 +477,7 @@ export default function Product() {
                     {[
                       { label: t('product.market'), value: displayCityName },
                       { label: t('product.zone'),   value: displayDistrictName },
-                      { label: t('spec.adFormat'),  value: product.adFormat || '—' },
+                      { label: t('spec.adFormat'),  value: product.adFormat || product.type || '—' },
                       { label: t('spec.code'),      value: product.code || '—' },
                     ].map(item => (
                       <div key={item.label} className="flex items-center justify-between py-3 border-b border-[#0B0F1A]/[0.07]">
@@ -640,7 +640,7 @@ export default function Product() {
                         {[
                           { label: 'Code',   value: (rel as any).code || '—' },
                           { label: 'Size',   value: rel.size || '—' },
-                          { label: 'Format', value: rel.type || rel.adFormat || '—' },
+                          { label: 'Format', value: rel.adFormat || rel.type || '—' },
                         ].map((stat, i) => (
                           <div
                             key={stat.label}

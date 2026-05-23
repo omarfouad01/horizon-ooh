@@ -306,7 +306,7 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, w
         <div className="absolute top-3 right-3">
           <span className="text-[9px] font-bold tracking-[0.12em] uppercase px-2.5 py-1 text-white/70"
             style={{ background: "rgba(11,15,26,0.55)", backdropFilter: "blur(6px)", borderRadius: 3 }}>
-            {b.type}
+            {b.adFormat || b.type}
           </span>
         </div>
 
@@ -333,7 +333,7 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, w
           {[
             { label: t('spec.code'),      value: b.code || "—" },
             { label: t('spec.size'),      value: b.size },
-            { label: t('spec.adFormat'),  value: b.type },
+            { label: t('spec.adFormat'),  value: b.adFormat || b.type },
           ].map((stat, i) => (
             <div key={stat.label} className="flex flex-col items-center justify-center py-2.5 px-2"
               style={{ borderLeft: i > 0 ? '2px solid #D90429' : 'none' }}>
@@ -443,9 +443,11 @@ export default function Locations() {
   }, [setSearchParams]);
 
   // District options come from store.districts, narrowed by selected cities
-  const { locations: storeLocations, districts: storeDistricts, adFormats } = useStore()
+  const { locations: storeLocations, districts: storeDistricts, adFormats, billboardFormats } = useStore()
   const ALL_CITIES  = storeLocations.map((l: any) => l.city).sort()
-  const ALL_FORMATS = adFormats.map((f: any) => f.label).filter(Boolean).sort()
+  // Format dropdown = billboard_formats table (Billboard, Digital, Mall…); fallback to ad_formats
+  const _fmtSource  = (billboardFormats && billboardFormats.length > 0) ? billboardFormats : adFormats
+  const ALL_FORMATS = _fmtSource.map((f: any) => f.label ?? f.name).filter(Boolean).sort()
   const districtOptions = (() => {
     if (cities.length === 0) return storeDistricts.map((d: any) => d.name).sort()
     const locIds = storeLocations
@@ -469,9 +471,18 @@ export default function Locations() {
   const sorted = allBillboards.filter(b => {
     if (cities.length    > 0 && !cities.includes(b.city))        return false;
     if (districts.length > 0 && !districts.includes(b.district)) return false;
-    if (formats.length   > 0 && !formats.includes(b.type))       return false;
+    // Match on adFormat (billboard_formats) OR type (ad_formats) for backward compat
+    if (formats.length   > 0 && !formats.includes(b.adFormat) && !formats.includes(b.type)) return false;
     return true;
   });
+
+  // ── Pagination ─────────────────────────────────────────────────────────
+  const ITEMS_PER_PAGE = 12;
+  const [currentPage, setCurrentPage] = useState(1);
+  // Reset page when filters change
+  useEffect(() => { setCurrentPage(1); }, [cities.join(), districts.join(), formats.join()]);
+  const totalPages = Math.ceil(sorted.length / ITEMS_PER_PAGE);
+  const paginatedBillboards = sorted.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
   const hasFilters = cities.length > 0 || districts.length > 0 || formats.length > 0;
   const clearAll = () => { setCities([]); setDistricts([]); setFormats([]); setSearchParams({}); };
@@ -785,7 +796,7 @@ export default function Locations() {
                   key="results"
                   className="grid grid-cols-1 xl:grid-cols-2 gap-5"
                 >
-                  {sorted.map(b => (
+                  {paginatedBillboards.map(b => (
                     <BillboardCard
                       key={b.id}
                       b={b}
@@ -800,6 +811,42 @@ export default function Locations() {
                       }}
                     />
                   ))}
+                  {/* Pagination */}
+                  {totalPages > 1 && (
+                    <div className="col-span-full flex items-center justify-center gap-2 py-6">
+                      <button
+                        onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                        disabled={currentPage === 1}
+                        className="h-9 w-9 flex items-center justify-center rounded-full border border-[#0B0F1A]/15 text-[13px] font-bold text-[#0B0F1A]/60 hover:border-[#D90429] hover:text-[#D90429] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                        aria-label="Previous page"
+                      >
+                        {isAr ? '›' : '‹'}
+                      </button>
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                        <button
+                          key={page}
+                          onClick={() => setCurrentPage(page)}
+                          className={`h-9 w-9 flex items-center justify-center rounded-full text-[13px] font-bold transition-colors ${
+                            page === currentPage
+                              ? 'text-white'
+                              : 'border border-[#0B0F1A]/15 text-[#0B0F1A]/60 hover:border-[#D90429] hover:text-[#D90429]'
+                          }`}
+                          style={page === currentPage ? { background: '#D90429', border: 'none' } : {}}
+                          aria-label={`Page ${page}`}
+                        >
+                          {page}
+                        </button>
+                      ))}
+                      <button
+                        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                        disabled={currentPage === totalPages}
+                        className="h-9 w-9 flex items-center justify-center rounded-full border border-[#0B0F1A]/15 text-[13px] font-bold text-[#0B0F1A]/60 hover:border-[#D90429] hover:text-[#D90429] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                        aria-label="Next page"
+                      >
+                        {isAr ? '‹' : '›'}
+                      </button>
+                    </div>
+                  )}
                 </motion.div>
               ) : (
                 /* ── EMPTY STATE ────────────────────────────────────── */

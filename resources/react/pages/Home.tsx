@@ -199,7 +199,7 @@ function HeroSection() {
   const [districts, setDistricts] = useState<string[]>([]);
   const [formats,   setFormats]   = useState<string[]>([]);
 
-  const { locations: _storeLocs, districts: _storeDists, adFormats: _adFormats, homeContent: hc } = useStore();
+  const { locations: _storeLocs, districts: _storeDists, adFormats: _adFormats, billboardFormats: _bbFormats, homeContent: hc } = useStore();
   const { isAr, t } = useLang();
   // Arabic helpers for hero section only
   const heroEyebrow    = (isAr && hc.heroEyebrowAr)  ? hc.heroEyebrowAr  : hc.heroEyebrow;
@@ -209,7 +209,9 @@ function HeroSection() {
   const heroCta1       = (isAr && hc.heroCta1Ar)      ? hc.heroCta1Ar      : (hc.hero_cta_primary || t('home.exploreLocations'));
   const heroCta2       = (isAr && hc.heroCta2Ar)      ? hc.heroCta2Ar      : (hc.hero_cta_secondary || t('home.viewCaseStudies'));
   const ALL_CITIES  = _storeLocs.map((l: any) => l.city).sort();
-  const ALL_FORMATS = _adFormats.map((f: any) => f.label).filter(Boolean).sort();
+  // Format dropdown = billboard_formats table (Billboard, Digital, Mall…)
+  const _bbFmtsList = (_bbFormats && _bbFormats.length > 0) ? _bbFormats : _adFormats;
+  const ALL_FORMATS = _bbFmtsList.map((f: any) => f.label ?? f.name).filter(Boolean).sort();
 
   const districtOptions = (() => {
     if (cities.length === 0) return _storeDists.map((d: any) => d.name).sort();
@@ -452,7 +454,7 @@ function HeroSection() {
 
           <Suspense fallback={<div className="absolute inset-0 bg-[#0b0f1a]" />}>
             <LeafletMap
-              filtered={getBillboards()}
+              filtered={getBillboards().slice(0, 20)}
               allCount={getBillboards().length}
               selected={selectedPin}
               onSelect={setSelectedPin}
@@ -1636,7 +1638,7 @@ function RecentBillboardsSection() {
                     {[
                       { label: t('spec.code')      || 'Code',   value: (product as any).code || '—' },
                       { label: t('spec.size')      || 'Size',   value: product.size },
-                      { label: t('spec.adFormat')  || 'Format', value: product.type },
+                      { label: t('spec.adFormat')  || 'Format', value: (product as any).adFormat || product.type },
                     ].map((stat, i) => (
                       <div
                         key={stat.label}
