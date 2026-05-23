@@ -820,7 +820,7 @@ function BillboardFormatManager({ open, onClose }: { open:boolean; onClose:()=>v
 // ── Main list ──────────────────────────────────────────────────────────────────
 export default function AdminBillboards() {
   const store = useStore()
-  const { locations } = store
+  const { locations, suppliers } = store
   const allBillboards = locations.flatMap((l: any) =>
     (l.products || []).map((p: any) => ({ ...p, _locId: l.id, _locCity: l.city }))
   )
