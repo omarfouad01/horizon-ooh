@@ -692,10 +692,27 @@ function ServicesSection() {
               </h2>
             </Reveal>
           </div>
-          <Reveal delay={0.15} className={`max-w-[260px] ${isAr ? 'text-left' : 'text-right'}`}>
+          <Reveal delay={0.15} className={`flex flex-col items-end gap-5 max-w-[260px] ${isAr ? 'items-start text-left' : 'items-end text-right'}`}>
             <p className="text-[15px] leading-[1.7]" style={{ color: "rgba(11,15,26,0.4)" }}>
               {t('home.servicesSubtitle') || "Full-spectrum outdoor media solutions across Egypt's major urban centres."}
             </p>
+            <Link
+              to="/services"
+              className="group inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.18em] uppercase transition-colors"
+              style={{ color: NAVY }}
+            >
+              <span className="group-hover:underline transition-all">
+                {isAr ? 'عرض كل الخدمات' : 'Show All Services'}
+              </span>
+              <span
+                className="flex items-center justify-center w-7 h-7 rounded-full transition-all group-hover:translate-x-1"
+                style={{ background: RED }}
+              >
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                  <path d="M2 5h6M5.5 2.5L8 5l-2.5 2.5" stroke="white" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </span>
+            </Link>
           </Reveal>
         </div>
 
