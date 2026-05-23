@@ -6,7 +6,6 @@ import { type ProjectCategory } from "@/data";
 import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
 import { projectHref, RED, NAVY, ease } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
-
 const CAT_COLORS: Record<ProjectCategory, string> = {
   Billboard: "#D90429",
   DOOH: "#0B0F1A",
@@ -24,20 +23,34 @@ function buildClientBrief(project: any, clientProjects: any[]) {
 }
 
 export default function ProjectDetail() {
-  const { projects: PROJECTS } = useStore();
+  // ── ALL hooks first — no conditional returns before hooks ──
+  const { projects: PROJECTS, loaded } = useStore();
   const { isAr, t } = useLang();
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const project = PROJECTS.find((p) => p.slug === slug);
 
+  // useMemo is a hook — must be unconditional
   const clientProjects = useMemo(
     () => PROJECTS.filter((p) => p.client === project?.client),
     [PROJECTS, project?.client]
   );
 
-  const related = PROJECTS.filter((p) => p.slug !== slug && p.client === project?.client).slice(0, 3);
+  const related         = PROJECTS.filter((p) => p.slug !== slug && p.client === project?.client).slice(0, 3);
   const fallbackRelated = PROJECTS.filter((p) => p.slug !== slug && p.client !== project?.client).slice(0, Math.max(0, 3 - related.length));
-  const relatedAll = [...related, ...fallbackRelated].slice(0, 3);
+  const relatedAll      = [...related, ...fallbackRelated].slice(0, 3);
+
+  // ── Conditional returns AFTER all hooks ──
+  if (!loaded) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-10 h-10 rounded-full border-2 border-[#D90429] border-t-transparent animate-spin" />
+          <p className="text-[13px] font-semibold tracking-[0.15em] uppercase" style={{ color: 'rgba(11,15,26,0.3)' }}>Loading…</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!project) {
     return (

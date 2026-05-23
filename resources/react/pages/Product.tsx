@@ -116,22 +116,68 @@ function Lightbox({ images, active, onClose, onNav }: {
 
 // ─── Main product page ────────────────────────────────────────────────────
 export default function Product() {
-  const { locations: LOCATIONS, settings, districts: storeDistricts } = useStore()
+  // ── ALL hooks must come first — before any conditional return ──
+  const { locations: LOCATIONS, settings, districts: storeDistricts, loaded } = useStore()
   const { city: citySlug, slug } = useParams<{ city: string; slug: string }>();
   const navigate = useNavigate();
   const { isAr, t } = useLang();
   const heroRef  = useRef<HTMLElement>(null);
 
+  // These are always computed (hooks must not be conditional)
   const location = LOCATIONS.find((l) => l.slug === citySlug);
   const product  = (location?.products || []).find((p: any) => p.slug === slug);
 
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroImgY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
 
-  // Arabic helpers
+  // Arabic helpers — safe even when product is undefined
   const districtObj         = storeDistricts.find((d: any) => d.name === (product?.district || ''))
   const displayDistrictName = isAr && districtObj?.nameAr ? districtObj.nameAr : (product?.district || '[Not set]')
   const displayCityName     = isAr && (location as any)?.cityAr ? (location as any).cityAr : (product?.city || location?.city || '[Not set]')
+
+  // Derived data — computed unconditionally (uses optional chaining to be safe)
+  const fallbackImage = product?.image || product?.images?.[0]?.url || 'https://images.unsplash.com/photo-1586189393824-dfaafc3691dc?w=1400&q=90&fit=crop';
+  const productImages = (product?.images && product.images.length ? product.images : [{ id: 'fallback', url: fallbackImage, alt: product?.name ?? '' }])
+    .filter(Boolean)
+    .map((img: any, i: number) => ({
+      id: img.id || `img-${i}`,
+      url: img.url || fallbackImage,
+      alt: img.alt || `${product?.name ?? ''} image ${i + 1}`,
+      title: img.title || `Photo ${i + 1}`,
+    }));
+
+  // ALL useState / useCallback / useEffect hooks — unconditionally
+  const [heroIdx, setHeroIdx] = useState(0);
+  const [detailIdx, setDetailIdx] = useState(0);
+
+  useEffect(() => {
+    setHeroIdx(0);
+    setDetailIdx(0);
+  }, [product?.id]);
+
+  useEffect(() => {
+    if (productImages.length < 2) return;
+    const timer = setTimeout(() => setHeroIdx((p) => (p + 1) % productImages.length), 5000);
+    return () => clearTimeout(timer);
+  }, [heroIdx, productImages.length]);
+
+  const nextHero   = useCallback(() => setHeroIdx((p)   => (p + 1) % productImages.length),                    [productImages.length]);
+  const prevHero   = useCallback(() => setHeroIdx((p)   => (p - 1 + productImages.length) % productImages.length), [productImages.length]);
+  const nextDetail = useCallback(() => setDetailIdx((p) => (p + 1) % productImages.length),                    [productImages.length]);
+  const prevDetail = useCallback(() => setDetailIdx((p) => (p - 1 + productImages.length) % productImages.length), [productImages.length]);
+
+  // ── Conditional returns AFTER all hooks ──
+  // Show skeleton while store is loading (prevents false 404 on direct/shared links)
+  if (!loaded) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-10 h-10 rounded-full border-2 border-[#D90429] border-t-transparent animate-spin" />
+          <p className="text-[13px] font-semibold tracking-[0.15em] uppercase" style={{ color: 'rgba(11,15,26,0.3)' }}>Loading…</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!location || !product) {
     return (
@@ -148,34 +194,6 @@ export default function Product() {
   }
 
   const related = location.products.filter((p) => p.slug !== slug).slice(0, 2);
-  const fallbackImage = product.image || product.images?.[0]?.url || 'https://images.unsplash.com/photo-1586189393824-dfaafc3691dc?w=1400&q=90&fit=crop';
-  const productImages = (product.images && product.images.length ? product.images : [{ id: 'fallback', url: fallbackImage, alt: product.name }])
-    .filter(Boolean)
-    .map((img: any, i: number) => ({
-      id: img.id || `img-${i}`,
-      url: img.url || fallbackImage,
-      alt: img.alt || `${product.name} image ${i + 1}`,
-      title: img.title || `Photo ${i + 1}`,
-    }));
-
-  const [heroIdx, setHeroIdx] = useState(0);
-  const [detailIdx, setDetailIdx] = useState(0);
-
-  useEffect(() => {
-    setHeroIdx(0);
-    setDetailIdx(0);
-  }, [product.id]);
-
-  useEffect(() => {
-    if (productImages.length < 2) return;
-    const timer = setTimeout(() => setHeroIdx((p) => (p + 1) % productImages.length), 5000);
-    return () => clearTimeout(timer);
-  }, [heroIdx, productImages.length]);
-
-  const nextHero = useCallback(() => setHeroIdx((p) => (p + 1) % productImages.length), [productImages.length]);
-  const prevHero = useCallback(() => setHeroIdx((p) => (p - 1 + productImages.length) % productImages.length), [productImages.length]);
-  const nextDetail = useCallback(() => setDetailIdx((p) => (p + 1) % productImages.length), [productImages.length]);
-  const prevDetail = useCallback(() => setDetailIdx((p) => (p - 1 + productImages.length) % productImages.length), [productImages.length]);
 
   const notSet = '[Not set]'
   const specRows = [

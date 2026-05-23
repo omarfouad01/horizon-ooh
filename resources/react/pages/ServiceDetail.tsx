@@ -6,10 +6,24 @@ import { motion } from "framer-motion";
 import SEO from "@/components/SEO";
 
 export default function ServiceDetail() {
-  const { services: SERVICES } = useStore()
+  // ── ALL hooks first — no conditional returns before hooks ──
+  const { services: SERVICES, loaded } = useStore()
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const service = SERVICES.find((s) => s.slug === slug);
+  const others  = SERVICES.filter((s) => s.id !== service?.id).slice(0, 3);
+
+  // ── Conditional returns AFTER all hooks ──
+  if (!loaded) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-10 h-10 rounded-full border-2 border-[#D90429] border-t-transparent animate-spin" />
+          <p className="text-[13px] font-semibold tracking-[0.15em] uppercase" style={{ color: 'rgba(11,15,26,0.3)' }}>Loading…</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!service) {
     return (
@@ -19,8 +33,6 @@ export default function ServiceDetail() {
       </div>
     );
   }
-
-  const others = SERVICES.filter((s) => s.id !== service.id).slice(0, 3);
 
   return (
     <>
