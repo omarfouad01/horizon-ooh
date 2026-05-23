@@ -341,7 +341,7 @@ export function Footer() {
     ? store.services
         .slice(0, 6) // cap at 6 to keep footer tidy
         .map((svc: any) => ({
-          label: isAr && svc.titleAr ? svc.titleAr : (svc.title ?? svc.name ?? ''),
+          label: isAr && svc.titleAr ? svc.titleAr : (svc.shortTitle ?? svc.title ?? svc.name ?? ''),
           href:  `/services/${svc.slug}`,
         }))
     : [
