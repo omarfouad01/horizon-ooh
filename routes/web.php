@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SitemapController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// ── Sitemap & Robots — must be before the SPA catch-all ─────────────────────
+Route::get('/sitemap.xml', [SitemapController::class, 'index']);
+Route::get('/robots.txt',  [SitemapController::class, 'robots']);
+
+// ── SPA catch-all ─────────────────────────────────────────────────────────────
 Route::get('/{any?}', function () {
     // $indexPath = public_path('app/index.html');
     $indexPath = public_path('index.html');
