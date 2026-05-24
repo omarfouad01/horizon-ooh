@@ -44,7 +44,7 @@ class BillboardController extends Controller
         if ($request->filled('featured'))     $q->where('featured', true);
 
         return response()->json(
-            $q->orderBy('sort_order')->orderBy('code')
+            $q->orderBy('created_at', 'desc')
               ->get()->map(fn($b) => $this->transform($b))
         );
     }

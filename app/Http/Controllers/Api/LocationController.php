@@ -12,7 +12,12 @@ class LocationController extends Controller
     public function index(): JsonResponse
     {
         return response()->json(
-            Location::with(['districts', 'billboards.images'])
+            Location::with([
+                'districts',
+                // Eager-load billboards newest-first so website & dashboard show latest on top
+                'billboards' => fn($q) => $q->orderBy('created_at', 'desc'),
+                'billboards.images',
+            ])
                 ->orderBy('sort_order')->orderBy('city')
                 ->get()
                 ->map(fn($l) => $this->transform($l))
