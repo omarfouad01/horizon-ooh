@@ -293,11 +293,11 @@ export default function Product() {
             </div>
 
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease, delay: 0.7 }} className="flex-shrink-0 hidden md:block">
-              <button onClick={() => navigate("/contact")} className="group relative overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white flex items-center active:scale-[0.97] transition-transform"
-                style={{ height: 52, padding: "0 36px", background: RED, border: "none", cursor: "pointer" }}>
+              <Link to="/contact" className="group relative overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white flex items-center active:scale-[0.97] transition-transform"
+                style={{ height: 52, padding: "0 36px", background: RED, textDecoration: 'none' }}>
                 <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: "white" }} />
                 <span className="relative z-10 group-hover:text-[#0B0F1A] transition-colors duration-300">{t('product.bookLocation')}</span>
-              </button>
+              </Link>
             </motion.div>
           </div>
 
@@ -394,11 +394,11 @@ export default function Product() {
 
             <Reveal delay={0.2}>
               <div className="flex flex-col gap-3 mt-10">
-                <button onClick={() => navigate('/contact')} className="group relative w-full h-[54px] overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase text-white flex items-center justify-center active:scale-[0.97] transition-transform"
-                  style={{ background: RED, border: 'none', cursor: 'pointer' }}>
+                <Link to="/contact" className="group relative w-full h-[54px] overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase text-white flex items-center justify-center active:scale-[0.97] transition-transform"
+                  style={{ background: RED, textDecoration: 'none' }}>
                   <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: NAVY }} />
                   <span className="relative z-10">{t('product.getQuote')}</span>
-                </button>
+                </Link>
                 <a href={`https://wa.me/${whatsappNumber}?text=Hi%20${encodeURIComponent(settings.companyName)}%2C%20I%27m%20interested%20in%20booking%20${encodeURIComponent(product.nameEn || product.name)}`}
                   target="_blank" rel="noopener noreferrer"
                   className="w-full h-[48px] flex items-center justify-center gap-2.5 border transition-colors duration-200 hover:border-[#25D366] group"
@@ -408,10 +408,10 @@ export default function Product() {
                   </svg>
                   <span className="text-[12px] font-semibold tracking-[0.15em] uppercase group-hover:text-[#25D366] transition-colors" style={{ color: 'rgba(11,15,26,0.5)' }}>{t('product.whatsappEnquiry')}</span>
                 </a>
-                <button
-                  onClick={() => navigate(`/design-simulator?product=${product.id}`)}
+                <Link
+                  to={`/design-simulator?product=${product.id}`}
                   className="group relative w-full h-[48px] overflow-hidden flex items-center justify-center gap-2.5 text-[12px] font-bold tracking-[0.18em] uppercase transition-all duration-200 active:scale-[0.97]"
-                  style={{ border: '1.5px solid #D90429', background: 'transparent', cursor: 'pointer', color: '#D90429' }}
+                  style={{ border: '1.5px solid #D90429', background: 'transparent', color: '#D90429', textDecoration: 'none' }}
                 >
                   {/* Hover fill */}
                   <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: '#D90429' }} />
@@ -422,7 +422,7 @@ export default function Product() {
                   <span className="relative z-10 group-hover:text-white transition-colors duration-300">
                     {t('product.trySimulator') || (isAr ? 'جرّب المحاكي' : 'Try Simulator')}
                   </span>
-                </button>
+                </Link>
               </div>
             </Reveal>
           </div>

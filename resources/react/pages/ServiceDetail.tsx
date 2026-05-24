@@ -68,14 +68,14 @@ export default function ServiceDetail() {
               </p>
             </Reveal>
             <Reveal delay={0.2}>
-              <button
-                onClick={() => navigate("/contact")}
-                className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white w-fit flex items-center active:scale-[0.97] transition-transform cursor-pointer"
-                style={{ background: RED }}
+              <Link
+                to="/contact"
+                className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white w-fit flex items-center active:scale-[0.97] transition-transform"
+                style={{ background: RED, textDecoration: 'none' }}
               >
                 <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" style={{ background: "white" }} />
                 <span className="relative z-10 group-hover:text-[#0B0F1A] transition-colors duration-300">Get a Quote</span>
-              </button>
+              </Link>
             </Reveal>
           </div>
 

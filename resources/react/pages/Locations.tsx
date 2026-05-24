@@ -364,20 +364,22 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, w
 
         {/* CTA row */}
         <div className="flex items-center gap-2">
-          <button
-            onClick={e => { e.stopPropagation(); navigate(productHref(b.citySlug, b.slug)); }}
+          <Link
+            to={productHref(b.citySlug, b.slug)}
+            onClick={e => e.stopPropagation()}
             className="flex-1 h-9 flex items-center justify-center text-[10px] font-bold tracking-[0.18em] uppercase text-white transition-all duration-200 hover:opacity-90 active:scale-[0.97]"
-            style={{ background: NAVY, border: "none", borderRadius: 5, cursor: "pointer" }}
+            style={{ background: NAVY, borderRadius: 5, textDecoration: 'none' }}
           >
             {isAr ? 'عرض التفاصيل' : 'View Details'}
-          </button>
-          <button
-            onClick={e => { e.stopPropagation(); navigate("/contact"); }}
+          </Link>
+          <Link
+            to="/contact"
+            onClick={e => e.stopPropagation()}
             className="flex-1 h-9 flex items-center justify-center text-[10px] font-bold tracking-[0.18em] uppercase transition-all duration-200 hover:bg-[rgba(217,4,41,0.06)] active:scale-[0.97]"
-            style={{ border: `1.5px solid ${RED}`, color: RED, borderRadius: 5, cursor: "pointer", background: "transparent" }}
+            style={{ border: `1.5px solid ${RED}`, color: RED, borderRadius: 5, background: "transparent", textDecoration: 'none' }}
           >
             {isAr ? 'اطلب عرض سعر' : 'Get Quote'}
-          </button>
+          </Link>
           <a
             href={`https://wa.me/${waNumber}?text=Hi%20HORIZON%20OOH%2C%20I%27m%20interested%20in%20${encodeURIComponent(b.name)}`}
             target="_blank"
@@ -928,11 +930,11 @@ export default function Locations() {
                       style={{ background: RED, border: "none", borderRadius: 6, cursor: "pointer" }}>
                       {t('locations.showAll')}
                     </button>
-                    <button onClick={() => navigate("/contact")}
-                      className="h-11 px-6 text-[11px] font-bold tracking-[0.2em] uppercase transition-all hover:border-[#D90429] hover:text-[#D90429]"
-                      style={{ background: "transparent", border: `1.5px solid rgba(11,15,26,0.15)`, borderRadius: 6, cursor: "pointer", color: "rgba(11,15,26,0.5)" }}>
+                    <Link to="/contact"
+                      className="h-11 px-6 text-[11px] font-bold tracking-[0.2em] uppercase transition-all hover:border-[#D90429] hover:text-[#D90429] inline-flex items-center"
+                      style={{ background: "transparent", border: `1.5px solid rgba(11,15,26,0.15)`, borderRadius: 6, color: "rgba(11,15,26,0.5)", textDecoration: 'none' }}>
                       {t('common.contactUs')}
-                    </button>
+                    </Link>
                   </div>
                 </motion.div>
               )}
@@ -1015,13 +1017,13 @@ export default function Locations() {
               {isAr ? (lp.ctaHelpTextAr || t('locations.helpChoosing')) : (lp.ctaHelpText || t('locations.helpChoosing'))}
             </span>
           </div>
-          <button
-            onClick={() => navigate("/contact")}
+          <Link
+            to="/contact"
             className="flex items-center gap-2 h-9 px-4 text-[11px] font-bold tracking-[0.15em] uppercase text-white transition-opacity hover:opacity-90 active:scale-[0.97]"
-            style={{ background: NAVY, border: "none", borderRadius: 30, cursor: "pointer" }}
+            style={{ background: NAVY, borderRadius: 30, textDecoration: 'none' }}
           >
             {isAr ? (lp.ctaButtonAr || t('locations.talkToExpert')) : (lp.ctaButton || t('locations.talkToExpert'))}
-          </button>
+          </Link>
           <a
             href={`https://wa.me/${waNumber}?text=Hi%20HORIZON%20OOH%2C%20I%20need%20help%20choosing%20billboard%20locations`}
             target="_blank" rel="noopener noreferrer"

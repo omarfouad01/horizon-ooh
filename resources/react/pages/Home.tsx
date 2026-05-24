@@ -136,50 +136,79 @@ function Eyebrow({ text, light = false }: { text: string; light?: boolean }) {
 // ─── CTA Button ──────────────────────────────────────────────────────────
 function RedButton({
   label,
+  href,
   onClick,
 }: {
   label: string;
+  href?: string;
   onClick?: () => void;
 }) {
-  return (
-    <button
-      onClick={onClick}
-      className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white active:scale-[0.97] transition-transform cursor-pointer"
-      style={{ background: RED }}
-    >
+  const inner = (
+    <>
       <span
         className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out"
         style={{ background: NAVY }}
       />
       <span className="relative z-10">{label}</span>
-    </button>
+    </>
+  );
+  if (href) {
+    return (
+      <Link
+        to={href}
+        className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white active:scale-[0.97] transition-transform inline-flex items-center"
+        style={{ background: RED, textDecoration: 'none' }}
+      >{inner}</Link>
+    );
+  }
+  return (
+    <button
+      onClick={onClick}
+      className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white active:scale-[0.97] transition-transform cursor-pointer"
+      style={{ background: RED }}
+    >{inner}</button>
   );
 }
 
 function OutlineButton({
   label,
+  href,
   onClick,
   light = false,
 }: {
   label: string;
+  href?: string;
   onClick?: () => void;
   light?: boolean;
 }) {
-  return (
-    <button
-      onClick={onClick}
-      className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase transition-all duration-300 active:scale-[0.97] cursor-pointer"
-      style={{
-        border: `1.5px solid ${light ? "rgba(255,255,255,0.25)" : NAVY}`,
-        color: light ? "rgba(255,255,255,0.7)" : NAVY,
-      }}
-    >
+  const styles = {
+    border: `1.5px solid ${light ? "rgba(255,255,255,0.25)" : NAVY}`,
+    color: light ? "rgba(255,255,255,0.7)" : NAVY,
+  };
+  const inner = (
+    <>
       <span
         className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out"
         style={{ background: light ? "rgba(255,255,255,0.1)" : NAVY }}
       />
       <span className="relative z-10 group-hover:text-white transition-colors duration-400">{label}</span>
-    </button>
+    </>
+  );
+  if (href) {
+    return (
+      <Link
+        to={href}
+        className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase transition-all duration-300 active:scale-[0.97] inline-flex items-center"
+        style={{ ...styles, textDecoration: 'none' }}
+      >{inner}</Link>
+    );
+  }
+  return (
+    <button
+      onClick={onClick}
+      className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase transition-all duration-300 active:scale-[0.97] cursor-pointer"
+      style={styles}
+    >{inner}</button>
   );
 }
 
@@ -366,26 +395,26 @@ function HeroSection() {
               transition={{ duration: 0.75, ease, delay: 0.9 }}
               className="flex flex-row items-start gap-3 mb-12 flex-wrap"
             >
-              <button
-                onClick={() => { window.location.hash = '/contact'; window.scrollTo(0,0); }}
-                className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase text-white cursor-pointer flex-shrink-0"
-                style={{ background: RED, border: "none" }}
+              <Link
+                to="/contact"
+                className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase text-white cursor-pointer flex-shrink-0 inline-flex items-center"
+                style={{ background: RED, textDecoration: 'none' }}
               >
                 <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
                   style={{ background: "#f0042e" }} />
                 <span className="relative z-10">{t('nav.getQuote')}</span>
-              </button>
-              <button
-                onClick={() => { window.location.hash = '/design-simulator'; window.scrollTo(0,0); }}
-                className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase cursor-pointer flex-shrink-0"
-                style={{ border: "1.5px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.65)", background: "transparent" }}
+              </Link>
+              <Link
+                to="/design-simulator"
+                className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase cursor-pointer flex-shrink-0 inline-flex items-center"
+                style={{ border: "1.5px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.65)", background: "transparent", textDecoration: 'none' }}
               >
                 <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
                   style={{ background: "rgba(255,255,255,0.07)" }} />
                 <span className="relative z-10 group-hover:text-white transition-colors duration-300">
                   {isAr ? 'جرّب المحاكي' : 'Try Simulator'}
                 </span>
-              </button>
+              </Link>
             </motion.div>
 
             {/* ── Divider ───────────────────────────────────────────── */}
@@ -854,7 +883,7 @@ function FeatureSection() {
           </RevealGroup>
 
           <Reveal delay={0.45}>
-            <RedButton label={hc.featureButtonText} onClick={() => { window.location.hash = '/contact'; window.scrollTo(0,0); }} />
+            <RedButton label={hc.featureButtonText} href="/contact" />
           </Reveal>
         </div>
 
@@ -915,7 +944,7 @@ function LocationsSection() {
             </Reveal>
           </div>
           <Reveal delay={0.2}>
-            <OutlineButton label={t('home.viewAllLocations') || 'View All Locations'} onClick={() => { window.location.hash = '/locations'; window.scrollTo(0,0); }} />
+            <OutlineButton label={t('home.viewAllLocations') || 'View All Locations'} href="/locations" />
           </Reveal>
         </div>
 
@@ -1224,18 +1253,20 @@ function FinalCTASection() {
         </Reveal>
         <Reveal delay={0.24}>
           <div className="flex items-center justify-center gap-5 mb-16">
-            <a onClick={() => { window.location.hash = '/contact'; window.scrollTo(0,0); }}
-              className="inline-flex items-center h-[56px] px-11 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white relative group cursor-pointer border-0"
-              style={{ background: RED }}>
+            <Link
+              to="/contact"
+              className="inline-flex items-center h-[56px] px-11 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white relative group"
+              style={{ background: RED, textDecoration: 'none' }}>
               <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out" style={{ background: NAVY }}/>
               <span className="relative z-10">{finalPrimary}</span>
-            </a>
-            <a onClick={() => { window.location.hash = '/contact'; window.scrollTo(0,0); }}
-              className="group relative inline-flex items-center h-[56px] px-11 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase transition-colors duration-300 cursor-pointer border-0 bg-transparent"
-              style={{ border: `1.5px solid ${NAVY}`, color: NAVY }}>
+            </Link>
+            <Link
+              to="/contact"
+              className="group relative inline-flex items-center h-[56px] px-11 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase transition-colors duration-300"
+              style={{ border: `1.5px solid ${NAVY}`, color: NAVY, textDecoration: 'none' }}>
               <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out" style={{ background: NAVY }}/>
               <span className="relative z-10 group-hover:text-white transition-colors duration-400">{finalSecondary}</span>
-            </a>
+            </Link>
           </div>
         </Reveal>
         <Reveal delay={0.32}>

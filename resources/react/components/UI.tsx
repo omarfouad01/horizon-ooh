@@ -321,7 +321,6 @@ export function CTABanner({
   buttonLabel?: string;
   dark?: boolean;
 }) {
-  const navigate = useNavigate();
   return (
     <section
       style={{
@@ -353,7 +352,7 @@ export function CTABanner({
         </div>
         <Reveal delay={0.15}>
           <div className="flex gap-4">
-            <RedBtn label={buttonLabel} onClick={() => navigate(ROUTES.CONTACT)} />
+            <RedBtn label={buttonLabel} href={ROUTES.CONTACT} />
           </div>
         </Reveal>
       </div>

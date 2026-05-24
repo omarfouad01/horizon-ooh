@@ -140,14 +140,14 @@ export default function BlogArticle() {
                           <p className="font-bold text-white" style={{ fontSize: 18 }}>{block.content}</p>
                           <p className="text-[14px] mt-2" style={{ color: "rgba(255,255,255,0.35)" }}>{isAr ? 'تحدث مع فريقنا — لا يلزم أي التزام.' : 'Talk to our team — no commitment required.'}</p>
                         </div>
-                        <button
-                          onClick={() => navigate("/contact")}
-                          className="group relative h-[48px] px-8 overflow-hidden text-[11px] font-bold tracking-[0.2em] uppercase text-white flex items-center flex-shrink-0 active:scale-[0.97] transition-transform cursor-pointer"
-                          style={{ background: RED }}
+                        <Link
+                          to="/contact"
+                          className="group relative h-[48px] px-8 overflow-hidden text-[11px] font-bold tracking-[0.2em] uppercase text-white flex items-center flex-shrink-0 active:scale-[0.97] transition-transform"
+                          style={{ background: RED, textDecoration: 'none' }}
                         >
                           <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: "white" }} />
                           <span className="relative z-10 group-hover:text-[#0B0F1A] transition-colors duration-300">{t('product.getQuote')}</span>
-                        </button>
+                        </Link>
                       </div>
                     </Reveal>
                   );
@@ -169,14 +169,14 @@ export default function BlogArticle() {
                     <p className="text-[14px] leading-[1.7] mb-6" style={{ color: "rgba(11,15,26,0.45)" }}>
                       {isAr ? 'سيبني خبراؤنا الإعلاميون الحملة الخارجية المثالية لعلامتك التجارية.' : 'Our media strategists will build the perfect OOH campaign for your brand.'}
                     </p>
-                    <button
-                      onClick={() => navigate("/contact")}
-                      className="group relative w-full h-[48px] overflow-hidden text-[11px] font-bold tracking-[0.2em] uppercase text-white flex items-center justify-center active:scale-[0.97] transition-transform cursor-pointer"
-                      style={{ background: RED }}
+                    <Link
+                      to="/contact"
+                      className="group relative w-full h-[48px] overflow-hidden text-[11px] font-bold tracking-[0.2em] uppercase text-white flex items-center justify-center active:scale-[0.97] transition-transform"
+                      style={{ background: RED, textDecoration: 'none' }}
                     >
                       <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: NAVY }} />
                       <span className="relative z-10">{t('product.getQuote')}</span>
-                    </button>
+                    </Link>
                   </div>
                 </Reveal>
 
