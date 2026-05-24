@@ -110,7 +110,8 @@ function BrandPanel() {
       <div className="absolute inset-0 pointer-events-none"
         style={{ background: "radial-gradient(ellipse 70% 60% at 70% 40%, rgba(217,4,41,0.07) 0%, transparent 70%)" }} />
       <img src="https://images.unsplash.com/photo-1629150154933-a42577786d4f?w=900&q=80&fit=crop"
-        alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover"
+        alt="" aria-hidden width={900} height={1200} loading="lazy" decoding="async"
+        className="absolute inset-0 w-full h-full object-cover"
         style={{ opacity: 0.1, mixBlendMode: "luminosity" }} />
       {[...Array(5)].map((_, i) => (
         <div key={i} className="absolute top-0 bottom-0 border-l border-white/[0.03]"

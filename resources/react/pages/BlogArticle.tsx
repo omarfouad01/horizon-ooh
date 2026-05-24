@@ -81,7 +81,7 @@ export default function BlogArticle() {
         {/* Hero image */}
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <div className="relative overflow-hidden" style={{ height: 480 }}>
-            <img src={post.image} alt={post.title} className="w-full h-full object-cover" style={{ opacity: 0.75 }} />
+            <img src={post.image} alt={post.title} width={1200} height={480} loading="lazy" decoding="async" className="w-full h-full object-cover" style={{ opacity: 0.75 }} />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(11,15,26,0.5) 0%, transparent 50%)" }} />
           </div>
         </div>
@@ -193,7 +193,7 @@ export default function BlogArticle() {
                         className="group flex items-start gap-4 py-5 border-b border-[#0B0F1A]/[0.07] hover:text-[#D90429] transition-colors"
                         style={{ textDecoration: "none" }}
                       >
-                        <img src={rel.image} alt={rel.title} className="w-14 h-12 object-cover flex-shrink-0" loading="lazy" />
+                        <img src={rel.image} alt={rel.title} width={56} height={48} className="w-14 h-12 object-cover flex-shrink-0" loading="lazy" decoding="async" />
                         <div>
                           <p className="text-[13px] font-semibold leading-[1.4] transition-colors group-hover:text-[#D90429]" style={{ color: NAVY }}>
                           {(() => { const t = isAr && (rel as any).titleAr ? (rel as any).titleAr : rel.title; return t.length > 60 ? t.slice(0,60)+'…' : t; })()}

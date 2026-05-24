@@ -1,4 +1,4 @@
-import{r as n,j as r}from"./react-core-D-bXyxDN.js";import{L as t}from"./leaflet-DcPNEzH4.js";const a="#0B0F1A",e="#D90429",v="#FFFFFF";function b(){return t.divIcon({html:`
+import{r as n,j as r}from"./react-core-48sTmnfD.js";import{L as t}from"./leaflet-DcPNEzH4.js";const a="#0B0F1A",e="#D90429",v="#FFFFFF";function b(){return t.divIcon({html:`
       <div style="position:relative;width:40px;height:52px;filter:drop-shadow(0 4px 12px rgba(11,15,26,.45))">
         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="52" viewBox="0 0 40 52">
           <path d="M20 0C8.954 0 0 8.954 0 20c0 13.255 18.333 30.6 19.24 31.478a1.1 1.1 0 0 0 1.52 0
@@ -48,4 +48,3 @@ import{r as n,j as r}from"./react-core-D-bXyxDN.js";import{L as t}from"./leaflet
         }
         .horizon-product-popup .leaflet-popup-close-button:hover { color: ${e} !important; }
       `})]})}export{$ as default};
-//# sourceMappingURL=ProductMap-Du0rOgNz.js.map

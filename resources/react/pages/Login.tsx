@@ -103,7 +103,8 @@ function BrandPanel() {
       </div>
       {/* Background billboard image */}
       <img src="https://images.unsplash.com/photo-1702231942007-b255a41475c9?w=900&q=80&fit=crop"
-        alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover"
+        alt="" aria-hidden width={900} height={1200} loading="lazy" decoding="async"
+        className="absolute inset-0 w-full h-full object-cover"
         style={{ opacity: 0.12, mixBlendMode: "luminosity" }} />
 
       {/* Logo — synced from dashboard settings */}

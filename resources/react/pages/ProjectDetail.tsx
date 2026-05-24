@@ -85,7 +85,7 @@ export default function ProjectDetail() {
       </div>
 
       <section className="relative overflow-hidden" style={{ background: NAVY, minHeight: 620 }}>
-        <img src={project.heroImage} alt={`${project.title} — outdoor advertising case study ${project.location}`} className="absolute inset-0 w-full h-full object-cover" style={{ opacity: 0.45 }} />
+        <img src={project.heroImage} alt={`${project.title} — outdoor advertising case study ${project.location}`} width={1440} height={620} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover" style={{ opacity: 0.45 }} />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(11,15,26,0.92) 0%, rgba(11,15,26,0.5) 55%, rgba(11,15,26,0.2) 100%)" }} />
 
         <div className="relative max-w-[1440px] mx-auto flex flex-col justify-end px-4 sm:px-8 lg:px-[120px]" style={{ paddingTop: 120, paddingBottom: 72, minHeight: 620 }}>
@@ -231,7 +231,7 @@ export default function ProjectDetail() {
               {gallery.map((img, i) => (
                 <RevealItem key={i}>
                   <div className="overflow-hidden bg-[#F5F5F6] border border-[#0B0F1A]/[0.07]" style={{ height: 340 }}>
-                    <img src={img.url} alt={img.alt || `${project.title} campaign photography ${i + 1}`} className="w-full h-full object-cover" style={{ opacity: 0.92 }} loading="lazy" />
+                    <img src={img.url} alt={img.alt || `${project.title} campaign photography ${i + 1}`} width={800} height={500} className="w-full h-full object-cover" style={{ opacity: 0.92 }} loading="lazy" decoding="async" />
                   </div>
                 </RevealItem>
               ))}
@@ -278,7 +278,7 @@ export default function ProjectDetail() {
                 <RevealItem key={p.id}>
                   <Link to={projectHref(p.slug)} className="group block overflow-hidden border border-[#0B0F1A]/[0.07] hover:border-[#D90429]/20 transition-all duration-400" style={{ textDecoration: "none" }}>
                     <div className="relative overflow-hidden" style={{ height: 200 }}>
-                      <img src={p.coverImage} alt={p.title} className="w-full h-full object-cover transition-transform duration-600 group-hover:scale-[1.05]" style={{ opacity: 0.85 }} loading="lazy" />
+                      <img src={p.coverImage} alt={p.title} width={400} height={220} className="w-full h-full object-cover transition-transform duration-600 group-hover:scale-[1.05]" style={{ opacity: 0.85 }} loading="lazy" decoding="async" />
                       <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(11,15,26,0.6) 0%, transparent 60%)" }} />
                       <span className="absolute bottom-4 left-5 text-[10px] font-bold tracking-[0.2em] uppercase px-2 py-1 text-white" style={{ background: CAT_COLORS[p.category] }}>
                         {p.category}

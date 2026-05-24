@@ -84,6 +84,9 @@ export default function ServiceDetail() {
             <img
               src={service.image}
               alt={service.title}
+              width={800} height={600}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover"
               style={{ opacity: 0.6 }}
             />

@@ -90,6 +90,8 @@ function Lightbox({ images, active, onClose, onNav }: {
           onClick={(e) => e.stopPropagation()}
         >
           <img src={images[active].src} alt={images[active].label}
+            width={1200} height={800}
+            loading="lazy" decoding="async"
             style={{ maxWidth: "90vw", maxHeight: "78vh", objectFit: "contain", display: "block" }} />
           <div className="absolute bottom-0 left-0 right-0 p-4"
             style={{ background: "linear-gradient(to top, rgba(11,15,26,0.9) 0%, transparent 100%)" }}>
@@ -351,7 +353,7 @@ export default function Product() {
                   {productImages.slice(0, 4).map((img: any, i: number) => (
                     <button key={img.id} onClick={() => setDetailIdx(i)} className="relative overflow-hidden border transition-all duration-200"
                       style={{ height: 82, borderColor: i === detailIdx ? RED : 'rgba(11,15,26,0.08)' }}>
-                      <img src={img.url} alt={img.alt} className="w-full h-full object-contain bg-white" loading="lazy" />
+                      <img src={img.url} alt={img.alt} width={600} height={400} className="w-full h-full object-contain bg-white" loading="lazy" decoding="async" />
                     </button>
                   ))}
                 </div>

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap");
+/* Google Fonts are loaded via <link> in index.html (non-blocking) — DO NOT add @import here */
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -34,8 +34,9 @@
 
 :root {
   /* Typography */
-  --font-sans: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-arabic: Cairo, Tajawal, 'Segoe UI', sans-serif;
+  /* Use metric-adjusted fallback fonts to prevent layout shift (CLS) during font swap */
+  --font-sans: Inter, Inter-fallback, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-arabic: Cairo, Cairo-fallback, Tajawal, 'Segoe UI', sans-serif;
   --font-mono: JetBrains Mono, 'Courier New', monospace;
 
   /* Radius */
@@ -300,4 +301,29 @@ button {
 }
 html {
   scroll-behavior: smooth;
+}
+
+/* ── Performance: Loading spinner keyframes (moved from inline <style>) ── */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Performance: Font fallback metrics to reduce CLS from font swap ── */
+/* These override fallback font metrics to match Inter's metrics, eliminating layout shift */
+@font-face {
+  font-family: 'Inter-fallback';
+  src: local('Arial');
+  ascent-override: 90.49%;
+  descent-override: 22.56%;
+  line-gap-override: 0%;
+  size-adjust: 107.06%;
+}
+
+@font-face {
+  font-family: 'Cairo-fallback';
+  src: local('Arial');
+  ascent-override: 103%;
+  descent-override: 27%;
+  line-gap-override: 0%;
+  size-adjust: 97%;
 }

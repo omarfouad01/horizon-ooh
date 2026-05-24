@@ -1755,7 +1755,6 @@ export default function Home() {
       <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fff' }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{ width: 48, height: 48, border: '3px solid #D90429', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '0 auto 16px' }} />
-          <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
           <p style={{ color: '#888', fontSize: 14, fontFamily: 'sans-serif' }}>Loading…</p>
         </div>
       </div>

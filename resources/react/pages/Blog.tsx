@@ -37,6 +37,7 @@ export default function Blog() {
               <img
                 src={featured.image}
                 alt={featured.title}
+                width={900} height={420}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 style={{ opacity: 0.85 }}
                 loading="lazy"
@@ -90,6 +91,7 @@ export default function Blog() {
                     <img
                       src={post.image}
                       alt={post.title}
+                      width={600} height={220}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       style={{ opacity: 0.85 }}
                       loading="lazy"

@@ -401,7 +401,7 @@ export function Footer() {
           <div style={{ maxWidth: 280 }}>
             <div className="flex items-center gap-3 mb-6">
               {(s.footerLogoUrl || s.headerLogoUrl) ? (
-                <img src={s.footerLogoUrl || s.headerLogoUrl} alt={s.companyName} style={{ height: 48, width: "auto", objectFit: "contain" }} />
+                <img src={s.footerLogoUrl || s.headerLogoUrl} alt={s.companyName} width={200} height={48} loading="lazy" decoding="async" style={{ height: 48, width: "auto", objectFit: "contain" }} />
               ) : (
                 <>
                   <div className="w-12 h-12 flex items-center justify-center flex-shrink-0" style={{ background: RED }}>

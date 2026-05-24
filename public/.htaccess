@@ -99,14 +99,12 @@
     Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
     Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(self)"
 
-    # Modern HTTP — Upgrade hint (helps proxies / CDNs negotiate HTTP/2)
-    Header always set Upgrade "h2"
-    Header always set Connection "Upgrade"
-
-    # LCP Early Hint — tells browser to preload hero image before HTML is fully parsed
-    # This fixes both 'LCP request discovery' and 'LCP breakdown' Lighthouse flags
-    Header always set Link "<https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?w=1600&q=85&fit=crop>; rel=preload; as=image; fetchpriority=high"
-
     # Vary: Accept-Encoding so caches store separate gzip/br variants
     Header append Vary "Accept-Encoding"
+
+    # LCP Early Hint — only on the SPA entry page, not on every asset
+    # Tells the browser to preload the hero image before JS has even run
+    <FilesMatch "index\.html$">
+        Header append Link "<https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?w=1600&q=85&fit=crop>; rel=preload; as=image; fetchpriority=high"
+    </FilesMatch>
 </IfModule>

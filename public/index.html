@@ -39,6 +39,20 @@
     <link rel="dns-prefetch" href="https://unpkg.com" />
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
 
+    <!-- Google Fonts — loaded as non-blocking <link> instead of CSS @import (eliminates render-blocking) -->
+    <!-- Step 1: preconnect (already above) -->
+    <!-- Step 2: non-blocking font fetch via media trick -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <!-- Fallback for browsers without JS -->
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" />
+    </noscript>
+
     <!-- LCP hero image — preload so browser discovers it immediately (fixes LCP request discovery) -->
     <link
       rel="preload"
@@ -107,17 +121,18 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
           media="print" onload="this.media='all'" />
     <noscript><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" /></noscript>
-    <script type="module" crossorigin src="/assets/index-D4Gl7kth.js"></script>
+    <script type="module" crossorigin src="/assets/index-BeI55odI.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/leaflet-DcPNEzH4.js">
-    <link rel="modulepreload" crossorigin href="/assets/react-core-D-bXyxDN.js">
-    <link rel="modulepreload" crossorigin href="/assets/radix-ui-DR4dVxDl.js">
-    <link rel="modulepreload" crossorigin href="/assets/utils-B2rm_Apj.js">
-    <link rel="modulepreload" crossorigin href="/assets/router-DwZDU_mQ.js">
-    <link rel="modulepreload" crossorigin href="/assets/data-layer-Dd3l1QeK.js">
-    <link rel="modulepreload" crossorigin href="/assets/admin-xuqQIDK2.js">
-    <link rel="modulepreload" crossorigin href="/assets/framer-motion-CXfSeMuE.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-core-48sTmnfD.js">
+    <link rel="modulepreload" crossorigin href="/assets/radix-ui-CehHnMsy.js">
+    <link rel="modulepreload" crossorigin href="/assets/utils--BulIq_u.js">
+    <link rel="modulepreload" crossorigin href="/assets/icons-Bn-wD5Ss.js">
+    <link rel="modulepreload" crossorigin href="/assets/router-BzcjTOlG.js">
+    <link rel="modulepreload" crossorigin href="/assets/data-layer-dVIBZ1-g.js">
+    <link rel="modulepreload" crossorigin href="/assets/admin-BtC34au1.js">
+    <link rel="modulepreload" crossorigin href="/assets/framer-motion-Clyj7_q-.js">
     <link rel="stylesheet" crossorigin href="/assets/leaflet-CIGW-MKW.css">
-    <link rel="stylesheet" crossorigin href="/assets/index-CWIHwamg.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-CIqhc55s.css">
   </head>
 
   <body>

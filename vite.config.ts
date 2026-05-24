@@ -70,6 +70,10 @@ export default defineConfig(({ mode }) => ({
   build: {
     outDir: 'public',
     emptyOutDir: false,
+    // Target modern browsers only — smaller, faster output
+    target: ['es2020', 'chrome97', 'firefox97', 'safari15'],
+    // Increase chunk size warning threshold — we already split manually
+    chunkSizeWarningLimit: 600,
     rollupOptions: {
       input: path.resolve(__dirname, 'index.html'),
       output: {
@@ -84,9 +88,13 @@ export default defineConfig(({ mode }) => ({
           if (id.includes('node_modules/zustand') || id.includes('node_modules/@tanstack') || id.includes('node_modules/axios')) return 'data-layer';
           if (id.includes('/resources/react/admin/')) return 'admin';
           if (id.includes('node_modules/zod') || id.includes('node_modules/date-fns') || id.includes('node_modules/clsx') || id.includes('node_modules/class-variance-authority') || id.includes('node_modules/tailwind-merge')) return 'utils';
+          // Split icon libraries separately — they are large but often tree-shaken
+          if (id.includes('node_modules/lucide-react') || id.includes('node_modules/react-icons')) return 'icons';
         },
       },
     },
+    // Enable CSS code splitting for faster page-specific CSS loading
+    cssCodeSplit: true,
   },
   server: {
     host: '::',
