@@ -216,8 +216,7 @@ function HeroSection() {
 
   const ALL_CITIES  = _storeLocs
     .filter((l: any) => (l.products || []).length > 0 || _assignedCities.has(l.city))
-    .map((l: any) => l.city)
-    .sort();
+    .map((l: any) => l.city); // preserve dashboard order — no .sort()
   // Format dropdown = billboard_formats table (Billboard, Digital, Mall…)
   const _bbFmtsList = (_bbFormats && _bbFormats.length > 0) ? _bbFormats : _adFormats;
   const ALL_FORMATS = _bbFmtsList.map((f: any) => f.label ?? f.name).filter(Boolean).sort();

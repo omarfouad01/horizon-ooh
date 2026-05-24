@@ -452,8 +452,7 @@ export default function Locations() {
 
   const ALL_CITIES  = storeLocations
     .filter((l: any) => _assignedCities.has(l.city))
-    .map((l: any) => l.city)
-    .sort()
+    .map((l: any) => l.city) // preserve dashboard order — no .sort()
 
   // Format dropdown = billboard_formats table (Billboard, Digital, Mall…); fallback to ad_formats
   const _fmtSource  = (billboardFormats && billboardFormats.length > 0) ? billboardFormats : adFormats
