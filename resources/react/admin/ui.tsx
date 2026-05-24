@@ -272,16 +272,41 @@ export function ArrayEditor({label,value,onChange,placeholder}:any) {
 }
 
 // ── Shared helpers ────────────────────────────────────────────────────────────
-const MAX_PX = 1600   // max width/height after resize
-const QUALITY = 0.82  // JPEG quality
-const MAX_MB  = 5     // hard limit before even trying
+const MAX_MB = 10  // hard limit before uploading
 
-function compressImage(file: File): Promise<string> {
+/**
+ * Upload a file to the server and return its public URL.
+ * Falls back to a compressed base64 data-URL if the upload endpoint is unavailable.
+ */
+async function uploadImageToServer(file: File, folder = 'media'): Promise<string> {
+  if (file.size > MAX_MB * 1024 * 1024) {
+    throw new Error(`"${file.name}" is ${(file.size / 1024 / 1024).toFixed(1)} MB — max ${MAX_MB} MB allowed.`)
+  }
+
+  // Try real server upload first
+  const token = localStorage.getItem('horizon_admin_token')
+  if (token) {
+    try {
+      const fd = new FormData()
+      fd.append('file', file)
+      fd.append('folder', folder)
+      const base = (window as any).__API_BASE__ ?? ''
+      const resp = await fetch(`${base}/api/media/upload`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+        body: fd,
+      })
+      if (resp.ok) {
+        const json = await resp.json()
+        if (json.url) return json.url as string
+      }
+    } catch { /* fall through to base64 */ }
+  }
+
+  // Fallback: compress to base64 (works in preview/offline mode)
   return new Promise((res, rej) => {
-    if (file.size > MAX_MB * 1024 * 1024) {
-      rej(new Error(`"${file.name}" is ${(file.size / 1024 / 1024).toFixed(1)} MB — please use an image under ${MAX_MB} MB.`))
-      return
-    }
+    const MAX_PX = 1600
+    const QUALITY = 0.82
     const reader = new FileReader()
     reader.onerror = rej
     reader.onload = (ev) => {
@@ -290,7 +315,6 @@ function compressImage(file: File): Promise<string> {
       img.onerror = rej
       img.onload = () => {
         let { width, height } = img
-        // Scale down if larger than MAX_PX on either axis
         if (width > MAX_PX || height > MAX_PX) {
           const ratio = Math.min(MAX_PX / width, MAX_PX / height)
           width  = Math.round(width  * ratio)
@@ -299,8 +323,7 @@ function compressImage(file: File): Promise<string> {
         const canvas = document.createElement('canvas')
         canvas.width  = width
         canvas.height = height
-        const ctx = canvas.getContext('2d')!
-        ctx.drawImage(img, 0, 0, width, height)
+        canvas.getContext('2d')!.drawImage(img, 0, 0, width, height)
         res(canvas.toDataURL('image/jpeg', QUALITY))
       }
       img.src = src
@@ -341,11 +364,11 @@ export function ImagePicker({
     setBusy(true)
     setErr(null)
     try {
-      const url = await compressImage(file)
+      const url = await uploadImageToServer(file, 'media')
       const autoAlt = file.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ')
       onChange(url, altValue || autoAlt)
     } catch (ex: any) {
-      setErr(ex?.message ?? 'Failed to process image')
+      setErr(ex?.message ?? 'Failed to upload image')
     } finally {
       setBusy(false)
     }
@@ -426,10 +449,10 @@ export function ImageGalleryPicker({
     const added: GalleryImage[] = []
     for (const f of files) {
       try {
-        const url = await compressImage(f)
+        const url = await uploadImageToServer(f, 'gallery')
         added.push({ url, alt: f.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ') })
       } catch (err: any) {
-        setUploadErr(err?.message ?? `Failed to process "${f.name}"`)
+        setUploadErr(err?.message ?? `Failed to upload "${f.name}"`)
         break
       }
     }

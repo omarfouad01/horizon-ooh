@@ -210,3 +210,21 @@ export const designUploadsApi = {
   update: (id: any, data: any) => api.put(`/design-uploads/${id}`, data),
   remove: (id: any)    => api.delete(`/design-uploads/${id}`),
 };
+
+// ─── Media Upload — stores files on server, returns public URL ──────────────
+export const mediaApi = {
+  /**
+   * Upload a single image file to the server.
+   * @param file  The File object to upload
+   * @param folder  Optional subfolder (e.g. 'projects', 'services')
+   * @returns  { url: string } — public URL of the stored image
+   */
+  upload: (file: File, folder = 'media') => {
+    const fd = new FormData();
+    fd.append('file', file);
+    fd.append('folder', folder);
+    return api.post('/media/upload', fd, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+  },
+};

@@ -21,6 +21,7 @@ use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\SettingController;
+use App\Http\Controllers\Api\MediaUploadController;
 
 // ── Public endpoints ─────────────────────────────────────────────────────────
 
@@ -70,6 +71,9 @@ Route::middleware('auth:api')->group(function () {
 
     Route::post('/auth/logout', [AuthController::class, 'logout']);
     Route::get ('/auth/me',     [AuthController::class, 'me']);
+
+    // ── Media upload — real file storage, returns a public URL ────────────
+    Route::post('/media/upload', [MediaUploadController::class, 'upload']);
 
     // User profile update
     Route::put('/auth/profile', [AuthController::class, 'updateProfile']);

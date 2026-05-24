@@ -85,6 +85,8 @@ function ClientCard({ client, index, active, onClick }: { client: ClientGroup; i
           alt={`${client.name} client card`}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
           style={{ opacity: 0.88 }}
+          loading="lazy"
+          decoding="async"
         />
         <div
           className="absolute inset-0"
@@ -167,6 +169,8 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
             alt={`${project.title} — outdoor advertising ${project.location}`}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
             style={{ opacity: 0.88 }}
+            loading="lazy"
+            decoding="async"
           />
           <div
             className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-60"

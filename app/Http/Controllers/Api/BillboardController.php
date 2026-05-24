@@ -174,8 +174,8 @@ class BillboardController extends Controller
         if (!$request->hasFile('images')) return;
         $order = $b->images()->max('sort_order') ?? 0;
         foreach ($request->file('images') as $file) {
-            $path = $file->store("billboards/{$b->id}", 'public');
-            $url  = Storage::disk('public')->url($path);
+            // Try to save as WebP for better compression; fall back to original format
+            [$path, $url] = $this->storeImageAsWebP($file, "billboards/{$b->id}");
             BillboardImage::create([
                 'billboard_id' => $b->id,
                 'path'         => $path,
@@ -183,6 +183,49 @@ class BillboardController extends Controller
                 'is_primary'   => $b->images()->count() === 0,
                 'sort_order'   => ++$order,
             ]);
+        }
+    }
+
+    /**
+     * Store an uploaded image, converting to WebP if the GD extension supports it.
+     * Returns [storage-path, public-URL].
+     */
+    private function storeImageAsWebP($file, string $directory): array
+    {
+        $canWebP = function_exists('imagewebp') && function_exists('imagecreatefromstring');
+        if (!$canWebP) {
+            $path = $file->store($directory, 'public');
+            return [$path, Storage::disk('public')->url($path)];
+        }
+        try {
+            $imageData = file_get_contents($file->getRealPath());
+            $src = imagecreatefromstring($imageData);
+            if (!$src) throw new \RuntimeException('imagecreatefromstring failed');
+
+            // Resize if wider than 1600px
+            $origW = imagesx($src);
+            $origH = imagesy($src);
+            if ($origW > 1600) {
+                $ratio = 1600 / $origW;
+                $newW = 1600;
+                $newH = (int)round($origH * $ratio);
+                $dst = imagecreatetruecolor($newW, $newH);
+                imagecopyresampled($dst, $src, 0, 0, 0, 0, $newW, $newH, $origW, $origH);
+                imagedestroy($src);
+                $src = $dst;
+            }
+
+            $filename = \Illuminate\Support\Str::random(20) . '.webp';
+            $path     = $directory . '/' . $filename;
+            $fullPath = Storage::disk('public')->path($path);
+            Storage::disk('public')->makeDirectory($directory);
+            imagewebp($src, $fullPath, 82);
+            imagedestroy($src);
+            return [$path, Storage::disk('public')->url($path)];
+        } catch (\Throwable $e) {
+            \Log::warning('WebP conversion failed, storing original: ' . $e->getMessage());
+            $path = $file->store($directory, 'public');
+            return [$path, Storage::disk('public')->url($path)];
         }
     }
 

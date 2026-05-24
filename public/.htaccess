@@ -25,12 +25,21 @@
     RewriteRule ^ index.php [L]
 </IfModule>
 
-# ── Gzip Compression ──────────────────────────────────────────────────────────
+# ── Gzip / Brotli Compression ────────────────────────────────────────────────
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
     AddOutputFilterByType DEFLATE text/javascript application/javascript application/x-javascript
     AddOutputFilterByType DEFLATE application/json application/xml application/xhtml+xml
     AddOutputFilterByType DEFLATE image/svg+xml font/ttf font/otf application/font-woff application/font-woff2
+    # Compress all API responses
+    AddOutputFilterByType DEFLATE application/ld+json application/manifest+json
+</IfModule>
+
+# Brotli (if module available — better compression ratio than gzip)
+<IfModule mod_brotli.c>
+    AddOutputFilterByType BROTLI_COMPRESS text/html text/plain application/json text/css
+    AddOutputFilterByType BROTLI_COMPRESS text/javascript application/javascript
+    AddOutputFilterByType BROTLI_COMPRESS image/svg+xml application/xml
 </IfModule>
 
 # ── Browser Caching ───────────────────────────────────────────────────────────

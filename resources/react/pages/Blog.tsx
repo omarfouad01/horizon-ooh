@@ -39,6 +39,8 @@ export default function Blog() {
                 alt={featured.title}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 style={{ opacity: 0.85 }}
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to right, transparent, rgba(11,15,26,0.1))" }} />
             </div>
@@ -90,6 +92,8 @@ export default function Blog() {
                       alt={post.title}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       style={{ opacity: 0.85 }}
+                      loading="lazy"
+                      decoding="async"
                     />
                     <div
                       className="absolute top-4 left-4 text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1.5"

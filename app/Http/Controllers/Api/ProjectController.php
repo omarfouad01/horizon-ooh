@@ -11,6 +11,10 @@ use Illuminate\Database\QueryException;
 
 class ProjectController extends Controller
 {
+    /**
+     * Full transform — used for the detail endpoint (single project).
+     * Includes ALL fields including potentially large base64 images.
+     */
     private function transform(Project $p): array
     {
         return [
@@ -56,10 +60,50 @@ class ProjectController extends Controller
         ];
     }
 
+    /**
+     * Lightweight transform for the list endpoint.
+     * Strips large binary fields (base64 images, gallery, long texts) so the
+     * /api/projects list response stays small (<100 KB instead of 5+ MB).
+     * The detail endpoint (/api/projects/{slug}) returns the full payload.
+     */
+    private function transformList(Project $p): array
+    {
+        // Helper: if value looks like a base64 data-URL, omit it from the list
+        $safeUrl = fn(?string $v): ?string => ($v && str_starts_with($v, 'data:')) ? null : $v;
+
+        return [
+            'id'           => $p->id,
+            'slug'         => $p->slug,
+            'title'        => $p->title,
+            'titleAr'      => $p->title_ar,
+            'client'       => $p->client,
+            'clientLogo'   => $safeUrl($p->client_logo),
+            'category'     => $p->category,
+            'eyebrow'      => $p->eyebrow,
+            'tagline'      => $p->tagline,
+            'taglineAr'    => $p->tagline_ar,
+            'description'  => $p->description,
+            'coverImage'   => $safeUrl($p->cover_image),
+            'coverImageAlt'=> $p->cover_image_alt,
+            'heroImage'    => $safeUrl($p->hero_image),
+            'tags'         => $p->tags ?? [],
+            'location'     => $p->location,
+            'city'         => $p->city,
+            'year'         => $p->year,
+            'featured'     => (bool) $p->featured,
+            'sort_order'   => $p->sort_order,
+        ];
+    }
+
     public function index(): JsonResponse
     {
         return response()->json(
-            Project::orderBy('sort_order')->orderBy('title')->get()->map(fn($p) => $this->transform($p))
+            Project::orderBy('sort_order')->orderBy('created_at', 'desc')
+                ->get(['id','slug','title','title_ar','client','client_logo','client_logo_alt',
+                       'category','eyebrow','tagline','tagline_ar','description',
+                       'cover_image','cover_image_alt','hero_image','tags',
+                       'location','city','year','featured','sort_order'])
+                ->map(fn($p) => $this->transformList($p))
         );
     }
 
