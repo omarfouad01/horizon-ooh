@@ -11,12 +11,13 @@ class Billboard extends Model
         'format', 'type', 'quantity', 'size', 'sqm', 'sides', 'material', 'brightness',
         'width', 'height', 'price', 'availability', 'illuminated',
         'lat', 'lng', 'full_address', 'description', 'description_ar',
-        'featured', 'sort_order', 'supplier_id',
+        'featured', 'sort_order', 'supplier_id', 'billboard_format_id',
     ];
 
     protected $casts = ['illuminated' => 'boolean', 'featured' => 'boolean'];
 
-    public function location(): BelongsTo  { return $this->belongsTo(Location::class); }
-    public function district(): BelongsTo  { return $this->belongsTo(District::class); }
-    public function images(): HasMany      { return $this->hasMany(BillboardImage::class)->orderBy('sort_order'); }
+    public function location(): BelongsTo        { return $this->belongsTo(Location::class); }
+    public function district(): BelongsTo        { return $this->belongsTo(District::class); }
+    public function images(): HasMany            { return $this->hasMany(BillboardImage::class)->orderBy('sort_order'); }
+    public function billboardFormat(): BelongsTo { return $this->belongsTo(BillboardFormat::class, 'billboard_format_id'); }
 }

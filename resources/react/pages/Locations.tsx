@@ -286,6 +286,8 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, w
           alt={`${b.name} — billboard advertising ${b.city}`}
           className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-[1.04] bg-gray-50"
           style={{ opacity: 0.88 }}
+          loading="lazy"
+          decoding="async"
         />
         <div className="absolute inset-0"
           style={{ background: "linear-gradient(to top, rgba(11,15,26,0.75) 0%, rgba(11,15,26,0.1) 60%)" }} />

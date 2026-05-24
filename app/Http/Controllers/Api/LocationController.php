@@ -17,6 +17,8 @@ class LocationController extends Controller
                 // Eager-load billboards newest-first so website & dashboard show latest on top
                 'billboards' => fn($q) => $q->orderBy('created_at', 'desc'),
                 'billboards.images',
+                'billboards.district',
+                'billboards.billboardFormat',
             ])
                 ->orderBy('sort_order')->orderBy('city')
                 ->get()
@@ -156,6 +158,8 @@ class LocationController extends Controller
             'description'    => $b->description,
             'descriptionAr'  => $b->description_ar,
             'featured'       => $b->featured,
+            'adFormat'       => $b->billboardFormat?->name ?? $b->billboard_format_id,
+            'created_at'     => $b->created_at?->toISOString(),
             'images'         => $b->images->map(fn($i) => [
                 'id'         => $i->id,
                 'url'        => $i->url,
