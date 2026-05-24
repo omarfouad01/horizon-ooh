@@ -487,13 +487,20 @@ export default function Locations() {
     : {}
 
   // ── Filtered results ─────────────────────────────────────────────────
-  const sorted = allBillboards.filter(b => {
-    if (cities.length    > 0 && !cities.includes(b.city))        return false;
-    if (districts.length > 0 && !districts.includes(b.district)) return false;
-    // Match on adFormat (billboard_formats) OR type (ad_formats) for backward compat
-    if (formats.length   > 0 && !formats.includes(b.adFormat) && !formats.includes(b.type)) return false;
-    return true;
-  });
+  const sorted = allBillboards
+    .filter(b => {
+      if (cities.length    > 0 && !cities.includes(b.city))        return false;
+      if (districts.length > 0 && !districts.includes(b.district)) return false;
+      // Match on adFormat (billboard_formats) OR type (ad_formats) for backward compat
+      if (formats.length   > 0 && !formats.includes(b.adFormat) && !formats.includes(b.type)) return false;
+      return true;
+    })
+    .sort((a: any, b: any) => {
+      // Newest first (descending by created_at)
+      const da = new Date(a.createdAt || a.created_at || 0).getTime();
+      const db = new Date(b.createdAt || b.created_at || 0).getTime();
+      return db - da;
+    });
 
   // ── Pagination ─────────────────────────────────────────────────────────
   const ITEMS_PER_PAGE = 12;

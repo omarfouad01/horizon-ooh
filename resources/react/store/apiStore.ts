@@ -246,6 +246,8 @@ function normProduct(p: any, idx: number): any {
   return {
     ...p,
     slug, id: p.id ?? slug,
+    // Normalize created_at → createdAt for reliable date sorting
+    createdAt: p.createdAt ?? p.created_at ?? null,
     title: nameEn,
     name: nameEn,
     nameEn,

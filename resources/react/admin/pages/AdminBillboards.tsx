@@ -821,9 +821,14 @@ function BillboardFormatManager({ open, onClose }: { open:boolean; onClose:()=>v
 export default function AdminBillboards() {
   const store = useStore()
   const { locations, suppliers } = store
-  const allBillboards = locations.flatMap((l: any) =>
-    (l.products || []).map((p: any) => ({ ...p, _locId: l.id, _locCity: l.city }))
-  )
+  const allBillboards = locations
+    .flatMap((l: any) => (l.products || []).map((p: any) => ({ ...p, _locId: l.id, _locCity: l.city })))
+    .sort((a: any, b: any) => {
+      // Newest first (descending by created_at)
+      const da = new Date(a.createdAt || a.created_at || 0).getTime()
+      const db = new Date(b.createdAt || b.created_at || 0).getTime()
+      return db - da
+    })
   const [form,    setForm]    = useState(false)
   const [edit,    setEdit]    = useState<any>(null)
   const [del,     setDel]     = useState<any>(null)

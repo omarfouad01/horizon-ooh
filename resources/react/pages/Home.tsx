@@ -1567,9 +1567,14 @@ function BillboardBenefitsSection() {
 function RecentBillboardsSection() {
   const { locations: LOCATIONS } = useStore()
   const { isAr, t } = useLang()
-  const ALL_BILLBOARD_PRODUCTS = LOCATIONS.flatMap((loc) =>
-    (loc.products || []).map((p: any) => ({ ...p, citySlug: loc.slug ?? '', cityName: loc.city ?? '' }))
-  );
+  const ALL_BILLBOARD_PRODUCTS = LOCATIONS
+    .flatMap((loc) => (loc.products || []).map((p: any) => ({ ...p, citySlug: loc.slug ?? '', cityName: loc.city ?? '' })))
+    .sort((a: any, b: any) => {
+      // Newest first (descending by created_at)
+      const da = new Date(a.createdAt || a.created_at || 0).getTime();
+      const db = new Date(b.createdAt || b.created_at || 0).getTime();
+      return db - da;
+    });
   const RECENT_SIX = ALL_BILLBOARD_PRODUCTS.slice(0, 6);
 
   return (
