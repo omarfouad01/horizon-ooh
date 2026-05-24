@@ -77,6 +77,9 @@ export default function LogoMarquee({ brands, speed = 40, light = true }: LogoMa
                 src={brand.logoUrl}
                 alt={brand.name}
                 title={brand.name}
+                width={180} height={64}
+                decoding="async"
+                loading="lazy"
                 draggable={false}
                 style={{
                   height: 64, width: 'auto', objectFit: 'contain', maxWidth: 180,

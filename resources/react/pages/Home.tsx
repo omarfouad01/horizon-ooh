@@ -304,6 +304,9 @@ function HeroSection() {
         <motion.img
           src="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?w=1600&q=85&fit=crop"
           alt="" aria-hidden
+          width={1600} height={900}
+          fetchPriority="high"
+          decoding="async"
           className="w-full h-full object-cover"
           style={{ opacity: bgOpacity }}
         />
@@ -525,6 +528,8 @@ function HeroSection() {
                   style={{ background: NAVY, boxShadow: "0 8px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.07)" }}>
                   <div className="relative overflow-hidden" style={{ height: 120 }}>
                     <img src={selectedPin.image} alt={selectedPin.name}
+                      width={400} height={120}
+                      loading="lazy" decoding="async"
                       className="w-full h-full object-cover" style={{ opacity: 0.7 }}/>
                     <div className="absolute inset-0"
                       style={{ background: "linear-gradient(to top,rgba(11,15,26,.85) 0%,transparent 55%)" }}/>
@@ -893,6 +898,8 @@ function FeatureSection() {
             <img
               src={hc.featureImage || 'https://images.unsplash.com/photo-1629150154933-a42577786d4f?w=1000&q=90&fit=crop'}
               alt="Large format billboard advertising"
+              width={1000} height={700}
+              loading="lazy" decoding="async"
               className="w-full h-full object-cover"
               style={{ opacity: 0.65 }}
             />
@@ -1341,6 +1348,8 @@ function ProjectsSection() {
               <img
                 src={featured.coverImage}
                 alt={`${featured.title} — outdoor advertising case study`}
+                width={1200} height={500}
+                loading="lazy" decoding="async"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                 style={{ opacity: 0.82 }}
               />
@@ -1380,6 +1389,8 @@ function ProjectsSection() {
                   <img
                     src={p.coverImage}
                     alt={`${p.title} — outdoor advertising`}
+                    width={600} height={230}
+                    loading="lazy" decoding="async"
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
                     style={{ opacity: 0.82 }}
                   />
@@ -1450,9 +1461,10 @@ function LatestBlogsSection() {
                   <img
                     src={post.image}
                     alt={post.title}
+                    width={600} height={220}
+                    loading="lazy" decoding="async"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     style={{ opacity: 0.85 }}
-                    loading="lazy"
                   />
                   <div
                     className="absolute top-4 left-4 text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1.5"

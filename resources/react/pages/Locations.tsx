@@ -284,6 +284,7 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, w
         <img
           src={b.image}
           alt={`${b.name} — billboard advertising ${b.city}`}
+          width={600} height={200}
           className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-[1.04] bg-gray-50"
           style={{ opacity: 0.88 }}
           loading="lazy"

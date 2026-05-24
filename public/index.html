@@ -35,8 +35,17 @@
     <!-- Preconnect to key external origins for faster DNS + TLS -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
     <link rel="dns-prefetch" href="https://unpkg.com" />
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
+
+    <!-- LCP hero image — preload so browser discovers it immediately (fixes LCP request discovery) -->
+    <link
+      rel="preload"
+      as="image"
+      href="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?w=1600&q=85&fit=crop"
+      fetchpriority="high"
+    />
 
     <script type="application/ld+json">
     {
@@ -98,7 +107,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
           media="print" onload="this.media='all'" />
     <noscript><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" /></noscript>
-    <script type="module" crossorigin src="/assets/index-DHo013UY.js"></script>
+    <script type="module" crossorigin src="/assets/index-D4Gl7kth.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/leaflet-DcPNEzH4.js">
     <link rel="modulepreload" crossorigin href="/assets/react-core-D-bXyxDN.js">
     <link rel="modulepreload" crossorigin href="/assets/radix-ui-DR4dVxDl.js">

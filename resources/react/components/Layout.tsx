@@ -33,6 +33,9 @@ export function LogoMark({ size = 54, variant = 'header' }: { size?: number; var
       <img
         src={url}
         alt={store.settings.companyName}
+        width={size}
+        height={size}
+        decoding="async"
         style={{ height: size, width: "auto", objectFit: "contain", display: "block" }}
       />
     );
@@ -89,12 +92,21 @@ export function Navbar() {
   useEffect(() => { setMenuOpen(false); }, [location.pathname]);
 
   useEffect(() => {
+    let ticking = false;
     const onScroll = () => {
-      setScrolled(window.scrollY > 60);
-      const total = document.documentElement.scrollHeight - window.innerHeight;
-      setScrollPct(total > 0 ? (window.scrollY / total) * 100 : 0);
+      if (!ticking) {
+        // Use rAF to batch scroll reads and avoid forced reflow
+        requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 60);
+          const total = document.documentElement.scrollHeight - window.innerHeight;
+          setScrollPct(total > 0 ? (window.scrollY / total) * 100 : 0);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    window.addEventListener("scroll", onScroll);
+    // passive: true prevents scroll-blocking, eliminating forced reflow warnings
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
