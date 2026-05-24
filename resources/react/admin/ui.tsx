@@ -498,7 +498,7 @@ export function ImageGalleryPicker({
           <X size={11} className="flex-shrink-0"/>{uploadErr}
         </p>
       )}
-      <p className="text-[10px] text-gray-400 mt-1.5">Max {MAX_MB} MB per image · auto-compressed to {MAX_PX}px · edit alt text below each thumbnail.</p>
+      <p className="text-[10px] text-gray-400 mt-1.5">Max {MAX_MB} MB per image · auto-compressed to 1600px · edit alt text below each thumbnail.</p>
       <input ref={ref} type="file" accept="image/*" multiple className="hidden" onChange={pick}/>
     </div>
   )
