@@ -836,42 +836,68 @@ export default function Locations() {
                       }}
                     />
                   ))}
-                  {/* Pagination */}
-                  {totalPages > 1 && (
-                    <div className="col-span-full flex items-center justify-center gap-2 py-6">
-                      <button
-                        onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                        disabled={currentPage === 1}
-                        className="h-9 w-9 flex items-center justify-center rounded-full border border-[#0B0F1A]/15 text-[13px] font-bold text-[#0B0F1A]/60 hover:border-[#D90429] hover:text-[#D90429] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-                        aria-label="Previous page"
-                      >
-                        {isAr ? '›' : '‹'}
-                      </button>
-                      {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-                        <button
-                          key={page}
-                          onClick={() => setCurrentPage(page)}
-                          className={`h-9 w-9 flex items-center justify-center rounded-full text-[13px] font-bold transition-colors ${
-                            page === currentPage
-                              ? 'text-white'
-                              : 'border border-[#0B0F1A]/15 text-[#0B0F1A]/60 hover:border-[#D90429] hover:text-[#D90429]'
-                          }`}
-                          style={page === currentPage ? { background: '#D90429', border: 'none' } : {}}
-                          aria-label={`Page ${page}`}
-                        >
-                          {page}
+                  {/* Pagination — smart windowed (max 7 visible slots + ellipsis) */}
+                  {totalPages > 1 && (() => {
+                    // Build page slots: always show first, last, current ±2, with "…" gaps
+                    const slots: (number | '…')[] = [];
+                    const delta = 2;
+                    const rangeStart = Math.max(2, currentPage - delta);
+                    const rangeEnd   = Math.min(totalPages - 1, currentPage + delta);
+
+                    slots.push(1);
+                    if (rangeStart > 2) slots.push('…');
+                    for (let i = rangeStart; i <= rangeEnd; i++) slots.push(i);
+                    if (rangeEnd < totalPages - 1) slots.push('…');
+                    if (totalPages > 1) slots.push(totalPages);
+
+                    const btnBase = "h-9 min-w-[36px] px-1 flex items-center justify-center rounded-full text-[13px] font-bold transition-all duration-150";
+                    const btnIdle = `${btnBase} border border-[#0B0F1A]/15 text-[#0B0F1A]/60 hover:border-[#D90429] hover:text-[#D90429]`;
+                    const btnActive = `${btnBase} text-white`;
+                    const btnNav = `${btnBase} border border-[#0B0F1A]/15 text-[#0B0F1A]/60 hover:border-[#D90429] hover:text-[#D90429] disabled:opacity-25 disabled:cursor-not-allowed`;
+
+                    return (
+                      <div className="col-span-full flex items-center justify-center flex-wrap gap-1.5 py-8">
+                        {/* Prev */}
+                        <button onClick={() => { setCurrentPage(p => Math.max(1, p - 1)); window.scrollTo({top:0,behavior:'smooth'}); }}
+                          disabled={currentPage === 1} className={btnNav} aria-label="Previous page">
+                          {isAr ? (
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          ) : (
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          )}
                         </button>
-                      ))}
-                      <button
-                        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                        disabled={currentPage === totalPages}
-                        className="h-9 w-9 flex items-center justify-center rounded-full border border-[#0B0F1A]/15 text-[13px] font-bold text-[#0B0F1A]/60 hover:border-[#D90429] hover:text-[#D90429] disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-                        aria-label="Next page"
-                      >
-                        {isAr ? '‹' : '›'}
-                      </button>
-                    </div>
-                  )}
+
+                        {/* Page slots */}
+                        {slots.map((slot, idx) =>
+                          slot === '…' ? (
+                            <span key={`ellipsis-${idx}`} className="h-9 w-9 flex items-center justify-center text-[#0B0F1A]/30 text-[13px] font-bold select-none">…</span>
+                          ) : (
+                            <button key={slot} onClick={() => { setCurrentPage(slot as number); window.scrollTo({top:0,behavior:'smooth'}); }}
+                              className={slot === currentPage ? btnActive : btnIdle}
+                              style={slot === currentPage ? { background: '#D90429', border: 'none' } : {}}
+                              aria-label={`Page ${slot}`} aria-current={slot === currentPage ? 'page' : undefined}>
+                              {slot}
+                            </button>
+                          )
+                        )}
+
+                        {/* Next */}
+                        <button onClick={() => { setCurrentPage(p => Math.min(totalPages, p + 1)); window.scrollTo({top:0,behavior:'smooth'}); }}
+                          disabled={currentPage === totalPages} className={btnNav} aria-label="Next page">
+                          {isAr ? (
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          ) : (
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                          )}
+                        </button>
+
+                        {/* Page counter */}
+                        <span className="w-full text-center text-[11px] text-[#0B0F1A]/35 tracking-[0.15em] uppercase font-semibold mt-1">
+                          {isAr ? `صفحة ${currentPage} من ${totalPages}` : `Page ${currentPage} of ${totalPages}`}
+                        </span>
+                      </div>
+                    );
+                  })()}
                 </motion.div>
               ) : (
                 /* ── EMPTY STATE ────────────────────────────────────── */
