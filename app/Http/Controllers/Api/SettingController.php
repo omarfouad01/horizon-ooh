@@ -53,11 +53,16 @@ class SettingController extends Controller
     public function updateHomeContent(Request $request): JsonResponse
     {
         $data = $request->all();
-        // Store as a single JSON blob under key "home_content"
+        // Store the entire payload as a single JSON blob under "home_content"
         Setting::set('home_content', $data);
-        // Also persist individual keys so they're accessible via /settings
-        foreach ($data as $k => $v) Setting::set($k, $v);
-        return response()->json(['message' => 'Home content saved']);
+        // Also persist individual scalar/array keys for /settings compatibility
+        // Skip numeric-indexed arrays to avoid polluting the settings table
+        foreach ($data as $k => $v) {
+            if (is_string($k) && $k !== '') {
+                Setting::set($k, $v);
+            }
+        }
+        return response()->json(['message' => 'Home content saved', 'keys' => array_keys($data)]);
     }
 
     // GET /api/about-content – return all settings that relate to about page

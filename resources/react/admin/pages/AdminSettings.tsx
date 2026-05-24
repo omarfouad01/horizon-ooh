@@ -193,7 +193,17 @@ export default function AdminSettings() {
       sort_order: p.sort_order ?? i,
     }))
   )
-  const [results,  setResults]  = useState([...s.results])
+  // Results — load from homeContent.results first (API-persisted), then fall back to store.results
+  const [results, setResults] = useState<{id:string;value:string;label:string;sublabel:string}[]>(() => {
+    const hc = (s.homeContent as any)?.results
+    if (Array.isArray(hc) && hc.length > 0) return hc
+    return (s.results || []).map((r: any) => ({
+      id:       r.id       ?? String(Date.now() + Math.random()),
+      value:    r.value    ?? '',
+      label:    r.label    ?? '',
+      sublabel: r.sublabel ?? r.description ?? '',
+    }))
+  })
   const [projContent, setProjContent] = useState({ ...s.projectsContent })
 
   // Sync when store changes (e.g. after logoUrl upload)
@@ -241,7 +251,16 @@ export default function AdminSettings() {
       toast.error(msg);
     }
   }
-  const saveResults = () => { resultStore.set(results); toast.success('Results saved') }
+  const saveResults = async () => {
+    try {
+      // Merge results array into homeContent and persist to API via PUT /home-content
+      const payload = { ...(s.homeContent as any), results }
+      await homeStore.update(payload)
+      toast.success('Results saved and synced to website ✓')
+    } catch (err: any) {
+      toast.error(err?.message ?? 'Failed to save results')
+    }
+  }
   const reset = () => { if(confirm('Reset ALL content to factory defaults? This cannot be undone.')) { resetToDefaults(); toast.success('Reset complete'); window.location.reload() } }
 
   // Brands modal
