@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ROUTES, RED, NAVY, ease } from "@/lib/routes";
 import { authApi } from "@/api";
+import { LogoMark } from "@/components/Layout";
+import { useStore } from "@/store/dataStore";
 
 function AuthInput({ label, id, type = "text", placeholder, value, onChange, required = true }: {
   label: string; id: string; type?: string; placeholder: string;
@@ -51,6 +53,56 @@ function PasswordInput({ label, id, placeholder, value, onChange }: {
   );
 }
 
+// ─── Logo synced from dashboard settings ─────────────────────────────────
+function SignupLogo() {
+  const store = useStore();
+  const companyName: string = store.settings?.companyName ?? 'HORIZON OOH';
+  const hasCustomLogo = !!store.settings?.headerLogoUrl;
+  return (
+    <Link to={ROUTES.HOME} className="flex items-center gap-3" style={{ textDecoration: 'none' }}>
+      {hasCustomLogo ? (
+        <LogoMark size={40} variant="header" />
+      ) : (
+        <>
+          <div className="w-9 h-9 flex items-center justify-center" style={{ background: RED }}>
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M2 2h5v14H2zM11 2h5v14h-5z" fill="white" opacity="0.9" />
+              <path d="M7 8.5h4v1H7z" fill="white" />
+            </svg>
+          </div>
+          <div>
+            <p className="text-white font-black text-[13px] tracking-[0.22em] uppercase leading-none">{companyName.split(' ')[0]}</p>
+            <p className="text-white/30 font-semibold text-[9px] tracking-[0.35em] uppercase mt-0.5">OUT-OF-HOME</p>
+          </div>
+        </>
+      )}
+    </Link>
+  );
+}
+
+// ─── Mobile logo (light, used in right panel header on small screens) ────────
+function MobileAuthLogo() {
+  const store = useStore();
+  const companyName: string = store.settings?.companyName ?? 'HORIZON OOH';
+  const hasCustomLogo = !!store.settings?.headerLogoUrl;
+  return (
+    <Link to={ROUTES.HOME} className="flex items-center gap-3" style={{ textDecoration: 'none' }}>
+      {hasCustomLogo ? (
+        <LogoMark size={32} variant="header" />
+      ) : (
+        <>
+          <div className="w-8 h-8 flex items-center justify-center" style={{ background: RED }}>
+            <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
+              <path d="M2 2h5v14H2zM11 2h5v14h-5z" fill="white" />
+            </svg>
+          </div>
+          <span className="font-black text-[13px] tracking-[0.22em] uppercase" style={{ color: NAVY }}>{companyName}</span>
+        </>
+      )}
+    </Link>
+  );
+}
+
 function BrandPanel() {
   return (
     <div className="relative overflow-hidden hidden lg:flex flex-col justify-between"
@@ -67,18 +119,7 @@ function BrandPanel() {
 
       <motion.div initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease }} className="relative z-10">
-        <Link to={ROUTES.HOME} className="flex items-center gap-3" style={{ textDecoration: "none" }}>
-          <div className="w-9 h-9 flex items-center justify-center" style={{ background: RED }}>
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <path d="M2 2h5v14H2zM11 2h5v14h-5z" fill="white" opacity="0.9" />
-              <path d="M7 8.5h4v1H7z" fill="white" />
-            </svg>
-          </div>
-          <div>
-            <p className="text-white font-black text-[13px] tracking-[0.22em] uppercase leading-none">HORIZON</p>
-            <p className="text-white/30 font-semibold text-[9px] tracking-[0.35em] uppercase mt-0.5">OUT-OF-HOME</p>
-          </div>
-        </Link>
+        <SignupLogo />
       </motion.div>
 
       <div className="relative z-10">
@@ -176,14 +217,7 @@ export default function Signup() {
       <div className="flex-1 flex flex-col bg-white" style={{ minHeight: "100svh" }}>
         {/* Mobile header */}
         <div className="lg:hidden flex items-center justify-between px-8 pt-8 pb-6 border-b border-[#0B0F1A]/[0.07]">
-          <Link to={ROUTES.HOME} className="flex items-center gap-3" style={{ textDecoration: "none" }}>
-            <div className="w-8 h-8 flex items-center justify-center" style={{ background: RED }}>
-              <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
-                <path d="M2 2h5v14H2zM11 2h5v14h-5z" fill="white" />
-              </svg>
-            </div>
-            <span className="font-black text-[13px] tracking-[0.22em] uppercase" style={{ color: NAVY }}>HORIZON OOH</span>
-          </Link>
+          <MobileAuthLogo />
           <Link to={ROUTES.HOME} className="text-[11px] font-bold tracking-[0.15em] uppercase"
             style={{ color: "rgba(11,15,26,0.4)", textDecoration: "none" }}>← Back</Link>
         </div>

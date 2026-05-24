@@ -21,8 +21,8 @@ function clearSiteUser() {
   localStorage.removeItem('horizon_site_token');
 }
 
-// ─── Logo component (shared between Navbar & Footer) ──────────────────────────
-function LogoMark({ size = 54, variant = 'header' }: { size?: number; variant?: 'header' | 'footer' }) {
+// ─── Logo component (shared between Navbar, Footer, Login & Signup) ──────────
+export function LogoMark({ size = 54, variant = 'header' }: { size?: number; variant?: 'header' | 'footer' }) {
   const store = useStore();
   // Pick the right logo URL — footer falls back to header if not set
   const url = variant === 'footer'
