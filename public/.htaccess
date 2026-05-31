@@ -101,10 +101,4 @@
 
     # Vary: Accept-Encoding so caches store separate gzip/br variants
     Header append Vary "Accept-Encoding"
-
-    # LCP Early Hint — only on the SPA entry page, not on every asset
-    # Tells the browser to preload the hero image before JS has even run
-    <FilesMatch "index\.html$">
-        Header append Link "<https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?w=1600&q=85&fit=crop>; rel=preload; as=image; fetchpriority=high"
-    </FilesMatch>
 </IfModule>

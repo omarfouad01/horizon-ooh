@@ -300,16 +300,19 @@ function HeroSection() {
       style={{ minHeight: "100svh", background: NAVY }}
     >
       {/* ── BACKGROUND parallax image ──────────────────────── */}
+      {/* Plain <img> (not motion.img) so browser preload scanner can match it.
+          Parallax scale is handled by the motion.div wrapper. */}
       <motion.div className="absolute inset-0 pointer-events-none" style={{ scale: bgScale }}>
-        <motion.img
-          src="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?w=1600&q=85&fit=crop"
-          alt="" aria-hidden
-          width={1600} height={900}
-          fetchPriority="high"
-          decoding="async"
-          className="w-full h-full object-cover"
-          style={{ opacity: bgOpacity }}
-        />
+        <motion.div className="w-full h-full" style={{ opacity: bgOpacity }}>
+          <img
+            src="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?w=1600&q=85&fit=crop"
+            alt="" aria-hidden
+            width={1600} height={900}
+            fetchPriority="high"
+            decoding="sync"
+            className="w-full h-full object-cover"
+          />
+        </motion.div>
       </motion.div>
 
       {/* ── GRADIENTS & EFFECTS ────────────────────────────── */}
