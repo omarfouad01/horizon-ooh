@@ -7,24 +7,28 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import Layout from "@/components/Layout";
-import Home from "@/pages/Home";
-import About from "@/pages/About";
-import Services from "@/pages/Services";
-import ServiceDetail from "@/pages/ServiceDetail";
-import Projects from "@/pages/Projects";
-import ProjectDetail from "@/pages/ProjectDetail";
-import Locations from "@/pages/Locations";
-import LocationDetail from "@/pages/LocationDetail";
-import Product from "@/pages/Product";
-import Blog from "@/pages/Blog";
-import BlogArticle from "@/pages/BlogArticle";
-import Contact from "@/pages/Contact";
-import Login from "@/pages/Login";
-import Signup from "@/pages/Signup";
-import Profile from "@/pages/Profile";
-import DesignSimulator from "@/pages/DesignSimulator";
-import NotFound from "./pages/not-found/Index";
 import { Toaster as HotToaster } from "react-hot-toast";
+
+// ── Public pages — eager-load only the homepage, lazy the rest ───────────────
+// Home loads immediately (above-fold content). All other pages are code-split
+// so they never inflate the initial JS bundle.
+import Home from "@/pages/Home";
+const About          = lazy(() => import("@/pages/About"));
+const Services       = lazy(() => import("@/pages/Services"));
+const ServiceDetail  = lazy(() => import("@/pages/ServiceDetail"));
+const Projects       = lazy(() => import("@/pages/Projects"));
+const ProjectDetail  = lazy(() => import("@/pages/ProjectDetail"));
+const Locations      = lazy(() => import("@/pages/Locations"));
+const LocationDetail = lazy(() => import("@/pages/LocationDetail"));
+const Product        = lazy(() => import("@/pages/Product"));
+const Blog           = lazy(() => import("@/pages/Blog"));
+const BlogArticle    = lazy(() => import("@/pages/BlogArticle"));
+const Contact        = lazy(() => import("@/pages/Contact"));
+const Login          = lazy(() => import("@/pages/Login"));
+const Signup         = lazy(() => import("@/pages/Signup"));
+const Profile        = lazy(() => import("@/pages/Profile"));
+const DesignSimulator= lazy(() => import("@/pages/DesignSimulator"));
+const NotFound       = lazy(() => import("./pages/not-found/Index"));
 
 // ── Admin Panel — LAZY LOADED so it never ships to website visitors ──────────
 // The entire 424 KB admin bundle is only downloaded when the user navigates to /admin
@@ -49,11 +53,17 @@ const AdminLocationsPage = lazy(() => import("@/admin/pages/AdminLocationsPage")
 const AdminContactPage   = lazy(() => import("@/admin/pages/AdminContactPage"));
 const AdminDashboardUsers = lazy(() => import("@/admin/pages/AdminDashboardUsers"));
 
+// Shared page loading fallback
+const PageLoading = () => (
+  <div style={{ display:'flex', alignItems:'center', justifyContent:'center', height:'80vh' }}>
+    <div style={{ width:32, height:32, border:'3px solid #D90429', borderTopColor:'transparent', borderRadius:'50%', animation:'spin 0.8s linear infinite' }} />
+  </div>
+);
+
 // Minimal fallback shown while admin chunk downloads
 const AdminLoading = () => (
   <div style={{ display:'flex', alignItems:'center', justifyContent:'center', height:'100vh', background:'#0B0F1A' }}>
     <div style={{ width:36, height:36, border:'3px solid #D90429', borderTopColor:'transparent', borderRadius:'50%', animation:'spin 0.7s linear infinite' }} />
-    <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
   </div>
 );
 
@@ -68,23 +78,23 @@ const App = () => (
       <HotToaster position="top-right" toastOptions={{ style: { fontSize: 13, fontWeight: 600 } }} />
       <HashRouter>
         <Routes>
-          {/* ── Public Website ───────────────────────────────────────── */}
-          <Route path="/"                                  element={<Layout><Home /></Layout>} />
-          <Route path="/about"                             element={<Layout><About /></Layout>} />
-          <Route path="/services"                          element={<Layout><Services /></Layout>} />
-          <Route path="/services/:slug"                    element={<Layout><ServiceDetail /></Layout>} />
-          <Route path="/projects"                          element={<Layout><Projects /></Layout>} />
-          <Route path="/projects/:slug"                    element={<Layout><ProjectDetail /></Layout>} />
-          <Route path="/locations"                         element={<Layout><Locations /></Layout>} />
-          <Route path="/locations/:slug"                   element={<Layout><LocationDetail /></Layout>} />
-          <Route path="/locations/:city/billboards/:slug"  element={<Layout><Product /></Layout>} />
-          <Route path="/blog"                              element={<Layout><Blog /></Layout>} />
-          <Route path="/blog/:slug"                        element={<Layout><BlogArticle /></Layout>} />
-          <Route path="/contact"                           element={<Layout><Contact /></Layout>} />
-          <Route path="/login"                             element={<Login />} />
-          <Route path="/signup"                            element={<Signup />} />
-          <Route path="/profile"                           element={<Layout><Profile /></Layout>} />
-          <Route path="/design-simulator"                  element={<Layout><DesignSimulator /></Layout>} />
+          {/* ── Public Website — non-home pages are lazy-loaded (code-split) ── */}
+          <Route path="/" element={<Layout><Home /></Layout>} />
+          <Route path="/about"            element={<Suspense fallback={<PageLoading />}><Layout><About /></Layout></Suspense>} />
+          <Route path="/services"         element={<Suspense fallback={<PageLoading />}><Layout><Services /></Layout></Suspense>} />
+          <Route path="/services/:slug"   element={<Suspense fallback={<PageLoading />}><Layout><ServiceDetail /></Layout></Suspense>} />
+          <Route path="/projects"         element={<Suspense fallback={<PageLoading />}><Layout><Projects /></Layout></Suspense>} />
+          <Route path="/projects/:slug"   element={<Suspense fallback={<PageLoading />}><Layout><ProjectDetail /></Layout></Suspense>} />
+          <Route path="/locations"        element={<Suspense fallback={<PageLoading />}><Layout><Locations /></Layout></Suspense>} />
+          <Route path="/locations/:slug"  element={<Suspense fallback={<PageLoading />}><Layout><LocationDetail /></Layout></Suspense>} />
+          <Route path="/locations/:city/billboards/:slug" element={<Suspense fallback={<PageLoading />}><Layout><Product /></Layout></Suspense>} />
+          <Route path="/blog"             element={<Suspense fallback={<PageLoading />}><Layout><Blog /></Layout></Suspense>} />
+          <Route path="/blog/:slug"       element={<Suspense fallback={<PageLoading />}><Layout><BlogArticle /></Layout></Suspense>} />
+          <Route path="/contact"          element={<Suspense fallback={<PageLoading />}><Layout><Contact /></Layout></Suspense>} />
+          <Route path="/login"            element={<Suspense fallback={<PageLoading />}><Login /></Suspense>} />
+          <Route path="/signup"           element={<Suspense fallback={<PageLoading />}><Signup /></Suspense>} />
+          <Route path="/profile"          element={<Suspense fallback={<PageLoading />}><Layout><Profile /></Layout></Suspense>} />
+          <Route path="/design-simulator" element={<Suspense fallback={<PageLoading />}><Layout><DesignSimulator /></Layout></Suspense>} />
 
           {/* ── Admin Panel — lazy loaded, never shipped to website users ── */}
           <Route path="/admin/*" element={
@@ -116,7 +126,7 @@ const App = () => (
             </Suspense>
           } />
 
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<Suspense fallback={<PageLoading />}><NotFound /></Suspense>} />
         </Routes>
       </HashRouter>
     </TooltipProvider>

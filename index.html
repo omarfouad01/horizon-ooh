@@ -36,7 +36,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
-    <link rel="dns-prefetch" href="https://unpkg.com" />
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
 
     <!-- Google Fonts — loaded as non-blocking <link> instead of CSS @import (eliminates render-blocking) -->
@@ -109,10 +108,7 @@
       }
     }
     </script>
-    <!-- Leaflet CSS loaded non-blocking so it doesn't delay first paint -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-          media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" /></noscript>
+    <!-- Leaflet CSS is bundled locally in BillboardMap/ProductMap (no CDN) -->
   </head>
 
   <body>

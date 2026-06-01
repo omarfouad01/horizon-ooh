@@ -5,19 +5,16 @@
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 import type { MapBillboard } from "@/data";
 
 const NAVY = "#0B0F1A";
 const RED  = "#D90429";
 const WHITE = "#FFFFFF";
 
-// Fix Leaflet default-icon path issue with Vite bundler
+// This map uses custom SVG divIcon pins—no default Leaflet marker images needed.
+// Suppress Vite bundler path warning for the default icon:
 delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconUrl:       "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-  iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-  shadowUrl:     "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-});
 
 function makePin(active = false) {
   const fill = active ? RED  : NAVY;

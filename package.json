@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "VITE_ENABLE_ROUTE_MESSAGING=true vite",
-    "build": "vite build",
+    "build": "node -e \"const fs=require('fs');const p='public/assets';if(fs.existsSync(p)){fs.readdirSync(p).filter(f=>f.match(/\\.(js|css|map)$/)).forEach(f=>fs.unlinkSync(p+'/'+f))}\" && vite build",
     "build:dev": "VITE_ENABLE_ROUTE_MESSAGING=true vite build --mode development --sourcemap",
     "lint": "eslint .",
     "preview": "vite preview"
