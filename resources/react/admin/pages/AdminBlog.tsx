@@ -41,11 +41,11 @@ function BlockEditor({ block, idx, total, onChange, onRemove, onMove }: {
       {/* Grip + move */}
       <div className="flex flex-col items-center gap-0.5 pt-0.5 flex-shrink-0">
         <GripVertical size={14} className="text-gray-200 cursor-grab" />
-        <button onClick={() => onMove(-1)} disabled={idx === 0}
+        <button type="button" onClick={() => onMove(-1)} disabled={idx === 0}
           className="p-0.5 rounded text-gray-300 hover:text-gray-600 disabled:opacity-20 transition-colors">
           <MoveUp size={11}/>
         </button>
-        <button onClick={() => onMove(1)} disabled={idx === total - 1}
+        <button type="button" onClick={() => onMove(1)} disabled={idx === total - 1}
           className="p-0.5 rounded text-gray-300 hover:text-gray-600 disabled:opacity-20 transition-colors">
           <MoveDown size={11}/>
         </button>
@@ -80,10 +80,10 @@ function BlockEditor({ block, idx, total, onChange, onRemove, onMove }: {
                 <input value={item} onChange={e => updateItem(i, e.target.value)}
                   placeholder={`List item ${i + 1}…`}
                   className="flex-1 text-[14px] text-gray-700 bg-transparent border-b border-gray-100 focus:border-navy outline-none placeholder:text-gray-300"/>
-                <button onClick={() => removeItem(i)} className="text-gray-300 hover:text-red-400 transition-colors"><X size={12}/></button>
+                <button type="button" onClick={() => removeItem(i)} className="text-gray-300 hover:text-red-400 transition-colors"><X size={12}/></button>
               </div>
             ))}
-            <button onClick={addItem}
+            <button type="button" onClick={addItem}
               className="flex items-center gap-1.5 text-[11px] font-semibold text-gray-400 hover:text-gray-700 transition-colors mt-1">
               <Plus size={11}/>Add item
             </button>
@@ -97,7 +97,7 @@ function BlockEditor({ block, idx, total, onChange, onRemove, onMove }: {
       </div>
 
       {/* Remove */}
-      <button onClick={onRemove}
+      <button type="button" onClick={onRemove}
         className="flex-shrink-0 opacity-0 group-hover:opacity-100 p-1.5 rounded-lg hover:bg-red-50 text-gray-300 hover:text-red-500 transition-all self-start">
         <Trash2 size={13}/>
       </button>
