@@ -322,13 +322,13 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, w
       {/* Body */}
       <div style={{ padding: "16px 18px 18px" }}>
         {/* English name + full address */}
-        <div className="mb-4 pb-4" style={{ borderBottom: "1px solid rgba(11,15,26,0.06)" }}>
-          <p className="text-[13px] font-bold text-[#0B0F1A] leading-snug mb-1">{isAr && b.nameAr ? b.nameAr : (b.nameEn || b.name)}</p>
-          <div className="flex items-start gap-1.5">
-            <svg className="shrink-0 mt-[1px]" width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ color: '#D90429' }}>
+        <div className="mb-4 pb-4 min-w-0" style={{ borderBottom: "1px solid rgba(11,15,26,0.06)" }}>
+          <p className="text-[13px] font-bold text-[#0B0F1A] leading-snug mb-1 truncate">{isAr && b.nameAr ? b.nameAr : (b.nameEn || b.name)}</p>
+          <div className="flex items-center gap-1.5 min-w-0">
+            <svg className="shrink-0" width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ color: '#D90429' }}>
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" fill="currentColor"/>
             </svg>
-            <p className="text-[11px] leading-snug" style={{ color: "rgba(11,15,26,0.45)" }}>{b.location}</p>
+            <p className="text-[11px] truncate" style={{ color: "rgba(11,15,26,0.45)" }}>{b.location}</p>
           </div>
         </div>
         {/* Code / Size / Format stats row */}
