@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ROUTES, RED, NAVY, ease } from "@/lib/routes";
+import { makeRoutes, RED, NAVY, ease } from "@/lib/routes";
 import { siteUserStore } from "@/store/dataStore";
 import { authApi } from "@/api";
 import toast from "react-hot-toast";
@@ -35,6 +35,8 @@ function AuthInput({ label, id, type = "text", placeholder, value, onChange, req
 }
 
 export default function Profile() {
+  const { lang } = useLang();
+  const ROUTES = makeRoutes(lang);
   const navigate = useNavigate();
   const { isAr } = useLang();
 

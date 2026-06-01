@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ROUTES, RED, NAVY, ease } from "@/lib/routes";
+import { makeRoutes, langPath, RED, NAVY, ease } from "@/lib/routes";
+import { useLang } from "@/i18n/LangContext";
 import { authApi } from "@/api";
 import { LogoMark } from "@/components/Layout";
 import { useStore } from "@/store/dataStore";
@@ -38,6 +39,8 @@ function AuthInput({
 
 // ─── Logo synced from dashboard settings ─────────────────────────────────
 function LoginLogo() {
+  const { lang } = useLang();
+  const ROUTES = makeRoutes(lang);
   const store = useStore();
   const companyName: string = store.settings?.companyName ?? 'HORIZON OOH';
   const hasCustomLogo = !!store.settings?.headerLogoUrl;
@@ -65,6 +68,8 @@ function LoginLogo() {
 
 // ─── Mobile logo (light, used in right panel header on small screens) ────────
 function MobileAuthLogo() {
+  const { lang } = useLang();
+  const ROUTES = makeRoutes(lang);
   const store = useStore();
   const companyName: string = store.settings?.companyName ?? 'HORIZON OOH';
   const hasCustomLogo = !!store.settings?.headerLogoUrl;
@@ -155,6 +160,8 @@ function BrandPanel() {
 
 // ─── LOGIN PAGE ────────────────────────────────────────────────────────────
 export default function Login() {
+  const { lang } = useLang();
+  const ROUTES = makeRoutes(lang);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -252,7 +259,7 @@ export default function Login() {
                 <div className="flex items-center justify-between mb-2">
                   <label htmlFor="password" className="text-[11px] font-bold tracking-[0.25em] uppercase"
                     style={{ color: "rgba(11,15,26,0.45)" }}>Password</label>
-                  <Link to="/forgot-password"
+                  <Link to={langPath(lang, "/forgot-password")}
                     className="text-[11px] font-semibold transition-colors hover:text-[#D90429]"
                     style={{ color: "rgba(11,15,26,0.35)", textDecoration: "none" }}>
                     Forgot password?

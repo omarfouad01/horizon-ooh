@@ -1,7 +1,7 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
-import { blogHref, RED, NAVY } from "@/lib/routes";
+import { blogHref, langPath, RED, NAVY } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
 import SEO from "@/components/SEO";
 
@@ -10,7 +10,8 @@ export default function BlogArticle() {
   const { blogPosts: BLOG_POSTS, loaded } = useStore()
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const { isAr, t } = useLang();
+  const { lang, t, isAr } = useLang();
+  // lang is destructured above
   const post    = BLOG_POSTS.find((p) => p.slug === slug);
   const related = BLOG_POSTS.filter((p) => p.slug !== slug).slice(0, 3);
 
@@ -141,7 +142,7 @@ export default function BlogArticle() {
                           <p className="text-[14px] mt-2" style={{ color: "rgba(255,255,255,0.35)" }}>{isAr ? 'تحدث مع فريقنا — لا يلزم أي التزام.' : 'Talk to our team — no commitment required.'}</p>
                         </div>
                         <Link
-                          to="/contact"
+                          to={langPath(lang, "/contact")}
                           className="group relative h-[48px] px-8 overflow-hidden text-[11px] font-bold tracking-[0.2em] uppercase text-white flex items-center flex-shrink-0 active:scale-[0.97] transition-transform"
                           style={{ background: RED, textDecoration: 'none' }}
                         >
@@ -189,7 +190,7 @@ export default function BlogArticle() {
                     {related.map((rel) => (
                       <Link
                         key={rel.id}
-                        to={blogHref(rel.slug)}
+                        to={blogHref(lang, rel.slug)}
                         className="group flex items-start gap-4 py-5 border-b border-[#0B0F1A]/[0.07] hover:text-[#D90429] transition-colors"
                         style={{ textDecoration: "none" }}
                       >

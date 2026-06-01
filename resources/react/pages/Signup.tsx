@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ROUTES, RED, NAVY, ease } from "@/lib/routes";
+import { makeRoutes, RED, NAVY, ease } from "@/lib/routes";
+import { useLang } from "@/i18n/LangContext";
 import { authApi } from "@/api";
 import { LogoMark } from "@/components/Layout";
 import { useStore } from "@/store/dataStore";
@@ -55,6 +56,8 @@ function PasswordInput({ label, id, placeholder, value, onChange }: {
 
 // ─── Logo synced from dashboard settings ─────────────────────────────────
 function SignupLogo() {
+  const { lang } = useLang();
+  const ROUTES = makeRoutes(lang);
   const store = useStore();
   const companyName: string = store.settings?.companyName ?? 'HORIZON OOH';
   const hasCustomLogo = !!store.settings?.headerLogoUrl;
@@ -82,6 +85,8 @@ function SignupLogo() {
 
 // ─── Mobile logo (light, used in right panel header on small screens) ────────
 function MobileAuthLogo() {
+  const { lang } = useLang();
+  const ROUTES = makeRoutes(lang);
   const store = useStore();
   const companyName: string = store.settings?.companyName ?? 'HORIZON OOH';
   const hasCustomLogo = !!store.settings?.headerLogoUrl;
@@ -169,6 +174,8 @@ function BrandPanel() {
 }
 
 export default function Signup() {
+  const { lang } = useLang();
+  const ROUTES = makeRoutes(lang);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [company, setCompany] = useState("");

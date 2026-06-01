@@ -7,7 +7,7 @@ import { ServiceIcon } from "@/components/IconPicker";
 
 export default function Services() {
   const { services: SERVICES } = useStore()
-  const { isAr, t } = useLang()
+  const { lang, isAr, t } = useLang()
   return (
     <>
       <PageHero
@@ -25,7 +25,7 @@ export default function Services() {
             {SERVICES.map((service, i) => (
               <RevealItem key={service.id}>
                 <Link
-                  to={serviceHref(service.slug)}
+                  to={serviceHref(lang, service.slug)}
                   className="group bg-white hover:bg-[#0B0F1A] transition-colors duration-500 flex flex-col h-full"
                   style={{ padding: "48px 40px 44px", textDecoration: "none" }}
                 >

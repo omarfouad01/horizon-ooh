@@ -10,8 +10,6 @@ import Layout from "@/components/Layout";
 import { Toaster as HotToaster } from "react-hot-toast";
 
 // ── Public pages — eager-load only the homepage, lazy the rest ───────────────
-// Home loads immediately (above-fold content). All other pages are code-split
-// so they never inflate the initial JS bundle.
 import Home from "@/pages/Home";
 const About          = lazy(() => import("@/pages/About"));
 const Services       = lazy(() => import("@/pages/Services"));
@@ -31,7 +29,6 @@ const DesignSimulator= lazy(() => import("@/pages/DesignSimulator"));
 const NotFound       = lazy(() => import("./pages/not-found/Index"));
 
 // ── Admin Panel — LAZY LOADED so it never ships to website visitors ──────────
-// The entire 424 KB admin bundle is only downloaded when the user navigates to /admin
 const AdminAuthProvider  = lazy(() => import("@/admin/AdminAuth").then(m => ({ default: m.AdminAuthProvider })));
 const AdminLayout        = lazy(() => import("@/admin/AdminLayout"));
 const AdminLogin         = lazy(() => import("@/admin/AdminLogin"));
@@ -69,69 +66,82 @@ const AdminLoading = () => (
 
 const queryClient = new QueryClient();
 
+// ── All public page routes — reused for both /  and /ar/ prefixes ────────────
+function PublicRoutes() {
+  return (
+    <Routes>
+      <Route index                                        element={<Layout><Home /></Layout>} />
+      <Route path="about"            element={<Suspense fallback={<PageLoading />}><Layout><About /></Layout></Suspense>} />
+      <Route path="services"         element={<Suspense fallback={<PageLoading />}><Layout><Services /></Layout></Suspense>} />
+      <Route path="services/:slug"   element={<Suspense fallback={<PageLoading />}><Layout><ServiceDetail /></Layout></Suspense>} />
+      <Route path="projects"         element={<Suspense fallback={<PageLoading />}><Layout><Projects /></Layout></Suspense>} />
+      <Route path="projects/:slug"   element={<Suspense fallback={<PageLoading />}><Layout><ProjectDetail /></Layout></Suspense>} />
+      <Route path="locations"        element={<Suspense fallback={<PageLoading />}><Layout><Locations /></Layout></Suspense>} />
+      <Route path="locations/:slug"  element={<Suspense fallback={<PageLoading />}><Layout><LocationDetail /></Layout></Suspense>} />
+      <Route path="locations/:city/billboards/:slug" element={<Suspense fallback={<PageLoading />}><Layout><Product /></Layout></Suspense>} />
+      <Route path="blog"             element={<Suspense fallback={<PageLoading />}><Layout><Blog /></Layout></Suspense>} />
+      <Route path="blog/:slug"       element={<Suspense fallback={<PageLoading />}><Layout><BlogArticle /></Layout></Suspense>} />
+      <Route path="contact"          element={<Suspense fallback={<PageLoading />}><Layout><Contact /></Layout></Suspense>} />
+      <Route path="login"            element={<Suspense fallback={<PageLoading />}><Login /></Suspense>} />
+      <Route path="signup"           element={<Suspense fallback={<PageLoading />}><Signup /></Suspense>} />
+      <Route path="profile"          element={<Suspense fallback={<PageLoading />}><Layout><Profile /></Layout></Suspense>} />
+      <Route path="design-simulator" element={<Suspense fallback={<PageLoading />}><Layout><DesignSimulator /></Layout></Suspense>} />
+      <Route path="*"                element={<Suspense fallback={<PageLoading />}><NotFound /></Suspense>} />
+    </Routes>
+  );
+}
+
 const App = () => (
-  <LangProvider>
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
       <HotToaster position="top-right" toastOptions={{ style: { fontSize: 13, fontWeight: 600 } }} />
       <HashRouter>
-        <Routes>
-          {/* ── Public Website — non-home pages are lazy-loaded (code-split) ── */}
-          <Route path="/" element={<Layout><Home /></Layout>} />
-          <Route path="/about"            element={<Suspense fallback={<PageLoading />}><Layout><About /></Layout></Suspense>} />
-          <Route path="/services"         element={<Suspense fallback={<PageLoading />}><Layout><Services /></Layout></Suspense>} />
-          <Route path="/services/:slug"   element={<Suspense fallback={<PageLoading />}><Layout><ServiceDetail /></Layout></Suspense>} />
-          <Route path="/projects"         element={<Suspense fallback={<PageLoading />}><Layout><Projects /></Layout></Suspense>} />
-          <Route path="/projects/:slug"   element={<Suspense fallback={<PageLoading />}><Layout><ProjectDetail /></Layout></Suspense>} />
-          <Route path="/locations"        element={<Suspense fallback={<PageLoading />}><Layout><Locations /></Layout></Suspense>} />
-          <Route path="/locations/:slug"  element={<Suspense fallback={<PageLoading />}><Layout><LocationDetail /></Layout></Suspense>} />
-          <Route path="/locations/:city/billboards/:slug" element={<Suspense fallback={<PageLoading />}><Layout><Product /></Layout></Suspense>} />
-          <Route path="/blog"             element={<Suspense fallback={<PageLoading />}><Layout><Blog /></Layout></Suspense>} />
-          <Route path="/blog/:slug"       element={<Suspense fallback={<PageLoading />}><Layout><BlogArticle /></Layout></Suspense>} />
-          <Route path="/contact"          element={<Suspense fallback={<PageLoading />}><Layout><Contact /></Layout></Suspense>} />
-          <Route path="/login"            element={<Suspense fallback={<PageLoading />}><Login /></Suspense>} />
-          <Route path="/signup"           element={<Suspense fallback={<PageLoading />}><Signup /></Suspense>} />
-          <Route path="/profile"          element={<Suspense fallback={<PageLoading />}><Layout><Profile /></Layout></Suspense>} />
-          <Route path="/design-simulator" element={<Suspense fallback={<PageLoading />}><Layout><DesignSimulator /></Layout></Suspense>} />
+        {/* LangProvider lives INSIDE HashRouter so it can use useNavigate/useLocation */}
+        <LangProvider>
+          <Routes>
+            {/* ── English routes: / ── */}
+            <Route path="/*" element={<PublicRoutes />} />
 
-          {/* ── Admin Panel — lazy loaded, never shipped to website users ── */}
-          <Route path="/admin/*" element={
-            <Suspense fallback={<AdminLoading />}>
-              <AdminAuthProvider>
-                <Routes>
-                  <Route path="login" element={<AdminLogin />} />
-                  <Route path="*"     element={<AdminLayout />}>
-                    <Route index                   element={<AdminDashboard />} />
-                    <Route path="locations"        element={<AdminLocations />} />
-                    <Route path="billboards"       element={<AdminBillboards />} />
-                    <Route path="services"         element={<AdminServices />} />
-                    <Route path="projects"         element={<AdminProjects />} />
-                    <Route path="blog"             element={<AdminBlog />} />
-                    <Route path="contacts"         element={<AdminContacts />} />
-                    <Route path="settings"         element={<AdminSettings />} />
-                    <Route path="about"            element={<AdminAbout />} />
-                    <Route path="suppliers"        element={<AdminSuppliers />} />
-                    <Route path="customers"        element={<AdminCustomers />} />
-                    <Route path="users"            element={<AdminUsers />} />
-                    <Route path="homepage"         element={<AdminHomePage />} />
-                    <Route path="simulator"        element={<AdminSimulator />} />
-                    <Route path="locations-page"   element={<AdminLocationsPage />} />
-                    <Route path="contact-page"     element={<AdminContactPage />} />
-                    <Route path="dashboard-users"  element={<AdminDashboardUsers />} />
-                  </Route>
-                </Routes>
-              </AdminAuthProvider>
-            </Suspense>
-          } />
+            {/* ── Arabic routes: /ar/* ── same pages, lang derived from URL ── */}
+            <Route path="/ar" element={<Layout><Home /></Layout>} />
+            <Route path="/ar/*" element={<PublicRoutes />} />
 
-          <Route path="*" element={<Suspense fallback={<PageLoading />}><NotFound /></Suspense>} />
-        </Routes>
+            {/* ── Admin Panel — lazy loaded, never shipped to website users ── */}
+            <Route path="/admin/*" element={
+              <Suspense fallback={<AdminLoading />}>
+                <AdminAuthProvider>
+                  <Routes>
+                    <Route path="login" element={<AdminLogin />} />
+                    <Route path="*"     element={<AdminLayout />}>
+                      <Route index                   element={<AdminDashboard />} />
+                      <Route path="locations"        element={<AdminLocations />} />
+                      <Route path="billboards"       element={<AdminBillboards />} />
+                      <Route path="services"         element={<AdminServices />} />
+                      <Route path="projects"         element={<AdminProjects />} />
+                      <Route path="blog"             element={<AdminBlog />} />
+                      <Route path="contacts"         element={<AdminContacts />} />
+                      <Route path="settings"         element={<AdminSettings />} />
+                      <Route path="about"            element={<AdminAbout />} />
+                      <Route path="suppliers"        element={<AdminSuppliers />} />
+                      <Route path="customers"        element={<AdminCustomers />} />
+                      <Route path="users"            element={<AdminUsers />} />
+                      <Route path="homepage"         element={<AdminHomePage />} />
+                      <Route path="simulator"        element={<AdminSimulator />} />
+                      <Route path="locations-page"   element={<AdminLocationsPage />} />
+                      <Route path="contact-page"     element={<AdminContactPage />} />
+                      <Route path="dashboard-users"  element={<AdminDashboardUsers />} />
+                    </Route>
+                  </Routes>
+                </AdminAuthProvider>
+              </Suspense>
+            } />
+          </Routes>
+        </LangProvider>
       </HashRouter>
     </TooltipProvider>
   </QueryClientProvider>
-  </LangProvider>
 );
 
 export default App;

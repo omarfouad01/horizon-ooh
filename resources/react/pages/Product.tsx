@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
-import { RED, NAVY, ease } from "@/lib/routes";
+import { langPath, RED, NAVY, ease } from "@/lib/routes";
 const ProductMap = lazy(() => import("@/components/ProductMap"));
 import { useLang } from "@/i18n/LangContext";
 
@@ -122,7 +122,7 @@ export default function Product() {
   const { locations: LOCATIONS, settings, districts: storeDistricts, loaded } = useStore()
   const { city: citySlug, slug } = useParams<{ city: string; slug: string }>();
   const navigate = useNavigate();
-  const { isAr, t } = useLang();
+  const { lang, t, isAr } = useLang();
   const heroRef  = useRef<HTMLElement>(null);
 
   // These are always computed (hooks must not be conditional)
@@ -295,7 +295,7 @@ export default function Product() {
             </div>
 
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease, delay: 0.7 }} className="flex-shrink-0 hidden md:block">
-              <Link to="/contact" className="group relative overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white flex items-center active:scale-[0.97] transition-transform"
+              <Link to={langPath(lang, "/contact")} className="group relative overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white flex items-center active:scale-[0.97] transition-transform"
                 style={{ height: 52, padding: "0 36px", background: RED, textDecoration: 'none' }}>
                 <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: "white" }} />
                 <span className="relative z-10 group-hover:text-[#0B0F1A] transition-colors duration-300">{t('product.bookLocation')}</span>
@@ -396,7 +396,7 @@ export default function Product() {
 
             <Reveal delay={0.2}>
               <div className="flex flex-col gap-3 mt-10">
-                <Link to="/contact" className="group relative w-full h-[54px] overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase text-white flex items-center justify-center active:scale-[0.97] transition-transform"
+                <Link to={langPath(lang, "/contact")} className="group relative w-full h-[54px] overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase text-white flex items-center justify-center active:scale-[0.97] transition-transform"
                   style={{ background: RED, textDecoration: 'none' }}>
                   <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: NAVY }} />
                   <span className="relative z-10">{t('product.getQuote')}</span>

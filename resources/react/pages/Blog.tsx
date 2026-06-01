@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, PageHero, CTABanner } from "@/components/UI";
-import { blogHref, RED, NAVY } from "@/lib/routes";
+import { blogHref, langPath, RED, NAVY } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
 
 export default function Blog() {
   const { blogPosts: BLOG_POSTS } = useStore()
-  const { isAr, t } = useLang()
+  const { lang, isAr, t } = useLang()
   const featured = BLOG_POSTS[0] ?? null;
   const rest = BLOG_POSTS.slice(1);
 
@@ -29,7 +29,7 @@ export default function Blog() {
             </p>
           </Reveal>
           <Link
-            to={blogHref(featured.slug)}
+            to={blogHref(lang, featured.slug)}
             className="group grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden border border-[#0B0F1A]/[0.08] hover:border-[#D90429]/30 transition-colors duration-400 cursor-pointer"
             style={{ textDecoration: "none" }}
           >
@@ -82,7 +82,7 @@ export default function Blog() {
             {rest.map((post) => (
               <RevealItem key={post.id}>
                 <Link
-                  to={blogHref(post.slug)}
+                  to={blogHref(lang, post.slug)}
                   className="group bg-white flex flex-col hover:bg-[#0B0F1A] transition-colors duration-500 h-full"
                   style={{ textDecoration: "none" }}
                 >

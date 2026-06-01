@@ -5,7 +5,8 @@
  * - Sets html[dir] and html[lang] automatically
  * - Loads Cairo + Tajawal Arabic Google Fonts on first AR switch
  */
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export type Lang = 'en' | 'ar';
 
@@ -367,18 +368,57 @@ function loadArabicFonts() {
   document.head.appendChild(link);
 }
 
+// ─── URL ↔ Language helpers ──────────────────────────────────────────────────
+
+/** Return true when the hash path starts with /ar */
+export function pathIsArabic(pathname: string): boolean {
+  return pathname === '/ar' || pathname.startsWith('/ar/');
+}
+
+/** Strip /ar prefix → bare English path */
+export function stripAr(pathname: string): string {
+  if (pathname === '/ar') return '/';
+  if (pathname.startsWith('/ar/')) return pathname.slice(3);
+  return pathname;
+}
+
+/** Add /ar prefix to a bare English path */
+export function addAr(pathname: string): string {
+  if (pathname === '/') return '/ar';
+  return `/ar${pathname}`;
+}
+
 // ─── Provider ────────────────────────────────────────────────────────────────
 export function LangProvider({ children }: { children: React.ReactNode }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Derive language from URL — this is the single source of truth
+  const urlLang: Lang = pathIsArabic(location.pathname) ? 'ar' : 'en';
+
   const [lang, setLangState] = useState<Lang>(() => {
+    if (pathIsArabic(location.pathname)) return 'ar';
     const saved = localStorage.getItem('horizon_lang') as Lang | null;
     return saved === 'ar' ? 'ar' : 'en';
   });
 
-  const setLang = (l: Lang) => {
+  // Sync state when URL changes (back/forward navigation)
+  useEffect(() => {
+    if (urlLang !== lang) {
+      setLangState(urlLang);
+      localStorage.setItem('horizon_lang', urlLang);
+    }
+  }, [urlLang]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // setLang navigates to the same page under the target language prefix
+  const setLang = useCallback((l: Lang) => {
     localStorage.setItem('horizon_lang', l);
     setLangState(l);
     if (l === 'ar') loadArabicFonts();
-  };
+    const bare = stripAr(location.pathname);
+    const next = l === 'ar' ? addAr(bare) : bare;
+    navigate(next, { replace: true });
+  }, [location.pathname, navigate]);
 
   // Keep html[dir] + html[lang] in sync
   useEffect(() => {

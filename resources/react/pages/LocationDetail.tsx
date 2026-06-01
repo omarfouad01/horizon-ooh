@@ -1,13 +1,13 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, SectionHeading, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
-import { productHref, RED, NAVY } from "@/lib/routes";
+import { productHref, langPath, RED, NAVY } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
 
 export default function LocationDetail() {
   // ── ALL hooks first — no conditional returns before hooks ──
   const { locations: LOCATIONS, locationsContent: _lc, loaded } = useStore() as any
-  const { isAr } = useLang()
+  const { lang, isAr } = useLang()
   const lp = _lc ?? {}
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
@@ -64,7 +64,7 @@ export default function LocationDetail() {
             </Reveal>
             <Reveal delay={0.2}>
               <Link
-                to="/contact"
+                to={langPath(lang, "/contact")}
                 className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white w-fit flex items-center active:scale-[0.97] transition-transform"
                 style={{ background: RED, textDecoration: 'none' }}
               >
@@ -131,7 +131,7 @@ export default function LocationDetail() {
               {(location.products || []).map((product) => (
                 <RevealItem key={product.id}>
                   <Link
-                    to={productHref(location.slug, product.slug)}
+                    to={productHref(lang, location.slug, product.slug)}
                     className="group block overflow-hidden border border-[#0B0F1A]/[0.08] hover:border-[#D90429]/30 transition-colors duration-400"
                     style={{ textDecoration: "none" }}
                   >

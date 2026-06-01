@@ -1,13 +1,15 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, SectionHeading, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
-import { serviceHref, RED, NAVY, ease } from "@/lib/routes";
+import { serviceHref, langPath, RED, NAVY, ease } from "@/lib/routes";
+import { useLang } from "@/i18n/LangContext";
 import { motion } from "framer-motion";
 import SEO from "@/components/SEO";
 
 export default function ServiceDetail() {
   // ── ALL hooks first — no conditional returns before hooks ──
   const { services: SERVICES, loaded } = useStore()
+  const { lang, t, isAr } = useLang();
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const service = SERVICES.find((s) => s.slug === slug);
@@ -69,7 +71,7 @@ export default function ServiceDetail() {
             </Reveal>
             <Reveal delay={0.2}>
               <Link
-                to="/contact"
+                to={langPath(lang, "/contact")}
                 className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white w-fit flex items-center active:scale-[0.97] transition-transform"
                 style={{ background: RED, textDecoration: 'none' }}
               >
@@ -229,7 +231,7 @@ export default function ServiceDetail() {
             {others.map((s) => (
               <RevealItem key={s.id}>
                 <Link
-                  to={serviceHref(s.slug)}
+                  to={serviceHref(lang, s.slug)}
                   className="group flex items-center justify-between p-6 bg-white border border-[#0B0F1A]/[0.08] hover:bg-[#0B0F1A] hover:border-[#D90429]/30 transition-all duration-300"
                   style={{ textDecoration: "none" }}
                 >

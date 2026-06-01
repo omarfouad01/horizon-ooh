@@ -2,7 +2,8 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
-import { ROUTES, RED, NAVY, ease } from "@/lib/routes";
+import { makeRoutes, langPath, RED, NAVY, ease } from "@/lib/routes";
+import { useLang } from "@/i18n/LangContext";
 
 // ─── Reveal / animation primitives ───────────────────────────────────────
 export function Reveal({
@@ -321,6 +322,7 @@ export function CTABanner({
   buttonLabel?: string;
   dark?: boolean;
 }) {
+  const { lang } = useLang();
   return (
     <section
       style={{
@@ -352,7 +354,7 @@ export function CTABanner({
         </div>
         <Reveal delay={0.15}>
           <div className="flex gap-4">
-            <RedBtn label={buttonLabel} href={ROUTES.CONTACT} />
+            <RedBtn label={buttonLabel} href={langPath(lang, '/contact')} />
           </div>
         </Reveal>
       </div>

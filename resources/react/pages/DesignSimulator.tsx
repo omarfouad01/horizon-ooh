@@ -14,6 +14,7 @@ import SimulatorCanvas, { type SimulatorCanvasHandle } from '@/components/Simula
 import type { SimulatorTemplate } from '@/store/dataStore';
 import { Upload, Download, ChevronRight, Layers, AlertCircle, LogIn, CheckCircle2 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { langPath, makeRoutes } from '@/lib/routes';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 function getSiteUser() {
@@ -140,7 +141,7 @@ function FormatCard({ t, selected, onClick }: {
 // ─── Main page ────────────────────────────────────────────────────────────────
 export default function DesignSimulator() {
   const store = useStore();
-  const { t, isAr } = useLang();
+  const { lang, t, isAr } = useLang();
   // Read simulator text from homeContent (controlled by admin dashboard)
   const hc = (store.homeContent ?? {}) as Record<string, string>;
   const simEyebrow     = hc.sim_eyebrow     || t('sim.eyebrow')     || 'Ad Design Simulator';
@@ -284,14 +285,14 @@ export default function DesignSimulator() {
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Link
-                  to="/login"
+                  to={langPath(lang, "/login")}
                   className="flex items-center justify-center gap-2 px-6 py-3 bg-[#D90429] text-white font-bold rounded-xl text-sm hover:bg-[#b8031f] transition-colors"
                 >
                   <LogIn size={16} />
                   {t('sim.loginBtn')}
                 </Link>
                 <Link
-                  to="/signup"
+                  to={langPath(lang, "/signup")}
                   className="flex items-center justify-center gap-2 px-6 py-3 border-2 border-gray-200 text-gray-700 font-bold rounded-xl text-sm hover:border-gray-400 transition-colors"
                 >
                   {t('sim.createAccount')}
@@ -309,7 +310,7 @@ export default function DesignSimulator() {
             <p className="text-gray-500 text-sm mb-6">
               {t('sim.comingSoonDesc')}
             </p>
-            <Link to="/contact" className="inline-block px-6 py-2.5 bg-[#D90429] text-white font-bold rounded-xl text-sm hover:bg-[#b8031f] transition-colors">
+            <Link to={langPath(lang, "/contact")} className="inline-block px-6 py-2.5 bg-[#D90429] text-white font-bold rounded-xl text-sm hover:bg-[#b8031f] transition-colors">
               {t('sim.contactTeam')}
             </Link>
           </div>

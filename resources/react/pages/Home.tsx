@@ -7,7 +7,7 @@ import MultiSelect from "@/components/MultiSelect";
 import LogoMarquee from "@/components/LogoMarquee";
 import { useLang } from "@/i18n/LangContext";
 // data now from store
-import { serviceHref, locationHref, projectHref, productHref, blogHref } from "@/lib/routes";
+import { serviceHref, locationHref, projectHref, productHref, blogHref, langPath, makeRoutes } from "@/lib/routes";
 import { ServiceIcon } from "@/components/IconPicker";
 
 // Billboards helper (cities/formats are now computed inside HeroSection)
@@ -229,7 +229,8 @@ function HeroSection() {
   const [formats,   setFormats]   = useState<string[]>([]);
 
   const { locations: _storeLocs, districts: _storeDists, adFormats: _adFormats, billboardFormats: _bbFormats, homeContent: hc } = useStore();
-  const { isAr, t } = useLang();
+  const { lang, isAr, t } = useLang();
+  const ROUTES = makeRoutes(lang);
   // Arabic helpers for hero section only
   const heroEyebrow    = (isAr && hc.heroEyebrowAr)  ? hc.heroEyebrowAr  : hc.heroEyebrow;
   const heroTitleLines = (isAr && hc.heroTitleLinesAr && hc.heroTitleLinesAr.length) ? hc.heroTitleLinesAr : (hc.heroTitleLines || ['Outdoor','Advertising','Agency.']);
@@ -402,7 +403,7 @@ function HeroSection() {
               className="flex flex-row items-start gap-3 mb-12 flex-wrap"
             >
               <Link
-                to="/contact"
+                to={ROUTES.CONTACT}
                 className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase text-white cursor-pointer flex-shrink-0 inline-flex items-center"
                 style={{ background: RED, textDecoration: 'none' }}
               >
@@ -411,7 +412,7 @@ function HeroSection() {
                 <span className="relative z-10">{t('nav.getQuote')}</span>
               </Link>
               <Link
-                to="/design-simulator"
+                to={ROUTES.DESIGN_SIMULATOR}
                 className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase cursor-pointer flex-shrink-0 inline-flex items-center"
                 style={{ border: "1.5px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.65)", background: "transparent", textDecoration: 'none' }}
               >
@@ -707,7 +708,8 @@ function TrustStrip() {
 // ═══════════════════════════════════════════════════════════════════════════
 function ServicesSection() {
   const { services: SERVICES } = useStore()
-  const { isAr, t } = useLang()
+  const { lang, isAr, t } = useLang()
+  const ROUTES = makeRoutes(lang)
   // Limit to first 6 services
   const visible = SERVICES.slice(0, 6)
   return (
@@ -733,7 +735,7 @@ function ServicesSection() {
               {t('home.servicesSubtitle') || "Full-spectrum outdoor media solutions across Egypt's major urban centres."}
             </p>
             <Link
-              to="/services"
+              to={ROUTES.SERVICES}
               className="group inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.18em] uppercase transition-colors"
               style={{ color: NAVY }}
             >
@@ -760,7 +762,7 @@ function ServicesSection() {
           {visible.map((service, i) => (
             <RevealItem key={service.id}>
               <Link
-                to={serviceHref(service.slug)}
+                to={serviceHref(lang, service.slug)}
                 className="group bg-white hover:bg-[#0B0F1A] transition-colors duration-500 flex flex-col h-full"
                 style={{
                   padding: '48px 40px 44px',
@@ -1230,7 +1232,8 @@ function SignatureSection() {
 // ═══════════════════════════════════════════════════════════════════════════
 function FinalCTASection() {
   const { homeContent: hc } = useStore();
-  const { isAr } = useLang();
+  const { lang, isAr } = useLang();
+  const ROUTES = makeRoutes(lang);
   const finalLine1     = (isAr && hc.finalCtaTitleLine1Ar) ? hc.finalCtaTitleLine1Ar : hc.finalCtaTitleLine1;
   const finalLine2     = (isAr && hc.finalCtaTitleLine2Ar) ? hc.finalCtaTitleLine2Ar : hc.finalCtaTitleLine2;
   const finalSubtext   = (isAr && hc.finalCtaSubtextAr)    ? hc.finalCtaSubtextAr    : hc.finalCtaSubtext;
@@ -1264,14 +1267,14 @@ function FinalCTASection() {
         <Reveal delay={0.24}>
           <div className="flex items-center justify-center gap-5 mb-16">
             <Link
-              to="/contact"
+              to={ROUTES.CONTACT}
               className="inline-flex items-center h-[56px] px-11 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white relative group"
               style={{ background: RED, textDecoration: 'none' }}>
               <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out" style={{ background: NAVY }}/>
               <span className="relative z-10">{finalPrimary}</span>
             </Link>
             <Link
-              to="/contact"
+              to={ROUTES.CONTACT}
               className="group relative inline-flex items-center h-[56px] px-11 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase transition-colors duration-300"
               style={{ border: `1.5px solid ${NAVY}`, color: NAVY, textDecoration: 'none' }}>
               <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out" style={{ background: NAVY }}/>
@@ -1301,6 +1304,8 @@ function FinalCTASection() {
 // ═══════════════════════════════════════════════════════════════════════════
 function ProjectsSection() {
   const { projects: PROJECTS } = useStore()
+  const { lang, isAr, t } = useLang()
+  const ROUTES = makeRoutes(lang)
   const featured = PROJECTS.find((p) => p.featured) ?? PROJECTS[0] ?? null;
   const others   = PROJECTS.filter((p) => p !== featured).slice(0, 2);
 
@@ -1329,7 +1334,7 @@ function ProjectsSection() {
           </div>
           <Reveal delay={0.15}>
             <Link
-              to="/projects"
+              to={ROUTES.PROJECTS}
               className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase flex items-center"
               style={{ border: `1.5px solid ${NAVY}`, color: NAVY, textDecoration: "none" }}
             >
@@ -1344,7 +1349,7 @@ function ProjectsSection() {
           {/* Featured — spans 7 columns */}
           <RevealItem className="col-span-7">
             <Link
-              to={projectHref(featured.slug)}
+              to={projectHref(lang, featured.slug)}
               className="group relative block overflow-hidden"
               style={{ textDecoration: "none", height: 500 }}
             >
@@ -1385,7 +1390,7 @@ function ProjectsSection() {
             {others.map((p) => (
               <RevealItem key={p.id} className="flex-1">
                 <Link
-                  to={projectHref(p.slug)}
+                  to={projectHref(lang, p.slug)}
                   className="group relative block overflow-hidden"
                   style={{ textDecoration: "none", height: "100%", minHeight: 230 }}
                 >
@@ -1423,6 +1428,8 @@ function ProjectsSection() {
 // ─── LatestBlogsSection ──────────────────────────────────────────────────────
 function LatestBlogsSection() {
   const { blogPosts } = useStore();
+  const { lang, isAr, t } = useLang();
+  const ROUTES = makeRoutes(lang);
   const latest = blogPosts.slice(0, 3);
   if (latest.length === 0) return null;
 
@@ -1441,7 +1448,7 @@ function LatestBlogsSection() {
               </h2>
             </div>
             <Link
-              to="/blog"
+              to={ROUTES.BLOG}
               className="shrink-0 border border-[#0B0F1A]/20 text-[#0B0F1A] text-[13px] font-semibold tracking-[0.08em] uppercase px-6 py-3 hover:border-[#D90429] hover:text-[#D90429] transition-colors duration-300"
             >
               View All Articles
@@ -1455,7 +1462,7 @@ function LatestBlogsSection() {
           {latest.map((post) => (
             <RevealItem key={post.id}>
               <Link
-                to={blogHref(post.slug)}
+                to={blogHref(lang, post.slug)}
                 className="group bg-white flex flex-col hover:bg-[#0B0F1A] transition-colors duration-500 h-full"
                 style={{ textDecoration: "none" }}
               >
@@ -1611,7 +1618,8 @@ function BillboardBenefitsSection() {
 // ─── Recently Added Billboards Section ──────────────────────────────────────
 function RecentBillboardsSection() {
   const { locations: LOCATIONS } = useStore()
-  const { isAr, t } = useLang()
+  const { lang, isAr, t } = useLang()
+  const ROUTES = makeRoutes(lang)
   const ALL_BILLBOARD_PRODUCTS = LOCATIONS
     .flatMap((loc) => (loc.products || []).map((p: any) => ({ ...p, citySlug: loc.slug ?? '', cityName: loc.city ?? '' })))
     .sort((a: any, b: any) => {
@@ -1647,7 +1655,7 @@ function RecentBillboardsSection() {
               </p>
             </div>
             <Link
-              to="/locations"
+              to={ROUTES.LOCATIONS}
               className="shrink-0 self-center border border-[#0B0F1A]/20 text-[#0B0F1A] text-[13px] font-semibold tracking-[0.08em] uppercase px-6 py-3 hover:border-[#D90429] hover:text-[#D90429] transition-colors duration-300"
             >
               {t('home.viewAllLocations') || 'View All Locations'}
@@ -1660,7 +1668,7 @@ function RecentBillboardsSection() {
           {RECENT_SIX.map((product) => (
             <RevealItem key={product.id}>
               <Link
-                to={productHref(product.citySlug, product.slug)}
+                to={productHref(lang, product.citySlug, product.slug)}
                 className="group block border border-[#0B0F1A]/[0.08] hover:border-[#D90429]/25 transition-colors duration-300 overflow-hidden relative"
                 aria-label={`View billboard: ${product.name} in ${product.cityName}`}
               >

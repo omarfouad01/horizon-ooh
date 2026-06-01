@@ -6,7 +6,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useStore, getState } from "@/store/dataStore";
-import { productHref, RED, NAVY } from "@/lib/routes";
+import { productHref, langPath, RED, NAVY } from "@/lib/routes";
 import LocationsMap from "@/components/LocationsMap";
 import { useLang } from "@/i18n/LangContext";
 
@@ -251,7 +251,7 @@ interface CardProps {
 }
 function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, waNumber }: CardProps) {
   const navigate = useNavigate();
-  const { isAr, t } = useLang();
+  const { lang, t, isAr } = useLang();
   const badges = getBadges(b.type);
   const highlighted = isHovered || isSelected;
 
@@ -366,7 +366,7 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, w
         {/* CTA row */}
         <div className="flex items-center gap-2">
           <Link
-            to={productHref(b.citySlug, b.slug)}
+            to={productHref(lang, b.citySlug, b.slug)}
             onClick={e => e.stopPropagation()}
             className="flex-1 h-9 flex items-center justify-center text-[10px] font-bold tracking-[0.18em] uppercase text-white transition-all duration-200 hover:opacity-90 active:scale-[0.97]"
             style={{ background: NAVY, borderRadius: 5, textDecoration: 'none' }}
@@ -374,7 +374,7 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, w
             {isAr ? 'عرض التفاصيل' : 'View Details'}
           </Link>
           <Link
-            to="/contact"
+            to={langPath(lang, "/contact")}
             onClick={e => e.stopPropagation()}
             className="flex-1 h-9 flex items-center justify-center text-[10px] font-bold tracking-[0.18em] uppercase transition-all duration-200 hover:bg-[rgba(217,4,41,0.06)] active:scale-[0.97]"
             style={{ border: `1.5px solid ${RED}`, color: RED, borderRadius: 5, background: "transparent", textDecoration: 'none' }}
@@ -406,7 +406,7 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, w
 export default function Locations() {
   const { locations, districts: storeDistrictsForEnrich, settings, locationsContent } = useStore()
   const waNumber = (settings?.whatsapp ?? '+201234567890').replace(/\D/g, '')
-  const { isAr, t } = useLang()
+  const { lang, isAr, t } = useLang()
   const lp = locationsContent ?? {}
   // Enrich each billboard with Arabic city/district names from the store
   const allBillboards = locations.flatMap((l: any) =>
@@ -931,7 +931,7 @@ export default function Locations() {
                       style={{ background: RED, border: "none", borderRadius: 6, cursor: "pointer" }}>
                       {t('locations.showAll')}
                     </button>
-                    <Link to="/contact"
+                    <Link to={langPath(lang, "/contact")}
                       className="h-11 px-6 text-[11px] font-bold tracking-[0.2em] uppercase transition-all hover:border-[#D90429] hover:text-[#D90429] inline-flex items-center"
                       style={{ background: "transparent", border: `1.5px solid rgba(11,15,26,0.15)`, borderRadius: 6, color: "rgba(11,15,26,0.5)", textDecoration: 'none' }}>
                       {t('common.contactUs')}
@@ -1019,7 +1019,7 @@ export default function Locations() {
             </span>
           </div>
           <Link
-            to="/contact"
+            to={langPath(lang, "/contact")}
             className="flex items-center gap-2 h-9 px-4 text-[11px] font-bold tracking-[0.15em] uppercase text-white transition-opacity hover:opacity-90 active:scale-[0.97]"
             style={{ background: NAVY, borderRadius: 30, textDecoration: 'none' }}
           >

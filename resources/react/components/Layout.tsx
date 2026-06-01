@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { NAV_LINKS } from "@/data";
-import { ROUTES, RED, NAVY } from "@/lib/routes";
+import { makeRoutes, langPath, RED, NAVY } from "@/lib/routes";
 import { useStore } from "@/store/dataStore";
 import { useLang } from "@/i18n/LangContext";
 import { authApi } from "@/api";
@@ -65,6 +65,7 @@ export function Navbar() {
   const store = useStore();
   const companyName: string = store.settings?.companyName ?? 'HORIZON OOH';
   const { lang, setLang, t, isAr } = useLang();
+  const ROUTES = makeRoutes(lang);
 
   // Sync user state when navigating (e.g. after login)
   useEffect(() => { setSiteUser(getSiteUser()); }, [location.pathname]);
@@ -136,7 +137,7 @@ export function Navbar() {
             {NAV_LINKS.map((link) => (
               <NavLink
                 key={link.href}
-                to={link.href}
+                to={langPath(lang, link.href)}
                 className={({ isActive }) =>
                   `relative text-[12px] font-semibold tracking-[0.18em] uppercase transition-colors duration-200 group ${
                     isActive ? "text-[#0B0F1A]" : "text-[#0B0F1A]/40 hover:text-[#0B0F1A]"
@@ -157,7 +158,7 @@ export function Navbar() {
 
             {/* Simulator link */}
             <NavLink
-              to="/design-simulator"
+              to={langPath(lang, "/design-simulator")}
               className={({ isActive }) =>
                 `relative text-[12px] font-semibold tracking-[0.18em] uppercase transition-colors duration-200 group ${
                   isActive ? 'text-[#D90429]' : 'text-[#0B0F1A]/40 hover:text-[#0B0F1A]'
@@ -216,7 +217,7 @@ export function Navbar() {
                         <p className="text-[11px] text-gray-400 truncate">{siteUser.email}</p>
                       </div>
                       <Link
-                        to="/profile"
+                        to={langPath(lang, "/profile")}
                         onClick={() => setProfileOpen(false)}
                         className="flex items-center gap-2 px-4 py-2 text-[12px] font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
                       >
@@ -236,7 +237,7 @@ export function Navbar() {
               </div>
             ) : (
               <Link
-                to="/login"
+                to={langPath(lang, "/login")}
                 className="h-[40px] px-5 text-[11px] font-bold tracking-[0.18em] uppercase flex items-center gap-2 border transition-colors duration-200 hover:border-[#0B0F1A] hover:text-[#0B0F1A]"
                 style={{ borderColor: "rgba(11,15,26,0.2)", color: "rgba(11,15,26,0.55)" }}
               >
@@ -289,7 +290,7 @@ export function Navbar() {
             {NAV_LINKS.map((link) => (
               <NavLink
                 key={link.href}
-                to={link.href}
+                to={langPath(lang, link.href)}
                 className={({ isActive }) =>
                   `text-left text-[13px] font-semibold tracking-[0.2em] uppercase transition-colors ${
                     isActive ? "text-[#D90429]" : "text-[#0B0F1A]/50 hover:text-[#D90429]"
@@ -301,7 +302,7 @@ export function Navbar() {
             ))}
             {/* Simulator — mobile */}
             <NavLink
-              to="/design-simulator"
+              to={langPath(lang, "/design-simulator")}
               className={({ isActive }) =>
                 `text-left text-[13px] font-semibold tracking-[0.2em] uppercase transition-colors ${
                   isActive ? 'text-[#D90429]' : 'text-[#0B0F1A]/50 hover:text-[#D90429]'
@@ -326,7 +327,7 @@ export function Navbar() {
                 </button>
               </div>
             ) : (
-              <Link to="/login" className="flex items-center gap-2 text-[13px] font-semibold tracking-[0.2em] uppercase text-[#0B0F1A]/50 hover:text-[#D90429] transition-colors">{t('nav.login')}</Link>
+              <Link to={langPath(lang, "/login")} className="flex items-center gap-2 text-[13px] font-semibold tracking-[0.2em] uppercase text-[#0B0F1A]/50 hover:text-[#D90429] transition-colors">{t('nav.login')}</Link>
             )}
             <Link
               to={ROUTES.CONTACT}
@@ -346,7 +347,7 @@ export function Navbar() {
 export function Footer() {
   const store = useStore();
   const s = store.settings;
-  const { t, isAr } = useLang();
+  const { lang, t, isAr } = useLang();
 
   // ── Dynamic services links from real store data ──────────────────────────
   const serviceLinks = store.services.length
@@ -354,14 +355,14 @@ export function Footer() {
         .slice(0, 6) // cap at 6 to keep footer tidy
         .map((svc: any) => ({
           label: isAr && svc.titleAr ? svc.titleAr : (svc.shortTitle ?? svc.title ?? svc.name ?? ''),
-          href:  `/services/${svc.slug}`,
+          href:  langPath(lang, `/services/${svc.slug}`),
         }))
     : [
-        { label: t('footer.billboard'),      href: '/services/billboard-advertising' },
-        { label: t('footer.dooh'),            href: '/services/digital-out-of-home'   },
-        { label: t('footer.mall'),            href: '/services/mall-advertising'       },
-        { label: t('footer.airport'),         href: '/services/airport-advertising'    },
-        { label: t('footer.streetFurniture'), href: '/services/street-furniture'       },
+        { label: t('footer.billboard'),      href: langPath(lang, '/services/billboard-advertising') },
+        { label: t('footer.dooh'),            href: langPath(lang, '/services/digital-out-of-home')   },
+        { label: t('footer.mall'),            href: langPath(lang, '/services/mall-advertising')       },
+        { label: t('footer.airport'),         href: langPath(lang, '/services/airport-advertising')    },
+        { label: t('footer.streetFurniture'), href: langPath(lang, '/services/street-furniture')       },
       ];
 
   // ── Dynamic locations links from real store data ──────────────────────────
@@ -371,16 +372,16 @@ export function Footer() {
           .slice(0, 4) // show top 4 cities
           .map((loc: any) => ({
             label: isAr && loc.cityAr ? loc.cityAr : (loc.city ?? loc.name ?? ''),
-            href:  `/locations/${loc.slug}`,
+            href:  langPath(lang, `/locations/${loc.slug}`),
           })),
-        { label: isAr ? 'كل المواقع' : t('footer.allLocations'), href: '/locations' },
+        { label: isAr ? 'كل المواقع' : t('footer.allLocations'), href: langPath(lang, '/locations') },
       ]
     : [
-        { label: t('footer.cairo'),       href: '/locations/cairo'     },
-        { label: t('footer.giza'),        href: '/locations/giza'      },
-        { label: t('footer.alexandria'),  href: '/locations/alexandria' },
-        { label: t('footer.northCoast'),  href: '/locations/matrouh'   },
-        { label: t('footer.allLocations'),href: '/locations'            },
+        { label: t('footer.cairo'),       href: langPath(lang, '/locations/cairo')     },
+        { label: t('footer.giza'),        href: langPath(lang, '/locations/giza')      },
+        { label: t('footer.alexandria'),  href: langPath(lang, '/locations/alexandria') },
+        { label: t('footer.northCoast'),  href: langPath(lang, '/locations/matrouh')   },
+        { label: t('footer.allLocations'),href: langPath(lang, '/locations')            },
       ];
 
   return (
@@ -449,9 +450,9 @@ export function Footer() {
               {
                 heading: t('footer.company'),
                 links: [
-                  { label: t('footer.about'),   href: "/about" },
-                  { label: t('footer.blog'),    href: "/blog" },
-                  { label: t('footer.contact'), href: "/contact" },
+                  { label: t('footer.about'),   href: langPath(lang, "/about") },
+                  { label: t('footer.blog'),    href: langPath(lang, "/blog") },
+                  { label: t('footer.contact'), href: langPath(lang, "/contact") },
                 ],
               },
               {
@@ -459,7 +460,7 @@ export function Footer() {
                 links: [
                   { label: s.email,        href: `mailto:${s.email}` },
                   { label: s.phone ?? '',  href: `tel:${(s.phone ?? '').replace(/\s/g,'')}` },
-                  { label: s.address,      href: "/contact" },
+                  { label: s.address,      href: langPath(lang, "/contact") },
                 ],
               },
             ].map(({ heading, links }) => (
@@ -504,6 +505,8 @@ function FloatingCTAs() {
   const [visible, setVisible] = useState(false);
   const location = useLocation();
   const store = useStore();
+  const { lang } = useLang();
+  const ROUTES = makeRoutes(lang);
   const isAuthPage = location.pathname === "/login" || location.pathname === "/signup";
 
   useEffect(() => {

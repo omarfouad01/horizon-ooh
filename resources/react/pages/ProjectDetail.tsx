@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useStore } from "@/store/dataStore";
 import { type ProjectCategory } from "@/data";
 import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
-import { projectHref, RED, NAVY, ease } from "@/lib/routes";
+import { projectHref, langPath, RED, NAVY, ease } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
 const CAT_COLORS: Record<ProjectCategory, string> = {
   Billboard: "#D90429",
@@ -25,7 +25,7 @@ function buildClientBrief(project: any, clientProjects: any[]) {
 export default function ProjectDetail() {
   // ── ALL hooks first — no conditional returns before hooks ──
   const { projects: PROJECTS, loaded } = useStore();
-  const { isAr, t } = useLang();
+  const { lang, t, isAr } = useLang();
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const project = PROJECTS.find((p) => p.slug === slug);
@@ -276,7 +276,7 @@ export default function ProjectDetail() {
             <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {relatedAll.map((p) => (
                 <RevealItem key={p.id}>
-                  <Link to={projectHref(p.slug)} className="group block overflow-hidden border border-[#0B0F1A]/[0.07] hover:border-[#D90429]/20 transition-all duration-400" style={{ textDecoration: "none" }}>
+                  <Link to={projectHref(lang, p.slug)} className="group block overflow-hidden border border-[#0B0F1A]/[0.07] hover:border-[#D90429]/20 transition-all duration-400" style={{ textDecoration: "none" }}>
                     <div className="relative overflow-hidden" style={{ height: 200 }}>
                       <img src={p.coverImage} alt={p.title} width={400} height={220} className="w-full h-full object-cover transition-transform duration-600 group-hover:scale-[1.05]" style={{ opacity: 0.85 }} loading="lazy" decoding="async" />
                       <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(11,15,26,0.6) 0%, transparent 60%)" }} />
