@@ -8,9 +8,9 @@ use App\Http\Controllers\SitemapController;
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| All non-API requests are served by the React SPA's index.html.
-| The React app uses HashRouter, so all routing is handled client-side.
-| Laravel only needs to return the index.html for every web request.
+| The React app uses BrowserRouter with real URL paths (no #/).
+| Laravel serves index.html for every non-API, non-asset request so
+| React Router can handle client-side navigation on page load/refresh.
 |
 */
 
@@ -18,9 +18,10 @@ use App\Http\Controllers\SitemapController;
 Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 Route::get('/robots.txt',  [SitemapController::class, 'robots']);
 
-// ── SPA catch-all ─────────────────────────────────────────────────────────────
+// ── SPA catch-all — serves index.html for ALL public routes ──────────────────
+// This is required for BrowserRouter: visiting /services directly must return
+// index.html so React Router can boot and render the correct page.
 Route::get('/{any?}', function () {
-    // $indexPath = public_path('app/index.html');
     $indexPath = public_path('index.html');
 
     // If Vite hasn't built yet (e.g. fresh clone before npm run build),

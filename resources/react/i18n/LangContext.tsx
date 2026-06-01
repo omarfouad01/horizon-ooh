@@ -370,7 +370,7 @@ function loadArabicFonts() {
 
 // ─── URL ↔ Language helpers ──────────────────────────────────────────────────
 
-/** Return true when the hash path starts with /ar */
+/** Return true when the pathname starts with /ar (BrowserRouter real paths) */
 export function pathIsArabic(pathname: string): boolean {
   return pathname === '/ar' || pathname.startsWith('/ar/');
 }

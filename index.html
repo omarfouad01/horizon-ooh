@@ -2,6 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Redirect old /#/ hash URLs to clean BrowserRouter paths -->
+    <script>
+      (function() {
+        var hash = window.location.hash;
+        if (hash && hash.startsWith('#/')) {
+          var path = hash.slice(1); // remove the '#', keep the '/...'
+          window.history.replaceState(null, '', path + window.location.search);
+        }
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HORIZON OOH | Outdoor Advertising Agency in Egypt</title>
     <meta name="description" content="Egypt's premier outdoor advertising agency. Billboard, DOOH, Mall &amp; Airport campaigns across Cairo, Alexandria &amp; nationwide. 9,500+ premium locations." />

@@ -4,7 +4,7 @@ import { LangProvider } from "@/i18n/LangContext";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import Layout from "@/components/Layout";
 import { Toaster as HotToaster } from "react-hot-toast";
@@ -97,8 +97,8 @@ const App = () => (
       <Toaster />
       <Sonner />
       <HotToaster position="top-right" toastOptions={{ style: { fontSize: 13, fontWeight: 600 } }} />
-      <HashRouter>
-        {/* LangProvider lives INSIDE HashRouter so it can use useNavigate/useLocation */}
+      <BrowserRouter>
+        {/* LangProvider lives INSIDE BrowserRouter so it can use useNavigate/useLocation */}
         <LangProvider>
           <Routes>
             {/* ── English routes: / ── */}
@@ -139,7 +139,7 @@ const App = () => (
             } />
           </Routes>
         </LangProvider>
-      </HashRouter>
+      </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
 );
