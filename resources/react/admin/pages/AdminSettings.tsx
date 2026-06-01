@@ -388,14 +388,29 @@ export default function AdminSettings() {
             <div className="border-t border-gray-100 pt-5">
               {/* Favicon */}
               <p className="text-[12px] font-bold text-gray-700 mb-1">Browser Favicon</p>
-              <p className="text-[11px] text-gray-400 mb-3">Updates the browser tab icon in real time.</p>
+              <p className="text-[11px] text-gray-400 mb-3">
+                Synced to the website automatically — updates the browser tab icon <strong>and</strong> the
+                <code className="mx-1 px-1 bg-gray-100 rounded text-[10px]">https://horizonooh.com/favicon.ico</code>
+                URL that Google Search Console reads.
+              </p>
               <ImageUpload
                 label=""
                 value={settings.faviconUrl}
                 onChange={url => setSettings(p=>({...p,faviconUrl:url}))}
-                hint="Recommended: 32×32 or 64×64 PNG / ICO."
+                hint="Recommended: square PNG, 64×64 or 192×192px. After saving, request re-indexing in Google Search Console."
                 height={48}
               />
+              {settings.faviconUrl && (
+                <div className="mt-3 p-3 rounded-lg bg-green-50 border border-green-100 text-[11px] text-green-700 flex items-start gap-2">
+                  <span>✅</span>
+                  <span>
+                    Custom favicon is active. It will appear in browser tabs immediately after saving.
+                    To update Google Search Console, go to{' '}
+                    <a href="https://search.google.com/search-console" target="_blank" rel="noopener noreferrer" className="underline font-semibold">Search Console</a>
+                    {' '}→ URL Inspection → Request Indexing.
+                  </span>
+                </div>
+              )}
             </div>
           </div>
           <Btn onClick={saveLogo} className="flex items-center gap-2"><Save size={14}/>Save Logos & Favicon</Btn>

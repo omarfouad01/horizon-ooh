@@ -2,6 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Redirect old /#/ hash URLs to clean BrowserRouter paths -->
+    <script>
+      (function() {
+        var hash = window.location.hash;
+        if (hash && hash.startsWith('#/')) {
+          var path = hash.slice(1); // remove the '#', keep the '/...'
+          window.history.replaceState(null, '', path + window.location.search);
+        }
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HORIZON OOH | Outdoor Advertising Agency in Egypt</title>
     <meta name="description" content="Egypt's premier outdoor advertising agency. Billboard, DOOH, Mall &amp; Airport campaigns across Cairo, Alexandria &amp; nationwide. 9,500+ premium locations." />
@@ -109,18 +119,18 @@
     }
     </script>
     <!-- Leaflet CSS is bundled locally in BillboardMap/ProductMap (no CDN) -->
-    <script type="module" crossorigin src="/assets/index-DD7O6yre.js"></script>
+    <script type="module" crossorigin src="/assets/index-COd_7bXL.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/leaflet-DcPNEzH4.js">
     <link rel="modulepreload" crossorigin href="/assets/react-core-48sTmnfD.js">
     <link rel="modulepreload" crossorigin href="/assets/radix-ui-CehHnMsy.js">
     <link rel="modulepreload" crossorigin href="/assets/utils--BulIq_u.js">
     <link rel="modulepreload" crossorigin href="/assets/icons-Bn-wD5Ss.js">
-    <link rel="modulepreload" crossorigin href="/assets/router-BzcjTOlG.js">
+    <link rel="modulepreload" crossorigin href="/assets/router-BD21wbcU.js">
     <link rel="modulepreload" crossorigin href="/assets/data-layer-dVIBZ1-g.js">
-    <link rel="modulepreload" crossorigin href="/assets/admin-CQ9973bP.js">
+    <link rel="modulepreload" crossorigin href="/assets/admin-BaaSxVCP.js">
     <link rel="modulepreload" crossorigin href="/assets/framer-motion-Clyj7_q-.js">
     <link rel="stylesheet" crossorigin href="/assets/leaflet-CIGW-MKW.css">
-    <link rel="stylesheet" crossorigin href="/assets/index-QItnZaFr.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-DDvwqz9x.css">
   </head>
 
   <body>

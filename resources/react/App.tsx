@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import Layout from "@/components/Layout";
+import { FaviconSync } from "@/components/FaviconSync";
 import { Toaster as HotToaster } from "react-hot-toast";
 
 // ── Public pages — eager-load only the homepage, lazy the rest ───────────────
@@ -98,6 +99,8 @@ const App = () => (
       <Sonner />
       <HotToaster position="top-right" toastOptions={{ style: { fontSize: 13, fontWeight: 600 } }} />
       <BrowserRouter>
+        {/* FaviconSync: keeps browser tab favicon in sync with admin dashboard setting */}
+        <FaviconSync />
         {/* LangProvider lives INSIDE BrowserRouter so it can use useNavigate/useLocation */}
         <LangProvider>
           <Routes>

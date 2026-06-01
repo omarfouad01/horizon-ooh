@@ -19,9 +19,11 @@
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
 
-    # Route sitemap.xml and robots.txt through Laravel (dynamic, DB-driven)
+    # Route sitemap.xml, robots.txt, and favicon.ico through Laravel (DB-driven)
     RewriteRule ^sitemap\.xml$ index.php [L]
-    RewriteRule ^robots\.txt$ index.php [L]
+    RewriteRule ^robots\.txt$  index.php [L]
+    # favicon.ico served dynamically from admin dashboard setting
+    RewriteRule ^favicon\.ico$ index.php [L]
 
     # Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d

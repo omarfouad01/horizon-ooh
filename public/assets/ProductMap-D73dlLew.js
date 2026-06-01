@@ -48,4 +48,3 @@ import{r as n,j as r}from"./react-core-48sTmnfD.js";import{L as t}from"./leaflet
         }
         .horizon-product-popup .leaflet-popup-close-button:hover { color: ${e} !important; }
       `})]})}export{$ as default};
-//# sourceMappingURL=ProductMap-D73dlLew.js.map
