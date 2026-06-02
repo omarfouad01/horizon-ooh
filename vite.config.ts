@@ -2,7 +2,8 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import tailwindcss from '@tailwindcss/vite';
 import path from 'path';
-import { copyFileSync, mkdirSync, readdirSync, rmSync, statSync } from 'fs';
+import { copyFileSync, mkdirSync, readdirSync, statSync } from 'fs';
+import { compression } from 'vite-plugin-compression2';
 
 /**
  * Horizon OOH — Unified Vite config
@@ -57,6 +58,11 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     tailwindcss(),
     react(),
+    // Pre-compress JS/CSS/SVG at build time so Apache can serve .gz/.br siblings
+    // directly — zero CPU cost at request time vs on-the-fly mod_deflate.
+    // threshold: 1024 = only compress files > 1 KB (smaller files aren't worth it)
+    compression({ algorithm: 'gzip',   exclude: /\.(png|jpe?g|webp|gif|ico|woff2?)$/, threshold: 1024 }),
+    compression({ algorithm: 'brotliCompress', exclude: /\.(png|jpe?g|webp|gif|ico|woff2?)$/, threshold: 1024 }),
     // syncToPublicDist(),
   ],
   resolve: {
