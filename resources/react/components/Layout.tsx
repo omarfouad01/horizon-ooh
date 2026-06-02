@@ -512,6 +512,7 @@ function FloatingCTAs() {
   const waHref = `https://wa.me/${waNumber}?text=Hi%20${encodeURIComponent(store.settings?.companyName ?? 'HORIZON OOH')}%2C%20I%27d%20like%20a%20quote.`;
 
   return (
+    <>
     {visible && (
         <div
           className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3"
@@ -550,6 +551,7 @@ function FloatingCTAs() {
           </div>
         </div>
       )}
+    </>
   );
 }
 
