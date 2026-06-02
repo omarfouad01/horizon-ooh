@@ -2,6 +2,7 @@
 
 export const IMAGES = {
   SCREENSHOT1019_2: "/images/Screenshot1019.png",
+  SCREENSHOT3559_7: "/images/Screenshot3559.png",
   SCREENSHOT3596_5: "/images/Screenshot3596.png",
   SCREENSHOT4096_4: "/images/Screenshot4096.png",
   SCREENSHOT5895_6: "/images/Screenshot5895.png",

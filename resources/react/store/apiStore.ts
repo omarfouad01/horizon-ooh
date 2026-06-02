@@ -537,14 +537,21 @@ export const useApiStore = create<ApiState>((set, get) => ({
 }));
 
 // ─── Auto-load on first import ────────────────────────────────────────────────
+// Defer init: run after first paint so LCP is not blocked by API fetches
 let _initiated = false;
-useApiStore.subscribe((state) => {
-  if (!_initiated && !state.loaded && !state.loading) {
-    _initiated = true;
+function _doInit() {
+  if (_initiated) return;
+  _initiated = true;
+  if (!useApiStore.getState().loaded && !useApiStore.getState().loading) {
     useApiStore.getState().reload();
   }
-});
-if (!useApiStore.getState().loaded && !useApiStore.getState().loading) {
-  _initiated = true;
-  useApiStore.getState().reload();
+}
+if (typeof window !== 'undefined') {
+  if ('requestIdleCallback' in window) {
+    (window as any).requestIdleCallback(_doInit, { timeout: 2000 });
+  } else {
+    setTimeout(_doInit, 0);
+  }
+} else {
+  _doInit();
 }

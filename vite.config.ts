@@ -69,9 +69,10 @@ function syncDir(src: string, dest: string) {
  */
 function lcpOptimizePlugin(): import('vite').Plugin {
   const LCP_IMAGE = 'https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?w=1600&q=85&fit=crop';
-  // These chunks compete for bandwidth with the LCP image — remove from eager preload.
-  // They are still part of the module graph and will be fetched when needed.
-  const DEFER_CHUNKS = ['leaflet', 'framer-motion', 'admin', 'charts', 'radix-ui'];
+  // Chunks removed from eager modulepreload — fetched lazily via module graph.
+  // This prevents them from competing with the LCP image for TCP connections.
+  // data-layer (axios+zustand) is deferred since store init is now post-first-paint.
+  const DEFER_CHUNKS = ['leaflet', 'framer-motion', 'admin', 'charts', 'radix-ui', 'data-layer', 'store'];
 
   return {
     name: 'lcp-optimize',
@@ -84,7 +85,7 @@ function lcpOptimizePlugin(): import('vite').Plugin {
 
         // 1. Remove modulepreload for bandwidth-competing chunks
         html = html.replace(
-          /<link rel="modulepreload" crossorigin href="\/assets\/(leaflet|framer-motion|admin|charts|radix-ui)-[^"]+">/g,
+          /<link rel="modulepreload" crossorigin href="\/assets\/(leaflet|framer-motion|admin|charts|radix-ui|data-layer|store)-[^"]+">/g,
           '<!-- deferred: $1 (not eager-preloaded to avoid LCP image bandwidth contention) -->'
         );
 
@@ -166,12 +167,16 @@ export default defineConfig(({ mode }) => ({
         // ── Manual chunk splitting for optimal caching ──
         manualChunks(id) {
           if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) return 'react-core';
+          // @tanstack/react-query ships with react-core: QueryClientProvider is in App.tsx (eager)
+          // so bundling it here avoids a waterfall between react-core and data-layer.
+          if (id.includes('node_modules/@tanstack')) return 'react-core';
           if (id.includes('node_modules/react-router-dom') || id.includes('node_modules/react-router/')) return 'router';
           if (id.includes('node_modules/framer-motion')) return 'framer-motion';
           if (id.includes('node_modules/leaflet')) return 'leaflet';
           if (id.includes('node_modules/@radix-ui')) return 'radix-ui';
           if (id.includes('node_modules/recharts') || id.includes('node_modules/d3-')) return 'charts';
-          if (id.includes('node_modules/zustand') || id.includes('node_modules/@tanstack') || id.includes('node_modules/axios')) return 'data-layer';
+          // data-layer = axios + zustand only (deferred from modulepreload)
+          if (id.includes('node_modules/axios') || id.includes('node_modules/zustand')) return 'data-layer';
           if (id.includes('/resources/react/admin/')) return 'admin';
           if (id.includes('node_modules/zod') || id.includes('node_modules/date-fns') || id.includes('node_modules/clsx') || id.includes('node_modules/class-variance-authority') || id.includes('node_modules/tailwind-merge')) return 'utils';
           // Split icon libraries separately — they are large but often tree-shaken
