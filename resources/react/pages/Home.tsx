@@ -7,7 +7,7 @@ import LogoMarquee from "@/components/LogoMarquee";
 import { useLang } from "@/i18n/LangContext";
 // data now from store
 import { serviceHref, locationHref, projectHref, productHref, blogHref, langPath, makeRoutes } from "@/lib/routes";
-import { ServiceIcon } from "@/components/IconPicker";
+import { ServiceIcon } from "@/components/ServiceIcon";
 
 // Billboards helper (cities/formats are now computed inside HeroSection)
 const getBillboards = () => getState().locations.flatMap((l: any) => (l.products||[]).map((p: any) => ({ ...p, citySlug: l.slug })));

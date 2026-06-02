@@ -3,7 +3,7 @@ import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, PageHero, CTABanner, Eyebrow } from "@/components/UI";
 import { serviceHref, RED, NAVY } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
-import { ServiceIcon } from "@/components/IconPicker";
+import { ServiceIcon } from "@/components/ServiceIcon";
 
 export default function Services() {
   const { services: SERVICES } = useStore()

@@ -1,11 +1,7 @@
-import { useState, useEffect, useRef, lazy, Suspense } from 'react'
-
-// Lazy-load @iconify/react so it never blocks the LCP render path.
-// ServiceIcon (used on homepage + services page) renders a tiny spinner
-// until the 51 KB iconify chunk downloads — invisible in practice.
-const LazyIcon = lazy(() =>
-  import('@iconify/react').then(m => ({ default: m.Icon }))
-);
+import { useState, useEffect, useRef } from 'react'
+import { Icon } from '@iconify/react'
+// Note: ServiceIcon (website-side) lives in ./ServiceIcon.tsx and lazy-loads @iconify.
+// This file (IconPicker) is only used in the admin panel, which is already a deferred chunk.
 
 // ─── Curated icon suggestions for outdoor advertising services ────────────────
 const SUGGESTED_ICONS = [
@@ -190,28 +186,5 @@ export function IconPicker({ value, onChange }: IconPickerProps) {
         </div>
       )}
     </div>
-  )
-}
-
-// ─── Icon renderer for website (fetches from Iconify CDN) ─────────────────────
-interface ServiceIconProps {
-  icon: string
-  size?: number
-  className?: string
-  color?: string
-}
-
-export function ServiceIcon({ icon, size = 32, className = '', color }: ServiceIconProps) {
-  if (!icon) return null
-  return (
-    <Suspense fallback={<span style={{ display: 'inline-block', width: size, height: size }} />}>
-      <LazyIcon
-        icon={icon}
-        width={size}
-        height={size}
-        className={className}
-        style={color ? { color } : undefined}
-      />
-    </Suspense>
   )
 }

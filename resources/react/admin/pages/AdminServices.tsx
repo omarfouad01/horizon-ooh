@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { IconPicker, ServiceIcon } from '@/components/IconPicker'
+import { IconPicker } from '@/components/IconPicker'
+import { ServiceIcon } from '@/components/ServiceIcon'
 import { useStore, serviceStore } from '@/store/dataStore'
 import { Btn, PageHeader, Tbl, Th, Td, Tr, Badge, Confirm, Modal, Field, TA, ArrayEditor, ImagePicker } from '../ui'
 import { Plus, Pencil, Trash2 } from 'lucide-react'
