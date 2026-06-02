@@ -1,7 +1,6 @@
 import { useRef, useEffect, useState, lazy, Suspense } from "react";
 const LeafletMap = lazy(() => import("@/components/BillboardMap"));
 import { useStore, getState } from "@/store/dataStore";
-import { motion, AnimatePresence, useInView, useScroll, useTransform } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 import MultiSelect from "@/components/MultiSelect";
 import LogoMarquee from "@/components/LogoMarquee";
@@ -23,7 +22,8 @@ const scrollTo = (id: string) =>
 // ─── Easing curve ────────────────────────────────────────────────────────
 const ease = [0.16, 1, 0.3, 1] as const;
 
-// ─── Reveal primitives ───────────────────────────────────────────────────
+// ─── Reveal primitives (CSS-only, no framer-motion) ─────────────────────────
+// Uses IntersectionObserver + CSS transitions — zero JS animation overhead
 function Reveal({
   children,
   className = "",
@@ -35,18 +35,30 @@ function Reveal({
   delay?: number;
   y?: number;
 }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); io.disconnect(); } },
+      { rootMargin: '-60px' }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   return (
-    <motion.div
+    <div
       ref={ref}
       className={className}
-      initial={{ opacity: 0, y }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y }}
-      transition={{ duration: 0.85, ease, delay }}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : `translateY(${y}px)`,
+        transition: `opacity 0.85s cubic-bezier(0.16,1,0.3,1) ${delay}s, transform 0.85s cubic-bezier(0.16,1,0.3,1) ${delay}s`,
+      }}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -57,43 +69,80 @@ function RevealGroup({
   children: React.ReactNode;
   className?: string;
 }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); io.disconnect(); } },
+      { rootMargin: '-60px' }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   return (
-    <motion.div
-      ref={ref}
-      className={className}
-      initial="hidden"
-      animate={inView ? "visible" : "hidden"}
-      variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.09 } } }}
-    >
+    <div ref={ref} className={className} data-reveal-group={visible ? 'visible' : 'hidden'}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
 function RevealItem({
   children,
   className = "",
+  index = 0,
 }: {
   children: React.ReactNode;
   className?: string;
+  index?: number;
 }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const group = el.closest('[data-reveal-group]');
+    const check = () => {
+      if (group?.getAttribute('data-reveal-group') === 'visible') {
+        setTimeout(() => setVisible(true), index * 90);
+      }
+    };
+    check();
+    const mo = new MutationObserver(check);
+    if (group) mo.observe(group, { attributes: true });
+    return () => mo.disconnect();
+  }, [index]);
   return (
-    <motion.div
+    <div
       className={className}
-      variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease } } }}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(24px)',
+        transition: `opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1)`,
+      }}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
 // ─── Animated counter ────────────────────────────────────────────────────
 function Counter({ value, suffix = "" }: { value: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const [inView, setInView] = useState(false);
   const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setInView(true); io.disconnect(); } },
+      { rootMargin: '-40px' }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!inView) return;
@@ -218,11 +267,6 @@ function OutlineButton({
 
 function HeroSection() {
   const heroRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  // textY: parallax for the text column (framer-motion is fine here since text is NOT the LCP element)
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "8%"]);
-  // bgScale + bgOpacity were replaced with a plain rAF-based scroll listener on the
-  // image wrapper div to avoid Element Render Delay for the LCP <img>.
 
   const navigate = useNavigate();
   const [cities,    setCities]    = useState<string[]>([]);
@@ -302,8 +346,7 @@ function HeroSection() {
       style={{ minHeight: "100svh", background: NAVY }}
     >
       {/* ── BACKGROUND parallax image ──────────────────────── */}
-      {/* Plain <img> (not motion.img) so browser preload scanner can match it.
-          Parallax scale is handled by the motion.div wrapper. */}
+      {/* Plain <img> so browser preload scanner can discover it. Parallax via rAF-based scroll listener below. */}
       <div
         ref={(el) => {
           // Scroll-parallax via rAF — never blocks initial paint of the LCP element.
@@ -367,65 +410,57 @@ function HeroSection() {
         <div className="flex flex-col justify-between px-6 sm:px-10 lg:pl-[120px] lg:pr-14
           pt-[104px] pb-10 lg:pt-[148px] lg:pb-14
           w-full lg:w-[44%] xl:w-[42%] flex-shrink-0">
-          <motion.div style={{ y: textY }} className="flex flex-col gap-0">
+          <div className="flex flex-col gap-0">
             {/* Eyebrow */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, ease, delay: 0.1 }}
+            <div
               className="flex items-center gap-3 mb-9"
+              style={{ animation: 'heroFadeIn 0.7s ease 0.1s both' }}
             >
               <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
               <span className="text-[10px] font-bold tracking-[0.38em] uppercase"
                 style={{ color: "rgba(255,255,255,0.35)" }}>
                 {heroEyebrow}
               </span>
-            </motion.div>
+            </div>
 
             {/* H1 */}
             <div className="overflow-visible mb-5">
               {heroTitleLines.map((word: string, i: number) => (
                 <div key={word} className="overflow-hidden">
-                  <motion.h1
-                    initial={{ y: "105%", opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 1.0, ease, delay: 0.2 + i * 0.11 }}
+                  <h1
                     className="font-black leading-[0.9] tracking-[-0.04em]"
                     style={{
                       fontSize: "clamp(48px, 5vw, 80px)",
                       color: i === 2 ? "rgba(255,255,255,0.18)" : "white",
+                      animation: `heroSlideUp 1.0s cubic-bezier(0.16,1,0.3,1) ${0.2 + i * 0.11}s both`,
                     }}
                   >
                     {word}
-                  </motion.h1>
+                  </h1>
                 </div>
               ))}
             </div>
 
             {/* Channels */}
-            <motion.p
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.6 }}
+            <p
               className="text-[11px] font-bold tracking-[0.24em] uppercase mb-5"
-              style={{ color: "rgba(255,255,255,0.25)" }}
+              style={{ color: "rgba(255,255,255,0.25)", animation: 'heroFadeIn 0.7s ease 0.6s both' }}
             >
               {heroChannels}
-            </motion.p>
+            </p>
 
             {/* Statement */}
-            <motion.p
-              initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, ease, delay: 0.75 }}
+            <p
               className="text-[17px] font-medium leading-[1.6] mb-9"
-              style={{ color: "rgba(255,255,255,0.6)", maxWidth: 360 }}
+              style={{ color: "rgba(255,255,255,0.6)", maxWidth: 360, animation: 'heroFadeIn 0.75s ease 0.75s both' }}
             >
               {heroStatement}
-            </motion.p>
+            </p>
 
             {/* CTA row — 2 buttons only, contained within left panel */}
-            <motion.div
-              initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, ease, delay: 0.9 }}
+            <div
               className="flex flex-row items-start gap-3 mb-12 flex-wrap"
+              style={{ animation: 'heroFadeIn 0.75s ease 0.9s both' }}
             >
               <Link
                 to={ROUTES.CONTACT}
@@ -447,13 +482,10 @@ function HeroSection() {
                   {isAr ? 'جرّب المحاكي' : 'Try Simulator'}
                 </span>
               </Link>
-            </motion.div>
+            </div>
 
             {/* ── Divider ───────────────────────────────────────────── */}
-            <motion.div
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-              transition={{ delay: 1.1, duration: 0.5 }}
-            >
+            <div style={{ animation: 'heroFadeIn 0.5s ease 1.1s both' }}>
               <div className="flex items-center gap-3 mb-4">
                 <span className="block w-4 h-[1px]" style={{ background: RED }} />
                 <p className="text-[9px] font-bold tracking-[0.35em] uppercase"
@@ -523,8 +555,8 @@ function HeroSection() {
                   ← Clear filters
                 </button>
               )}
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
 
         {/* ═══ RIGHT PANEL — map ════════════════════════════════════ */}
@@ -545,13 +577,10 @@ function HeroSection() {
             />
           </Suspense>
 
-          <AnimatePresence>
-            {selectedPin && (
-              <motion.div
-                initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }}
-                transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+          {selectedPin && (
+              <div
                 className="absolute bottom-4 right-4 z-[1000]"
-                style={{ width: 268 }}
+                style={{ width: 268, animation: 'fadeSlideLeft 0.28s ease both' }}
               >
                 <div className="overflow-hidden"
                   style={{ background: NAVY, boxShadow: "0 8px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.07)" }}>
@@ -592,9 +621,8 @@ function HeroSection() {
                     </button>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             )}
-          </AnimatePresence>
         </div>
       </div>
     </section>
@@ -606,13 +634,22 @@ function HeroSection() {
 // ═══════════════════════════════════════════════════════════════════════════
 function StatementSection() {
   const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.96, 1, 1, 0.96]);
+  const [visible, setVisible] = useState(false);
   const { homeContent: hc } = useStore();
   const { isAr } = useLang();
   const statementEyebrow = (isAr && hc.statementEyebrowAr) ? hc.statementEyebrowAr : hc.statementEyebrow;
   const statementLines   = (isAr && hc.statementLinesAr && hc.statementLinesAr.length) ? hc.statementLinesAr : (hc.statementLines || []);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); io.disconnect(); } },
+      { rootMargin: '-80px' }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   return (
     <section
@@ -628,55 +665,58 @@ function StatementSection() {
         }}
       />
 
-      <motion.div
-        style={{ opacity, scale }}
+      <div
         className="text-center px-8 relative z-10"
+        style={{
+          opacity: visible ? 1 : 0,
+          transform: visible ? 'scale(1)' : 'scale(0.96)',
+          transition: 'opacity 0.9s ease, transform 0.9s ease',
+        }}
       >
         <div className="overflow-hidden mb-6">
-          <motion.p
-            initial={{ y: "100%" }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.1, ease }}
+          <p
             className="text-white/20 text-[12px] font-bold tracking-[0.4em] uppercase"
+            style={{
+              transform: visible ? 'translateY(0)' : 'translateY(100%)',
+              transition: 'transform 1.1s cubic-bezier(0.16,1,0.3,1)',
+            }}
           >
             {statementEyebrow}
-          </motion.p>
+          </p>
         </div>
 
         {statementLines.map((line: string, i: number) => (
           <div key={i} className="overflow-hidden">
-            <motion.h2
-              initial={{ y: "100%" }}
-              whileInView={{ y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.1, ease, delay: 0.1 + i * 0.08 }}
+            <h2
               className="font-black leading-[0.88] tracking-[-0.04em] uppercase"
               style={{
                 fontSize: "clamp(48px, 7.5vw, 108px)",
                 color: i === 1 ? RED : 'white',
+                transform: visible ? 'translateY(0)' : 'translateY(100%)',
+                transition: `transform 1.1s cubic-bezier(0.16,1,0.3,1) ${0.1 + i * 0.08}s`,
               }}
             >
               {line}
-            </motion.h2>
+            </h2>
           </div>
         ))}
 
-        <motion.div
-          initial={{ opacity: 0, scaleX: 0 }}
-          whileInView={{ opacity: 1, scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease, delay: 0.6 }}
+        <div
           className="mt-12 flex justify-center"
-          style={{ transformOrigin: "center" }}
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? 'scaleX(1)' : 'scaleX(0)',
+            transformOrigin: "center",
+            transition: 'opacity 0.8s ease 0.6s, transform 0.8s ease 0.6s',
+          }}
         >
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
             <span className="block w-10 h-[1px] bg-white/15" />
             <span className="text-white/25 text-[10px] tracking-[0.4em] uppercase font-bold">{hc.statementBrand}</span>
             <span className="block w-10 h-[1px] bg-white/15" />
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </section>
   );
 }
@@ -874,8 +914,6 @@ function ServicesSection() {
 // ═══════════════════════════════════════════════════════════════════════════
 function FeatureSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
-  const imgScale = useTransform(scrollYProgress, [0, 1], [1.12, 1.0]);
   const { homeContent: hc } = useStore();
   const { isAr } = useLang();
   const featureLine1   = (isAr && hc.featureTitleLine1Ar) ? hc.featureTitleLine1Ar : hc.featureTitleLine1;
@@ -924,7 +962,7 @@ function FeatureSection() {
 
         {/* Right — image with parallax */}
         <div className="relative overflow-hidden">
-          <motion.div className="absolute inset-[-8%]" style={{ scale: imgScale }}>
+          <div className="absolute inset-[-8%]">
             <img
               src={hc.featureImage || 'https://images.unsplash.com/photo-1629150154933-a42577786d4f?w=1000&q=90&fit=crop'}
               alt="Large format billboard advertising"
@@ -933,7 +971,7 @@ function FeatureSection() {
               className="w-full h-full object-cover"
               style={{ opacity: 0.65 }}
             />
-          </motion.div>
+          </div>
           <div
             className="absolute inset-0"
             style={{ background: `linear-gradient(to right, ${NAVY} 0%, rgba(11,15,26,0.3) 60%, transparent 100%)` }}
@@ -1195,8 +1233,6 @@ function ClientsSection() {
 // ═══════════════════════════════════════════════════════════════════════════
 function SignatureSection() {
   const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const x = useTransform(scrollYProgress, [0, 1], ["-4%", "4%"]);
   const { homeContent: hc } = useStore();
   const { isAr } = useLang();
   const signatureEyebrow = (isAr && hc.signatureEyebrowAr) ? hc.signatureEyebrowAr : hc.signatureEyebrow;
@@ -1208,12 +1244,12 @@ function SignatureSection() {
       className="relative overflow-hidden flex items-center justify-center"
       style={{ background: NAVY, paddingTop: 160, paddingBottom: 160 }}
     >
-      <motion.div style={{ x }} className="absolute inset-0 flex items-center justify-center pointer-events-none select-none" aria-hidden>
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none" aria-hidden>
         <p className="text-white/[0.03] font-black uppercase whitespace-nowrap"
           style={{ fontSize: "clamp(120px, 18vw, 260px)", letterSpacing: "-0.05em" }}>
           HORIZON
         </p>
-      </motion.div>
+      </div>
       <div className="absolute inset-0 pointer-events-none"
         style={{ background: `radial-gradient(ellipse 50% 50% at 50% 50%, rgba(217,4,41,0.05) 0%, transparent 70%)` }}/>
       <div className="relative z-10 text-center px-8">
@@ -1228,16 +1264,12 @@ function SignatureSection() {
         </Reveal>
         {signatureLines.map((line: string, i: number) => (
           <div key={i} className="overflow-hidden">
-            <motion.h2
-              initial={{ y: "100%" }}
-              whileInView={{ y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.0, ease, delay: i * 0.12 }}
+            <h2
               className="font-black leading-[0.88] tracking-[-0.05em] uppercase"
               style={{ fontSize: "clamp(48px, 7.5vw, 110px)", color: i === 1 ? RED : "white" }}
             >
               {line}
-            </motion.h2>
+            </h2>
           </div>
         ))}
         <Reveal delay={0.5}>
@@ -1699,13 +1731,10 @@ function RecentBillboardsSection() {
               >
                 {/* Image with overlay */}
                 <div className="relative overflow-hidden" style={{ height: 220 }}>
-                  <motion.img
+                  <img
                     src={product.image}
                     alt={`billboard advertising ${product.cityName} — ${product.name}`}
-                    className="w-full h-full object-cover"
-                    style={{ transformOrigin: "center" }}
-                    whileHover={{ scale: 1.04 }}
-                    transition={{ duration: 0.6, ease }}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                     loading="lazy"
                   />
                   {/* Bottom-to-top navy gradient overlay */}
@@ -1734,17 +1763,14 @@ function RecentBillboardsSection() {
                       {isAr && (product as any).nameAr ? (product as any).nameAr : ((product as any).nameEn || product.name)}
                     </h3>
                     {/* Arrow — visible on hover */}
-                    <motion.div
-                      className="shrink-0 w-8 h-8 flex items-center justify-center mt-0.5"
+                    <div
+                      className="shrink-0 w-8 h-8 flex items-center justify-center mt-0.5 opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-300"
                       style={{ color: RED }}
-                      initial={{ x: -4, opacity: 0 }}
-                      whileHover={{ x: 0, opacity: 1 }}
-                      transition={{ duration: 0.3, ease }}
                     >
                       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
                         <path d="M3 9h12M9 3l6 6-6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
-                    </motion.div>
+                    </div>
                   </div>
                   {/* Full address */}
                   <div className="flex items-center gap-1.5 mb-4 min-w-0">

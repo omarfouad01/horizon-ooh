@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
 import { NAV_LINKS } from "@/data";
 import { makeRoutes, langPath, RED, NAVY } from "@/lib/routes";
 import { useStore } from "@/store/dataStore";
@@ -204,14 +203,10 @@ export function Navbar() {
                     <path d="M1.5 3.5l3 3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                   </svg>
                 </button>
-                <AnimatePresence>
-                  {profileOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -4 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -4 }}
-                      transition={{ duration: 0.15 }}
+                {profileOpen && (
+                    <div
                       className="absolute right-0 top-[calc(100%+6px)] bg-white border border-gray-200 rounded-xl shadow-xl py-2 min-w-[180px] z-[9999]"
+                      style={{ animation: 'fadeSlideDown 0.15s ease forwards' }}
                     >
                       <div className="px-4 py-2 border-b border-gray-100 mb-1">
                         <p className="text-[12px] font-bold text-gray-900 truncate">{siteUser.name}</p>
@@ -232,9 +227,8 @@ export function Navbar() {
                         <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M6 2H3a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3M10 11l3-3-3-3M13 8H6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
                         {isAr ? 'تسجيل الخروج' : 'Sign Out'}
                       </button>
-                    </motion.div>
+                    </div>
                   )}
-                </AnimatePresence>
               </div>
             ) : (
               <Link
@@ -279,14 +273,10 @@ export function Navbar() {
       </nav>
 
       {/* Mobile menu */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.22 }}
+      {menuOpen && (
+          <div
             className="fixed top-[76px] left-0 right-0 z-40 bg-white border-b border-[#0B0F1A]/10 px-8 py-8 flex flex-col gap-5"
+            style={{ animation: 'fadeSlideDown 0.22s ease forwards' }}
           >
             {NAV_LINKS.map((link) => (
               <NavLink
@@ -337,9 +327,8 @@ export function Navbar() {
             >
               {t('nav.getQuote')}
             </Link>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
     </>
   );
 }
@@ -523,14 +512,10 @@ function FloatingCTAs() {
   const waHref = `https://wa.me/${waNumber}?text=Hi%20${encodeURIComponent(store.settings?.companyName ?? 'HORIZON OOH')}%2C%20I%27d%20like%20a%20quote.`;
 
   return (
-    <AnimatePresence>
-      {visible && (
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 24 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
+    {visible && (
+        <div
           className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3"
+          style={{ animation: 'fadeSlideUp 0.3s ease forwards' }}
         >
           {/* WhatsApp FAB */}
           <a
@@ -563,9 +548,8 @@ function FloatingCTAs() {
               </svg>
             </Link>
           </div>
-        </motion.div>
+        </div>
       )}
-    </AnimatePresence>
   );
 }
 

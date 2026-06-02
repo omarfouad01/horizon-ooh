@@ -308,6 +308,29 @@ html {
   to { transform: rotate(360deg); }
 }
 
+/* ── CSS animations replacing framer-motion in Layout.tsx and Home.tsx ── */
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeSlideLeft {
+  from { opacity: 0; transform: translateX(16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+/* Hero entrance animations */
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes heroSlideUp {
+  from { opacity: 0; transform: translateY(105%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 /* ── Performance: Font fallback metrics to reduce CLS from font swap ── */
 /* These override fallback font metrics to match Inter's metrics, eliminating layout shift */
 @font-face {

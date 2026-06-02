@@ -1,8 +1,7 @@
 // ─── HORIZON OOH — Shared UI Primitives ──────────────────────────────────
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { makeRoutes, langPath, RED, NAVY, ease } from "@/lib/routes";
+import { makeRoutes, langPath, RED, NAVY } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
 
 // ─── Reveal / animation primitives ───────────────────────────────────────
@@ -17,18 +16,30 @@ export function Reveal({
   delay?: number;
   y?: number;
 }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); io.disconnect(); } },
+      { rootMargin: '-60px' }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   return (
-    <motion.div
+    <div
       ref={ref}
       className={className}
-      initial={{ opacity: 0, y }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y }}
-      transition={{ duration: 0.8, ease, delay }}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : `translateY(${y}px)`,
+        transition: `opacity 0.8s cubic-bezier(0.16,1,0.3,1) ${delay}s, transform 0.8s cubic-bezier(0.16,1,0.3,1) ${delay}s`,
+      }}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -41,42 +52,66 @@ export function RevealGroup({
   className?: string;
   style?: React.CSSProperties;
 }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); io.disconnect(); } },
+      { rootMargin: '-60px' }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   return (
-    <motion.div
+    <div
       ref={ref}
       className={className}
       style={style}
-      initial="hidden"
-      animate={inView ? "visible" : "hidden"}
-      variants={{
-        hidden: {},
-        visible: { transition: { staggerChildren: 0.09 } },
-      }}
+      data-reveal-group={visible ? 'visible' : 'hidden'}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
 export function RevealItem({
   children,
   className = "",
+  index = 0,
 }: {
   children: React.ReactNode;
   className?: string;
+  index?: number;
 }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const group = el.closest('[data-reveal-group]');
+    const check = () => {
+      if (group?.getAttribute('data-reveal-group') === 'visible') {
+        setTimeout(() => setVisible(true), index * 90);
+      }
+    };
+    check();
+    const mo = new MutationObserver(check);
+    if (group) mo.observe(group, { attributes: true });
+    return () => mo.disconnect();
+  }, [index]);
   return (
-    <motion.div
+    <div
       className={className}
-      variants={{
-        hidden: { opacity: 0, y: 22 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease } },
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(22px)',
+        transition: 'opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1)',
       }}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
