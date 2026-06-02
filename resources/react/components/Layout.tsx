@@ -35,6 +35,7 @@ export function LogoMark({ size = 54, variant = 'header' }: { size?: number; var
         alt={store.settings.companyName}
         width={size}
         height={size}
+        fetchPriority={variant === 'header' ? 'high' : undefined}
         decoding="async"
         style={{ height: size, width: "auto", objectFit: "contain", display: "block" }}
       />

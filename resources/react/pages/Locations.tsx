@@ -287,7 +287,8 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, w
           width={600} height={200}
           className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-[1.04] bg-gray-50"
           style={{ opacity: 0.88 }}
-          loading="lazy"
+          loading={b._cardIndex === 0 ? undefined : 'lazy'}
+          fetchPriority={b._cardIndex === 0 ? 'high' : undefined}
           decoding="async"
         />
         <div className="absolute inset-0"
@@ -512,7 +513,12 @@ export default function Locations() {
   // Reset page when filters change
   useEffect(() => { setCurrentPage(1); }, [cities.join(), districts.join(), formats.join()]);
   const totalPages = Math.ceil(sorted.length / ITEMS_PER_PAGE);
-  const paginatedBillboards = sorted.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+  // _cardIndex is injected so BillboardCard knows whether it is the first card on
+  // the current page — the first card's image must NOT use loading="lazy" since it
+  // is likely the LCP element on the Locations page.
+  const paginatedBillboards = sorted
+    .slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE)
+    .map((b: any, i: number) => ({ ...b, _cardIndex: i }));
 
   const hasFilters = cities.length > 0 || districts.length > 0 || formats.length > 0;
   const clearAll = () => { setCities([]); setDistricts([]); setFormats([]); setSearchParams({}); };

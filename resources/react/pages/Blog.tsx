@@ -40,7 +40,7 @@ export default function Blog() {
                 width={900} height={420}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 style={{ opacity: 0.85 }}
-                loading="lazy"
+                fetchPriority="high"
                 decoding="async"
               />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to right, transparent, rgba(11,15,26,0.1))" }} />
