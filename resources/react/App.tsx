@@ -1,14 +1,17 @@
 // Horizon OOH v2.1.0 - build 20260427
-import { Toaster } from "@/components/ui/toaster";
 import { LangProvider } from "@/i18n/LangContext";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import Layout from "@/components/Layout";
 import { FaviconSync } from "@/components/FaviconSync";
-import { Toaster as HotToaster } from "react-hot-toast";
+
+// Lazy-load toast/tooltip providers — they are never needed for LCP
+// and add ~15 KB to the eager bundle when loaded synchronously.
+const Toaster     = lazy(() => import("@/components/ui/toaster").then(m => ({ default: m.Toaster })));
+const Sonner      = lazy(() => import("@/components/ui/sonner").then(m => ({ default: m.Toaster })));
+const HotToaster  = lazy(() => import("react-hot-toast").then(m => ({ default: m.Toaster })));
+const TooltipProvider = lazy(() => import("@/components/ui/tooltip").then(m => ({ default: m.TooltipProvider })));
 
 // ── Public pages — eager-load only the homepage, lazy the rest ───────────────
 import Home from "@/pages/Home";
@@ -94,11 +97,15 @@ function PublicRoutes() {
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <HotToaster position="top-right" toastOptions={{ style: { fontSize: 13, fontWeight: 600 } }} />
-      <BrowserRouter>
+    {/* Lazy providers — rendered after LCP, never needed for initial paint */}
+    <Suspense fallback={null}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <HotToaster position="top-right" toastOptions={{ style: { fontSize: 13, fontWeight: 600 } }} />
+      </TooltipProvider>
+    </Suspense>
+    <BrowserRouter>
         {/* FaviconSync: keeps browser tab favicon in sync with admin dashboard setting */}
         <FaviconSync />
         {/* LangProvider lives INSIDE BrowserRouter so it can use useNavigate/useLocation */}
@@ -143,7 +150,6 @@ const App = () => (
           </Routes>
         </LangProvider>
       </BrowserRouter>
-    </TooltipProvider>
   </QueryClientProvider>
 );
 

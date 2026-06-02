@@ -72,7 +72,7 @@ function lcpOptimizePlugin(): import('vite').Plugin {
   // Chunks removed from eager modulepreload — fetched lazily via module graph.
   // This prevents them from competing with the LCP image for TCP connections.
   // data-layer (axios+zustand) is deferred since store init is now post-first-paint.
-  const DEFER_CHUNKS = ['leaflet', 'framer-motion', 'admin', 'charts', 'radix-ui', 'data-layer', 'store'];
+  const DEFER_CHUNKS = ['leaflet', 'framer-motion', 'admin', 'charts', 'radix-ui', 'data-layer', 'store', 'iconify'];
 
   return {
     name: 'lcp-optimize',
@@ -85,7 +85,7 @@ function lcpOptimizePlugin(): import('vite').Plugin {
 
         // 1. Remove modulepreload for bandwidth-competing chunks
         html = html.replace(
-          /<link rel="modulepreload" crossorigin href="\/assets\/(leaflet|framer-motion|admin|charts|radix-ui|data-layer|store)-[^"]+">/g,
+          /<link rel="modulepreload" crossorigin href="\/assets\/(leaflet|framer-motion|admin|charts|radix-ui|data-layer|store|iconify|site-data|i18n)-[^"]+">/g,
           '<!-- deferred: $1 (not eager-preloaded to avoid LCP image bandwidth contention) -->'
         );
 
@@ -168,19 +168,24 @@ export default defineConfig(({ mode }) => ({
         manualChunks(id) {
           if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) return 'react-core';
           // @tanstack/react-query ships with react-core: QueryClientProvider is in App.tsx (eager)
-          // so bundling it here avoids a waterfall between react-core and data-layer.
           if (id.includes('node_modules/@tanstack')) return 'react-core';
           if (id.includes('node_modules/react-router-dom') || id.includes('node_modules/react-router/')) return 'router';
           if (id.includes('node_modules/framer-motion')) return 'framer-motion';
           if (id.includes('node_modules/leaflet')) return 'leaflet';
           if (id.includes('node_modules/@radix-ui')) return 'radix-ui';
           if (id.includes('node_modules/recharts') || id.includes('node_modules/d3-')) return 'charts';
+          // @iconify/react is lazy-loaded via ServiceIcon — keep it in its own deferred chunk
+          if (id.includes('node_modules/@iconify')) return 'iconify';
           // data-layer = axios + zustand only (deferred from modulepreload)
           if (id.includes('node_modules/axios') || id.includes('node_modules/zustand')) return 'data-layer';
           if (id.includes('/resources/react/admin/')) return 'admin';
           if (id.includes('node_modules/zod') || id.includes('node_modules/date-fns') || id.includes('node_modules/clsx') || id.includes('node_modules/class-variance-authority') || id.includes('node_modules/tailwind-merge')) return 'utils';
           // Split icon libraries separately — they are large but often tree-shaken
           if (id.includes('node_modules/lucide-react') || id.includes('node_modules/react-icons')) return 'icons';
+          // Translations are large (34KB) — still sync but isolated for caching
+          if (id.includes('/resources/react/i18n/translations')) return 'i18n';
+          // Static demo data — separate chunk for better caching
+          if (id.includes('/resources/react/data/')) return 'site-data';
         },
       },
     },

@@ -1,5 +1,11 @@
-import { useState, useEffect, useRef } from 'react'
-import { Icon } from '@iconify/react'
+import { useState, useEffect, useRef, lazy, Suspense } from 'react'
+
+// Lazy-load @iconify/react so it never blocks the LCP render path.
+// ServiceIcon (used on homepage + services page) renders a tiny spinner
+// until the 51 KB iconify chunk downloads — invisible in practice.
+const LazyIcon = lazy(() =>
+  import('@iconify/react').then(m => ({ default: m.Icon }))
+);
 
 // ─── Curated icon suggestions for outdoor advertising services ────────────────
 const SUGGESTED_ICONS = [
@@ -198,12 +204,14 @@ interface ServiceIconProps {
 export function ServiceIcon({ icon, size = 32, className = '', color }: ServiceIconProps) {
   if (!icon) return null
   return (
-    <Icon
-      icon={icon}
-      width={size}
-      height={size}
-      className={className}
-      style={color ? { color } : undefined}
-    />
+    <Suspense fallback={<span style={{ display: 'inline-block', width: size, height: size }} />}>
+      <LazyIcon
+        icon={icon}
+        width={size}
+        height={size}
+        className={className}
+        style={color ? { color } : undefined}
+      />
+    </Suspense>
   )
 }
