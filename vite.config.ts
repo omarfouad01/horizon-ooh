@@ -88,20 +88,37 @@ function lcpOptimizePlugin(): import('vite').Plugin {
           '<!-- deferred: $1 (not eager-preloaded to avoid LCP image bandwidth contention) -->'
         );
 
-        // 2. LCP image preload is already present in index.html source —
+        // 2. Remove the leaflet.css <link rel="stylesheet"> from the critical path.
+        // Leaflet CSS is now injected dynamically (non-blocking) by ensureLeafletCss()
+        // in BillboardMap/ProductMap/LocationsMap when a map first mounts.
+        // Removing it from the <head> eliminates ~7 KB from the critical rendering path
+        // and reduces the critical chain length from 4 requests to 3.
+        html = html.replace(
+          /<link rel="stylesheet" crossorigin href="\/assets\/leaflet-[^"]+\.css">/g,
+          '<!-- leaflet.css removed from critical path: loaded dynamically by ensureLeafletCss() -->'
+        );
+
+        // 3. LCP image preload is already present in index.html source —
         // no need to inject it again here. The plugin just verifies it survived.
         if (!html.includes(LCP_IMAGE)) {
           console.warn('lcp-optimize: LCP preload not found in built HTML — check index.html source');
         }
 
-        // 3. Mark the main entry CSS link with high fetch priority.
-        // We extract the href and add a preload hint so browsers start fetching
-        // the critical stylesheet as early as possible.
+        // 4. Mark the main entry CSS link with high fetch priority.
+        // First, remove any existing preload hints for hashed index CSS (from prior builds
+        // that Vite left in the public/index.html), then inject a fresh one.
         html = html.replace(
-          /<link rel="stylesheet" crossorigin href="(\/assets\/index-[^"]+\.css)">/,
-          (match, href) =>
-            `<link rel="preload" as="style" fetchpriority="high" crossorigin href="${href}" />\n    ${match}`
+          /<link rel="preload" as="style" fetchpriority="high" crossorigin href="\/assets\/index-[^"]+\.css" \/>[\n\r]?\s*/g,
+          ''
         );
+        const cssMatch = html.match(/<link rel="stylesheet" crossorigin href="(\/assets\/index-[^"]+\.css)">/);
+        if (cssMatch) {
+          const href = cssMatch[1];
+          html = html.replace(
+            cssMatch[0],
+            `<link rel="preload" as="style" fetchpriority="high" crossorigin href="${href}" />\n    ${cssMatch[0]}`
+          );
+        }
 
         writeFileSync(htmlPath, html, 'utf-8');
         console.log('\n✓ LCP optimize: preload injected, bandwidth competitors deferred');

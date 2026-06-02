@@ -4,7 +4,11 @@
  */
 import { useEffect, useRef } from "react";
 import L from "leaflet";
-import "leaflet/dist/leaflet.css";
+// Leaflet CSS is injected dynamically by BillboardMap's ensureLeafletCss().
+// Do NOT add a static import here — it would add leaflet.css back to the
+// critical rendering path for every page.
+// If ProductMap is used without BillboardMap, import the shared helper:
+import { ensureLeafletCss } from "@/components/BillboardMap";
 
 const NAVY  = "#0B0F1A";
 const RED   = "#D90429";
@@ -52,6 +56,7 @@ export default function ProductMap({ lat, lng, name, type, district, city, traff
   const mapRef = useRef<L.Map | null>(null);
 
   useEffect(() => {
+    ensureLeafletCss(); // inject leaflet CSS non-blocking
     if (!divRef.current || mapRef.current) return;
 
     const map = L.map(divRef.current, {

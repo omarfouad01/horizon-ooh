@@ -4,6 +4,8 @@
  */
 import { useEffect, useRef, useCallback } from "react";
 import L from "leaflet";
+// Leaflet CSS injected dynamically — see BillboardMap.tsx for explanation.
+import { ensureLeafletCss } from "@/components/BillboardMap";
 import type { MapBillboard } from "@/data";
 
 const NAVY  = "#0B0F1A";
@@ -48,6 +50,7 @@ export default function LocationsMap({
 
   // ── Init map once ──────────────────────────────────────────────────────
   useEffect(() => {
+    ensureLeafletCss(); // inject leaflet CSS non-blocking
     if (!divRef.current || mapRef.current) return;
     const map = L.map(divRef.current, {
       center: [30.0444, 31.2357],

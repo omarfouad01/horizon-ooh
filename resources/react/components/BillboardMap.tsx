@@ -5,8 +5,30 @@
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import L from "leaflet";
-import "leaflet/dist/leaflet.css";
+// NOTE: Do NOT use `import "leaflet/dist/leaflet.css"` here.
+// Static CSS imports make Vite extract a separate leaflet.css chunk that Vite
+// injects as <link rel="stylesheet"> in index.html — blocking the critical
+// rendering path for ALL pages even when no map is visible.
+// Instead we inject it dynamically the first time any map mounts (see below).
 import type { MapBillboard } from "@/data";
+
+/** Injects leaflet.css as a non-blocking <link> the first time a map is used. */
+let leafletCssInjected = false;
+export function ensureLeafletCss() {
+  if (leafletCssInjected) return;
+  leafletCssInjected = true;
+  if (typeof document === 'undefined') return;
+  // Check if it's already present (e.g. server-rendered or duplicate mount)
+  if (document.querySelector('link[data-leaflet-css]')) return;
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = '/leaflet.css'; // stable path — copied to public/leaflet.css at build time
+  link.setAttribute('data-leaflet-css', '1');
+  // Use media trick so it loads without blocking render
+  link.media = 'print';
+  link.onload = () => { link.media = 'all'; };
+  document.head.appendChild(link);
+}
 
 const NAVY = "#0B0F1A";
 const RED  = "#D90429";
@@ -49,6 +71,7 @@ export default function LeafletMap({ filtered, allCount, selected, onSelect, cla
 
   // ── Init once ─────────────────────────────────────────────────────────
   useEffect(() => {
+    ensureLeafletCss(); // inject leaflet CSS non-blocking when map first mounts
     if (!divRef.current || mapRef.current) return;
     const map = L.map(divRef.current, {
       center: [30.0444, 31.2357],

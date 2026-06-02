@@ -1,6 +1,9 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import L from 'leaflet'
-import 'leaflet/dist/leaflet.css'
+// Leaflet CSS is injected dynamically — no static import to avoid adding it
+// to the critical rendering path. The admin bundle is lazy-loaded anyway,
+// but removing the static CSS import also keeps the admin CSS chunk smaller.
+import { ensureLeafletCss } from '@/components/BillboardMap'
 import { useStore, locationStore, nextBillboardCode, type Supplier, type Product, type AdFormatType, type BillboardFormatType, adFormatStore, billboardFormatStore } from '@/store/dataStore'
 import { billboardsApi } from '@/api'
 import { Btn, PageHeader, Tbl, Th, Td, Tr, Badge, Confirm, Modal, Field, Sel } from '../ui'
@@ -85,6 +88,7 @@ function InlineMapPicker({
 
   // Init map once
   useEffect(() => {
+    ensureLeafletCss() // inject leaflet CSS non-blocking
     if (!divRef.current || mapRef.current) return
     const initLat = lat || 30.0444, initLng = lng || 31.2357
     const map = L.map(divRef.current, { center: [initLat, initLng], zoom: 13, zoomControl: true })
