@@ -219,9 +219,10 @@ function OutlineButton({
 function HeroSection() {
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const textY     = useTransform(scrollYProgress, [0, 1], ["0%", "8%"]);
-  const bgScale   = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
-  const bgOpacity = useTransform(scrollYProgress, [0, 1], [0.22, 0.14]);
+  // textY: parallax for the text column (framer-motion is fine here since text is NOT the LCP element)
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "8%"]);
+  // bgScale + bgOpacity were replaced with a plain rAF-based scroll listener on the
+  // image wrapper div to avoid Element Render Delay for the LCP <img>.
 
   const navigate = useNavigate();
   const [cities,    setCities]    = useState<string[]>([]);
@@ -303,18 +304,42 @@ function HeroSection() {
       {/* ── BACKGROUND parallax image ──────────────────────── */}
       {/* Plain <img> (not motion.img) so browser preload scanner can match it.
           Parallax scale is handled by the motion.div wrapper. */}
-      <motion.div className="absolute inset-0 pointer-events-none" style={{ scale: bgScale }}>
-        <motion.div className="w-full h-full" style={{ opacity: bgOpacity }}>
-          <img
-            src="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?w=1600&q=85&fit=crop"
-            alt="" aria-hidden
-            width={1600} height={900}
-            fetchPriority="high"
-            decoding="sync"
-            className="w-full h-full object-cover"
-          />
-        </motion.div>
-      </motion.div>
+      <div
+        ref={(el) => {
+          // Scroll-parallax via rAF — never blocks initial paint of the LCP element.
+          // framer-motion wrappers were removed from this element because their JS
+          // overhead (useScroll + useTransform MotionValue chain) inflates
+          // Element Render Delay before the image can visually commit.
+          if (!el) return;
+          let raf = 0;
+          const hero = heroRef.current;
+          const onScroll = () => {
+            cancelAnimationFrame(raf);
+            raf = requestAnimationFrame(() => {
+              if (!hero || !el) return;
+              const { top, height } = hero.getBoundingClientRect();
+              const progress = Math.max(0, Math.min(1, -top / height));
+              const scale   = 1 + progress * 0.08;      // 1.00 → 1.08 on scroll
+              const opacity = 0.22 - progress * 0.08;   // 0.22 → 0.14 on scroll
+              el.style.transform = `scale(${scale})`;
+              el.style.opacity   = String(opacity);
+            });
+          };
+          window.addEventListener('scroll', onScroll, { passive: true });
+        }}
+        className="absolute inset-0 pointer-events-none"
+        style={{ opacity: 0.22, willChange: 'transform, opacity', transformOrigin: 'center center' }}
+      >
+        {/* LCP element — fetchpriority="high" + preload in <head> for fast discovery */}
+        <img
+          src="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?w=1600&q=85&fit=crop"
+          alt="" aria-hidden
+          width={1600} height={900}
+          fetchPriority="high"
+          decoding="async"
+          className="w-full h-full object-cover"
+        />
+      </div>
 
       {/* ── GRADIENTS & EFFECTS ────────────────────────────── */}
       <div className="absolute inset-0 pointer-events-none" style={{

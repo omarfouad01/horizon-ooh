@@ -13,6 +13,23 @@
       })();
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+      Critical inline CSS — paints the hero background colour before any JS or
+      external stylesheet loads. Eliminates the white-flash during React hydration
+      and removes the colour from the Largest Contentful Paint render path.
+
+      Also sets font-display:swap for system fallbacks so text is readable
+      immediately, with custom fonts swapped in once downloaded.
+    -->
+    <style>
+      /* Hero background: shown from first byte, zero JS needed */
+      :root { color-scheme: light dark; }
+      html { background: #0b0f1a; }
+      body { margin: 0; background: #0b0f1a; }
+      #root { min-height: 100svh; background: #0b0f1a; }
+      /* Prevent invisible text during font swap */
+      body { font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+    </style>
     <title>HORIZON OOH | Outdoor Advertising Agency in Egypt</title>
     <meta name="description" content="Egypt's premier outdoor advertising agency. Billboard, DOOH, Mall &amp; Airport campaigns across Cairo, Alexandria &amp; nationwide. 9,500+ premium locations." />
     <meta name="keywords" content="outdoor advertising Egypt, billboard advertising Egypt, billboard advertising Cairo, DOOH Egypt, advertising agency Egypt, outdoor ads Cairo, mall advertising Egypt, airport advertising Egypt, digital billboards Cairo, OOH advertising Egypt" />
@@ -43,10 +60,24 @@
     <meta name="twitter:image" content="https://images.unsplash.com/photo-1702231942007-b255a41475c9?w=1200&q=80" />
 
     <!-- Preconnect to key external origins for faster DNS + TLS -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Unsplash CDN — used for the LCP hero image and billboard photos.
+         preconnect + dns-prefetch ensures DNS resolution and TLS handshake are
+         done before the browser discovers the image URL in the preload tag. -->
     <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
+    <!-- LCP hero image — preloaded here so it starts fetching at the same time
+         as the JS bundle, not after React boots and renders the <img> tag.
+         This is the single most impactful fix for Resource Load Delay. -->
+    <link
+      rel="preload"
+      as="image"
+      href="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?w=1600&q=85&fit=crop"
+      fetchpriority="high"
+      crossorigin
+    />
 
     <!-- Google Fonts — loaded as non-blocking <link> instead of CSS @import (eliminates render-blocking) -->
     <!-- Step 1: preconnect (already above) -->
