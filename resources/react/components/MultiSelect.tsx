@@ -23,13 +23,16 @@ export default function MultiSelect({ label, options, selected, onChange, icon, 
   const dropRef                   = useRef<HTMLDivElement>(null);
 
   // ── Reposition dropdown to match trigger button ───────────────────────
+  // Read geometry in rAF so the read never follows a DOM write in the same frame
   const reposition = useCallback(() => {
-    if (!triggerRef.current) return;
-    const r = triggerRef.current.getBoundingClientRect();
-    setDropPos({
-      top:   r.bottom + window.scrollY,
-      left:  r.left   + window.scrollX,
-      width: r.width,
+    requestAnimationFrame(() => {
+      if (!triggerRef.current) return;
+      const r = triggerRef.current.getBoundingClientRect();
+      setDropPos({
+        top:   r.bottom + window.scrollY,
+        left:  r.left   + window.scrollX,
+        width: r.width,
+      });
     });
   }, []);
 
@@ -38,8 +41,8 @@ export default function MultiSelect({ label, options, selected, onChange, icon, 
     if (!open) return;
     setQuery("");
     reposition();
-    window.addEventListener("scroll", reposition, true);
-    window.addEventListener("resize", reposition);
+    window.addEventListener("scroll", reposition, { passive: true, capture: true });
+    window.addEventListener("resize", reposition, { passive: true });
     return () => {
       window.removeEventListener("scroll", reposition, true);
       window.removeEventListener("resize", reposition);

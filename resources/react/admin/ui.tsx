@@ -73,10 +73,14 @@ export function Sel({ label, error, className, value, onChange, disabled, childr
   const displayLabel = selected?.label || placeholder || 'Select…'
   const isEmpty = !selected || selected.value === ''
 
+  // Wrap getBoundingClientRect in rAF — prevents forced reflow when called
+  // after a DOM write (e.g. opening the dropdown mutates display state first).
   const reposition = useCallback(() => {
-    if (!triggerRef.current) return
-    const r = triggerRef.current.getBoundingClientRect()
-    setPos({ top: r.bottom + window.scrollY + 2, left: r.left + window.scrollX, width: r.width })
+    requestAnimationFrame(() => {
+      if (!triggerRef.current) return
+      const r = triggerRef.current.getBoundingClientRect()
+      setPos({ top: r.bottom + window.scrollY + 2, left: r.left + window.scrollX, width: r.width })
+    })
   }, [])
 
   const openDrop = () => {
@@ -96,11 +100,11 @@ export function Sel({ label, error, className, value, onChange, disabled, childr
     return () => document.removeEventListener('mousedown', fn)
   }, [open])
 
-  // Reposition on scroll/resize
+  // Reposition on scroll/resize — passive to avoid blocking scroll performance
   useEffect(() => {
     if (!open) return
-    window.addEventListener('scroll', reposition, true)
-    window.addEventListener('resize', reposition)
+    window.addEventListener('scroll', reposition, { passive: true, capture: true })
+    window.addEventListener('resize', reposition, { passive: true })
     return () => {
       window.removeEventListener('scroll', reposition, true)
       window.removeEventListener('resize', reposition)

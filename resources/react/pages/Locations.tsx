@@ -529,8 +529,12 @@ export default function Locations() {
       const el = cardRefs.current.get(id);
       if (el) {
         const container = listRef.current;
-        const top = el.offsetTop - container.offsetTop - 80;
-        container.scrollTo({ top, behavior: "smooth" });
+        // Defer offsetTop reads to after the current paint so we never force
+        // a style recalculation synchronously (forced reflow).
+        requestAnimationFrame(() => {
+          const top = el.offsetTop - container.offsetTop - 80;
+          container.scrollTo({ top, behavior: "smooth" });
+        });
       }
     }
   }, []);

@@ -41,26 +41,32 @@ interface CornerPickerProps {
 }
 
 function CornerPicker({ mockupUrl, panels, onChange, activePanelIdx }: CornerPickerProps) {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const imgRef       = useRef<HTMLImageElement>(null)
-  const dragging     = useRef<{ panelIdx: number; cornerIdx: number } | null>(null)
+  const containerRef  = useRef<HTMLDivElement>(null)
+  const imgRef        = useRef<HTMLImageElement>(null)
+  const dragging      = useRef<{ panelIdx: number; cornerIdx: number } | null>(null)
+  const dragRafRef    = useRef<number>(0)          // rAF handle for drag handler
+  const pendingMouse  = useRef<{ clientX: number; clientY: number } | null>(null)
   const [imgBounds, setImgBounds] = useState({ w: 0, h: 0, offX: 0, offY: 0, natW: 1, natH: 1 })
 
-  // Measure rendered image dimensions (object-fit: contain)
+  // Measure rendered image dimensions (object-fit: contain).
+  // Wrapped in rAF so the read of clientWidth/clientHeight never happens in the
+  // same task as a preceding DOM write — prevents forced style recalculation.
   const measure = useCallback(() => {
-    const img  = imgRef.current
-    const cont = containerRef.current
-    if (!img || !cont) return
-    const natW = img.naturalWidth  || 600
-    const natH = img.naturalHeight || 400
-    const contW = cont.clientWidth
-    const contH = cont.clientHeight
-    const scale = Math.min(contW / natW, contH / natH)
-    const w = natW * scale
-    const h = natH * scale
-    const offX = (contW - w) / 2
-    const offY = (contH - h) / 2
-    setImgBounds({ w, h, offX, offY, natW, natH })
+    requestAnimationFrame(() => {
+      const img  = imgRef.current
+      const cont = containerRef.current
+      if (!img || !cont) return
+      const natW = img.naturalWidth  || 600
+      const natH = img.naturalHeight || 400
+      const contW = cont.clientWidth
+      const contH = cont.clientHeight
+      const scale = Math.min(contW / natW, contH / natH)
+      const w = natW * scale
+      const h = natH * scale
+      const offX = (contW - w) / 2
+      const offY = (contH - h) / 2
+      setImgBounds({ w, h, offX, offY, natW, natH })
+    })
   }, [])
 
   useEffect(() => {
@@ -86,23 +92,38 @@ function CornerPicker({ mockupUrl, panels, onChange, activePanelIdx }: CornerPic
     }
   }
 
-  // Mouse/touch handlers
+  // Mouse/touch handlers.
+  // The getBoundingClientRect() call is batched into a single rAF per frame:
+  // we capture the mouse position synchronously (cheap) then read layout in the
+  // next animation frame so we never force a synchronous style recalculation.
   function onMouseMove(e: React.MouseEvent<HTMLDivElement>) {
     if (!dragging.current) return
-    const rect = containerRef.current!.getBoundingClientRect()
-    const dx = e.clientX - rect.left
-    const dy = e.clientY - rect.top
-    const nat = toNatural(dx, dy)
-    const { panelIdx, cornerIdx } = dragging.current
-    const next = panels.map((p, pi) =>
-      pi === panelIdx
-        ? p.map((c, ci) => ci === cornerIdx ? { x: Math.max(0,Math.min(nat.x, imgBounds.natW)), y: Math.max(0,Math.min(nat.y, imgBounds.natH)) } : c) as SimPanel
-        : p
-    )
-    onChange(next)
+    pendingMouse.current = { clientX: e.clientX, clientY: e.clientY }
+    if (dragRafRef.current) return   // already scheduled — coalesce multiple events
+    dragRafRef.current = requestAnimationFrame(() => {
+      dragRafRef.current = 0
+      if (!dragging.current || !pendingMouse.current || !containerRef.current) return
+      const rect = containerRef.current.getBoundingClientRect()
+      const { clientX, clientY } = pendingMouse.current
+      pendingMouse.current = null
+      const dx = clientX - rect.left
+      const dy = clientY - rect.top
+      const nat = toNatural(dx, dy)
+      const { panelIdx, cornerIdx } = dragging.current
+      const next = panels.map((p, pi) =>
+        pi === panelIdx
+          ? p.map((c, ci) => ci === cornerIdx ? { x: Math.max(0,Math.min(nat.x, imgBounds.natW)), y: Math.max(0,Math.min(nat.y, imgBounds.natH)) } : c) as SimPanel
+          : p
+      )
+      onChange(next)
+    })
   }
 
-  function onMouseUp() { dragging.current = null }
+  function onMouseUp() {
+    dragging.current = null
+    cancelAnimationFrame(dragRafRef.current)
+    dragRafRef.current = 0
+  }
 
   useEffect(() => {
     const up = () => { dragging.current = null }

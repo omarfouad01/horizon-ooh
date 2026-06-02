@@ -6,12 +6,12 @@ export function useIsMobile() {
   const [isMobile, setIsMobile] = React.useState<boolean | undefined>(undefined)
 
   React.useEffect(() => {
+    // matchMedia fires only on threshold crossing — no forced reflow.
+    // Handler uses e.matches (browser-computed) instead of window.innerWidth.
     const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`)
-    const onChange = () => {
-      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
-    }
+    const onChange = (e: MediaQueryListEvent) => { setIsMobile(e.matches) }
     mql.addEventListener("change", onChange)
-    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
+    setIsMobile(mql.matches)   // initial value — no forced reflow
     return () => mql.removeEventListener("change", onChange)
   }, [])
 
