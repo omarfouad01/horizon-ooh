@@ -281,7 +281,10 @@ class BillboardController extends Controller
             'descriptionAr'  => in_array('description_ar', $cols) ? $b->description_ar : null,
             'featured'       => $b->featured,
             'sort_order'     => $b->sort_order,
-            'supplierId'     => in_array('supplier_id', $cols)    ? $b->supplier_id    : null,
+            // Return as string so frontend IDs always match without type coercion
+            'supplierId'     => in_array('supplier_id', $cols) && $b->supplier_id !== null
+                                ? (string) $b->supplier_id
+                                : null,
             'images'         => $b->images->map(fn($i) => [
                 'id'         => $i->id,
                 'url'        => $i->url,

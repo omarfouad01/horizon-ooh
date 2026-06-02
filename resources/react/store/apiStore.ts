@@ -266,7 +266,7 @@ function normProduct(p: any, idx: number): any {
     spot: fullAddress,
     // District ID mapping (API returns district_id)
     districtId: p.districtId ?? p.district_id ?? '',
-    supplierId: p.supplierId ?? p.supplier_id ?? '',
+      supplierId: p.supplierId != null ? String(p.supplierId) : (p.supplier_id != null ? String(p.supplier_id) : ''),
     quantity: p.quantity ?? 1,
     // Traffic & audience fields
     traffic: p.traffic ?? '',
@@ -515,7 +515,7 @@ export const useApiStore = create<ApiState>((set, get) => ({
         } catch { return DEMO_LOCATIONS_CONTENT; }
       })(),
       contactContent:     (() => { try { const v = settsRaw['contact_page_content'];  return typeof v === 'string' ? JSON.parse(v) : (v ?? DEMO_CONTACT_CONTENT);  } catch { return DEMO_CONTACT_CONTENT;  } })(),
-      suppliers:          suppRaw,
+      suppliers:          suppRaw.map((s: any) => ({ ...s, id: String(s.id) })),
       customers:          custRaw,
       contacts:           contsRaw,
       // Results: prefer those saved in homeContent (via dashboard Results tab), fallback to demo

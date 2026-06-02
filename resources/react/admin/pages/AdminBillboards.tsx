@@ -329,7 +329,10 @@ const [f, setF] = useState<any>(() => {
   }
 
   const isDigital = f.adFormat === 'Digital Screens'
-  const selectedSupplier = f.supplierId ? suppliers.find((s: Supplier) => s.id === f.supplierId) : null
+  // Always compare IDs as strings — API returns numeric IDs, form stores strings
+  const selectedSupplier = f.supplierId
+    ? suppliers.find((s: Supplier) => String(s.id) === String(f.supplierId))
+    : null
 
   const [saving, setSaving] = useState(false)
 
@@ -378,8 +381,15 @@ const save = async (e: React.FormEvent) => {
           || locations.find((l: any) => l.id === locId)
           || locations.find((l: any) => (l.products || []).some((p: any) => p.id === editing.id))
         if (currentOwningLoc) {
+          // Normalize supplierId to string in the local store update so the dropdown
+          // re-selects correctly when the same billboard is opened for editing again
+          const savedNorm = {
+            ...saved,
+            supplierId: saved.supplierId != null ? String(saved.supplierId) : '',
+            supplier_id: saved.supplierId != null ? String(saved.supplierId) : '',
+          }
           locationStore.update(currentOwningLoc.id, {
-            products: (currentOwningLoc.products || []).map((p: any) => p.id === editing.id ? { ...p, ...saved } : p)
+            products: (currentOwningLoc.products || []).map((p: any) => p.id === editing.id ? { ...p, ...savedNorm } : p)
           })
         }
         toast.success('Billboard updated')
@@ -515,10 +525,11 @@ const save = async (e: React.FormEvent) => {
       {/* ── SUPPLIER ── */}
       <SectionDivider label="Supplier"/>
       <Lbl label="Assign Supplier">
-        <Sel value={f.supplierId||''} onChange={(e:any)=>set('supplierId',e.target.value)}
+        <Sel value={String(f.supplierId||'')} onChange={(e:any)=>set('supplierId',e.target.value)}
           options={[
             {value:'',label:'— No supplier assigned —'},
-            ...suppliers.map((s:Supplier)=>({value:s.id,label:`${s.name}${s.category?` · ${s.category}`:''}${s.phone?` — ${s.phone}`:''}` }))
+            // Use String(s.id) so value always matches String(f.supplierId)
+            ...suppliers.map((s:Supplier)=>({value:String(s.id),label:`${s.name}${s.category?` · ${s.category}`:''}${s.phone?` — ${s.phone}`:''}` }))
           ]}/>
       </Lbl>
       {selectedSupplier && (
