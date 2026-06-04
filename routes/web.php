@@ -62,6 +62,15 @@ Route::get('/favicon.ico', function () {
 // BrowserRouter requires every path to return index.html so React Router
 // can boot and render the correct page client-side.
 Route::get('/{any?}', function () {
+    // ── Guard: never intercept real static files ─────────────────────────────
+    // If the URL maps to a real file in /public (e.g. /assets/react-core-xxx.js),
+    // let Apache/Nginx serve it directly. This route should only handle SPA paths.
+    $requestPath = ltrim(request()->getPathInfo(), '/');
+    $filePath    = public_path($requestPath);
+    if ($requestPath !== '' && file_exists($filePath) && !is_dir($filePath)) {
+        return response()->file($filePath);
+    }
+
     $indexPath = public_path('index.html');
 
     if (!file_exists($indexPath)) {

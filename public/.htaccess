@@ -1,6 +1,4 @@
 # ── Connection & Keep-Alive ──────────────────────────────────────────────────
-# Keep the TCP connection open so subsequent asset requests reuse it.
-# This eliminates the DNS + TLS + TCP handshake cost for every sub-resource.
 <IfModule mod_headers.c>
     Header set Connection "keep-alive"
 </IfModule>
@@ -26,44 +24,15 @@
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
 
-    # Route sitemap.xml, robots.txt, and favicon.ico through Laravel (DB-driven)
-    RewriteRule ^sitemap\.xml$ index.php [L]
-    RewriteRule ^robots\.txt$  index.php [L]
-    # favicon.ico served dynamically from admin dashboard setting
-    RewriteRule ^favicon\.ico$ index.php [L]
+    # ── Static assets: ALWAYS serve the real file, NEVER fall through to PHP ──
+    # This MUST come before the catch-all rule.
+    # If the requested file physically exists on disk, serve it directly.
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
 
-    # Send Requests To Front Controller...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.php [L]
-</IfModule>
-
-# ── Gzip / Brotli Compression ────────────────────────────────────────────────
-# mod_deflate / mod_brotli compress PHP-generated output (API responses).
-# Static files served via response()->file() bypass PHP output and are
-# compressed by the PHP layer in web.php. Rules below cover API/PHP output.
-<IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
-    AddOutputFilterByType DEFLATE text/javascript application/javascript application/x-javascript
-    AddOutputFilterByType DEFLATE application/json application/xml application/xhtml+xml
-    AddOutputFilterByType DEFLATE image/svg+xml font/ttf font/otf application/font-woff application/font-woff2
-    AddOutputFilterByType DEFLATE application/ld+json application/manifest+json
-    # Skip already-compressed formats — wastes CPU, can increase payload size
-    SetEnvIfNoCase Request_URI \.(?:gz|br|zip|bz2|mp4|mp3|ogg|webm|jpg|jpeg|png|gif|webp|avif|ico)$ no-gzip dont-vary
-</IfModule>
-
-# Brotli (if module available — better compression ratio than gzip)
-<IfModule mod_brotli.c>
-    AddOutputFilterByType BROTLI_COMPRESS text/html text/plain application/json text/css
-    AddOutputFilterByType BROTLI_COMPRESS text/javascript application/javascript
-    AddOutputFilterByType BROTLI_COMPRESS image/svg+xml application/xml
-    SetEnvIfNoCase Request_URI \.(?:gz|br|zip|bz2|mp4|mp3|jpg|jpeg|png|gif|webp|avif|ico)$ no-brotli
-</IfModule>
-
-# ── Pre-compressed static assets (Vite .br / .gz siblings) ──────────────────
-# If Vite generates .br / .gz siblings on disk, serve them directly —
-# zero CPU compression cost at request time vs on-the-fly mod_deflate.
-<IfModule mod_rewrite.c>
+    # ── Pre-compressed static assets (Vite .br / .gz siblings) ──────────────
+    # Serve pre-compressed versions if the client supports them.
+    # These rules run ONLY when the base file exists (.br/.gz sibling check).
     RewriteCond %{HTTP:Accept-Encoding} \bbr\b
     RewriteCond %{REQUEST_FILENAME}.br -f
     RewriteRule ^(.+)\.(js|css|svg|json)$ $1.$2.br [L]
@@ -71,12 +40,43 @@
     RewriteCond %{HTTP:Accept-Encoding} \bgzip\b
     RewriteCond %{REQUEST_FILENAME}.gz -f
     RewriteRule ^(.+)\.(js|css|svg|json)$ $1.$2.gz [L]
+
+    # ── Route sitemap.xml, robots.txt, and favicon.ico through Laravel ───────
+    RewriteRule ^sitemap\.xml$ index.php [L]
+    RewriteRule ^robots\.txt$  index.php [L]
+    RewriteRule ^favicon\.ico$ index.php [L]
+
+    # ── SPA catch-all: send all other requests to Laravel / index.php ────────
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
 </IfModule>
-<FilesMatch "\.js\.br$">   Header set Content-Type "application/javascript" </FilesMatch>
-<FilesMatch "\.css\.br$">  Header set Content-Type "text/css"               </FilesMatch>
-<FilesMatch "\.js\.gz$">   Header set Content-Type "application/javascript" </FilesMatch>
-<FilesMatch "\.css\.gz$">  Header set Content-Type "text/css"               </FilesMatch>
-<FilesMatch "\.(br|gz)$">   Header set Cache-Control "public, max-age=31536000, immutable" </FilesMatch>
+
+# ── MIME types for pre-compressed files ──────────────────────────────────────
+<FilesMatch "\.js\.br$">  Header set Content-Type "application/javascript" </FilesMatch>
+<FilesMatch "\.css\.br$"> Header set Content-Type "text/css"               </FilesMatch>
+<FilesMatch "\.js\.gz$">  Header set Content-Type "application/javascript" </FilesMatch>
+<FilesMatch "\.css\.gz$"> Header set Content-Type "text/css"               </FilesMatch>
+<FilesMatch "\.(br|gz)$"> Header set Content-Encoding "br"                 </FilesMatch>
+<FilesMatch "\.gz$">      Header set Content-Encoding "gzip"               </FilesMatch>
+<FilesMatch "\.(br|gz)$"> Header set Cache-Control "public, max-age=31536000, immutable" </FilesMatch>
+
+# ── Gzip / Brotli Compression (for PHP-generated output) ─────────────────────
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+    AddOutputFilterByType DEFLATE text/javascript application/javascript application/x-javascript
+    AddOutputFilterByType DEFLATE application/json application/xml application/xhtml+xml
+    AddOutputFilterByType DEFLATE image/svg+xml font/ttf font/otf application/font-woff application/font-woff2
+    AddOutputFilterByType DEFLATE application/ld+json application/manifest+json
+    SetEnvIfNoCase Request_URI \.(?:gz|br|zip|bz2|mp4|mp3|ogg|webm|jpg|jpeg|png|gif|webp|avif|ico)$ no-gzip dont-vary
+</IfModule>
+
+<IfModule mod_brotli.c>
+    AddOutputFilterByType BROTLI_COMPRESS text/html text/plain application/json text/css
+    AddOutputFilterByType BROTLI_COMPRESS text/javascript application/javascript
+    AddOutputFilterByType BROTLI_COMPRESS image/svg+xml application/xml
+    SetEnvIfNoCase Request_URI \.(?:gz|br|zip|bz2|mp4|mp3|jpg|jpeg|png|gif|webp|avif|ico)$ no-brotli
+</IfModule>
 
 # ── Browser Caching ───────────────────────────────────────────────────────────
 <IfModule mod_expires.c>
@@ -131,8 +131,7 @@
     Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
     Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(self)"
 
-    # Vary: Accept-Encoding scoped to compressible types only.
-    # Applying it globally to images/binary wastes CDN/proxy cache slots.
+    # Vary: Accept-Encoding for compressible types
     <FilesMatch "\.(html|htm|js|css|json|xml|svg|txt|woff|woff2)$">
         Header append Vary "Accept-Encoding"
     </FilesMatch>
