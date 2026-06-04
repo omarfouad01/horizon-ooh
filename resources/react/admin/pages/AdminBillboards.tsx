@@ -201,38 +201,84 @@ function InlineMapPicker({
 }
 
 // ── Image uploader ────────────────────────────────────────────────────────────
-// Each item: { url: string (preview/existing URL or data:), alt: string, file?: File }
-type ImgItem = { url: string; alt: string; file?: File }
-function ImageUploader({ images, onChange }: { images: ImgItem[]; onChange:(imgs: ImgItem[])=>void }) {
+// Each item: { id?: number (server image ID), url, alt, file?: File }
+// id is present for images already saved on the server; absent for new uploads.
+type ImgItem = { id?: number; url: string; alt: string; file?: File }
+
+function ImageUploader({
+  images,
+  onChange,
+  billboardId,
+}: {
+  images: ImgItem[];
+  onChange: (imgs: ImgItem[]) => void;
+  billboardId?: number | string;
+}) {
   const ref = useRef<HTMLInputElement>(null)
+  const [deleting, setDeleting] = useState<number | null>(null)
+
   async function pick(e: React.ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files || [])
     const results: ImgItem[] = await Promise.all(files.map(async f => ({
       url: await readAsDataURL(f),
       alt: f.name.replace(/\.[^.]+$/, ''),
-      file: f,          // keep the File so we can upload it
+      file: f,
     })))
     onChange([...images, ...results])
     e.target.value = ''
   }
-  function updateAlt(i: number, alt: string) { onChange(images.map((img, j) => j===i ? {...img, alt} : img)) }
+
+  async function removeImage(i: number) {
+    const img = images[i]
+    // Existing server image — delete from server immediately so it is permanently removed
+    if (img.id && billboardId) {
+      setDeleting(i)
+      try {
+        await billboardsApi.deleteImage(billboardId, img.id)
+      } catch (err: any) {
+        const msg = err?.response?.data?.message || 'Failed to delete image'
+        toast.error(msg)
+        setDeleting(null)
+        return
+      }
+      setDeleting(null)
+    }
+    // Remove from local list (new upload or confirmed server deletion)
+    onChange(images.filter((_, j) => j !== i))
+  }
+
+  function updateAlt(i: number, alt: string) {
+    onChange(images.map((img, j) => j === i ? { ...img, alt } : img))
+  }
+
   return (
     <div className="space-y-3">
       <div className="flex flex-wrap gap-2">
         {images.map((img, i) => (
-          <div key={i} className="relative group">
+          <div key={img.id ?? img.url ?? i} className="relative group">
             <div className="w-24 h-20 rounded-xl overflow-hidden border border-gray-200 bg-gray-50">
               <img src={img.url} alt={img.alt} className="w-full h-full object-cover"/>
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-center justify-center">
-                <button type="button" onClick={()=>onChange(images.filter((_,j)=>j!==i))} className="text-white"><Trash2 size={14}/></button>
+                {deleting === i ? (
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => removeImage(i)}
+                    disabled={deleting !== null}
+                    className="text-white disabled:opacity-50"
+                  >
+                    <Trash2 size={14}/>
+                  </button>
+                )}
               </div>
             </div>
             <input
               className="mt-1 w-24 h-6 px-1.5 text-[9px] rounded border border-gray-200 outline-none focus:border-gray-400 text-gray-600"
-              value={img.alt} onChange={e=>updateAlt(i,e.target.value)} placeholder="alt text (SEO)"/>
+              value={img.alt} onChange={e => updateAlt(i, e.target.value)} placeholder="alt text (SEO)"/>
           </div>
         ))}
-        <button type="button" onClick={()=>ref.current?.click()}
+        <button type="button" onClick={() => ref.current?.click()}
           className="w-24 h-20 rounded-xl border-2 border-dashed border-gray-200 hover:border-gray-400 transition-colors flex flex-col items-center justify-center gap-1 text-gray-400">
           <Upload size={16}/><span className="text-[10px]">Add photo</span>
         </button>
@@ -242,7 +288,6 @@ function ImageUploader({ images, onChange }: { images: ImgItem[]; onChange:(imgs
     </div>
   )
 }
-
 // ── Billboard Form ────────────────────────────────────────────────────────────
 // AD_FORMATS is now dynamic from billboardFormats store — this fallback is used in demo/preview only
 const AD_FORMATS_FALLBACK = ['Billboard','Digital Screens','Mall Advertising','Airport Advertising','Transit Ads']
@@ -290,8 +335,8 @@ const [f, setF] = useState<any>(() => {
     const normalizedImages: ImgItem[] = rawImages.map((img: any) =>
       typeof img === 'string'
         ? { url: img, alt: '' }
-        : { url: img.url || '', alt: img.alt || '' }
-      // Note: no `file` field here — existing server images don't need re-uploading
+        // Preserve `id` so the delete button can call the API directly without a full save
+        : { id: img.id, url: img.url || '', alt: img.alt || '' }
     )
     return {
       ...empty,
@@ -596,7 +641,11 @@ const save = async (e: React.FormEvent) => {
 
       {/* ── IMAGES ── */}
       <SectionDivider label="Images"/>
-      <ImageUploader images={f.images||[]} onChange={imgs=>set('images',imgs)}/>
+      <ImageUploader
+        images={f.images || []}
+        onChange={imgs => set('images', imgs)}
+        billboardId={editing?.id}
+      />
 
       <div className="flex gap-3 justify-end pt-3 border-t border-gray-100 mt-2">
         <Btn variant="ghost" type="button" onClick={onClose}>Cancel</Btn>
