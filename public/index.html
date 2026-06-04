@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7P78DVM6VK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7P78DVM6VK');
+</script>
+
     <meta charset="UTF-8" />
     <!-- Redirect old /#/ hash URLs to clean BrowserRouter paths -->
     <script>
@@ -12,6 +22,8 @@
         }
       })();
     </script>
+    
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!--
       Critical inline CSS — paints the hero background colour before any JS or
@@ -149,15 +161,16 @@
     }
     </script>
     <!-- Leaflet CSS is bundled locally in BillboardMap/ProductMap (no CDN) -->
-    <script type="module" crossorigin src="/assets/index-ha4un6zj.js"></script>
+    <script type="module" crossorigin src="/assets/index-iRjQsuBQ.js"></script>
     <!-- deferred: leaflet (not eager-preloaded to avoid LCP image bandwidth contention) -->
     <link rel="modulepreload" crossorigin href="/assets/react-core-5W2wDyum.js">
     <link rel="modulepreload" crossorigin href="/assets/utils--BulIq_u.js">
+    <!-- deferred: data-layer (not eager-preloaded to avoid LCP image bandwidth contention) -->
+    <!-- deferred: site-data (not eager-preloaded to avoid LCP image bandwidth contention) -->
+    <link rel="modulepreload" crossorigin href="/assets/app-core-DtKQxeSc.js">
     <link rel="modulepreload" crossorigin href="/assets/router-dDSaLkQy.js">
     <link rel="modulepreload" crossorigin href="/assets/icons-Oqcsc5yn.js">
     <!-- deferred: iconify (not eager-preloaded to avoid LCP image bandwidth contention) -->
-    <!-- deferred: data-layer (not eager-preloaded to avoid LCP image bandwidth contention) -->
-    <!-- deferred: site-data (not eager-preloaded to avoid LCP image bandwidth contention) -->
     <!-- deferred: admin (not eager-preloaded to avoid LCP image bandwidth contention) -->
     <!-- deferred: i18n (not eager-preloaded to avoid LCP image bandwidth contention) -->
     <link rel="preload" as="style" fetchpriority="high" crossorigin href="/assets/index-BGTdIqbB.css" />

@@ -72,7 +72,8 @@ function lcpOptimizePlugin(): import('vite').Plugin {
   // Chunks removed from eager modulepreload — fetched lazily via module graph.
   // This prevents them from competing with the LCP image for TCP connections.
   // data-layer (axios+zustand) is deferred since store init is now post-first-paint.
-  const DEFER_CHUNKS = ['leaflet', 'framer-motion', 'admin', 'charts', 'radix-ui', 'data-layer', 'store', 'iconify'];
+  // app-core (store+api) must NOT be deferred — it is needed for the first render.
+  const DEFER_CHUNKS = ['leaflet', 'framer-motion', 'admin', 'charts', 'radix-ui', 'data-layer', 'iconify'];
 
   return {
     name: 'lcp-optimize',
@@ -85,7 +86,7 @@ function lcpOptimizePlugin(): import('vite').Plugin {
 
         // 1. Remove modulepreload for bandwidth-competing chunks
         html = html.replace(
-          /<link rel="modulepreload" crossorigin href="\/assets\/(leaflet|framer-motion|admin|charts|radix-ui|data-layer|store|iconify|site-data|i18n)-[^"]+">/g,
+          /<link rel="modulepreload" crossorigin href="\/assets\/(leaflet|framer-motion|admin|charts|radix-ui|data-layer|iconify|site-data|i18n)-[^"]+">/g,
           '<!-- deferred: $1 (not eager-preloaded to avoid LCP image bandwidth contention) -->'
         );
 
@@ -178,6 +179,10 @@ export default defineConfig(({ mode }) => ({
           if (id.includes('node_modules/@iconify')) return 'iconify';
           // data-layer = axios + zustand only (deferred from modulepreload)
           if (id.includes('node_modules/axios') || id.includes('node_modules/zustand')) return 'data-layer';
+          // Store & API files go into 'app-core' so both public pages AND admin
+          // can import them from the same shared chunk. Without this explicit
+          // assignment Rollup drifts them into 'admin', breaking the public site.
+          if (id.includes('/resources/react/store/') || id.includes('/resources/react/api/')) return 'app-core';
           if (id.includes('/resources/react/admin/')) return 'admin';
           if (id.includes('node_modules/zod') || id.includes('node_modules/date-fns') || id.includes('node_modules/clsx') || id.includes('node_modules/class-variance-authority') || id.includes('node_modules/tailwind-merge')) return 'utils';
           // Split icon libraries separately — they are large but often tree-shaken
