@@ -71,8 +71,10 @@ function lcpOptimizePlugin(): import('vite').Plugin {
   const LCP_IMAGE = 'https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?w=1600&q=85&fit=crop';
   // Chunks removed from eager modulepreload — fetched lazily via module graph.
   // This prevents them from competing with the LCP image for TCP connections.
-  // data-layer (axios+zustand) is deferred since store init is now post-first-paint.
-  // app-core (store+api) must NOT be deferred — it is needed for the first render.
+  // IMPORTANT: app-core, site-data, i18n, react-core, router MUST NOT be deferred
+  // because they are statically imported by the main entry chunk and required
+  // for the first render. Deferring them creates a waterfall that delays the store
+  // initialization and causes empty/blank sections on first load.
   const DEFER_CHUNKS = ['leaflet', 'framer-motion', 'admin', 'charts', 'radix-ui', 'data-layer', 'iconify'];
 
   return {
@@ -85,8 +87,11 @@ function lcpOptimizePlugin(): import('vite').Plugin {
         let html = readFileSync(htmlPath, 'utf-8');
 
         // 1. Remove modulepreload for bandwidth-competing chunks
+        // NOTE: site-data and i18n are NOT deferred here even though they're in
+        // DEFER_CHUNKS comment — app-core statically imports from site-data, so
+        // removing its preload creates a waterfall delay that breaks the store.
         html = html.replace(
-          /<link rel="modulepreload" crossorigin href="\/assets\/(leaflet|framer-motion|admin|charts|radix-ui|data-layer|iconify|site-data|i18n)-[^"]+">/g,
+          /<link rel="modulepreload" crossorigin href="\/assets\/(leaflet|framer-motion|admin|charts|radix-ui|data-layer|iconify)-[^"]+">/g,
           '<!-- deferred: $1 (not eager-preloaded to avoid LCP image bandwidth contention) -->'
         );
 
