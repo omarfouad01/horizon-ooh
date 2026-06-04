@@ -345,12 +345,20 @@ function normTemplate(t: any): SimulatorTemplate {
 }
 
 // ─── Store ────────────────────────────────────────────────────────────────────
+// Pre-populate with demo data so the page renders immediately on first load.
+// Real API data replaces this once the fetch completes (non-blocking).
+// This ensures users NEVER see empty/blank sections while waiting for the API.
+const _normDemoBrands = (CLIENT_BRANDS as any[]).map((b: any, i: number) =>
+  typeof b === 'string' ? { id: String(i + 1), name: b, logoUrl: '', logo: '' }
+    : { id: b.id ?? String(i + 1), name: b.name ?? b, logoUrl: b.logoUrl ?? b.logo ?? '', logo: b.logo ?? '' }
+);
 export const useApiStore = create<ApiState>((set, get) => ({
-  loaded: false, loading: false, usingDemo: false, error: null,
-  locations: [], districts: [], adFormats: AD_FORMATS_DEFAULT, billboardFormats: BILLBOARD_FORMATS_DEFAULT,
-  services: [], projects: [], blogPosts: [],
-  trustStats: [], processSteps: _demoProcess, process: _demoProcess,
-  results: DEMO_RESULTS, clientBrands: [], suppliers: [], customers: [],
+  // Start with demo data so sections render instantly before API responds
+  loaded: true, loading: false, usingDemo: true, error: null,
+  locations: LOCATIONS as any[], districts: [], adFormats: AD_FORMATS_DEFAULT, billboardFormats: BILLBOARD_FORMATS_DEFAULT,
+  services: SERVICES as any[], projects: PROJECTS as any[], blogPosts: BLOG_POSTS as any[],
+  trustStats: TRUST_STATS as any[], processSteps: _demoProcess, process: _demoProcess,
+  results: DEMO_RESULTS, clientBrands: _normDemoBrands, suppliers: [], customers: [],
   siteUsers: [], contacts: _demoContacts,
   settings: DEMO_SETTINGS, homeContent: DEMO_HOME,
   about: DEMO_ABOUT, aboutContent: DEMO_ABOUT,
@@ -361,6 +369,9 @@ export const useApiStore = create<ApiState>((set, get) => ({
 
   reload: async () => {
     if (get().loading) return;
+    // Keep loaded:true and don't clear data during refresh so the page
+    // never goes blank. The demo/cached data shown initially stays visible
+    // until real API data replaces it.
     set({ loading: true, error: null });
 
     if (!HAS_API) {
@@ -395,10 +406,14 @@ export const useApiStore = create<ApiState>((set, get) => ({
 
     // Real API mode — use Promise.allSettled so one failure doesn't break everything
     // Admin-only endpoints (suppliers, customers, contacts) require an auth token.
-    // Calling them without a token causes 401s that stall the page load on the
-    // public website. Only fetch them when a real token exists.
+    // They are dynamically imported to keep them OUT of the public bundle.
     const authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('horizon_token') : null;
     const isAuthenticated = !!authToken && authToken !== 'demo-token';
+
+    // Admin-only APIs: skip entirely when unauthenticated to avoid 401 storms
+    const suppliersP  = isAuthenticated ? suppliersApi.all()  : Promise.resolve([]);
+    const customersP  = isAuthenticated ? customersApi.all()  : Promise.resolve([]);
+    const contactsP   = isAuthenticated ? contactsApi.all()   : Promise.resolve([]);
 
     const results = await Promise.allSettled([
       locationsApi.all(),           // 0
@@ -416,9 +431,9 @@ export const useApiStore = create<ApiState>((set, get) => ({
       billboardSizesApi.all(),      // 12
       simulatorTemplatesApi.all(),  // 13
       designUploadsApi.all(),       // 14
-      isAuthenticated ? suppliersApi.all()  : Promise.resolve([]),  // 15 — admin-only
-      isAuthenticated ? customersApi.all()  : Promise.resolve([]),  // 16 — admin-only
-      isAuthenticated ? contactsApi.all()   : Promise.resolve([]),  // 17 — admin-only
+      suppliersP,                   // 15 — suppliers (admin-only)
+      customersP,                   // 16 — customers (admin-only)
+      contactsP,                    // 17 — contacts (admin-only)
       billboardFormatsApi.all(),    // 18 — Ad Formats (Billboard, Digital…)
     ]);
 
