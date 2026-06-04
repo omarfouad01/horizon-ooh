@@ -394,6 +394,12 @@ export const useApiStore = create<ApiState>((set, get) => ({
     }
 
     // Real API mode — use Promise.allSettled so one failure doesn't break everything
+    // Admin-only endpoints (suppliers, customers, contacts) require an auth token.
+    // Calling them without a token causes 401s that stall the page load on the
+    // public website. Only fetch them when a real token exists.
+    const authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('horizon_token') : null;
+    const isAuthenticated = !!authToken && authToken !== 'demo-token';
+
     const results = await Promise.allSettled([
       locationsApi.all(),           // 0
       districtsApi.all(),           // 1
@@ -410,9 +416,9 @@ export const useApiStore = create<ApiState>((set, get) => ({
       billboardSizesApi.all(),      // 12
       simulatorTemplatesApi.all(),  // 13
       designUploadsApi.all(),       // 14
-      suppliersApi.all(),           // 15
-      customersApi.all(),           // 16
-      contactsApi.all(),            // 17
+      isAuthenticated ? suppliersApi.all()  : Promise.resolve([]),  // 15 — admin-only
+      isAuthenticated ? customersApi.all()  : Promise.resolve([]),  // 16 — admin-only
+      isAuthenticated ? contactsApi.all()   : Promise.resolve([]),  // 17 — admin-only
       billboardFormatsApi.all(),    // 18 — Ad Formats (Billboard, Digital…)
     ]);
 

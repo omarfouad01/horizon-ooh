@@ -65,8 +65,13 @@ api.interceptors.response.use(
     const status: number = err.response?.status;
 
     // On 401 from a protected (non-auth) route — try refreshing the token once
+    // BUT only if we actually have a token. Without a token there's nothing to
+    // refresh and attempting it just fires an extra 401 that stalls page load.
+    const token = localStorage.getItem('horizon_token');
+    const hasToken = !!token && token !== 'demo-token';
     const isAuthRoute = /\/(auth\/login|login|auth\/logout|logout|auth\/refresh)($|\?)/i.test(url);
-    if (status === 401 && !isAuthRoute && !err.config?._retried) {
+
+    if (status === 401 && hasToken && !isAuthRoute && !err.config?._retried) {
       if (!_refreshPromise) {
         _refreshPromise = tryRefreshToken().finally(() => { _refreshPromise = null; });
       }
