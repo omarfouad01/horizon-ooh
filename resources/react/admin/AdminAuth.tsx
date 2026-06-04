@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { authApi } from '@/api';
-import { HAS_API } from '@/store/apiStore';
+import { HAS_API, useApiStore } from '@/store/apiStore';
 
 interface AuthCtx {
   user:            any;
@@ -31,6 +31,9 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
         localStorage.setItem('horizon_token', t);
         localStorage.setItem('horizon_user',  JSON.stringify(u));
         setToken(t); setUser(u);
+        // Reload the global store so admin-only data (suppliers, customers,
+        // contacts, design uploads) is fetched immediately with the new token
+        useApiStore.getState().reload();
         return;
       } catch (err: any) {
         // Server explicitly rejected — stop immediately
@@ -69,6 +72,14 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.removeItem('horizon_token');
     localStorage.removeItem('horizon_user');
     setToken(null); setUser(null);
+    // Clear admin-only data from the global store so it doesn't linger
+    // after logout (suppliers, customers, contacts, design uploads)
+    useApiStore.setState({
+      suppliers:     [],
+      customers:     [],
+      contacts:      [],
+      designUploads: [],
+    });
   }, []);
 
   // Auto-logout when token expires (fired by api/client.ts interceptor)
