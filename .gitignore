@@ -63,5 +63,8 @@ vendor/
 node_modules/
 public/storage/
 
-public/assets/*
-public/images/*
+# Built frontend assets MUST be committed so the server gets correct bundles on `git pull`.
+# The server does NOT run npm build on every deploy — it uses the committed artifacts.
+# All public/assets/* are force-added and tracked (override the wildcard ignore below).
+public/storage/
+public/hot

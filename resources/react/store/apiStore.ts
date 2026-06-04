@@ -558,15 +558,15 @@ export const useApiStore = create<ApiState>((set, get) => ({
 }));
 
 // ─── Auto-load on first import ────────────────────────────────────────────────
-// Initialize immediately — API fetch is non-blocking (async), so it does NOT
-// block LCP. The modulepreload deferral in vite.config.ts already handles
-// bandwidth prioritization. Using requestIdleCallback caused 2-second delays
-// that kept `loaded: false` and showed only a spinner on the homepage.
-if (typeof window !== 'undefined') {
+// Start with demo data (loaded:true) so sections render immediately, then
+// immediately fire a real API fetch to replace demo data with live data.
+// We do NOT guard on !loaded because loaded starts as true (pre-populated with
+// demo data). We only skip if a fetch is already in flight.
+if (typeof window !== 'undefined' && HAS_API) {
   // Kick off on next microtask tick so the store object is fully constructed
   // before reload() is called, but still before any React render.
   Promise.resolve().then(() => {
-    if (!useApiStore.getState().loaded && !useApiStore.getState().loading) {
+    if (!useApiStore.getState().loading) {
       useApiStore.getState().reload();
     }
   });
