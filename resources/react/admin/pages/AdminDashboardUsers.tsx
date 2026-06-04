@@ -1,3 +1,4 @@
+import { useAdmin } from '../AdminAuth'
 import { useState, useEffect, useCallback } from 'react'
 import { Btn, PageHeader, Tbl, Th, Td, Tr, Badge, Confirm, Modal, Field } from '../ui'
 import { Plus, Pencil, Trash2, ShieldCheck, Eye, EyeOff, RefreshCw, Loader2 } from 'lucide-react'
@@ -221,6 +222,7 @@ function getPwMap(): Record<string, string> {
 
 // ─── Main component ───────────────────────────────────────────────────────────
 export default function AdminDashboardUsers() {
+  const { isAuth } = useAdmin()
   const [users,   setUsers]   = useState<DashboardUser[]>([])
   const [loading, setLoading] = useState(true)
   const [form,    setForm]    = useState(false)
@@ -228,12 +230,7 @@ export default function AdminDashboardUsers() {
   const [del,     setDel]     = useState<DashboardUser | null>(null)
 
   const fetchUsers = useCallback(async () => {
-    // Guard: skip API calls if not authenticated to avoid 401 console errors
-    const token = localStorage.getItem('horizon_token')
-    if (HAS_API && (!token || token === 'demo-token')) {
-      setLoading(false)
-      return
-    }
+    if (HAS_API && !isAuth) { setLoading(false); return }
     setLoading(true)
     try {
       if (HAS_API) {
@@ -250,7 +247,7 @@ export default function AdminDashboardUsers() {
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [isAuth])
 
   useEffect(() => { fetchUsers() }, [fetchUsers])
 

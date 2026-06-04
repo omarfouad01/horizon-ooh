@@ -1,3 +1,4 @@
+import { useAdmin } from '../AdminAuth'
 import { useState, useCallback, useEffect } from 'react'
 import { usersApi } from '@/api'
 import { HAS_API } from '@/store/dataStore'
@@ -37,6 +38,7 @@ const DEMO_USERS: WebsiteUser[] = [
 
 // ─── Main component ─────────────────────────────────────────────────────────────
 export default function AdminUsers() {
+  const { isAuth } = useAdmin()
   const [users,   setUsers]   = useState<WebsiteUser[]>([])
   const [loading, setLoading] = useState(true)
   const [search,  setSearch]  = useState('')
@@ -45,12 +47,7 @@ export default function AdminUsers() {
   const [notes,   setNotes]   = useState<Record<string | number, string>>({})
 
   const fetchUsers = useCallback(async () => {
-    // Guard: skip API calls if not authenticated to avoid 401 console errors
-    const token = localStorage.getItem('horizon_token')
-    if (HAS_API && (!token || token === 'demo-token')) {
-      setLoading(false)
-      return
-    }
+    if (HAS_API && !isAuth) { setLoading(false); return }
     setLoading(true)
     try {
       if (HAS_API) {
@@ -68,7 +65,7 @@ export default function AdminUsers() {
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [isAuth])
 
   useEffect(() => { fetchUsers() }, [fetchUsers])
 

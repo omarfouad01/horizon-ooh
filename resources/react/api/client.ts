@@ -85,6 +85,11 @@ api.interceptors.response.use(
       // Refresh failed — token is invalid/expired. Clear it so subsequent
       // requests don't keep trying to refresh and generating more 401s.
       localStorage.removeItem('horizon_token');
+      localStorage.removeItem('horizon_user');
+      // Notify AdminAuthProvider to clear React state and redirect to login
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('horizon:auth:expired'));
+      }
     }
 
     return Promise.reject(err);

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { authApi } from '@/api';
 import { HAS_API } from '@/store/apiStore';
 
@@ -64,12 +64,19 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
     throw new Error('Login failed. Please check your credentials and try again.');
   };
 
-  const logout = () => {
+  const logout = useCallback(() => {
     authApi.logout().catch(() => {});
     localStorage.removeItem('horizon_token');
     localStorage.removeItem('horizon_user');
     setToken(null); setUser(null);
-  };
+  }, []);
+
+  // Auto-logout when token expires (fired by api/client.ts interceptor)
+  useEffect(() => {
+    const handler = () => logout();
+    window.addEventListener('horizon:auth:expired', handler);
+    return () => window.removeEventListener('horizon:auth:expired', handler);
+  }, [logout]);
 
   const auth = !!token && !!user;
   return (

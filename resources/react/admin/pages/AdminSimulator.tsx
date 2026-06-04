@@ -10,6 +10,7 @@
  *  - Multi-panel support (Add Panel button, up to 3 panels per template)
  *  - Save button always visible in the modal footer
  */
+import { useAdmin } from '../AdminAuth'
 import { useState, useRef, useEffect, useCallback } from 'react'
 import {
   useStore,
@@ -599,18 +600,14 @@ function TemplatesTab() {
 
 // ─── Design Uploads Tab ───────────────────────────────────────────────────────
 function UploadsTab() {
+  const { isAuth } = useAdmin()
   // Fetch live from API every time this tab is shown
   const [uploads, setUploads] = useState<DesignUpload[]>([])
   const [loading, setLoading] = useState(true)
   const [search,  setSearch]  = useState('')
 
   const fetchUploads = useCallback(async () => {
-    // Guard: skip API calls if not authenticated to avoid 401 console errors
-    const token = localStorage.getItem('horizon_token')
-    if (HAS_API && (!token || token === 'demo-token')) {
-      setLoading(false)
-      return
-    }
+    if (HAS_API && !isAuth) { setLoading(false); return }
     setLoading(true)
     try {
       if (HAS_API) {
@@ -628,7 +625,7 @@ function UploadsTab() {
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [isAuth])
 
   useEffect(() => { fetchUploads() }, [fetchUploads])
 
