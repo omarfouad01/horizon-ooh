@@ -23,7 +23,30 @@ const scrollTo = (id: string) =>
 const ease = [0.16, 1, 0.3, 1] as const;
 
 // ─── Reveal primitives (CSS-only, no framer-motion) ─────────────────────────
-// Uses IntersectionObserver + CSS transitions — zero JS animation overhead
+// Each element gets its own IntersectionObserver with a generous rootMargin
+// so cards never get stuck at opacity:0 due to race conditions.
+function useReveal(delay = 0) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    // Use a positive rootMargin so elements trigger slightly BEFORE they enter viewport
+    const io = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); io.disconnect(); } },
+      { rootMargin: '120px' }
+    );
+    io.observe(el);
+    // Fallback: if element is already in view when mounted, show it immediately
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight + 120) {
+      setTimeout(() => setVisible(true), delay * 1000);
+    }
+    return () => io.disconnect();
+  }, [delay]);
+  return { ref, visible };
+}
+
 function Reveal({
   children,
   className = "",
@@ -35,18 +58,7 @@ function Reveal({
   delay?: number;
   y?: number;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVisible(true); io.disconnect(); } },
-      { rootMargin: '-60px' }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+  const { ref, visible } = useReveal(delay);
   return (
     <div
       ref={ref}
@@ -62,6 +74,8 @@ function Reveal({
   );
 }
 
+// RevealGroup is now just a plain wrapper div — no IntersectionObserver needed
+// since RevealItem handles its own visibility
 function RevealGroup({
   children,
   className = "",
@@ -69,25 +83,14 @@ function RevealGroup({
   children: React.ReactNode;
   className?: string;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVisible(true); io.disconnect(); } },
-      { rootMargin: '-60px' }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
   return (
-    <div ref={ref} className={className} data-reveal-group={visible ? 'visible' : 'hidden'}>
+    <div className={className}>
       {children}
     </div>
   );
 }
 
+// RevealItem now has its own IntersectionObserver — no parent coupling
 function RevealItem({
   children,
   className = "",
@@ -102,16 +105,23 @@ function RevealItem({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const group = el.closest('[data-reveal-group]');
-    const check = () => {
-      if (group?.getAttribute('data-reveal-group') === 'visible') {
-        setTimeout(() => setVisible(true), index * 90);
-      }
-    };
-    check();
-    const mo = new MutationObserver(check);
-    if (group) mo.observe(group, { attributes: true });
-    return () => mo.disconnect();
+    const delay = index * 90;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          setTimeout(() => setVisible(true), delay);
+          io.disconnect();
+        }
+      },
+      { rootMargin: '120px' }
+    );
+    io.observe(el);
+    // Fallback: if already in viewport when mounted, show it
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight + 120) {
+      setTimeout(() => setVisible(true), delay);
+    }
+    return () => io.disconnect();
   }, [index]);
   return (
     <div
@@ -122,7 +132,7 @@ function RevealItem({
         transition: `opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1)`,
       }}
     >
-      {children}
+      <div ref={ref}>{children}</div>
     </div>
   );
 }

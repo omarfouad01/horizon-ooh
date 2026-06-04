@@ -5,6 +5,30 @@ import { makeRoutes, langPath, RED, NAVY } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
 
 // ─── Reveal / animation primitives ───────────────────────────────────────
+// Each element gets its own IntersectionObserver with a generous rootMargin
+// (positive = triggers BEFORE element enters viewport) to prevent the race
+// condition where cards stay at opacity:0 because the observer fires too late.
+function useRevealState(delay = 0) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); io.disconnect(); } },
+      { rootMargin: '120px' }
+    );
+    io.observe(el);
+    // Fallback: if already in viewport when mounted, trigger immediately
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight + 120) {
+      setTimeout(() => setVisible(true), delay * 1000);
+    }
+    return () => io.disconnect();
+  }, [delay]);
+  return { ref, visible };
+}
+
 export function Reveal({
   children,
   className = "",
@@ -16,18 +40,7 @@ export function Reveal({
   delay?: number;
   y?: number;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVisible(true); io.disconnect(); } },
-      { rootMargin: '-60px' }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+  const { ref, visible } = useRevealState(delay);
   return (
     <div
       ref={ref}
@@ -43,6 +56,8 @@ export function Reveal({
   );
 }
 
+// RevealGroup is now a plain wrapper — no observer needed since
+// RevealItem handles its own visibility independently
 export function RevealGroup({
   children,
   className = "",
@@ -52,30 +67,14 @@ export function RevealGroup({
   className?: string;
   style?: React.CSSProperties;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVisible(true); io.disconnect(); } },
-      { rootMargin: '-60px' }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
   return (
-    <div
-      ref={ref}
-      className={className}
-      style={style}
-      data-reveal-group={visible ? 'visible' : 'hidden'}
-    >
+    <div className={className} style={style}>
       {children}
     </div>
   );
 }
 
+// RevealItem has its own IntersectionObserver — independent of parent
 export function RevealItem({
   children,
   className = "",
@@ -90,16 +89,23 @@ export function RevealItem({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const group = el.closest('[data-reveal-group]');
-    const check = () => {
-      if (group?.getAttribute('data-reveal-group') === 'visible') {
-        setTimeout(() => setVisible(true), index * 90);
-      }
-    };
-    check();
-    const mo = new MutationObserver(check);
-    if (group) mo.observe(group, { attributes: true });
-    return () => mo.disconnect();
+    const delayMs = index * 90;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          setTimeout(() => setVisible(true), delayMs);
+          io.disconnect();
+        }
+      },
+      { rootMargin: '120px' }
+    );
+    io.observe(el);
+    // Fallback: if already visible when mounted
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight + 120) {
+      setTimeout(() => setVisible(true), delayMs);
+    }
+    return () => io.disconnect();
   }, [index]);
   return (
     <div
@@ -110,7 +116,7 @@ export function RevealItem({
         transition: 'opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1)',
       }}
     >
-      {children}
+      <div ref={ref}>{children}</div>
     </div>
   );
 }
