@@ -537,21 +537,16 @@ export const useApiStore = create<ApiState>((set, get) => ({
 }));
 
 // ─── Auto-load on first import ────────────────────────────────────────────────
-// Defer init: run after first paint so LCP is not blocked by API fetches
-let _initiated = false;
-function _doInit() {
-  if (_initiated) return;
-  _initiated = true;
-  if (!useApiStore.getState().loaded && !useApiStore.getState().loading) {
-    useApiStore.getState().reload();
-  }
-}
+// Initialize immediately — API fetch is non-blocking (async), so it does NOT
+// block LCP. The modulepreload deferral in vite.config.ts already handles
+// bandwidth prioritization. Using requestIdleCallback caused 2-second delays
+// that kept `loaded: false` and showed only a spinner on the homepage.
 if (typeof window !== 'undefined') {
-  if ('requestIdleCallback' in window) {
-    (window as any).requestIdleCallback(_doInit, { timeout: 2000 });
-  } else {
-    setTimeout(_doInit, 0);
-  }
-} else {
-  _doInit();
+  // Kick off on next microtask tick so the store object is fully constructed
+  // before reload() is called, but still before any React render.
+  Promise.resolve().then(() => {
+    if (!useApiStore.getState().loaded && !useApiStore.getState().loading) {
+      useApiStore.getState().reload();
+    }
+  });
 }
