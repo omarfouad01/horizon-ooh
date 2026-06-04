@@ -68,15 +68,14 @@
          done before the browser discovers the image URL in the preload tag. -->
     <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
-    <!-- LCP hero image — preloaded here so it starts fetching at the same time
-         as the JS bundle, not after React boots and renders the <img> tag.
-         This is the single most impactful fix for Resource Load Delay. -->
+    <!-- LCP hero image preload — NO crossorigin attribute because the <img> in Home.tsx
+         also has no crossorigin. Mismatched credentials mode causes the browser to
+         discard the preload and fetch the image twice (warning: "preload not used"). -->
     <link
       rel="preload"
       as="image"
       href="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?w=1600&q=85&fit=crop"
       fetchpriority="high"
-      crossorigin
     />
 
     <!-- Google Fonts — loaded as non-blocking <link> instead of CSS @import (eliminates render-blocking) -->
