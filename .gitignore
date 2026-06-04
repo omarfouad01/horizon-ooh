@@ -62,3 +62,6 @@ public/app/*
 vendor/
 node_modules/
 public/storage/
+
+public/assets/*
+public/images/*
