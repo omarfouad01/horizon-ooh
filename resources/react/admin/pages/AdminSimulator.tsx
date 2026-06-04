@@ -605,6 +605,12 @@ function UploadsTab() {
   const [search,  setSearch]  = useState('')
 
   const fetchUploads = useCallback(async () => {
+    // Guard: skip API calls if not authenticated to avoid 401 console errors
+    const token = localStorage.getItem('horizon_token')
+    if (HAS_API && (!token || token === 'demo-token')) {
+      setLoading(false)
+      return
+    }
     setLoading(true)
     try {
       if (HAS_API) {
