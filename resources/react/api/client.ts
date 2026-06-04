@@ -82,8 +82,9 @@ api.interceptors.response.use(
         err.config.headers.Authorization = `Bearer ${newToken}`;
         return api(err.config);
       }
-      // Refresh failed — do NOT clear credentials so the user can still navigate
-      // The request will fail with 401; admin UI will catch and show error.
+      // Refresh failed — token is invalid/expired. Clear it so subsequent
+      // requests don't keep trying to refresh and generating more 401s.
+      localStorage.removeItem('horizon_token');
     }
 
     return Promise.reject(err);

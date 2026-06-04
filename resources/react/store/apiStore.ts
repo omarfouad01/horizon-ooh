@@ -411,9 +411,10 @@ export const useApiStore = create<ApiState>((set, get) => ({
     const isAuthenticated = !!authToken && authToken !== 'demo-token';
 
     // Admin-only APIs: skip entirely when unauthenticated to avoid 401 storms
-    const suppliersP  = isAuthenticated ? suppliersApi.all()  : Promise.resolve([]);
-    const customersP  = isAuthenticated ? customersApi.all()  : Promise.resolve([]);
-    const contactsP   = isAuthenticated ? contactsApi.all()   : Promise.resolve([]);
+    const suppliersP     = isAuthenticated ? suppliersApi.all()     : Promise.resolve([]);
+    const customersP     = isAuthenticated ? customersApi.all()     : Promise.resolve([]);
+    const contactsP      = isAuthenticated ? contactsApi.all()      : Promise.resolve([]);
+    const designUploadsP = isAuthenticated ? designUploadsApi.all() : Promise.resolve([]);
 
     const results = await Promise.allSettled([
       locationsApi.all(),           // 0
@@ -430,7 +431,7 @@ export const useApiStore = create<ApiState>((set, get) => ({
       settingsApi.aboutContent(),   // 11
       billboardSizesApi.all(),      // 12
       simulatorTemplatesApi.all(),  // 13
-      designUploadsApi.all(),       // 14
+      designUploadsP,               // 14 — design uploads (admin-only)
       suppliersP,                   // 15 — suppliers (admin-only)
       customersP,                   // 16 — customers (admin-only)
       contactsP,                    // 17 — contacts (admin-only)
