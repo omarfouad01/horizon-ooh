@@ -21,9 +21,9 @@ export default function Services() {
       {/* Services grid */}
       <section className="bg-white" style={{ paddingTop: 80, paddingBottom: 120 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
-          <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
+          <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-stretch gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
             {SERVICES.map((service, i) => (
-              <RevealItem key={service.id}>
+              <RevealItem key={service.id} className="h-full">
                 <Link
                   to={serviceHref(lang, service.slug)}
                   className="group bg-white hover:bg-[#0B0F1A] transition-colors duration-500 flex flex-col h-full"

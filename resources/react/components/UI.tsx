@@ -114,9 +114,10 @@ export function RevealItem({
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(22px)',
         transition: 'opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1)',
+        height: '100%',
       }}
     >
-      <div ref={ref}>{children}</div>
+      <div ref={ref} style={{ height: '100%' }}>{children}</div>
     </div>
   );
 }

@@ -832,10 +832,10 @@ function ServicesSection() {
         {/* Grid — white background, thin border separators, no gap fill */}
         <div style={{ border: '1px solid rgba(11,15,26,0.08)' }}>
         <RevealGroup
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-stretch"
         >
           {visible.map((service, i) => (
-            <RevealItem key={service.id}>
+            <RevealItem key={service.id} className="h-full">
               <Link
                 to={serviceHref(lang, service.slug)}
                 className="group bg-white hover:bg-[#0B0F1A] transition-colors duration-500 flex flex-col h-full"
