@@ -156,6 +156,7 @@ export interface ApiState {
   simulatorTemplates: SimulatorTemplate[];
   designUploads:      DesignUpload[];
   reload: () => Promise<void>;
+  forceReload: () => Promise<void>;
 }
 
 // ─── Demo / default data ──────────────────────────────────────────────────────
@@ -366,6 +367,13 @@ export const useApiStore = create<ApiState>((set, get) => ({
   locationsContent: DEMO_LOCATIONS_CONTENT,
   contactContent: DEMO_CONTACT_CONTENT,
   billboardSizes: [], simulatorTemplates: [], designUploads: [],
+
+  forceReload: async () => {
+    // Like reload() but bypasses the loading guard.
+    // Used after login to ensure fresh data even if a previous reload() is in flight.
+    set({ loading: false });
+    return useApiStore.getState().reload();
+  },
 
   reload: async () => {
     if (get().loading) return;

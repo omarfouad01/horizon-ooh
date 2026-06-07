@@ -31,9 +31,11 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
         localStorage.setItem('horizon_token', t);
         localStorage.setItem('horizon_user',  JSON.stringify(u));
         setToken(t); setUser(u);
-        // Reload the global store so admin-only data (suppliers, customers,
-        // contacts, design uploads) is fetched immediately with the new token
-        useApiStore.getState().reload();
+        // Force-reload the global store so admin-only data (suppliers, customers,
+        // contacts, design uploads) is fetched immediately with the new token.
+        // Uses forceReload() to bypass the loading guard in case a previous
+        // reload() is still in flight (e.g. startup load with expired token).
+        useApiStore.getState().forceReload();
         return;
       } catch (err: any) {
         // Server explicitly rejected — stop immediately
@@ -85,7 +87,7 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
   // Auto-logout when token expires (fired by api/client.ts interceptor)
   useEffect(() => {
     const handler = () => logout();
-    window.addEventListener('horizon:auth:expired', handler);
+    window.addEventListener('horizon:auth:expired', handler, { once: true });
     return () => window.removeEventListener('horizon:auth:expired', handler);
   }, [logout]);
 

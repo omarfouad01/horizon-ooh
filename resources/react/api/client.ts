@@ -39,6 +39,8 @@ api.interceptors.request.use((config) => {
 
 // Track if a token refresh is in progress (avoid parallel refresh storms)
 let _refreshPromise: Promise<string | null> | null = null;
+// Prevent firing the auth:expired event more than once per session
+let _expiredDispatched = false;
 
 async function tryRefreshToken(): Promise<string | null> {
   const token = localStorage.getItem('horizon_token');
@@ -86,8 +88,13 @@ api.interceptors.response.use(
       // requests don't keep trying to refresh and generating more 401s.
       localStorage.removeItem('horizon_token');
       localStorage.removeItem('horizon_user');
-      // Notify AdminAuthProvider to clear React state and redirect to login
-      if (typeof window !== 'undefined') {
+      // Notify AdminAuthProvider to clear React state and redirect to login.
+      // Use a flag so this fires exactly once even if multiple parallel requests
+      // all fail at the same time (e.g. suppliers + customers + contacts).
+      if (typeof window !== 'undefined' && !_expiredDispatched) {
+        _expiredDispatched = true;
+        // Reset flag after a short delay so future sessions work correctly
+        setTimeout(() => { _expiredDispatched = false; }, 5000);
         window.dispatchEvent(new CustomEvent('horizon:auth:expired'));
       }
     }
