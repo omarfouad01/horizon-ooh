@@ -461,7 +461,7 @@ const save = async (e: React.FormEvent) => {
         ? Object.values(errors).flat().join(', ')
         : resData?.message || err?.message || 'Save failed'
       if (err?.response?.status === 401) {
-        toast.error('Session expired. Please log in again.')
+        toast.error('Session expired — please log in again and retry', { duration: 5000 })
       } else {
         toast.error(msg)
       }

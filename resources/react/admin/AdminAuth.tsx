@@ -87,7 +87,7 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
   // Auto-logout when token expires (fired by api/client.ts interceptor)
   useEffect(() => {
     const handler = () => logout();
-    window.addEventListener('horizon:auth:expired', handler, { once: true });
+    window.addEventListener('horizon:auth:expired', handler);
     return () => window.removeEventListener('horizon:auth:expired', handler);
   }, [logout]);
 

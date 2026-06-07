@@ -140,13 +140,17 @@ function UserForm({ editing, onClose }: UserFormProps) {
       }
       onClose(true)
     } catch (err: any) {
-      const msg = err?.response?.data?.message
-        ?? (err?.response?.data?.errors
-            ? Object.values(err.response.data.errors).flat().join(', ')
-            : null)
-        ?? err?.message
-        ?? 'Save failed'
-      toast.error(msg)
+      if (err?.response?.status === 401) {
+        toast.error('Session expired — please log in again and retry', { duration: 5000 })
+      } else {
+        const msg = err?.response?.data?.message
+          ?? (err?.response?.data?.errors
+              ? Object.values(err.response.data.errors).flat().join(', ')
+              : null)
+          ?? err?.message
+          ?? 'Save failed'
+        toast.error(msg)
+      }
     } finally {
       setSaving(false)
     }

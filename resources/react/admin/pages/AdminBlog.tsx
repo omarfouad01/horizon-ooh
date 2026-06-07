@@ -176,8 +176,13 @@ function BlogForm({ editing, onClose }: { editing?: BlogPost | null; onClose: ()
       toast.success(isEdit ? 'Post updated' : 'Post created')
       onClose()
     } catch (err: any) {
-      const msg = err?.response?.data?.message || err?.message || 'Save failed'
-      toast.error(msg)
+      const status = err?.response?.status
+      if (status === 401) {
+        toast.error('Session expired — please log in again and retry', { duration: 5000 })
+      } else {
+        const msg = err?.response?.data?.message || err?.message || 'Save failed'
+        toast.error(msg)
+      }
     } finally {
       setSaving(false)
     }

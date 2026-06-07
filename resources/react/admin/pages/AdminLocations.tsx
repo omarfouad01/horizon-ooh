@@ -38,8 +38,13 @@ function GovForm({ editing, onClose }: any) {
       toast.success(editing ? 'Governorate updated' : 'Governorate created')
       onClose()
     } catch (err: any) {
-      const msg = err?.response?.data?.message || err?.message || 'Save failed'
-      toast.error(msg)
+      const status = err?.response?.status
+      if (status === 401) {
+        toast.error('Session expired — please log in again and retry', { duration: 5000 })
+      } else {
+        const msg = err?.response?.data?.message || err?.message || 'Save failed'
+        toast.error(msg)
+      }
     } finally {
       setSaving(false)
     }
@@ -88,8 +93,13 @@ function DistrictForm({ editing, presetLocationId, onClose }: any) {
       toast.success(editing ? 'District updated' : 'District added')
       onClose()
     } catch (err: any) {
-      const msg = err?.response?.data?.message || err?.message || 'Save failed'
-      toast.error(msg)
+      const status = err?.response?.status
+      if (status === 401) {
+        toast.error('Session expired — please log in again and retry', { duration: 5000 })
+      } else {
+        const msg = err?.response?.data?.message || err?.message || 'Save failed'
+        toast.error(msg)
+      }
     } finally {
       setSaving(false)
     }

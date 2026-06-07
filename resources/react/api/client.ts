@@ -74,6 +74,7 @@ api.interceptors.response.use(
     const isAuthRoute = /\/(auth\/login|login|auth\/logout|logout|auth\/refresh)($|\?)/i.test(url);
 
     if (status === 401 && hasToken && !isAuthRoute && !err.config?._retried) {
+      // Attempt a silent token refresh first (shared promise — no parallel storms)
       if (!_refreshPromise) {
         _refreshPromise = tryRefreshToken().finally(() => { _refreshPromise = null; });
       }
@@ -84,8 +85,20 @@ api.interceptors.response.use(
         err.config.headers.Authorization = `Bearer ${newToken}`;
         return api(err.config);
       }
-      // Refresh failed — token is invalid/expired. Clear it so subsequent
-      // requests don't keep trying to refresh and generating more 401s.
+
+      // Refresh failed.
+      // For write operations (POST / PUT / PATCH / DELETE) we do NOT force a
+      // logout+redirect — that would lose unsaved form data and is very jarring.
+      // Instead, just reject the promise so the calling code can show a toast.
+      const method = (err.config?.method ?? 'get').toLowerCase();
+      const isWrite = method === 'post' || method === 'put' || method === 'patch' || method === 'delete';
+      if (isWrite) {
+        // Let the error propagate so the form can catch and show a friendly message
+        return Promise.reject(err);
+      }
+
+      // For read (GET) failures: clear the stale token and trigger a logout
+      // so the user is redirected to login cleanly.
       localStorage.removeItem('horizon_token');
       localStorage.removeItem('horizon_user');
       // Notify AdminAuthProvider to clear React state and redirect to login.

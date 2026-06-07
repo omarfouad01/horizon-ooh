@@ -239,7 +239,9 @@ function SizesTab() {
       else         { await billboardSizeStore.add(form as Omit<BillboardSize,'id'>); toast.success('Size added') }
       setOpen(false)
     } catch (err: any) {
-      toast.error(err?.response?.data?.message ?? err?.message ?? 'Save failed')
+      (err?.response?.status === 401
+        ? toast.error('Session expired — please log in again and retry', { duration: 5000 })
+        : toast.error(err?.response?.data?.message ?? err?.message ?? 'Save failed'))
     }
   }
 
@@ -376,7 +378,9 @@ function TemplatesTab() {
       }
       setOpen(false)
     } catch (err: any) {
-      toast.error(err?.response?.data?.message ?? err?.message ?? 'Save failed')
+      (err?.response?.status === 401
+        ? toast.error('Session expired — please log in again and retry', { duration: 5000 })
+        : toast.error(err?.response?.data?.message ?? err?.message ?? 'Save failed'))
     }
   }
 
