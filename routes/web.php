@@ -19,7 +19,9 @@ Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 Route::get('/robots.txt',  [SitemapController::class, 'robots']);
 
 // ── Dynamic Favicon — serves the admin-uploaded favicon from DB ───────────────
-// Ensures /favicon.ico ALWAYS returns the latest icon set in Dashboard → Settings → Logo & Favicon.
+// .htaccess routes favicon.ico through Laravel (bypasses static file).
+// Uses 302 + no-store so browsers and Google never cache the redirect —
+// every request re-checks the DB for the latest favicon.
 Route::get('/favicon.ico', function () {
     $faviconUrl = null;
     try {
@@ -30,28 +32,31 @@ Route::get('/favicon.ico', function () {
         }
     } catch (\Throwable $e) { /* DB not ready — fall through */ }
 
-    // External URL → redirect permanently (Google follows 301s)
+    // External URL → 302 (temporary) redirect with no-store so it is never cached
+    // 301 was causing browsers and Google to permanently cache the old URL.
     if ($faviconUrl && str_starts_with($faviconUrl, 'http')) {
-        return redirect()->away($faviconUrl, 301)
-            ->header('Cache-Control', 'public, max-age=3600');
+        return redirect()->away($faviconUrl, 302)
+            ->header('Cache-Control', 'no-store, no-cache, must-revalidate')
+            ->header('Pragma', 'no-cache');
     }
 
-    // Base64 data URI → decode and serve inline
+    // Base64 data URI → decode and serve the raw image bytes inline
     if ($faviconUrl && str_starts_with($faviconUrl, 'data:')) {
         if (preg_match('/^data:([^;]+);base64,(.+)$/', $faviconUrl, $m)) {
             return response(base64_decode($m[2]), 200)
                 ->header('Content-Type',  $m[1])
-                ->header('Cache-Control', 'public, max-age=3600')
+                ->header('Cache-Control', 'no-store, no-cache, must-revalidate')
+                ->header('Pragma', 'no-cache')
                 ->header('X-Favicon-Source', 'dashboard');
         }
     }
 
-    // Fall back to static file
+    // Fall back to static file in public/
     $static = public_path('favicon.ico');
     if (file_exists($static)) {
         return response()->file($static, [
             'Content-Type'  => 'image/x-icon',
-            'Cache-Control' => 'public, max-age=3600',
+            'Cache-Control' => 'no-store, no-cache, must-revalidate',
         ]);
     }
 

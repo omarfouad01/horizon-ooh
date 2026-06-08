@@ -1,6 +1,11 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+    # ── Force favicon.ico through Laravel (dynamic favicon from dashboard) ────
+    # Must come BEFORE the !-f (file exists) check so the static file is bypassed
+    RewriteRule ^favicon\.ico$ index.php [L]
+
+    # ── Serve existing static files directly (assets, images, etc.) ──────────
     RewriteCond %{REQUEST_URI} !^/index\.php
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
