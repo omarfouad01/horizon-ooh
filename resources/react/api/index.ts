@@ -205,7 +205,8 @@ export const simulatorTemplatesApi = {
 
 // ─── Design Uploads ───────────────────────────────────────────────────────────
 export const designUploadsApi = {
-  all:    ()           => api.get('/design-uploads'),
+  all:    (page = 1) => api.get(`/design-uploads?page=${page}`),
+  one:    (id: any)  => api.get(`/design-uploads/${id}`),
   create: (data: any)  => api.post('/design-uploads', data),
   update: (id: any, data: any) => api.put(`/design-uploads/${id}`, data),
   remove: (id: any)    => api.delete(`/design-uploads/${id}`),

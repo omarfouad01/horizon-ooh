@@ -20,7 +20,7 @@ import {
 } from '@/store/dataStore'
 import { designUploadsApi } from '@/api'
 import { Btn, PageHeader, Field, TA, Modal, ImagePicker } from '../ui'
-import { Plus, Trash2, Pencil, Save, Image, Layers, X, Move, RefreshCw, Loader2 } from 'lucide-react'
+import { Plus, Trash2, Pencil, Save, Image, Layers, X, Move, RefreshCw, Loader2, Eye } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 // ─── Colours & Labels ────────────────────────────────────────────────────────
@@ -605,33 +605,64 @@ function TemplatesTab() {
 // ─── Design Uploads Tab ───────────────────────────────────────────────────────
 function UploadsTab() {
   const { isAuth } = useAdmin()
-  // Fetch live from API every time this tab is shown
-  const [uploads, setUploads] = useState<DesignUpload[]>([])
-  const [loading, setLoading] = useState(true)
-  const [search,  setSearch]  = useState('')
+  const [uploads,   setUploads]   = useState<DesignUpload[]>([])
+  const [loading,   setLoading]   = useState(true)
+  const [search,    setSearch]    = useState('')
+  const [page,      setPage]      = useState(1)
+  const [lastPage,  setLastPage]  = useState(1)
+  const [total,     setTotal]     = useState(0)
+  // For viewing a full design (fetched on demand to avoid giant list payload)
+  const [viewUrl,   setViewUrl]   = useState<string | null>(null)
+  const [viewLoading, setViewLoading] = useState<string | null>(null)
 
-  const fetchUploads = useCallback(async () => {
+  const fetchUploads = useCallback(async (p = 1) => {
     if (HAS_API && !isAuth) { setLoading(false); return }
     setLoading(true)
     try {
       if (HAS_API) {
-        const res = await designUploadsApi.all()
+        const res  = await designUploadsApi.all(p)
         const data = res.data
-        setUploads(Array.isArray(data) ? data : (data?.data ?? []))
+        // API returns paginated: { data: [...], total, current_page, last_page }
+        const rows = Array.isArray(data) ? data : (data?.data ?? [])
+        setUploads(rows)
+        setTotal(data?.total ?? rows.length)
+        setLastPage(data?.last_page ?? 1)
+        setPage(data?.current_page ?? p)
       } else {
-        // Preview mode — use store
         const storeUploads = useStore.getState().designUploads ?? []
         setUploads(storeUploads)
+        setTotal(storeUploads.length)
       }
     } catch (err) {
       console.error('[UploadsTab] fetch failed', err)
-      toast.error('Could not load design uploads')
+      toast.error('Could not load design uploads — check server connection')
     } finally {
       setLoading(false)
     }
   }, [isAuth])
 
-  useEffect(() => { fetchUploads() }, [fetchUploads])
+  useEffect(() => { fetchUploads(1) }, [fetchUploads])
+
+  // View full design (fetched on demand — avoids huge list payload)
+  async function viewDesign(u: DesignUpload) {
+    // If designUrl already present (it's a real URL, not base64), open directly
+    if (u.designUrl) { window.open(u.designUrl, '_blank'); return }
+    if (!(u as any).hasDesign) return
+    setViewLoading(u.id)
+    try {
+      const res  = await designUploadsApi.one(u.id)
+      const url  = res.data?.designUrl
+      if (url) {
+        setViewUrl(url)
+      } else {
+        toast.error('No design found for this upload')
+      }
+    } catch {
+      toast.error('Could not load design preview')
+    } finally {
+      setViewLoading(null)
+    }
+  }
 
   const filtered = uploads.filter(u => {
     const q = search.toLowerCase()
@@ -647,6 +678,7 @@ function UploadsTab() {
       if (HAS_API) {
         await designUploadsApi.remove(id)
         setUploads(prev => prev.filter(u => u.id !== id))
+        setTotal(t => Math.max(0, t - 1))
       } else {
         await designUploadStore.remove(id)
       }
@@ -675,11 +707,12 @@ function UploadsTab() {
 
   return (
     <div>
+      {/* Header */}
       <div className="flex items-center justify-between mb-4 gap-3">
         <div className="flex items-center gap-3">
-          <p className="text-sm text-gray-500 font-medium">{uploads.length} design upload(s)</p>
+          <p className="text-sm text-gray-500 font-medium">{total} design upload(s)</p>
           <button
-            onClick={fetchUploads}
+            onClick={() => fetchUploads(page)}
             disabled={loading}
             className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-700 transition-colors disabled:opacity-40"
             title="Refresh uploads"
@@ -700,13 +733,14 @@ function UploadsTab() {
           <Loader2 size={18} className="animate-spin" /> Loading uploads…
         </div>
       ) : (
+      <>
       <div className="overflow-x-auto rounded-xl border border-gray-100">
         <table className="w-full text-sm">
           <thead><tr className="bg-gray-50 border-b border-gray-100">
             <th className="text-left px-4 py-3 font-semibold text-gray-600">User</th>
             <th className="text-left px-4 py-3 font-semibold text-gray-600">Phone</th>
             <th className="text-left px-4 py-3 font-semibold text-gray-600">Type / Size</th>
-            <th className="text-left px-4 py-3 font-semibold text-gray-600">Design Preview</th>
+            <th className="text-left px-4 py-3 font-semibold text-gray-600">Design</th>
             <th className="text-left px-4 py-3 font-semibold text-gray-600">Status</th>
             <th className="text-left px-4 py-3 font-semibold text-gray-600">Date</th>
             <th className="px-4 py-3" />
@@ -725,6 +759,7 @@ function UploadsTab() {
                 </td>
                 <td className="px-4 py-3">
                   {u.designUrl ? (
+                    /* Real URL — show thumbnail directly */
                     <a href={u.designUrl} target="_blank" rel="noreferrer">
                       <img
                         src={u.designUrl}
@@ -733,6 +768,18 @@ function UploadsTab() {
                         onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}
                       />
                     </a>
+                  ) : (u as any).hasDesign ? (
+                    /* Base64 stored — fetch on demand to keep list fast */
+                    <button
+                      onClick={() => viewDesign(u)}
+                      disabled={viewLoading === u.id}
+                      className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 font-medium disabled:opacity-50"
+                    >
+                      {viewLoading === u.id
+                        ? <><Loader2 size={12} className="animate-spin" /> Loading…</>
+                        : <><Eye size={12} /> View Design</>
+                      }
+                    </button>
                   ) : (
                     <span className="text-gray-300 text-xs">—</span>
                   )}
@@ -761,12 +808,48 @@ function UploadsTab() {
             ))}
             {!filtered.length && (
               <tr><td colSpan={7} className="px-4 py-8 text-center text-gray-300">
-                {loading ? 'Loading…' : uploads.length === 0 ? 'No design uploads yet — users will appear here after submitting designs.' : 'No results matching search.'}
+                {uploads.length === 0 ? 'No design uploads yet — users will appear here after submitting designs.' : 'No results matching search.'}
               </td></tr>
             )}
           </tbody>
         </table>
       </div>
+
+      {/* Pagination */}
+      {lastPage > 1 && (
+        <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
+          <p className="text-xs text-gray-400">Page {page} of {lastPage} — {total} total</p>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => fetchUploads(page - 1)}
+              disabled={page <= 1 || loading}
+              className="px-3 py-1.5 text-xs rounded border border-gray-200 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed"
+            >← Prev</button>
+            <button
+              onClick={() => fetchUploads(page + 1)}
+              disabled={page >= lastPage || loading}
+              className="px-3 py-1.5 text-xs rounded border border-gray-200 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed"
+            >Next →</button>
+          </div>
+        </div>
+      )}
+      </>
+      )}
+
+      {/* Full design lightbox */}
+      {viewUrl && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
+          onClick={() => setViewUrl(null)}
+        >
+          <div className="relative max-w-3xl w-full" onClick={e => e.stopPropagation()}>
+            <button
+              onClick={() => setViewUrl(null)}
+              className="absolute -top-8 right-0 text-white/70 hover:text-white text-sm font-medium"
+            >✕ Close</button>
+            <img src={viewUrl} alt="Full design" className="w-full rounded-xl shadow-2xl" />
+          </div>
+        </div>
       )}
     </div>
   )

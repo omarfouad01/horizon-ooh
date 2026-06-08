@@ -174,6 +174,7 @@ Route::middleware('auth:api')->group(function () {
 
     // Design Uploads (admin read/update/delete)
     Route::get   ('/design-uploads',       [DesignUploadController::class, 'index']);
+    Route::get   ('/design-uploads/{id}',  [DesignUploadController::class, 'show']);
     Route::put   ('/design-uploads/{id}',  [DesignUploadController::class, 'update']);
     Route::delete('/design-uploads/{id}',  [DesignUploadController::class, 'destroy']);
 });
