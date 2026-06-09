@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import axios from 'axios';
 import { authApi } from '@/api';
 import { HAS_API, useApiStore } from '@/store/apiStore';
 
@@ -9,6 +10,8 @@ interface AuthCtx {
   logout:          () => void;
   isAuthenticated: boolean;
   isAuth:          boolean;
+  // true while we are validating an existing token on first load
+  authChecking:    boolean;
 }
 const Ctx = createContext<AuthCtx>({} as AuthCtx);
 export const useAdminAuth = () => useContext(Ctx);
@@ -17,6 +20,10 @@ export const useAdmin     = useAdminAuth; // alias used by AdminLayout
 export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
   const [user,  setUser]  = useState<any>(()=>{ try { return JSON.parse(localStorage.getItem('horizon_user')||'null'); } catch { return null; } });
   const [token, setToken] = useState<string|null>(()=>localStorage.getItem('horizon_token'));
+  // Track whether we're still validating the initial token.
+  // Start as true only if there IS a token to validate.
+  const hasInitialToken = !!localStorage.getItem('horizon_token');
+  const [authChecking, setAuthChecking] = useState(hasInitialToken);
 
   const login = async (email: string, password: string) => {
     // ── Try real API ────────────────────────────────────────────────────────────
@@ -84,16 +91,69 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
-  // Auto-logout when token expires (fired by api/client.ts interceptor)
+  // Auto-logout when token expires (fired by api/client.ts interceptor
+  // OR by apiStore.reload() when it detects a stale token on an admin page)
   useEffect(() => {
     const handler = () => logout();
     window.addEventListener('horizon:auth:expired', handler);
     return () => window.removeEventListener('horizon:auth:expired', handler);
   }, [logout]);
 
+  // Keep React state in sync with localStorage.
+  // apiStore.reload() can remove the token directly from localStorage (raw axios
+  // bypasses React state). This listener catches that and clears React state too,
+  // so AdminLayout sees isAuth=false and shows the login form instead of a blank page.
+  useEffect(() => {
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === 'horizon_token' && !e.newValue) {
+        // Token was removed externally — clear React state
+        setToken(null);
+        setUser(null);
+        useApiStore.setState({ suppliers: [], customers: [], contacts: [], designUploads: [] });
+      }
+      if (e.key === 'horizon_token' && e.newValue) {
+        // Token was set externally — sync React state
+        setToken(e.newValue);
+        try { setUser(JSON.parse(localStorage.getItem('horizon_user') || 'null')); } catch { /* ignore */ }
+      }
+    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, []);
+
+  // On first load with an existing token, validate it once via /auth/me
+  // and resolve authChecking so AdminLayout can make a proper auth decision
+  // without flashing the login page.
+  useEffect(() => {
+    if (!hasInitialToken) { setAuthChecking(false); return; }
+    const storedToken = localStorage.getItem('horizon_token');
+    if (!storedToken || storedToken === 'demo-token' || storedToken === 'preview-token') {
+      setAuthChecking(false); return;
+    }
+    const baseURL = typeof window !== 'undefined'
+      ? `${window.location.protocol}//${window.location.hostname}${window.location.port ? ':' + window.location.port : ''}/api`
+      : '/api';
+    axios.get(`${baseURL}/auth/me`, {
+      headers: { Authorization: `Bearer ${storedToken}`, Accept: 'application/json' },
+      timeout: 8000,
+    }).then(() => {
+      setAuthChecking(false); // valid token
+    }).catch((err: any) => {
+      const status = err?.response?.status;
+      if (status === 401 || status === 403) {
+        localStorage.removeItem('horizon_token');
+        localStorage.removeItem('horizon_user');
+        setToken(null); setUser(null);
+        useApiStore.setState({ suppliers: [], customers: [], contacts: [], designUploads: [] });
+      }
+      setAuthChecking(false);
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // run once on mount
+
   const auth = !!token && !!user;
   return (
-    <Ctx.Provider value={{ user, token, login, logout, isAuthenticated: auth, isAuth: auth }}>
+    <Ctx.Provider value={{ user, token, login, logout, isAuthenticated: auth, isAuth: auth, authChecking }}>
       {children}
     </Ctx.Provider>
   );

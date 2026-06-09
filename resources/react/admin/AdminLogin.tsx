@@ -1,14 +1,28 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAdmin } from './AdminAuth'
 
 export default function AdminLogin() {
-  const { login } = useAdmin()
+  const { login, isAuth } = useAdmin()
   const navigate  = useNavigate()
   const [email,   setEmail]   = useState('')
   const [pw,      setPw]      = useState('')
   const [error,   setError]   = useState('')
   const [loading, setLoading] = useState(false)
+  // loginSuccess is set to true after login() resolves.
+  // We then wait for isAuth (React state) to become true before navigating,
+  // ensuring we don't navigate before the state update is committed.
+  const [loginSuccess, setLoginSuccess] = useState(false)
+
+  // Navigate to dashboard only AFTER isAuth is committed to React state.
+  // This prevents the race where navigate() fires before setToken/setUser
+  // have been processed, causing AdminLayout to see isAuth=false and
+  // redirect back to /admin/login.
+  useEffect(() => {
+    if (loginSuccess && isAuth) {
+      navigate('/admin', { replace: true })
+    }
+  }, [loginSuccess, isAuth, navigate])
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -16,7 +30,8 @@ export default function AdminLogin() {
     setError('')
     try {
       await login(email, pw)
-      navigate('/admin')
+      // Mark success — the useEffect above will navigate once isAuth=true
+      setLoginSuccess(true)
     } catch (err: any) {
       const apiMsg = (err as any)?.response?.data?.message
       setError(apiMsg ?? err?.message ?? 'Invalid credentials. Please try again.')

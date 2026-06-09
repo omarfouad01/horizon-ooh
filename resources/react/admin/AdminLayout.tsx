@@ -27,13 +27,26 @@ const NAV = [
 ] as const
 
 export default function AdminLayout() {
-  const { isAuth, logout } = useAdmin()
+  const { isAuth, authChecking, logout } = useAdmin()
   const { pathname } = useLocation()
   const [mobile, setMobile] = useState(false)
   const store = useStore()
 
   // Count unread contacts for badge
   const newContactCount = store.contacts.filter(c => c.status === 'new').length
+
+  // While validating an existing token, show a neutral loading screen
+  // instead of immediately redirecting to login (prevents flicker).
+  if (authChecking) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="flex flex-col items-center gap-3">
+          <span className="w-10 h-10 flex items-center justify-center text-white font-black text-sm rounded-xl" style={{ background: '#D90429' }}>H</span>
+          <p className="text-xs font-bold text-gray-400 tracking-widest uppercase animate-pulse">Loading…</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!isAuth) return <Navigate to="/admin/login" replace />
 
