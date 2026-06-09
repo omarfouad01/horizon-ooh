@@ -427,36 +427,52 @@ export const useApiStore = create<ApiState>((set, get) => ({
     const skipAuthCheck = !!(get() as any)._skipAuthCheck;
     if (skipAuthCheck) set({ _skipAuthCheck: false } as any);
 
+    // Mid-session skip: if the store already has real API data (usingDemo=false),
+    // the user is actively logged in and their token was valid recently.
+    // Re-validating on every CRUD-triggered reload() adds unnecessary latency and
+    // risks falsely wiping the token on a slow /auth/me response.
+    // We trust the token is still valid; if it expired, the admin API calls will
+    // 401 → interceptor → refresh → horizon:auth:expired (normal flow).
+    const midSession = !get().usingDemo && !skipAuthCheck;
+
     // Validate token with a PLAIN axios call (no interceptors).
     // Using authApi.me() would go through our Axios interceptor which on 401 tries
     // to refresh the token, then fires horizon:auth:expired → AdminAuth.logout() →
     // isAuth=false → redirect to login. We must avoid that cascade here.
     let isAuthenticated = false;
     if (mightBeAuthenticated) {
-      if (skipAuthCheck) {
-        // Post-login: token was just issued, we know it's valid — skip the check
+      if (skipAuthCheck || midSession) {
+        // Post-login or mid-session: token known/trusted to be valid — skip the check
         isAuthenticated = true;
       } else {
         try {
-          // Raw axios — NO interceptors, NO retry, NO refresh attempt
-          const baseURL = authToken ? (typeof window !== 'undefined'
+          // Raw axios — NO interceptors, NO retry, NO refresh attempt.
+          // We use a generous 8s timeout so slow servers don't falsely fail.
+          const baseURL = typeof window !== 'undefined'
             ? `${window.location.protocol}//${window.location.hostname}${window.location.port ? ':' + window.location.port : ''}/api`
-            : '/api') : '/api';
+            : '/api';
           await axios.get(`${baseURL}/auth/me`, {
             headers: { Authorization: `Bearer ${authToken}`, Accept: 'application/json' },
-            timeout: 5000,
+            timeout: 8000,
           });
           isAuthenticated = true;
-        } catch {
-          // Token is expired or invalid — wipe it so next page load is clean
-          // We do NOT dispatch horizon:auth:expired here — this runs on public pages
-          // too and we don't want to force-logout a dashboard session just because
-          // the public store reloaded. The interceptor handles that for dashboard flows.
-          if (typeof localStorage !== 'undefined') {
+        } catch (err: any) {
+          // IMPORTANT: Only wipe the token if the server explicitly rejected it (401/403).
+          // Network errors (timeout, ECONNABORTED, ERR_NETWORK) mean we cannot reach
+          // the server — we should NOT assume the token is invalid in that case.
+          // Wiping on a timeout would log the user out just because the server was slow!
+          const status = err?.response?.status;
+          const isServerRejection = status === 401 || status === 403;
+          if (isServerRejection && typeof localStorage !== 'undefined') {
+            // Server explicitly says this token is invalid — safe to remove
             localStorage.removeItem('horizon_token');
             localStorage.removeItem('horizon_user');
           }
-          isAuthenticated = false;
+          // On network error we treat the session as authenticated (benefit of the doubt).
+          // The admin APIs will then attempt the call; if THEY fail, the interceptor
+          // handles it via the normal refresh → horizon:auth:expired flow.
+          // This way a flaky network never silently logs the user out.
+          isAuthenticated = isServerRejection ? false : mightBeAuthenticated;
         }
       }
     }
