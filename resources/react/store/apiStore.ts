@@ -7,6 +7,7 @@
  *  3. Normalize every response so slug/id/array fields are always present
  *  4. Fall back to demo static data only if ALL API calls fail
  */
+import axios from 'axios';
 import { create } from 'zustand';
 import {
   locationsApi, adFormatsApi, billboardFormatsApi, servicesApi, projectsApi,
@@ -14,7 +15,6 @@ import {
   settingsApi, districtsApi,
   suppliersApi, customersApi, contactsApi,
   billboardSizesApi, simulatorTemplatesApi, designUploadsApi,
-  authApi,
 } from '@/api';
 import { LOCATIONS, SERVICES, PROJECTS, BLOG_POSTS, TRUST_STATS, PROCESS, CLIENT_BRANDS } from '@/data';
 
@@ -418,10 +418,8 @@ export const useApiStore = create<ApiState>((set, get) => ({
 
     // Real API mode — use Promise.allSettled so one failure doesn't break everything
     // Admin-only endpoints (suppliers, customers, contacts) require a VALID auth token.
-    // We do NOT trust the localStorage token blindly — a stale/expired token would
-    // cause 401 storms (suppliers + customers + contacts + refresh all failing at once).
-    // Instead we verify the token with /auth/me first; if it fails we wipe the token
-    // so subsequent page loads are clean and admin APIs are never called unauthenticated.
+    // We validate the token with a RAW axios call (bypassing our interceptor) so that
+    // a stale token doesn't trigger refresh → horizon:auth:expired → logout cascade.
     const authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('horizon_token') : null;
     const mightBeAuthenticated = !!authToken && authToken !== 'demo-token' && authToken !== 'preview-token';
 
@@ -429,21 +427,31 @@ export const useApiStore = create<ApiState>((set, get) => ({
     const skipAuthCheck = !!(get() as any)._skipAuthCheck;
     if (skipAuthCheck) set({ _skipAuthCheck: false } as any);
 
-    // Validate token before calling admin APIs.
-    // We do NOT trust the localStorage token blindly — a stale/expired token would
-    // cause 401 storms (suppliers + customers + contacts + refresh all failing at once).
-    // forceReload() skips this check because it's called right after a confirmed login.
+    // Validate token with a PLAIN axios call (no interceptors).
+    // Using authApi.me() would go through our Axios interceptor which on 401 tries
+    // to refresh the token, then fires horizon:auth:expired → AdminAuth.logout() →
+    // isAuth=false → redirect to login. We must avoid that cascade here.
     let isAuthenticated = false;
     if (mightBeAuthenticated) {
       if (skipAuthCheck) {
-        // Post-login: token was just issued, no need to verify
+        // Post-login: token was just issued, we know it's valid — skip the check
         isAuthenticated = true;
       } else {
         try {
-          await authApi.me();
+          // Raw axios — NO interceptors, NO retry, NO refresh attempt
+          const baseURL = authToken ? (typeof window !== 'undefined'
+            ? `${window.location.protocol}//${window.location.hostname}${window.location.port ? ':' + window.location.port : ''}/api`
+            : '/api') : '/api';
+          await axios.get(`${baseURL}/auth/me`, {
+            headers: { Authorization: `Bearer ${authToken}`, Accept: 'application/json' },
+            timeout: 5000,
+          });
           isAuthenticated = true;
         } catch {
-          // Token is expired or invalid — remove it so we don't retry on next load
+          // Token is expired or invalid — wipe it so next page load is clean
+          // We do NOT dispatch horizon:auth:expired here — this runs on public pages
+          // too and we don't want to force-logout a dashboard session just because
+          // the public store reloaded. The interceptor handles that for dashboard flows.
           if (typeof localStorage !== 'undefined') {
             localStorage.removeItem('horizon_token');
             localStorage.removeItem('horizon_user');
