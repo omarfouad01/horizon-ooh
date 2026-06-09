@@ -14,6 +14,7 @@ import {
   settingsApi, districtsApi,
   suppliersApi, customersApi, contactsApi,
   billboardSizesApi, simulatorTemplatesApi, designUploadsApi,
+  authApi,
 } from '@/api';
 import { LOCATIONS, SERVICES, PROJECTS, BLOG_POSTS, TRUST_STATS, PROCESS, CLIENT_BRANDS } from '@/data';
 
@@ -157,6 +158,8 @@ export interface ApiState {
   designUploads:      DesignUpload[];
   reload: () => Promise<void>;
   forceReload: () => Promise<void>;
+  // Internal flag: set by forceReload() so reload() skips /auth/me validation
+  _skipAuthCheck?: boolean;
 }
 
 // ─── Demo / default data ──────────────────────────────────────────────────────
@@ -369,9 +372,10 @@ export const useApiStore = create<ApiState>((set, get) => ({
   billboardSizes: [], simulatorTemplates: [], designUploads: [],
 
   forceReload: async () => {
-    // Like reload() but bypasses the loading guard.
-    // Used after login to ensure fresh data even if a previous reload() is in flight.
-    set({ loading: false });
+    // Like reload() but bypasses the loading guard AND skips the /auth/me validation.
+    // Called after a confirmed successful login, so the token is known to be valid.
+    // We set a flag so reload() skips the /auth/me pre-check.
+    set({ loading: false, _skipAuthCheck: true } as any);
     return useApiStore.getState().reload();
   },
 
@@ -413,12 +417,43 @@ export const useApiStore = create<ApiState>((set, get) => ({
     }
 
     // Real API mode — use Promise.allSettled so one failure doesn't break everything
-    // Admin-only endpoints (suppliers, customers, contacts) require an auth token.
-    // They are dynamically imported to keep them OUT of the public bundle.
+    // Admin-only endpoints (suppliers, customers, contacts) require a VALID auth token.
+    // We do NOT trust the localStorage token blindly — a stale/expired token would
+    // cause 401 storms (suppliers + customers + contacts + refresh all failing at once).
+    // Instead we verify the token with /auth/me first; if it fails we wipe the token
+    // so subsequent page loads are clean and admin APIs are never called unauthenticated.
     const authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('horizon_token') : null;
-    const isAuthenticated = !!authToken && authToken !== 'demo-token';
+    const mightBeAuthenticated = !!authToken && authToken !== 'demo-token' && authToken !== 'preview-token';
 
-    // Admin-only APIs: skip entirely when unauthenticated to avoid 401 storms
+    // Check if forceReload() set a skip flag (called after confirmed login — token is fresh)
+    const skipAuthCheck = !!(get() as any)._skipAuthCheck;
+    if (skipAuthCheck) set({ _skipAuthCheck: false } as any);
+
+    // Validate token before calling admin APIs.
+    // We do NOT trust the localStorage token blindly — a stale/expired token would
+    // cause 401 storms (suppliers + customers + contacts + refresh all failing at once).
+    // forceReload() skips this check because it's called right after a confirmed login.
+    let isAuthenticated = false;
+    if (mightBeAuthenticated) {
+      if (skipAuthCheck) {
+        // Post-login: token was just issued, no need to verify
+        isAuthenticated = true;
+      } else {
+        try {
+          await authApi.me();
+          isAuthenticated = true;
+        } catch {
+          // Token is expired or invalid — remove it so we don't retry on next load
+          if (typeof localStorage !== 'undefined') {
+            localStorage.removeItem('horizon_token');
+            localStorage.removeItem('horizon_user');
+          }
+          isAuthenticated = false;
+        }
+      }
+    }
+
+    // Admin-only APIs: only called when token is confirmed valid
     const suppliersP     = isAuthenticated ? suppliersApi.all()     : Promise.resolve([]);
     const customersP     = isAuthenticated ? customersApi.all()     : Promise.resolve([]);
     const contactsP      = isAuthenticated ? contactsApi.all()      : Promise.resolve([]);
