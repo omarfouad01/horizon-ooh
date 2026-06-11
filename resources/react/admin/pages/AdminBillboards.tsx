@@ -516,7 +516,7 @@ const save = async (e: React.FormEvent) => {
           <input className={inp} value={f.sqm || parseSqm(f.size||'')} readOnly style={{background:'#f9fafb',color:'#9ca3af'}}/>
         </Lbl>
         <Lbl label="Sides">
-          <input className={inp} type="number" min={1} max={6} value={f.sides||1} onChange={e=>set('sides',parseInt(e.target.value)||1)}/>
+          <input className={inp} type="number" min={1} value={f.sides||1} onChange={e=>set('sides',parseInt(e.target.value)||1)}/>
         </Lbl>
       </div>
       <div className="grid grid-cols-3 gap-3">
