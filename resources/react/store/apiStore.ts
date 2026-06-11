@@ -17,6 +17,39 @@ import {
 } from '@/api';
 import { LOCATIONS, SERVICES, PROJECTS, BLOG_POSTS, TRUST_STATS, PROCESS, CLIENT_BRANDS } from '@/data';
 
+// ─── Token validity gate ─────────────────────────────────────────────────────
+// AdminAuth.tsx validates the token via /auth/me on first load.
+// apiStore.reload() waits for this result before calling admin-only APIs,
+// preventing 401 storms from stale tokens in localStorage.
+//
+// Strategy:
+//   Public page (path doesn't start with /admin):
+//     → resolve immediately as false → skip admin APIs entirely
+//   Admin page (path starts with /admin):
+//     → AdminAuthProvider will call resolveTokenValidity() after /auth/me check
+//     → apiStore.reload() waits (up to 10s fallback)
+let _tokenValidityResolve: ((valid: boolean) => void) | null = null;
+let _tokenValidityPromise: Promise<boolean> = new Promise<boolean>((res) => { _tokenValidityResolve = res; });
+
+// On public pages, resolve as false immediately (no admin APIs needed)
+if (typeof window !== 'undefined' && !window.location.pathname.startsWith('/admin')) {
+  // Use Promise.resolve to defer slightly so module finishes initializing
+  Promise.resolve().then(() => resolveTokenValidity(false));
+}
+
+/** Called by AdminAuth.tsx after /auth/me resolves (valid=true) or rejects (valid=false). */
+export function resolveTokenValidity(valid: boolean): void {
+  if (_tokenValidityResolve) { _tokenValidityResolve(valid); _tokenValidityResolve = null; }
+}
+
+/** Called by forceReload() (post-login) to immediately mark token as valid and
+ *  reset the promise so the next reload() call also gets valid=true. */
+export function markTokenValid(): void {
+  if (_tokenValidityResolve) { _tokenValidityResolve(true); _tokenValidityResolve = null; }
+  // Reset the promise so future reload() calls in this session also get valid=true
+  _tokenValidityPromise = Promise.resolve(true);
+}
+
 // ─── Runtime API detection ────────────────────────────────────────────────────
 const _envApiUrl = import.meta.env.VITE_API_URL as string | undefined;
 const _PREVIEW_HOSTS = ['skywork.website', 'skywork.ai', 'vercel.app', 'netlify.app', 'pages.dev', 'surge.sh', 'github.io'];
@@ -371,9 +404,9 @@ export const useApiStore = create<ApiState>((set, get) => ({
   billboardSizes: [], simulatorTemplates: [], designUploads: [],
 
   forceReload: async () => {
-    // Like reload() but bypasses the loading guard AND skips the /auth/me validation.
-    // Called after a confirmed successful login, so the token is known to be valid.
-    // We set a flag so reload() skips the /auth/me pre-check.
+    // Called after a confirmed successful login — token is known to be valid.
+    // Mark the token as valid so reload() doesn't wait / skip admin APIs.
+    markTokenValid();
     set({ loading: false, _skipAuthCheck: true } as any);
     return useApiStore.getState().reload();
   },
@@ -415,29 +448,37 @@ export const useApiStore = create<ApiState>((set, get) => ({
       return;
     }
 
-    // Real API mode — use Promise.allSettled so one failure doesn't break everything
+    // Real API mode — use Promise.allSettled so one failure doesn't break everything.
     // Admin-only endpoints (suppliers, customers, contacts) require a VALID auth token.
     //
-    // TOKEN VALIDATION STRATEGY (simplified after AdminAuth.tsx now owns /auth/me):
-    // - AdminAuth.tsx validates the token ONCE on first load via /auth/me
-    //   and sets authChecking=false when done. It dispatches horizon:auth:expired
-    //   and clears localStorage if the token is stale.
-    // - apiStore.reload() trusts localStorage directly:
-    //   * If a token is present after AdminAuth has validated it → call admin APIs
-    //   * If no token (or demo token) → skip admin APIs
-    //   * If admin APIs then fail with 401 → interceptor handles refresh/logout
-    // This avoids a second parallel /auth/me call and the double-clear race condition.
+    // TOKEN VALIDATION GATE:
+    // - If a token exists in localStorage, we WAIT for AdminAuth.tsx to finish
+    //   its /auth/me check before calling admin APIs. This prevents 401 storms
+    //   from stale/expired tokens that happen to still be in localStorage.
+    // - forceReload() (called post-login) immediately resolves the gate as valid.
+    // - If no token, we skip admin APIs entirely.
     const authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('horizon_token') : null;
-    const mightBeAuthenticated = !!authToken && authToken !== 'demo-token' && authToken !== 'preview-token';
+    const hasToken = !!authToken && authToken !== 'demo-token' && authToken !== 'preview-token';
 
     // Check if forceReload() set a skip flag (called after confirmed login — token is fresh)
     const skipAuthCheck = !!(get() as any)._skipAuthCheck;
     if (skipAuthCheck) set({ _skipAuthCheck: false } as any);
 
-    // Trust the token directly — AdminAuth.tsx already validated it on mount.
-    // For forceReload (post-login) or mid-session reloads, the token is known good.
-    // On first public-page load with no token, isAuthenticated stays false.
-    const isAuthenticated = mightBeAuthenticated;
+    // Wait for AdminAuth to validate the token, with a 10s timeout as fallback.
+    // skipAuthCheck=true means forceReload() was called after confirmed login — trust directly.
+    // If no token exists, skip the wait and resolve as false.
+    let isAuthenticated = false;
+    if (skipAuthCheck) {
+      // Post-login forceReload — token is guaranteed valid
+      isAuthenticated = hasToken;
+    } else if (hasToken) {
+      try {
+        const timeoutP = new Promise<boolean>((res) => setTimeout(() => res(false), 10000));
+        isAuthenticated = await Promise.race([_tokenValidityPromise, timeoutP]);
+      } catch {
+        isAuthenticated = false;
+      }
+    }
 
     // Admin-only APIs: only called when token is confirmed valid
     const suppliersP     = isAuthenticated ? suppliersApi.all()     : Promise.resolve([]);

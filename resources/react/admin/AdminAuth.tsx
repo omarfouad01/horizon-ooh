@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { authApi } from '@/api';
-import { HAS_API, useApiStore } from '@/store/apiStore';
+import { HAS_API, useApiStore, resolveTokenValidity } from '@/store/apiStore';
 
 interface AuthCtx {
   user:            any;
@@ -121,14 +121,21 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener('storage', handleStorage);
   }, []);
 
-  // On first load with an existing token, validate it once via /auth/me
-  // and resolve authChecking so AdminLayout can make a proper auth decision
-  // without flashing the login page.
+  // On first load with an existing token, validate it once via /auth/me.
+  // We also resolve the token-validity gate in apiStore so reload() knows
+  // whether to call admin-only APIs (suppliers, customers, contacts, uploads).
   useEffect(() => {
-    if (!hasInitialToken) { setAuthChecking(false); return; }
+    if (!hasInitialToken) {
+      // No token — tell apiStore to skip admin APIs immediately
+      resolveTokenValidity(false);
+      setAuthChecking(false);
+      return;
+    }
     const storedToken = localStorage.getItem('horizon_token');
     if (!storedToken || storedToken === 'demo-token' || storedToken === 'preview-token') {
-      setAuthChecking(false); return;
+      resolveTokenValidity(false);
+      setAuthChecking(false);
+      return;
     }
     const baseURL = typeof window !== 'undefined'
       ? `${window.location.protocol}//${window.location.hostname}${window.location.port ? ':' + window.location.port : ''}/api`
@@ -137,7 +144,8 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
       headers: { Authorization: `Bearer ${storedToken}`, Accept: 'application/json' },
       timeout: 8000,
     }).then(() => {
-      setAuthChecking(false); // valid token
+      resolveTokenValidity(true);  // valid — let apiStore call admin APIs
+      setAuthChecking(false);
     }).catch((err: any) => {
       const status = err?.response?.status;
       if (status === 401 || status === 403) {
@@ -146,6 +154,7 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
         setToken(null); setUser(null);
         useApiStore.setState({ suppliers: [], customers: [], contacts: [], designUploads: [] });
       }
+      resolveTokenValidity(false); // invalid/unreachable — skip admin APIs
       setAuthChecking(false);
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
