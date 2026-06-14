@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, SectionHeading, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
@@ -5,33 +6,76 @@ import { serviceHref, langPath, RED, NAVY, ease } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
 import { motion } from "framer-motion";
 import SEO from "@/components/SEO";
+import { servicesApi } from "@/api";
+
+// ── Branded service skeleton ──────────────────────────────────────────────────
+function ServiceSkeleton() {
+  return (
+    <>
+      <div style={{ background: NAVY, paddingTop: 80, minHeight: 480 }} className="overflow-hidden">
+        <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 px-4 sm:px-8 lg:px-[120px] py-20">
+          <div>
+            <div className="h-4 w-24 rounded animate-pulse mb-6" style={{ background: 'rgba(255,255,255,0.08)' }} />
+            <div className="h-16 w-3/4 rounded animate-pulse mb-4" style={{ background: 'rgba(255,255,255,0.1)' }} />
+            <div className="h-16 w-1/2 rounded animate-pulse mb-8" style={{ background: 'rgba(255,255,255,0.07)' }} />
+            <div className="space-y-2 mb-8">
+              {[100, 90, 85].map((w, i) => (
+                <div key={i} className="h-4 rounded animate-pulse" style={{ width: `${w}%`, background: 'rgba(255,255,255,0.05)' }} />
+              ))}
+            </div>
+            <div className="h-12 w-36 rounded animate-pulse" style={{ background: 'rgba(217,4,41,0.4)' }} />
+          </div>
+          <div className="h-80 rounded animate-pulse" style={{ background: 'rgba(255,255,255,0.05)' }} />
+        </div>
+      </div>
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px] py-16">
+        <div className="h-8 w-56 rounded animate-pulse mb-8" style={{ background: 'rgba(11,15,26,0.08)' }} />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[1,2,3].map((i) => (
+            <div key={i} className="h-32 rounded animate-pulse" style={{ background: 'rgba(11,15,26,0.06)' }} />
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
 
 export default function ServiceDetail() {
   // ── ALL hooks first — no conditional returns before hooks ──
-  const { services: SERVICES, loaded } = useStore()
+  const { services: SERVICES } = useStore();
   const { lang, t, isAr } = useLang();
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const service = SERVICES.find((s) => s.slug === slug);
-  const others  = SERVICES.filter((s) => s.id !== service?.id).slice(0, 3);
+
+  // Direct per-page fetch — fires immediately on mount
+  const [fetching, setFetching] = useState(true);
+  const [fetchedService, setFetchedService] = useState<any>(null);
+
+  useEffect(() => {
+    if (!slug) { setFetching(false); return; }
+    setFetching(true);
+    servicesApi.get(slug)
+      .then((res) => {
+        const data = res.data?.data ?? res.data;
+        setFetchedService(data ?? null);
+      })
+      .catch(() => {})
+      .finally(() => setFetching(false));
+  }, [slug]);
+
+  // Resolve: prefer store, fall back to direct fetch
+  const storeService = SERVICES.find((s) => s.slug === slug);
+  const service      = storeService ?? fetchedService;
+  const others       = SERVICES.filter((s) => s.id !== service?.id).slice(0, 3);
 
   // ── Conditional returns AFTER all hooks ──
-  if (!loaded) {
-    return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-10 h-10 rounded-full border-2 border-[#D90429] border-t-transparent animate-spin" />
-          <p className="text-[13px] font-semibold tracking-[0.15em] uppercase" style={{ color: 'rgba(11,15,26,0.3)' }}>Loading…</p>
-        </div>
-      </div>
-    );
-  }
+  if (fetching) return <ServiceSkeleton />;
 
   if (!service) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6">
-        <p className="text-[#0B0F1A]/40 text-lg">Service not found.</p>
-        <button onClick={() => navigate("/services")} className="text-[#D90429] font-bold underline hover:opacity-70 transition-opacity duration-150 cursor-pointer">Back to Services</button>
+        <p className="text-[#0B0F1A]/40 text-lg">{isAr ? 'الخدمة غير موجودة.' : 'Service not found.'}</p>
+        <button onClick={() => navigate("/services")} className="text-[#D90429] font-bold underline hover:opacity-70 transition-opacity duration-150 cursor-pointer">{isAr ? 'العودة للخدمات' : 'Back to Services'}</button>
       </div>
     );
   }

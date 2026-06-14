@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useStore } from "@/store/dataStore";
@@ -6,6 +6,37 @@ import { type ProjectCategory } from "@/data";
 import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
 import { projectHref, langPath, RED, NAVY, ease } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
+import { projectsApi } from "@/api";
+
+// ── Branded project skeleton ──────────────────────────────────────────────────
+function ProjectSkeleton() {
+  return (
+    <>
+      <div style={{ background: NAVY, minHeight: 500, paddingTop: 80 }} className="overflow-hidden">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px] py-20">
+          <div className="h-4 w-32 rounded animate-pulse mb-8" style={{ background: 'rgba(255,255,255,0.08)' }} />
+          <div className="h-16 w-2/3 rounded animate-pulse mb-6" style={{ background: 'rgba(255,255,255,0.1)' }} />
+          <div className="h-16 w-1/2 rounded animate-pulse mb-10" style={{ background: 'rgba(255,255,255,0.07)' }} />
+          <div className="flex gap-4">
+            <div className="h-10 w-36 rounded animate-pulse" style={{ background: 'rgba(217,4,41,0.4)' }} />
+            <div className="h-10 w-28 rounded animate-pulse" style={{ background: 'rgba(255,255,255,0.06)' }} />
+          </div>
+        </div>
+      </div>
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px] py-16">
+        <div className="grid lg:grid-cols-2 gap-16">
+          <div className="space-y-4">
+            {[100, 90, 95, 80, 75].map((w, i) => (
+              <div key={i} className="h-4 rounded animate-pulse" style={{ width: `${w}%`, background: 'rgba(11,15,26,0.07)' }} />
+            ))}
+          </div>
+          <div className="h-72 rounded animate-pulse" style={{ background: 'rgba(11,15,26,0.07)' }} />
+        </div>
+      </div>
+    </>
+  );
+}
+
 const CAT_COLORS: Record<ProjectCategory, string> = {
   Billboard: "#D90429",
   DOOH: "#0B0F1A",
@@ -24,13 +55,34 @@ function buildClientBrief(project: any, clientProjects: any[]) {
 
 export default function ProjectDetail() {
   // ── ALL hooks first — no conditional returns before hooks ──
-  const { projects: PROJECTS, loaded } = useStore();
+  const { projects: PROJECTS } = useStore();
   const { lang, t, isAr } = useLang();
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const project = PROJECTS.find((p) => p.slug === slug);
 
-  // useMemo is a hook — must be unconditional
+  // Direct per-page fetch — fires immediately on mount
+  const [fetching, setFetching] = useState(true);
+  const [fetchedProject, setFetchedProject] = useState<any>(null);
+  const [fetchFailed, setFetchFailed] = useState(false);
+
+  useEffect(() => {
+    if (!slug) { setFetching(false); return; }
+    setFetching(true);
+    setFetchFailed(false);
+    projectsApi.get(slug)
+      .then((res) => {
+        const data = res.data?.data ?? res.data;
+        setFetchedProject(data ?? null);
+      })
+      .catch(() => setFetchFailed(true))
+      .finally(() => setFetching(false));
+  }, [slug]);
+
+  // Resolve: prefer store (real-time updates), fall back to direct fetch
+  const storeProject = PROJECTS.find((p) => p.slug === slug);
+  const project      = storeProject ?? fetchedProject;
+
+  // useMemo must be unconditional
   const clientProjects = useMemo(
     () => PROJECTS.filter((p) => p.client === project?.client),
     [PROJECTS, project?.client]
@@ -41,16 +93,7 @@ export default function ProjectDetail() {
   const relatedAll      = [...related, ...fallbackRelated].slice(0, 3);
 
   // ── Conditional returns AFTER all hooks ──
-  if (!loaded) {
-    return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-10 h-10 rounded-full border-2 border-[#D90429] border-t-transparent animate-spin" />
-          <p className="text-[13px] font-semibold tracking-[0.15em] uppercase" style={{ color: 'rgba(11,15,26,0.3)' }}>Loading…</p>
-        </div>
-      </div>
-    );
-  }
+  if (fetching) return <ProjectSkeleton />;
 
   if (!project) {
     return (

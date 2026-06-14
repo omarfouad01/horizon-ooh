@@ -7,6 +7,7 @@ export const IMAGES = {
   SCREENSHOT4096_4: "/images/Screenshot4096.png",
   SCREENSHOT5895_6: "/images/Screenshot5895.png",
   SCREENSHOT6944_3: "/images/Screenshot6944.png",
+  SCREENSHOT7255_8: "/images/Screenshot7255.png",
   SCREENSHOT_2026_04_28_171540_1: "/images/Screenshot 2026-04-28 171540.png",
 } as const;
 

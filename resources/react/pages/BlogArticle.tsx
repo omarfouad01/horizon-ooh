@@ -1,33 +1,82 @@
+import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
 import { blogHref, langPath, RED, NAVY } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
 import SEO from "@/components/SEO";
+import { blogApi } from "@/api";
+
+// ── Branded article skeleton ──────────────────────────────────────────────────
+function ArticleSkeleton() {
+  return (
+    <>
+      {/* Dark hero skeleton */}
+      <div style={{ background: NAVY, paddingTop: 80, minHeight: 420 }} className="overflow-hidden">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px] pt-16 pb-20">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="h-6 w-24 rounded animate-pulse" style={{ background: 'rgba(255,255,255,0.08)' }} />
+            <div className="h-4 w-16 rounded animate-pulse" style={{ background: 'rgba(255,255,255,0.06)' }} />
+          </div>
+          <div className="h-14 w-3/4 rounded animate-pulse mb-5" style={{ background: 'rgba(255,255,255,0.08)' }} />
+          <div className="h-14 w-1/2 rounded animate-pulse mb-8" style={{ background: 'rgba(255,255,255,0.06)' }} />
+          <div className="h-5 w-full max-w-xl rounded animate-pulse mb-3" style={{ background: 'rgba(255,255,255,0.05)' }} />
+          <div className="h-5 w-3/4 max-w-lg rounded animate-pulse" style={{ background: 'rgba(255,255,255,0.04)' }} />
+        </div>
+      </div>
+      {/* Body skeleton */}
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px] py-16 grid lg:grid-cols-[1fr_340px] gap-16">
+        <div className="space-y-4">
+          {[100, 90, 95, 80, 85, 70, 90].map((w, i) => (
+            <div key={i} className="h-4 rounded animate-pulse" style={{ width: `${w}%`, background: 'rgba(11,15,26,0.07)' }} />
+          ))}
+        </div>
+        <div className="space-y-4">
+          <div className="h-48 rounded animate-pulse" style={{ background: 'rgba(11,15,26,0.07)' }} />
+          <div className="h-5 w-2/3 rounded animate-pulse" style={{ background: 'rgba(11,15,26,0.06)' }} />
+          <div className="h-4 w-1/2 rounded animate-pulse" style={{ background: 'rgba(11,15,26,0.05)' }} />
+        </div>
+      </div>
+    </>
+  );
+}
 
 export default function BlogArticle() {
   // ── ALL hooks first — no conditional returns before hooks ──
-  const { blogPosts: BLOG_POSTS, loaded } = useStore()
+  const { blogPosts: BLOG_POSTS } = useStore();
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const { lang, t, isAr } = useLang();
-  // lang is destructured above
-  const post    = BLOG_POSTS.find((p) => p.slug === slug);
-  const related = BLOG_POSTS.filter((p) => p.slug !== slug).slice(0, 3);
+
+  // Direct per-page fetch — fires immediately on mount, independent of global store
+  const [fetching, setFetching] = useState(true);
+  const [fetchedPost, setFetchedPost] = useState<any>(null);
+  const [fetchFailed, setFetchFailed] = useState(false);
+
+  useEffect(() => {
+    if (!slug) { setFetching(false); return; }
+    setFetching(true);
+    setFetchFailed(false);
+    blogApi.get(slug)
+      .then((res) => {
+        const data = res.data?.data ?? res.data;
+        setFetchedPost(data ?? null);
+      })
+      .catch(() => setFetchFailed(true))
+      .finally(() => setFetching(false));
+  }, [slug]);
+
+  // Resolve post: prefer store (after global load), fall back to direct fetch result
+  const storePost = BLOG_POSTS.find((p) => p.slug === slug);
+  const post      = storePost ?? fetchedPost;
+  const related   = BLOG_POSTS.filter((p) => p.slug !== slug).slice(0, 3);
 
   // ── Conditional returns AFTER all hooks ──
-  if (!loaded) {
-    return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-10 h-10 rounded-full border-2 border-[#D90429] border-t-transparent animate-spin" />
-          <p className="text-[13px] font-semibold tracking-[0.15em] uppercase" style={{ color: 'rgba(11,15,26,0.3)' }}>Loading…</p>
-        </div>
-      </div>
-    );
-  }
+  // While direct fetch is in-flight, show branded skeleton
+  if (fetching) return <ArticleSkeleton />;
 
-  if (!post) {
+  // Only show not-found once both direct fetch AND store load are done
+  if (!post && (fetchFailed || !fetching)) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6">
         <p className="text-[#0B0F1A]/40 text-lg">{isAr ? 'المقال غير موجود.' : 'Article not found.'}</p>
@@ -35,6 +84,8 @@ export default function BlogArticle() {
       </div>
     );
   }
+
+  if (!post) return <ArticleSkeleton />;
 
   const metaTitle = (post as any).metaTitle || `${isAr && (post as any).titleAr ? (post as any).titleAr : post.title} | HORIZON OOH`;
   const metaDesc  = (post as any).metaDesc  || (isAr && (post as any).excerptAr ? (post as any).excerptAr : post.excerpt) || '';
