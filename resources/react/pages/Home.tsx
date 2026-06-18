@@ -383,15 +383,24 @@ function HeroSection() {
         className="absolute inset-0 pointer-events-none"
         style={{ opacity: 0.22, willChange: 'transform, opacity', transformOrigin: 'center center' }}
       >
-        {/* LCP element — fetchpriority="high" + preload in <head> for fast discovery */}
-        <img
-          src="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?w=1600&q=85&fit=crop"
-          alt="" aria-hidden
-          width={1600} height={900}
-          fetchPriority="high"
-          decoding="async"
-          className="w-full h-full object-cover"
-        />
+        {/* LCP element — self-hosted WebP + JPEG fallback, fetchPriority="high" */}
+        <picture>
+          <source
+            type="image/webp"
+            srcSet="/images/hero-400.webp 400w, /images/hero-800.webp 800w, /images/hero-1200.webp 1200w, /images/hero-1600.webp 1600w"
+            sizes="100vw"
+          />
+          <img
+            src="/images/hero-1600.jpg"
+            srcSet="/images/hero-400.jpg 400w, /images/hero-800.jpg 800w, /images/hero-1200.jpg 1200w, /images/hero-1600.jpg 1600w"
+            sizes="100vw"
+            alt="" aria-hidden
+            width={1600} height={900}
+            fetchPriority="high"
+            decoding="async"
+            className="w-full h-full object-cover"
+          />
+        </picture>
       </div>
 
       {/* ── GRADIENTS & EFFECTS ────────────────────────────── */}
