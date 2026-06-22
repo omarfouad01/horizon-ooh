@@ -280,7 +280,7 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, w
       }}
     >
       {/* Image */}
-      <div className="relative overflow-hidden" style={{ height: 200 }}>
+      <div className="relative overflow-hidden" style={{ height: 200, contain: 'layout' }}>
         <img
           src={b.image}
           alt={`${b.name} — billboard advertising ${b.city}`}

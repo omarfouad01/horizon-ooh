@@ -1740,12 +1740,15 @@ function RecentBillboardsSection() {
                 aria-label={`View billboard: ${product.name} in ${product.cityName}`}
               >
                 {/* Image with overlay */}
-                <div className="relative overflow-hidden" style={{ height: 220 }}>
+                <div className="relative overflow-hidden" style={{ height: 220, contain: 'layout' }}>
                   <img
                     src={product.image}
                     alt={`billboard advertising ${product.cityName} — ${product.name}`}
+                    width={600} height={220}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                     loading="lazy"
+                    decoding="async"
+                    style={{ height: 220, width: '100%' }}
                   />
                   {/* Bottom-to-top navy gradient overlay */}
                   <div

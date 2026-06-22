@@ -48,6 +48,35 @@
       #root { min-height: 100svh; background: #0b0f1a; }
       /* Prevent invisible text during font swap */
       body { font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+
+      /*
+       * CLS FIX: Pre-reserve navbar height (76px) before React mounts.
+       * This prevents the page content from shifting down when the
+       * fixed navbar is painted by React for the first time.
+       */
+      nav[class*="fixed"] {
+        height: 76px;
+        contain: layout;
+      }
+
+      /*
+       * CLS FIX: Reserve logo space (54x54) before the API returns the logo URL.
+       * Without this, the logo area collapses to 0 then expands when the image
+       * loads from the settings API, causing a large layout shift.
+       */
+      nav img[fetchpriority="high"] {
+        contain: layout;
+      }
+
+      /*
+       * CLS FIX: Billboard card image containers — lock height before images load
+       * so the card grid never reflows as images arrive.
+       */
+      .cls-card-img {
+        height: 220px;
+        contain: layout;
+        overflow: hidden;
+      }
     </style>
     <title>HORIZON OOH | Outdoor Advertising Agency in Egypt</title>
     <meta name="description" content="Egypt's premier outdoor advertising agency. Billboard, DOOH, Mall &amp; Airport campaigns across Cairo, Alexandria &amp; nationwide. 9,500+ premium locations." />
