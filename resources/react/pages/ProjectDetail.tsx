@@ -62,25 +62,27 @@ export default function ProjectDetail() {
 
   // Direct per-page fetch — fires immediately on mount
   const [fetching, setFetching] = useState(true);
+  const [fetchDone, setFetchDone] = useState(false);
   const [fetchedProject, setFetchedProject] = useState<any>(null);
   const [fetchFailed, setFetchFailed] = useState(false);
 
   useEffect(() => {
-    if (!slug) { setFetching(false); return; }
+    if (!slug) { setFetching(false); setFetchDone(true); return; }
     setFetching(true);
     setFetchFailed(false);
+    setFetchDone(false);
     projectsApi.get(slug)
       .then((res) => {
         const data = res.data?.data ?? res.data;
         setFetchedProject(data ?? null);
       })
       .catch(() => setFetchFailed(true))
-      .finally(() => setFetching(false));
+      .finally(() => { setFetching(false); setFetchDone(true); });
   }, [slug]);
 
-  // Resolve: prefer store (real-time updates), fall back to direct fetch
+  // Resolve: direct fetch is authoritative; store supplements once loaded
   const storeProject = PROJECTS.find((p) => p.slug === slug);
-  const project      = storeProject ?? fetchedProject;
+  const project      = fetchedProject ?? storeProject;
 
   // useMemo must be unconditional
   const clientProjects = useMemo(
@@ -94,6 +96,7 @@ export default function ProjectDetail() {
 
   // ── Conditional returns AFTER all hooks ──
   if (fetching) return <ProjectSkeleton />;
+  if (!project && !fetchDone) return <ProjectSkeleton />;
 
   if (!project) {
     return (

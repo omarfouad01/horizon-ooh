@@ -68,7 +68,7 @@ function syncDir(src: string, dest: string) {
  * loaded (via the module graph) but don't get eager parallel priority.
  */
 function lcpOptimizePlugin(): import('vite').Plugin {
-  const LCP_IMAGE = 'https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?w=1600&q=85&fit=crop';
+  const LCP_IMAGE = '/images/hero-800.webp'; // self-hosted WebP (was Unsplash)
   // Chunks removed from eager modulepreload — fetched lazily via module graph.
   // This prevents them from competing with the LCP image for TCP connections.
   // IMPORTANT: app-core, site-data, i18n, react-core, router MUST NOT be deferred
@@ -173,9 +173,17 @@ export default defineConfig(({ mode }) => ({
         // ── Manual chunk splitting for optimal caching ──
         manualChunks(id) {
           if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) return 'react-core';
+          // Vite's dynamic-import preload helper (virtual module) must live in
+          // react-core — otherwise Rollup drifts it into 'admin', forcing the
+          // whole admin bundle to load eagerly on every public page.
+          if (id.includes('vite/preload-helper')) return 'react-core';
           // @tanstack/react-query ships with react-core: QueryClientProvider is in App.tsx (eager)
           if (id.includes('node_modules/@tanstack')) return 'react-core';
           if (id.includes('node_modules/react-router-dom') || id.includes('node_modules/react-router/')) return 'router';
+          // Our react-router-dom proxy lives in /resources/react/lib/ — must be
+          // pinned to 'router' or Rollup drifts it into 'admin', loading the
+          // entire admin bundle on every public page visit.
+          if (id.includes('/resources/react/lib/react-router-dom-proxy')) return 'router';
           if (id.includes('node_modules/framer-motion')) return 'framer-motion';
           if (id.includes('node_modules/leaflet')) return 'leaflet';
           if (id.includes('node_modules/@radix-ui')) return 'radix-ui';
@@ -188,6 +196,9 @@ export default defineConfig(({ mode }) => ({
           // can import them from the same shared chunk. Without this explicit
           // assignment Rollup drifts them into 'admin', breaking the public site.
           if (id.includes('/resources/react/store/') || id.includes('/resources/react/api/')) return 'app-core';
+          // ServiceIcon used eagerly by Home.tsx but also by admin — must be in
+          // app-core or Rollup drifts it into 'admin'.
+          if (id.includes('/resources/react/components/ServiceIcon')) return 'app-core';
           if (id.includes('/resources/react/admin/')) return 'admin';
           if (id.includes('node_modules/zod') || id.includes('node_modules/date-fns') || id.includes('node_modules/clsx') || id.includes('node_modules/class-variance-authority') || id.includes('node_modules/tailwind-merge')) return 'utils';
           // Split icon libraries separately — they are large but often tree-shaken

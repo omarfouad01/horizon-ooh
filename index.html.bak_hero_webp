@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <!-- Google Tag Manager — deferred to after load to reduce TBT -->
+  <script>
+  window.addEventListener('load', function() {
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PH9HH9XX');
+  });
+  </script>
+  <!-- End Google Tag Manager -->
+  <!-- Google tag (gtag.js) — deferred to after load -->
+  <script>
+  window.addEventListener('load', function() {
+    var s=document.createElement('script');s.async=true;
+    s.src='https://www.googletagmanager.com/gtag/js?id=G-7P78DVM6VK';
+    document.head.appendChild(s);
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag=gtag;
+    gtag('js',new Date());gtag('config','G-7P78DVM6VK');
+  });
+  </script>
+
+    <meta charset="UTF-8" />
+    <!-- Redirect old /#/ hash URLs to clean BrowserRouter paths -->
+    <script>
+      (function() {
+        var hash = window.location.hash;
+        if (hash && hash.startsWith('#/')) {
+          var path = hash.slice(1); // remove the '#', keep the '/...'
+          window.history.replaceState(null, '', path + window.location.search);
+        }
+      })();
+    </script>
+    
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+      Critical inline CSS — paints the hero background colour before any JS or
+      external stylesheet loads. Eliminates the white-flash during React hydration
+      and removes the colour from the Largest Contentful Paint render path.
+
+      Also sets font-display:swap for system fallbacks so text is readable
+      immediately, with custom fonts swapped in once downloaded.
+    -->
+    <style>
+      /* Hero background: shown from first byte, zero JS needed */
+      :root { color-scheme: light dark; }
+      html { background: #0b0f1a; }
+      body { margin: 0; background: #0b0f1a; }
+      #root { min-height: 100svh; background: #0b0f1a; }
+      /* Prevent invisible text during font swap */
+      body { font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+    </style>
+    <title>HORIZON OOH | Outdoor Advertising Agency in Egypt</title>
+    <meta name="description" content="Egypt's premier outdoor advertising agency. Billboard, DOOH, Mall &amp; Airport campaigns across Cairo, Alexandria &amp; nationwide. 9,500+ premium locations." />
+    <meta name="keywords" content="outdoor advertising Egypt, billboard advertising Egypt, billboard advertising Cairo, DOOH Egypt, advertising agency Egypt, outdoor ads Cairo, mall advertising Egypt, airport advertising Egypt, digital billboards Cairo, OOH advertising Egypt" />
+    <meta name="author" content="HORIZON OOH" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://horizonooh.com/" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+
+    <!-- Favicon & PWA icons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#D90429" />
+
+    <meta property="og:title" content="HORIZON OOH | Outdoor Advertising Agency in Egypt" />
+    <meta property="og:description" content="Egypt's premier outdoor advertising agency. Billboard, DOOH, Mall &amp; Airport campaigns across Cairo, Alexandria &amp; nationwide. 9,500+ premium locations." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://horizonooh.com/" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1702231942007-b255a41475c9?w=1200&q=80" />
+    <meta property="og:site_name" content="HORIZON OOH" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="HORIZON OOH | Outdoor Advertising Agency in Egypt" />
+    <meta name="twitter:description" content="Egypt's premier outdoor advertising agency. Billboard, DOOH, Mall &amp; Airport campaigns across Cairo, Alexandria &amp; nationwide. 9,500+ premium locations." />
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1702231942007-b255a41475c9?w=1200&q=80" />
+
+    <!-- Preconnect to key external origins for faster DNS + TLS -->
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Unsplash CDN — used for the LCP hero image and billboard photos.
+         preconnect + dns-prefetch ensures DNS resolution and TLS handshake are
+         done before the browser discovers the image URL in the preload tag. -->
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
+    <!-- LCP hero image preload — NO crossorigin attribute because the <img> in Home.tsx
+         also has no crossorigin. Mismatched credentials mode causes the browser to
+         discard the preload and fetch the image twice (warning: "preload not used"). -->
+    <link
+      rel="preload"
+      as="image"
+      href="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?w=1600&q=85&fit=crop"
+      imagesrcset="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?w=800&q=85&fit=crop 800w, https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?w=1200&q=85&fit=crop 1200w, https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?w=1600&q=85&fit=crop 1600w"
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
+
+    <!-- Google Fonts — loaded as non-blocking <link> instead of CSS @import (eliminates render-blocking) -->
+    <!-- Step 1: preconnect (already above) -->
+    <!-- Step 2: non-blocking font fetch via media trick -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <!-- Fallback for browsers without JS -->
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" />
+    </noscript>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "HORIZON OOH",
+      "description": "Egypt's premier outdoor advertising agency offering billboard, DOOH, mall and airport advertising across Cairo, Alexandria and nationwide.",
+      "url": "https://horizonooh.com",
+      "logo": "https://horizonooh.com/favicon.ico",
+      "image": "https://images.unsplash.com/photo-1702231942007-b255a41475c9?w=1200&q=80",
+      "telephone": "+20 2 1234 5678",
+      "email": "info@horizonooh.com",
+      "foundingDate": "2008",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Cairo",
+        "addressCountry": "EG"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "30.0444",
+        "longitude": "31.2357"
+      },
+      "areaServed": [
+        {"@type": "City", "name": "Cairo"},
+        {"@type": "City", "name": "Alexandria"},
+        {"@type": "Country", "name": "Egypt"}
+      ],
+      "sameAs": [],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Outdoor Advertising Services",
+        "itemListElement": [
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Billboard Advertising Egypt"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "DOOH Advertising Cairo"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Mall Advertising Egypt"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Airport Advertising Egypt"}}
+        ]
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "HORIZON OOH",
+      "url": "https://horizonooh.com",
+      "logo": "https://horizonooh.com/favicon.ico",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+20 2 1234 5678",
+        "contactType": "sales",
+        "areaServed": "EG",
+        "availableLanguage": ["English", "Arabic"]
+      }
+    }
+    </script>
+    <!-- Leaflet CSS is bundled locally in BillboardMap/ProductMap (no CDN) -->
+  </head>
+
+  <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PH9HH9XX"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+    <div id="root"></div>
+    <script type="module" src="/resources/react/main.tsx"></script>
+  </body>
+</html>

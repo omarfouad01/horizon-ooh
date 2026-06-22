@@ -8,6 +8,7 @@ import { useLang } from "@/i18n/LangContext";
 // data now from store
 import { serviceHref, locationHref, projectHref, productHref, blogHref, langPath, makeRoutes } from "@/lib/routes";
 import { ServiceIcon } from "@/components/ServiceIcon";
+import { thumb } from "@/lib/img";
 
 // Billboards helper (cities/formats are now computed inside HeroSection)
 const getBillboards = () => getState().locations.flatMap((l: any) => (l.products||[]).map((p: any) => ({ ...p, citySlug: l.slug })));
@@ -383,15 +384,24 @@ function HeroSection() {
         className="absolute inset-0 pointer-events-none"
         style={{ opacity: 0.22, willChange: 'transform, opacity', transformOrigin: 'center center' }}
       >
-        {/* LCP element — fetchpriority="high" + preload in <head> for fast discovery */}
-        <img
-          src="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?w=1600&q=85&fit=crop"
-          alt="" aria-hidden
-          width={1600} height={900}
-          fetchPriority="high"
-          decoding="async"
-          className="w-full h-full object-cover"
-        />
+        {/* LCP element — self-hosted WebP + JPEG fallback, fetchPriority="high" */}
+        <picture>
+          <source
+            type="image/webp"
+            srcSet="/images/hero-400.webp 400w, /images/hero-800.webp 800w, /images/hero-1200.webp 1200w, /images/hero-1600.webp 1600w"
+            sizes="100vw"
+          />
+          <img
+            src="/images/hero-1600.jpg"
+            srcSet="/images/hero-400.jpg 400w, /images/hero-800.jpg 800w, /images/hero-1200.jpg 1200w, /images/hero-1600.jpg 1600w"
+            sizes="100vw"
+            alt="" aria-hidden
+            width={1600} height={900}
+            fetchPriority="high"
+            decoding="async"
+            className="w-full h-full object-cover"
+          />
+        </picture>
       </div>
 
       {/* ── GRADIENTS & EFFECTS ────────────────────────────── */}
@@ -974,7 +984,7 @@ function FeatureSection() {
         <div className="relative overflow-hidden">
           <div className="absolute inset-[-8%]">
             <img
-              src={hc.featureImage || 'https://images.unsplash.com/photo-1629150154933-a42577786d4f?w=1000&q=90&fit=crop'}
+              src={hc.featureImage ? thumb(hc.featureImage, 1000, 700) : 'https://images.unsplash.com/photo-1629150154933-a42577786d4f?w=700&q=80&fit=crop'}
               alt="Large format billboard advertising"
               width={1000} height={700}
               loading="lazy" decoding="async"
@@ -1421,7 +1431,7 @@ function ProjectsSection() {
               style={{ textDecoration: "none", height: 500 }}
             >
               <img
-                src={featured.coverImage}
+                src={thumb(featured.coverImage, 1200, 500)}
                 alt={`${featured.title} — outdoor advertising case study`}
                 width={1200} height={500}
                 loading="lazy" decoding="async"
@@ -1462,7 +1472,7 @@ function ProjectsSection() {
                   style={{ textDecoration: "none", height: "100%", minHeight: 230 }}
                 >
                   <img
-                    src={p.coverImage}
+                    src={thumb(p.coverImage, 600, 230)}
                     alt={`${p.title} — outdoor advertising`}
                     width={600} height={230}
                     loading="lazy" decoding="async"
@@ -1536,7 +1546,7 @@ function LatestBlogsSection() {
                 {/* Image */}
                 <div className="relative overflow-hidden" style={{ height: 220 }}>
                   <img
-                    src={post.image}
+                    src={thumb(post.image, 600, 220)}
                     alt={post.title}
                     width={600} height={220}
                     loading="lazy" decoding="async"
@@ -1742,7 +1752,7 @@ function RecentBillboardsSection() {
                 {/* Image with overlay */}
                 <div className="relative overflow-hidden" style={{ height: 220, contain: 'layout' }}>
                   <img
-                    src={product.image}
+                    src={thumb(product.image, 600, 220)}
                     alt={`billboard advertising ${product.cityName} — ${product.name}`}
                     width={600} height={220}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
