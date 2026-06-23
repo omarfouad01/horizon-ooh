@@ -84,7 +84,8 @@ export default function LocationsMap({
       const lat = typeof b.lat === 'number' ? b.lat : parseFloat(b.lat as any);
       const lng = typeof b.lng === 'number' ? b.lng : parseFloat(b.lng as any);
       if (isNaN(lat) || isNaN(lng) || lat === 0 || lng === 0) return;
-      const marker = L.marker([lat, lng], { icon: makePin("default") }).addTo(map);
+      // aria fix: `title` → aria-label on the generated marker div
+      const marker = L.marker([lat, lng], { icon: makePin("default"), title: `${b.name} — ${b.city}`, alt: b.name }).addTo(map);
 
       marker.on("mouseover", () => onHover(b.id));
       marker.on("mouseout",  () => onHover(null));
