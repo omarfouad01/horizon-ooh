@@ -68,3 +68,5 @@ public/storage/
 # All public/assets/* are force-added and tracked (override the wildcard ignore below).
 public/storage/
 public/hot
+public/imgcache/
+

@@ -164,12 +164,14 @@ export default function Product() {
 
   // Direct per-page fetch — fires immediately, independent of global store
   const [fetching, setFetching] = useState(true);
+  const [fetchDone, setFetchDone] = useState(false);
   const [fetchedProduct, setFetchedProduct] = useState<any>(null);
   const [fetchedLocation, setFetchedLocation] = useState<any>(null);
 
   useEffect(() => {
-    if (!slug) { setFetching(false); return; }
+    if (!slug) { setFetching(false); setFetchDone(true); return; }
     setFetching(true);
+    setFetchDone(false);
     billboardsApi.get(slug)
       .then((res) => {
         const data = res.data?.data ?? res.data;
@@ -184,14 +186,16 @@ export default function Product() {
         }
       })
       .catch(() => {})
-      .finally(() => setFetching(false));
+      .finally(() => { setFetching(false); setFetchDone(true); });
   }, [slug, citySlug]);
 
-  // Resolve: prefer store (real-time), fall back to direct fetch
+  // Resolve: direct fetch is authoritative; store supplements once loaded
+  // CRITICAL: only prefer storeProduct if the store actually found it —
+  // never let an empty/loading store clear a successfully fetched product
   const storeLocation = LOCATIONS.find((l) => l.slug === citySlug);
   const storeProduct  = (storeLocation?.products || []).find((p: any) => p.slug === slug);
-  const location      = storeLocation ?? fetchedLocation;
-  const product       = storeProduct  ?? fetchedProduct;
+  const product       = fetchedProduct ?? storeProduct;
+  const location      = storeProduct ? storeLocation : (fetchedLocation ?? storeLocation);
 
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroImgY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
@@ -234,6 +238,7 @@ export default function Product() {
 
   // ── Conditional returns AFTER all hooks ──
   if (fetching) return <BillboardSkeleton />;
+  if (!product && !fetchDone) return <BillboardSkeleton />;
 
   if (!location || !product) {
     return (

@@ -27,26 +27,42 @@ export function LogoMark({ size = 54, variant = 'header' }: { size?: number; var
   const url = variant === 'footer'
     ? (store.settings.footerLogoUrl || store.settings.headerLogoUrl)
     : store.settings.headerLogoUrl;
-  if (url) {
-    return (
-      <img
-        src={url}
-        alt={store.settings.companyName}
-        width={size}
-        height={size}
-        fetchPriority={variant === 'header' ? 'high' : undefined}
-        decoding="async"
-        style={{ height: size, width: "auto", objectFit: "contain", display: "block" }}
-      />
-    );
-  }
-  // Default SVG mark
+
+  // Always reserve a fixed-size block so the navbar never shifts when
+  // the logo URL loads from the API (prevents CLS).
+  // The wrapper has explicit width+height matching `size` at all times.
   return (
-    <div style={{ width: size, height: size, background: RED, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <svg width={size * 0.5} height={size * 0.5} viewBox="0 0 18 18" fill="none">
-        <path d="M2 2h5v14H2zM11 2h5v14h-5z" fill="white" opacity="0.9" />
-        <path d="M7 8.5h4v1H7z" fill="white" />
-      </svg>
+    <div
+      style={{
+        width: size,
+        height: size,
+        flexShrink: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        // Prevent any reflow while image loads
+        contain: 'layout',
+      }}
+    >
+      {url ? (
+        <img
+          src={url}
+          alt={store.settings.companyName}
+          width={size}
+          height={size}
+          fetchPriority={variant === 'header' ? 'high' : undefined}
+          decoding="async"
+          style={{ height: size, width: 'auto', objectFit: 'contain', display: 'block' }}
+        />
+      ) : (
+        // Default SVG mark — same dimensions as real logo, zero shift
+        <div style={{ width: size, height: size, background: RED, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <svg width={size * 0.5} height={size * 0.5} viewBox="0 0 18 18" fill="none">
+            <path d="M2 2h5v14H2zM11 2h5v14h-5z" fill="white" opacity="0.9" />
+            <path d="M7 8.5h4v1H7z" fill="white" />
+          </svg>
+        </div>
+      )}
     </div>
   );
 }
@@ -120,16 +136,37 @@ export function Navbar() {
           {/* Logo */}
           <Link to={ROUTES.HOME} className="flex items-center gap-4 group flex-shrink-0">
             <LogoMark size={54} variant="header" />
-            {!store.settings.headerLogoUrl && (
-              <div className="flex flex-col gap-[1px]">
-                <span className="text-[13px] font-black tracking-[0.22em] uppercase leading-none text-[#0B0F1A]">
-                  {(companyName ?? 'HORIZON OOH').split(' ')[0] || 'HORIZON'}
-                </span>
-                <span className="text-[9px] font-semibold tracking-[0.35em] uppercase leading-none text-[#0B0F1A]/35">
-                  OUT-OF-HOME
-                </span>
-              </div>
-            )}
+            {/*
+             * CLS FIX: Always render the text block so it never appears/disappears
+             * after the settings API resolves (which would cause a horizontal shift).
+             * When a logo image IS set, keep the text invisible but still in layout
+             * so no width change occurs — use visibility:hidden not display:none.
+             */}
+            <div
+              className="flex flex-col gap-[1px]"
+              style={{
+                /*
+                 * CLS FIX: use opacity (not display/visibility) so the element
+                 * always occupies the same space. No reflow = no layout shift.
+                 * When a logo URL is loaded we hide it visually but keep its
+                 * dimensions intact so nothing else in the navbar moves.
+                 */
+                opacity: store.settings.headerLogoUrl ? 0 : 1,
+                pointerEvents: store.settings.headerLogoUrl ? 'none' : 'auto',
+                userSelect: store.settings.headerLogoUrl ? 'none' : 'auto',
+                transition: 'opacity 0.2s',
+                // Always exactly this wide — prevents any horizontal shift
+                whiteSpace: 'nowrap',
+              }}
+              aria-hidden={!!store.settings.headerLogoUrl}
+            >
+              <span className="text-[13px] font-black tracking-[0.22em] uppercase leading-none text-[#0B0F1A]">
+                {(companyName ?? 'HORIZON OOH').split(' ')[0] || 'HORIZON'}
+              </span>
+              <span className="text-[9px] font-semibold tracking-[0.35em] uppercase leading-none text-[#0B0F1A]/35">
+                OUT-OF-HOME
+              </span>
+            </div>
           </Link>
 
           {/* Desktop links */}
@@ -187,62 +224,70 @@ export function Navbar() {
               <span>{isAr ? 'EN' : 'عربي'}</span>
             </button>
 
-            {siteUser ? (
-              /* ── Profile button (logged in) ── */
-              <div className="relative" ref={profileRef}>
-                <button
-                  onClick={() => setProfileOpen(p => !p)}
-                  className="h-[40px] px-4 text-[11px] font-bold tracking-[0.14em] uppercase flex items-center gap-2 border transition-colors duration-200 hover:border-[#0B0F1A] hover:text-[#0B0F1A] rounded-sm"
-                  style={{ borderColor: "rgba(11,15,26,0.2)", color: "rgba(11,15,26,0.7)" }}
-                >
-                  <span className="w-6 h-6 rounded-full flex items-center justify-center text-white text-[10px] font-black flex-shrink-0" style={{ background: '#D90429' }}>
-                    {(siteUser.name || siteUser.email).slice(0, 1).toUpperCase()}
-                  </span>
-                  <span className="hidden sm:inline max-w-[100px] truncate">{siteUser.name || siteUser.email}</span>
-                  <svg width="9" height="9" viewBox="0 0 10 10" fill="none" className={`transition-transform ${profileOpen ? 'rotate-180' : ''}`}>
-                    <path d="M1.5 3.5l3 3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                  </svg>
-                </button>
-                {profileOpen && (
-                    <div
-                      className="absolute right-0 top-[calc(100%+6px)] bg-white border border-gray-200 rounded-xl shadow-xl py-2 min-w-[180px] z-[9999]"
-                      style={{ animation: 'fadeSlideDown 0.15s ease forwards' }}
-                    >
-                      <div className="px-4 py-2 border-b border-gray-100 mb-1">
-                        <p className="text-[12px] font-bold text-gray-900 truncate">{siteUser.name}</p>
-                        <p className="text-[11px] text-gray-400 truncate">{siteUser.email}</p>
+            {/*
+             * CLS FIX: Wrap login/profile in a fixed-width container.
+             * Both states (logged-in profile button vs login link) must occupy
+             * the same width so switching between them never shifts nav items.
+             * min-w-[120px] covers the widest state (profile with name).
+             */}
+            <div style={{ minWidth: 110, display: 'flex', justifyContent: 'flex-end' }}>
+              {siteUser ? (
+                /* ── Profile button (logged in) ── */
+                <div className="relative w-full" ref={profileRef}>
+                  <button
+                    onClick={() => setProfileOpen(p => !p)}
+                    className="h-[40px] px-4 text-[11px] font-bold tracking-[0.14em] uppercase flex items-center gap-2 border transition-colors duration-200 hover:border-[#0B0F1A] hover:text-[#0B0F1A] rounded-sm w-full"
+                    style={{ borderColor: "rgba(11,15,26,0.2)", color: "rgba(11,15,26,0.7)" }}
+                  >
+                    <span className="w-6 h-6 rounded-full flex items-center justify-center text-white text-[10px] font-black flex-shrink-0" style={{ background: '#D90429' }}>
+                      {(siteUser.name || siteUser.email).slice(0, 1).toUpperCase()}
+                    </span>
+                    <span className="hidden sm:inline max-w-[100px] truncate">{siteUser.name || siteUser.email}</span>
+                    <svg width="9" height="9" viewBox="0 0 10 10" fill="none" className={`transition-transform ${profileOpen ? 'rotate-180' : ''}`}>
+                      <path d="M1.5 3.5l3 3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                    </svg>
+                  </button>
+                  {profileOpen && (
+                      <div
+                        className="absolute right-0 top-[calc(100%+6px)] bg-white border border-gray-200 rounded-xl shadow-xl py-2 min-w-[180px] z-[9999]"
+                        style={{ animation: 'fadeSlideDown 0.15s ease forwards' }}
+                      >
+                        <div className="px-4 py-2 border-b border-gray-100 mb-1">
+                          <p className="text-[12px] font-bold text-gray-900 truncate">{siteUser.name}</p>
+                          <p className="text-[11px] text-gray-400 truncate">{siteUser.email}</p>
+                        </div>
+                        <Link
+                          to={langPath(lang, "/profile")}
+                          onClick={() => setProfileOpen(false)}
+                          className="flex items-center gap-2 px-4 py-2 text-[12px] font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
+                        >
+                          <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="currentColor" strokeWidth="1.5"/><path d="M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                          {isAr ? 'ملف شخصي' : 'My Profile'}
+                        </Link>
+                        <button
+                          onClick={handleLogout}
+                          className="w-full flex items-center gap-2 px-4 py-2 text-[12px] font-semibold text-red-500 hover:bg-red-50 transition-colors"
+                        >
+                          <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M6 2H3a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3M10 11l3-3-3-3M13 8H6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                          {isAr ? 'تسجيل الخروج' : 'Sign Out'}
+                        </button>
                       </div>
-                      <Link
-                        to={langPath(lang, "/profile")}
-                        onClick={() => setProfileOpen(false)}
-                        className="flex items-center gap-2 px-4 py-2 text-[12px] font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
-                      >
-                        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="currentColor" strokeWidth="1.5"/><path d="M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
-                        {isAr ? 'ملف شخصي' : 'My Profile'}
-                      </Link>
-                      <button
-                        onClick={handleLogout}
-                        className="w-full flex items-center gap-2 px-4 py-2 text-[12px] font-semibold text-red-500 hover:bg-red-50 transition-colors"
-                      >
-                        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M6 2H3a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3M10 11l3-3-3-3M13 8H6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
-                        {isAr ? 'تسجيل الخروج' : 'Sign Out'}
-                      </button>
-                    </div>
-                  )}
-              </div>
-            ) : (
-              <Link
-                to={langPath(lang, "/login")}
-                className="h-[40px] px-5 text-[11px] font-bold tracking-[0.18em] uppercase flex items-center gap-2 border transition-colors duration-200 hover:border-[#0B0F1A] hover:text-[#0B0F1A]"
-                style={{ borderColor: "rgba(11,15,26,0.2)", color: "rgba(11,15,26,0.55)" }}
-              >
-                <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
-                  <circle cx="8" cy="5" r="3" stroke="currentColor" strokeWidth="1.5"/>
-                  <path d="M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                </svg>
-                {t('nav.login')}
-              </Link>
-            )}
+                    )}
+                </div>
+              ) : (
+                <Link
+                  to={langPath(lang, "/login")}
+                  className="h-[40px] px-5 text-[11px] font-bold tracking-[0.18em] uppercase flex items-center gap-2 border transition-colors duration-200 hover:border-[#0B0F1A] hover:text-[#0B0F1A] w-full justify-center"
+                  style={{ borderColor: "rgba(11,15,26,0.2)", color: "rgba(11,15,26,0.55)" }}
+                >
+                  <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+                    <circle cx="8" cy="5" r="3" stroke="currentColor" strokeWidth="1.5"/>
+                    <path d="M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                  </svg>
+                  {t('nav.login')}
+                </Link>
+              )}
+            </div>
             <Link
               to={ROUTES.CONTACT}
               className="h-[40px] px-7 text-[11px] font-bold tracking-[0.2em] uppercase text-white flex items-center relative overflow-hidden group active:scale-[0.97] transition-transform"
