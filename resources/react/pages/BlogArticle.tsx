@@ -50,33 +50,34 @@ export default function BlogArticle() {
 
   // Direct per-page fetch — fires immediately on mount, independent of global store
   const [fetching, setFetching] = useState(true);
+  const [fetchDone, setFetchDone] = useState(false);
   const [fetchedPost, setFetchedPost] = useState<any>(null);
   const [fetchFailed, setFetchFailed] = useState(false);
 
   useEffect(() => {
-    if (!slug) { setFetching(false); return; }
+    if (!slug) { setFetching(false); setFetchDone(true); return; }
     setFetching(true);
     setFetchFailed(false);
+    setFetchDone(false);
     blogApi.get(slug)
       .then((res) => {
         const data = res.data?.data ?? res.data;
         setFetchedPost(data ?? null);
       })
       .catch(() => setFetchFailed(true))
-      .finally(() => setFetching(false));
+      .finally(() => { setFetching(false); setFetchDone(true); });
   }, [slug]);
 
-  // Resolve post: prefer store (after global load), fall back to direct fetch result
+  // Resolve: direct fetch is authoritative; store supplements once loaded
   const storePost = BLOG_POSTS.find((p) => p.slug === slug);
-  const post      = storePost ?? fetchedPost;
+  const post      = fetchedPost ?? storePost;
   const related   = BLOG_POSTS.filter((p) => p.slug !== slug).slice(0, 3);
 
   // ── Conditional returns AFTER all hooks ──
-  // While direct fetch is in-flight, show branded skeleton
   if (fetching) return <ArticleSkeleton />;
+  if (!post && !fetchDone) return <ArticleSkeleton />;
 
-  // Only show not-found once both direct fetch AND store load are done
-  if (!post && (fetchFailed || !fetching)) {
+  if (!post && fetchFailed) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6">
         <p className="text-[#0B0F1A]/40 text-lg">{isAr ? 'المقال غير موجود.' : 'Article not found.'}</p>

@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-PH9HH9XX');</script>
+  <!-- Google Tag Manager — deferred to after load to reduce TBT -->
+  <script>
+  window.addEventListener('load', function() {
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PH9HH9XX');
+  });
+  </script>
   <!-- End Google Tag Manager -->
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7P78DVM6VK"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-7P78DVM6VK');
-</script>
+  <!-- Google tag (gtag.js) — deferred to after load -->
+  <script>
+  window.addEventListener('load', function() {
+    var s=document.createElement('script');s.async=true;
+    s.src='https://www.googletagmanager.com/gtag/js?id=G-7P78DVM6VK';
+    document.head.appendChild(s);
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag=gtag;
+    gtag('js',new Date());gtag('config','G-7P78DVM6VK');
+  });
+  </script>
 
     <meta charset="UTF-8" />
     <!-- Redirect old /#/ hash URLs to clean BrowserRouter paths -->
@@ -48,6 +55,37 @@
       #root { min-height: 100svh; background: #0b0f1a; }
       /* Prevent invisible text during font swap */
       body { font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+
+      /*
+       * CLS FIX: Pre-reserve navbar height (76px) before React mounts.
+       * This prevents the page content from shifting down when the
+       * fixed navbar is painted by React for the first time.
+       */
+      #root > div > nav:first-child,
+      nav[class*="fixed"] {
+        height: 76px;
+        contain: layout;
+      }
+
+      /*
+       * CLS FIX: Reserve logo space (54x54) before the API returns the logo URL.
+       * Without this, the logo area collapses to 0 then expands when the image
+       * loads from the settings API, causing a large layout shift.
+       */
+      nav img[fetchpriority="high"],
+      nav img[fetchpriority="high"] ~ * {
+        contain: layout;
+      }
+
+      /*
+       * CLS FIX: Billboard card image containers — lock height before images load
+       * so the card grid never reflows as images arrive.
+       */
+      .cls-card-img {
+        height: 220px;
+        contain: layout;
+        overflow: hidden;
+      }
     </style>
     <title>HORIZON OOH | Outdoor Advertising Agency in Egypt</title>
     <meta name="description" content="Egypt's premier outdoor advertising agency. Billboard, DOOH, Mall &amp; Airport campaigns across Cairo, Alexandria &amp; nationwide. 9,500+ premium locations." />
@@ -93,8 +131,11 @@
     <link
       rel="preload"
       as="image"
-      href="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?w=1600&q=85&fit=crop"
+      href="/images/hero-1600.webp"
+      imagesrcset="/images/hero-400.webp 400w, /images/hero-800.webp 800w, /images/hero-1200.webp 1200w, /images/hero-1600.webp 1600w"
+      imagesizes="100vw"
       fetchpriority="high"
+      type="image/webp"
     />
 
     <!-- Google Fonts — loaded as non-blocking <link> instead of CSS @import (eliminates render-blocking) -->
@@ -168,18 +209,14 @@
     }
     </script>
     <!-- Leaflet CSS is bundled locally in BillboardMap/ProductMap (no CDN) -->
-    <script type="module" crossorigin src="/assets/index-B65qPlSK.js"></script>
+    <script type="module" crossorigin src="/assets/index-DMkJqx2U.js"></script>
     <!-- deferred: leaflet (not eager-preloaded to avoid LCP image bandwidth contention) -->
-    <link rel="modulepreload" crossorigin href="/assets/react-core-5W2wDyum.js">
-    <link rel="modulepreload" crossorigin href="/assets/utils--BulIq_u.js">
-    <!-- deferred: data-layer (not eager-preloaded to avoid LCP image bandwidth contention) -->
-    <link rel="modulepreload" crossorigin href="/assets/site-data-DxKVQzcS.js">
-    <link rel="modulepreload" crossorigin href="/assets/app-core-IEXrqk8F.js">
-    <link rel="modulepreload" crossorigin href="/assets/router-dDSaLkQy.js">
-    <link rel="modulepreload" crossorigin href="/assets/icons-Oqcsc5yn.js">
-    <!-- deferred: iconify (not eager-preloaded to avoid LCP image bandwidth contention) -->
-    <!-- deferred: admin (not eager-preloaded to avoid LCP image bandwidth contention) -->
+    <link rel="modulepreload" crossorigin href="/assets/react-core-D71apps3.js">
+    <link rel="modulepreload" crossorigin href="/assets/router-DmhmN6yl.js">
     <link rel="modulepreload" crossorigin href="/assets/i18n-c7R9l1aa.js">
+    <link rel="modulepreload" crossorigin href="/assets/site-data-DxKVQzcS.js">
+    <!-- deferred: data-layer (not eager-preloaded to avoid LCP image bandwidth contention) -->
+    <link rel="modulepreload" crossorigin href="/assets/app-core-U_0kWHp3.js">
     <link rel="preload" as="style" fetchpriority="high" crossorigin href="/assets/index-CIkSJSVk.css" />
     <link rel="stylesheet" crossorigin href="/assets/index-CIkSJSVk.css">
   </head>

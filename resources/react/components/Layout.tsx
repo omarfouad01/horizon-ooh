@@ -27,26 +27,42 @@ export function LogoMark({ size = 54, variant = 'header' }: { size?: number; var
   const url = variant === 'footer'
     ? (store.settings.footerLogoUrl || store.settings.headerLogoUrl)
     : store.settings.headerLogoUrl;
-  if (url) {
-    return (
-      <img
-        src={url}
-        alt={store.settings.companyName}
-        width={size}
-        height={size}
-        fetchPriority={variant === 'header' ? 'high' : undefined}
-        decoding="async"
-        style={{ height: size, width: "auto", objectFit: "contain", display: "block" }}
-      />
-    );
-  }
-  // Default SVG mark
+
+  // Always reserve a fixed-size block so the navbar never shifts when
+  // the logo URL loads from the API (prevents CLS).
+  // The wrapper has explicit width+height matching `size` at all times.
   return (
-    <div style={{ width: size, height: size, background: RED, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <svg width={size * 0.5} height={size * 0.5} viewBox="0 0 18 18" fill="none">
-        <path d="M2 2h5v14H2zM11 2h5v14h-5z" fill="white" opacity="0.9" />
-        <path d="M7 8.5h4v1H7z" fill="white" />
-      </svg>
+    <div
+      style={{
+        width: size,
+        height: size,
+        flexShrink: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        // Prevent any reflow while image loads
+        contain: 'layout',
+      }}
+    >
+      {url ? (
+        <img
+          src={url}
+          alt={store.settings.companyName}
+          width={size}
+          height={size}
+          fetchPriority={variant === 'header' ? 'high' : undefined}
+          decoding="async"
+          style={{ height: size, width: 'auto', objectFit: 'contain', display: 'block' }}
+        />
+      ) : (
+        // Default SVG mark — same dimensions as real logo, zero shift
+        <div style={{ width: size, height: size, background: RED, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <svg width={size * 0.5} height={size * 0.5} viewBox="0 0 18 18" fill="none">
+            <path d="M2 2h5v14H2zM11 2h5v14h-5z" fill="white" opacity="0.9" />
+            <path d="M7 8.5h4v1H7z" fill="white" />
+          </svg>
+        </div>
+      )}
     </div>
   );
 }
