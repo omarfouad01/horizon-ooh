@@ -67,6 +67,9 @@ function Reveal({
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : `translateY(${y}px)`,
         transition: `opacity 0.85s cubic-bezier(0.16,1,0.3,1) ${delay}s, transform 0.85s cubic-bezier(0.16,1,0.3,1) ${delay}s`,
+        // CLS fix: isolate animation so translateY doesn't shift surrounding layout
+        willChange: visible ? 'auto' : 'transform',
+        contain: 'layout style',
       }}
     >
       {children}
@@ -130,6 +133,9 @@ function RevealItem({
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(24px)',
         transition: `opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1)`,
+        // CLS fix: isolate animation so translateY doesn't shift surrounding layout
+        willChange: visible ? 'auto' : 'transform',
+        contain: 'layout style',
       }}
     >
       <div ref={ref}>{children}</div>

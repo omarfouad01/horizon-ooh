@@ -27,22 +27,29 @@ export function LogoMark({ size = 54, variant = 'header' }: { size?: number; var
   const url = variant === 'footer'
     ? (store.settings.footerLogoUrl || store.settings.headerLogoUrl)
     : store.settings.headerLogoUrl;
+
+  // CLS fix: always reserve a fixed-size slot (height×height square) so the
+  // navbar width never shifts when the logo URL loads from the API.
+  // The slot is the SVG fallback when no URL, or the img when URL is known.
   if (url) {
     return (
-      <img
-        src={url}
-        alt={store.settings.companyName}
-        width={size}
-        height={size}
-        fetchPriority={variant === 'header' ? 'high' : undefined}
-        decoding="async"
-        style={{ height: size, width: "auto", objectFit: "contain", display: "block" }}
-      />
+      // Outer div keeps a stable footprint (size × size) while the img inside
+      // can be wider — this prevents neighbouring elements from shifting.
+      <div style={{ width: size, height: size, flexShrink: 0, display: 'flex', alignItems: 'center' }}>
+        <img
+          src={url}
+          alt={store.settings.companyName}
+          height={size}
+          fetchPriority={variant === 'header' ? 'high' : undefined}
+          decoding="async"
+          style={{ height: size, width: 'auto', maxHeight: size, objectFit: 'contain', display: 'block' }}
+        />
+      </div>
     );
   }
-  // Default SVG mark
+  // Default SVG mark — same size slot, no shift
   return (
-    <div style={{ width: size, height: size, background: RED, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <div style={{ width: size, height: size, background: RED, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <svg width={size * 0.5} height={size * 0.5} viewBox="0 0 18 18" fill="none">
         <path d="M2 2h5v14H2zM11 2h5v14h-5z" fill="white" opacity="0.9" />
         <path d="M7 8.5h4v1H7z" fill="white" />
@@ -120,16 +127,20 @@ export function Navbar() {
           {/* Logo */}
           <Link to={ROUTES.HOME} className="flex items-center gap-4 group flex-shrink-0">
             <LogoMark size={54} variant="header" />
-            {!store.settings.headerLogoUrl && (
-              <div className="flex flex-col gap-[1px]">
-                <span className="text-[13px] font-black tracking-[0.22em] uppercase leading-none text-[#0B0F1A]">
-                  {(companyName ?? 'HORIZON OOH').split(' ')[0] || 'HORIZON'}
-                </span>
-                <span className="text-[9px] font-semibold tracking-[0.35em] uppercase leading-none text-[#0B0F1A]/35">
-                  OUT-OF-HOME
-                </span>
-              </div>
-            )}
+            {/* CLS fix: always keep company name in DOM; hide with opacity when
+                a logo image is present. Removing from DOM shifts the layout. */}
+            <div
+              className="flex flex-col gap-[1px]"
+              style={{ opacity: store.settings.headerLogoUrl ? 0 : 1, pointerEvents: store.settings.headerLogoUrl ? 'none' : undefined }}
+              aria-hidden={!!store.settings.headerLogoUrl}
+            >
+              <span className="text-[13px] font-black tracking-[0.22em] uppercase leading-none text-[#0B0F1A]">
+                {(companyName ?? 'HORIZON OOH').split(' ')[0] || 'HORIZON'}
+              </span>
+              <span className="text-[9px] font-semibold tracking-[0.35em] uppercase leading-none text-[#0B0F1A]/35">
+                OUT-OF-HOME
+              </span>
+            </div>
           </Link>
 
           {/* Desktop links */}
@@ -187,6 +198,9 @@ export function Navbar() {
               <span>{isAr ? 'EN' : 'عربي'}</span>
             </button>
 
+            {/* CLS fix: fixed-width wrapper so Login↔Profile swap never
+                shifts the nav links or the GET A QUOTE button */}
+            <div style={{ minWidth: 160, display: 'flex', justifyContent: 'flex-end' }}>
             {siteUser ? (
               /* ── Profile button (logged in) ── */
               <div className="relative" ref={profileRef}>
@@ -243,6 +257,7 @@ export function Navbar() {
                 {t('nav.login')}
               </Link>
             )}
+            </div>{/* end CLS minWidth wrapper */}
             <Link
               to={ROUTES.CONTACT}
               className="h-[40px] px-7 text-[11px] font-bold tracking-[0.2em] uppercase text-white flex items-center relative overflow-hidden group active:scale-[0.97] transition-transform"
