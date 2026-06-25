@@ -405,9 +405,22 @@ export const useApiStore = create<ApiState>((set, get) => ({
 
   forceReload: async () => {
     // Called after a confirmed successful login — token is known to be valid.
-    // Mark the token as valid so reload() doesn't wait / skip admin APIs.
+    // Mark the token as valid so any waiting reload() call passes the gate.
     markTokenValid();
-    set({ loading: false, _skipAuthCheck: true } as any);
+    // If a reload() is currently in flight (e.g. startup load), wait for it
+    // to finish before starting a new one — prevents concurrent API storms.
+    // We poll with a short interval rather than resetting loading=false to
+    // avoid interfering with the in-flight request.
+    const waitForIdle = (): Promise<void> =>
+      new Promise((resolve) => {
+        const check = () => {
+          if (!useApiStore.getState().loading) { resolve(); return; }
+          setTimeout(check, 50);
+        };
+        check();
+      });
+    await waitForIdle();
+    set({ _skipAuthCheck: true } as any);
     return useApiStore.getState().reload();
   },
 

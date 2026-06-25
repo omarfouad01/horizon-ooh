@@ -61,7 +61,6 @@
        * This prevents the page content from shifting down when the
        * fixed navbar is painted by React for the first time.
        */
-      #root > div > nav:first-child,
       nav[class*="fixed"] {
         height: 76px;
         contain: layout;
@@ -72,8 +71,7 @@
        * Without this, the logo area collapses to 0 then expands when the image
        * loads from the settings API, causing a large layout shift.
        */
-      nav img[fetchpriority="high"],
-      nav img[fetchpriority="high"] ~ * {
+      nav img[fetchpriority="high"] {
         contain: layout;
       }
 
@@ -209,16 +207,16 @@
     }
     </script>
     <!-- Leaflet CSS is bundled locally in BillboardMap/ProductMap (no CDN) -->
-    <script type="module" crossorigin src="/assets/index-DMkJqx2U.js"></script>
+    <script type="module" crossorigin src="/assets/index-B2CWfGxO.js"></script>
     <!-- deferred: leaflet (not eager-preloaded to avoid LCP image bandwidth contention) -->
     <link rel="modulepreload" crossorigin href="/assets/react-core-D71apps3.js">
     <link rel="modulepreload" crossorigin href="/assets/router-DmhmN6yl.js">
     <link rel="modulepreload" crossorigin href="/assets/i18n-c7R9l1aa.js">
     <link rel="modulepreload" crossorigin href="/assets/site-data-DxKVQzcS.js">
     <!-- deferred: data-layer (not eager-preloaded to avoid LCP image bandwidth contention) -->
-    <link rel="modulepreload" crossorigin href="/assets/app-core-U_0kWHp3.js">
-    <link rel="preload" as="style" fetchpriority="high" crossorigin href="/assets/index-CIkSJSVk.css" />
-    <link rel="stylesheet" crossorigin href="/assets/index-CIkSJSVk.css">
+    <link rel="modulepreload" crossorigin href="/assets/app-core-CdqnGwCM.js">
+    <link rel="preload" as="style" fetchpriority="high" crossorigin href="/assets/index-C-zd8bTE.css" />
+    <link rel="stylesheet" crossorigin href="/assets/index-C-zd8bTE.css">
   </head>
 
   <body>

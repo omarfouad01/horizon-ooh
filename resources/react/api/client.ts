@@ -41,6 +41,11 @@ api.interceptors.request.use((config) => {
 let _refreshPromise: Promise<string | null> | null = null;
 // Prevent firing the auth:expired event more than once per session
 let _expiredDispatched = false;
+// Timestamp of the last token store from login — used to skip refresh on brand-new tokens
+let _tokenStoredAt = 0;
+/** Call immediately after storing a fresh token from login/register.
+ *  Prevents the interceptor from trying to refresh a brand-new valid token. */
+export function markTokenStored(): void { _tokenStoredAt = Date.now(); }
 
 async function tryRefreshToken(): Promise<string | null> {
   const token = localStorage.getItem('horizon_token');
@@ -73,7 +78,10 @@ api.interceptors.response.use(
     const hasToken = !!token && token !== 'demo-token';
     const isAuthRoute = /\/(auth\/login|login|auth\/logout|logout|auth\/refresh)($|\?)/i.test(url);
 
-    if (status === 401 && hasToken && !isAuthRoute && !err.config?._retried) {
+    // Brand-new token (<10s old) from a fresh login — skip refresh to protect it.
+    const tokenIsFresh = _tokenStoredAt > 0 && (Date.now() - _tokenStoredAt) < 10_000;
+
+    if (status === 401 && hasToken && !isAuthRoute && !err.config?._retried && !tokenIsFresh) {
       // Attempt a silent token refresh first (shared promise — no parallel storms)
       if (!_refreshPromise) {
         _refreshPromise = tryRefreshToken().finally(() => { _refreshPromise = null; });

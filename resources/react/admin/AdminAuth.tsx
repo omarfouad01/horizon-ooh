@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { authApi } from '@/api';
+import { markTokenStored } from '@/api/client';
 import { HAS_API, useApiStore, resolveTokenValidity } from '@/store/apiStore';
 
 interface AuthCtx {
@@ -37,12 +38,16 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
         const { token: t, user: u } = res.data;
         localStorage.setItem('horizon_token', t);
         localStorage.setItem('horizon_user',  JSON.stringify(u));
+        // Mark token as fresh so the response interceptor won't try to refresh it
+        // on the first 401 (prevents fresh-token → refresh → logout cascade).
+        markTokenStored();
         setToken(t); setUser(u);
-        // Force-reload the global store so admin-only data (suppliers, customers,
-        // contacts, design uploads) is fetched immediately with the new token.
-        // Uses forceReload() to bypass the loading guard in case a previous
-        // reload() is still in flight (e.g. startup load with expired token).
-        useApiStore.getState().forceReload();
+        // Delay forceReload() so that:
+        //  1. Any in-flight startup reload() finishes first (forceReload waitForIdle)
+        //  2. The blacklist_grace_period on server has time to clear
+        //  3. React state is committed before admin APIs fire
+        // 500ms delay is imperceptible but eliminates the timing race.
+        setTimeout(() => { useApiStore.getState().forceReload(); }, 500);
         return;
       } catch (err: any) {
         // Server explicitly rejected — stop immediately
