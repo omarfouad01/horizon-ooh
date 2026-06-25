@@ -32,11 +32,13 @@ export function LogoMark({ size = 54, variant = 'header' }: { size?: number; var
       <img
         src={url}
         alt={store.settings.companyName}
-        width={size}
+        // Do NOT set width attribute — let the image render at its natural
+        // aspect ratio up to maxHeight. The old width={size} was constraining
+        // wide logos to a 54×54 square, making them appear too small.
         height={size}
         fetchPriority={variant === 'header' ? 'high' : undefined}
         decoding="async"
-        style={{ height: size, width: "auto", objectFit: "contain", display: "block" }}
+        style={{ height: size, width: 'auto', maxHeight: size, objectFit: 'contain', display: 'block' }}
       />
     );
   }
