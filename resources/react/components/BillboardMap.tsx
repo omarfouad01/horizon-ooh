@@ -100,8 +100,13 @@ export default function LeafletMap({ filtered, allCount, selected, onSelect, cla
       const lng = typeof b.lng === 'number' ? b.lng : parseFloat(b.lng);
       if (isNaN(lat) || isNaN(lng)) return;
       const isActive = selected?.id === b.id;
-      const marker = L.marker([lat, lng], { icon: makePin(isActive), zIndexOffset: isActive ? 1000 : 0 })
-        .addTo(map);
+      // aria fix: `title` → aria-label on the generated marker div
+      const marker = L.marker([lat, lng], {
+        icon: makePin(isActive),
+        zIndexOffset: isActive ? 1000 : 0,
+        title: `${b.name} — ${b.city}`,
+        alt: b.name,
+      }).addTo(map);
 
       marker.on("click", () => onSelect(selected?.id === b.id ? null : b));
 

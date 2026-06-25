@@ -95,7 +95,8 @@ function InlineMapPicker({
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; OpenStreetMap &copy; CARTO', maxZoom: 19,
     }).addTo(map)
-    const marker = L.marker([initLat, initLng], { icon: makeIcon(), draggable: true }).addTo(map)
+    // aria fix: label the draggable admin pin
+    const marker = L.marker([initLat, initLng], { icon: makeIcon(), draggable: true, title: 'Billboard location — drag to reposition', alt: 'Billboard location' }).addTo(map)
     marker.on('dragend', () => {
       const p = marker.getLatLng()
       const la = Math.round(p.lat * 1e6) / 1e6

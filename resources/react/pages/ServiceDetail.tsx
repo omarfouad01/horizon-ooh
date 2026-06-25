@@ -49,27 +49,30 @@ export default function ServiceDetail() {
 
   // Direct per-page fetch — fires immediately on mount
   const [fetching, setFetching] = useState(true);
+  const [fetchDone, setFetchDone] = useState(false);
   const [fetchedService, setFetchedService] = useState<any>(null);
 
   useEffect(() => {
-    if (!slug) { setFetching(false); return; }
+    if (!slug) { setFetching(false); setFetchDone(true); return; }
     setFetching(true);
+    setFetchDone(false);
     servicesApi.get(slug)
       .then((res) => {
         const data = res.data?.data ?? res.data;
         setFetchedService(data ?? null);
       })
       .catch(() => {})
-      .finally(() => setFetching(false));
+      .finally(() => { setFetching(false); setFetchDone(true); });
   }, [slug]);
 
-  // Resolve: prefer store, fall back to direct fetch
+  // Resolve: direct fetch is authoritative; store supplements once loaded
   const storeService = SERVICES.find((s) => s.slug === slug);
-  const service      = storeService ?? fetchedService;
+  const service      = fetchedService ?? storeService;
   const others       = SERVICES.filter((s) => s.id !== service?.id).slice(0, 3);
 
   // ── Conditional returns AFTER all hooks ──
   if (fetching) return <ServiceSkeleton />;
+  if (!service && !fetchDone) return <ServiceSkeleton />;
 
   if (!service) {
     return (
