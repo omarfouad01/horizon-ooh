@@ -76,7 +76,9 @@ export default function ProductMap({ lat, lng, name, type, district, city, traff
     L.control.zoom({ position: "bottomright" }).addTo(map);
 
     // Single pin
-    const marker = L.marker([lat, lng], { icon: makeSinglePin(), zIndexOffset: 1000 }).addTo(map);
+    // aria fix: `title` becomes the marker's aria-label so screen readers
+    // and AI agents can identify the interactive pin by billboard name.
+    const marker = L.marker([lat, lng], { icon: makeSinglePin(), zIndexOffset: 1000, title: name, alt: name }).addTo(map);
 
     // Auto-open popup
     marker.bindPopup(

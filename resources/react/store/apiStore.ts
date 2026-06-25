@@ -403,11 +403,38 @@ export const useApiStore = create<ApiState>((set, get) => ({
   contactContent: DEMO_CONTACT_CONTENT,
   billboardSizes: [], simulatorTemplates: [], designUploads: [],
 
-  forceReload: async () => {
+forceReload: async () => {
     // Called after a confirmed successful login — token is known to be valid.
-    // Mark the token as valid so reload() doesn't wait / skip admin APIs.
+    // 1. Mark the token validity gate as resolved (so reload() skips /auth/me wait)
     markTokenValid();
-    set({ loading: false, _skipAuthCheck: true } as any);
+    // 2. Set the skip flag so reload() trusts the token directly
+    set({ _skipAuthCheck: true } as any);
+
+    // 3. CRITICAL: If a background reload() is in flight (loading=true), we must
+    //    WAIT for it to finish before starting our own. Otherwise our set() of
+    //    loading=false races with the in-flight reload's set({loading:true}),
+    //    causing the in-flight reload to proceed WITHOUT the admin token check,
+    //    meaning suppliers/customers/contacts are skipped.
+    //
+    //    waitForIdle polls up to 8s (160 × 50ms) for loading to become false.
+    const waitForIdle = (): Promise<void> =>
+      new Promise((resolve) => {
+        if (!useApiStore.getState().loading) { resolve(); return; }
+        let attempts = 0;
+        const iv = setInterval(() => {
+          attempts++;
+          if (!useApiStore.getState().loading || attempts > 160) {
+            clearInterval(iv);
+            resolve();
+          }
+        }, 50);
+      });
+
+    await waitForIdle();
+
+    // 4. Now kick off a fresh reload with admin APIs included
+    //    reset loading flag so reload() doesn't bail on the guard
+    set({ loading: false } as any);
     return useApiStore.getState().reload();
   },
 
