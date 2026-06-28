@@ -47,7 +47,7 @@ let _expiredDispatched = false;
 let _tokenStoredAt = 0;
 /** Call this after storing a fresh token (e.g. after login) to prevent
  *  the interceptor from refreshing a token that was just issued. */
-export function markTokenStored(): void { _tokenStoredAt = Date.now(); }
+export function markTokenStored(): void { _tokenStoredAt = Date.now(); _expiredDispatched = false; }
 
 async function tryRefreshToken(): Promise<string | null> {
   const token = localStorage.getItem('horizon_token');
@@ -117,8 +117,10 @@ api.interceptors.response.use(
       // all fail at the same time (e.g. suppliers + customers + contacts).
       if (typeof window !== 'undefined' && !_expiredDispatched) {
         _expiredDispatched = true;
-        // Reset flag after a short delay so future sessions work correctly
-        setTimeout(() => { _expiredDispatched = false; }, 5000);
+        // Do NOT reset on a timer — reset only when a fresh login happens
+        // (markTokenStored() is called after successful login).
+        // Timer-based reset caused repeated logout storms when multiple
+        // parallel 401s arrived in batches > 5 seconds apart.
         window.dispatchEvent(new CustomEvent('horizon:auth:expired'));
       }
     }

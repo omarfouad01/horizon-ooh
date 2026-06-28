@@ -404,32 +404,41 @@ export const useApiStore = create<ApiState>((set, get) => ({
   billboardSizes: [], simulatorTemplates: [], designUploads: [],
 
 forceReload: async () => {
-    // Called after a confirmed successful login — token is known to be valid.
-    // Strategy: directly fetch the 4 admin-only APIs and patch the store.
+    // Called ONLY after a confirmed successful login — token is known to be valid.
+    // Strategy: directly fetch all 4 admin-only APIs and patch the store.
     // This is simpler and more reliable than resetting and re-running reload().
-    // 1. Mark the token validity gate as resolved (so any pending reload() also gets admin data)
+
+    // Guard: only run if a real token is present (prevents accidental calls)
+    const activeToken = typeof localStorage !== 'undefined' ? localStorage.getItem('horizon_token') : null;
+    if (!activeToken || activeToken === 'demo-token' || activeToken === 'preview-token') return;
+
+    // Mark the token validity gate as resolved so any concurrent reload() also
+    // gets admin data if it hasn't fetched yet.
     markTokenValid();
 
-    // 2. Fetch admin-only APIs directly — no waiting for reload() to finish
+    // Fetch all admin-only APIs in parallel — fire-and-forget style
     try {
-      const [suppRes, custRes, contRes] = await Promise.allSettled([
+      const [suppRes, custRes, contRes, uploadsRes] = await Promise.allSettled([
         suppliersApi.all(),
         customersApi.all(),
         contactsApi.all(),
+        designUploadsApi.all(),
       ]);
 
-      const suppRaw  = suppRes.status  === 'fulfilled' ? apiArr(suppRes.value)  : [];
-      const custRaw  = custRes.status  === 'fulfilled' ? apiArr(custRes.value)  : [];
-      const contRaw  = contRes.status  === 'fulfilled' ? apiArr(contRes.value)  : [];
+      const suppRaw    = suppRes.status    === 'fulfilled' ? apiArr(suppRes.value)    : [];
+      const custRaw    = custRes.status    === 'fulfilled' ? apiArr(custRes.value)    : [];
+      const contRaw    = contRes.status    === 'fulfilled' ? apiArr(contRes.value)    : [];
+      const uploadsRaw = uploadsRes.status === 'fulfilled' ? apiArr(uploadsRes.value) : [];
 
       // Patch the store with fresh admin data
       set({
-        suppliers: suppRaw.length ? suppRaw : get().suppliers,
-        customers: custRaw.length ? custRaw : get().customers,
-        contacts:  contRaw.length ? contRaw : get().contacts,
+        suppliers:     suppRaw.length    ? suppRaw    : get().suppliers,
+        customers:     custRaw.length    ? custRaw    : get().customers,
+        contacts:      contRaw.length    ? contRaw    : get().contacts,
+        designUploads: uploadsRaw.length ? uploadsRaw : get().designUploads,
       });
     } catch {
-      // Non-critical — admin pages can retry manually
+      // Non-critical — admin pages can retry manually via their own refresh buttons
     }
   },
 
