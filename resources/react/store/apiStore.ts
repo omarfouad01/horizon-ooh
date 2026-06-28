@@ -405,37 +405,32 @@ export const useApiStore = create<ApiState>((set, get) => ({
 
 forceReload: async () => {
     // Called after a confirmed successful login — token is known to be valid.
-    // 1. Mark the token validity gate as resolved (so reload() skips /auth/me wait)
+    // Strategy: directly fetch the 4 admin-only APIs and patch the store.
+    // This is simpler and more reliable than resetting and re-running reload().
+    // 1. Mark the token validity gate as resolved (so any pending reload() also gets admin data)
     markTokenValid();
-    // 2. Set the skip flag so reload() trusts the token directly
-    set({ _skipAuthCheck: true } as any);
 
-    // 3. CRITICAL: If a background reload() is in flight (loading=true), we must
-    //    WAIT for it to finish before starting our own. Otherwise our set() of
-    //    loading=false races with the in-flight reload's set({loading:true}),
-    //    causing the in-flight reload to proceed WITHOUT the admin token check,
-    //    meaning suppliers/customers/contacts are skipped.
-    //
-    //    waitForIdle polls up to 8s (160 × 50ms) for loading to become false.
-    const waitForIdle = (): Promise<void> =>
-      new Promise((resolve) => {
-        if (!useApiStore.getState().loading) { resolve(); return; }
-        let attempts = 0;
-        const iv = setInterval(() => {
-          attempts++;
-          if (!useApiStore.getState().loading || attempts > 160) {
-            clearInterval(iv);
-            resolve();
-          }
-        }, 50);
+    // 2. Fetch admin-only APIs directly — no waiting for reload() to finish
+    try {
+      const [suppRes, custRes, contRes] = await Promise.allSettled([
+        suppliersApi.all(),
+        customersApi.all(),
+        contactsApi.all(),
+      ]);
+
+      const suppRaw  = suppRes.status  === 'fulfilled' ? apiArr(suppRes.value)  : [];
+      const custRaw  = custRes.status  === 'fulfilled' ? apiArr(custRes.value)  : [];
+      const contRaw  = contRes.status  === 'fulfilled' ? apiArr(contRes.value)  : [];
+
+      // Patch the store with fresh admin data
+      set({
+        suppliers: suppRaw.length ? suppRaw : get().suppliers,
+        customers: custRaw.length ? custRaw : get().customers,
+        contacts:  contRaw.length ? contRaw : get().contacts,
       });
-
-    await waitForIdle();
-
-    // 4. Now kick off a fresh reload with admin APIs included
-    //    reset loading flag so reload() doesn't bail on the guard
-    set({ loading: false } as any);
-    return useApiStore.getState().reload();
+    } catch {
+      // Non-critical — admin pages can retry manually
+    }
   },
 
   reload: async () => {

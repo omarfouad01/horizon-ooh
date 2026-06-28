@@ -28,23 +28,26 @@ export function LogoMark({ size = 54, variant = 'header' }: { size?: number; var
     ? (store.settings.footerLogoUrl || store.settings.headerLogoUrl)
     : store.settings.headerLogoUrl;
 
-  // CLS fix: always reserve a fixed-size slot (height×height square) so the
-  // navbar width never shifts when the logo URL loads from the API.
-  // The slot is the SVG fallback when no URL, or the img when URL is known.
+  // CLS fix: reserve minWidth so the nav slot never shrinks when logo URL loads
+  // from the API asynchronously. Use minWidth (not width) so wide logos can
+  // render at their natural aspect ratio instead of being clipped to 54×54.
   if (url) {
     return (
-      // Outer div keeps a stable footprint (size × size) while the img inside
-      // can be wider — this prevents neighbouring elements from shifting.
-      <div style={{ width: size, height: size, flexShrink: 0, display: 'flex', alignItems: 'center' }}>
-        <img
-          src={url}
-          alt={store.settings.companyName}
-          height={size}
-          fetchPriority={variant === 'header' ? 'high' : undefined}
-          decoding="async"
-          style={{ height: size, width: 'auto', maxHeight: size, objectFit: 'contain', display: 'block' }}
-        />
-      </div>
+      <img
+        src={url}
+        alt={store.settings.companyName}
+        fetchPriority={variant === 'header' ? 'high' : undefined}
+        decoding="async"
+        style={{
+          height: size,
+          width: 'auto',
+          maxHeight: size,
+          minWidth: size,
+          objectFit: 'contain',
+          display: 'block',
+          flexShrink: 0,
+        }}
+      />
     );
   }
   // Default SVG mark — same size slot, no shift
@@ -127,11 +130,11 @@ export function Navbar() {
           {/* Logo */}
           <Link to={ROUTES.HOME} className="flex items-center gap-4 group flex-shrink-0">
             <LogoMark size={54} variant="header" />
-            {/* CLS fix: always keep company name in DOM; hide with opacity when
-                a logo image is present. Removing from DOM shifts the layout. */}
+            {/* CLS fix: keep in DOM always (space reserved). Show only when no logo URL.
+                opacity:0 while URL is loading or set — prevents the text→logo swap CLS. */}
             <div
               className="flex flex-col gap-[1px]"
-              style={{ opacity: store.settings.headerLogoUrl ? 0 : 1, pointerEvents: store.settings.headerLogoUrl ? 'none' : undefined }}
+              style={{ opacity: store.settings.headerLogoUrl ? 0 : 1, pointerEvents: store.settings.headerLogoUrl ? 'none' : 'auto', visibility: 'visible' }}
               aria-hidden={!!store.settings.headerLogoUrl}
             >
               <span className="text-[13px] font-black tracking-[0.22em] uppercase leading-none text-[#0B0F1A]">
