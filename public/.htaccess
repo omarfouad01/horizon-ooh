@@ -1,6 +1,12 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+    # ── CRITICAL: Pass Authorization header to PHP (Apache strips it by default) ──
+    # Without this, Bearer tokens are stripped before reaching Laravel,
+    # causing all authenticated API calls to return 401 Unauthenticated.
+    RewriteCond %{HTTP:Authorization} ^(.*)
+    RewriteRule ^ - [E=HTTP_AUTHORIZATION:%1]
+
     # ── Force favicon.ico through Laravel (dynamic favicon from dashboard) ────
     # Must come BEFORE the !-f (file exists) check so the static file is bypassed
     RewriteRule ^favicon.ico$ index.php [L]

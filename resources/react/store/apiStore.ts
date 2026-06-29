@@ -450,21 +450,34 @@ forceReload: async () => {
       return suppRaw.length > 0 || custRaw.length > 0 || contRaw.length > 0;
     };
 
-    // Attempt 1 — immediate
+    // Wait for JWT blacklist propagation before calling admin APIs.
+    // The server blacklists the old token on login — if we call immediately,
+    // the new token can also get rejected for ~1-2 seconds during propagation.
+    // 800ms initial delay covers the typical blacklist flush time.
+    await new Promise(r => setTimeout(r, 800));
+
+    // Attempt 1
+    let ok = false;
     try {
-      const ok = await fetchAdminData();
-      // Attempt 2 — if all came back empty (possible blacklist lag on fresh token),
-      // wait 1.5 s and retry once more.
-      if (!ok) {
-        await new Promise(r => setTimeout(r, 1500));
-        await fetchAdminData();
-      }
-    } catch {
-      // Retry after short delay in case of network blip
+      ok = await fetchAdminData();
+    } catch { /* fall through to retry */ }
+
+    // Attempt 2 — if all rejected (blacklist still propagating), wait 2.5s and retry
+    if (!ok) {
+      console.log('[apiStore] forceReload: attempt 1 failed, retrying in 2.5s...');
+      await new Promise(r => setTimeout(r, 2500));
       try {
-        await new Promise(r => setTimeout(r, 1500));
+        ok = await fetchAdminData();
+      } catch { /* fall through to attempt 3 */ }
+    }
+
+    // Attempt 3 — final retry at 5s total
+    if (!ok) {
+      console.log('[apiStore] forceReload: attempt 2 failed, final retry in 2s...');
+      await new Promise(r => setTimeout(r, 2000));
+      try {
         await fetchAdminData();
-      } catch { /* give up — admin pages have their own refresh buttons */ }
+      } catch { console.warn('[apiStore] forceReload: all attempts failed'); }
     }
   },
 
