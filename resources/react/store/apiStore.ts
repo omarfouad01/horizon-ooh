@@ -410,35 +410,61 @@ forceReload: async () => {
 
     // Guard: only run if a real token is present (prevents accidental calls)
     const activeToken = typeof localStorage !== 'undefined' ? localStorage.getItem('horizon_token') : null;
-    if (!activeToken || activeToken === 'demo-token' || activeToken === 'preview-token') return;
+    if (!activeToken || activeToken === 'demo-token' || activeToken === 'preview-token') {
+      console.warn('[apiStore] forceReload: no valid token, skipping');
+      return;
+    }
 
+    console.log('[apiStore] forceReload: starting admin API fetch with token', activeToken.slice(0,12) + '...');
     // Mark the token validity gate as resolved so any concurrent reload() also
     // gets admin data if it hasn't fetched yet.
     markTokenValid();
 
-    // Fetch all admin-only APIs in parallel — fire-and-forget style
-    try {
+    // Helper: fetch all 4 admin-only APIs and patch the store
+    const fetchAdminData = async () => {
       const [suppRes, custRes, contRes, uploadsRes] = await Promise.allSettled([
         suppliersApi.all(),
         customersApi.all(),
         contactsApi.all(),
         designUploadsApi.all(),
       ]);
-
       const suppRaw    = suppRes.status    === 'fulfilled' ? apiArr(suppRes.value)    : [];
       const custRaw    = custRes.status    === 'fulfilled' ? apiArr(custRes.value)    : [];
       const contRaw    = contRes.status    === 'fulfilled' ? apiArr(contRes.value)    : [];
       const uploadsRaw = uploadsRes.status === 'fulfilled' ? apiArr(uploadsRes.value) : [];
-
-      // Patch the store with fresh admin data
+      console.log('[apiStore] forceReload results:', {
+        suppliers: suppRaw.length,
+        customers: custRaw.length,
+        contacts: contRaw.length,
+        designUploads: uploadsRaw.length,
+        suppStatus: suppRes.status,
+        custStatus: custRes.status,
+        contStatus: contRes.status,
+      });
       set({
         suppliers:     suppRaw.length    ? suppRaw    : get().suppliers,
         customers:     custRaw.length    ? custRaw    : get().customers,
         contacts:      contRaw.length    ? contRaw    : get().contacts,
         designUploads: uploadsRaw.length ? uploadsRaw : get().designUploads,
       });
+      return suppRaw.length > 0 || custRaw.length > 0 || contRaw.length > 0;
+    };
+
+    // Attempt 1 — immediate
+    try {
+      const ok = await fetchAdminData();
+      // Attempt 2 — if all came back empty (possible blacklist lag on fresh token),
+      // wait 1.5 s and retry once more.
+      if (!ok) {
+        await new Promise(r => setTimeout(r, 1500));
+        await fetchAdminData();
+      }
     } catch {
-      // Non-critical — admin pages can retry manually via their own refresh buttons
+      // Retry after short delay in case of network blip
+      try {
+        await new Promise(r => setTimeout(r, 1500));
+        await fetchAdminData();
+      } catch { /* give up — admin pages have their own refresh buttons */ }
     }
   },
 
@@ -512,6 +538,7 @@ forceReload: async () => {
     }
 
     // Admin-only APIs: only called when token is confirmed valid
+    console.log('[apiStore] reload: isAuthenticated=', isAuthenticated, 'hasToken=', hasToken, 'skipAuthCheck=', skipAuthCheck);
     const suppliersP     = isAuthenticated ? suppliersApi.all()     : Promise.resolve([]);
     const customersP     = isAuthenticated ? customersApi.all()     : Promise.resolve([]);
     const contactsP      = isAuthenticated ? contactsApi.all()      : Promise.resolve([]);
