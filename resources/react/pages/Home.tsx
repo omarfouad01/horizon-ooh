@@ -420,7 +420,8 @@ function HeroSection() {
       <div className="absolute pointer-events-none" style={{
         left: "-8%", top: "15%", width: "45%", height: "60%",
         background: "radial-gradient(ellipse at center, rgba(217,4,41,0.10) 0%, transparent 70%)",
-        filter: "blur(40px)"
+        filter: "blur(40px)",
+        willChange: "transform",
       }} />
       <div className="absolute inset-0 pointer-events-none" style={{
         backgroundImage: "linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px)",

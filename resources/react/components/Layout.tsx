@@ -36,6 +36,8 @@ export function LogoMark({ size = 54, variant = 'header' }: { size?: number; var
       <img
         src={url}
         alt={store.settings.companyName}
+        width={size}
+        height={size}
         fetchPriority={variant === 'header' ? 'high' : undefined}
         decoding="async"
         style={{
@@ -127,8 +129,10 @@ export function Navbar() {
     <>
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${navBg}`}>
         <div className="max-w-[1440px] mx-auto h-[76px] flex items-center justify-between px-4 sm:px-8 lg:px-[120px]">
-          {/* Logo */}
-          <Link to={ROUTES.HOME} className="flex items-center gap-4 group flex-shrink-0">
+          {/* Logo — fixed-width container prevents nav links shifting when logo
+               loads from API (wide logo would push links right without this) */}
+          <div style={{ width: 200, flexShrink: 0, contain: 'layout style' }}>
+          <Link to={ROUTES.HOME} className="flex items-center gap-4 group">
             <LogoMark size={54} variant="header" />
             {/* CLS fix: keep in DOM always (space reserved). Show only when no logo URL.
                 opacity:0 while URL is loading or set — prevents the text→logo swap CLS. */}
@@ -145,9 +149,11 @@ export function Navbar() {
               </span>
             </div>
           </Link>
+          </div>
 
-          {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-8 ml-12">
+          {/* Desktop links — flex-shrink-0 prevents right section from
+               compressing/shifting when logo or login/profile widths change */}
+          <div className="hidden md:flex items-center gap-8 ml-12" style={{ flexShrink: 0 }}>
             {NAV_LINKS.map((link) => (
               <NavLink
                 key={link.href}
