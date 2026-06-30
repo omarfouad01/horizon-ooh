@@ -273,7 +273,7 @@ export default function Product() {
     { label: t('spec.sqm'),         value: product.sqm ? `${product.sqm} sqm` : notSet },
     { label: t('spec.adFormat'),    value: product.adFormat || notSet },      // Ad Format (from billboard_formats / Manage Ad Formats)
   ];
-  const whatsappNumber = settings.whatsapp.replace(/\D/g, '') || '201234567890';
+  const whatsappNumber = (settings.whatsapp ?? '').replace(/\D/g, '') || '201234567890';
 
   return (
     <>
