@@ -72,16 +72,20 @@ export default function ProjectDetail() {
     setFetchFailed(false);
     setFetchDone(false);
     projectsApi.get(slug)
-      .then((res) => {
-        const data = res.data?.data ?? res.data;
-        setFetchedProject(data ?? null);
+      .then((res: any) => {
+        const payload = res?.data ?? res;
+        const data = payload?.data ?? payload;
+        if (data && typeof data === 'object' && !Array.isArray(data) && (data.id || data.slug)) {
+          setFetchedProject(data);
+        }
       })
       .catch(() => setFetchFailed(true))
       .finally(() => { setFetching(false); setFetchDone(true); });
   }, [slug]);
 
   // Resolve: direct fetch is authoritative; store supplements once loaded
-  const storeProject = PROJECTS.find((p) => p.slug === slug);
+  const storeLoaded  = PROJECTS.length > 0;
+  const storeProject = PROJECTS.find((p: any) => p.slug === slug);
   const project      = fetchedProject ?? storeProject;
 
   // useMemo must be unconditional
@@ -96,7 +100,8 @@ export default function ProjectDetail() {
 
   // ── Conditional returns AFTER all hooks ──
   if (fetching) return <ProjectSkeleton />;
-  if (!project && !fetchDone) return <ProjectSkeleton />;
+  // Keep skeleton until BOTH the direct fetch is done AND the global store has loaded
+  if (!project && (!fetchDone || !storeLoaded)) return <ProjectSkeleton />;
 
   if (!project) {
     return (

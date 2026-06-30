@@ -60,22 +60,27 @@ export default function BlogArticle() {
     setFetchFailed(false);
     setFetchDone(false);
     blogApi.get(slug)
-      .then((res) => {
-        const data = res.data?.data ?? res.data;
-        setFetchedPost(data ?? null);
+      .then((res: any) => {
+        const payload = res?.data ?? res;
+        const data = payload?.data ?? payload;
+        if (data && typeof data === 'object' && !Array.isArray(data) && (data.id || data.slug)) {
+          setFetchedPost(data);
+        }
       })
       .catch(() => setFetchFailed(true))
       .finally(() => { setFetching(false); setFetchDone(true); });
   }, [slug]);
 
   // Resolve: direct fetch is authoritative; store supplements once loaded
-  const storePost = BLOG_POSTS.find((p) => p.slug === slug);
+  const storeLoaded = BLOG_POSTS.length > 0;
+  const storePost = BLOG_POSTS.find((p: any) => p.slug === slug);
   const post      = fetchedPost ?? storePost;
-  const related   = BLOG_POSTS.filter((p) => p.slug !== slug).slice(0, 3);
+  const related   = BLOG_POSTS.filter((p: any) => p.slug !== slug).slice(0, 3);
 
   // ── Conditional returns AFTER all hooks ──
   if (fetching) return <ArticleSkeleton />;
-  if (!post && !fetchDone) return <ArticleSkeleton />;
+  // Keep skeleton until BOTH the direct fetch is done AND the global store has loaded
+  if (!post && (!fetchDone || !storeLoaded)) return <ArticleSkeleton />;
 
   if (!post && fetchFailed) {
     return (

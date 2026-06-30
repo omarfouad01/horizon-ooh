@@ -51,28 +51,41 @@ export default function ServiceDetail() {
   const [fetching, setFetching] = useState(true);
   const [fetchDone, setFetchDone] = useState(false);
   const [fetchedService, setFetchedService] = useState<any>(null);
+  // Track whether the global store has been populated at least once
+  const storeLoaded = SERVICES.length > 0;
 
   useEffect(() => {
     if (!slug) { setFetching(false); setFetchDone(true); return; }
     setFetching(true);
     setFetchDone(false);
     servicesApi.get(slug)
-      .then((res) => {
-        const data = res.data?.data ?? res.data;
-        setFetchedService(data ?? null);
+      .then((res: any) => {
+        // Handle both { data: { data: ... } } and { data: ... } shapes
+        const payload = res?.data ?? res;
+        const data = payload?.data ?? payload;
+        // Make sure we got an object with an id/slug (not an array or empty)
+        if (data && typeof data === 'object' && !Array.isArray(data) && (data.id || data.slug)) {
+          setFetchedService(data);
+        }
       })
-      .catch(() => {})
+      .catch(() => {
+        // Swallow — storeService fallback will handle it
+      })
       .finally(() => { setFetching(false); setFetchDone(true); });
   }, [slug]);
 
   // Resolve: direct fetch is authoritative; store supplements once loaded
-  const storeService = SERVICES.find((s) => s.slug === slug);
+  const storeService = SERVICES.find((s: any) => s.slug === slug);
   const service      = fetchedService ?? storeService;
-  const others       = SERVICES.filter((s) => s.id !== service?.id).slice(0, 3);
+  const others       = SERVICES.filter((s: any) => s.id !== service?.id).slice(0, 3);
 
   // ── Conditional returns AFTER all hooks ──
+  // Show skeleton while:
+  //   (a) direct fetch is still in-flight, OR
+  //   (b) fetch finished but found nothing AND global store hasn't loaded yet
+  //       (store might still be fetching — give it time before showing "not found")
   if (fetching) return <ServiceSkeleton />;
-  if (!service && !fetchDone) return <ServiceSkeleton />;
+  if (!service && (!fetchDone || !storeLoaded)) return <ServiceSkeleton />;
 
   if (!service) {
     return (
