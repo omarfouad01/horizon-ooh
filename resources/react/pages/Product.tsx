@@ -530,7 +530,7 @@ export default function Product() {
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
               <div className="relative overflow-hidden" style={{ height: 480 }}>
                 <Suspense fallback={<div className="absolute inset-0 bg-gray-100" />}>
-                  <ProductMap lat={product.lat} lng={product.lng} name={product.name} type={product.type} district={product.district} city={location.city} traffic={product.traffic} size={product.size} className="absolute inset-0 w-full h-full" style={{ zIndex: 1 }} />
+                  <ProductMap lat={product.lat ?? 0} lng={product.lng ?? 0} name={product.name ?? ""} type={product.type ?? ""} district={product.district ?? ""} city={location.city ?? ""} traffic={product.traffic ?? ""} size={product.size ?? ""} className="absolute inset-0 w-full h-full" style={{ zIndex: 1 }} />
                 </Suspense>
                 <div className="absolute top-4 left-4 z-[1000] pointer-events-none">
                   <div className="flex items-center gap-2" style={{ background: "rgba(255,255,255,0.92)", backdropFilter: "blur(6px)", padding: "6px 12px", boxShadow: "0 2px 12px rgba(11,15,26,0.1)" }}>

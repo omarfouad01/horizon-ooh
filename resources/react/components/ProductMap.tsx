@@ -51,7 +51,7 @@ interface Props {
   style?:   React.CSSProperties;
 }
 
-export default function ProductMap({ lat, lng, name, type, district, city, traffic, size, className, style }: Props) {
+export default function ProductMap({ lat, lng, name = "", type = "", district = "", city = "", traffic = "", size = "", className, style }: Props) {
   const divRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
 
@@ -97,7 +97,7 @@ export default function ProductMap({ lat, lng, name, type, district, city, traff
           <div style="display:flex;gap:16px;border-top:1px solid rgba(11,15,26,.07);padding-top:10px">
             <div>
               <p style="font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(11,15,26,.3);margin:0 0 2px">Daily Traffic</p>
-              <p style="font-size:12px;font-weight:700;color:${NAVY};margin:0">${traffic.split(" ").slice(0,2).join(" ")}</p>
+              <p style="font-size:12px;font-weight:700;color:${NAVY};margin:0">${(traffic||"").split(" ").slice(0,2).join(" ") || "—"}</p>
             </div>
             <div>
               <p style="font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(11,15,26,.3);margin:0 0 2px">Size</p>
