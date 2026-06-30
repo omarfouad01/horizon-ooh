@@ -173,10 +173,12 @@ export default function Product() {
     setFetching(true);
     setFetchDone(false);
     billboardsApi.get(slug)
-      .then((res) => {
-        const data = res.data?.data ?? res.data;
-        setFetchedProduct(data ?? null);
-        if (data) {
+      .then((res: any) => {
+        const payload = res?.data ?? res;
+        const data = payload?.data ?? payload;
+        // Guard: only accept a real object with id or slug
+        if (data && typeof data === 'object' && !Array.isArray(data) && (data.id || data.slug)) {
+          setFetchedProduct(data);
           setFetchedLocation({
             slug: data.city_slug ?? citySlug ?? '',
             city: data.city ?? '',
@@ -192,7 +194,8 @@ export default function Product() {
   // Resolve: direct fetch is authoritative; store supplements once loaded
   // CRITICAL: only prefer storeProduct if the store actually found it —
   // never let an empty/loading store clear a successfully fetched product
-  const storeLocation = LOCATIONS.find((l) => l.slug === citySlug);
+  const storeLoaded   = LOCATIONS.length > 0;
+  const storeLocation = LOCATIONS.find((l: any) => l.slug === citySlug);
   const storeProduct  = (storeLocation?.products || []).find((p: any) => p.slug === slug);
   const product       = fetchedProduct ?? storeProduct;
   const location      = storeProduct ? storeLocation : (fetchedLocation ?? storeLocation);
@@ -238,7 +241,8 @@ export default function Product() {
 
   // ── Conditional returns AFTER all hooks ──
   if (fetching) return <BillboardSkeleton />;
-  if (!product && !fetchDone) return <BillboardSkeleton />;
+  // Keep skeleton until BOTH the direct fetch is done AND the global store has loaded
+  if (!product && (!fetchDone || !storeLoaded)) return <BillboardSkeleton />;
 
   if (!location || !product) {
     return (
