@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { useStore, projectStore } from '@/store/dataStore'
+import { projectsApi } from '@/api'
 import { Btn, PageHeader, Tbl, Th, Td, Tr, Badge, Confirm, Modal, Field, TA, Sel, ArrayEditor, ImagePicker, ImageGalleryPicker, type GalleryImage } from '../ui'
 import { Plus, Pencil, Trash2, Star, X } from 'lucide-react'
 import toast from 'react-hot-toast'
 
-function ProjectForm({ editing, onClose }: any) {
+function ProjectForm({ editing, fullData, onClose }: any) {
   const { clientBrands } = useStore()
-  const init = editing || { title:'', client:'', clientLogo:'', clientLogoAlt:'', clientIndustry:'', clientDescription:'', clientPageDescription:'', campaignBrief:'', location:'', city:'', category:'Billboard', year:new Date().getFullYear().toString(), duration:'', tagline:'', overview:'', objective:'', execution:'', coverImage:'', coverImageAlt:'', heroImage:'', heroImageAlt:'', galleryImages:[] as GalleryImage[], results:[], tags:[], keywords:[], featured:false, titleAr:'', overviewAr:'', objectiveAr:'', executionAr:'', taglineAr:'' }
+  // Use fullData (fetched from detail API) when editing to get real images
+  const init = fullData || editing || { title:'', client:'', clientLogo:'', clientLogoAlt:'', clientIndustry:'', clientDescription:'', clientPageDescription:'', campaignBrief:'', location:'', city:'', category:'Billboard', year:new Date().getFullYear().toString(), duration:'', tagline:'', overview:'', objective:'', execution:'', coverImage:'', coverImageAlt:'', heroImage:'', heroImageAlt:'', galleryImages:[] as GalleryImage[], results:[], tags:[], keywords:[], featured:false, titleAr:'', overviewAr:'', objectiveAr:'', executionAr:'', taglineAr:'' }
   const [f,setF]           = useState({...init})
   const [results,setRes]   = useState<any[]>(init.results||[])
   const [tags,setTags]     = useState<string[]>(init.tags||[])
@@ -140,8 +142,19 @@ function ProjectForm({ editing, onClose }: any) {
 export default function AdminProjects() {
   const { projects, clientBrands } = useStore()
   const [form,setForm]=useState(false); const [edit,setEdit]=useState<any>(null); const [del,setDel]=useState<any>(null)
+  const [fullEditData,setFullEditData]=useState<any>(null)
+  const [editLoading,setEditLoading]=useState(false)
   // Helper: find logo for a project's client from the brands store
   const logoFor = (clientName: string) => clientBrands.find(b => b.name === clientName)?.logoUrl || ''
+  const openEdit = async (p: any) => {
+    setEdit(p); setForm(true); setFullEditData(null); setEditLoading(true)
+    try {
+      const res = await projectsApi.get(p.slug)
+      const full = res?.data ?? res
+      setFullEditData(full && typeof full === 'object' && full.id ? full : null)
+    } catch { /* use list data as fallback */ }
+    finally { setEditLoading(false) }
+  }
   return (
     <div className="p-6 max-w-6xl mx-auto">
       <PageHeader title="Projects" subtitle={`${projects.length} case studies`}
@@ -167,15 +180,15 @@ export default function AdminProjects() {
               <Td className="text-xs text-gray-500">{p.year}</Td>
               <Td>{p.featured&&<Star size={13} className="text-yellow-400 fill-yellow-400"/>}</Td>
               <Td><div className="flex gap-1">
-                <button className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-700" onClick={()=>{setEdit(p);setForm(true)}}><Pencil size={13}/></button>
+                <button className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-700" onClick={()=>openEdit(p)}><Pencil size={13}/></button>
                 <button className="p-1.5 rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-500" onClick={()=>setDel(p)}><Trash2 size={13}/></button>
               </div></Td>
             </Tr>
           ))}
         </tbody>
       </Tbl>
-      <Modal open={form} onClose={()=>setForm(false)} title={edit?`Edit — ${edit.title}`:'New Project'} size="xl">
-        <ProjectForm editing={edit} onClose={()=>setForm(false)}/>
+      <Modal open={form} onClose={()=>setForm(false)} title={edit?(editLoading?'Loading…':`Edit — ${edit.title}`):'New Project'} size="xl">
+        <ProjectForm editing={edit} fullData={fullEditData} onClose={()=>setForm(false)}/>
       </Modal>
       <Confirm open={!!del} title="Delete Project" message={`Delete "${del?.title}"?`}
         onConfirm={()=>{projectStore.remove(del.id);toast.success('Deleted');setDel(null)}} onCancel={()=>setDel(null)}/>

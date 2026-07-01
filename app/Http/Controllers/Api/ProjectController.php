@@ -142,6 +142,18 @@ class ProjectController extends Controller
             $data = $this->handleCover($request, $data, $p->cover_image);
             $data = $this->normalize($data);
             $data = $this->stripUnknownKeys($data);
+
+            // Preserve existing images if the incoming value is null/empty string
+            // This prevents accidental overwrites when the list endpoint strips base64 images
+            foreach (['cover_image','hero_image','client_logo','gallery_images'] as $imgField) {
+                if (array_key_exists($imgField, $data) && empty($data[$imgField])) {
+                    // Only remove from update payload if field is null/empty AND DB already has a value
+                    if (!empty($p->$imgField)) {
+                        unset($data[$imgField]);
+                    }
+                }
+            }
+
             $p->update($data);
             return response()->json($this->transform($p));
         } catch (QueryException $e) {

@@ -166,16 +166,21 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
         style={{ textDecoration: "none" }}
       >
         <div className="relative overflow-hidden" style={{ height: 280 }}>
-          <img
-            src={project.coverImage}
-            alt={`${project.title} — outdoor advertising ${project.location}`}
-            width={600} height={280}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-            style={{ opacity: 0.88 }}
-            loading={index === 0 ? undefined : 'lazy'}
-            fetchPriority={index === 0 ? 'high' : undefined}
-            decoding="async"
-          />
+          {project.coverImage
+            ? <img
+                src={project.coverImage}
+                alt={`${project.title} — outdoor advertising ${project.location}`}
+                width={600} height={280}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                style={{ opacity: 0.88 }}
+                loading={index === 0 ? undefined : 'lazy'}
+                fetchPriority={index === 0 ? 'high' : undefined}
+                decoding="async"
+              />
+            : <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                <span className="text-4xl font-black text-gray-300 select-none">{project.title?.charAt(0)?.toUpperCase()}</span>
+              </div>
+          }
           <div
             className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-60"
             style={{ background: "linear-gradient(to top, rgba(11,15,26,0.72) 0%, rgba(11,15,26,0.1) 55%, transparent 100%)" }}
@@ -251,7 +256,9 @@ function FeaturedProject() {
         </Reveal>
 
         <Link to={projectHref(lang, featured.slug)} className="group relative block overflow-hidden" style={{ textDecoration: "none", height: 560 }}>
-          <img src={featured.heroImage} alt={`${featured.title} — outdoor advertising case study Egypt`} width={1440} height={500} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" style={{ opacity: 0.8 }} fetchPriority="high" decoding="async" />
+          {featured.heroImage
+            ? <img src={featured.heroImage} alt={`${featured.title} — outdoor advertising case study Egypt`} width={1440} height={500} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" style={{ opacity: 0.8 }} fetchPriority="high" decoding="async" />
+            : <div className="absolute inset-0 bg-gradient-to-br from-[#0B0F1A] to-[#1a2035]" />}
           <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(11,15,26,0.88) 0%, rgba(11,15,26,0.5) 50%, rgba(11,15,26,0.15) 100%)" }} />
 
           <div className="absolute inset-0 flex flex-col justify-end" style={{ padding: "60px 80px" }}>
