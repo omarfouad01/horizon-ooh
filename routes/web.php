@@ -15,8 +15,10 @@ use App\Http\Controllers\SitemapController;
 */
 
 // ── Sitemap & Robots — must be before the SPA catch-all ─────────────────────
-Route::get('/sitemap.xml', [SitemapController::class, 'index']);
-Route::get('/robots.txt',  [SitemapController::class, 'robots']);
+Route::get('/sitemap.xml',                      [SitemapController::class, 'index']);
+Route::get('/sitemap-static.xml',               [SitemapController::class, 'staticSitemap']);
+Route::get('/sitemap-billboards-{page}.xml',    [SitemapController::class, 'billboardSitemap'])->where('page', '[0-9]+');
+Route::get('/robots.txt',                       [SitemapController::class, 'robots']);
 
 // ── Dynamic Favicon — serves the admin-uploaded favicon from DB ───────────────
 // .htaccess routes favicon.ico through Laravel (bypasses static file).
