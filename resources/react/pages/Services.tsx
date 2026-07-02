@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import SEO from "@/components/SEO";
 import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, PageHero, CTABanner, Eyebrow } from "@/components/UI";
 import { serviceHref, RED, NAVY } from "@/lib/routes";
@@ -10,6 +11,7 @@ export default function Services() {
   const { lang, isAr, t } = useLang()
   return (
     <>
+      <SEO title="Our Services | HORIZON OOH" description="Explore HORIZON OOH's full range of outdoor advertising services: billboards, digital screens, mall media, transit advertising and more across Egypt." canonical="/services" />
       <PageHero
         eyebrow={t('services.whatWeDo')}
         title={t('services.title')}

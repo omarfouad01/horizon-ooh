@@ -6,6 +6,7 @@ import { type ProjectCategory } from "@/data";
 import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
 import { projectHref, langPath, RED, NAVY, ease } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
+import SEO from "@/components/SEO";
 import { projectsApi } from "@/api";
 
 // ── Branded project skeleton ──────────────────────────────────────────────────
@@ -127,6 +128,11 @@ export default function ProjectDetail() {
 
   return (
     <>
+      <SEO
+        title={`${project.title} | HORIZON OOH Case Study`}
+        description={project.overview ? project.overview.substring(0, 160) : `${project.title} — outdoor advertising case study by HORIZON OOH in Egypt.`}
+        canonical={`/projects/${project.slug}`}
+      />
       <div className="bg-white pt-4">
         <Breadcrumb items={[
           { label: "Home", href: "/" },

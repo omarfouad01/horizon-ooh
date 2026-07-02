@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback, lazy, Suspense } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
+import SEO from "@/components/SEO";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
@@ -277,6 +278,11 @@ export default function Product() {
 
   return (
     <>
+      <SEO
+        title={`${product.name ?? product.code} | Billboard Advertising in ${product.city ?? 'Egypt'} | HORIZON OOH`}
+        description={`Premium outdoor advertising billboard at ${product.fullAddress ?? product.district ?? product.city ?? 'Egypt'}. ${product.sqm ? `${product.sqm} sqm` : ''} ${product.adFormat ?? ''}. Book now with HORIZON OOH.`}
+        canonical={`/locations/${product.citySlug ?? citySlug}/billboards/${product.slug}`}
+      />
       {/* ── Breadcrumb ───────────────────────────────────────────────── */}
       <div className="bg-white pt-4">
         <Breadcrumb items={[

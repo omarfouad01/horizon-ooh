@@ -2,6 +2,7 @@ import { useRef, useEffect, useState, lazy, Suspense } from "react";
 const LeafletMap = lazy(() => import("@/components/BillboardMap"));
 import { useStore, getState } from "@/store/dataStore";
 import { useNavigate, Link } from "react-router-dom";
+import SEO from "@/components/SEO";
 import MultiSelect from "@/components/MultiSelect";
 import LogoMarquee from "@/components/LogoMarquee";
 import { useLang } from "@/i18n/LangContext";
@@ -1846,6 +1847,7 @@ export default function Home() {
   const allBillboards = LOCATIONS.flatMap((l: any) => (l.products||[]).map((p: any) => ({ ...p, citySlug: l.slug })))
   return (
     <>
+      <SEO title="HORIZON OOH | Outdoor Advertising Agency in Egypt" description="Egypt's premier outdoor advertising agency. Billboard, DOOH, Mall &amp; Airport campaigns across Cairo, Alexandria &amp; nationwide. 9,500+ premium locations." canonical="/" />
       <HeroSection />
       <ClientsSection />
       <StatementSection />

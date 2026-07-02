@@ -102,6 +102,7 @@ export default function BlogArticle() {
         title={metaTitle}
         description={metaDesc}
         ogImage={post.image}
+        canonical={`/blog/${post.slug}`}
       />
       <div className="bg-white pt-4">
         <Breadcrumb items={[{ label: t('common.home'), href: "/" }, { label: t('blog.title'), href: "/blog" }, { label: post.category }]} />

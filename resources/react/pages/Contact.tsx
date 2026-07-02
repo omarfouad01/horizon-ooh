@@ -1,4 +1,5 @@
 import { contactStore, siteUserStore, useStore } from "@/store/dataStore";
+import SEO from "@/components/SEO";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Reveal, RevealGroup, RevealItem, PageHero, Eyebrow } from "@/components/UI";
@@ -51,6 +52,7 @@ export default function Contact() {
 
   return (
     <>
+      <SEO title="Contact Us | HORIZON OOH" description="Get in touch with HORIZON OOH for outdoor advertising inquiries, billboard bookings and campaign planning across Egypt." canonical="/contact" />
       <PageHero
         eyebrow={isAr ? (cc.heroEyebrowAr || 'تواصل معنا') : (cc.heroEyebrow || 'Get in Touch')}
         title={isAr ? (cc.heroTitleAr || 'اتصل بنا.') : (cc.heroTitle || 'Contact Us.')}

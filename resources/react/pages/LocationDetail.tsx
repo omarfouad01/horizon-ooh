@@ -1,4 +1,5 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
+import SEO from "@/components/SEO";
 import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, SectionHeading, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
 import { productHref, langPath, RED, NAVY } from "@/lib/routes";
@@ -36,7 +37,8 @@ export default function LocationDetail() {
   }
 
   return (
-    <>
+    <>      <SEO title={`Billboards in ${location?.city ?? 'Egypt'} | HORIZON OOH`} description={`Browse premium outdoor advertising billboards in ${location?.city ?? 'Egypt'}. Find the best locations for your campaign with HORIZON OOH.`} canonical={`/locations/${location?.slug ?? ''}`} />
+
       <div className="bg-white pt-4">
         <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Locations", href: "/locations" }, { label: location.city }]} />
       </div>

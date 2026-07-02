@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import SEO from "@/components/SEO";
 import { motion, useInView } from "framer-motion";
 import { useStore } from "@/store/dataStore";
 import { type ProjectCategory } from "@/data";
@@ -404,6 +405,7 @@ export default function Projects() {
 
   return (
     <>
+      <SEO title="Case Studies & Projects | HORIZON OOH" description="Browse HORIZON OOH's billboard advertising case studies and campaign projects across Egypt. Real results for real brands." canonical="/projects" />
       <section className="bg-white" style={{ paddingTop: 64, paddingBottom: 40 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <Reveal>
@@ -439,7 +441,8 @@ export default function Projects() {
                   }}
                   className="h-11 px-5 text-[11px] font-bold tracking-[0.22em] uppercase transition-all duration-200"
                   style={{
-                    border: `1px solid ${active ? RED : "rgba(11,15,26,0.08)"}`,
+                    borderRadius: 8, cursor: "pointer",
+                       border: `1px solid ${active ? RED : "rgba(11,15,26,0.08)"}`,
                     background: active ? RED : "white",
                     color: active ? "white" : NAVY,
                   }}

@@ -3,6 +3,7 @@
  * Layout: Sticky filter bar → Results header → Split-screen (cards left / map right)
  */
 import { useEffect, useRef, useState, useCallback } from "react";
+import SEO from "@/components/SEO";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useStore, getState } from "@/store/dataStore";
@@ -568,6 +569,7 @@ export default function Locations() {
 
   return (
     <div className="flex flex-col min-h-screen" style={{ background: "#F7F7F8" }}>
+      <SEO title="Billboard Locations in Egypt | HORIZON OOH" description="Explore 9,500+ premium outdoor advertising locations across Cairo, Giza, Alexandria, and all Egyptian governorates. Filter by city, format and more." canonical="/locations" />
 
       {/* ══════════════════════════════════════════════════════════════
           1. PAGE HEADER (not sticky — scrolls away)

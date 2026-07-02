@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import SEO from "@/components/SEO";
 import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, PageHero, CTABanner } from "@/components/UI";
 import { blogHref, langPath, RED, NAVY } from "@/lib/routes";
@@ -12,6 +13,7 @@ export default function Blog() {
 
   return (
     <>
+      <SEO title="Outdoor Advertising Blog | HORIZON OOH" description="Industry insights, OOH advertising tips and campaign inspiration from Egypt's leading billboard agency." canonical="/blog" />
       <PageHero
         eyebrow={t('blog.insights')}
         title={t('blog.title')}
