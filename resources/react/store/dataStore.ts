@@ -29,6 +29,7 @@ export interface Product {
 }
 
 import { useApiStore } from './apiStore';
+import { clearApiCache } from '@/api/client';
 export const getState = () => useApiStore.getState();
 
 // ─── API imports ──────────────────────────────────────────────────────────────
@@ -64,6 +65,7 @@ async function apiOrLocal<T>(
   if (HAS_API_LOCAL) {
     try {
       const res = await apiCall();
+      clearApiCache(); // bust GET cache so reload() fetches fresh data
       await reload();
       return res;
     } catch (err) {

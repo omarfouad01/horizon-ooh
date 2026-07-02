@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useStore, projectStore } from '@/store/dataStore'
 import { projectsApi } from '@/api'
+import api from '@/api/client'
 import { Btn, PageHeader, Tbl, Th, Td, Tr, Badge, Confirm, Modal, Field, TA, Sel, ArrayEditor, ImagePicker, ImageGalleryPicker, type GalleryImage } from '../ui'
 import { Plus, Pencil, Trash2, Star, X } from 'lucide-react'
 import toast from 'react-hot-toast'
@@ -18,6 +19,15 @@ function ProjectForm({ editing, fullData, onClose }: any) {
     rawGallery.map((g: any) => typeof g === 'string' ? { url: g, alt: '' } : g)
   )
   const set = (k:string,v:any) => setF((p:any)=>({...p,[k]:v}))
+  // Reset form state when fullData arrives (async fetch after modal opens)
+  useEffect(() => {
+    if (!fullData) return
+    setF({...fullData})
+    setRes(fullData.results || [])
+    setTags(fullData.tags || [])
+    const raw = (fullData.galleryImages || []) as any[]
+    setGalleryImages(raw.map((g: any) => typeof g === 'string' ? { url: g, alt: '' } : g))
+  }, [fullData])
   const [saving, setSaving] = useState(false)
   const save = async (e:React.FormEvent) => {
     e.preventDefault()
@@ -149,7 +159,8 @@ export default function AdminProjects() {
   const openEdit = async (p: any) => {
     setEdit(p); setForm(true); setFullEditData(null); setEditLoading(true)
     try {
-      const res = await projectsApi.get(p.slug)
+      // Use raw api.get (bypasses cachedGet cache) to always get fresh full data
+      const res = await api.get(`/projects/${p.slug}`)
       const full = res?.data ?? res
       setFullEditData(full && typeof full === 'object' && full.id ? full : null)
     } catch { /* use list data as fallback */ }
@@ -188,7 +199,14 @@ export default function AdminProjects() {
         </tbody>
       </Tbl>
       <Modal open={form} onClose={()=>setForm(false)} title={edit?(editLoading?'Loading…':`Edit — ${edit.title}`):'New Project'} size="xl">
-        <ProjectForm editing={edit} fullData={fullEditData} onClose={()=>setForm(false)}/>
+        {/* Wait for full project data before rendering form when editing */}
+        {(edit && editLoading)
+          ? <div className="flex items-center justify-center py-16 text-gray-400 text-sm gap-2">
+              <span className="animate-spin inline-block w-4 h-4 border-2 border-gray-300 border-t-red-500 rounded-full"/>
+              Loading project data...
+            </div>
+          : <ProjectForm editing={edit} fullData={fullEditData} onClose={()=>setForm(false)}/>
+        }
       </Modal>
       <Confirm open={!!del} title="Delete Project" message={`Delete "${del?.title}"?`}
         onConfirm={()=>{projectStore.remove(del.id);toast.success('Deleted');setDel(null)}} onCancel={()=>setDel(null)}/>
