@@ -126,6 +126,36 @@ export default function ProjectDetail() {
   })();
   const clientBrief = buildClientBrief(project, clientProjects);
 
+  // ── Structured data ────────────────────────────────────────────────────
+  const caseStudySchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": `${project.title} | HORIZON OOH Case Study`,
+    "description": project.overview?.substring(0, 200) ?? "",
+    "image": project.heroImage ?? "",
+    "author": {
+      "@type": "Organization",
+      "name": "HORIZON OOH",
+      "url": "https://horizonooh.com",
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "HORIZON OOH",
+      "logo": { "@type": "ImageObject", "url": "https://horizonooh.com/favicon.ico" },
+    },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": `https://horizonooh.com/projects/${project.slug}` },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home",     "item": "https://horizonooh.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://horizonooh.com/projects" },
+      { "@type": "ListItem", "position": 3, "name": project.title },
+    ],
+  };
+
   return (
     <>
       <SEO
@@ -133,6 +163,8 @@ export default function ProjectDetail() {
         description={project.overview ? project.overview.substring(0, 160) : `${project.title} — outdoor advertising case study by HORIZON OOH in Egypt.`}
         canonical={`/projects/${project.slug}`}
       />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(caseStudySchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <div className="bg-white pt-4">
         <Breadcrumb items={[
           { label: "Home", href: "/" },

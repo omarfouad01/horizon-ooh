@@ -406,31 +406,49 @@ export function CTABanner({
 
 // ─── Breadcrumb ───────────────────────────────────────────────────────────
 export function Breadcrumb({ items }: { items: { label: string; href?: string }[] }) {
+  // BreadcrumbList JSON-LD for rich search results
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": items.map((item, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "name": item.label,
+      ...(item.href ? { "item": `https://horizonooh.com${item.href}` } : {}),
+    })),
+  };
+
   return (
-    <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]" style={{ paddingTop: 16 }}>
-      <div className="flex items-center gap-2">
-        {items.map((item, i) => (
-          <span key={item.label} className="flex items-center gap-2">
-            {i > 0 && <span style={{ color: "rgba(11,15,26,0.25)", fontSize: 12 }}>›</span>}
-            {item.href ? (
-              <Link
-                to={item.href}
-                className="text-[11px] font-semibold tracking-[0.15em] uppercase transition-colors duration-150 hover:text-[#D90429] cursor-pointer"
-                style={{ color: "rgba(11,15,26,0.35)" }}
-              >
-                {item.label}
-              </Link>
-            ) : (
-              <span
-                className="text-[11px] font-semibold tracking-[0.15em] uppercase"
-                style={{ color: "rgba(11,15,26,0.6)" }}
-              >
-                {item.label}
-              </span>
-            )}
-          </span>
-        ))}
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]" style={{ paddingTop: 16 }}>
+        <div className="flex items-center gap-2">
+          {items.map((item, i) => (
+            <span key={item.label} className="flex items-center gap-2">
+              {i > 0 && <span style={{ color: "rgba(11,15,26,0.25)", fontSize: 12 }}>›</span>}
+              {item.href ? (
+                <Link
+                  to={item.href}
+                  className="text-[11px] font-semibold tracking-[0.15em] uppercase transition-colors duration-150 hover:text-[#D90429] cursor-pointer"
+                  style={{ color: "rgba(11,15,26,0.35)" }}
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <span
+                  className="text-[11px] font-semibold tracking-[0.15em] uppercase"
+                  style={{ color: "rgba(11,15,26,0.6)" }}
+                >
+                  {item.label}
+                </span>
+              )}
+            </span>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

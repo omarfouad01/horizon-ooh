@@ -276,13 +276,52 @@ export default function Product() {
   ];
   const whatsappNumber = (settings.whatsapp ?? '').replace(/\D/g, '') || '201234567890';
 
+  // ── Structured data ────────────────────────────────────────────────────
+  const seoTitle = [
+    product.adFormat,
+    product.sqm ? `${product.sqm}sqm` : null,
+    product.adType || product.type,
+    product.district ?? product.city ?? 'Egypt',
+    'Billboard Advertising',
+    'HORIZON OOH',
+  ].filter(Boolean).join(' | ');
+
+  const billboardSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": seoTitle,
+    "description": `Premium outdoor advertising billboard at ${product.fullAddress ?? product.district ?? product.city ?? 'Egypt'}. ${product.sqm ? `${product.sqm} sqm` : ''} ${product.adFormat ?? ''}. Book now with HORIZON OOH.`,
+    "image": product.images?.[0] ?? "",
+    "brand": { "@type": "Brand", "name": "HORIZON OOH" },
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "EGP",
+      "availability": "https://schema.org/InStock",
+      "seller": { "@type": "Organization", "name": "HORIZON OOH", "url": "https://horizonooh.com" },
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home",      "item": "https://horizonooh.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Locations", "item": "https://horizonooh.com/locations" },
+      { "@type": "ListItem", "position": 3, "name": displayCityName, "item": `https://horizonooh.com/locations/${location.slug}` },
+      { "@type": "ListItem", "position": 4, "name": product.nameEn ?? product.name },
+    ],
+  };
+
   return (
     <>
       <SEO
-        title={`${product.name ?? product.code} | Billboard Advertising in ${product.city ?? 'Egypt'} | HORIZON OOH`}
+        title={seoTitle}
         description={`Premium outdoor advertising billboard at ${product.fullAddress ?? product.district ?? product.city ?? 'Egypt'}. ${product.sqm ? `${product.sqm} sqm` : ''} ${product.adFormat ?? ''}. Book now with HORIZON OOH.`}
         canonical={`/locations/${product.citySlug ?? citySlug}/billboards/${product.slug}`}
+        ogImage={product.images?.[0]}
       />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(billboardSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       {/* ── Breadcrumb ───────────────────────────────────────────────── */}
       <div className="bg-white pt-4">
         <Breadcrumb items={[

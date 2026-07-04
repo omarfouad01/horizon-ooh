@@ -96,6 +96,38 @@ export default function BlogArticle() {
   const metaTitle = (post as any).metaTitle || `${isAr && (post as any).titleAr ? (post as any).titleAr : post.title} | HORIZON OOH`;
   const metaDesc  = (post as any).metaDesc  || (isAr && (post as any).excerptAr ? (post as any).excerptAr : post.excerpt) || '';
 
+  // ── Structured data ────────────────────────────────────────────────────
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "description": post.excerpt ?? metaDesc,
+    "image": post.image ?? "",
+    "datePublished": post.date ?? "",
+    "dateModified": post.date ?? "",
+    "author": {
+      "@type": "Organization",
+      "name": "HORIZON OOH",
+      "url": "https://horizonooh.com",
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "HORIZON OOH",
+      "logo": { "@type": "ImageObject", "url": "https://horizonooh.com/favicon.ico" },
+    },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": `https://horizonooh.com/blog/${post.slug}` },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://horizonooh.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://horizonooh.com/blog" },
+      { "@type": "ListItem", "position": 3, "name": post.category ?? post.title },
+    ],
+  };
+
   return (
     <>
       <SEO
@@ -104,6 +136,8 @@ export default function BlogArticle() {
         ogImage={post.image}
         canonical={`/blog/${post.slug}`}
       />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <div className="bg-white pt-4">
         <Breadcrumb items={[{ label: t('common.home'), href: "/" }, { label: t('blog.title'), href: "/blog" }, { label: post.category }]} />
       </div>

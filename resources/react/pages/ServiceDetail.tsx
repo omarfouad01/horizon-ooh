@@ -96,6 +96,32 @@ export default function ServiceDetail() {
     );
   }
 
+  // ── Structured data ────────────────────────────────────────────────────
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": `${service.title} in Egypt`,
+    "description": service.longDescription?.substring(0, 200) ?? "",
+    "provider": {
+      "@type": "Organization",
+      "name": "HORIZON OOH",
+      "url": "https://horizonooh.com",
+      "logo": "https://horizonooh.com/favicon.ico",
+    },
+    "areaServed": { "@type": "Country", "name": "Egypt" },
+    "url": `https://horizonooh.com/services/${service.slug}`,
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home",     "item": "https://horizonooh.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://horizonooh.com/services" },
+      { "@type": "ListItem", "position": 3, "name": service.shortTitle ?? service.title },
+    ],
+  };
+
   return (
     <>
       <SEO
@@ -104,6 +130,8 @@ export default function ServiceDetail() {
         keywords={`${(service.title ?? '').toLowerCase()} Egypt, outdoor advertising Egypt, OOH advertising Egypt, ${(service.shortTitle ?? '').toLowerCase()} Cairo`}
         canonical={`/services/${service.slug}`}
       />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       {/* Breadcrumb */}
       <div className="bg-white pt-4">
         <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: service.shortTitle }]} />

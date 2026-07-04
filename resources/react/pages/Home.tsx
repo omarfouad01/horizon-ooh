@@ -451,23 +451,25 @@ function HeroSection() {
               </span>
             </div>
 
-            {/* H1 */}
-            <div className="overflow-visible mb-5">
+            {/* H1 — single element for SEO; animated spans for visual effect */}
+            <h1
+              className="overflow-visible mb-5 font-black leading-[0.9] tracking-[-0.04em]"
+              style={{ fontSize: "clamp(48px, 5vw, 80px)" }}
+            >
               {heroTitleLines.map((word: string, i: number) => (
-                <div key={word} className="overflow-hidden">
-                  <h1
-                    className="font-black leading-[0.9] tracking-[-0.04em]"
+                <span key={word} className="block overflow-hidden">
+                  <span
                     style={{
-                      fontSize: "clamp(48px, 5vw, 80px)",
+                      display: "block",
                       color: i === 2 ? "rgba(255,255,255,0.18)" : "white",
                       animation: `heroSlideUp 1.0s cubic-bezier(0.16,1,0.3,1) ${0.2 + i * 0.11}s both`,
                     }}
                   >
                     {word}
-                  </h1>
-                </div>
+                  </span>
+                </span>
               ))}
-            </div>
+            </h1>
 
             {/* Channels */}
             <p
