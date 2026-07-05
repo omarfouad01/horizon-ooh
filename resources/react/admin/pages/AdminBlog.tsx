@@ -7,7 +7,7 @@ import toast from 'react-hot-toast'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 type BlockType = 'h2' | 'p' | 'ul' | 'cta'
-interface Block { id: string; type: BlockType; content?: string; items?: string[] }
+interface Block { id: string; type: BlockType; content?: string; items?: string[]; href?: string }
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2) }
 
 // ─── Block icons ─────────────────────────────────────────────────────────────
@@ -90,9 +90,14 @@ function BlockEditor({ block, idx, total, onChange, onRemove, onMove }: {
           </div>
         )}
         {block.type === 'cta' && (
-          <input value={block.content || ''} onChange={e => onChange({ ...block, content: e.target.value })}
-            placeholder="CTA button label or call-to-action text…"
-            className="w-full text-[14px] font-semibold text-gray-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 focus:border-amber-400 outline-none placeholder:text-gray-300"/>
+          <div className="flex flex-col gap-2">
+            <input value={block.content || ''} onChange={e => onChange({ ...block, content: e.target.value })}
+              placeholder="CTA button label or call-to-action text…"
+              className="w-full text-[14px] font-semibold text-gray-700 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 focus:border-amber-400 outline-none placeholder:text-gray-300"/>
+            <input value={block.href || ''} onChange={e => onChange({ ...block, href: e.target.value })}
+              placeholder="Destination URL (e.g. /contact or https://…)"
+              className="w-full text-[13px] text-gray-600 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 focus:border-amber-400 outline-none placeholder:text-gray-300 font-mono"/>
+          </div>
         )}
       </div>
 

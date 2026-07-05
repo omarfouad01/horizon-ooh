@@ -223,6 +223,9 @@ export default function BlogArticle() {
                   );
                 }
                 if (block.type === "cta") {
+                  // Resolve the CTA destination — fall back to /contact if not set
+                  const ctaHref: string = (block as any).href || "/contact";
+                  const isExternal = ctaHref.startsWith("http://") || ctaHref.startsWith("https://");
                   return (
                     <Reveal key={i} delay={0.04}>
                       <div
@@ -233,14 +236,27 @@ export default function BlogArticle() {
                           <p className="font-bold text-white" style={{ fontSize: 18 }}>{block.content}</p>
                           <p className="text-[14px] mt-2" style={{ color: "rgba(255,255,255,0.35)" }}>{isAr ? 'تحدث مع فريقنا — لا يلزم أي التزام.' : 'Talk to our team — no commitment required.'}</p>
                         </div>
-                        <Link
-                          to={langPath(lang, "/contact")}
-                          className="group relative h-[48px] px-8 overflow-hidden text-[11px] font-bold tracking-[0.2em] uppercase text-white flex items-center flex-shrink-0 active:scale-[0.97] transition-transform"
-                          style={{ background: RED, textDecoration: 'none' }}
-                        >
-                          <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: "white" }} />
-                          <span className="relative z-10 group-hover:text-[#0B0F1A] transition-colors duration-300">{t('product.getQuote')}</span>
-                        </Link>
+                        {isExternal ? (
+                          <a
+                            href={ctaHref}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group relative h-[48px] px-8 overflow-hidden text-[11px] font-bold tracking-[0.2em] uppercase text-white flex items-center flex-shrink-0 active:scale-[0.97] transition-transform"
+                            style={{ background: RED, textDecoration: 'none' }}
+                          >
+                            <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: "white" }} />
+                            <span className="relative z-10 group-hover:text-[#0B0F1A] transition-colors duration-300">{block.content || t('product.getQuote')}</span>
+                          </a>
+                        ) : (
+                          <Link
+                            to={langPath(lang, ctaHref)}
+                            className="group relative h-[48px] px-8 overflow-hidden text-[11px] font-bold tracking-[0.2em] uppercase text-white flex items-center flex-shrink-0 active:scale-[0.97] transition-transform"
+                            style={{ background: RED, textDecoration: 'none' }}
+                          >
+                            <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: "white" }} />
+                            <span className="relative z-10 group-hover:text-[#0B0F1A] transition-colors duration-300">{block.content || t('product.getQuote')}</span>
+                          </Link>
+                        )}
                       </div>
                     </Reveal>
                   );
