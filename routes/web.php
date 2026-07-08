@@ -119,6 +119,41 @@ Route::get('/{any?}', function () {
     // We apply gzip/zstd here ourselves so the HTML document is always
     // served compressed, reducing the first-paint payload.
     $content  = file_get_contents($indexPath);
+
+    // ── SEO: Inject per-route canonical + hreflang ───────────────────────────
+    // Crawlers (Googlebot, Ahrefs) receive the correct canonical immediately
+    // in raw HTML — before any JavaScript executes.
+    // Rules:
+    //   /ar/...  → canonical = English equivalent, hreflang en+ar+x-default
+    //   /...     → canonical = self, hreflang en+ar+x-default
+    $base        = 'https://horizonooh.com';
+    $requestUri  = rtrim(request()->getPathInfo(), '/') ?: '/';
+    $isArabic    = str_starts_with($requestUri, '/ar');
+    $englishPath = $isArabic
+        ? (preg_replace('#^/ar#', '', $requestUri) ?: '/')
+        : $requestUri;
+
+    // Build canonical URL (always the English/preferred version)
+    $canonicalUrl = $base . ($englishPath === '/' ? '' : $englishPath);
+    // Arabic alternate URL
+    $arPath       = $englishPath === '/' ? '/ar' : '/ar' . $englishPath;
+    $arUrl        = $base . $arPath;
+
+    $seoTags = implode("
+    ", [
+        '<link rel="canonical" href="' . htmlspecialchars($canonicalUrl, ENT_QUOTES) . '" />',
+        '<link rel="alternate" hreflang="en"        href="' . htmlspecialchars($canonicalUrl, ENT_QUOTES) . '" />',
+        '<link rel="alternate" hreflang="ar"        href="' . htmlspecialchars($arUrl,        ENT_QUOTES) . '" />',
+        '<link rel="alternate" hreflang="x-default" href="' . htmlspecialchars($canonicalUrl, ENT_QUOTES) . '" />',
+    ]);
+
+    // Replace the server-side placeholder comment with the real tags
+    $content = str_replace(
+        '<!-- canonical + hreflang injected server-side per route (see routes/web.php) -->',
+        $seoTags,
+        $content
+    );
+
     $headers  = [
         'Content-Type'  => 'text/html; charset=UTF-8',
         'ETag'          => $etag,

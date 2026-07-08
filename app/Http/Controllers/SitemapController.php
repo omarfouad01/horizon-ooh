@@ -15,7 +15,12 @@ use Illuminate\Support\Facades\Schema;
  *   GET /sitemap-static.xml           → pages, services, projects, locations, blog
  *   GET /sitemap-billboards-{page}.xml → 500 billboards per file
  *
- * All sub-sitemaps include /ar/ alternate URLs for Arabic SEO.
+ * SEO strategy:
+ *   - Each URL appears ONCE in the sitemap (the canonical English URL).
+ *   - <xhtml:link rel="alternate"> hreflang pairs are nested inside each <url>
+ *     so Google/Ahrefs understand en↔ar relationship without duplicate entries.
+ *   - /ar/ pages are NOT listed as separate sitemap entries — they are referenced
+ *     only as alternates, preventing "non-canonical page in sitemap" Ahrefs errors.
  */
 class SitemapController extends Controller
 {
@@ -75,7 +80,7 @@ XML;
         $now  = now()->toAtomString();
         $urls = collect();
 
-        // ── Static pages (English + Arabic) ───────────────────────────────────
+        // ── Static pages (English only — /ar/ referenced via hreflang) ────────
         $statics = [
             ['/',                 '1.0',  'weekly',  $now],
             ['/about',            '0.8',  'monthly', $now],
@@ -87,49 +92,66 @@ XML;
             ['/design-simulator', '0.6',  'monthly', $now],
         ];
         foreach ($statics as [$path, $priority, $freq, $lastmod]) {
-            $urls->push(['path' => $path,    'priority' => $priority, 'freq' => $freq, 'lastmod' => $lastmod]);
-            $arPath = ($path === '/') ? '/ar' : '/ar' . $path;
-            $urls->push(['path' => $arPath,  'priority' => $priority, 'freq' => $freq, 'lastmod' => $lastmod]);
+            $urls->push(['path' => $path, 'priority' => $priority, 'freq' => $freq, 'lastmod' => $lastmod]);
         }
 
         // ── Services ──────────────────────────────────────────────────────────
         try {
-            Service::orderBy('sort_order')->cursor()->each(function ($s) use (&$urls) {
-                if (!$s->slug) return;
-                $lm = $s->updated_at?->toAtomString() ?? now()->toAtomString();
-                $urls->push(['path' => "/services/{$s->slug}",    'priority' => '0.8', 'freq' => 'monthly', 'lastmod' => $lm]);
-                $urls->push(['path' => "/ar/services/{$s->slug}", 'priority' => '0.8', 'freq' => 'monthly', 'lastmod' => $lm]);
-            });
+            if (Schema::hasTable('services') && Schema::hasColumn('services', 'slug')) {
+                Service::whereNotNull('slug')
+                    ->orderBy('created_at', 'desc')
+                    ->select(['id', 'slug', 'updated_at'])
+                    ->each(function ($s) use (&$urls) {
+                        if (!$s->slug) return;
+                        $lm = $s->updated_at?->toAtomString() ?? now()->toAtomString();
+                        $urls->push(['path' => "/services/{$s->slug}", 'priority' => '0.8', 'freq' => 'monthly', 'lastmod' => $lm]);
+                    });
+            }
         } catch (\Throwable $e) { }
 
         // ── Projects ──────────────────────────────────────────────────────────
         try {
-            Project::orderBy('sort_order')->cursor()->each(function ($p) use (&$urls) {
-                if (!$p->slug) return;
-                $lm = $p->updated_at?->toAtomString() ?? now()->toAtomString();
-                $urls->push(['path' => "/projects/{$p->slug}",   'priority' => '0.7', 'freq' => 'monthly', 'lastmod' => $lm]);
-                $urls->push(['path' => "/ar/projects/{$p->slug}",'priority' => '0.7', 'freq' => 'monthly', 'lastmod' => $lm]);
-            });
+            if (Schema::hasTable('projects') && Schema::hasColumn('projects', 'slug')) {
+                Project::whereNotNull('slug')
+                    ->orderBy('created_at', 'desc')
+                    ->select(['id', 'slug', 'updated_at'])
+                    ->each(function ($p) use (&$urls) {
+                        if (!$p->slug) return;
+                        $lm = $p->updated_at?->toAtomString() ?? now()->toAtomString();
+                        $urls->push(['path' => "/projects/{$p->slug}", 'priority' => '0.7', 'freq' => 'monthly', 'lastmod' => $lm]);
+                    });
+            }
         } catch (\Throwable $e) { }
 
-        // ── Locations ─────────────────────────────────────────────────────────
+        // ── Locations (city pages) ─────────────────────────────────────────────
         try {
-            Location::orderBy('sort_order')->cursor()->each(function ($l) use (&$urls) {
-                if (!$l->slug) return;
-                $lm = $l->updated_at?->toAtomString() ?? now()->toAtomString();
-                $urls->push(['path' => "/locations/{$l->slug}",    'priority' => '0.7', 'freq' => 'monthly', 'lastmod' => $lm]);
-                $urls->push(['path' => "/ar/locations/{$l->slug}", 'priority' => '0.7', 'freq' => 'monthly', 'lastmod' => $lm]);
-            });
+            if (Schema::hasTable('locations') && Schema::hasColumn('locations', 'slug')) {
+                Location::whereNotNull('slug')
+                    ->orderBy('created_at', 'desc')
+                    ->select(['id', 'slug', 'updated_at'])
+                    ->each(function ($l) use (&$urls) {
+                        if (!$l->slug) return;
+                        $lm = $l->updated_at?->toAtomString() ?? now()->toAtomString();
+                        $urls->push(['path' => "/locations/{$l->slug}", 'priority' => '0.7', 'freq' => 'monthly', 'lastmod' => $lm]);
+                    });
+            }
         } catch (\Throwable $e) { }
 
-        // ── Blog Posts ────────────────────────────────────────────────────────
+        // ── Blog posts ────────────────────────────────────────────────────────
         try {
-            \App\Models\BlogPost::orderBy('created_at', 'desc')->cursor()->each(function ($post) use (&$urls) {
-                if (!$post->slug) return;
-                $lm = $post->updated_at?->toAtomString() ?? now()->toAtomString();
-                $urls->push(['path' => "/blog/{$post->slug}",    'priority' => '0.7', 'freq' => 'monthly', 'lastmod' => $lm]);
-                $urls->push(['path' => "/ar/blog/{$post->slug}", 'priority' => '0.7', 'freq' => 'monthly', 'lastmod' => $lm]);
-            });
+            if (Schema::hasTable('blog_posts') && Schema::hasColumn('blog_posts', 'slug')) {
+                $blogModel = class_exists('\\App\\Models\\BlogPost') ? '\\App\\Models\\BlogPost' : null;
+                if ($blogModel) {
+                    $blogModel::whereNotNull('slug')
+                        ->orderBy('created_at', 'desc')
+                        ->select(['id', 'slug', 'updated_at'])
+                        ->each(function ($post) use (&$urls) {
+                            if (!$post->slug) return;
+                            $lm = $post->updated_at?->toAtomString() ?? now()->toAtomString();
+                            $urls->push(['path' => "/blog/{$post->slug}", 'priority' => '0.7', 'freq' => 'monthly', 'lastmod' => $lm]);
+                        });
+                }
+            }
         } catch (\Throwable $e) { }
 
         return response($this->buildUrlsetXml($urls), 200)
@@ -156,13 +178,17 @@ XML;
                         if (!$b->slug || !$b->location?->slug) return;
                         $city = $b->location->slug;
                         $lm   = $b->updated_at?->toAtomString() ?? now()->toAtomString();
-                        $urls->push(['path' => "/locations/{$city}/billboards/{$b->slug}",    'priority' => '0.6', 'freq' => 'monthly', 'lastmod' => $lm]);
-                        $urls->push(['path' => "/ar/locations/{$city}/billboards/{$b->slug}", 'priority' => '0.6', 'freq' => 'monthly', 'lastmod' => $lm]);
+                        // English canonical only — /ar/ referenced via hreflang inside the entry
+                        $urls->push([
+                            'path'     => "/locations/{$city}/billboards/{$b->slug}",
+                            'priority' => '0.6',
+                            'freq'     => 'monthly',
+                            'lastmod'  => $lm,
+                        ]);
                     });
             }
         } catch (\Throwable $e) { }
 
-        // Return empty urlset if page is out of range (graceful)
         return response($this->buildUrlsetXml($urls), 200)
             ->header('Content-Type', 'application/xml; charset=UTF-8')
             ->header('Cache-Control', 'public, max-age=3600');
@@ -193,19 +219,50 @@ XML;
     // ─────────────────────────────────────────────────────────────────────────
     // Helpers
     // ─────────────────────────────────────────────────────────────────────────
+
+    /**
+     * Build a <urlset> XML string with xhtml:link hreflang pairs.
+     *
+     * Each English URL entry includes:
+     *   <xhtml:link rel="alternate" hreflang="en"        href="...english..." />
+     *   <xhtml:link rel="alternate" hreflang="ar"        href="...arabic..."  />
+     *   <xhtml:link rel="alternate" hreflang="x-default" href="...english..." />
+     *
+     * The /ar/ URLs are NOT emitted as separate <url> entries.
+     * This eliminates the "non-canonical page in sitemap" Ahrefs error.
+     */
     private function buildUrlsetXml(\Illuminate\Support\Collection $urls): string
     {
-        $entries = $urls->map(function ($u) {
-            $loc     = e($this->base . $u['path']);
+        $base    = $this->base;
+        $entries = $urls->map(function ($u) use ($base) {
+            $path    = $u['path'];
+            $enUrl   = $base . $path;
+            $arPath  = ($path === '/') ? '/ar' : '/ar' . $path;
+            $arUrl   = $base . $arPath;
+
+            $loc     = htmlspecialchars($enUrl,  ENT_XML1);
+            $locAr   = htmlspecialchars($arUrl,  ENT_XML1);
             $lastmod = htmlspecialchars($u['lastmod'] ?? now()->toAtomString(), ENT_XML1);
             $freq    = htmlspecialchars($u['freq'],     ENT_XML1);
             $prio    = htmlspecialchars($u['priority'], ENT_XML1);
-            return "  <url>\n    <loc>{$loc}</loc>\n    <lastmod>{$lastmod}</lastmod>\n    <changefreq>{$freq}</changefreq>\n    <priority>{$prio}</priority>\n  </url>";
+
+            return implode("\n", [
+                "  <url>",
+                "    <loc>{$loc}</loc>",
+                "    <lastmod>{$lastmod}</lastmod>",
+                "    <changefreq>{$freq}</changefreq>",
+                "    <priority>{$prio}</priority>",
+                "    <xhtml:link rel=\"alternate\" hreflang=\"en\"        href=\"{$loc}\" />",
+                "    <xhtml:link rel=\"alternate\" hreflang=\"ar\"        href=\"{$locAr}\" />",
+                "    <xhtml:link rel=\"alternate\" hreflang=\"x-default\" href=\"{$loc}\" />",
+                "  </url>",
+            ]);
         })->implode("\n");
 
         return <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
