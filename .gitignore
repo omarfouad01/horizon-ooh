@@ -36,6 +36,8 @@ dist/
 build/
 .vite/
 *.tsbuildinfo
+.skywork/runtime/
+public/ssg/
 
 # --- PHP: NEVER commit real credentials ---
 backend/config/config.php
@@ -69,4 +71,3 @@ public/storage/
 public/storage/
 public/hot
 public/imgcache/
-

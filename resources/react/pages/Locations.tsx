@@ -2,14 +2,16 @@
  * Locations — Premium marketplace-style page
  * Layout: Sticky filter bar → Results header → Split-screen (cards left / map right)
  */
-import { useEffect, useRef, useState, useCallback } from "react";
+import { lazy, Suspense, useEffect, useRef, useState, useCallback } from "react";
 import SEO from "@/components/SEO";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useStore, getState } from "@/store/dataStore";
 import { productHref, langPath, RED, NAVY } from "@/lib/routes";
-import LocationsMap from "@/components/LocationsMap";
 import { useLang } from "@/i18n/LangContext";
+import ClientOnly from "@/components/ClientOnly";
+
+const LocationsMap = lazy(() => import("@/components/LocationsMap"));
 
 const getBillboards = () => getState().locations.flatMap((l: any) => (l.products||[]).map((p: any) => ({ ...p, citySlug: l.slug })));
 
@@ -289,7 +291,7 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, w
           className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-[1.04] bg-gray-50"
           style={{ opacity: 0.88 }}
           loading={b._cardIndex === 0 ? undefined : 'lazy'}
-          fetchPriority={b._cardIndex === 0 ? 'high' : undefined}
+          {...(b._cardIndex === 0 ? { fetchpriority: 'high' } as any : {})}
           decoding="async"
         />
         <div className="absolute inset-0"
@@ -961,15 +963,19 @@ export default function Locations() {
           style={{ flex: "0 0 34%", position: "sticky", top: 57, height: "calc(100vh - 57px)", background: "#e8eaed" }}
         >
           <div className="relative w-full h-full">
-            <LocationsMap
-              billboards={paginatedBillboards}
-              hoveredId={hoveredId}
-              selectedId={selectedId}
-              onHover={setHoveredId}
-              onSelect={handlePinSelect}
-              className="absolute inset-0 w-full h-full"
-              style={{ zIndex: 1 }}
-            />
+            <ClientOnly fallback={<div className="absolute inset-0 bg-[#e8eaed]" aria-label="Interactive map" />}>
+              <Suspense fallback={<div className="absolute inset-0 bg-[#e8eaed]" aria-label="Map loading" />}>
+                <LocationsMap
+                  billboards={paginatedBillboards}
+                  hoveredId={hoveredId}
+                  selectedId={selectedId}
+                  onHover={setHoveredId}
+                  onSelect={handlePinSelect}
+                  className="absolute inset-0 w-full h-full"
+                  style={{ zIndex: 1 }}
+                />
+              </Suspense>
+            </ClientOnly>
 
             {/* Map legend */}
             <div className="absolute bottom-20 left-4 z-[1000] flex flex-col gap-2 pointer-events-none">

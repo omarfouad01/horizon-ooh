@@ -2,7 +2,7 @@
 import { LangProvider } from "@/i18n/LangContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import Layout from "@/components/Layout";
 import { FaviconSync } from "@/components/FaviconSync";
 
@@ -13,19 +13,21 @@ const Sonner      = lazy(() => import("@/components/ui/sonner").then(m => ({ def
 const HotToaster  = lazy(() => import("react-hot-toast").then(m => ({ default: m.Toaster })));
 const TooltipProvider = lazy(() => import("@/components/ui/tooltip").then(m => ({ default: m.TooltipProvider })));
 
-// ── Public pages — eager-load only the homepage, lazy the rest ───────────────
+// ── Public pages ─────────────────────────────────────────────────────────────
+// Public routes are eager imports so the same component tree can be rendered
+// at build time by entry-server.tsx. Admin/auth-only code remains lazy.
 import Home from "@/pages/Home";
-const About          = lazy(() => import("@/pages/About"));
-const Services       = lazy(() => import("@/pages/Services"));
-const ServiceDetail  = lazy(() => import("@/pages/ServiceDetail"));
-const Projects       = lazy(() => import("@/pages/Projects"));
-const ProjectDetail  = lazy(() => import("@/pages/ProjectDetail"));
-const Locations      = lazy(() => import("@/pages/Locations"));
-const LocationDetail = lazy(() => import("@/pages/LocationDetail"));
-const Product        = lazy(() => import("@/pages/Product"));
-const Blog           = lazy(() => import("@/pages/Blog"));
-const BlogArticle    = lazy(() => import("@/pages/BlogArticle"));
-const Contact        = lazy(() => import("@/pages/Contact"));
+import About from "@/pages/About";
+import Services from "@/pages/Services";
+import ServiceDetail from "@/pages/ServiceDetail";
+import Projects from "@/pages/Projects";
+import ProjectDetail from "@/pages/ProjectDetail";
+import Locations from "@/pages/Locations";
+import LocationDetail from "@/pages/LocationDetail";
+import Product from "@/pages/Product";
+import Blog from "@/pages/Blog";
+import BlogArticle from "@/pages/BlogArticle";
+import Contact from "@/pages/Contact";
 const Login          = lazy(() => import("@/pages/Login"));
 const Signup         = lazy(() => import("@/pages/Signup"));
 const Profile        = lazy(() => import("@/pages/Profile"));
@@ -70,22 +72,38 @@ const AdminLoading = () => (
 
 const queryClient = new QueryClient();
 
+function ClientEnhancements() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+
+  return (
+    <Suspense fallback={null}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <HotToaster position="top-right" toastOptions={{ style: { fontSize: 13, fontWeight: 600 } }} />
+      </TooltipProvider>
+    </Suspense>
+  );
+}
+
 // ── All public page routes — reused for both /  and /ar/ prefixes ────────────
-function PublicRoutes() {
+export function PublicRoutes() {
   return (
     <Routes>
       <Route index                                        element={<Layout><Home /></Layout>} />
-      <Route path="about"            element={<Suspense fallback={<PageLoading />}><Layout><About /></Layout></Suspense>} />
-      <Route path="services"         element={<Suspense fallback={<PageLoading />}><Layout><Services /></Layout></Suspense>} />
-      <Route path="services/:slug"   element={<Suspense fallback={<PageLoading />}><Layout><ServiceDetail /></Layout></Suspense>} />
-      <Route path="projects"         element={<Suspense fallback={<PageLoading />}><Layout><Projects /></Layout></Suspense>} />
-      <Route path="projects/:slug"   element={<Suspense fallback={<PageLoading />}><Layout><ProjectDetail /></Layout></Suspense>} />
-      <Route path="locations"        element={<Suspense fallback={<PageLoading />}><Layout><Locations /></Layout></Suspense>} />
-      <Route path="locations/:slug"  element={<Suspense fallback={<PageLoading />}><Layout><LocationDetail /></Layout></Suspense>} />
-      <Route path="locations/:city/billboards/:slug" element={<Suspense fallback={<PageLoading />}><Layout><Product /></Layout></Suspense>} />
-      <Route path="blog"             element={<Suspense fallback={<PageLoading />}><Layout><Blog /></Layout></Suspense>} />
-      <Route path="blog/:slug"       element={<Suspense fallback={<PageLoading />}><Layout><BlogArticle /></Layout></Suspense>} />
-      <Route path="contact"          element={<Suspense fallback={<PageLoading />}><Layout><Contact /></Layout></Suspense>} />
+      <Route path="about"            element={<Layout><About /></Layout>} />
+      <Route path="services"         element={<Layout><Services /></Layout>} />
+      <Route path="services/:slug"   element={<Layout><ServiceDetail /></Layout>} />
+      <Route path="projects"         element={<Layout><Projects /></Layout>} />
+      <Route path="projects/:slug"   element={<Layout><ProjectDetail /></Layout>} />
+      <Route path="locations"        element={<Layout><Locations /></Layout>} />
+      <Route path="locations/:slug"  element={<Layout><LocationDetail /></Layout>} />
+      <Route path="locations/:city/billboards/:slug" element={<Layout><Product /></Layout>} />
+      <Route path="blog"             element={<Layout><Blog /></Layout>} />
+      <Route path="blog/:slug"       element={<Layout><BlogArticle /></Layout>} />
+      <Route path="contact"          element={<Layout><Contact /></Layout>} />
       <Route path="login"            element={<Suspense fallback={<PageLoading />}><Login /></Suspense>} />
       <Route path="signup"           element={<Suspense fallback={<PageLoading />}><Signup /></Suspense>} />
       <Route path="profile"          element={<Suspense fallback={<PageLoading />}><Layout><Profile /></Layout></Suspense>} />
@@ -95,62 +113,68 @@ function PublicRoutes() {
   );
 }
 
-const App = () => (
+export const AppContent = () => (
+  <>
+    {/* FaviconSync: keeps browser tab favicon in sync with admin dashboard setting */}
+    <FaviconSync />
+    {/* LangProvider lives inside the router so it can use navigation/location */}
+    <LangProvider>
+      <Routes>
+        {/* ── English routes: / ── */}
+        <Route path="/*" element={<PublicRoutes />} />
+
+        {/* ── Arabic routes: /ar/* ── same pages, lang derived from URL ── */}
+        <Route path="/ar" element={<Layout><Home /></Layout>} />
+        <Route path="/ar/*" element={<PublicRoutes />} />
+
+        {/* ── Admin Panel — lazy loaded, never shipped to website users ── */}
+        <Route path="/admin/*" element={
+          <Suspense fallback={<AdminLoading />}>
+            <AdminAuthProvider>
+              <Routes>
+                <Route path="login" element={<AdminLogin />} />
+                <Route path="*"     element={<AdminLayout />}>
+                  <Route index                   element={<AdminDashboard />} />
+                  <Route path="locations"        element={<AdminLocations />} />
+                  <Route path="billboards"       element={<AdminBillboards />} />
+                  <Route path="services"         element={<AdminServices />} />
+                  <Route path="projects"         element={<AdminProjects />} />
+                  <Route path="blog"             element={<AdminBlog />} />
+                  <Route path="contacts"         element={<AdminContacts />} />
+                  <Route path="settings"         element={<AdminSettings />} />
+                  <Route path="about"            element={<AdminAbout />} />
+                  <Route path="suppliers"        element={<AdminSuppliers />} />
+                  <Route path="customers"        element={<AdminCustomers />} />
+                  <Route path="users"            element={<AdminUsers />} />
+                  <Route path="homepage"         element={<AdminHomePage />} />
+                  <Route path="simulator"        element={<AdminSimulator />} />
+                  <Route path="locations-page"   element={<AdminLocationsPage />} />
+                  <Route path="contact-page"     element={<AdminContactPage />} />
+                  <Route path="dashboard-users"  element={<AdminDashboardUsers />} />
+                </Route>
+              </Routes>
+            </AdminAuthProvider>
+          </Suspense>
+        } />
+      </Routes>
+    </LangProvider>
+  </>
+);
+
+export const AppProviders = ({ children }: { children: React.ReactNode }) => (
   <QueryClientProvider client={queryClient}>
-    {/* Lazy providers — rendered after LCP, never needed for initial paint */}
-    <Suspense fallback={null}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <HotToaster position="top-right" toastOptions={{ style: { fontSize: 13, fontWeight: 600 } }} />
-      </TooltipProvider>
-    </Suspense>
-    <BrowserRouter>
-        {/* FaviconSync: keeps browser tab favicon in sync with admin dashboard setting */}
-        <FaviconSync />
-        {/* LangProvider lives INSIDE BrowserRouter so it can use useNavigate/useLocation */}
-        <LangProvider>
-          <Routes>
-            {/* ── English routes: / ── */}
-            <Route path="/*" element={<PublicRoutes />} />
-
-            {/* ── Arabic routes: /ar/* ── same pages, lang derived from URL ── */}
-            <Route path="/ar" element={<Layout><Home /></Layout>} />
-            <Route path="/ar/*" element={<PublicRoutes />} />
-
-            {/* ── Admin Panel — lazy loaded, never shipped to website users ── */}
-            <Route path="/admin/*" element={
-              <Suspense fallback={<AdminLoading />}>
-                <AdminAuthProvider>
-                  <Routes>
-                    <Route path="login" element={<AdminLogin />} />
-                    <Route path="*"     element={<AdminLayout />}>
-                      <Route index                   element={<AdminDashboard />} />
-                      <Route path="locations"        element={<AdminLocations />} />
-                      <Route path="billboards"       element={<AdminBillboards />} />
-                      <Route path="services"         element={<AdminServices />} />
-                      <Route path="projects"         element={<AdminProjects />} />
-                      <Route path="blog"             element={<AdminBlog />} />
-                      <Route path="contacts"         element={<AdminContacts />} />
-                      <Route path="settings"         element={<AdminSettings />} />
-                      <Route path="about"            element={<AdminAbout />} />
-                      <Route path="suppliers"        element={<AdminSuppliers />} />
-                      <Route path="customers"        element={<AdminCustomers />} />
-                      <Route path="users"            element={<AdminUsers />} />
-                      <Route path="homepage"         element={<AdminHomePage />} />
-                      <Route path="simulator"        element={<AdminSimulator />} />
-                      <Route path="locations-page"   element={<AdminLocationsPage />} />
-                      <Route path="contact-page"     element={<AdminContactPage />} />
-                      <Route path="dashboard-users"  element={<AdminDashboardUsers />} />
-                    </Route>
-                  </Routes>
-                </AdminAuthProvider>
-              </Suspense>
-            } />
-          </Routes>
-        </LangProvider>
-      </BrowserRouter>
+    {/* Client-only providers mount after hydration and never affect first paint. */}
+    <ClientEnhancements />
+    {children}
   </QueryClientProvider>
+);
+
+const App = () => (
+  <AppProviders>
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
+  </AppProviders>
 );
 
 export default App;

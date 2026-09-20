@@ -88,7 +88,7 @@ function ClientCard({ client, index, active, onClick }: { client: ClientGroup; i
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
           style={{ opacity: 0.88 }}
           loading={index === 0 ? undefined : 'lazy'}
-          fetchPriority={index === 0 ? 'high' : undefined}
+          {...(index === 0 ? { fetchpriority: 'high' } as any : {})}
           decoding="async"
         />
         <div
@@ -175,7 +175,7 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                 style={{ opacity: 0.88 }}
                 loading={index === 0 ? undefined : 'lazy'}
-                fetchPriority={index === 0 ? 'high' : undefined}
+                {...(index === 0 ? { fetchpriority: 'high' } as any : {})}
                 decoding="async"
               />
             : <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
@@ -258,7 +258,7 @@ function FeaturedProject() {
 
         <Link to={projectHref(lang, featured.slug)} className="group relative block overflow-hidden" style={{ textDecoration: "none", height: 560 }}>
           {featured.heroImage
-            ? <img src={featured.heroImage} alt={`${featured.title} — outdoor advertising case study Egypt`} width={1440} height={500} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" style={{ opacity: 0.8 }} fetchPriority="high" decoding="async" />
+            ? <img src={featured.heroImage} alt={`${featured.title} — outdoor advertising case study Egypt`} width={1440} height={500} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" style={{ opacity: 0.8 }} {...({ fetchpriority: "high" } as any)} decoding="async" />
             : <div className="absolute inset-0 bg-gradient-to-br from-[#0B0F1A] to-[#1a2035]" />}
           <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(11,15,26,0.88) 0%, rgba(11,15,26,0.5) 50%, rgba(11,15,26,0.15) 100%)" }} />
 

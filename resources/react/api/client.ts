@@ -32,7 +32,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('horizon_token');
+  const token = typeof localStorage !== 'undefined' ? localStorage.getItem('horizon_token') : null;
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
@@ -50,7 +50,7 @@ let _tokenStoredAt = 0;
 export function markTokenStored(): void { _tokenStoredAt = Date.now(); _expiredDispatched = false; }
 
 async function tryRefreshToken(): Promise<string | null> {
-  const token = localStorage.getItem('horizon_token');
+  const token = typeof localStorage !== 'undefined' ? localStorage.getItem('horizon_token') : null;
   if (!token || token === 'demo-token') return null;
   try {
     const res = await axios.post(
@@ -60,7 +60,7 @@ async function tryRefreshToken(): Promise<string | null> {
     );
     const newToken: string = res.data?.token ?? res.data?.access_token;
     if (newToken) {
-      localStorage.setItem('horizon_token', newToken);
+      if (typeof localStorage !== 'undefined') localStorage.setItem('horizon_token', newToken);
       return newToken;
     }
   } catch { /* refresh failed — fall through to logout */ }
@@ -76,7 +76,7 @@ api.interceptors.response.use(
     // On 401 from a protected (non-auth) route — try refreshing the token once
     // BUT only if we actually have a token. Without a token there's nothing to
     // refresh and attempting it just fires an extra 401 that stalls page load.
-    const token = localStorage.getItem('horizon_token');
+    const token = typeof localStorage !== 'undefined' ? localStorage.getItem('horizon_token') : null;
     const hasToken = !!token && token !== 'demo-token';
     const isAuthRoute = /\/(auth\/login|login|auth\/logout|logout|auth\/refresh)($|\?)/i.test(url);
 
@@ -110,8 +110,10 @@ api.interceptors.response.use(
 
       // For read (GET) failures: clear the stale token and trigger a logout
       // so the user is redirected to login cleanly.
-      localStorage.removeItem('horizon_token');
-      localStorage.removeItem('horizon_user');
+      if (typeof localStorage !== 'undefined') {
+        localStorage.removeItem('horizon_token');
+        localStorage.removeItem('horizon_user');
+      }
       // Notify AdminAuthProvider to clear React state and redirect to login.
       // Use a flag so this fires exactly once even if multiple parallel requests
       // all fail at the same time (e.g. suppliers + customers + contacts).

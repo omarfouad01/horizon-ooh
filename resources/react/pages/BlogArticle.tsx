@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useStore } from "@/store/dataStore";
-import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
+import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb, safeJsonLd } from "@/components/UI";
 import { blogHref, langPath, RED, NAVY } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
 import SEO from "@/components/SEO";
@@ -49,7 +49,7 @@ export default function BlogArticle() {
   const { lang, t, isAr } = useLang();
 
   // Direct per-page fetch — fires immediately on mount, independent of global store
-  const [fetching, setFetching] = useState(true);
+  const [fetching, setFetching] = useState(false);
   const [fetchDone, setFetchDone] = useState(false);
   const [fetchedPost, setFetchedPost] = useState<any>(null);
   const [fetchFailed, setFetchFailed] = useState(false);
@@ -78,7 +78,7 @@ export default function BlogArticle() {
   const related   = BLOG_POSTS.filter((p: any) => p.slug !== slug).slice(0, 3);
 
   // ── Conditional returns AFTER all hooks ──
-  if (fetching) return <ArticleSkeleton />;
+  if (fetching && !storePost) return <ArticleSkeleton />;
   // Keep skeleton until BOTH the direct fetch is done AND the global store has loaded
   if (!post && (!fetchDone || !storeLoaded)) return <ArticleSkeleton />;
 
@@ -136,8 +136,8 @@ export default function BlogArticle() {
         ogImage={post.image}
         canonical={`/blog/${post.slug}`}
       />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(articleSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }} />
       <div className="bg-white pt-4">
         <Breadcrumb items={[{ label: t('common.home'), href: "/" }, { label: t('blog.title'), href: "/blog" }, { label: post.category }]} />
       </div>

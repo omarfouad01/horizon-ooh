@@ -10,6 +10,7 @@ import { useLang } from "@/i18n/LangContext";
 import { serviceHref, locationHref, projectHref, productHref, blogHref, langPath, makeRoutes } from "@/lib/routes";
 import { ServiceIcon } from "@/components/ServiceIcon";
 import { thumb } from "@/lib/img";
+import ClientOnly from "@/components/ClientOnly";
 
 // Billboards helper (cities/formats are now computed inside HeroSection)
 const getBillboards = () => getState().locations.flatMap((l: any) => (l.products||[]).map((p: any) => ({ ...p, citySlug: l.slug })));
@@ -29,7 +30,9 @@ const ease = [0.16, 1, 0.3, 1] as const;
 // so cards never get stuck at opacity:0 due to race conditions.
 function useReveal(delay = 0) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(
+    () => typeof document === 'undefined' || document.documentElement.hasAttribute('data-ssg')
+  );
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -106,7 +109,9 @@ function RevealItem({
   index?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(
+    () => typeof document === 'undefined' || document.documentElement.hasAttribute('data-ssg')
+  );
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -404,7 +409,7 @@ function HeroSection() {
             sizes="100vw"
             alt="" aria-hidden
             width={1600} height={900}
-            fetchPriority="high"
+            {...({ fetchpriority: "high" } as any)}
             decoding="async"
             className="w-full h-full object-cover"
           />
@@ -596,16 +601,18 @@ function HeroSection() {
             background: "linear-gradient(to right, rgba(11,15,26,0.4) 0%, transparent 25%)"
           }} />
 
-          <Suspense fallback={<div className="absolute inset-0 bg-[#0b0f1a]" />}>
-            <LeafletMap
-              filtered={getBillboards().slice(0, 20)}
-              allCount={getBillboards().length}
-              selected={selectedPin}
-              onSelect={setSelectedPin}
-              className="absolute inset-0 w-full h-full"
-              style={{ zIndex: 1 }}
-            />
-          </Suspense>
+          <ClientOnly fallback={<div className="absolute inset-0 bg-[#0b0f1a]" aria-label="Interactive map" />}>
+            <Suspense fallback={<div className="absolute inset-0 bg-[#0b0f1a]" />}>
+              <LeafletMap
+                filtered={getBillboards().slice(0, 20)}
+                allCount={getBillboards().length}
+                selected={selectedPin}
+                onSelect={setSelectedPin}
+                className="absolute inset-0 w-full h-full"
+                style={{ zIndex: 1 }}
+              />
+            </Suspense>
+          </ClientOnly>
 
           {selectedPin && (
               <div
@@ -1849,7 +1856,7 @@ export default function Home() {
   const allBillboards = LOCATIONS.flatMap((l: any) => (l.products||[]).map((p: any) => ({ ...p, citySlug: l.slug })))
   return (
     <>
-      <SEO title="HORIZON OOH | Outdoor Advertising Agency in Egypt" description="Egypt's premier outdoor advertising agency. Billboard, DOOH, Mall &amp; Airport campaigns across Cairo, Alexandria &amp; nationwide. 9,500+ premium locations." canonical="/" />
+      <SEO title="HORIZON OOH | Outdoor Advertising Agency in Egypt" description="Egypt's premier outdoor advertising agency. Billboard, DOOH, Mall & Airport campaigns across Cairo, Alexandria & nationwide. 9,500+ premium locations." canonical="/" />
       <HeroSection />
       <ClientsSection />
       <StatementSection />

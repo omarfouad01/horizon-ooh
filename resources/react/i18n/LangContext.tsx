@@ -66,23 +66,21 @@ export function LangProvider({ children }: { children: React.ReactNode }) {
   // Derive language from URL — this is the single source of truth
   const urlLang: Lang = pathIsArabic(location.pathname) ? 'ar' : 'en';
 
-  const [lang, setLangState] = useState<Lang>(() => {
-    if (pathIsArabic(location.pathname)) return 'ar';
-    const saved = localStorage.getItem('horizon_lang') as Lang | null;
-    return saved === 'ar' ? 'ar' : 'en';
-  });
+  // The URL is the only initial-render source of truth. Reading saved browser
+  // state here would make the hydrated tree differ from the generated HTML.
+  const [lang, setLangState] = useState<Lang>(urlLang);
 
   // Sync state when URL changes (back/forward navigation)
   useEffect(() => {
     if (urlLang !== lang) {
       setLangState(urlLang);
-      localStorage.setItem('horizon_lang', urlLang);
+      try { localStorage.setItem('horizon_lang', urlLang); } catch { /* unavailable */ }
     }
   }, [urlLang]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // setLang navigates to the same page under the target language prefix
   const setLang = useCallback((l: Lang) => {
-    localStorage.setItem('horizon_lang', l);
+    try { localStorage.setItem('horizon_lang', l); } catch { /* unavailable */ }
     setLangState(l);
     if (l === 'ar') loadArabicFonts();
     const bare = stripAr(location.pathname);

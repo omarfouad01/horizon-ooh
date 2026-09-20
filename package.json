@@ -5,7 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "VITE_ENABLE_ROUTE_MESSAGING=true vite",
-    "build": "node -e \"const fs=require('fs');const p='public/assets';if(fs.existsSync(p)){fs.readdirSync(p).filter(f=>f.match(/\\.(js|css|map)$/)).forEach(f=>fs.unlinkSync(p+'/'+f))}\" && vite build",
+    "build": "npm run build:client && npm run build:ssg",
+    "build:client": "node -e \"const fs=require('fs');const p='public/assets';if(fs.existsSync(p)){fs.readdirSync(p).filter(f=>f.match(/\\.(js|css|map|br|gz)$/)).forEach(f=>fs.unlinkSync(p+'/'+f))}\" && vite build",
+    "build:ssg": "vite build --config vite.ssg.config.ts --mode ssg-server && vite build --config vite.ssg.config.ts --mode ssg-routes && node scripts/generate-ssg.mjs",
+    "test:ssg": "node scripts/verify-ssg.mjs",
     "build:dev": "VITE_ENABLE_ROUTE_MESSAGING=true vite build --mode development --sourcemap",
     "lint": "eslint .",
     "preview": "vite preview"

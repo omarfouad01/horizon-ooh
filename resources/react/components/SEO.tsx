@@ -1,37 +1,91 @@
 import { useEffect } from "react";
 
-interface SEOProps {
+export interface SEOProps {
   title: string;
   description: string;
   keywords?: string;
   ogImage?: string;
+  canonical?: string;
+  robots?: string;
+  type?: "website" | "article";
 }
 
-export default function SEO({ title, description, keywords, ogImage }: SEOProps): null {
+const SITE_URL = "https://horizonooh.com";
+const DEFAULT_IMAGE = `${SITE_URL}/images/hero-1600.webp`;
+
+function absoluteUrl(value?: unknown): string {
+  if (!value) return DEFAULT_IMAGE;
+  if (typeof value === "object" && value && "url" in value) {
+    return absoluteUrl((value as { url?: string }).url);
+  }
+  if (typeof value !== "string") return DEFAULT_IMAGE;
+  if (value.startsWith("data:") || value.startsWith("blob:")) return DEFAULT_IMAGE;
+  if (/^https?:\/\//i.test(value)) return value;
+  return `${SITE_URL}${value.startsWith("/") ? value : `/${value}`}`;
+}
+
+export default function SEO({
+  title,
+  description,
+  keywords,
+  ogImage,
+  canonical,
+  robots = "index, follow",
+  type = "website",
+}: SEOProps) {
   useEffect(() => {
     document.title = title;
 
-    const setMeta = (selector: string, attr: string, value: string) => {
+    const setMeta = (selector: string, attrs: Record<string, string>) => {
       let el = document.querySelector(selector) as HTMLMetaElement | null;
       if (!el) {
         el = document.createElement("meta");
-        const [attrName, attrValue] = selector.replace(/\[|\]/g, " ").trim().split(/\s+/);
-        el.setAttribute(attrName, attrValue);
+        Object.entries(attrs).forEach(([name, value]) => el!.setAttribute(name, value));
         document.head.appendChild(el);
       }
-      el.setAttribute(attr, value);
+      Object.entries(attrs).forEach(([name, value]) => el!.setAttribute(name, value));
     };
 
-    setMeta('meta[name="description"]', "content", description);
-    setMeta('meta[property="og:title"]', "content", title);
-    setMeta('meta[property="og:description"]', "content", description);
-    if (keywords) setMeta('meta[name="keywords"]', "content", keywords);
-    if (ogImage) setMeta('meta[property="og:image"]', "content", ogImage);
+    const canonicalPath = canonical || window.location.pathname;
+    const canonicalUrl = absoluteUrl(canonicalPath);
+    const imageUrl = absoluteUrl(ogImage);
+
+    setMeta('meta[name="description"]', { name: "description", content: description });
+    setMeta('meta[name="robots"]', { name: "robots", content: robots });
+    setMeta('meta[property="og:title"]', { property: "og:title", content: title });
+    setMeta('meta[property="og:description"]', { property: "og:description", content: description });
+    setMeta('meta[property="og:type"]', { property: "og:type", content: type });
+    setMeta('meta[property="og:url"]', { property: "og:url", content: canonicalUrl });
+    setMeta('meta[property="og:image"]', { property: "og:image", content: imageUrl });
+    setMeta('meta[name="twitter:card"]', { name: "twitter:card", content: "summary_large_image" });
+    setMeta('meta[name="twitter:title"]', { name: "twitter:title", content: title });
+    setMeta('meta[name="twitter:description"]', { name: "twitter:description", content: description });
+    setMeta('meta[name="twitter:image"]', { name: "twitter:image", content: imageUrl });
+    if (keywords) setMeta('meta[name="keywords"]', { name: "keywords", content: keywords });
 
     return () => {
       document.title = "HORIZON OOH | Outdoor Advertising Agency in Egypt";
     };
-  }, [title, description, keywords, ogImage]);
+  }, [title, description, keywords, ogImage, canonical, robots, type]);
 
-  return null;
+  // Server-readable marker. The SSG generator promotes these route values to
+  // the document head, then removes the marker from generated page markup.
+  return (
+    <script
+      type="application/json"
+      data-horizon-seo=""
+      suppressHydrationWarning
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          title,
+          description,
+          keywords,
+          image: absoluteUrl(ogImage),
+          canonical: canonical || "/",
+          robots,
+          type,
+        }).replace(/</g, "\\u003c"),
+      }}
+    />
+  );
 }

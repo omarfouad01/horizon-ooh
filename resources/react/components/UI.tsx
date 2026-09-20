@@ -4,13 +4,19 @@ import { Link, useNavigate } from "react-router-dom";
 import { makeRoutes, langPath, RED, NAVY } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
 
+export function safeJsonLd(value: unknown): string {
+  return JSON.stringify(value).replace(/</g, "\\u003c");
+}
+
 // ─── Reveal / animation primitives ───────────────────────────────────────
 // Each element gets its own IntersectionObserver with a generous rootMargin
 // (positive = triggers BEFORE element enters viewport) to prevent the race
 // condition where cards stay at opacity:0 because the observer fires too late.
 function useRevealState(delay = 0) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(
+    () => typeof document === 'undefined' || document.documentElement.hasAttribute('data-ssg')
+  );
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -85,7 +91,9 @@ export function RevealItem({
   index?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(
+    () => typeof document === 'undefined' || document.documentElement.hasAttribute('data-ssg')
+  );
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -422,7 +430,7 @@ export function Breadcrumb({ items }: { items: { label: string; href?: string }[
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
       />
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]" style={{ paddingTop: 16 }}>
         <div className="flex items-center gap-2">

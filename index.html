@@ -89,7 +89,9 @@
     <meta name="description" content="Egypt's premier outdoor advertising agency. Billboard, DOOH, Mall &amp; Airport campaigns across Cairo, Alexandria &amp; nationwide. 9,500+ premium locations." />
     <meta name="keywords" content="outdoor advertising Egypt, billboard advertising Egypt, billboard advertising Cairo, DOOH Egypt, advertising agency Egypt, outdoor ads Cairo, mall advertising Egypt, airport advertising Egypt, digital billboards Cairo, OOH advertising Egypt" />
     <meta name="author" content="HORIZON OOH" />
-    <meta name="robots" content="index, follow" />
+    <!-- The generic CSR shell is noindex. SSG generation replaces this for
+         every public route with its route-specific indexable metadata. -->
+    <meta name="robots" content="noindex, follow" />
     <!-- canonical + hreflang injected server-side per route (see routes/web.php) -->
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 

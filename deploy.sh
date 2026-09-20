@@ -2,13 +2,15 @@
 # ─────────────────────────────────────────────────────────────────────────────
 # deploy.sh  —  safe one-command deploy for horizonooh server
 #
-# Run this ONCE to set up, then use plain `git pull origin laravel` forever.
+# Pull the canonical branch, install production dependencies when needed,
+# rebuild the hydrated client + SSG pages, then clear Laravel caches.
 #
 # Usage (on the server):
 #   bash deploy.sh
 #
-# After running this once, plain `git pull origin laravel` will NEVER
-# produce conflict markers (<<<) in public/index.html or public/assets/*
+# The client bundle remains committed for hosts that deploy directly from Git.
+# SSG route files are generated during deployment because they contain a
+# build-time snapshot of the current public API content.
 # ─────────────────────────────────────────────────────────────────────────────
 
 set -e
@@ -33,7 +35,22 @@ echo "✅ Merge drivers registered (incoming + binary)"
 git pull origin laravel
 echo "✅ git pull complete — no conflicts on built assets"
 
-# ── Step 3: Clear Laravel caches ─────────────────────────────────────────────
+# ── Step 3: Install/build frontend ───────────────────────────────────────────
+if command -v npm &> /dev/null; then
+  npm ci
+  SSG_API_BASE="${SSG_API_BASE:-https://horizonooh.com/api}" npm run build
+  echo "✅ React client + SSG pages built"
+else
+  echo "⚠️  npm is unavailable — using the committed frontend build"
+fi
+
+# ── Step 4: Install PHP dependencies ─────────────────────────────────────────
+if command -v composer &> /dev/null; then
+  composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
+  echo "✅ PHP dependencies installed"
+fi
+
+# ── Step 5: Clear Laravel caches ─────────────────────────────────────────────
 if command -v php &> /dev/null; then
   php artisan optimize:clear 2>/dev/null && echo "✅ Laravel caches cleared" || true
 fi

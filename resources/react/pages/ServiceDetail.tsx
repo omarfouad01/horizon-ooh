@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useStore } from "@/store/dataStore";
-import { Reveal, RevealGroup, RevealItem, SectionHeading, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
+import { Reveal, RevealGroup, RevealItem, SectionHeading, CTABanner, Eyebrow, Breadcrumb, safeJsonLd } from "@/components/UI";
 import { serviceHref, langPath, RED, NAVY, ease } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
 import { motion } from "framer-motion";
@@ -48,7 +48,7 @@ export default function ServiceDetail() {
   const navigate = useNavigate();
 
   // Direct per-page fetch — fires immediately on mount
-  const [fetching, setFetching] = useState(true);
+  const [fetching, setFetching] = useState(false);
   const [fetchDone, setFetchDone] = useState(false);
   const [fetchedService, setFetchedService] = useState<any>(null);
   // Track whether the global store has been populated at least once
@@ -84,7 +84,7 @@ export default function ServiceDetail() {
   //   (a) direct fetch is still in-flight, OR
   //   (b) fetch finished but found nothing AND global store hasn't loaded yet
   //       (store might still be fetching — give it time before showing "not found")
-  if (fetching) return <ServiceSkeleton />;
+  if (fetching && !storeService) return <ServiceSkeleton />;
   if (!service && (!fetchDone || !storeLoaded)) return <ServiceSkeleton />;
 
   if (!service) {
@@ -130,8 +130,8 @@ export default function ServiceDetail() {
         keywords={`${(service.title ?? '').toLowerCase()} Egypt, outdoor advertising Egypt, OOH advertising Egypt, ${(service.shortTitle ?? '').toLowerCase()} Cairo`}
         canonical={`/services/${service.slug}`}
       />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }} />
       {/* Breadcrumb */}
       <div className="bg-white pt-4">
         <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: service.shortTitle }]} />

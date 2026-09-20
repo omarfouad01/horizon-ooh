@@ -8,6 +8,7 @@ import { authApi } from "@/api";
 
 // ─── Site auth helpers ─────────────────────────────────────────────────────
 function getSiteUser(): { name: string; email: string } | null {
+  if (typeof window === 'undefined') return null;
   try {
     const raw = localStorage.getItem('horizon_site_user');
     if (!raw) return null;
@@ -16,6 +17,7 @@ function getSiteUser(): { name: string; email: string } | null {
   } catch { return null; }
 }
 function clearSiteUser() {
+  if (typeof window === 'undefined') return;
   localStorage.removeItem('horizon_site_user');
   localStorage.removeItem('horizon_site_token');
 }
@@ -38,7 +40,7 @@ export function LogoMark({ size = 54, variant = 'header' }: { size?: number; var
         alt={store.settings.companyName}
         width={size}
         height={size}
-        fetchPriority={variant === 'header' ? 'high' : undefined}
+        {...(variant === 'header' ? { fetchpriority: 'high' } as any : {})}
         decoding="async"
         style={{
           height: size,
@@ -481,9 +483,9 @@ export function Footer() {
               <div key={heading}>
                 <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase font-bold mb-5" dir={isAr ? 'rtl' : undefined}>{heading}</p>
                 <div className="flex flex-col gap-3">
-                  {links.map((l) => (
+                  {links.map((l, linkIndex) => (
                     <Link
-                      key={l.label}
+                      key={`${l.href}-${linkIndex}`}
                       to={l.href}
                       className="text-white/40 text-[13px] hover:text-white transition-colors duration-200 leading-none"
                     >

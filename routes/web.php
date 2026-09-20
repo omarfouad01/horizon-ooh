@@ -65,9 +65,10 @@ Route::get('/favicon.ico', function () {
     return response('Not found', 404);
 });
 
-// ── SPA catch-all — serves index.html for ALL public routes ──────────────────
-// BrowserRouter requires every path to return index.html so React Router
-// can boot and render the correct page client-side.
+// ── Hybrid SSG/SPA catch-all ─────────────────────────────────────────────────
+// Public routes use build-time generated HTML when available. React hydrates
+// that HTML in the browser and keeps all existing interaction/API behavior.
+// Admin/auth/unknown routes fall back to the client-rendered application shell.
 Route::get('/{any?}', function () {
     // ── Guard: never intercept real static files ─────────────────────────────
     // If the URL maps to a real file in /public (e.g. /assets/react-core-xxx.js),
@@ -78,7 +79,30 @@ Route::get('/{any?}', function () {
         return response()->file($filePath);
     }
 
-    $indexPath = public_path('index.html');
+    $csrIndexPath = public_path('index.html');
+
+    // Resolve an exact, generated public-route file. The request path is
+    // normalized and checked before it is used so traversal can never escape
+    // public/ssg. A missing generated file deliberately falls back to CSR.
+    $normalizedPath = trim(rawurldecode($requestPath), '/');
+    $isSafePath = $normalizedPath === ''
+        || (!str_contains($normalizedPath, '..')
+            && preg_match('#^[A-Za-z0-9/_-]+$#', $normalizedPath));
+    $ssgRoot = public_path('ssg');
+    $ssgCandidate = $normalizedPath === ''
+        ? $ssgRoot . DIRECTORY_SEPARATOR . 'index.html'
+        : $ssgRoot . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $normalizedPath) . DIRECTORY_SEPARATOR . 'index.html';
+    $indexPath = $csrIndexPath;
+    $isSsg = false;
+
+    if ($isSafePath && file_exists($ssgCandidate)) {
+        $realSsgRoot = realpath($ssgRoot);
+        $realCandidate = realpath($ssgCandidate);
+        if ($realSsgRoot && $realCandidate && str_starts_with($realCandidate, $realSsgRoot . DIRECTORY_SEPARATOR)) {
+            $indexPath = $realCandidate;
+            $isSsg = true;
+        }
+    }
 
     if (!file_exists($indexPath)) {
         return response(
@@ -120,7 +144,7 @@ Route::get('/{any?}', function () {
     // served compressed, reducing the first-paint payload.
     $content  = file_get_contents($indexPath);
 
-    // ── SEO: Inject per-route canonical + hreflang ───────────────────────────
+    // ── SEO: Inject per-route canonical + hreflang for CSR fallbacks ─────────
     // Crawlers (Googlebot, Ahrefs) receive the correct canonical immediately
     // in raw HTML — before any JavaScript executes.
     // Rules:
@@ -147,12 +171,27 @@ Route::get('/{any?}', function () {
         '<link rel="alternate" hreflang="x-default" href="' . htmlspecialchars($canonicalUrl, ENT_QUOTES) . '" />',
     ]);
 
-    // Replace the server-side placeholder comment with the real tags
-    $content = str_replace(
-        '<!-- canonical + hreflang injected server-side per route (see routes/web.php) -->',
-        $seoTags,
-        $content
-    );
+    if (!$isSsg) {
+        // SSG pages already contain route-specific head metadata. The generic
+        // shell keeps this placeholder for runtime-only routes.
+        $content = str_replace(
+            '<!-- canonical + hreflang injected server-side per route (see routes/web.php) -->',
+            $seoTags,
+            $content
+        );
+
+        // Private and account routes must never be indexed when served from
+        // the generic client shell.
+        $isPrivateRoute = preg_match('#^/(?:ar/)?(?:admin|login|signup|profile|design-simulator)(?:/|$)#', $requestUri);
+        if ($isPrivateRoute) {
+            $content = preg_replace(
+                '/<meta name="robots" content="[^"]*"\s*\/?>/i',
+                '<meta name="robots" content="noindex, nofollow" />',
+                $content,
+                1
+            );
+        }
+    }
 
     $headers  = [
         'Content-Type'  => 'text/html; charset=UTF-8',
@@ -162,6 +201,7 @@ Route::get('/{any?}', function () {
         // makes repeat visits a 304 with zero body cost.
         'Cache-Control' => 'public, max-age=0, must-revalidate',
         'Vary'          => 'Accept-Encoding',
+        'X-Render-Mode' => $isSsg ? 'ssg' : 'csr',
     ];
 
     $acceptEncoding = request()->header('Accept-Encoding', '');

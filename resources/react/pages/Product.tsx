@@ -3,11 +3,12 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import SEO from "@/components/SEO";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useStore } from "@/store/dataStore";
-import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
+import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb, safeJsonLd } from "@/components/UI";
 import { langPath, RED, NAVY, ease } from "@/lib/routes";
 const ProductMap = lazy(() => import("@/components/ProductMap"));
 import { useLang } from "@/i18n/LangContext";
 import { billboardsApi } from "@/api";
+import ClientOnly from "@/components/ClientOnly";
 
 // ── Branded billboard skeleton ──────────────────────────────────────────────
 function BillboardSkeleton() {
@@ -164,7 +165,7 @@ export default function Product() {
   const heroRef  = useRef<HTMLElement>(null);
 
   // Direct per-page fetch — fires immediately, independent of global store
-  const [fetching, setFetching] = useState(true);
+  const [fetching, setFetching] = useState(false);
   const [fetchDone, setFetchDone] = useState(false);
   const [fetchedProduct, setFetchedProduct] = useState<any>(null);
   const [fetchedLocation, setFetchedLocation] = useState<any>(null);
@@ -241,7 +242,7 @@ export default function Product() {
   const prevDetail = useCallback(() => setDetailIdx((p) => (p - 1 + productImages.length) % productImages.length), [productImages.length]);
 
   // ── Conditional returns AFTER all hooks ──
-  if (fetching) return <BillboardSkeleton />;
+  if (fetching && !storeProduct) return <BillboardSkeleton />;
   // Keep skeleton until BOTH the direct fetch is done AND the global store has loaded
   if (!product && (!fetchDone || !storeLoaded)) return <BillboardSkeleton />;
 
@@ -320,8 +321,8 @@ export default function Product() {
         canonical={`/locations/${product.citySlug ?? citySlug}/billboards/${product.slug}`}
         ogImage={product.images?.[0]}
       />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(billboardSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(billboardSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }} />
       {/* ── Breadcrumb ───────────────────────────────────────────────── */}
       <div className="bg-white pt-4">
         <Breadcrumb items={[
@@ -574,9 +575,11 @@ export default function Product() {
           <Reveal delay={0.06}>
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
               <div className="relative overflow-hidden" style={{ height: 480 }}>
-                <Suspense fallback={<div className="absolute inset-0 bg-gray-100" />}>
-                  <ProductMap lat={product.lat ?? 0} lng={product.lng ?? 0} name={product.name ?? ""} type={product.type ?? ""} district={product.district ?? ""} city={location.city ?? ""} traffic={product.traffic ?? ""} size={product.size ?? ""} className="absolute inset-0 w-full h-full" style={{ zIndex: 1 }} />
-                </Suspense>
+                <ClientOnly fallback={<div className="absolute inset-0 bg-gray-100" aria-label="Interactive map" />}>
+                  <Suspense fallback={<div className="absolute inset-0 bg-gray-100" />}>
+                    <ProductMap lat={product.lat ?? 0} lng={product.lng ?? 0} name={product.name ?? ""} type={product.type ?? ""} district={product.district ?? ""} city={location.city ?? ""} traffic={product.traffic ?? ""} size={product.size ?? ""} className="absolute inset-0 w-full h-full" style={{ zIndex: 1 }} />
+                  </Suspense>
+                </ClientOnly>
                 <div className="absolute top-4 left-4 z-[1000] pointer-events-none">
                   <div className="flex items-center gap-2" style={{ background: "rgba(255,255,255,0.92)", backdropFilter: "blur(6px)", padding: "6px 12px", boxShadow: "0 2px 12px rgba(11,15,26,0.1)" }}>
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none">

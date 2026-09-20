@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useStore } from "@/store/dataStore";
 import { type ProjectCategory } from "@/data";
-import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
+import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb, safeJsonLd } from "@/components/UI";
 import { projectHref, langPath, RED, NAVY, ease } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
 import SEO from "@/components/SEO";
@@ -62,7 +62,7 @@ export default function ProjectDetail() {
   const navigate = useNavigate();
 
   // Direct per-page fetch — fires immediately on mount
-  const [fetching, setFetching] = useState(true);
+  const [fetching, setFetching] = useState(false);
   const [fetchDone, setFetchDone] = useState(false);
   const [fetchedProject, setFetchedProject] = useState<any>(null);
   const [fetchFailed, setFetchFailed] = useState(false);
@@ -100,7 +100,7 @@ export default function ProjectDetail() {
   const relatedAll      = [...related, ...fallbackRelated].slice(0, 3);
 
   // ── Conditional returns AFTER all hooks ──
-  if (fetching) return <ProjectSkeleton />;
+  if (fetching && !storeProject) return <ProjectSkeleton />;
   // Keep skeleton until BOTH the direct fetch is done AND the global store has loaded
   if (!project && (!fetchDone || !storeLoaded)) return <ProjectSkeleton />;
 
@@ -163,8 +163,8 @@ export default function ProjectDetail() {
         description={project.overview ? project.overview.substring(0, 160) : `${project.title} — outdoor advertising case study by HORIZON OOH in Egypt.`}
         canonical={`/projects/${project.slug}`}
       />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(caseStudySchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(caseStudySchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }} />
       <div className="bg-white pt-4">
         <Breadcrumb items={[
           { label: "Home", href: "/" },
