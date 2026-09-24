@@ -34,6 +34,11 @@ for (const check of coreChecks) {
   assert.ok(html.includes("data-ssg"), `${check.file} must be marked as generated`);
   assert.ok(html.includes(check.title), `${check.file} must contain route title`);
   assert.ok(html.includes(`rel="canonical" href="${check.canonical}"`), `${check.file} must contain canonical`);
+  assert.equal(
+    (html.match(/<link rel="canonical" href="[^"]+"\s*\/>/g) || []).length,
+    1,
+    `${check.file} must contain exactly one canonical`,
+  );
   if (check.content) assert.ok(html.includes(check.content), `${check.file} must contain meaningful page content`);
   assert.ok(/<div id="root"><div/.test(html), `${check.file} must contain rendered React markup`);
   assert.ok(!html.includes("canonical + hreflang injected server-side"), `${check.file} must not retain the shell placeholder`);
@@ -53,6 +58,11 @@ for (const pattern of representativePatterns) {
   assert.ok(/<title>[^<]{5,}<\/title>/.test(html), `${route} must have a specific title`);
   assert.ok(/<h1[^>]*>[\s\S]*?<\/h1>/.test(html), `${route} must have rendered H1 content`);
   assert.ok(html.includes(`rel="canonical" href="https://horizonooh.com${route}"`), `${route} must have a route canonical`);
+  assert.equal(
+    (html.match(/<link rel="canonical" href="[^"]+"\s*\/>/g) || []).length,
+    1,
+    `${route} must contain exactly one canonical`,
+  );
 }
 
 const arabic = read("public/ssg/ar/about/index.html");

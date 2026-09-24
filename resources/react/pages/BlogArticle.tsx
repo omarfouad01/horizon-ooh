@@ -6,6 +6,7 @@ import { blogHref, langPath, RED, NAVY } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
 import SEO from "@/components/SEO";
 import { blogApi } from "@/api";
+import { thumb, thumbSrcSet } from "@/lib/img";
 
 // ── Branded article skeleton ──────────────────────────────────────────────────
 function ArticleSkeleton() {
@@ -174,7 +175,9 @@ export default function BlogArticle() {
         {/* Hero image */}
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <div className="relative overflow-hidden" style={{ height: 480 }}>
-            <img src={post.image} alt={post.title} width={1200} height={480} loading="lazy" decoding="async" className="w-full h-full object-cover" style={{ opacity: 0.75 }} />
+            {/* The article hero is above the fold. Keep its presentation intact,
+                but allow it to be fetched immediately as this route's LCP image. */}
+            <img src={thumb(post.image, 1200, 480)} srcSet={thumbSrcSet(post.image, [600, 1200], 2.5)} sizes="(min-width: 1280px) 1200px, 100vw" alt={post.title} width={1200} height={480} fetchPriority="high" decoding="async" className="w-full h-full object-cover" style={{ opacity: 0.75 }} />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(11,15,26,0.5) 0%, transparent 50%)" }} />
           </div>
         </div>
