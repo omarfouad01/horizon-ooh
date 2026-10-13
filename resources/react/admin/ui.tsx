@@ -280,60 +280,45 @@ const MAX_MB = 10  // hard limit before uploading
 
 /**
  * Upload a file to the server and return its public URL.
- * Falls back to a compressed base64 data-URL if the upload endpoint is unavailable.
+ * Images must be persisted by the media endpoint. Storing a base64 fallback in
+ * content records makes list responses too large and leaves cards without a
+ * usable URL when those inline values are intentionally omitted by the API.
  */
 async function uploadImageToServer(file: File, folder = 'media'): Promise<string> {
   if (file.size > MAX_MB * 1024 * 1024) {
     throw new Error(`"${file.name}" is ${(file.size / 1024 / 1024).toFixed(1)} MB — max ${MAX_MB} MB allowed.`)
   }
 
-  // Try real server upload first
   const token = localStorage.getItem('horizon_admin_token')
-  if (token) {
-    try {
-      const fd = new FormData()
-      fd.append('file', file)
-      fd.append('folder', folder)
-      const base = (window as any).__API_BASE__ ?? ''
-      const resp = await fetch(`${base}/api/media/upload`, {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${token}` },
-        body: fd,
-      })
-      if (resp.ok) {
-        const json = await resp.json()
-        if (json.url) return json.url as string
-      }
-    } catch { /* fall through to base64 */ }
+  if (!token) {
+    throw new Error('Your admin session has expired. Please sign in and upload the image again.')
   }
 
-  // Fallback: compress to base64 (works in preview/offline mode)
-  return new Promise((res, rej) => {
-    const MAX_PX = 1600
-    const QUALITY = 0.82
-    const reader = new FileReader()
-    reader.onerror = rej
-    reader.onload = (ev) => {
-      const src = ev.target?.result as string
-      const img = new Image()
-      img.onerror = rej
-      img.onload = () => {
-        let { width, height } = img
-        if (width > MAX_PX || height > MAX_PX) {
-          const ratio = Math.min(MAX_PX / width, MAX_PX / height)
-          width  = Math.round(width  * ratio)
-          height = Math.round(height * ratio)
-        }
-        const canvas = document.createElement('canvas')
-        canvas.width  = width
-        canvas.height = height
-        canvas.getContext('2d')!.drawImage(img, 0, 0, width, height)
-        res(canvas.toDataURL('image/jpeg', QUALITY))
-      }
-      img.src = src
-    }
-    reader.readAsDataURL(file)
-  })
+  const fd = new FormData()
+  fd.append('file', file)
+  fd.append('folder', folder)
+  const base = (window as any).__API_BASE__ ?? ''
+
+  let resp: Response
+  try {
+    resp = await fetch(`${base}/api/media/upload`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}` },
+      body: fd,
+    })
+  } catch {
+    throw new Error('The image upload service is unavailable. Please try again.')
+  }
+
+  const json = await resp.json().catch(() => null)
+  if (!resp.ok) {
+    throw new Error(json?.message || 'The image could not be uploaded. Please try again.')
+  }
+  if (typeof json?.url !== 'string' || !json.url) {
+    throw new Error('The image upload completed without a usable URL. Please try again.')
+  }
+
+  return json.url
 }
 
 // ── ImagePicker — single image with editable alt text ──────────────────────

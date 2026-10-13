@@ -81,16 +81,21 @@ function ClientCard({ client, index, active, onClick }: { client: ClientGroup; i
       }}
     >
       <div className="relative overflow-hidden" style={{ height: 260 }}>
-        <img
-          src={client.coverImage}
-          alt={`${client.name} client card`}
-          width={600} height={260}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-          style={{ opacity: 0.88 }}
-          loading={index === 0 ? undefined : 'lazy'}
-          {...(index === 0 ? { fetchpriority: 'high' } as any : {})}
-          decoding="async"
-        />
+        {client.coverImage
+          ? <img
+              src={client.coverImage}
+              alt={`${client.name} client card`}
+              width={600} height={260}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+              style={{ opacity: 0.88 }}
+              loading={index === 0 ? undefined : 'lazy'}
+              {...(index === 0 ? { fetchpriority: 'high' } as any : {})}
+              decoding="async"
+            />
+          : <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+              <span className="text-4xl font-black text-gray-300 select-none">{client.name?.charAt(0)?.toUpperCase()}</span>
+            </div>
+        }
         <div
           className="absolute inset-0"
           style={{ background: "linear-gradient(to top, rgba(11,15,26,0.78) 0%, rgba(11,15,26,0.16) 60%, transparent 100%)" }}
