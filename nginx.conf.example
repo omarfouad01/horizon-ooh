@@ -46,7 +46,9 @@ server {
     error_log  /var/log/nginx/horizon-ooh.error.log;
 
     # ── Vite-built React assets (long-lived cache) ────────────────────────────
-    location /app/ {
+    # Vite emits fingerprinted bundles under /assets/. Cache them immutably so
+    # repeat visits do not re-download JS/CSS; a new build uses new filenames.
+    location ^~ /assets/ {
         expires 1y;
         add_header Cache-Control "public, immutable";
         try_files $uri =404;

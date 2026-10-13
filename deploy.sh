@@ -39,6 +39,7 @@ echo "✅ git pull complete — no conflicts on built assets"
 if command -v npm &> /dev/null; then
   npm ci
   SSG_API_BASE="${SSG_API_BASE:-https://horizonooh.com/api}" npm run build
+  npm run test:ssg
   echo "✅ React client + SSG pages built"
 else
   echo "⚠️  npm is unavailable — using the committed frontend build"

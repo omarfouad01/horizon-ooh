@@ -7,6 +7,7 @@ import { useLang } from "@/i18n/LangContext";
 import { motion } from "framer-motion";
 import SEO from "@/components/SEO";
 import { servicesApi } from "@/api";
+import { thumb, thumbSrcSet } from "@/lib/img";
 
 // ── Branded service skeleton ──────────────────────────────────────────────────
 function ServiceSkeleton() {
@@ -173,10 +174,15 @@ export default function ServiceDetail() {
           {/* Right image */}
           <div className="relative overflow-hidden">
             <img
-              src={service.image}
+              src={thumb(service.image, 800, 600)}
+              srcSet={thumbSrcSet(service.image, [400, 800, 1200], 4 / 3)}
+              sizes="(min-width: 1024px) 50vw, 100vw"
               alt={service.title}
               width={800} height={600}
-              loading="lazy"
+              // This image is visible in the first viewport and is the likely
+              // LCP candidate for this route. Loading it eagerly changes no
+              // visual treatment, but prevents the browser from deferring it.
+              fetchPriority="high"
               decoding="async"
               className="w-full h-full object-cover"
               style={{ opacity: 0.6 }}

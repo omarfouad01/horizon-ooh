@@ -4,6 +4,7 @@ import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, SectionHeading, CTABanner, Eyebrow, Breadcrumb } from "@/components/UI";
 import { productHref, langPath, RED, NAVY } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
+import { thumb, thumbSrcSet } from "@/lib/img";
 
 export default function LocationDetail() {
   // ── ALL hooks first — no conditional returns before hooks ──
@@ -76,7 +77,7 @@ export default function LocationDetail() {
             </Reveal>
           </div>
           <div className="relative overflow-hidden">
-            <img src={location.image} alt={location.city} width={800} height={500} className="w-full h-full object-cover" style={{ opacity: 0.6 }} loading="lazy" decoding="async" />
+            <img src={thumb(location.image, 800, 500)} srcSet={thumbSrcSet(location.image, [400, 800, 1200], 1.6)} sizes="(min-width: 1024px) 50vw, 100vw" alt={location.city} width={800} height={500} className="w-full h-full object-cover" style={{ opacity: 0.6 }} fetchPriority="high" decoding="async" />
             <div className="absolute inset-0" style={{ background: `linear-gradient(to right, ${NAVY} 0%, rgba(11,15,26,0.15) 65%, transparent 100%)` }} />
           </div>
         </div>
