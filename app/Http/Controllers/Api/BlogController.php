@@ -35,11 +35,22 @@ class BlogController extends Controller
         ];
     }
 
+    /** Lightweight cards for listing pages; article bodies are fetched by slug. */
+    private function transformList(BlogPost $p): array
+    {
+        return collect($this->transform($p))
+            ->except(['content', 'body', 'bodyAr'])
+            ->all();
+    }
+
     public function index(Request $request): JsonResponse
     {
         $q = BlogPost::orderBy('sort_order')->orderBy('published_at', 'desc');
         if (!$request->filled('all')) $q->where('published', true);
-        return response()->json($q->get()->map(fn($p) => $this->transform($p)));
+        $full = $request->boolean('all') || $request->boolean('full');
+        return response()->json($q->get()->map(
+            fn($p) => $full ? $this->transform($p) : $this->transformList($p)
+        ));
     }
 
     public function show(string $slug): JsonResponse

@@ -410,7 +410,11 @@ export default function Projects() {
 
   return (
     <>
-      <SEO title="Case Studies & Projects | HORIZON OOH" description="Browse HORIZON OOH's billboard advertising case studies and campaign projects across Egypt. Real results for real brands." canonical="/projects" />
+      <SEO
+        title={isAr ? 'دراسات الحالة والمشروعات | هورايزون' : 'Case Studies & Projects | HORIZON OOH'}
+        description={isAr ? 'استكشف دراسات الحالة ومشروعات الحملات الإعلانية الخارجية لهورايزون في مصر.' : "Browse HORIZON OOH's billboard advertising case studies and campaign projects across Egypt. Real results for real brands."}
+        canonical={isAr ? '/ar/projects' : '/projects'}
+      />
       <section className="bg-white" style={{ paddingTop: 64, paddingBottom: 40 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <Reveal>

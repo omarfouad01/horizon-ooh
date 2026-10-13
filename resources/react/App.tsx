@@ -1,10 +1,34 @@
 // Horizon OOH v2.1.0 - build 20260427
-import { LangProvider } from "@/i18n/LangContext";
+import { LangProvider, useLang } from "@/i18n/LangContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { lazy, Suspense, useEffect, useState } from "react";
 import Layout from "@/components/Layout";
 import { FaviconSync } from "@/components/FaviconSync";
+import { trackEvent } from "@/lib/analytics";
+import { useStore } from "@/store/dataStore";
+
+function AnalyticsTracker() {
+  const location = useLocation();
+  useEffect(() => {
+    trackEvent('page_view', { page_path: `${location.pathname}${location.search}` });
+  }, [location.pathname, location.search]);
+  return null;
+}
+
+function DataStatus() {
+  const { error, loading, reload } = useStore();
+  const { isAr } = useLang();
+  if (!error || loading) return null;
+  return (
+    <div role="status" className="fixed bottom-4 left-4 right-4 sm:left-auto sm:max-w-md z-[10000] bg-[#0B0F1A] text-white p-4 shadow-2xl flex items-center gap-4">
+      <p className="text-sm flex-1">{isAr ? 'تعذر تحديث بعض المحتوى. يمكنك المحاولة مرة أخرى.' : 'Some live content could not be refreshed. You can try again.'}</p>
+      <button type="button" onClick={() => reload()} className="text-xs font-bold uppercase tracking-wider text-[#D90429]">
+        {isAr ? 'إعادة المحاولة' : 'Retry'}
+      </button>
+    </div>
+  );
+}
 
 // Lazy-load toast/tooltip providers — they are never needed for LCP
 // and add ~15 KB to the eager bundle when loaded synchronously.
@@ -115,10 +139,12 @@ export function PublicRoutes() {
 
 export const AppContent = () => (
   <>
+    <AnalyticsTracker />
     {/* FaviconSync: keeps browser tab favicon in sync with admin dashboard setting */}
     <FaviconSync />
     {/* LangProvider lives inside the router so it can use navigation/location */}
     <LangProvider>
+      <DataStatus />
       <Routes>
         {/* ── English routes: / ── */}
         <Route path="/*" element={<PublicRoutes />} />

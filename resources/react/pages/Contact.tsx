@@ -5,11 +5,16 @@ import { motion } from "framer-motion";
 import { Reveal, RevealGroup, RevealItem, PageHero, Eyebrow } from "@/components/UI";
 import { RED, NAVY, ease } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
+import { useSearchParams } from "react-router-dom";
+import { trackEvent } from "@/lib/analytics";
 
 export default function Contact() {
   const { settings, contactContent } = useStore();
   const cc = contactContent || {};
   const { isAr, t } = useLang();
+  const [searchParams] = useSearchParams();
+  const billboardCode = searchParams.get('billboard') || '';
+  const billboardName = searchParams.get('name') || '';
   const CONTACT_INFO = [
     { label: isAr ? (cc.hqLabelAr || 'المقر الرئيسي بالقاهرة') : (cc.hqLabel || (settings as any).hqLabel || 'Cairo HQ'), value: settings.address || 'Cairo, Egypt', icon: '◉' },
     { label: isAr ? 'الهاتف' : "Phone",   value: settings.phone   || "+20 2 1234 5678", icon: "◉" },
@@ -35,7 +40,10 @@ export default function Contact() {
       email:   form.email   || "",
       phone:   form.phone   || "",
       company: form.company || "",
-      message: form.message || "",
+      subject: billboardCode ? `Billboard quote request: ${billboardCode}` : undefined,
+      message: billboardCode
+        ? `[Selected billboard: ${billboardCode}${billboardName ? ` — ${billboardName}` : ''}]\n\n${form.message || ""}`
+        : form.message || "",
     };
 
     // Track as site user immediately in local state
@@ -44,15 +52,27 @@ export default function Contact() {
     }
 
     // contactStore.add handles both API submission and local state update
-    await contactStore.add(payload);
-
-    setLoading(false);
-    setSubmitted(true);
+    try {
+      await contactStore.add(payload);
+      trackEvent('generate_lead', { source: searchParams.get('source') || 'contact', billboard_code: billboardCode || undefined });
+      setSubmitted(true);
+    } catch {
+      setApiError(isAr
+        ? 'تعذر إرسال رسالتك. لم نفقد بياناتك — يرجى المحاولة مرة أخرى أو التواصل عبر واتساب.'
+        : 'We could not send your message. Your details are still here—please retry or contact us on WhatsApp.');
+      trackEvent('contact_form_error', { source: searchParams.get('source') || 'contact', billboard_code: billboardCode || undefined });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <>
-      <SEO title="Contact Us | HORIZON OOH" description="Get in touch with HORIZON OOH for outdoor advertising inquiries, billboard bookings and campaign planning across Egypt." canonical="/contact" />
+      <SEO
+        title={isAr ? 'تواصل معنا | هورايزون' : 'Contact Us | HORIZON OOH'}
+        description={isAr ? 'تواصل مع هورايزون للاستفسار عن الإعلانات الخارجية وحجز اللوحات وتخطيط الحملات في مصر.' : 'Get in touch with HORIZON OOH for outdoor advertising inquiries, billboard bookings and campaign planning across Egypt.'}
+        canonical={isAr ? '/ar/contact' : '/contact'}
+      />
       <PageHero
         eyebrow={isAr ? (cc.heroEyebrowAr || 'تواصل معنا') : (cc.heroEyebrow || 'Get in Touch')}
         title={isAr ? (cc.heroTitleAr || 'اتصل بنا.') : (cc.heroTitle || 'Contact Us.')}
@@ -96,6 +116,14 @@ export default function Contact() {
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                  {billboardCode && (
+                    <div className="p-4 border border-[#D90429]/20" style={{ background: 'rgba(217,4,41,0.04)' }}>
+                      <p className="text-[10px] font-bold tracking-[0.2em] uppercase mb-1" style={{ color: RED }}>
+                        {isAr ? 'طلب عرض سعر لـ' : 'Quote request for'}
+                      </p>
+                      <p className="font-bold" style={{ color: NAVY }}>{billboardCode}{billboardName ? ` — ${billboardName}` : ''}</p>
+                    </div>
+                  )}
                   {/* Row 1 */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     {[

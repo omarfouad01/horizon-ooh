@@ -557,26 +557,44 @@ forceReload: async () => {
     const contactsP      = isAuthenticated ? contactsApi.all()      : Promise.resolve([]);
     const designUploadsP = isAuthenticated ? designUploadsApi.all() : Promise.resolve([]);
 
+    // Public pages only request the collections they actually render. The home
+    // and admin experiences still receive the complete data set, while a
+    // contact/service visitor no longer downloads the entire inventory/blog.
+    const rawPath = typeof window !== 'undefined' ? window.location.pathname : '/';
+    const routePath = rawPath.replace(/^\/ar(?=\/|$)/, '') || '/';
+    const isAdminRoute = routePath.startsWith('/admin');
+    const isHomeRoute = routePath === '/';
+    const needsLocations = isHomeRoute || isAdminRoute || routePath.startsWith('/locations');
+    const needsServices = isHomeRoute || isAdminRoute || routePath.startsWith('/services');
+    const needsProjects = isHomeRoute || isAdminRoute || routePath.startsWith('/projects');
+    const needsBlog = isHomeRoute || isAdminRoute || routePath.startsWith('/blog');
+    const needsAbout = isAdminRoute || routePath === '/about';
+    const needsHomeContent = isHomeRoute || isAdminRoute;
+    const needsInventoryFilters = needsLocations || isAdminRoute;
+    const needsHomeCollections = isHomeRoute || isAdminRoute;
+    const needsBrands = isHomeRoute || needsProjects || isAdminRoute;
+    const needsSimulator = isAdminRoute || routePath.startsWith('/design-simulator');
+
     const results = await Promise.allSettled([
-      locationsApi.all(),           // 0
-      districtsApi.all(),           // 1
-      adFormatsApi.all(),           // 2 — Types (Unipole, Rooftop…)
-      servicesApi.all(),            // 3
-      projectsApi.all(),            // 4
-      blogApi.all(),                // 5
-      trustStatsApi.all(),          // 6
-      processStepsApi.all(),        // 7
-      clientBrandsApi.all(),        // 8
+      needsLocations ? locationsApi.all(isAdminRoute) : Promise.resolve([]), // 0
+      needsInventoryFilters ? districtsApi.all() : Promise.resolve([]), // 1
+      needsInventoryFilters ? adFormatsApi.all() : Promise.resolve([]), // 2
+      needsServices ? servicesApi.all() : Promise.resolve([]), // 3
+      needsProjects ? projectsApi.all() : Promise.resolve([]), // 4
+      needsBlog ? blogApi.all(isAdminRoute) : Promise.resolve([]), // 5
+      needsHomeCollections ? trustStatsApi.all() : Promise.resolve([]), // 6
+      needsHomeCollections ? processStepsApi.all() : Promise.resolve([]), // 7
+      needsBrands ? clientBrandsApi.all() : Promise.resolve([]), // 8
       settingsApi.all(),            // 9
-      settingsApi.homeContent(),    // 10
-      settingsApi.aboutContent(),   // 11
-      billboardSizesApi.all(),      // 12
-      simulatorTemplatesApi.all(),  // 13
+      needsHomeContent ? settingsApi.homeContent() : Promise.resolve({}), // 10
+      needsAbout ? settingsApi.aboutContent() : Promise.resolve({}), // 11
+      needsSimulator ? billboardSizesApi.all() : Promise.resolve([]), // 12
+      needsSimulator ? simulatorTemplatesApi.all() : Promise.resolve([]), // 13
       designUploadsP,               // 14 — design uploads (admin-only)
       suppliersP,                   // 15 — suppliers (admin-only)
       customersP,                   // 16 — customers (admin-only)
       contactsP,                    // 17 — contacts (admin-only)
-      billboardFormatsApi.all(),    // 18 — Ad Formats (Billboard, Digital…)
+      needsInventoryFilters ? billboardFormatsApi.all() : Promise.resolve([]), // 18
     ]);
 
     const val = (i: number) => results[i].status === 'fulfilled' ? (results[i] as PromiseFulfilledResult<any>).value : null;
@@ -631,23 +649,31 @@ forceReload: async () => {
 
     // Preserve existing simulator data if API returned nothing
     const cur = get();
+    const requiredIndexes = [9];
+    if (needsHomeContent) requiredIndexes.push(10);
+    if (needsAbout) requiredIndexes.push(11);
+    if (needsLocations) requiredIndexes.push(0, 1, 2, 18);
+    if (needsServices) requiredIndexes.push(3);
+    if (needsProjects) requiredIndexes.push(4, 8);
+    if (needsBlog) requiredIndexes.push(5);
+    const failedRequiredRequests = requiredIndexes.filter(i => results[i].status === 'rejected').length;
 
     set({
-      locations:          normLocs.length ? normLocs : (LOCATIONS as any[]),
-      districts:          normDists,
-      adFormats:          normFmts.length   ? normFmts   : AD_FORMATS_DEFAULT,
-      billboardFormats:   normBbFmts.length ? normBbFmts : BILLBOARD_FORMATS_DEFAULT,
-      services:           normSvcs,
-      projects:           normProjs,
-      blogPosts:          normBlog,
-      trustStats:         statsRaw,
-      processSteps:       normSteps.length ? normSteps : _demoProcess,
-      process:            normSteps.length ? normSteps : _demoProcess,
-      clientBrands:       normBrands,
+      locations:          needsLocations ? (normLocs.length ? normLocs : cur.locations) : cur.locations,
+      districts:          needsInventoryFilters ? normDists : cur.districts,
+      adFormats:          needsInventoryFilters ? (normFmts.length ? normFmts : cur.adFormats) : cur.adFormats,
+      billboardFormats:   needsInventoryFilters ? (normBbFmts.length ? normBbFmts : cur.billboardFormats) : cur.billboardFormats,
+      services:           needsServices ? (normSvcs.length ? normSvcs : cur.services) : cur.services,
+      projects:           needsProjects ? (normProjs.length ? normProjs : cur.projects) : cur.projects,
+      blogPosts:          needsBlog ? (normBlog.length ? normBlog : cur.blogPosts) : cur.blogPosts,
+      trustStats:         needsHomeCollections ? (statsRaw.length ? statsRaw : cur.trustStats) : cur.trustStats,
+      processSteps:       needsHomeCollections ? (normSteps.length ? normSteps : cur.processSteps) : cur.processSteps,
+      process:            needsHomeCollections ? (normSteps.length ? normSteps : cur.process) : cur.process,
+      clientBrands:       needsBrands ? (normBrands.length ? normBrands : cur.clientBrands) : cur.clientBrands,
       settings:           Object.keys(settsRaw).length ? settsRaw : DEMO_SETTINGS,
-      homeContent:        Object.keys(hcRaw).length    ? hcRaw    : DEMO_HOME,
-      about:              Object.keys(acRaw).length    ? acRaw    : DEMO_ABOUT,
-      aboutContent:       Object.keys(acRaw).length    ? acRaw    : DEMO_ABOUT,
+      homeContent:        needsHomeContent && Object.keys(hcRaw).length ? hcRaw : cur.homeContent,
+      about:              needsAbout && Object.keys(acRaw).length ? acRaw : cur.about,
+      aboutContent:       needsAbout && Object.keys(acRaw).length ? acRaw : cur.aboutContent,
       projectsContent:    (() => { try { const v = settsRaw['projects_page_content']; return typeof v === 'string' ? JSON.parse(v) : (v ?? DEMO_PROJECTS_CONTENT); } catch { return DEMO_PROJECTS_CONTENT; } })(),
       locationsContent:   (() => {
         try {
@@ -694,7 +720,7 @@ forceReload: async () => {
       loaded:    true,
       loading:   false,
       usingDemo: false,
-      error:     null,
+      error:     failedRequiredRequests > 0 ? 'Some live content could not be refreshed.' : null,
     });
   },
 }));

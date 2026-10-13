@@ -9,6 +9,7 @@ const ProductMap = lazy(() => import("@/components/ProductMap"));
 import { useLang } from "@/i18n/LangContext";
 import { billboardsApi } from "@/api";
 import ClientOnly from "@/components/ClientOnly";
+import { trackEvent } from "@/lib/analytics";
 
 // ── Branded billboard skeleton ──────────────────────────────────────────────
 function BillboardSkeleton() {
@@ -404,7 +405,10 @@ export default function Product() {
             </div>
 
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease, delay: 0.7 }} className="flex-shrink-0 hidden md:block">
-              <Link to={langPath(lang, "/contact")} className="group relative overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white flex items-center active:scale-[0.97] transition-transform"
+              <Link
+                to={`${langPath(lang, "/contact")}?${new URLSearchParams({ billboard: product.code || String(product.id), name: product.nameEn || product.name || '', source: 'billboard-detail' })}`}
+                onClick={() => trackEvent('quote_request_click', { source: 'billboard-detail', billboard_code: product.code || String(product.id) })}
+                className="group relative overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white flex items-center active:scale-[0.97] transition-transform"
                 style={{ height: 52, padding: "0 36px", background: RED, textDecoration: 'none' }}>
                 <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: "white" }} />
                 <span className="relative z-10 group-hover:text-[#0B0F1A] transition-colors duration-300">{t('product.bookLocation')}</span>
@@ -505,13 +509,17 @@ export default function Product() {
 
             <Reveal delay={0.2}>
               <div className="flex flex-col gap-3 mt-10">
-                <Link to={langPath(lang, "/contact")} className="group relative w-full h-[54px] overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase text-white flex items-center justify-center active:scale-[0.97] transition-transform"
+                <Link
+                  to={`${langPath(lang, "/contact")}?${new URLSearchParams({ billboard: product.code || String(product.id), name: product.nameEn || product.name || '', source: 'billboard-detail' })}`}
+                  onClick={() => trackEvent('quote_request_click', { source: 'billboard-detail', billboard_code: product.code || String(product.id) })}
+                  className="group relative w-full h-[54px] overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase text-white flex items-center justify-center active:scale-[0.97] transition-transform"
                   style={{ background: RED, textDecoration: 'none' }}>
                   <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: NAVY }} />
                   <span className="relative z-10">{t('product.getQuote')}</span>
                 </Link>
                 <a href={`https://wa.me/${whatsappNumber}?text=Hi%20${encodeURIComponent(settings.companyName)}%2C%20I%27m%20interested%20in%20booking%20${encodeURIComponent(product.nameEn || product.name)}`}
                   target="_blank" rel="noopener noreferrer"
+                  onClick={() => trackEvent('whatsapp_click', { source: 'billboard-detail', billboard_code: product.code || String(product.id) })}
                   className="w-full h-[48px] flex items-center justify-center gap-2.5 border transition-colors duration-200 hover:border-[#25D366] group"
                   style={{ border: '1.5px solid rgba(11,15,26,0.12)', textDecoration: 'none' }}>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
