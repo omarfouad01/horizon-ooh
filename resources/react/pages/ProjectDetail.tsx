@@ -8,6 +8,7 @@ import { projectHref, langPath, RED, NAVY, ease } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
 import SEO from "@/components/SEO";
 import { projectsApi } from "@/api";
+import { thumb, thumbSrcSet } from "@/lib/img";
 
 // ── Branded project skeleton ──────────────────────────────────────────────────
 function ProjectSkeleton() {
@@ -174,7 +175,7 @@ export default function ProjectDetail() {
       </div>
 
       <section className="relative overflow-hidden" style={{ background: NAVY, minHeight: 620 }}>
-        <img src={project.heroImage} alt={`${project.title} — outdoor advertising case study ${project.location}`} width={1440} height={620} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover" style={{ opacity: 0.45 }} />
+        <img src={thumb(project.heroImage, 1440, 620)} srcSet={thumbSrcSet(project.heroImage, [720, 1200, 1440], 1440 / 620)} sizes="100vw" alt={`${project.title} — outdoor advertising case study ${project.location}`} width={1440} height={620} fetchPriority="high" decoding="async" className="absolute inset-0 w-full h-full object-cover" style={{ opacity: 0.45 }} />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(11,15,26,0.92) 0%, rgba(11,15,26,0.5) 55%, rgba(11,15,26,0.2) 100%)" }} />
 
         <div className="relative max-w-[1440px] mx-auto flex flex-col justify-end px-4 sm:px-8 lg:px-[120px]" style={{ paddingTop: 120, paddingBottom: 72, minHeight: 620 }}>

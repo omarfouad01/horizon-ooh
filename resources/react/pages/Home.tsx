@@ -290,6 +290,33 @@ function OutlineButton({
 
 function HeroSection() {
   const heroRef = useRef<HTMLElement>(null);
+  const heroImageRef = useRef<HTMLDivElement>(null);
+
+  // Keep the existing parallax effect, but own its listener lifecycle. The
+  // previous callback ref could register another listener when React invoked
+  // the ref again, increasing scroll work without changing the visual result.
+  useEffect(() => {
+    const hero = heroRef.current;
+    const image = heroImageRef.current;
+    if (!hero || !image) return;
+
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const { top, height } = hero.getBoundingClientRect();
+        const progress = Math.max(0, Math.min(1, -top / height));
+        image.style.transform = `scale(${1 + progress * 0.08})`;
+        image.style.opacity = String(0.22 - progress * 0.08);
+      });
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, []);
 
   const navigate = useNavigate();
   const [cities,    setCities]    = useState<string[]>([]);
@@ -371,28 +398,7 @@ function HeroSection() {
       {/* ── BACKGROUND parallax image ──────────────────────── */}
       {/* Plain <img> so browser preload scanner can discover it. Parallax via rAF-based scroll listener below. */}
       <div
-        ref={(el) => {
-          // Scroll-parallax via rAF — never blocks initial paint of the LCP element.
-          // framer-motion wrappers were removed from this element because their JS
-          // overhead (useScroll + useTransform MotionValue chain) inflates
-          // Element Render Delay before the image can visually commit.
-          if (!el) return;
-          let raf = 0;
-          const hero = heroRef.current;
-          const onScroll = () => {
-            cancelAnimationFrame(raf);
-            raf = requestAnimationFrame(() => {
-              if (!hero || !el) return;
-              const { top, height } = hero.getBoundingClientRect();
-              const progress = Math.max(0, Math.min(1, -top / height));
-              const scale   = 1 + progress * 0.08;      // 1.00 → 1.08 on scroll
-              const opacity = 0.22 - progress * 0.08;   // 0.22 → 0.14 on scroll
-              el.style.transform = `scale(${scale})`;
-              el.style.opacity   = String(opacity);
-            });
-          };
-          window.addEventListener('scroll', onScroll, { passive: true });
-        }}
+        ref={heroImageRef}
         className="absolute inset-0 pointer-events-none"
         style={{ opacity: 0.22, willChange: 'transform, opacity', transformOrigin: 'center center' }}
       >

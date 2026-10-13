@@ -172,8 +172,19 @@ Route::get('/{any?}', function () {
     ]);
 
     if (!$isSsg) {
-        // SSG pages already contain route-specific head metadata. The generic
-        // shell keeps this placeholder for runtime-only routes.
+        // SSG pages already contain route-specific head metadata. For CSR
+        // fallbacks, remove any stale build-time canonical/alternate tags
+        // before injecting the request-specific set. This prevents a deployed
+        // shell with a homepage canonical from making every route canonicalize
+        // to '/', which is invisible to visitors but harmful to SEO.
+        $content = preg_replace(
+            [
+                '/\s*<link\s+rel="canonical"[^>]*>\s*/i',
+                '/\s*<link\s+rel="alternate"[^>]*hreflang=[^>]*>\s*/i',
+            ],
+            "\n    ",
+            $content
+        );
         $content = str_replace(
             '<!-- canonical + hreflang injected server-side per route (see routes/web.php) -->',
             $seoTags,
