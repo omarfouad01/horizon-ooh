@@ -57,12 +57,12 @@ export default function LocationDetail() {
                 className="font-black leading-[0.88] tracking-[-0.05em] text-white mb-6"
                 style={{ fontSize: "clamp(52px, 6vw, 80px)" }}
               >
-                {location.headline}
+                {isAr && location.headlineAr ? location.headlineAr : location.headline}
               </h1>
             </Reveal>
             <Reveal delay={0.12}>
               <p className="text-[17px] leading-[1.75] mb-12" style={{ color: "rgba(255,255,255,0.45)" }}>
-                {location.description}
+                {isAr && location.descriptionAr ? location.descriptionAr : location.description}
               </p>
             </Reveal>
             <Reveal delay={0.2}>

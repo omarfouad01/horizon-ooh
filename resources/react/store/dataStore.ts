@@ -284,9 +284,10 @@ export const contactStore = {
   add: async (data: any) => {
     const entry: ContactEntry = { ...data, id: data.id ?? Date.now(), status: 'new', created_at: new Date().toISOString(), createdAt: new Date().toISOString() };
     if (HAS_API_LOCAL) {
-      try { await contactsApi.submit(data); } catch { /* ignore */ }
+      await contactsApi.submit(data);
     }
     set(st => ({ contacts: [...st.contacts, entry] }));
+    return entry;
   },
   update: async (id: any, data: any) => {
     if (HAS_API_LOCAL) { try { await contactsApi.update(id, data); await reload(); } catch { /* ignore */ } }

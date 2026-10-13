@@ -27,7 +27,7 @@ export const authApi = {
 
 // ─── Locations ────────────────────────────────────────────────────────────────
 export const locationsApi = {
-  all:    ()             => cachedGet('/locations'),
+  all:    (full = false) => cachedGet('/locations', full ? { params: { full: 1 } } : {}),
   get:    (slug: string) => cachedGet(`/locations/${slug}`),
   create: (data: any)    => api.post('/locations', data),
   update: (id: any, data: any) => api.put(`/locations/${id}`, data),

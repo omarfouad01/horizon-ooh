@@ -9,8 +9,10 @@ use Illuminate\Support\Str;
 
 class LocationController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
+        $full = $request->boolean('full');
+
         return response()->json(
             Location::with([
                 'districts',
@@ -22,7 +24,7 @@ class LocationController extends Controller
             ])
                 ->orderBy('sort_order')->orderBy('city')
                 ->get()
-                ->map(fn($l) => $this->transform($l))
+                ->map(fn($l) => $this->transform($l, $full))
         );
     }
 
@@ -97,7 +99,7 @@ class LocationController extends Controller
         return response()->json(['message' => 'Deleted']);
     }
 
-    private function transform(Location $l): array
+    private function transform(Location $l, bool $full = true): array
     {
         return [
             'id'               => $l->id,
@@ -119,11 +121,11 @@ class LocationController extends Controller
                 'nameAr'     => $d->name_ar,
                 'locationId' => $d->location_id,
             ])->values(),
-            'products'         => $l->billboards->map(fn($b) => $this->transformBillboard($b, $l))->values(),
+            'products'         => $l->billboards->map(fn($b) => $this->transformBillboard($b, $l, $full))->values(),
         ];
     }
 
-    private function transformBillboard($b, Location $l): array
+    private function transformBillboard($b, Location $l, bool $full = true): array
     {
         return [
             'id'             => $b->id,
@@ -145,8 +147,8 @@ class LocationController extends Controller
             'size'           => $b->size,
             'sqm'            => $b->sqm,
             'sides'          => $b->sides,
-            'material'       => $b->material,
-            'brightness'     => $b->brightness,
+            'material'       => $full ? $b->material : null,
+            'brightness'     => $full ? $b->brightness : null,
             'width'          => $b->width,
             'height'         => $b->height,
             'price'          => $b->price,
@@ -154,13 +156,15 @@ class LocationController extends Controller
             'illuminated'    => $b->illuminated,
             'lat'            => $b->lat !== null ? (float) $b->lat : null,
             'lng'            => $b->lng !== null ? (float) $b->lng : null,
-            'full_address'   => $b->full_address,
-            'description'    => $b->description,
-            'descriptionAr'  => $b->description_ar,
+            'full_address'   => $full ? $b->full_address : null,
+            'description'    => $full ? $b->description : null,
+            'descriptionAr'  => $full ? $b->description_ar : null,
             'featured'       => $b->featured,
             'adFormat'       => $b->billboardFormat?->name ?? $b->billboard_format_id,
             'created_at'     => $b->created_at?->toISOString(),
-            'images'         => $b->images->map(fn($i) => [
+            'images'         => $b->images
+                ->when(!$full, fn($images) => $images->sortByDesc('is_primary')->take(1))
+                ->map(fn($i) => [
                 'id'         => $i->id,
                 'url'        => $i->url,
                 'is_primary' => $i->is_primary ?? false,

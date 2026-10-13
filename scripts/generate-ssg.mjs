@@ -65,10 +65,10 @@ async function loadPublicSnapshot() {
     homeContent,
     aboutContent,
   ] = await Promise.all([
-    fetchJson(base, "locations"),
+    fetchJson(base, "locations?full=1"),
     fetchJson(base, "services"),
     fetchJson(base, "projects"),
-    fetchJson(base, "blog"),
+    fetchJson(base, "blog?full=1"),
     fetchJson(base, "settings"),
     fetchJson(base, "home-content"),
     fetchJson(base, "about-content"),

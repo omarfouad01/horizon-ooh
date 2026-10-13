@@ -4,22 +4,69 @@ import { useStore } from "@/store/dataStore";
 import { Reveal, RevealGroup, RevealItem, PageHero, CTABanner } from "@/components/UI";
 import { blogHref, langPath, RED, NAVY } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
+import { useMemo, useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 
 export default function Blog() {
   const { blogPosts: BLOG_POSTS } = useStore()
   const { lang, isAr, t } = useLang()
-  const featured = BLOG_POSTS[0] ?? null;
-  const rest = BLOG_POSTS.slice(1);
+  const [query, setQuery] = useState('');
+  const [category, setCategory] = useState('All');
+  const categories = useMemo(() => ['All', ...Array.from(new Set(BLOG_POSTS.map((post: any) => post.category).filter(Boolean)))], [BLOG_POSTS]);
+  const filteredPosts = useMemo(() => {
+    const needle = query.trim().toLocaleLowerCase(lang);
+    return BLOG_POSTS.filter((post: any) => {
+      if (category !== 'All' && post.category !== category) return false;
+      if (!needle) return true;
+      const text = [post.title, post.titleAr, post.excerpt, post.excerptAr, ...(post.tags || [])]
+        .filter(Boolean).join(' ').toLocaleLowerCase(lang);
+      return text.includes(needle);
+    });
+  }, [BLOG_POSTS, category, lang, query]);
+  const featured = filteredPosts[0] ?? null;
+  const rest = filteredPosts.slice(1);
 
   return (
     <>
-      <SEO title="Outdoor Advertising Blog | HORIZON OOH" description="Industry insights, OOH advertising tips and campaign inspiration from Egypt's leading billboard agency." canonical="/blog" />
+      <SEO
+        title={isAr ? 'مدونة الإعلانات الخارجية | هورايزون' : 'Outdoor Advertising Blog | HORIZON OOH'}
+        description={isAr ? 'رؤى ونصائح وأفكار لحملات الإعلانات الخارجية في مصر.' : "Industry insights, OOH advertising tips and campaign inspiration from Egypt's leading billboard agency."}
+        canonical={langPath(lang, "/blog")}
+      />
       <PageHero
         eyebrow={t('blog.insights')}
         title={t('blog.title')}
         titleAccent={t('blog.titleAccent')}
         subtitle={t('blog.subtitle')}
       />
+
+      <section className="bg-white border-b border-[#0B0F1A]/[0.07]">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px] py-6 flex flex-col md:flex-row gap-4">
+          <label className="flex-1">
+            <span className="sr-only">{isAr ? 'البحث في المقالات' : 'Search articles'}</span>
+            <input
+              type="search"
+              value={query}
+              onChange={(event) => { setQuery(event.target.value); trackEvent('blog_search', { has_query: Boolean(event.target.value) }); }}
+              placeholder={isAr ? 'ابحث في المقالات...' : 'Search articles...'}
+              className="w-full h-12 px-4 border border-[#0B0F1A]/15 bg-[#F8F8F9] outline-none focus:border-[#D90429]"
+            />
+          </label>
+          <div className="flex gap-2 overflow-x-auto" aria-label={isAr ? 'فئات المقالات' : 'Article categories'}>
+            {categories.map((item) => (
+              <button
+                key={item}
+                type="button"
+                onClick={() => { setCategory(item); trackEvent('blog_category_filter', { category: item }); }}
+                className="h-12 px-4 whitespace-nowrap text-xs font-bold uppercase tracking-wider border"
+                style={{ background: category === item ? RED : 'white', color: category === item ? 'white' : NAVY, borderColor: category === item ? RED : 'rgba(11,15,26,.15)' }}
+              >
+                {item === 'All' && isAr ? 'الكل' : item}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Featured post */}
       {featured && (
@@ -70,6 +117,15 @@ export default function Blog() {
           </Link>
         </div>
       </section>
+      )}
+
+      {!featured && (
+        <section className="bg-white py-24 text-center">
+          <h2 className="font-black text-2xl mb-3" style={{ color: NAVY }}>{isAr ? 'لا توجد مقالات مطابقة.' : 'No matching articles.'}</h2>
+          <button type="button" onClick={() => { setQuery(''); setCategory('All'); }} className="font-bold text-sm" style={{ color: RED }}>
+            {isAr ? 'مسح البحث' : 'Clear search'}
+          </button>
+        </section>
       )}
 
       {/* All posts grid */}

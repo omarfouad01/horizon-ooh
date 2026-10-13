@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useStore, getState } from "@/store/dataStore";
 import { productHref, langPath, RED, NAVY } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
+import { trackEvent } from "@/lib/analytics";
 import ClientOnly from "@/components/ClientOnly";
 
 const LocationsMap = lazy(() => import("@/components/LocationsMap"));
@@ -371,15 +372,15 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, w
         <div className="flex items-center gap-2">
           <Link
             to={productHref(lang, b.citySlug, b.slug)}
-            onClick={e => e.stopPropagation()}
+            onClick={e => { e.stopPropagation(); trackEvent('billboard_view', { source: 'locations', billboard_code: b.code || String(b.id) }); }}
             className="flex-1 h-9 flex items-center justify-center text-[10px] font-bold tracking-[0.18em] uppercase text-white transition-all duration-200 hover:opacity-90 active:scale-[0.97]"
             style={{ background: NAVY, borderRadius: 5, textDecoration: 'none' }}
           >
             {isAr ? 'عرض التفاصيل' : 'View Details'}
           </Link>
           <Link
-            to={langPath(lang, "/contact")}
-            onClick={e => e.stopPropagation()}
+            to={`${langPath(lang, "/contact")}?${new URLSearchParams({ billboard: b.code || String(b.id), name: b.name || '', source: 'locations' })}`}
+            onClick={e => { e.stopPropagation(); trackEvent('quote_request_click', { source: 'locations', billboard_code: b.code || String(b.id) }); }}
             className="flex-1 h-9 flex items-center justify-center text-[10px] font-bold tracking-[0.18em] uppercase transition-all duration-200 hover:bg-[rgba(217,4,41,0.06)] active:scale-[0.97]"
             style={{ border: `1.5px solid ${RED}`, color: RED, borderRadius: 5, background: "transparent", textDecoration: 'none' }}
           >
@@ -389,7 +390,7 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, w
             href={`https://wa.me/${waNumber}?text=Hi%20HORIZON%20OOH%2C%20I%27m%20interested%20in%20${encodeURIComponent(b.name)}`}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={e => e.stopPropagation()}
+            onClick={e => { e.stopPropagation(); trackEvent('whatsapp_click', { source: 'locations', billboard_code: b.code || String(b.id) }); }}
             className="w-9 h-9 flex items-center justify-center transition-all duration-200 hover:opacity-80 active:scale-[0.97] flex-shrink-0"
             style={{ background: "#25D366", borderRadius: 5, textDecoration: "none" }}
             title="WhatsApp enquiry"
@@ -556,12 +557,15 @@ export default function Locations() {
     );
     setCities(vals); setDistricts(newDists);
     pushToUrl(vals, newDists, formats);
+    trackEvent('inventory_filter', { filter_type: 'city', filter_count: vals.length });
   };
   const handleDistrictsChange = (vals: string[]) => {
     setDistricts(vals); pushToUrl(cities, vals, formats);
+    trackEvent('inventory_filter', { filter_type: 'district', filter_count: vals.length });
   };
   const handleFormatsChange = (vals: string[]) => {
     setFormats(vals); pushToUrl(cities, districts, vals);
+    trackEvent('inventory_filter', { filter_type: 'format', filter_count: vals.length });
   };
 
   const cityLabelEn = cities.length === 0 ? "" : cities.length === 1 ? cities[0] : `${cities.length} cities`;
@@ -571,7 +575,11 @@ export default function Locations() {
 
   return (
     <div className="flex flex-col min-h-screen" style={{ background: "#F7F7F8" }}>
-      <SEO title="Billboard Locations in Egypt | HORIZON OOH" description="Explore 9,500+ premium outdoor advertising locations across Cairo, Giza, Alexandria, and all Egyptian governorates. Filter by city, format and more." canonical="/locations" />
+      <SEO
+        title={isAr ? 'مواقع اللوحات الإعلانية في مصر | هورايزون' : 'Billboard Locations in Egypt | HORIZON OOH'}
+        description={isAr ? 'استكشف مواقع الإعلانات الخارجية في القاهرة والجيزة وجميع أنحاء مصر، وابحث حسب المدينة والمنطقة ونوع الإعلان.' : 'Explore premium outdoor advertising locations across Cairo, Giza, Alexandria, and all Egyptian governorates. Filter by city, format and more.'}
+        canonical={langPath(lang, "/locations")}
+      />
 
       {/* ══════════════════════════════════════════════════════════════
           1. PAGE HEADER (not sticky — scrolls away)
