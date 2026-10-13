@@ -53,6 +53,7 @@ fi
 
 # ── Step 5: Clear Laravel caches ─────────────────────────────────────────────
 if command -v php &> /dev/null; then
+  php artisan projects:migrate-base64-images --no-interaction
   php artisan optimize:clear 2>/dev/null && echo "✅ Laravel caches cleared" || true
 fi
 
