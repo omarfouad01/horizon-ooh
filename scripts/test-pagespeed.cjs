@@ -32,6 +32,8 @@ vm.runInNewContext(ts.transpileModule(fs.readFileSync('resources/react/api/clien
   const html=fs.readFileSync(file,'utf8');
   assert.ok(html.includes('data-horizon-critical-css'));
   assert.equal(/<link[^>]+rel="stylesheet"[^>]+index-[^"]+\.css/.test(html),false,'Homepage should not wait for its stylesheet');
+  assert.ok(html.includes('GTM-PH9HH9XX'),'Existing tag manager must remain enabled');
+  assert.equal(html.includes('/gtag/js?id=G-7P78DVM6VK'),false,'GA4 must load through GTM without a duplicate direct loader');
  }
  console.log('PASS: startup graph excludes heavy routes, SSG has no unfinished Suspense, discovery JSON parses');
 })().catch(e=>{console.error(e);process.exitCode=1;});

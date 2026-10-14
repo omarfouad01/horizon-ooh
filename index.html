@@ -15,19 +15,10 @@
   });
   </script>
   <!-- End Google Tag Manager -->
-  <!-- Google tag (gtag.js) — deferred to after load -->
+  <!-- GA4 is configured in GTM; keep its command queue without loading it twice. -->
   <script>
-  window.addEventListener('load', function() {
-    setTimeout(function() {
-    var s=document.createElement('script');s.async=true;
-    s.src='https://www.googletagmanager.com/gtag/js?id=G-7P78DVM6VK';
-    document.head.appendChild(s);
-    window.dataLayer=window.dataLayer||[];
-    function gtag(){dataLayer.push(arguments);}
-    window.gtag=gtag;
-    gtag('js',new Date());gtag('config','G-7P78DVM6VK');
-    }, 2500);
-  });
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function() { window.dataLayer.push(arguments); };
   </script>
 
     <!-- Redirect old /#/ hash URLs to clean BrowserRouter paths -->
