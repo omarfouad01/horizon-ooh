@@ -114,6 +114,10 @@ function ClientEnhancements() {
 
 // ── All public page routes — reused for both /  and /ar/ prefixes ────────────
 export function PublicRoutes() {
+  const { loaded, reload } = useStore();
+  const location = useLocation();
+  useEffect(() => { void reload(); }, [location.pathname]);
+  if (!loaded) return <PageLoading />;
   return (
     <Routes>
       <Route index                                        element={<Layout><Home /></Layout>} />

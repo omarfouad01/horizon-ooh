@@ -8,6 +8,7 @@
  *  4. Fall back to demo static data only if ALL API calls fail
  */
 import { create } from 'zustand';
+import { readPublicCache, writePublicCache } from './publicCache';
 import {
   locationsApi, adFormatsApi, billboardFormatsApi, servicesApi, projectsApi,
   blogApi, trustStatsApi, processStepsApi, clientBrandsApi,
@@ -388,6 +389,15 @@ const _normDemoBrands = (CLIENT_BRANDS as any[]).map((b: any, i: number) =>
   typeof b === 'string' ? { id: String(i + 1), name: b, logoUrl: '', logo: '' }
     : { id: b.id ?? String(i + 1), name: b.name ?? b, logoUrl: b.logoUrl ?? b.logo ?? '', logo: b.logo ?? '' }
 );
+const publicFields = ['locations', 'districts', 'adFormats', 'billboardFormats', 'services',
+  'projects', 'blogPosts', 'trustStats', 'processSteps', 'process', 'results', 'clientBrands',
+  'settings', 'homeContent', 'about', 'aboutContent', 'projectsContent', 'locationsContent',
+  'contactContent', 'billboardSizes', 'simulatorTemplates'] as const;
+const liveEmpty: Record<string, any> = Object.fromEntries(publicFields.map(key =>
+  [key, ['settings', 'homeContent', 'about', 'aboutContent', 'projectsContent', 'locationsContent', 'contactContent'].includes(key) ? {} : []]));
+const cachedPublic = HAS_API ? readPublicCache() : null;
+const initialPublic = HAS_API ? { ...liveEmpty, ...cachedPublic,
+  loaded: !!cachedPublic, loading: false, usingDemo: false } : {};
 export const useApiStore = create<ApiState>((set, get) => ({
   // Start with demo data so sections render instantly before API responds
   loaded: true, loading: false, usingDemo: true, error: null,
@@ -402,6 +412,7 @@ export const useApiStore = create<ApiState>((set, get) => ({
   locationsContent: DEMO_LOCATIONS_CONTENT,
   contactContent: DEMO_CONTACT_CONTENT,
   billboardSizes: [], simulatorTemplates: [], designUploads: [],
+  ...initialPublic,
 
 forceReload: async () => {
     // Called ONLY after a confirmed successful login — token is known to be valid.
@@ -659,51 +670,52 @@ forceReload: async () => {
     const failedRequiredRequests = requiredIndexes.filter(i => results[i].status === 'rejected').length;
 
     set({
-      locations:          needsLocations ? (normLocs.length ? normLocs : cur.locations) : cur.locations,
-      districts:          needsInventoryFilters ? normDists : cur.districts,
-      adFormats:          needsInventoryFilters ? (normFmts.length ? normFmts : cur.adFormats) : cur.adFormats,
-      billboardFormats:   needsInventoryFilters ? (normBbFmts.length ? normBbFmts : cur.billboardFormats) : cur.billboardFormats,
-      services:           needsServices ? (normSvcs.length ? normSvcs : cur.services) : cur.services,
-      projects:           needsProjects ? (normProjs.length ? normProjs : cur.projects) : cur.projects,
-      blogPosts:          needsBlog ? (normBlog.length ? normBlog : cur.blogPosts) : cur.blogPosts,
-      trustStats:         needsHomeCollections ? (statsRaw.length ? statsRaw : cur.trustStats) : cur.trustStats,
-      processSteps:       needsHomeCollections ? (normSteps.length ? normSteps : cur.processSteps) : cur.processSteps,
-      process:            needsHomeCollections ? (normSteps.length ? normSteps : cur.process) : cur.process,
-      clientBrands:       needsBrands ? (normBrands.length ? normBrands : cur.clientBrands) : cur.clientBrands,
-      settings:           Object.keys(settsRaw).length ? settsRaw : DEMO_SETTINGS,
-      homeContent:        needsHomeContent && Object.keys(hcRaw).length ? hcRaw : cur.homeContent,
-      about:              needsAbout && Object.keys(acRaw).length ? acRaw : cur.about,
-      aboutContent:       needsAbout && Object.keys(acRaw).length ? acRaw : cur.aboutContent,
-      projectsContent:    (() => { try { const v = settsRaw['projects_page_content']; return typeof v === 'string' ? JSON.parse(v) : (v ?? DEMO_PROJECTS_CONTENT); } catch { return DEMO_PROJECTS_CONTENT; } })(),
+      locations:          needsLocations ? (results[0].status === 'fulfilled' ? normLocs : cur.locations) : cur.locations,
+      districts:          needsInventoryFilters && results[1].status === 'fulfilled' ? normDists : cur.districts,
+      adFormats:          needsInventoryFilters ? (results[2].status === 'fulfilled' ? normFmts : cur.adFormats) : cur.adFormats,
+      billboardFormats:   needsInventoryFilters ? (results[18].status === 'fulfilled' ? normBbFmts : cur.billboardFormats) : cur.billboardFormats,
+      services:           needsServices ? (results[3].status === 'fulfilled' ? normSvcs : cur.services) : cur.services,
+      projects:           needsProjects ? (results[4].status === 'fulfilled' ? normProjs : cur.projects) : cur.projects,
+      blogPosts:          needsBlog ? (results[5].status === 'fulfilled' ? normBlog : cur.blogPosts) : cur.blogPosts,
+      trustStats:         needsHomeCollections ? (results[6].status === 'fulfilled' ? statsRaw : cur.trustStats) : cur.trustStats,
+      processSteps:       needsHomeCollections ? (results[7].status === 'fulfilled' ? normSteps : cur.processSteps) : cur.processSteps,
+      process:            needsHomeCollections ? (results[7].status === 'fulfilled' ? normSteps : cur.process) : cur.process,
+      clientBrands:       needsBrands ? (results[8].status === 'fulfilled' ? normBrands : cur.clientBrands) : cur.clientBrands,
+      settings:           results[9].status === 'fulfilled' ? settsRaw : cur.settings,
+      homeContent:        needsHomeContent && results[10].status === 'fulfilled' ? hcRaw : cur.homeContent,
+      about:              needsAbout && results[11].status === 'fulfilled' ? acRaw : cur.about,
+      aboutContent:       needsAbout && results[11].status === 'fulfilled' ? acRaw : cur.aboutContent,
+      projectsContent:    (() => { if (results[9].status === 'rejected') return cur.projectsContent; try { const v = settsRaw['projects_page_content']; return typeof v === 'string' ? JSON.parse(v) : (v ?? {}); } catch { return {}; } })(),
       locationsContent:   (() => {
+        if (results[9].status === 'rejected') return cur.locationsContent;
         try {
           const v = settsRaw['locations_page_content'];
           const raw: any = typeof v === 'string' ? JSON.parse(v) : (v ?? {});
-          if (!raw || !Object.keys(raw).length) return DEMO_LOCATIONS_CONTENT;
+          if (!raw || !Object.keys(raw).length) return {};
           // Normalise: map legacy hero* keys → canonical keys used by Locations.tsx
           return {
             ...raw,
-            eyebrow:        raw.eyebrow        ?? raw.heroEyebrow    ?? DEMO_LOCATIONS_CONTENT.eyebrow,
+            eyebrow:        raw.eyebrow        ?? raw.heroEyebrow    ?? liveEmpty.locationsContent.eyebrow,
             eyebrowAr:      raw.eyebrowAr      ?? raw.heroEyebrowAr  ?? '',
-            title:          raw.title          ?? raw.heroTitle       ?? DEMO_LOCATIONS_CONTENT.title,
+            title:          raw.title          ?? raw.heroTitle       ?? liveEmpty.locationsContent.title,
             titleAr:        raw.titleAr        ?? raw.heroTitleAr     ?? '',
-            titleAccent:    raw.titleAccent    ?? DEMO_LOCATIONS_CONTENT.titleAccent,
+            titleAccent:    raw.titleAccent    ?? liveEmpty.locationsContent.titleAccent,
             titleAccentAr:  raw.titleAccentAr  ?? '',
-            subtitle:       raw.subtitle       ?? raw.heroSubtitle    ?? DEMO_LOCATIONS_CONTENT.subtitle,
+            subtitle:       raw.subtitle       ?? raw.heroSubtitle    ?? liveEmpty.locationsContent.subtitle,
             subtitleAr:     raw.subtitleAr     ?? raw.heroSubtitleAr  ?? '',
-            ctaHelpText:    raw.ctaHelpText    ?? raw.ctaHelp         ?? DEMO_LOCATIONS_CONTENT.ctaHelpText,
+            ctaHelpText:    raw.ctaHelpText    ?? raw.ctaHelp         ?? liveEmpty.locationsContent.ctaHelpText,
             ctaHelpTextAr:  raw.ctaHelpTextAr  ?? raw.ctaHelpAr      ?? '',
-            ctaButton:      raw.ctaButton      ?? raw.ctaTalkText     ?? raw.ctaExpert  ?? DEMO_LOCATIONS_CONTENT.ctaButton,
+            ctaButton:      raw.ctaButton      ?? raw.ctaTalkText     ?? raw.ctaExpert  ?? liveEmpty.locationsContent.ctaButton,
             ctaButtonAr:    raw.ctaButtonAr    ?? raw.ctaTalkTextAr   ?? raw.ctaExpertAr ?? '',
-            ctaWhatsApp:    raw.ctaWhatsApp    ?? raw.whatsappNumber  ?? DEMO_LOCATIONS_CONTENT.ctaWhatsApp,
-            noResultsTitle: raw.noResultsTitle ?? raw.noResults       ?? raw.noResultsText ?? DEMO_LOCATIONS_CONTENT.noResultsTitle,
+            ctaWhatsApp:    raw.ctaWhatsApp    ?? raw.whatsappNumber  ?? liveEmpty.locationsContent.ctaWhatsApp,
+            noResultsTitle: raw.noResultsTitle ?? raw.noResults       ?? raw.noResultsText ?? liveEmpty.locationsContent.noResultsTitle,
             noResultsTitleAr: raw.noResultsTitleAr ?? raw.noResultsAr ?? '',
-            noResultsHint:  raw.noResultsHint  ?? DEMO_LOCATIONS_CONTENT.noResultsHint,
+            noResultsHint:  raw.noResultsHint  ?? liveEmpty.locationsContent.noResultsHint,
             noResultsHintAr: raw.noResultsHintAr ?? '',
           };
-        } catch { return DEMO_LOCATIONS_CONTENT; }
+        } catch { return {}; }
       })(),
-      contactContent:     (() => { try { const v = settsRaw['contact_page_content'];  return typeof v === 'string' ? JSON.parse(v) : (v ?? DEMO_CONTACT_CONTENT);  } catch { return DEMO_CONTACT_CONTENT;  } })(),
+      contactContent:     (() => { if (results[9].status === 'rejected') return cur.contactContent; try { const v = settsRaw['contact_page_content'];  return typeof v === 'string' ? JSON.parse(v) : (v ?? {});  } catch { return {};  } })(),
       suppliers:          suppRaw.map((s: any) => ({ ...s, id: String(s.id) })),
       customers:          custRaw,
       contacts:           contsRaw,
@@ -711,7 +723,7 @@ forceReload: async () => {
       results: (() => {
         const hcResults = hcRaw?.results;
         if (Array.isArray(hcResults) && hcResults.length > 0) return hcResults;
-        return DEMO_RESULTS;
+        return needsHomeContent && results[10].status === 'fulfilled' ? [] : cur.results;
       })(),
       // Simulator: keep existing store data if API returned nothing (localStorage seeded)
       billboardSizes:     sizesRaw.length  ? sizesRaw  : cur.billboardSizes,
@@ -722,6 +734,11 @@ forceReload: async () => {
       usingDemo: false,
       error:     failedRequiredRequests > 0 ? 'Some live content could not be refreshed.' : null,
     });
+    if (!isAdminRoute && results[9].status === 'fulfilled') {
+      const state = get();
+      writePublicCache(Object.fromEntries(publicFields.map(key => [key, state[key]])));
+    }
+
   },
 }));
 
