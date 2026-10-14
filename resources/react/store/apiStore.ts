@@ -398,6 +398,9 @@ const liveEmpty: Record<string, any> = Object.fromEntries(publicFields.map(key =
 const cachedPublic = HAS_API ? readPublicCache() : null;
 const initialPublic = HAS_API ? { ...liveEmpty, ...cachedPublic,
   loaded: !!cachedPublic, loading: false, usingDemo: false } : {};
+let activeReloadPath = '';
+let queuedRouteReload = false;
+
 export const useApiStore = create<ApiState>((set, get) => ({
   // Start with demo data so sections render instantly before API responds
   loaded: true, loading: false, usingDemo: true, error: null,
@@ -493,7 +496,12 @@ forceReload: async () => {
   },
 
   reload: async () => {
-    if (get().loading) return;
+    const requestedPath = typeof window !== 'undefined' ? window.location.pathname : '/';
+    if (get().loading) {
+      if (requestedPath !== activeReloadPath) queuedRouteReload = true;
+      return;
+    }
+    activeReloadPath = requestedPath;
     // Keep loaded:true and don't clear data during refresh so the page
     // never goes blank. The demo/cached data shown initially stays visible
     // until real API data replaces it.
@@ -571,7 +579,7 @@ forceReload: async () => {
     // Public pages only request the collections they actually render. The home
     // and admin experiences still receive the complete data set, while a
     // contact/service visitor no longer downloads the entire inventory/blog.
-    const rawPath = typeof window !== 'undefined' ? window.location.pathname : '/';
+    const rawPath = requestedPath;
     const routePath = rawPath.replace(/^\/ar(?=\/|$)/, '') || '/';
     const isAdminRoute = routePath.startsWith('/admin');
     const isHomeRoute = routePath === '/';
@@ -737,6 +745,10 @@ forceReload: async () => {
     if (!isAdminRoute && results[9].status === 'fulfilled') {
       const state = get();
       writePublicCache(Object.fromEntries(publicFields.map(key => [key, state[key]])));
+    }
+    if (queuedRouteReload) {
+      queuedRouteReload = false;
+      void get().reload();
     }
 
   },

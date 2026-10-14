@@ -12,6 +12,19 @@ export default function About() {
   const navigate = useNavigate();
   const { isAr, t } = useLang();
 
+  if (!Object.keys(about).length) {
+    return (
+      <section className="bg-white min-h-[60vh] flex flex-col items-center justify-center gap-4" role="status" aria-live="polite">
+        <p>{store.error
+          ? (isAr ? 'ÊÚĞÑ ÊÍãíá ÇáãÍÊæì. ÍÇæá ãÑÉ ÃÎÑì.' : 'Unable to load this page. Please try again.')
+          : (isAr ? 'ÌÇÑí ÊÍãíá ÇáãÍÊæì…' : 'Loading content…')}</p>
+        {store.error && <button type="button" onClick={() => void store.reload()}>
+          {isAr ? 'ÅÚÇÏÉ ÇáãÍÇæáÉ' : 'Retry'}
+        </button>}
+      </section>
+    );
+  }
+
   return (
     <>
       <SEO
