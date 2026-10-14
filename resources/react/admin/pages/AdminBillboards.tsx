@@ -229,22 +229,8 @@ function ImageUploader({
     e.target.value = ''
   }
 
-  async function removeImage(i: number) {
-    const img = images[i]
-    // Existing server image — delete from server immediately so it is permanently removed
-    if (img.id && billboardId) {
-      setDeleting(i)
-      try {
-        await billboardsApi.deleteImage(billboardId, img.id)
-      } catch (err: any) {
-        const msg = err?.response?.data?.message || 'Failed to delete image'
-        toast.error(msg)
-        setDeleting(null)
-        return
-      }
-      setDeleting(null)
-    }
-    // Remove from local list (new upload or confirmed server deletion)
+  function removeImage(i: number) {
+    // Persist the edited image list only when Save succeeds; Cancel keeps it intact.
     onChange(images.filter((_, j) => j !== i))
   }
 
@@ -417,6 +403,11 @@ const save = async (e: React.FormEvent) => {
       fd.append('illuminated',    f.brightness && f.brightness !== 'No Light' ? '1' : '0')
       fd.append('featured',       f.featured ? '1' : '0')
       if (f.supplierId)     fd.append('supplier_id',    String(f.supplierId))
+      if (editing?.id) {
+        fd.append('retained_image_urls', JSON.stringify(
+          (f.images || []).filter((img: ImgItem) => !img.file).map((img: ImgItem) => img.url)
+        ))
+      }
       // Attach new image files only (items with a .file property are newly uploaded)
       ;(f.images || []).forEach((img: ImgItem) => {
         if (img.file instanceof File) fd.append('images[]', img.file)
@@ -435,6 +426,8 @@ const save = async (e: React.FormEvent) => {
           // re-selects correctly when the same billboard is opened for editing again
           const savedNorm = {
             ...saved,
+            image: (saved.images || []).find((img: any) => img.is_primary)?.url || saved.images?.[0]?.url || '',
+            imageUrl: (saved.images || []).find((img: any) => img.is_primary)?.url || saved.images?.[0]?.url || '',
             supplierId: saved.supplierId != null ? String(saved.supplierId) : '',
             supplier_id: saved.supplierId != null ? String(saved.supplierId) : '',
           }

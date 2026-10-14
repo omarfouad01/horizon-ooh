@@ -135,7 +135,17 @@ class BillboardController extends Controller
             'featured'       => 'nullable|boolean',
             'sort_order'     => 'nullable|integer',
             'supplier_id'    => 'nullable|integer',
+            'retained_image_urls' => 'sometimes|required|string|json',
         ]);
+
+        $retainedUrls = null;
+        if (array_key_exists('retained_image_urls', $data)) {
+            $retainedUrls = json_decode($data['retained_image_urls'], true);
+            \Illuminate\Support\Facades\Validator::make(
+                ['urls' => $retainedUrls], ['urls' => 'present|array', 'urls.*' => 'required|string']
+            )->validate();
+            unset($data['retained_image_urls']);
+        }
 
         if (isset($data['code']) || isset($data['title'])) {
             $data['slug'] = $this->makeSlug($data['code'] ?? $b->code, $data['title'] ?? $b->title ?? '', $id);
@@ -143,6 +153,7 @@ class BillboardController extends Controller
 
         // Only update columns that actually exist in the DB right now
         $b->update($this->safeData($data));
+        if ($retainedUrls !== null) $this->syncRetainedImages($b, $retainedUrls);
         $this->handleImageUploads($request, $b);
 
         return response()->json($this->transform($b->load(['location','district','images'])));
@@ -168,6 +179,20 @@ class BillboardController extends Controller
     }
 
     // ── Helpers ──────────────────────────────────────────────────────────────
+
+    private function syncRetainedImages(Billboard $b, array $retainedUrls): void
+    {
+        // Only this billboard's images can be removed. An explicit [] removes all.
+        foreach ($b->images()->get() as $image) {
+            if (in_array($image->url, $retainedUrls, true)) continue;
+            if ($image->path) Storage::disk('public')->delete($image->path);
+            $image->delete();
+        }
+        if (!$b->images()->where('is_primary', true)->exists()) {
+            $first = $b->images()->orderBy('sort_order')->first();
+            if ($first) $first->update(['is_primary' => true]);
+        }
+    }
 
     private function handleImageUploads(Request $request, Billboard $b): void
     {
