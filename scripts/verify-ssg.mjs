@@ -68,6 +68,6 @@ for (const pattern of representativePatterns) {
 const arabic = read("public/ssg/ar/about/index.html");
 assert.ok(arabic.includes('<html lang="ar" dir="rtl" data-ssg>'), "Arabic page must be RTL Arabic HTML");
 assert.ok(arabic.includes('hreflang="ar" href="https://horizonooh.com/ar/about"'), "Arabic alternate must exist");
-assert.ok(arabic.includes('rel="canonical" href="https://horizonooh.com/about"'), "Arabic canonical must point to English preferred route");
+assert.ok(arabic.includes('rel="canonical" href="https://horizonooh.com/ar/about"'), "Arabic canonical must point to itself");
 
 console.log(`SSG verification passed for ${manifest.routeCount} generated routes.`);

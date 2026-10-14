@@ -6,7 +6,7 @@ class BlogPost extends Model
 {
     protected $table = 'blog_posts';
     protected $fillable = [
-        'slug','title','title_ar','category','author','read_time','image',
+        'slug','title','title_ar','category','author','read_time','image','image_alt',
         'excerpt','content','body','body_ar','tags',
         'meta_title','meta_desc',
         'featured','published','published_at','sort_order',

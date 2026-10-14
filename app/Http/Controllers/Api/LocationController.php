@@ -171,6 +171,7 @@ class LocationController extends Controller
                 'id'         => $i->id,
                 'url'        => $i->url,
                 'is_primary' => $i->is_primary ?? false,
+                'alt' => $i->alt ?? '',
             ])->filter(fn($i) => !empty($i['url']))->values(),
         ];
     }

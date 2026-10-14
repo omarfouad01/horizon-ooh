@@ -66,6 +66,7 @@ class BillboardController extends Controller
 
     public function store(Request $request): JsonResponse
     {
+        $this->validateImageAlts($request);
         $data = $request->validate([
             'code'           => 'required|string|unique:billboards,code',
             'title'          => 'nullable|string',
@@ -102,12 +103,14 @@ class BillboardController extends Controller
 
         $this->handleImageUploads($request, $b);
 
+        $this->syncImageAlts($b, $request);
         return response()->json($this->transform($b->load(['location','district','images'])), 201);
     }
 
     public function update(Request $request, int $id): JsonResponse
     {
         $b    = Billboard::findOrFail($id);
+        $this->validateImageAlts($request);
         $data = $request->validate([
             'code'           => "sometimes|string|unique:billboards,code,{$id}",
             'title'          => 'nullable|string',
@@ -156,6 +159,7 @@ class BillboardController extends Controller
         if ($retainedUrls !== null) $this->syncRetainedImages($b, $retainedUrls);
         $this->handleImageUploads($request, $b);
 
+        $this->syncImageAlts($b, $request);
         return response()->json($this->transform($b->load(['location','district','images'])));
     }
 
@@ -171,6 +175,7 @@ class BillboardController extends Controller
 
     public function deleteImage(Request $request, int $id): JsonResponse
     {
+        $this->validateImageAlts($request);
         $data = $request->validate(['media_id' => 'required|integer']);
         $img  = BillboardImage::where('billboard_id', $id)->where('id', $data['media_id'])->firstOrFail();
         if ($img->path) Storage::disk('public')->delete($img->path);
@@ -179,6 +184,21 @@ class BillboardController extends Controller
     }
 
     // ── Helpers ──────────────────────────────────────────────────────────────
+
+    private function validateImageAlts(Request $request): void
+    {
+        $request->validate(['image_alts' => 'sometimes|string|json', 'new_image_alts' => 'sometimes|array', 'new_image_alts.*' => 'nullable|string|max:1000']);
+        if ($request->has('image_alts')) {
+            validator(['items' => json_decode($request->input('image_alts'), true)], ['items' => 'array', 'items.*.url' => 'required|string', 'items.*.alt' => 'nullable|string|max:1000'])->validate();
+        }
+    }
+
+    private function syncImageAlts(Billboard $b, Request $request): void
+    {
+        foreach (json_decode($request->input('image_alts', '[]'), true) as $item) {
+            $b->images()->where('url', $item['url'])->update(['alt' => $item['alt'] ?? '']);
+        }
+    }
 
     private function syncRetainedImages(Billboard $b, array $retainedUrls): void
     {
@@ -198,11 +218,12 @@ class BillboardController extends Controller
     {
         if (!$request->hasFile('images')) return;
         $order = $b->images()->max('sort_order') ?? 0;
-        foreach ($request->file('images') as $file) {
+        foreach ($request->file('images') as $index => $file) {
             // Try to save as WebP for better compression; fall back to original format
             [$path, $url] = $this->storeImageAsWebP($file, "billboards/{$b->id}");
             BillboardImage::create([
                 'billboard_id' => $b->id,
+                'alt'          => $request->input('new_image_alts.' . $index, ''),
                 'path'         => $path,
                 'url'          => $url,
                 'is_primary'   => $b->images()->count() === 0,
@@ -313,6 +334,7 @@ class BillboardController extends Controller
             'images'         => $b->images->map(fn($i) => [
                 'id'         => $i->id,
                 'url'        => $i->url,
+                'alt'        => $i->alt ?? '',
                 'is_primary' => $i->is_primary,
             ])->values(),
             'created_at'     => $b->created_at?->toISOString(),

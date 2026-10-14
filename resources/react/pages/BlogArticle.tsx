@@ -103,9 +103,9 @@ export default function BlogArticle() {
     "@type": "BlogPosting",
     "headline": post.title,
     "description": post.excerpt ?? metaDesc,
-    "image": post.image ?? "",
-    "datePublished": post.date ?? "",
-    "dateModified": post.date ?? "",
+    "image": post.image ? (/^https?:/.test(post.image) ? post.image : `https://horizonooh.com${post.image}`) : undefined,
+    "datePublished": (post as any).publishedAt || post.date || undefined,
+    "dateModified": (post as any).updatedAt || (post as any).publishedAt || post.date || undefined,
     "author": {
       "@type": "Organization",
       "name": "HORIZON OOH",
@@ -136,6 +136,7 @@ export default function BlogArticle() {
         description={metaDesc}
         ogImage={post.image}
         canonical={`/blog/${post.slug}`}
+        type="article"
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(articleSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }} />
@@ -177,7 +178,7 @@ export default function BlogArticle() {
           <div className="relative overflow-hidden" style={{ height: 480 }}>
             {/* The article hero is above the fold. Keep its presentation intact,
                 but allow it to be fetched immediately as this route's LCP image. */}
-            <img src={thumb(post.image, 1200, 480)} srcSet={thumbSrcSet(post.image, [600, 1200], 2.5)} sizes="(min-width: 1280px) 1200px, 100vw" alt={post.title} width={1200} height={480} fetchPriority="high" decoding="async" className="w-full h-full object-cover" style={{ opacity: 0.75 }} />
+            <img src={thumb(post.image, 1200, 480)} srcSet={thumbSrcSet(post.image, [600, 1200], 2.5)} sizes="(min-width: 1280px) 1200px, 100vw" alt={(post as any).imageAlt || post.title} width={1200} height={480} fetchPriority="high" decoding="async" className="w-full h-full object-cover" style={{ opacity: 0.75 }} />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(11,15,26,0.5) 0%, transparent 50%)" }} />
           </div>
         </div>
@@ -305,7 +306,7 @@ export default function BlogArticle() {
                         className="group flex items-start gap-4 py-5 border-b border-[#0B0F1A]/[0.07] hover:text-[#D90429] transition-colors"
                         style={{ textDecoration: "none" }}
                       >
-                        <img src={rel.image} alt={rel.title} width={56} height={48} className="w-14 h-12 object-cover flex-shrink-0" loading="lazy" decoding="async" />
+                        <img src={rel.image} alt={(rel as any).imageAlt || rel.title} width={56} height={48} className="w-14 h-12 object-cover flex-shrink-0" loading="lazy" decoding="async" />
                         <div>
                           <p className="text-[13px] font-semibold leading-[1.4] transition-colors group-hover:text-[#D90429]" style={{ color: NAVY }}>
                           {(() => { const t = isAr && (rel as any).titleAr ? (rel as any).titleAr : rel.title; return t.length > 60 ? t.slice(0,60)+'…' : t; })()}

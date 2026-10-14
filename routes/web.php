@@ -104,6 +104,22 @@ Route::get('/{any?}', function () {
         }
     }
 
+    // Missing content must return a real 404, while newly created valid content can use CSR.
+    $publicPath = preg_replace('#^ar(?:/|$)#', '', $normalizedPath);
+    $privateRoute = preg_match('#^(?:admin|login|signup|profile|design-simulator)(?:/|$)#', $publicPath);
+    if (!$isSsg && !$privateRoute) {
+        $known = in_array($publicPath, ['', 'about', 'services', 'projects', 'locations', 'blog', 'contact'], true);
+        if (preg_match('#^(services|projects|locations|blog)/([^/]+)$#', $publicPath, $match)) {
+            $model = ['services' => \App\Models\Service::class, 'projects' => \App\Models\Project::class, 'locations' => \App\Models\Location::class, 'blog' => \App\Models\BlogPost::class][$match[1]];
+            $query = $model::where('slug', $match[2]);
+            if ($match[1] === 'blog') $query->where('published', true);
+            $known = $query->exists();
+        } elseif (preg_match('#^locations/([^/]+)/billboards/([^/]+)$#', $publicPath, $match)) {
+            $known = \App\Models\Billboard::where('slug', $match[2])->whereHas('location', fn ($q) => $q->where('slug', $match[1]))->exists();
+        }
+        if (!$known) return response('<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="robots" content="noindex, follow"><title>Page not found | HORIZON OOH</title></head><body><h1>Page not found</h1><p>This page is unavailable.</p><a href="/">Visit HORIZON OOH</a></body></html>', 404)->header('X-Robots-Tag', 'noindex, follow');
+    }
+
     if (!file_exists($indexPath)) {
         return response(
             '<h2 style="font-family:sans-serif;padding:2rem">
@@ -152,13 +168,14 @@ Route::get('/{any?}', function () {
     //   /...     → canonical = self, hreflang en+ar+x-default
     $base        = 'https://horizonooh.com';
     $requestUri  = rtrim(request()->getPathInfo(), '/') ?: '/';
-    $isArabic    = str_starts_with($requestUri, '/ar');
+    $isArabic    = $requestUri === '/ar' || str_starts_with($requestUri, '/ar/');
     $englishPath = $isArabic
         ? (preg_replace('#^/ar#', '', $requestUri) ?: '/')
         : $requestUri;
 
     // Build canonical URL (always the English/preferred version)
-    $canonicalUrl = $base . ($englishPath === '/' ? '' : $englishPath);
+    $englishUrl = $base . ($englishPath === '/' ? '' : $englishPath);
+    $canonicalUrl = $base . ($requestUri === '/' ? '' : $requestUri);
     // Arabic alternate URL
     $arPath       = $englishPath === '/' ? '/ar' : '/ar' . $englishPath;
     $arUrl        = $base . $arPath;
@@ -166,9 +183,9 @@ Route::get('/{any?}', function () {
     $seoTags = implode("
     ", [
         '<link rel="canonical" href="' . htmlspecialchars($canonicalUrl, ENT_QUOTES) . '" />',
-        '<link rel="alternate" hreflang="en"        href="' . htmlspecialchars($canonicalUrl, ENT_QUOTES) . '" />',
+        '<link rel="alternate" hreflang="en"        href="' . htmlspecialchars($englishUrl, ENT_QUOTES) . '" />',
         '<link rel="alternate" hreflang="ar"        href="' . htmlspecialchars($arUrl,        ENT_QUOTES) . '" />',
-        '<link rel="alternate" hreflang="x-default" href="' . htmlspecialchars($canonicalUrl, ENT_QUOTES) . '" />',
+        '<link rel="alternate" hreflang="x-default" href="' . htmlspecialchars($englishUrl, ENT_QUOTES) . '" />',
     ]);
 
     if (!$isSsg) {

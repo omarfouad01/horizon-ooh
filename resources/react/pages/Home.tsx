@@ -377,7 +377,6 @@ function HeroSection() {
   const reset = () => { setCities([]); setDistricts([]); setFormats([]); };
 
   // ── Map pin selection ─────────────────────────────────────────────
-  const [mapEnabled, setMapEnabled] = useState(false);
   const [selectedPin, setSelectedPin] = useState<(ReturnType<typeof getBillboards>)[0] | null>(null);
 
   function handleSearch(e?: React.FormEvent) {
@@ -608,7 +607,6 @@ function HeroSection() {
             background: "linear-gradient(to right, rgba(11,15,26,0.4) 0%, transparent 25%)"
           }} />
 
-          {mapEnabled ? (
           <ClientOnly fallback={<div className="absolute inset-0 bg-[#0b0f1a]" aria-label="Interactive map" />}>
             <Suspense fallback={<div className="absolute inset-0 bg-[#0b0f1a]" />}>
               <LeafletMap
@@ -621,16 +619,7 @@ function HeroSection() {
               />
             </Suspense>
           </ClientOnly>
-          ) : (
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-5 text-center px-6"
-              style={{ background: 'radial-gradient(ellipse at center, #233448 0%, #0b0f1a 75%)' }}>
-              <p className="text-white/60 text-sm">{isAr ? '����� ������� ��������� ��� �������' : 'Explore our advertising locations on the map'}</p>
-              <button type="button" onClick={() => setMapEnabled(true)}
-                className="min-h-12 px-7 py-3 bg-[#D90429] text-white font-bold rounded-sm">
-                {isAr ? '��� ������� ���������' : 'Open interactive map'}
-              </button>
-            </div>
-          )}
+
 
           {selectedPin && (
               <div
@@ -1467,7 +1456,7 @@ function ProjectsSection() {
             >
               <img
                 src={thumb(featured.coverImage, 1200, 500)}
-                alt={`${featured.title} — outdoor advertising case study`}
+                alt={featured.coverImageAlt || `${featured.title} — outdoor advertising case study`}
                 width={1200} height={500}
                 loading="lazy" decoding="async"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
@@ -1508,7 +1497,7 @@ function ProjectsSection() {
                 >
                   <img
                     src={thumb(p.coverImage, 600, 230)}
-                    alt={`${p.title} — outdoor advertising`}
+                    alt={p.coverImageAlt || `${p.title} — outdoor advertising`}
                     width={600} height={230}
                     loading="lazy" decoding="async"
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
@@ -1582,7 +1571,7 @@ function LatestBlogsSection() {
                 <div className="relative overflow-hidden" style={{ height: 220 }}>
                   <img
                     src={thumb(post.image, 600, 220)}
-                    alt={post.title}
+                    alt={(post as any).imageAlt || post.title}
                     width={600} height={220}
                     loading="lazy" decoding="async"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -1871,10 +1860,18 @@ export default function Home() {
   // The store initialises asynchronously; sections re-render once data arrives.
   const { locations: LOCATIONS, services: SERVICES, projects: PROJECTS, trustStats: TRUST_STATS, clientBrands: CLIENT_BRANDS, process: PROCESS, results: RESULTS } = useStore()
 
+  const { settings } = useStore();
+  const { isAr } = useLang();
   const allBillboards = LOCATIONS.flatMap((l: any) => (l.products||[]).map((p: any) => ({ ...p, citySlug: l.slug })))
   return (
     <>
-      <SEO title="HORIZON OOH | Outdoor Advertising Agency in Egypt" description="Egypt's premier outdoor advertising agency. Billboard, DOOH, Mall & Airport campaigns across Cairo, Alexandria & nationwide. 9,500+ premium locations." canonical="/" />
+      <SEO title={isAr ? ((settings as any).metaTitleAr || "هورايزون | شركة إعلانات خارجية ولوحات إعلانية في مصر") : ((settings as any).metaTitle || "HORIZON OOH | Outdoor Advertising Agency in Egypt")} description={isAr ? ((settings as any).metaDescriptionAr || "حملات إعلانات خارجية ولوحات إعلانية وشاشات رقمية في القاهرة والإسكندرية ومختلف أنحاء مصر مع هورايزون.") : ((settings as any).metaDescription || "Billboard, DOOH, mall and airport advertising campaigns across Cairo, Alexandria and Egypt. Plan your outdoor campaign with HORIZON OOH.")} canonical="/" />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
+        "@context": "https://schema.org", "@graph": [
+          {"@type": "Organization", "@id": "https://horizonooh.com/#organization", "name": settings.companyName || "HORIZON OOH", "url": "https://horizonooh.com", "telephone": settings.phone || undefined, "email": settings.email || undefined, "address": settings.address || undefined,
+            "logo": typeof settings.headerLogoUrl === "string" && !settings.headerLogoUrl.startsWith("data:") ? (settings.headerLogoUrl.startsWith("http") ? settings.headerLogoUrl : `https://horizonooh.com${settings.headerLogoUrl}`) : undefined},
+          {"@type": "WebSite", "@id": "https://horizonooh.com/#website", "url": "https://horizonooh.com", "name": settings.companyName || "HORIZON OOH", "publisher": {"@id": "https://horizonooh.com/#organization"}, "inLanguage": ["en", "ar"]}
+        ]}).replace(/</g, "\\u003c")}} />
       <HeroSection />
       <ClientsSection />
       <StatementSection />

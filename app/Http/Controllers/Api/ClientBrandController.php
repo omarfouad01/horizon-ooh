@@ -48,7 +48,7 @@ class ClientBrandController extends Controller
                 'descriptionAr'  => 'nullable|string',
                 'description_ar' => 'nullable|string',
                 'sort_order'     => 'nullable|integer',
-            ], 360, 128);
+            ]);
 
             // Normalize camelCase → snake_case
             if (!isset($data['logo_url']) && isset($data['logoUrl']))             $data['logo_url']       = $data['logoUrl'];
@@ -84,7 +84,7 @@ class ClientBrandController extends Controller
                 'descriptionAr'  => 'nullable|string',
                 'description_ar' => 'nullable|string',
                 'sort_order'     => 'nullable|integer',
-            ], 360, 128);
+            ]);
 
             if (!isset($data['logo_url']) && isset($data['logoUrl']))             $data['logo_url']       = $data['logoUrl'];
             if (!isset($data['name_ar']) && isset($data['nameAr']))               $data['name_ar']        = $data['nameAr'];

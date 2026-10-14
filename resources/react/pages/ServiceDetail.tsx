@@ -126,8 +126,9 @@ export default function ServiceDetail() {
   return (
     <>
       <SEO
-        title={`${service.title} in Egypt | HORIZON OOH`}
-        description={service.longDescription.substring(0, 160)}
+        title={isAr && service.titleAr ? `${service.titleAr} | HORIZON OOH` : `${service.title} in Egypt | HORIZON OOH`}
+        description={(isAr && service.longDescriptionAr ? service.longDescriptionAr : service.longDescription || service.description || "").substring(0, 160)}
+        ogImage={service.image}
         keywords={`${(service.title ?? '').toLowerCase()} Egypt, outdoor advertising Egypt, OOH advertising Egypt, ${(service.shortTitle ?? '').toLowerCase()} Cairo`}
         canonical={`/services/${service.slug}`}
       />
@@ -177,7 +178,7 @@ export default function ServiceDetail() {
               src={thumb(service.image, 800, 600)}
               srcSet={thumbSrcSet(service.image, [400, 800, 1200], 4 / 3)}
               sizes="(min-width: 1024px) 50vw, 100vw"
-              alt={service.title}
+              alt={service.imageAlt || service.title}
               width={800} height={600}
               // This image is visible in the first viewport and is the likely
               // LCP candidate for this route. Loading it eagerly changes no

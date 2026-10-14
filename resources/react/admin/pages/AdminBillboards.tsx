@@ -408,6 +408,8 @@ const save = async (e: React.FormEvent) => {
           (f.images || []).filter((img: ImgItem) => !img.file).map((img: ImgItem) => img.url)
         ))
       }
+      fd.append('image_alts', JSON.stringify((f.images || []).filter((img: ImgItem) => !img.file).map((img: ImgItem) => ({url: img.url, alt: img.alt || ''}))))
+      ;(f.images || []).filter((img: ImgItem) => img.file instanceof File).forEach((img: ImgItem) => fd.append('new_image_alts[]', img.alt || ''))
       // Attach new image files only (items with a .file property are newly uploaded)
       ;(f.images || []).forEach((img: ImgItem) => {
         if (img.file instanceof File) fd.append('images[]', img.file)

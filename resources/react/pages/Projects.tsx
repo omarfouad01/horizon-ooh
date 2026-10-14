@@ -30,6 +30,8 @@ type ClientGroup = {
   categories: ProjectCategory[];
   latestYear: string;
   coverImage: string;
+  coverImageAlt?: string;
+  logoAlt?: string;
   blurb: string;
 };
 
@@ -84,7 +86,7 @@ function ClientCard({ client, index, active, onClick }: { client: ClientGroup; i
         {client.coverImage
           ? <img
               src={client.coverImage}
-              alt={`${client.name} client card`}
+              alt={client.coverImageAlt || `${client.name} client card`}
               width={600} height={260}
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
               style={{ opacity: 0.88 }}
@@ -116,7 +118,7 @@ function ClientCard({ client, index, active, onClick }: { client: ClientGroup; i
         <div className="absolute bottom-0 left-0 right-0 p-6">
           {client.logo ? (
             <div className="mb-3">
-              <img src={client.logo} alt={client.name} style={{ height: 28, width: 'auto', objectFit: 'contain', maxWidth: 120, filter: 'brightness(10)', opacity: 0.85 }} loading="lazy" />
+              <img src={client.logo} alt={client.logoAlt || client.name} style={{ height: 28, width: 'auto', objectFit: 'contain', maxWidth: 120, filter: 'brightness(10)', opacity: 0.85 }} loading="lazy" />
             </div>
           ) : (
             <p className="text-white/45 text-[10px] font-bold tracking-[0.28em] uppercase mb-2"><ClientsLabel /></p>
@@ -175,7 +177,7 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
           {project.coverImage
             ? <img
                 src={project.coverImage}
-                alt={`${project.title} — outdoor advertising ${project.location}`}
+                alt={project.coverImageAlt || `${project.title} — outdoor advertising ${project.location}`}
                 width={600} height={280}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                 style={{ opacity: 0.88 }}
@@ -263,7 +265,7 @@ function FeaturedProject() {
 
         <Link to={projectHref(lang, featured.slug)} className="group relative block overflow-hidden" style={{ textDecoration: "none", height: 560 }}>
           {featured.heroImage
-            ? <img src={featured.heroImage} alt={`${featured.title} — outdoor advertising case study Egypt`} width={1440} height={500} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" style={{ opacity: 0.8 }} {...({ fetchpriority: "high" } as any)} decoding="async" />
+            ? <img src={featured.heroImage} alt={featured.heroImageAlt || `${featured.title} — outdoor advertising case study Egypt`} width={1440} height={500} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" style={{ opacity: 0.8 }} {...({ fetchpriority: "high" } as any)} decoding="async" />
             : <div className="absolute inset-0 bg-gradient-to-br from-[#0B0F1A] to-[#1a2035]" />}
           <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(11,15,26,0.88) 0%, rgba(11,15,26,0.5) 50%, rgba(11,15,26,0.15) 100%)" }} />
 
@@ -398,6 +400,8 @@ export default function Projects() {
           categories: Array.from(new Set(ordered.map((p) => p.category))),
           latestYear: ordered[0]?.year || "",
           coverImage: ordered[0]?.coverImage,
+          coverImageAlt: ordered[0]?.coverImageAlt,
+          logoAlt: ordered[0]?.clientLogoAlt,
           blurb: buildClientBlurb(ordered),
         };
       })

@@ -148,7 +148,7 @@ export default function Blog() {
                   <div className="relative overflow-hidden" style={{ height: 220 }}>
                     <img
                       src={post.image}
-                      alt={post.title}
+                      alt={(post as any).imageAlt || post.title}
                       width={600} height={220}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       style={{ opacity: 0.85 }}

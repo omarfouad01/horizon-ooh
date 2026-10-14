@@ -323,6 +323,9 @@ export default function AdminSettings() {
               <Field label="HQ Label (Contact page)" value={(settings as any).hqLabel||'Cairo HQ'} onChange={(e:any)=>setSettings(p=>({...p,hqLabel:e.target.value}))} placeholder="Cairo HQ"/>
               <Field label="WhatsApp Number" value={settings.whatsapp} onChange={(e:any)=>setSettings(p=>({...p,whatsapp:e.target.value}))} placeholder="+20 10 XXXX XXXX"/>
             </div>
+            <Field label="Homepage Meta Title (SEO)" value={(settings as any).metaTitle || ''} onChange={(e:any)=>setSettings(p=>({...p,metaTitle:e.target.value}))}/>
+            <Field label="Homepage Meta Title (AR)" value={(settings as any).metaTitleAr || ''} onChange={(e:any)=>setSettings(p=>({...p,metaTitleAr:e.target.value}))} dir="rtl"/>
+            <TA label="Meta Description (AR)" value={(settings as any).metaDescriptionAr || ''} onChange={(e:any)=>setSettings(p=>({...p,metaDescriptionAr:e.target.value}))} rows={2}/>
             <TA label="Meta Description (SEO)" value={settings.metaDescription} onChange={(e:any)=>setSettings(p=>({...p,metaDescription:e.target.value}))} rows={2}/>
             <div className="p-3 rounded-lg bg-blue-50 border border-blue-100 text-[12px] text-blue-700">
               ℹ️  <strong>Phone</strong> and <strong>WhatsApp</strong> appear in the website footer, contact page, and floating WhatsApp button.

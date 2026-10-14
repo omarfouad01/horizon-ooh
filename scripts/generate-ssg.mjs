@@ -6,9 +6,10 @@ import { inlineHomeCss } from "./inline-home-css.mjs";
 const projectRoot = resolve(import.meta.dirname, "..");
 const publicDir = resolve(projectRoot, "public");
 const shellPath = resolve(publicDir, "index.html");
-const serverEntry = resolve(projectRoot, ".skywork/runtime/ssg/entry-server.mjs");
-const routeManifestPath = resolve(projectRoot, ".skywork/runtime/ssg/ssg-routes.mjs");
-const outputDir = resolve(publicDir, "ssg");
+const runtimeDir = process.env.SSG_RUNTIME_DIR || resolve(projectRoot, ".skywork/runtime/ssg");
+const serverEntry = resolve(runtimeDir, "entry-server.mjs");
+const routeManifestPath = resolve(runtimeDir, "ssg-routes.mjs");
+const outputDir = process.env.SSG_OUTPUT_DIR ? resolve(process.env.SSG_OUTPUT_DIR) : resolve(publicDir, "ssg");
 
 if (!existsSync(shellPath)) throw new Error(`Client build not found: ${shellPath}`);
 if (!existsSync(serverEntry)) throw new Error(`SSG server bundle not found: ${serverEntry}`);
@@ -249,14 +250,15 @@ function snapshotForRoute(source, route) {
     scoped.locations = source.locations.map((location) => ({
       ...location,
       productCount: location.productCount ?? location.products.length,
-      products: location.products.slice(0, 12),
+      products: location.products.slice(0, 12).map(({images, ...product}) => ({...product, images: (images || []).slice(0, 1)})),
     }));
     scoped.clientBrands = source.clientBrands; scoped.trustStats = source.trustStats;
     scoped.process = source.process; scoped.processSteps = source.processSteps; scoped.results = source.results;
     scoped.adFormats = source.adFormats; scoped.billboardFormats = source.billboardFormats;
     scoped.services = source.services;
     scoped.projects = source.projects;
-    scoped.blogPosts = source.blogPosts;
+    scoped.blogPosts = source.blogPosts.map(({body, bodyAr, content, ...card}) => card);
+    scoped.districts = source.districts;
     return scoped;
   }
 
@@ -336,8 +338,9 @@ function replaceMeta(html, selector, tag) {
 }
 
 function injectMetadata(html, metadata, route) {
-  const canonicalPath = metadata.canonical || (route.startsWith("/ar") ? route.slice(3) || "/" : route);
-  const canonicalUrl = `https://horizonooh.com${canonicalPath === "/" ? "" : canonicalPath}`;
+  const canonicalPath = stripArabicPrefix(metadata.canonical || route);
+  const englishUrl = `https://horizonooh.com${canonicalPath === "/" ? "" : canonicalPath}`;
+  const canonicalUrl = `https://horizonooh.com${route === "/" ? "" : route}`;
   const routeUrl = `https://horizonooh.com${route === "/" ? "" : route}`;
   const arPath = canonicalPath === "/" ? "/ar" : `/ar${canonicalPath}`;
   const arUrl = `https://horizonooh.com${arPath}`;
@@ -400,9 +403,9 @@ function injectMetadata(html, metadata, route) {
 
   const seoTags = [
     `<link rel="canonical" href="${escapeHtml(canonicalUrl)}" />`,
-    `<link rel="alternate" hreflang="en" href="${escapeHtml(canonicalUrl)}" />`,
+    `<link rel="alternate" hreflang="en" href="${escapeHtml(englishUrl)}" />`,
     `<link rel="alternate" hreflang="ar" href="${escapeHtml(arUrl)}" />`,
-    `<link rel="alternate" hreflang="x-default" href="${escapeHtml(canonicalUrl)}" />`,
+    `<link rel="alternate" hreflang="x-default" href="${escapeHtml(englishUrl)}" />`,
   ].join("\n    ");
 
   return html.replace(

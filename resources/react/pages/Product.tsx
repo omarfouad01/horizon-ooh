@@ -280,27 +280,17 @@ export default function Product() {
 
   // ── Structured data ────────────────────────────────────────────────────
   const seoTitle = [
-    product.adFormat,
-    product.sqm ? `${product.sqm}sqm` : null,
-    product.adType || product.type,
-    product.district ?? product.city ?? 'Egypt',
-    'Billboard Advertising',
-    'HORIZON OOH',
+    (isAr && product.nameAr ? product.nameAr : product.nameEn || product.name),
+    product.code, product.district || product.city,
+    'Billboard Advertising', 'HORIZON OOH',
   ].filter(Boolean).join(' | ');
-
   const billboardSchema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": seoTitle,
-    "description": `Premium outdoor advertising billboard at ${product.fullAddress ?? product.district ?? product.city ?? 'Egypt'}. ${product.sqm ? `${product.sqm} sqm` : ''} ${product.adFormat ?? ''}. Book now with HORIZON OOH.`,
-    "image": product.images?.[0] ?? "",
-    "brand": { "@type": "Brand", "name": "HORIZON OOH" },
-    "offers": {
-      "@type": "Offer",
-      "priceCurrency": "EGP",
-      "availability": "https://schema.org/InStock",
-      "seller": { "@type": "Organization", "name": "HORIZON OOH", "url": "https://horizonooh.com" },
-    },
+    "@context": "https://schema.org", "@type": "Service",
+    "name": seoTitle, "serviceType": "Outdoor billboard advertising",
+    "description": product.description || `Billboard advertising in ${product.district || product.city || 'Egypt'}.`,
+    "image": product.images?.[0]?.url ? (product.images[0].url.startsWith('/') ? `https://horizonooh.com${product.images[0].url}` : product.images[0].url) : undefined,
+    "provider": {"@type": "Organization", "@id": "https://horizonooh.com/#organization", "name": "HORIZON OOH"},
+    "areaServed": {"@type": "City", "name": location.city},
   };
 
   const breadcrumbSchema = {

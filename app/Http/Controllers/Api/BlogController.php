@@ -21,6 +21,7 @@ class BlogController extends Controller
             'author'       => $p->author,
             'readTime'     => $p->read_time,
             'image'        => $p->image,
+            'imageAlt' => $p->image_alt,
             'excerpt'      => $p->excerpt,
             'content'      => $p->content,
             'body'         => $p->body ?? [],
@@ -31,6 +32,7 @@ class BlogController extends Controller
             'featured'     => (bool) $p->featured,
             'published'    => (bool) $p->published,
             'publishedAt'  => $p->published_at?->toISOString(),
+            'updatedAt' => $p->updated_at?->toISOString(),
             'sort_order'   => $p->sort_order,
         ]);
     }
@@ -111,6 +113,8 @@ class BlogController extends Controller
             'read_time'    => 'nullable|string',
             'readTime'     => 'nullable|string',
             'image'        => 'nullable|string',
+            'imageAlt' => 'nullable|string|max:1000',
+            'image_alt' => 'nullable|string|max:1000',
             'excerpt'      => 'nullable|string',
             'content'      => 'nullable|string',
             'body'         => 'nullable|array',
@@ -150,6 +154,7 @@ class BlogController extends Controller
     private function normalize(array $d): array
     {
         $map = [
+            'imageAlt' => 'image_alt',
             'titleAr'   => 'title_ar',
             'readTime'  => 'read_time',
             'bodyAr'    => 'body_ar',

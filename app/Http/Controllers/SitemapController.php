@@ -16,11 +16,10 @@ use Illuminate\Support\Facades\Schema;
  *   GET /sitemap-billboards-{page}.xml → 500 billboards per file
  *
  * SEO strategy:
- *   - Each URL appears ONCE in the sitemap (the canonical English URL).
+ *   - Each English and Arabic canonical URL appears once.
  *   - <xhtml:link rel="alternate"> hreflang pairs are nested inside each <url>
  *     so Google/Ahrefs understand en↔ar relationship without duplicate entries.
- *   - /ar/ pages are NOT listed as separate sitemap entries — they are referenced
- *     only as alternates, preventing "non-canonical page in sitemap" Ahrefs errors.
+ *   - Both language URLs are self-canonical and carry reciprocal alternates.
  */
 class SitemapController extends Controller
 {
@@ -77,7 +76,7 @@ XML;
     // ─────────────────────────────────────────────────────────────────────────
     public function staticSitemap(): \Illuminate\Http\Response
     {
-        $now  = now()->toAtomString();
+        $now = null;
         $urls = collect();
 
         // ── Static pages (English only — /ar/ referenced via hreflang) ────────
@@ -206,6 +205,10 @@ XML;
             'Disallow: /signup',
             'Disallow: /profile',
             'Disallow: /admin',
+            'Disallow: /ar/admin',
+            'Disallow: /ar/login',
+            'Disallow: /ar/signup',
+            'Disallow: /ar/profile',
             '',
             "Sitemap: {$this->base}/sitemap.xml",
             '',
@@ -246,10 +249,10 @@ XML;
             $freq    = htmlspecialchars($u['freq'],     ENT_XML1);
             $prio    = htmlspecialchars($u['priority'], ENT_XML1);
 
-            return implode("\n", [
+            $entry = implode("\n", [
                 "  <url>",
                 "    <loc>{$loc}</loc>",
-                "    <lastmod>{$lastmod}</lastmod>",
+                $u['lastmod'] ? "    <lastmod>{$lastmod}</lastmod>" : "",
                 "    <changefreq>{$freq}</changefreq>",
                 "    <priority>{$prio}</priority>",
                 "    <xhtml:link rel=\"alternate\" hreflang=\"en\"        href=\"{$loc}\" />",
@@ -257,6 +260,7 @@ XML;
                 "    <xhtml:link rel=\"alternate\" hreflang=\"x-default\" href=\"{$loc}\" />",
                 "  </url>",
             ]);
+            return $entry . "\n" . str_replace("<loc>{$loc}</loc>", "<loc>{$locAr}</loc>", $entry);
         })->implode("\n");
 
         return <<<XML
