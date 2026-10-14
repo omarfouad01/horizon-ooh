@@ -1,7 +1,6 @@
 import { contactStore, siteUserStore, useStore } from "@/store/dataStore";
 import SEO from "@/components/SEO";
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { Reveal, RevealGroup, RevealItem, PageHero, Eyebrow } from "@/components/UI";
 import { RED, NAVY, ease } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
@@ -10,14 +9,16 @@ import { trackEvent } from "@/lib/analytics";
 
 export default function Contact() {
   const { settings, contactContent } = useStore();
-  const cc = contactContent || {};
+  let savedContent: any = {};
+  try { const value = settings.contact_page_content; savedContent = typeof value === "string" ? JSON.parse(value) : (value || {}); } catch { /* Keep the contact form usable if optional copy is malformed. */ }
+  const cc = Object.keys(contactContent || {}).length ? contactContent : savedContent;
   const { isAr, t } = useLang();
   const [searchParams] = useSearchParams();
   const billboardCode = searchParams.get('billboard') || '';
   const billboardName = searchParams.get('name') || '';
   const CONTACT_INFO = [
     { label: isAr ? (cc.hqLabelAr || 'المقر الرئيسي بالقاهرة') : (cc.hqLabel || (settings as any).hqLabel || 'Cairo HQ'), value: settings.address || 'Cairo, Egypt', icon: '◉' },
-    { label: isAr ? 'الهاتف' : "Phone",   value: settings.phone   || "+20 2 1234 5678", icon: "◉" },
+    { label: isAr ? 'الهاتف' : "Phone",   value: settings.phone   || "", icon: "◉" },
     { label: isAr ? 'البريد الإلكتروني' : "Email",   value: settings.email   || "info@horizonooh.com", icon: "◉" },
     { label: isAr ? 'ساعات العمل' : "Hours",   value: isAr ? 'الأحد – الخميس، 9:00 – 18:00 EET' : "Sun – Thu, 9:00 – 18:00 EET", icon: "◉" },
   ];
@@ -95,10 +96,7 @@ export default function Contact() {
               </Reveal>
 
               {submitted ? (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, ease }}
+                <div
                   className="flex flex-col items-start gap-6"
                   style={{ padding: "60px 0" }}
                 >
@@ -113,7 +111,7 @@ export default function Contact() {
                   <p className="text-[17px] leading-[1.75]" style={{ color: "rgba(11,15,26,0.45)", maxWidth: 420 }}>
                     {isAr ? (cc.successTextAr || 'شكراً لتواصلك معنا. سيتواصل معك أحد خبرائنا الإعلاميين خلال 24 ساعة.') : (cc.successText || 'Thank you for reaching out. One of our media strategists will be in touch within 24 hours.')}
                   </p>
-                </motion.div>
+                </div>
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                   {billboardCode && (

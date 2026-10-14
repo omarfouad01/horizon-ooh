@@ -267,6 +267,8 @@ function snapshotForRoute(source, route) {
     scoped.aboutContent = source.aboutContent;
   } else if (path === "/contact") {
     scoped.settings = source.settings;
+    const contact = source.settings?.contact_page_content;
+    scoped.contactContent = typeof contact === 'string' ? JSON.parse(contact || '{}') : (contact || {});
   } else if (path === "/services") {
     scoped.services = source.services;
   } else if (path.startsWith("/services/")) {

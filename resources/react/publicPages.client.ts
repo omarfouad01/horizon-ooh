@@ -10,4 +10,4 @@ export const LocationDetail = lazy(() => import("./pages/LocationDetail"));
 export const Product = lazy(() => import("./pages/Product"));
 export const Blog = lazy(() => import("./pages/Blog"));
 export const BlogArticle = lazy(() => import("./pages/BlogArticle"));
-export const Contact = lazy(() => import("./pages/Contact"));
+export { default as Contact } from "./pages/Contact";

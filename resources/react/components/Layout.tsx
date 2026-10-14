@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 import { NAV_LINKS } from "@/data";
 import { makeRoutes, langPath, RED, NAVY } from "@/lib/routes";
@@ -606,6 +606,11 @@ function DynamicTitle() {
 
 // ─── Layout ────────────────────────────────────────────────────────────────
 export default function Layout({ children }: { children: React.ReactNode }) {
+  const { pathname } = useLocation();
+  const useScrollEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
+  useScrollEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [pathname]);
   return (
     <div className="min-h-screen bg-white">
       <DynamicFavicon />

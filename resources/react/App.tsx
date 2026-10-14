@@ -71,7 +71,7 @@ const AdminDashboardUsers = lazy(() => import("@/admin/pages/AdminDashboardUsers
 
 // Shared page loading fallback
 const PageLoading = () => (
-  <div style={{ display:'flex', alignItems:'center', justifyContent:'center', height:'80vh' }}>
+  <div style={{ display:'flex', alignItems:'center', justifyContent:'center', height:'80vh', background:'#fff', color:'#0B0F1A' }}>
     <div style={{ width:32, height:32, border:'3px solid #D90429', borderTopColor:'transparent', borderRadius:'50%', animation:'spin 0.8s linear infinite' }} />
   </div>
 );
