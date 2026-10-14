@@ -21,9 +21,11 @@ class SettingController extends Controller
         $out  = [];
         foreach ($rows as $k => $v) {
             $decoded = json_decode($v, true);
-            $out[$k] = $decoded !== null ? $decoded : $v;
+            $value = $decoded !== null ? $decoded : $v;
+            $out[$k] = in_array($k, ['headerLogoUrl', 'footerLogoUrl'])
+                ? \App\Support\PublicImage::values($value, 360, 160) : $value;
         }
-        return $out;
+        return \App\Support\PublicImage::values($out);
     }
 
     // GET /api/settings – return all settings as flat key-value object

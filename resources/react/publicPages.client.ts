@@ -1,0 +1,13 @@
+import { lazy } from "react";
+export { default as Home } from "./pages/Home";
+export const About = lazy(() => import("./pages/About"));
+export const Services = lazy(() => import("./pages/Services"));
+export const ServiceDetail = lazy(() => import("./pages/ServiceDetail"));
+export const Projects = lazy(() => import("./pages/Projects"));
+export const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
+export const Locations = lazy(() => import("./pages/Locations"));
+export const LocationDetail = lazy(() => import("./pages/LocationDetail"));
+export const Product = lazy(() => import("./pages/Product"));
+export const Blog = lazy(() => import("./pages/Blog"));
+export const BlogArticle = lazy(() => import("./pages/BlogArticle"));
+export const Contact = lazy(() => import("./pages/Contact"));

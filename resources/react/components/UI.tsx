@@ -138,7 +138,7 @@ export function Eyebrow({ text, light = false, center = false }: { text: string;
         <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
         <span
           className="text-[10px] font-bold tracking-[0.35em] uppercase"
-          style={{ color: light ? "rgba(255,255,255,0.3)" : "rgba(11,15,26,0.35)" }}
+          style={{ color: light ? "rgba(255,255,255,0.7)" : "rgba(11,15,26,0.65)" }}
         >
           {text}
         </span>
@@ -188,7 +188,7 @@ export function PageHero({
             {titleAccent && (
               <>
                 <br />
-                <span style={{ color: dark ? "rgba(255,255,255,0.2)" : "rgba(11,15,26,0.2)" }}>{titleAccent}</span>
+                <span style={{ color: dark ? "rgba(255,255,255,0.7)" : "rgba(11,15,26,0.65)" }}>{titleAccent}</span>
               </>
             )}
           </h1>
@@ -239,7 +239,7 @@ export function SectionHeading({
           {titleAccent && (
             <>
               <br />
-              <span style={{ color: light ? "rgba(255,255,255,0.2)" : "rgba(11,15,26,0.2)" }}>
+              <span style={{ color: light ? "rgba(255,255,255,0.7)" : "rgba(11,15,26,0.65)" }}>
                 {titleAccent}
               </span>
             </>
@@ -251,7 +251,7 @@ export function SectionHeading({
           <p
             className="mt-5 text-[16px] leading-[1.7]"
             style={{
-              color: light ? "rgba(255,255,255,0.4)" : "rgba(11,15,26,0.4)",
+              color: light ? "rgba(255,255,255,0.7)" : "rgba(11,15,26,0.65)",
               maxWidth: center ? 520 : 480,
               margin: center ? "20px auto 0" : "20px 0 0",
             }}
@@ -396,7 +396,7 @@ export function CTABanner({
           <Reveal delay={0.08}>
             <p
               className="mt-4 text-[16px] leading-relaxed"
-              style={{ color: dark ? "rgba(255,255,255,0.4)" : "rgba(11,15,26,0.4)" }}
+              style={{ color: dark ? "rgba(255,255,255,0.7)" : "rgba(11,15,26,0.65)" }}
             >
               {subtitle}
             </p>
@@ -436,19 +436,19 @@ export function Breadcrumb({ items }: { items: { label: string; href?: string }[
         <div className="flex items-center gap-2">
           {items.map((item, i) => (
             <span key={item.label} className="flex items-center gap-2">
-              {i > 0 && <span style={{ color: "rgba(11,15,26,0.25)", fontSize: 12 }}>›</span>}
+              {i > 0 && <span style={{ color: "rgba(11,15,26,0.65)", fontSize: 12 }}>›</span>}
               {item.href ? (
                 <Link
                   to={item.href}
                   className="text-[11px] font-semibold tracking-[0.15em] uppercase transition-colors duration-150 hover:text-[#D90429] cursor-pointer"
-                  style={{ color: "rgba(11,15,26,0.35)" }}
+                  style={{ color: "rgba(11,15,26,0.65)" }}
                 >
                   {item.label}
                 </Link>
               ) : (
                 <span
                   className="text-[11px] font-semibold tracking-[0.15em] uppercase"
-                  style={{ color: "rgba(11,15,26,0.6)" }}
+                  style={{ color: "rgba(11,15,26,0.65)" }}
                 >
                   {item.label}
                 </span>

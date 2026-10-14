@@ -40,7 +40,7 @@ for (const check of coreChecks) {
     `${check.file} must contain exactly one canonical`,
   );
   if (check.content) assert.ok(html.includes(check.content), `${check.file} must contain meaningful page content`);
-  assert.ok(/<div id="root"><div/.test(html), `${check.file} must contain rendered React markup`);
+  assert.ok(/<div id="root">(?:<!--\$-->)?<div/.test(html), `${check.file} must contain rendered React markup`);
   assert.ok(!html.includes("canonical + hreflang injected server-side"), `${check.file} must not retain the shell placeholder`);
 }
 

@@ -2,7 +2,7 @@
 import { LangProvider, useLang } from "@/i18n/LangContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState, useRef } from "react";
 import Layout from "@/components/Layout";
 import { FaviconSync } from "@/components/FaviconSync";
 import { trackEvent } from "@/lib/analytics";
@@ -40,18 +40,7 @@ const TooltipProvider = lazy(() => import("@/components/ui/tooltip").then(m => (
 // ── Public pages ─────────────────────────────────────────────────────────────
 // Public routes are eager imports so the same component tree can be rendered
 // at build time by entry-server.tsx. Admin/auth-only code remains lazy.
-import Home from "@/pages/Home";
-import About from "@/pages/About";
-import Services from "@/pages/Services";
-import ServiceDetail from "@/pages/ServiceDetail";
-import Projects from "@/pages/Projects";
-import ProjectDetail from "@/pages/ProjectDetail";
-import Locations from "@/pages/Locations";
-import LocationDetail from "@/pages/LocationDetail";
-import Product from "@/pages/Product";
-import Blog from "@/pages/Blog";
-import BlogArticle from "@/pages/BlogArticle";
-import Contact from "@/pages/Contact";
+import { Home, About, Services, ServiceDetail, Projects, ProjectDetail, Locations, LocationDetail, Product, Blog, BlogArticle, Contact } from "@/publicPages";
 const Login          = lazy(() => import("@/pages/Login"));
 const Signup         = lazy(() => import("@/pages/Signup"));
 const Profile        = lazy(() => import("@/pages/Profile"));
@@ -113,13 +102,23 @@ function ClientEnhancements() {
 }
 
 // ── All public page routes — reused for both /  and /ar/ prefixes ────────────
-export function PublicRoutes() {
-  const { loaded, reload } = useStore();
+function PublicDataLoader() {
+  const { reload } = useStore();
   const location = useLocation();
-  useEffect(() => { void reload(); }, [location.pathname]);
-  if (!loaded) return <PageLoading />;
+  const firstLoad = useRef(true);
+  useEffect(() => {
+    const deferred = firstLoad.current && !!document.getElementById('horizon-ssg-state');
+    firstLoad.current = false;
+    const timer = window.setTimeout(() => { void reload(); }, deferred ? 2000 : 0);
+    return () => window.clearTimeout(timer);
+  }, [location.pathname]);
+  return null;
+}
+
+export function PublicRoutes() {
+  const { loaded } = useStore();
   return (
-    <Routes>
+    <Suspense fallback={<PageLoading />}><PublicDataLoader />{loaded ? <Routes>
       <Route index                                        element={<Layout><Home /></Layout>} />
       <Route path="about"            element={<Layout><About /></Layout>} />
       <Route path="services"         element={<Layout><Services /></Layout>} />
@@ -137,7 +136,7 @@ export function PublicRoutes() {
       <Route path="profile"          element={<Suspense fallback={<PageLoading />}><Layout><Profile /></Layout></Suspense>} />
       <Route path="design-simulator" element={<Suspense fallback={<PageLoading />}><Layout><DesignSimulator /></Layout></Suspense>} />
       <Route path="*"                element={<Suspense fallback={<PageLoading />}><NotFound /></Suspense>} />
-    </Routes>
+    </Routes> : <PageLoading />}</Suspense>
   );
 }
 
@@ -154,7 +153,7 @@ export const AppContent = () => (
         <Route path="/*" element={<PublicRoutes />} />
 
         {/* ── Arabic routes: /ar/* ── same pages, lang derived from URL ── */}
-        <Route path="/ar" element={<Layout><Home /></Layout>} />
+        <Route path="/ar" element={<PublicRoutes />} />
         <Route path="/ar/*" element={<PublicRoutes />} />
 
         {/* ── Admin Panel — lazy loaded, never shipped to website users ── */}

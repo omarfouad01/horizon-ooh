@@ -17,7 +17,7 @@ class ProjectController extends Controller
      */
     private function transform(Project $p): array
     {
-        return [
+        return \App\Support\PublicImage::values([
             'id'                    => $p->id,
             'slug'                  => $p->slug,
             'title'                 => $p->title,
@@ -57,7 +57,7 @@ class ProjectController extends Controller
             'duration'              => $p->duration,
             'featured'              => (bool) $p->featured,
             'sort_order'            => $p->sort_order,
-        ];
+        ]);
     }
 
     /**

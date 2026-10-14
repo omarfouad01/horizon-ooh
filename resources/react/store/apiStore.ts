@@ -595,7 +595,7 @@ forceReload: async () => {
     const needsSimulator = isAdminRoute || routePath.startsWith('/design-simulator');
 
     const results = await Promise.allSettled([
-      needsLocations ? locationsApi.all(isAdminRoute) : Promise.resolve([]), // 0
+      needsLocations ? locationsApi.all(isAdminRoute, isHomeRoute) : Promise.resolve([]), // 0
       needsInventoryFilters ? districtsApi.all() : Promise.resolve([]), // 1
       needsInventoryFilters ? adFormatsApi.all() : Promise.resolve([]), // 2
       needsServices ? servicesApi.all() : Promise.resolve([]), // 3
@@ -759,7 +759,8 @@ forceReload: async () => {
 // immediately fire a real API fetch to replace demo data with live data.
 // We do NOT guard on !loaded because loaded starts as true (pre-populated with
 // demo data). We only skip if a fetch is already in flight.
-if (typeof window !== 'undefined' && HAS_API) {
+if (typeof window !== 'undefined' && HAS_API &&
+    (typeof document === 'undefined' || !document.getElementById('horizon-ssg-state'))) {
   // Kick off on next microtask tick so the store object is fully constructed
   // before reload() is called, but still before any React render.
   Promise.resolve().then(() => {

@@ -11,7 +11,7 @@ class ClientBrandController extends Controller
 {
     private function transform(ClientBrand $b): array
     {
-        return [
+        return \App\Support\PublicImage::values([
             'id'             => $b->id,
             'name'           => $b->name,
             'nameAr'         => $b->name_ar,
@@ -22,7 +22,7 @@ class ClientBrandController extends Controller
             'description'    => $b->description,
             'descriptionAr'  => $b->description_ar,
             'sort_order'     => $b->sort_order,
-        ];
+        ], 360, 128);
     }
 
     public function index(): JsonResponse
@@ -48,7 +48,7 @@ class ClientBrandController extends Controller
                 'descriptionAr'  => 'nullable|string',
                 'description_ar' => 'nullable|string',
                 'sort_order'     => 'nullable|integer',
-            ]);
+            ], 360, 128);
 
             // Normalize camelCase → snake_case
             if (!isset($data['logo_url']) && isset($data['logoUrl']))             $data['logo_url']       = $data['logoUrl'];
@@ -84,7 +84,7 @@ class ClientBrandController extends Controller
                 'descriptionAr'  => 'nullable|string',
                 'description_ar' => 'nullable|string',
                 'sort_order'     => 'nullable|integer',
-            ]);
+            ], 360, 128);
 
             if (!isset($data['logo_url']) && isset($data['logoUrl']))             $data['logo_url']       = $data['logoUrl'];
             if (!isset($data['name_ar']) && isset($data['nameAr']))               $data['name_ar']        = $data['nameAr'];

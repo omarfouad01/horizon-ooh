@@ -1,0 +1,12 @@
+export { default as Home } from "./pages/Home";
+export { default as About } from "./pages/About";
+export { default as Services } from "./pages/Services";
+export { default as ServiceDetail } from "./pages/ServiceDetail";
+export { default as Projects } from "./pages/Projects";
+export { default as ProjectDetail } from "./pages/ProjectDetail";
+export { default as Locations } from "./pages/Locations";
+export { default as LocationDetail } from "./pages/LocationDetail";
+export { default as Product } from "./pages/Product";
+export { default as Blog } from "./pages/Blog";
+export { default as BlogArticle } from "./pages/BlogArticle";
+export { default as Contact } from "./pages/Contact";

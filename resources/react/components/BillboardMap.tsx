@@ -42,14 +42,14 @@ function makePin(active = false) {
   const fill = active ? RED  : NAVY;
   const dot  = active ? WHITE : RED;
   return L.divIcon({
-    html: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 32 40">
+    html: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" style="position:absolute;left:8px;top:4px" viewBox="0 0 32 40">
       <path d="M16 0C7.163 0 0 7.163 0 16c0 10.293 14.222 23.156 15.259 24.114a1 1 0 0 0 1.482 0
         C17.778 39.156 32 26.293 32 16 32 7.163 24.837 0 16 0z" fill="${fill}"/>
       <circle cx="16" cy="16" r="6" fill="${dot}"/>
     </svg>`,
     className: "",
-    iconSize:    [28, 36],
-    iconAnchor:  [14, 36],
+    iconSize:    [44, 44],
+    iconAnchor:  [22, 40],
     popupAnchor: [0, -40],
   });
 }
@@ -81,6 +81,7 @@ export default function LeafletMap({ filtered, allCount, selected, onSelect, cla
     });
     L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
       maxZoom: 19,
+      detectRetina: true,
     }).addTo(map);
     L.control.zoom({ position: "bottomright" }).addTo(map);
     mapRef.current = map;

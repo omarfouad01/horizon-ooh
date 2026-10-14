@@ -63,7 +63,7 @@ async function loadPublicSnapshot() {
     rawBlog,
     settings,
     homeContent,
-    aboutContent,
+    aboutContent, rawClients, rawStats, rawSteps, rawFormats, rawBillboardFormats,
   ] = await Promise.all([
     fetchJson(base, "locations?full=1"),
     fetchJson(base, "services"),
@@ -72,6 +72,8 @@ async function loadPublicSnapshot() {
     fetchJson(base, "settings"),
     fetchJson(base, "home-content"),
     fetchJson(base, "about-content"),
+    fetchJson(base, "clients"), fetchJson(base, "trust-stats"), fetchJson(base, "process-steps"),
+    fetchJson(base, "ad-formats"), fetchJson(base, "billboard-formats"),
   ]);
 
   const projectList = apiArray(rawProjects);
@@ -136,6 +138,11 @@ async function loadPublicSnapshot() {
     error: null,
     locations,
     districts,
+    clientBrands: apiArray(rawClients), trustStats: apiArray(rawStats),
+    process: apiArray(rawSteps), processSteps: apiArray(rawSteps),
+    adFormats: apiArray(rawFormats).map(f => ({...f, label:f.label || f.name})),
+    billboardFormats: apiArray(rawBillboardFormats).map(f => ({...f, label:f.label || f.name})),
+    results: homeContent?.results || [],
     services,
     projects: safeProjects,
     blogPosts,
@@ -240,8 +247,12 @@ function snapshotForRoute(source, route) {
     scoped.homeContent = source.homeContent;
     scoped.locations = source.locations.map((location) => ({
       ...location,
+      productCount: location.productCount ?? location.products.length,
       products: location.products.slice(0, 12),
     }));
+    scoped.clientBrands = source.clientBrands; scoped.trustStats = source.trustStats;
+    scoped.process = source.process; scoped.processSteps = source.processSteps; scoped.results = source.results;
+    scoped.adFormats = source.adFormats; scoped.billboardFormats = source.billboardFormats;
     scoped.services = source.services;
     scoped.projects = source.projects;
     scoped.blogPosts = source.blogPosts;
@@ -412,8 +423,8 @@ for (const route of routes) {
   if (routeSnapshot) {
     const serializedSnapshot = JSON.stringify(routeSnapshot).replace(/</g, "\\u003c");
     html = html.replace(
-      '<script type="module"',
-      `<script id="horizon-ssg-state" type="application/json">${serializedSnapshot}</script>\n    <script type="module"`,
+      '</body>',
+      `<script id="horizon-ssg-state" type="application/json">${serializedSnapshot}</script>\n  </body>`,
     );
   }
   html = injectMetadata(html, metadata, route);

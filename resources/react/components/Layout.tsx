@@ -146,7 +146,7 @@ export function Navbar() {
               <span className="text-[13px] font-black tracking-[0.22em] uppercase leading-none text-[#0B0F1A]">
                 {(companyName ?? 'HORIZON OOH').split(' ')[0] || 'HORIZON'}
               </span>
-              <span className="text-[9px] font-semibold tracking-[0.35em] uppercase leading-none text-[#0B0F1A]/35">
+              <span className="text-[9px] font-semibold tracking-[0.35em] uppercase leading-none text-[#0B0F1A]/65">
                 OUT-OF-HOME
               </span>
             </div>
@@ -162,7 +162,7 @@ export function Navbar() {
                 to={langPath(lang, link.href)}
                 className={({ isActive }) =>
                   `relative text-[12px] font-semibold tracking-[0.18em] uppercase transition-colors duration-200 group ${
-                    isActive ? "text-[#0B0F1A]" : "text-[#0B0F1A]/40 hover:text-[#0B0F1A]"
+                    isActive ? "text-[#0B0F1A]" : "text-[#0B0F1A]/65 hover:text-[#0B0F1A]"
                   }`
                 }
               >
@@ -183,7 +183,7 @@ export function Navbar() {
               to={langPath(lang, "/design-simulator")}
               className={({ isActive }) =>
                 `relative text-[12px] font-semibold tracking-[0.18em] uppercase transition-colors duration-200 group ${
-                  isActive ? 'text-[#D90429]' : 'text-[#0B0F1A]/40 hover:text-[#0B0F1A]'
+                  isActive ? 'text-[#D90429]' : 'text-[#0B0F1A]/65 hover:text-[#0B0F1A]'
                 }`
               }
             >
@@ -202,7 +202,7 @@ export function Navbar() {
             <button
               onClick={() => setLang(lang === 'en' ? 'ar' : 'en')}
               className="h-[34px] px-3 text-[11px] font-bold tracking-[0.12em] uppercase flex items-center gap-1.5 border transition-colors duration-200 hover:border-[#0B0F1A] hover:text-[#0B0F1A] rounded-sm"
-              style={{ borderColor: "rgba(11,15,26,0.15)", color: "rgba(11,15,26,0.45)" }}
+              style={{ borderColor: "rgba(11,15,26,0.15)", color: "rgba(11,15,26,0.65)" }}
               aria-label="Toggle language"
             >
               <span className="text-base leading-none">{isAr ? '🇬🇧' : '🇪🇬'}</span>
@@ -259,7 +259,7 @@ export function Navbar() {
               <Link
                 to={langPath(lang, "/login")}
                 className="h-[40px] px-5 text-[11px] font-bold tracking-[0.18em] uppercase flex items-center gap-2 border transition-colors duration-200 hover:border-[#0B0F1A] hover:text-[#0B0F1A]"
-                style={{ borderColor: "rgba(11,15,26,0.2)", color: "rgba(11,15,26,0.55)" }}
+                style={{ borderColor: "rgba(11,15,26,0.2)", color: "rgba(11,15,26,0.65)" }}
               >
                 <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
                   <circle cx="8" cy="5" r="3" stroke="currentColor" strokeWidth="1.5"/>
@@ -310,7 +310,7 @@ export function Navbar() {
                 to={langPath(lang, link.href)}
                 className={({ isActive }) =>
                   `text-left text-[13px] font-semibold tracking-[0.2em] uppercase transition-colors ${
-                    isActive ? "text-[#D90429]" : "text-[#0B0F1A]/50 hover:text-[#D90429]"
+                    isActive ? "text-[#D90429]" : "text-[#0B0F1A]/65 hover:text-[#D90429]"
                   }`
                 }
               >
@@ -322,7 +322,7 @@ export function Navbar() {
               to={langPath(lang, "/design-simulator")}
               className={({ isActive }) =>
                 `text-left text-[13px] font-semibold tracking-[0.2em] uppercase transition-colors ${
-                  isActive ? 'text-[#D90429]' : 'text-[#0B0F1A]/50 hover:text-[#D90429]'
+                  isActive ? 'text-[#D90429]' : 'text-[#0B0F1A]/65 hover:text-[#D90429]'
                 }`
               }
             >
@@ -331,7 +331,7 @@ export function Navbar() {
             {/* Mobile language toggle */}
             <button
               onClick={() => setLang(lang === 'en' ? 'ar' : 'en')}
-              className="flex items-center gap-2 text-[13px] font-semibold tracking-[0.2em] uppercase text-[#0B0F1A]/50 hover:text-[#D90429] transition-colors"
+              className="flex items-center gap-2 text-[13px] font-semibold tracking-[0.2em] uppercase text-[#0B0F1A]/65 hover:text-[#D90429] transition-colors"
             >
               <span className="text-base">{isAr ? '🇬🇧' : '🇪🇬'}</span>
               <span>{isAr ? 'EN' : 'عربي'}</span>
@@ -344,7 +344,7 @@ export function Navbar() {
                 </button>
               </div>
             ) : (
-              <Link to={langPath(lang, "/login")} className="flex items-center gap-2 text-[13px] font-semibold tracking-[0.2em] uppercase text-[#0B0F1A]/50 hover:text-[#D90429] transition-colors">{t('nav.login')}</Link>
+              <Link to={langPath(lang, "/login")} className="flex items-center gap-2 text-[13px] font-semibold tracking-[0.2em] uppercase text-[#0B0F1A]/65 hover:text-[#D90429] transition-colors">{t('nav.login')}</Link>
             )}
             <Link
               to={ROUTES.CONTACT}
@@ -429,15 +429,15 @@ export function Footer() {
                   </div>
                   <div>
                     <p className="text-white font-black text-[13px] tracking-[0.22em] uppercase leading-none">{(s.companyName ?? 'HORIZON OOH').split(' ')[0] || 'HORIZON'}</p>
-                    <p className="text-white/30 font-semibold text-[9px] tracking-[0.35em] uppercase mt-0.5">OUT-OF-HOME</p>
+                    <p className="text-white/70 font-semibold text-[9px] tracking-[0.35em] uppercase mt-0.5">OUT-OF-HOME</p>
                   </div>
                 </>
               )}
             </div>
-            <p className="text-white/30 text-[14px] leading-[1.75]">{isAr && (s as any).taglineAr ? (s as any).taglineAr : s.tagline}</p>
+            <p className="text-white/70 text-[14px] leading-[1.75]">{isAr && (s as any).taglineAr ? (s as any).taglineAr : s.tagline}</p>
             <div className="mt-8 flex items-center gap-1">
               <span className="w-6 h-[1px]" style={{ background: RED }} />
-              <span className="text-white/20 text-[10px] tracking-[0.3em] uppercase ml-2">{t('footer.estd')}</span>
+              <span className="text-white/70 text-[10px] tracking-[0.3em] uppercase ml-2">{t('footer.estd')}</span>
             </div>
             {/* Social links */}
             {s.socialLinks && (
@@ -481,13 +481,13 @@ export function Footer() {
               },
             ].map(({ heading, links }) => (
               <div key={heading}>
-                <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase font-bold mb-5" dir={isAr ? 'rtl' : undefined}>{heading}</p>
+                <p className="text-white/70 text-[10px] tracking-[0.3em] uppercase font-bold mb-5" dir={isAr ? 'rtl' : undefined}>{heading}</p>
                 <div className="flex flex-col gap-3">
                   {links.map((l, linkIndex) => (
                     <Link
                       key={`${l.href}-${linkIndex}`}
                       to={l.href}
-                      className="text-white/40 text-[13px] hover:text-white transition-colors duration-200 leading-none"
+                      className="text-white/70 text-[13px] hover:text-white transition-colors duration-200 leading-none"
                     >
                       {l.label}
                     </Link>
@@ -500,14 +500,14 @@ export function Footer() {
 
         {/* Bottom */}
         <div className="pt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-          <p className="text-white/20 text-[11px] tracking-[0.2em]">© 2026 {s.companyName} · {t('footer.rights')}</p>
+          <p className="text-white/70 text-[11px] tracking-[0.2em]">© 2026 {s.companyName} · {t('footer.rights')}</p>
           <div className="flex items-center gap-5">
             {[t('footer.privacy'), t('footer.terms'), t('footer.sitemap')].map((item) => (
-              <span key={item} className="text-white/20 text-[11px] tracking-[0.15em] hover:text-white/50 cursor-pointer transition-colors">{item}</span>
+              <span key={item} className="text-white/70 text-[11px] tracking-[0.15em] hover:text-white/70 cursor-pointer transition-colors">{item}</span>
             ))}
             <div className="flex items-center gap-1.5 ml-1">
               <span className="w-1.5 h-1.5 block animate-pulse" style={{ background: RED }} />
-              <span className="text-white/20 text-[10px] tracking-[0.2em] uppercase">{t('footer.madeIn')}</span>
+              <span className="text-white/70 text-[10px] tracking-[0.2em] uppercase">{t('footer.madeIn')}</span>
             </div>
           </div>
         </div>
@@ -561,7 +561,7 @@ function FloatingCTAs() {
           {/* Sticky Get a Quote bar */}
           <div className="flex flex-col items-end gap-2 rounded-sm shadow-xl overflow-hidden" style={{ background: NAVY }}>
             <div className="px-4 pt-3 pb-1">
-              <p className="text-white/40 text-[9px] tracking-[0.25em] uppercase leading-none">Launch your campaign</p>
+              <p className="text-white/70 text-[9px] tracking-[0.25em] uppercase leading-none">Launch your campaign</p>
             </div>
             <Link
               to={ROUTES.CONTACT}

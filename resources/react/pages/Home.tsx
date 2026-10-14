@@ -196,7 +196,7 @@ function Eyebrow({ text, light = false }: { text: string; light?: boolean }) {
         <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
         <span
           className="text-[10px] font-bold tracking-[0.35em] uppercase"
-          style={{ color: light ? "rgba(255,255,255,0.3)" : "rgba(11,15,26,0.35)" }}
+          style={{ color: light ? "rgba(255,255,255,0.7)" : "rgba(11,15,26,0.65)" }}
         >
           {text}
         </span>
@@ -337,7 +337,7 @@ function HeroSection() {
   // Collect all billboard city names and district names that are actually assigned
   const _allBillboards   = _storeLocs.flatMap((l: any) => l.products || []);
   const _assignedCities  = new Set(_allBillboards.map((b: any) => b.city).filter(Boolean));
-  const _assignedDistricts = new Set(_allBillboards.map((b: any) => b.district).filter(Boolean));
+  const _assignedDistricts = new Set([..._allBillboards.map((b: any) => b.district), ..._storeLocs.flatMap((l: any) => l.billboardDistricts || [])].filter(Boolean));
 
   const ALL_CITIES  = _storeLocs
     .filter((l: any) => (l.products || []).length > 0 || _assignedCities.has(l.city))
@@ -357,7 +357,7 @@ function HeroSection() {
     // Selected cities: further narrow to districts with billboards in those cities
     const selectedLocs = _storeLocs.filter((l: any) => cities.includes(l.city));
     const locBillboards = selectedLocs.flatMap((l: any) => l.products || []);
-    const locAssignedDistricts = new Set(locBillboards.map((b: any) => b.district).filter(Boolean));
+    const locAssignedDistricts = new Set([...locBillboards.map((b: any) => b.district), ...selectedLocs.flatMap((l: any) => l.billboardDistricts || [])].filter(Boolean));
     const locIds = selectedLocs.map((l: any) => l.id);
     return _storeDists
       .filter((d: any) => locIds.includes(d.locationId) && locAssignedDistricts.has(d.name))
@@ -377,6 +377,7 @@ function HeroSection() {
   const reset = () => { setCities([]); setDistricts([]); setFormats([]); };
 
   // ── Map pin selection ─────────────────────────────────────────────
+  const [mapEnabled, setMapEnabled] = useState(false);
   const [selectedPin, setSelectedPin] = useState<(ReturnType<typeof getBillboards>)[0] | null>(null);
 
   function handleSearch(e?: React.FormEvent) {
@@ -457,7 +458,7 @@ function HeroSection() {
             >
               <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
               <span className="text-[10px] font-bold tracking-[0.38em] uppercase"
-                style={{ color: "rgba(255,255,255,0.35)" }}>
+                style={{ color: "rgba(255,255,255,0.7)" }}>
                 {heroEyebrow}
               </span>
             </div>
@@ -472,7 +473,7 @@ function HeroSection() {
                   <span
                     style={{
                       display: "block",
-                      color: i === 2 ? "rgba(255,255,255,0.18)" : "white",
+                      color: i === 2 ? "rgba(255,255,255,0.7)" : "white",
                       animation: `heroSlideUp 1.0s cubic-bezier(0.16,1,0.3,1) ${0.2 + i * 0.11}s both`,
                     }}
                   >
@@ -485,7 +486,7 @@ function HeroSection() {
             {/* Channels */}
             <p
               className="text-[11px] font-bold tracking-[0.24em] uppercase mb-5"
-              style={{ color: "rgba(255,255,255,0.25)", animation: 'heroFadeIn 0.7s ease 0.6s both' }}
+              style={{ color: "rgba(255,255,255,0.7)", animation: 'heroFadeIn 0.7s ease 0.6s both' }}
             >
               {heroChannels}
             </p>
@@ -493,7 +494,7 @@ function HeroSection() {
             {/* Statement */}
             <p
               className="text-[17px] font-medium leading-[1.6] mb-9"
-              style={{ color: "rgba(255,255,255,0.6)", maxWidth: 360, animation: 'heroFadeIn 0.75s ease 0.75s both' }}
+              style={{ color: "rgba(255,255,255,0.7)", maxWidth: 360, animation: 'heroFadeIn 0.75s ease 0.75s both' }}
             >
               {heroStatement}
             </p>
@@ -515,7 +516,7 @@ function HeroSection() {
               <Link
                 to={ROUTES.DESIGN_SIMULATOR}
                 className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase cursor-pointer flex-shrink-0 inline-flex items-center"
-                style={{ border: "1.5px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.65)", background: "transparent", textDecoration: 'none' }}
+                style={{ border: "1.5px solid rgba(255,255,255,0.7)", color: "rgba(255,255,255,0.7)", background: "transparent", textDecoration: 'none' }}
               >
                 <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
                   style={{ background: "rgba(255,255,255,0.07)" }} />
@@ -530,7 +531,7 @@ function HeroSection() {
               <div className="flex items-center gap-3 mb-4">
                 <span className="block w-4 h-[1px]" style={{ background: RED }} />
                 <p className="text-[9px] font-bold tracking-[0.35em] uppercase"
-                  style={{ color: "rgba(255,255,255,0.22)" }}>
+                  style={{ color: "rgba(255,255,255,0.7)" }}>
                   {hc.searchTitle}
                 </p>
               </div>
@@ -592,7 +593,7 @@ function HeroSection() {
               {hasFilters && (
                 <button onClick={reset}
                   className="mt-2 text-[10px] font-bold tracking-[0.15em] uppercase"
-                  style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.22)", textAlign: "left" }}>
+                  style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.7)", textAlign: "left" }}>
                   ← Clear filters
                 </button>
               )}
@@ -607,11 +608,12 @@ function HeroSection() {
             background: "linear-gradient(to right, rgba(11,15,26,0.4) 0%, transparent 25%)"
           }} />
 
+          {mapEnabled ? (
           <ClientOnly fallback={<div className="absolute inset-0 bg-[#0b0f1a]" aria-label="Interactive map" />}>
             <Suspense fallback={<div className="absolute inset-0 bg-[#0b0f1a]" />}>
               <LeafletMap
                 filtered={getBillboards().slice(0, 20)}
-                allCount={getBillboards().length}
+                allCount={_storeLocs.reduce((sum: number, loc: any) => sum + (loc.productCount ?? loc.products?.length ?? 0), 0)}
                 selected={selectedPin}
                 onSelect={setSelectedPin}
                 className="absolute inset-0 w-full h-full"
@@ -619,6 +621,16 @@ function HeroSection() {
               />
             </Suspense>
           </ClientOnly>
+          ) : (
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-5 text-center px-6"
+              style={{ background: 'radial-gradient(ellipse at center, #233448 0%, #0b0f1a 75%)' }}>
+              <p className="text-white/60 text-sm">{isAr ? '����� ������� ��������� ��� �������' : 'Explore our advertising locations on the map'}</p>
+              <button type="button" onClick={() => setMapEnabled(true)}
+                className="min-h-12 px-7 py-3 bg-[#D90429] text-white font-bold rounded-sm">
+                {isAr ? '��� ������� ���������' : 'Open interactive map'}
+              </button>
+            </div>
+          )}
 
           {selectedPin && (
               <div
@@ -635,7 +647,7 @@ function HeroSection() {
                     <div className="absolute inset-0"
                       style={{ background: "linear-gradient(to top,rgba(11,15,26,.85) 0%,transparent 55%)" }}/>
                     <span className="absolute bottom-2.5 left-3 text-[9px] font-bold tracking-[0.18em] uppercase"
-                      style={{ color: "rgba(255,255,255,0.4)" }}>
+                      style={{ color: "rgba(255,255,255,0.7)" }}>
                       {selectedPin.district} · {selectedPin.city}
                     </span>
                     <button onClick={() => setSelectedPin(null)}
@@ -653,7 +665,7 @@ function HeroSection() {
                     <p className="font-extrabold text-[14px] leading-tight mb-1.5 text-white">
                       {selectedPin.name}
                     </p>
-                    <p className="text-[11px] mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>
+                    <p className="text-[11px] mb-3" style={{ color: "rgba(255,255,255,0.7)" }}>
                       {selectedPin.traffic} · {selectedPin.size}
                     </p>
                     <button
@@ -718,7 +730,7 @@ function StatementSection() {
       >
         <div className="overflow-hidden mb-6">
           <p
-            className="text-white/20 text-[12px] font-bold tracking-[0.4em] uppercase"
+            className="text-white/70 text-[12px] font-bold tracking-[0.4em] uppercase"
             style={{
               transform: visible ? 'translateY(0)' : 'translateY(100%)',
               transition: 'transform 1.1s cubic-bezier(0.16,1,0.3,1)',
@@ -755,7 +767,7 @@ function StatementSection() {
         >
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
             <span className="block w-10 h-[1px] bg-white/15" />
-            <span className="text-white/25 text-[10px] tracking-[0.4em] uppercase font-bold">{hc.statementBrand}</span>
+            <span className="text-white/70 text-[10px] tracking-[0.4em] uppercase font-bold">{hc.statementBrand}</span>
             <span className="block w-10 h-[1px] bg-white/15" />
           </div>
         </div>
@@ -798,7 +810,7 @@ function TrustStrip() {
                 </div>
                 <div
                   className="font-semibold tracking-[0.22em] uppercase"
-                  style={{ fontSize: 11, color: "rgba(11,15,26,0.3)" }}
+                  style={{ fontSize: 11, color: "rgba(11,15,26,0.65)" }}
                 >
                   {isAr ? statLabel(stat.label) : stat.label}
                 </div>
@@ -834,12 +846,12 @@ function ServicesSection() {
               >
                 {t('home.servicesTitle') || 'Full-spectrum'}
                 <br />
-                <span style={{ color: "rgba(11,15,26,0.2)" }}>{t('home.servicesAccent') || 'OOH.'}</span>
+                <span style={{ color: "rgba(11,15,26,0.65)" }}>{t('home.servicesAccent') || 'OOH.'}</span>
               </h2>
             </Reveal>
           </div>
           <Reveal delay={0.15} className={`flex flex-col items-end gap-5 max-w-[260px] ${isAr ? 'items-start text-left' : 'items-end text-right'}`}>
-            <p className="text-[15px] leading-[1.7]" style={{ color: "rgba(11,15,26,0.4)" }}>
+            <p className="text-[15px] leading-[1.7]" style={{ color: "rgba(11,15,26,0.65)" }}>
               {t('home.servicesSubtitle') || "Full-spectrum outdoor media solutions across Egypt's major urban centres."}
             </p>
             <Link
@@ -894,7 +906,7 @@ function ServicesSection() {
                     </span>
                   ) : null}
                   <span
-                    className="font-black text-[11px] tracking-[0.25em] uppercase text-[rgba(11,15,26,0.15)] group-hover:text-white/15 transition-colors duration-500 ml-auto"
+                    className="font-black text-[11px] tracking-[0.25em] uppercase text-[rgba(11,15,26,0.65)] group-hover:text-white/70 transition-colors duration-500 ml-auto"
                   >
                     {String(i + 1).padStart(2, '0')}
                   </span>
@@ -922,7 +934,7 @@ function ServicesSection() {
 
                 {/* Short description */}
                 <p
-                  className="text-[15px] leading-[1.7] flex-1 text-[rgba(11,15,26,0.45)] group-hover:text-white/70 transition-colors duration-500"
+                  className="text-[15px] leading-[1.7] flex-1 text-[rgba(11,15,26,0.65)] group-hover:text-white/70 transition-colors duration-500"
                 >
                   {isAr && (service as any).descriptionAr ? (service as any).descriptionAr : service.description}
                 </p>
@@ -990,7 +1002,7 @@ function FeatureSection() {
               <RevealItem key={bullet}>
                 <div className="flex items-start gap-5">
                   <span className="mt-2 flex-shrink-0 w-[5px] h-[5px]" style={{ background: RED }} />
-                  <p className="text-[16px] leading-[1.65]" style={{ color: "rgba(255,255,255,0.5)" }}>
+                  <p className="text-[16px] leading-[1.65]" style={{ color: "rgba(255,255,255,0.7)" }}>
                     {bullet}
                   </p>
                 </div>
@@ -1021,8 +1033,8 @@ function FeatureSection() {
           />
           {/* Stats overlay */}
           <div className="absolute bottom-10 right-10 text-right">
-            <p className="text-white/20 text-[10px] tracking-[0.3em] uppercase font-bold mb-1">{hc.featureStatsLabel}</p>
-            <p className="font-black text-white/40 tracking-[-0.04em]" style={{ fontSize: 36 }}>{hc.featureStatsValue}</p>
+            <p className="text-white/70 text-[10px] tracking-[0.3em] uppercase font-bold mb-1">{hc.featureStatsLabel}</p>
+            <p className="font-black text-white/70 tracking-[-0.04em]" style={{ fontSize: 36 }}>{hc.featureStatsValue}</p>
           </div>
         </div>
       </div>
@@ -1057,7 +1069,7 @@ function LocationsSection() {
                 style={{ fontSize: "clamp(44px, 4.5vw, 64px)", color: NAVY }}
               >
                 {t('home.coverageTitle') || 'We cover'}<br />
-                <span style={{ color: "rgba(11,15,26,0.2)" }}>{t('home.coverageAccent') || 'every corner.'}</span>
+                <span style={{ color: "rgba(11,15,26,0.65)" }}>{t('home.coverageAccent') || 'every corner.'}</span>
               </h2>
             </Reveal>
           </div>
@@ -1076,7 +1088,7 @@ function LocationsSection() {
               >
                 <div className="flex items-start justify-between mb-8">
                   <span
-                    className="font-black text-[11px] tracking-[0.25em] uppercase text-[#D90429] group-hover:text-white/20 transition-colors duration-500"
+                    className="font-black text-[11px] tracking-[0.25em] uppercase text-[#D90429] group-hover:text-white/70 transition-colors duration-500"
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
@@ -1093,7 +1105,7 @@ function LocationsSection() {
                   {isAr && (loc as any).cityAr ? (loc as any).cityAr : loc.city}
                 </h3>
                 <p
-                  className="text-[13px] leading-[1.6] text-[rgba(11,15,26,0.45)] group-hover:text-white/70 transition-colors duration-500"
+                  className="text-[13px] leading-[1.6] text-[rgba(11,15,26,0.65)] group-hover:text-white/70 transition-colors duration-500"
                 >
                   {isAr && (loc as any).detailAr ? (loc as any).detailAr : loc.detail}
                 </p>
@@ -1124,7 +1136,7 @@ function ProcessSection() {
                 style={{ fontSize: "clamp(44px, 4.5vw, 64px)" }}
               >
                 {t('home.campaignIn') || 'Campaign in'}<br />
-                <span style={{ color: "rgba(255,255,255,0.2)" }}>{t('home.fourSteps') || '4 steps.'}</span>
+                <span style={{ color: "rgba(255,255,255,0.7)" }}>{t('home.fourSteps') || '4 steps.'}</span>
               </h2>
             </Reveal>
           </div>
@@ -1148,7 +1160,7 @@ function ProcessSection() {
                   />
                   <span
                     className="font-black text-[11px] tracking-[0.3em] uppercase"
-                    style={{ color: "rgba(255,255,255,0.2)" }}
+                    style={{ color: "rgba(255,255,255,0.7)" }}
                   >
                     {step.step}
                   </span>
@@ -1166,7 +1178,7 @@ function ProcessSection() {
                 <div className="w-8 h-[1px]" style={{ background: RED }} />
 
                 {/* Description */}
-                <p className="text-[14px] leading-[1.7]" style={{ color: "rgba(255,255,255,0.35)" }}>
+                <p className="text-[14px] leading-[1.7]" style={{ color: "rgba(255,255,255,0.7)" }}>
                   {isAr && (step as any).descriptionAr ? (step as any).descriptionAr : step.description}
                 </p>
               </div>
@@ -1198,7 +1210,7 @@ function ResultsSection() {
             >
               Numbers
               <br />
-              <span style={{ color: "rgba(11,15,26,0.18)" }}>that speak.</span>
+              <span style={{ color: "rgba(11,15,26,0.65)" }}>that speak.</span>
             </h2>
           </Reveal>
         </div>
@@ -1232,7 +1244,7 @@ function ResultsSection() {
                 {/* Sublabel */}
                 <p
                   className="text-[12px] tracking-[0.2em] uppercase font-semibold"
-                  style={{ color: "rgba(11,15,26,0.3)" }}
+                  style={{ color: "rgba(11,15,26,0.65)" }}
                 >
                   {(r as any).sublabel ?? (r as any).description ?? ''}
                 </p>
@@ -1260,7 +1272,7 @@ function ClientsSection() {
         <Reveal>
           <div className="flex items-center justify-center gap-4 mb-10">
             <span className="block w-8 h-[1px]" style={{ background: "rgba(11,15,26,0.12)" }} />
-            <p className="text-[10px] font-bold tracking-[0.35em] uppercase text-center" style={{ color: "rgba(11,15,26,0.35)" }}>{t('home.trustedBy')}
+            <p className="text-[10px] font-bold tracking-[0.35em] uppercase text-center" style={{ color: "rgba(11,15,26,0.65)" }}>{t('home.trustedBy')}
             </p>
             <span className="block w-8 h-[1px]" style={{ background: "rgba(11,15,26,0.12)" }} />
           </div>
@@ -1299,7 +1311,7 @@ function SignatureSection() {
         <Reveal>
           <div className="flex items-center justify-center gap-5 mb-12">
             <span className="block w-12 h-[1px]" style={{ background: "rgba(255,255,255,0.1)" }} />
-            <span className="text-[10px] font-bold tracking-[0.4em] uppercase" style={{ color: "rgba(255,255,255,0.2)" }}>
+            <span className="text-[10px] font-bold tracking-[0.4em] uppercase" style={{ color: "rgba(255,255,255,0.7)" }}>
               {signatureEyebrow}
             </span>
             <span className="block w-12 h-[1px]" style={{ background: "rgba(255,255,255,0.1)" }} />
@@ -1345,7 +1357,7 @@ function FinalCTASection() {
         <Reveal>
           <div className="flex items-center justify-center gap-4 mb-10">
             <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
-            <span className="text-[10px] font-bold tracking-[0.35em] uppercase" style={{ color: "rgba(11,15,26,0.3)" }}>
+            <span className="text-[10px] font-bold tracking-[0.35em] uppercase" style={{ color: "rgba(11,15,26,0.65)" }}>
               {hc.finalCtaEyebrow}
             </span>
             <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
@@ -1355,12 +1367,12 @@ function FinalCTASection() {
           <h2 className="font-black leading-[0.9] tracking-[-0.04em] mx-auto mb-8"
             style={{ fontSize: "clamp(44px, 5vw, 72px)", color: NAVY, maxWidth: 720 }}>
             {finalLine1}<br />
-            <span style={{ color: "rgba(11,15,26,0.2)" }}>{finalLine2}</span>
+            <span style={{ color: "rgba(11,15,26,0.65)" }}>{finalLine2}</span>
           </h2>
         </Reveal>
         <Reveal delay={0.16}>
           <p className="text-[18px] leading-[1.65] mx-auto mb-14"
-            style={{ color: "rgba(11,15,26,0.4)", maxWidth: 380 }}>
+            style={{ color: "rgba(11,15,26,0.65)", maxWidth: 380 }}>
             {finalSubtext}
           </p>
         </Reveal>
@@ -1387,7 +1399,7 @@ function FinalCTASection() {
             {(hc.finalCtaBadges || []).map((label) => (
               <div key={label} className="flex items-center gap-2.5">
                 <span className="block w-1 h-1" style={{ background: RED }} />
-                <span className="text-[11px] font-semibold tracking-[0.15em] uppercase" style={{ color: "rgba(11,15,26,0.3)" }}>
+                <span className="text-[11px] font-semibold tracking-[0.15em] uppercase" style={{ color: "rgba(11,15,26,0.65)" }}>
                   {label}
                 </span>
               </div>
@@ -1420,7 +1432,7 @@ function ProjectsSection() {
             <Reveal>
               <div className="flex items-center gap-3 mb-8">
                 <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
-                <span className="text-[10px] font-bold tracking-[0.35em] uppercase" style={{ color: "rgba(11,15,26,0.35)" }}>
+                <span className="text-[10px] font-bold tracking-[0.35em] uppercase" style={{ color: "rgba(11,15,26,0.65)" }}>
                   Case Studies
                 </span>
               </div>
@@ -1428,7 +1440,7 @@ function ProjectsSection() {
             <Reveal delay={0.05}>
               <h2 className="font-black leading-[0.9] tracking-[-0.04em]" style={{ fontSize: "clamp(40px, 4.5vw, 60px)", color: NAVY }}>
                 Campaigns that moved<br />
-                <span style={{ color: "rgba(11,15,26,0.2)" }}>the needle.</span>
+                <span style={{ color: "rgba(11,15,26,0.65)" }}>the needle.</span>
               </h2>
             </Reveal>
           </div>
@@ -1466,15 +1478,15 @@ function ProjectsSection() {
               <div className="absolute inset-0 flex flex-col justify-end" style={{ padding: "40px" }}>
                 <div className="flex items-center gap-3 mb-4">
                   <span className="text-[10px] font-bold tracking-[0.25em] uppercase px-3 py-1 text-white" style={{ background: RED }}>{featured.category}</span>
-                  <span className="text-white/35 text-[10px] font-semibold tracking-[0.15em]">{featured.location}</span>
+                  <span className="text-white/70 text-[10px] font-semibold tracking-[0.15em]">{featured.location}</span>
                 </div>
                 <h3 className="font-black text-white leading-[1.05] tracking-[-0.03em] mb-3" style={{ fontSize: "clamp(22px, 2.5vw, 32px)" }}>{featured.title}</h3>
-                <p className="text-white/45 text-[13px] mb-6 leading-[1.6]">{featured.tagline}</p>
+                <p className="text-white/70 text-[13px] mb-6 leading-[1.6]">{featured.tagline}</p>
                 <div className="flex items-center gap-8">
                   {featured.results.slice(0, 2).map((r) => (
                     <div key={r.metric}>
                       <p className="font-black text-white tracking-[-0.03em]" style={{ fontSize: 22, color: RED }}>{r.value}</p>
-                      <p className="text-white/30 text-[10px] tracking-[0.2em] uppercase font-bold">{r.metric}</p>
+                      <p className="text-white/70 text-[10px] tracking-[0.2em] uppercase font-bold">{r.metric}</p>
                     </div>
                   ))}
                 </div>
@@ -1506,10 +1518,10 @@ function ProjectsSection() {
                   <div className="absolute inset-0 flex flex-col justify-end" style={{ padding: "24px 28px" }}>
                     <div className="flex items-center gap-2 mb-2">
                       <span className="text-[9px] font-bold tracking-[0.25em] uppercase px-2 py-1 text-white" style={{ background: RED }}>{p.category}</span>
-                      <span className="text-white/35 text-[9px] font-semibold tracking-[0.15em]">{p.city}</span>
+                      <span className="text-white/70 text-[9px] font-semibold tracking-[0.15em]">{p.city}</span>
                     </div>
                     <h3 className="font-extrabold text-white leading-[1.1] tracking-[-0.02em]" style={{ fontSize: 17 }}>{p.title}</h3>
-                    <p className="text-white/30 text-[11px] mt-1">{p.client} · {p.year}</p>
+                    <p className="text-white/70 text-[11px] mt-1">{p.client} · {p.year}</p>
                   </div>
                   <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-300">
                     <span style={{ color: RED, fontSize: 18 }}>→</span>
@@ -1540,7 +1552,7 @@ function LatestBlogsSection() {
         <Reveal>
           <div className="flex items-end justify-between mb-16 gap-8 flex-wrap">
             <div>
-              <p className="text-[10px] font-bold tracking-[0.35em] uppercase mb-4" style={{ color: "rgba(11,15,26,0.3)" }}>
+              <p className="text-[10px] font-bold tracking-[0.35em] uppercase mb-4" style={{ color: "rgba(11,15,26,0.65)" }}>
                 Insights & Strategy
               </p>
               <h2 className="text-[#0B0F1A] font-black text-[clamp(28px,3.5vw,48px)] tracking-[-0.02em]" style={{ maxWidth: 560 }}>
@@ -1587,9 +1599,9 @@ function LatestBlogsSection() {
                 {/* Content */}
                 <div className="flex flex-col flex-1 p-8">
                   <div className="flex items-center gap-3 mb-4">
-                    <span className="text-[10px] font-semibold tracking-[0.2em] text-[rgba(11,15,26,0.3)] group-hover:text-white/30 transition-colors duration-500">{post.date}</span>
-                    <span className="text-[rgba(11,15,26,0.2)] group-hover:text-white/20 transition-colors duration-500" style={{ fontSize: 10 }}>·</span>
-                    <span className="text-[10px] font-semibold tracking-[0.2em] text-[rgba(11,15,26,0.3)] group-hover:text-white/30 transition-colors duration-500">{post.readTime}</span>
+                    <span className="text-[10px] font-semibold tracking-[0.2em] text-[rgba(11,15,26,0.65)] group-hover:text-white/70 transition-colors duration-500">{post.date}</span>
+                    <span className="text-[rgba(11,15,26,0.65)] group-hover:text-white/70 transition-colors duration-500" style={{ fontSize: 10 }}>·</span>
+                    <span className="text-[10px] font-semibold tracking-[0.2em] text-[rgba(11,15,26,0.65)] group-hover:text-white/70 transition-colors duration-500">{post.readTime}</span>
                   </div>
                   <h3
                     className="font-bold leading-[1.2] tracking-[-0.02em] mb-4 flex-1 transition-colors duration-500 text-[#0B0F1A] group-hover:text-white"
@@ -1597,7 +1609,7 @@ function LatestBlogsSection() {
                   >
                     {post.title}
                   </h3>
-                  <p className="text-[13px] leading-[1.65] mb-6 transition-colors duration-500 text-[rgba(11,15,26,0.45)] group-hover:text-white/35">
+                  <p className="text-[13px] leading-[1.65] mb-6 transition-colors duration-500 text-[rgba(11,15,26,0.65)] group-hover:text-white/70">
                     {post.excerpt.length > 100 ? post.excerpt.slice(0, 100) + "…" : post.excerpt}
                   </p>
                   <div className="flex items-center gap-2">
@@ -1649,7 +1661,7 @@ function WhyOOHSection() {
     <section style={{ background: NAVY, paddingTop: 120, paddingBottom: 120 }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         <Reveal>
-          <p className="text-white/30 text-[10px] tracking-[0.35em] uppercase mb-4">{eyebrow}</p>
+          <p className="text-white/70 text-[10px] tracking-[0.35em] uppercase mb-4">{eyebrow}</p>
           <h2 className="text-white font-black text-[clamp(28px,3.5vw,48px)] tracking-[-0.02em] mb-16" style={{ maxWidth: 560 }}>
             {title}
           </h2>
@@ -1659,7 +1671,7 @@ function WhyOOHSection() {
             <RevealItem key={idx}>
               <div className="h-[3px] w-10 mb-8" style={{ background: RED }} />
               <h3 className="text-white font-bold text-[18px] leading-[1.4] mb-4">{col.title}</h3>
-              <p className="text-white/45 text-[14px] leading-[1.85]">{col.body}</p>
+              <p className="text-white/70 text-[14px] leading-[1.85]">{col.body}</p>
             </RevealItem>
           ))}
         </RevealGroup>
@@ -1693,7 +1705,7 @@ function BillboardBenefitsSection() {
     <section style={{ background: "#fff", paddingTop: 120, paddingBottom: 120 }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         <Reveal>
-          <p className="text-[#0B0F1A]/30 text-[10px] tracking-[0.35em] uppercase mb-4">{eyebrow}</p>
+          <p className="text-[#0B0F1A]/65 text-[10px] tracking-[0.35em] uppercase mb-4">{eyebrow}</p>
           <h2 className="text-[#0B0F1A] font-black text-[clamp(28px,3.5vw,48px)] tracking-[-0.02em] mb-16" style={{ maxWidth: 560 }}>
             {title}
           </h2>
@@ -1705,7 +1717,7 @@ function BillboardBenefitsSection() {
                 {b.num && <p className="text-[10px] font-bold tracking-[0.3em] uppercase mb-4" style={{ color: RED }}>{b.num}</p>}
                 <div className="h-[1px] w-full bg-[#0B0F1A]/[0.07] mb-6" />
                 <h3 className="text-[#0B0F1A] font-bold text-[16px] leading-[1.4] mb-3">{b.title}</h3>
-                <p className="text-[#0B0F1A]/50 text-[13px] leading-[1.8]">{b.body}</p>
+                <p className="text-[#0B0F1A]/65 text-[13px] leading-[1.8]">{b.body}</p>
               </div>
             </RevealItem>
           ))}
@@ -1740,7 +1752,7 @@ function RecentBillboardsSection() {
         <Reveal>
           <div className="flex items-start justify-between mb-16 gap-8 flex-wrap">
             <div>
-              <p className="text-[#0B0F1A]/30 text-[10px] tracking-[0.35em] uppercase mb-4">
+              <p className="text-[#0B0F1A]/65 text-[10px] tracking-[0.35em] uppercase mb-4">
                 {t('home.recentAdded') || 'Recently Added'}
               </p>
               <h2
@@ -1750,7 +1762,7 @@ function RecentBillboardsSection() {
               >
                 {t('home.recentTitleAccent') || 'Recently Added Billboards in Egypt'}
               </h2>
-              <p className="text-[#0B0F1A]/50 text-[15px] mt-4 max-w-[480px] leading-relaxed">
+              <p className="text-[#0B0F1A]/65 text-[15px] mt-4 max-w-[480px] leading-relaxed">
                 {t('home.recentSubtitle') || 'New outdoor advertising locations across Cairo, Alexandria & nationwide.'}
               </p>
             </div>
@@ -1823,7 +1835,7 @@ function RecentBillboardsSection() {
                     <svg className="shrink-0" width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ color: '#D90429' }}>
                       <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" fill="currentColor"/>
                     </svg>
-                    <p className="text-[#0B0F1A]/50 text-[12px] truncate">
+                    <p className="text-[#0B0F1A]/65 text-[12px] truncate">
                       {product.location}
                     </p>
                   </div>
@@ -1839,7 +1851,7 @@ function RecentBillboardsSection() {
                         className="flex flex-col items-center justify-center py-3 px-2"
                         style={{ borderLeft: i > 0 ? '2px solid #D90429' : 'none' }}
                       >
-                        <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-[#0B0F1A]/30 mb-1">{stat.label}</span>
+                        <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-[#0B0F1A]/65 mb-1">{stat.label}</span>
                         <span className="text-[12px] font-bold text-[#0B0F1A] text-center leading-tight">{stat.value}</span>
                       </div>
                     ))}

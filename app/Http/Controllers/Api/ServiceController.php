@@ -30,7 +30,7 @@ class ServiceController extends Controller
 
     private function transform(Service $s): array
     {
-        return [
+        return \App\Support\PublicImage::values([
             'id'                => $s->id,
             'slug'              => $s->slug,
             'name'              => $s->name,
@@ -54,7 +54,7 @@ class ServiceController extends Controller
             'titleAr'           => $this->col($s, 'title_ar'),
             'descriptionAr'     => $this->col($s, 'description_ar'),
             'longDescriptionAr' => $this->col($s, 'long_description_ar'),
-        ];
+        ]);
     }
 
     public function index(): JsonResponse

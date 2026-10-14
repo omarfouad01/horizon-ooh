@@ -138,28 +138,31 @@ const _pending: Map<string, Promise<any>> = new Map();
 const CACHE_TTL = 60_000;
 
 export async function cachedGet<T = any>(url: string, config?: object): Promise<T> {
-  const cached = _cache.get(url);
+  const params = (config as any)?.params ?? {};
+  const scope = typeof localStorage !== 'undefined' ? localStorage.getItem('horizon_token') || '' : '';
+  const key = url + '|' + JSON.stringify(Object.entries(params).sort(([a], [b]) => a.localeCompare(b))) + '|' + scope;
+  const cached = _cache.get(key);
   if (cached && Date.now() - cached.ts < CACHE_TTL) return cached.data as T;
 
-  if (_pending.has(url)) return _pending.get(url) as Promise<T>;
+  if (_pending.has(key)) return _pending.get(key) as Promise<T>;
 
   const req = api.get<T>(url, config).then((res) => {
     const data = (res as any).data !== undefined ? (res as any).data : res;
-    _cache.set(url, { data, ts: Date.now() });
-    _pending.delete(url);
+    _cache.set(key, { data, ts: Date.now() });
+    _pending.delete(key);
     return data as T;
   }).catch((err) => {
-    _pending.delete(url);
+    _pending.delete(key);
     throw err;
   });
 
-  _pending.set(url, req);
+  _pending.set(key, req);
   return req;
 }
 
 /** Call after admin writes to bust the GET cache */
 export function clearApiCache(url?: string) {
-  if (url) { _cache.delete(url); } else { _cache.clear(); }
+  if (url) { for (const key of _cache.keys()) if (key.startsWith(url + '|')) _cache.delete(key); } else { _cache.clear(); }
 }
 
 export default api;

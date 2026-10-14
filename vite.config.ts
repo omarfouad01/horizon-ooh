@@ -154,6 +154,7 @@ export default defineConfig(({ mode }) => ({
   ],
   resolve: {
     alias: {
+      '@/publicPages': path.resolve(__dirname, './resources/react/publicPages.client.ts'),
       '@': path.resolve(__dirname, './resources/react'),
       // Route react-router-dom through our Skywork-messaging proxy
       'react-router-dom': path.resolve(__dirname, './resources/react/lib/react-router-dom-proxy.tsx'),
@@ -199,7 +200,7 @@ export default defineConfig(({ mode }) => ({
           // ServiceIcon used eagerly by Home.tsx but also by admin — must be in
           // app-core or Rollup drifts it into 'admin'.
           if (id.includes('/resources/react/components/ServiceIcon')) return 'app-core';
-          if (id.includes('/resources/react/admin/')) return 'admin';
+          if (id.includes('commonjsHelpers')) return 'react-core';
           if (id.includes('node_modules/zod') || id.includes('node_modules/date-fns') || id.includes('node_modules/clsx') || id.includes('node_modules/class-variance-authority') || id.includes('node_modules/tailwind-merge')) return 'utils';
           // Split icon libraries separately — they are large but often tree-shaken
           if (id.includes('node_modules/lucide-react') || id.includes('node_modules/react-icons')) return 'icons';

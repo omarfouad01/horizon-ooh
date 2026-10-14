@@ -12,7 +12,7 @@ class BlogController extends Controller
 {
     private function transform(BlogPost $p): array
     {
-        return [
+        return \App\Support\PublicImage::values([
             'id'           => $p->id,
             'slug'         => $p->slug,
             'title'        => $p->title,
@@ -32,7 +32,7 @@ class BlogController extends Controller
             'published'    => (bool) $p->published,
             'publishedAt'  => $p->published_at?->toISOString(),
             'sort_order'   => $p->sort_order,
-        ];
+        ]);
     }
 
     /** Lightweight cards for listing pages; article bodies are fetched by slug. */

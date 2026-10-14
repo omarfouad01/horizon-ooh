@@ -12,6 +12,7 @@ class LocationController extends Controller
     public function index(Request $request): JsonResponse
     {
         $full = $request->boolean('full');
+        $home = $request->boolean('home') && !$full;
 
         return response()->json(
             Location::with([
@@ -24,7 +25,7 @@ class LocationController extends Controller
             ])
                 ->orderBy('sort_order')->orderBy('city')
                 ->get()
-                ->map(fn($l) => $this->transform($l, $full))
+                ->map(fn($l) => $this->transform($l, $full, $home))
         );
     }
 
@@ -99,7 +100,7 @@ class LocationController extends Controller
         return response()->json(['message' => 'Deleted']);
     }
 
-    private function transform(Location $l, bool $full = true): array
+    private function transform(Location $l, bool $full = true, bool $home = false): array
     {
         return [
             'id'               => $l->id,
@@ -121,7 +122,9 @@ class LocationController extends Controller
                 'nameAr'     => $d->name_ar,
                 'locationId' => $d->location_id,
             ])->values(),
-            'products'         => $l->billboards->map(fn($b) => $this->transformBillboard($b, $l, $full))->values(),
+            'productCount'     => $l->billboards->count(),
+            'billboardDistricts' => $l->billboards->pluck('district.name')->filter()->unique()->values(),
+            'products'         => ($home ? $l->billboards->take(12) : $l->billboards)->map(fn($b) => $this->transformBillboard($b, $l, $full))->values(),
         ];
     }
 

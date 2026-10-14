@@ -5,6 +5,7 @@
  * preventing @iconify/react (51 KB) from entering the eager LCP bundle.
  */
 import { lazy, Suspense } from 'react';
+import ClientOnly from './ClientOnly';
 
 const LazyIcon = lazy(() =>
   import('@iconify/react').then(m => ({ default: m.Icon }))
@@ -20,7 +21,7 @@ interface ServiceIconProps {
 export function ServiceIcon({ icon, size = 32, className = '', color }: ServiceIconProps) {
   if (!icon) return null;
   return (
-    <Suspense fallback={<span style={{ display: 'inline-block', width: size, height: size }} />}>
+    <ClientOnly fallback={<span style={{ display: 'inline-block', width: size, height: size }} />}><Suspense fallback={<span style={{ display: 'inline-block', width: size, height: size }} />}>
       <LazyIcon
         icon={icon}
         width={size}
@@ -28,6 +29,6 @@ export function ServiceIcon({ icon, size = 32, className = '', color }: ServiceI
         className={className}
         style={color ? { color } : undefined}
       />
-    </Suspense>
+    </Suspense></ClientOnly>
   );
 }
