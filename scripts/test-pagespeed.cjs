@@ -28,5 +28,10 @@ vm.runInNewContext(ts.transpileModule(fs.readFileSync('resources/react/api/clien
   assert.ok(html.indexOf('id="horizon-ssg-state"') > html.indexOf('<div id="root">'), 'Hydration data must not block the first paint: '+route);
  }
  for(const f of ['public/ai-catalog.json','public/.well-known/ai-catalog.json','public/.well-known/ard.json'])assert.ok(Array.isArray(JSON.parse(fs.readFileSync(f)).entries));
+ for(const file of ['public/ssg/index.html','public/ssg/ar/index.html']){
+  const html=fs.readFileSync(file,'utf8');
+  assert.ok(html.includes('data-horizon-critical-css'));
+  assert.equal(/<link[^>]+rel="stylesheet"[^>]+index-[^"]+\.css/.test(html),false,'Homepage should not wait for its stylesheet');
+ }
  console.log('PASS: startup graph excludes heavy routes, SSG has no unfinished Suspense, discovery JSON parses');
 })().catch(e=>{console.error(e);process.exitCode=1;});

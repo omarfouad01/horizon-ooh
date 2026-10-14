@@ -1,6 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
+import { inlineHomeCss } from "./inline-home-css.mjs";
 
 const projectRoot = resolve(import.meta.dirname, "..");
 const publicDir = resolve(projectRoot, "public");
@@ -428,6 +429,7 @@ for (const route of routes) {
     );
   }
   html = injectMetadata(html, metadata, route);
+  if (stripArabicPrefix(route) === '/') html = inlineHomeCss(html, publicDir);
 
   const routePath = route === "/" ? "index.html" : `${route.slice(1)}/index.html`;
   const target = resolve(outputDir, routePath);
