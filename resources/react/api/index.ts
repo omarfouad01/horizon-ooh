@@ -156,8 +156,8 @@ export const settingsApi = {
 
 // ─── Users (dashboard / admin) ────────────────────────────────────────────────
 export const usersApi = {
-  all:             ()           => api.get('/users?source=dashboard'),
-  allWebsiteUsers: ()           => api.get('/users?source=website'),
+  all:             ()           => api.get('/users?scope=dashboard'),
+  allWebsiteUsers: ()           => api.get('/users?scope=website'),
   create:          (data: any)  => api.post('/users', data),
   update:          (id: any, data: any) => api.put(`/users/${id}`, data),
   remove:          (id: any)    => api.delete(`/users/${id}`),

@@ -76,8 +76,9 @@ function UserForm({ editing, onClose }: UserFormProps) {
   })
   const [showPw, setShowPw]   = useState(false)
   const [saving, setSaving]   = useState(false)
+  const [errors, setErrors] = useState<Record<string,string>>({})
 
-  const set = (k: string, v: any) => setF(p => ({ ...p, [k]: v }))
+  const set = (k: string, v: any) => { setF(p => ({ ...p, [k]: v })); setErrors(old => ({ ...old, [k]: '' })) }
 
   async function save(e: React.FormEvent) {
     e.preventDefault()
@@ -87,6 +88,8 @@ function UserForm({ editing, onClose }: UserFormProps) {
     if (f.password && f.password !== f.password2) { toast.error('Passwords do not match'); return }
     if (f.password && f.password.length < 8) { toast.error('Password must be at least 8 characters'); return }
 
+    if (saving) return
+    setErrors({})
     setSaving(true)
     try {
       if (HAS_API) {
@@ -95,9 +98,9 @@ function UserForm({ editing, onClose }: UserFormProps) {
           name:   f.name.trim(),
           email:  f.email.trim(),
           role:   f.role,
+          phone:  f.phone.trim() || null,
           source: 'dashboard',
         }
-        if (f.phone.trim())  payload.phone    = f.phone.trim()
         if (f.password)      payload.password = f.password
 
         if (isEdit && editing) {
@@ -143,12 +146,12 @@ function UserForm({ editing, onClose }: UserFormProps) {
       if (err?.response?.status === 401) {
         toast.error('Session expired — please log in again and retry', { duration: 5000 })
       } else {
-        const msg = err?.response?.data?.message
-          ?? (err?.response?.data?.errors
-              ? Object.values(err.response.data.errors).flat().join(', ')
-              : null)
-          ?? err?.message
-          ?? 'Save failed'
+        const fieldErrors = err?.response?.data?.errors
+        const details = fieldErrors && typeof fieldErrors === 'object'
+          ? Object.fromEntries(Object.entries(fieldErrors).map(([key, value]) => [key, Array.isArray(value) ? value.join(' ') : String(value)]))
+          : {}
+        setErrors(details)
+        const msg = Object.values(details).join(' ') || err?.response?.data?.message || err?.message || 'Save failed'
         toast.error(msg)
       }
     } finally {
@@ -157,10 +160,10 @@ function UserForm({ editing, onClose }: UserFormProps) {
   }
 
   return (
-    <form onSubmit={save} className="space-y-4">
+    <form autoComplete="off" onSubmit={save} className="space-y-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Field label="Full Name *"  value={f.name}  onChange={(e: any) => set('name',  e.target.value)} required placeholder="e.g. Ahmed Hassan" />
-        <Field label="Email *"      value={f.email} onChange={(e: any) => set('email', e.target.value)} required type="email" placeholder="user@horizonooh.com" />
+        <Field label="Full Name *" error={errors.name} autoComplete="off" value={f.name}  onChange={(e: any) => set('name',  e.target.value)} required placeholder="e.g. Ahmed Hassan" />
+        <Field label="Email *" error={errors.email} autoComplete="off" value={f.email} onChange={(e: any) => set('email', e.target.value)} required type="email" placeholder="user@horizonooh.com" />
       </div>
       <Field label="Phone (optional)" value={f.phone} onChange={(e: any) => set('phone', e.target.value)} placeholder="+20 10x xxx xxxx" />
 
@@ -186,6 +189,8 @@ function UserForm({ editing, onClose }: UserFormProps) {
         <div className="relative">
           <Field
             label={isEdit ? 'New Password (leave blank to keep)' : 'Password *'}
+            error={errors.password}
+            autoComplete="new-password"
             value={f.password}
             onChange={(e: any) => set('password', e.target.value)}
             type={showPw ? 'text' : 'password'}
@@ -198,6 +203,7 @@ function UserForm({ editing, onClose }: UserFormProps) {
         </div>
         <Field
           label="Confirm Password"
+          autoComplete="new-password"
           value={f.password2}
           onChange={(e: any) => set('password2', e.target.value)}
           type={showPw ? 'text' : 'password'}
@@ -229,6 +235,8 @@ export default function AdminDashboardUsers() {
   const { isAuth } = useAdmin()
   const [users,   setUsers]   = useState<DashboardUser[]>([])
   const [loading, setLoading] = useState(true)
+  const [loadError, setLoadError] = useState('')
+  const [removing, setRemoving] = useState(false)
   const [form,    setForm]    = useState(false)
   const [edit,    setEdit]    = useState<DashboardUser | null>(null)
   const [del,     setDel]     = useState<DashboardUser | null>(null)
@@ -236,18 +244,22 @@ export default function AdminDashboardUsers() {
   const fetchUsers = useCallback(async () => {
     if (HAS_API && !isAuth) { setLoading(false); return }
     setLoading(true)
+    setLoadError('')
     try {
       if (HAS_API) {
-        const data = await usersApi.all()
-        setUsers(Array.isArray(data) ? data : [])
+        const response = await usersApi.all()
+        const data = response?.data ?? response
+        const rows = Array.isArray(data) ? data : data?.data
+        if (!Array.isArray(rows)) throw new Error('The server returned an invalid user list. Please retry.')
+        setUsers(rows.filter((row: DashboardUser) => ROLES.includes(row.role)))
       } else {
         setUsers(loadLocalUsers())
       }
     } catch (err: any) {
       console.error('[AdminDashboardUsers] fetch failed', err)
-      // Fallback to local on API error
-      setUsers(loadLocalUsers())
-      toast.error('Could not load users from server — showing local data')
+      const message = err?.response?.data?.message || err?.message || 'Could not load users from server'
+      setLoadError(message)
+      toast.error(message)
     } finally {
       setLoading(false)
     }
@@ -259,20 +271,22 @@ export default function AdminDashboardUsers() {
   function openEdit(u: DashboardUser) { setEdit(u); setForm(true) }
 
   async function handleDelete() {
-    if (!del) return
+    if (!del || removing) return
+    setRemoving(true)
     try {
       if (HAS_API) {
-        await usersApi.remove(del.id)
+        await usersApi.update(del.id, { role: 'user' })
       } else {
         const updated = loadLocalUsers().filter(u => u.id !== del.id)
         saveLocalUsers(updated)
       }
-      toast.success('User removed')
+      toast.success('Dashboard access removed; account retained')
       setDel(null)
       fetchUsers()
     } catch (err: any) {
       toast.error(err?.response?.data?.message ?? err?.message ?? 'Delete failed')
-      setDel(null)
+    } finally {
+      setRemoving(false)
     }
   }
 
@@ -286,7 +300,7 @@ export default function AdminDashboardUsers() {
     <div className="p-6 max-w-5xl mx-auto">
       <PageHeader
         title="Dashboard Users"
-        subtitle={loading ? 'Loading…' : `${users.length} user${users.length !== 1 ? 's' : ''} with dashboard access`}
+        subtitle={loading ? 'Loading…' : loadError ? 'Unable to refresh dashboard users' : `${users.length} user${users.length !== 1 ? 's' : ''} with dashboard access`}
         action={
           <div className="flex items-center gap-2">
             <button onClick={fetchUsers} disabled={loading}
@@ -312,6 +326,7 @@ export default function AdminDashboardUsers() {
         </div>
       </div>
 
+      {loadError && <div role="alert" className="mb-4 p-4 border border-red-200 bg-red-50 text-red-700 rounded-xl text-sm">{loadError} Existing rows are retained. Use refresh to retry.</div>}
       {/* Table */}
       {loading ? (
         <div className="flex items-center justify-center py-16 text-gray-400 gap-2">
@@ -333,7 +348,7 @@ export default function AdminDashboardUsers() {
             {users.length === 0 ? (
               <Tr>
                 <Td colSpan={6}>
-                  <div className="text-center py-8 text-gray-400 text-[13px]">No users yet — add one above</div>
+                  <div className="text-center py-8 text-gray-400 text-[13px]">{loadError ? 'User list could not be loaded.' : 'No accounts currently have dashboard access.'}</div>
                 </Td>
               </Tr>
             ) : users.map(u => (
@@ -364,7 +379,7 @@ export default function AdminDashboardUsers() {
                     <button className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-700 transition-colors"
                       onClick={() => openEdit(u)}><Pencil size={13}/></button>
                     <button className="p-1.5 rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-500 transition-colors"
-                      title="Delete user"
+                      title="Remove dashboard access"
                       onClick={() => setDel(u)}><Trash2 size={13}/></button>
                   </div>
                 </Td>
@@ -394,10 +409,10 @@ export default function AdminDashboardUsers() {
       {/* Delete confirm */}
       <Confirm
         open={!!del}
-        title="Remove User?"
-        message={`Remove "${del?.name}" from dashboard access? This action cannot be undone.`}
+        title="Remove Dashboard Access?"
+        message={`Remove "${del?.name}" from dashboard access? The account and its data will be retained.`}
         onConfirm={handleDelete}
-        onCancel={() => setDel(null)}
+        onCancel={() => { if (!removing) setDel(null) }}
       />
     </div>
   )

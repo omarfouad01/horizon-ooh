@@ -1,0 +1,21 @@
+const fs=require('fs'),vm=require('vm'),assert=require('assert'),ts=require('typescript');
+const source=fs.readFileSync('resources/react/admin/pages/AdminDashboardUsers.tsx','utf8');
+const start=source.indexOf('  const fetchUsers = useCallback(async () => {')+'  const fetchUsers = useCallback(async () => {'.length;
+const body=source.slice(start,source.indexOf('  }, [isAuth])',start));
+let rows=[],error='',loading=false,response={data:[{id:1,role:'admin',source:'legacy'},{id:2,role:'user'}]},failure=false;
+const sandbox={HAS_API:true,isAuth:true,ROLES:['admin','editor','viewer'],console:{error(){}},usersApi:{all:async()=>{if(failure)throw Error('Fixture connection failed');return response;}},setUsers:value=>{rows=value},setLoading:value=>{loading=value},setLoadError:value=>{error=value},toast:{error(){}},loadLocalUsers(){throw Error('Production must never show local demo accounts')}};
+vm.createContext(sandbox);
+const code=ts.transpileModule('async function run(){'+body+'}',{compilerOptions:{target:ts.ScriptTarget.ES2020}}).outputText;
+vm.runInContext(code,sandbox);
+(async()=>{
+ await vm.runInContext('run()',sandbox);assert.equal(rows.length,1);assert.equal(rows[0].id,1);assert.equal(loading,false);
+ failure=true;await vm.runInContext('run()',sandbox);assert.equal(rows.length,1);assert.match(error,/Fixture connection failed/);
+ failure=false;response={data:{data:[{id:3,role:'editor'}]}};await vm.runInContext('run()',sandbox);assert.equal(rows[0].id,3);
+ response={data:{unexpected:true}};await vm.runInContext('run()',sandbox);assert.equal(rows[0].id,3);assert.match(error,/invalid user list/);
+ const first=source.indexOf('        const fieldErrors =');const last=source.indexOf('        toast.error(msg)',first)+'        toast.error(msg)'.length;
+ let fields,message;
+ const errors={err:{response:{data:{message:'Validation failed',errors:{email:['The email has already been taken.']}}}},setErrors:value=>{fields=value},toast:{error:value=>{message=value}}};
+ vm.runInNewContext(ts.transpileModule(source.slice(first,last),{compilerOptions:{target:ts.ScriptTarget.ES2020}}).outputText,errors);
+ assert.equal(fields.email,'The email has already been taken.');assert.equal(message,fields.email);
+ console.log('PASS: real API response loading, role filtering, nested responses, failure preserves rows, no demo fallback, field validation messages.');
+})().catch(e=>{console.error(e);process.exit(1)});

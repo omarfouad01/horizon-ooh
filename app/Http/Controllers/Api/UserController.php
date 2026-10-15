@@ -14,6 +14,15 @@ class UserController extends Controller
     {
         $q = User::orderBy('created_at', 'desc');
 
+        // Access is defined by role; an owner's source can predate the dashboard.
+        if ($request->input('scope') === 'dashboard') {
+            $q->whereIn('role', ['admin', 'editor', 'viewer']);
+        } elseif ($request->input('scope') === 'website') {
+            $q->where(function ($query) {
+                $query->whereNotIn('role', ['admin', 'editor', 'viewer'])->orWhereNull('role');
+            });
+        }
+
         // Optional filters
         if ($request->filled('source')) {
             $q->where('source', $request->source);
@@ -54,7 +63,7 @@ class UserController extends Controller
             'name'     => 'sometimes|string|max:120',
             'email'    => "sometimes|email|unique:users,email,{$id}",
             'password' => ['nullable', 'string', Password::min(8)],
-            'role'     => 'nullable|string|in:admin,editor,viewer',
+            'role'     => 'nullable|string|in:admin,editor,viewer,user',
             'phone'    => 'nullable|string|max:30',
             'company'  => 'nullable|string|max:120',
             'source'   => 'nullable|string|max:50',
