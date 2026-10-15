@@ -92,6 +92,7 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
     // Clear admin-only data from the global store so it doesn't linger
     // after logout (suppliers, customers, contacts, design uploads)
     useApiStore.setState({
+      blogPosts: useApiStore.getState().blogPosts.filter((post: any) => post.published === true || post.published === 1),
       suppliers:     [],
       customers:     [],
       contacts:      [],
