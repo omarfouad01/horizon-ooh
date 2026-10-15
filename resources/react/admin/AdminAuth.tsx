@@ -36,6 +36,9 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
       try {
         const res = await attempt();
         const { token: t, user: u } = res.data;
+        if (!['admin', 'editor', 'viewer'].includes(u?.role)) {
+          throw { response: { status: 403, data: { message: 'This account does not have dashboard access.' } } };
+        }
         localStorage.setItem('horizon_token', t);
         localStorage.setItem('horizon_user',  JSON.stringify(u));
         // Mark the token as freshly stored so the Axios interceptor
@@ -51,7 +54,7 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
         return;
       } catch (err: any) {
         // Server explicitly rejected — stop immediately
-        if (err?.response?.status === 401 || err?.response?.status === 422) {
+        if ([401, 403, 422, 429].includes(err?.response?.status)) {
           lastError = err;
           break;
         }
@@ -148,8 +151,10 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
     axios.get(`${baseURL}/auth/me`, {
       headers: { Authorization: `Bearer ${storedToken}`, Accept: 'application/json' },
       timeout: 8000,
-    }).then(() => {
-      resolveTokenValidity(true);  // valid — let apiStore call admin APIs
+    }).then(({ data: currentUser }) => {
+      setUser(currentUser);
+      localStorage.setItem('horizon_user', JSON.stringify(currentUser));
+      resolveTokenValidity(['admin', 'editor', 'viewer'].includes(currentUser?.role));  // valid — let apiStore call admin APIs
       setAuthChecking(false);
     }).catch((err: any) => {
       const status = err?.response?.status;
@@ -165,7 +170,7 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // run once on mount
 
-  const auth = !!token && !!user;
+  const auth = !!token && ['admin', 'editor', 'viewer'].includes(user?.role);
   return (
     <Ctx.Provider value={{ user, token, login, logout, isAuthenticated: auth, isAuth: auth, authChecking }}>
       {children}

@@ -61,6 +61,11 @@ class UserController extends Controller
             'notes'    => 'nullable|string',
         ]);
 
+        if ($u->role === 'admin' && array_key_exists('role', $data) && $data['role'] !== 'admin'
+            && !User::where('role', 'admin')->where('id', '!=', $u->id)->exists()) {
+            return response()->json(['message' => 'Keep at least one administrator before changing this role.'], 422);
+        }
+
         // Handle password separately to avoid double-hash
         if (!empty($data['password'])) {
             $u->password = Hash::make($data['password']);
@@ -75,7 +80,11 @@ class UserController extends Controller
 
     public function destroy(int $id): JsonResponse
     {
-        User::findOrFail($id)->delete();
+        $user = User::findOrFail($id);
+        if ($user->role === 'admin' && !User::where('role', 'admin')->where('id', '!=', $user->id)->exists()) {
+            return response()->json(['message' => 'The last administrator cannot be deleted.'], 422);
+        }
+        $user->delete();
         return response()->json(['message' => 'Deleted']);
     }
 

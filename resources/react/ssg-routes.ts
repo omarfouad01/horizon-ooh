@@ -8,6 +8,8 @@ const STATIC_PUBLIC_ROUTES = [
   "/locations",
   "/blog",
   "/contact",
+  "/privacy",
+  "/terms",
 ] as const;
 
 function normalizeRoute(route: string): string | null {

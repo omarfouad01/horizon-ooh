@@ -434,6 +434,10 @@ forceReload: async () => {
     // gets admin data if it hasn't fetched yet.
     markTokenValid();
 
+    try {
+      if (!['admin', 'editor', 'viewer'].includes(JSON.parse(localStorage.getItem('horizon_user') || 'null')?.role)) return;
+    } catch { return; }
+
     // Helper: fetch all 4 admin-only APIs and patch the store
     const fetchAdminData = async () => {
       const [suppRes, custRes, contRes, uploadsRes] = await Promise.allSettled([
@@ -568,6 +572,11 @@ forceReload: async () => {
         isAuthenticated = false;
       }
     }
+
+    try {
+      const role = JSON.parse(localStorage.getItem('horizon_user') || 'null')?.role;
+      isAuthenticated = isAuthenticated && ['admin', 'editor', 'viewer'].includes(role);
+    } catch { isAuthenticated = false; }
 
     // Admin-only APIs: only called when token is confirmed valid
     console.log('[apiStore] reload: isAuthenticated=', isAuthenticated, 'hasToken=', hasToken, 'skipAuthCheck=', skipAuthCheck);

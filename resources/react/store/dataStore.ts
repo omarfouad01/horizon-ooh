@@ -107,58 +107,45 @@ setTimeout(() => {
 // ─── Settings ─────────────────────────────────────────────────────────────────
 export const settingsStore = {
   update: async (data: any) => {
-    set(st => ({ settings: { ...st.settings, ...data } }));
-    if (HAS_API_LOCAL) { const r = await settingsApi.update(data); reload().catch(()=>{}); return r; }
+    return apiOrLocal(() => settingsApi.update(data), () => { set(st => ({ settings: { ...st.settings, ...data } })); });
   },
 };
 
 // ─── Home content ─────────────────────────────────────────────────────────────
 export const homeStore = {
   update: async (data: any) => {
-    set(() => ({ homeContent: data }));
-    if (HAS_API_LOCAL) { const r = await settingsApi.updateHomeContent(data); reload().catch(()=>{}); return r; }
+    return apiOrLocal(() => settingsApi.updateHomeContent(data), () => { set(() => ({ homeContent: data })); });
   },
 };
 
 // ─── Locations page content ───────────────────────────────────────────────────
 export const locationsContentStore = {
   update: async (data: any) => {
-    set(() => ({ locationsContent: data }));
-    if (HAS_API_LOCAL) { const r = await settingsApi.update({ locations_page_content: JSON.stringify(data) }); reload().catch(()=>{}); return r; }
+    return apiOrLocal(() => settingsApi.update({ locations_page_content: JSON.stringify(data) }), () => { set(() => ({ locationsContent: data })); });
   },
 };
 
 // ─── Contact page content ─────────────────────────────────────────────────────
 export const contactContentStore = {
   update: async (data: any) => {
-    set(() => ({ contactContent: data }));
-    if (HAS_API_LOCAL) { const r = await settingsApi.update({ contact_page_content: JSON.stringify(data) }); reload().catch(()=>{}); return r; }
+    return apiOrLocal(() => settingsApi.update({ contact_page_content: JSON.stringify(data) }), () => { set(() => ({ contactContent: data })); });
   },
 };
 
 // ─── Projects content ─────────────────────────────────────────────────────────
 export const projectsContentStore = {
   update: async (data: any) => {
-    set(() => ({ projectsContent: data }));
-    if (HAS_API_LOCAL) { const r = await settingsApi.update({ projects_page_content: JSON.stringify(data) }); reload().catch(()=>{}); return r; }
+    return apiOrLocal(() => settingsApi.update({ projects_page_content: JSON.stringify(data) }), () => { set(() => ({ projectsContent: data })); });
   },
 };
 
 // ─── About content ────────────────────────────────────────────────────────────
 export const aboutStore = {
-  update: async (data: any) => {
-    // Always update local state immediately for snappy UI
+  update: async (data: any) => apiOrLocal(() => settingsApi.updateAboutContent(data), () => {
     set(st => ({ about: { ...st.about, ...data }, aboutContent: { ...st.aboutContent, ...data } }));
-    if (HAS_API_LOCAL) {
-      const res = await settingsApi.updateAboutContent(data);
-      // Reload to sync with server (non-blocking)
-      reload().catch(() => {});
-      return res;
-    }
-  },
+  }),
 };
 
-// ─── Locations ────────────────────────────────────────────────────────────────
 export const locationStore = {
   add:    (data: any)        => apiOrLocal(() => locationsApi.create(data),       () => set(st => ({ locations: [...st.locations, { ...data, id: uid() }] }))),
   update: (id: any, data: any) => apiOrLocal(() => locationsApi.update(id, data), () => set(st => ({ locations: st.locations.map((x: any) => x.id === id ? { ...x, ...data } : x) }))),

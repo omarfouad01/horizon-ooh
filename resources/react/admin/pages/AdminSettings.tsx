@@ -182,8 +182,7 @@ export default function AdminSettings() {
   const saveSimulator = async () => {
     const payload = { ...s.homeContent }
     Object.entries(simContent).forEach(([k, v]) => { (payload as any)[`sim_${k}`] = v })
-    await homeStore.update(payload)
-    toast.success('Simulator page content saved')
+    await saveConfirmed(() => homeStore.update(payload), 'Simulator page content saved')
   }
   // Use processSteps (the canonical API-loaded array) with label fallback
   const [proc,     setProc]     = useState(
@@ -207,9 +206,26 @@ export default function AdminSettings() {
   const [projContent, setProjContent] = useState({ ...s.projectsContent })
 
   // Sync when store changes (e.g. after logoUrl upload)
-  const saveGeneral = () => { settingsStore.update(settings); toast.success('Settings saved') }
-  const saveLogo    = () => { settingsStore.update({ headerLogoUrl: settings.headerLogoUrl, footerLogoUrl: settings.footerLogoUrl, faviconUrl: settings.faviconUrl }); toast.success('Logos & favicon saved') }
-  const saveStats   = () => { stats.forEach(st => trustStatStore.update(st.id, st)); toast.success('Stats saved') }
+  const savingRef = useRef(false)
+  const [saving, setSaving] = useState(false)
+  const saveConfirmed = async (action: () => Promise<any>, message: string) => {
+    if (savingRef.current) return
+    savingRef.current = true; setSaving(true)
+    try { await action(); toast.success(message) }
+    catch (err: any) { toast.error(err?.response?.data?.message || err?.message || 'Save failed. Please try again.') }
+    finally { savingRef.current = false; setSaving(false) }
+  }
+  const saveGeneral = () => saveConfirmed(() => settingsStore.update(settings), 'Settings saved')
+  const saveLogo = () => saveConfirmed(() => settingsStore.update({ headerLogoUrl: settings.headerLogoUrl, footerLogoUrl: settings.footerLogoUrl, faviconUrl: settings.faviconUrl }), 'Logos & favicon saved')
+  const saveStats = () => saveConfirmed(async () => {
+    for (const st of stats) {
+      if ((st as any).isNew) {
+        const response: any = await trustStatStore.add({ value: st.value, label: st.label })
+        const created = response?.data ?? response
+        setStats(rows => rows.map(row => row.id === st.id ? { ...row, ...created, isNew: false } : row))
+      } else await trustStatStore.update(st.id, st)
+    }
+  }, 'Stats saved')
   const saveProc = async () => {
     try {
       // Use numeric IDs (< 1e10) as "existing in DB" — temp Date.now() IDs are very large
@@ -331,7 +347,7 @@ export default function AdminSettings() {
               ℹ️  <strong>Phone</strong> and <strong>WhatsApp</strong> appear in the website footer, contact page, and floating WhatsApp button.
             </div>
           </div>
-          <Btn onClick={saveGeneral} className="flex items-center gap-2"><Save size={14}/>Save General Settings</Btn>
+          <Btn disabled={saving} onClick={saveGeneral} className="flex items-center gap-2"><Save size={14}/>Save General Settings</Btn>
         </div>
       )}
 
@@ -353,7 +369,7 @@ export default function AdminSettings() {
               <div className="pt-5 text-[12px] text-gray-400">Controls how many governorate cards appear in the homepage coverage section (default: 9).</div>
             </div>
           </div>
-          <Btn onClick={saveGeneral} className="flex items-center gap-2"><Save size={14}/>Save Social &amp; Display Settings</Btn>
+          <Btn disabled={saving} onClick={saveGeneral} className="flex items-center gap-2"><Save size={14}/>Save Social &amp; Display Settings</Btn>
         </div>
       )}
 
@@ -416,7 +432,7 @@ export default function AdminSettings() {
               )}
             </div>
           </div>
-          <Btn onClick={saveLogo} className="flex items-center gap-2"><Save size={14}/>Save Logos & Favicon</Btn>
+          <Btn disabled={saving} onClick={saveLogo} className="flex items-center gap-2"><Save size={14}/>Save Logos & Favicon</Btn>
         </div>
       )}
 
@@ -463,13 +479,13 @@ export default function AdminSettings() {
                 <div key={st.id} className="flex gap-3 items-center">
                   <Field placeholder="Value e.g. 9,500+" value={st.value} onChange={(e:any)=>setStats(s=>s.map((x,j)=>j===i?{...x,value:e.target.value}:x))} className="flex-1"/>
                   <Field placeholder="Label e.g. Locations" value={st.label} onChange={(e:any)=>setStats(s=>s.map((x,j)=>j===i?{...x,label:e.target.value}:x))} className="flex-1"/>
-                  <button onClick={()=>{ trustStatStore.remove(st.id); setStats(s=>s.filter((_,j)=>j!==i)) }} className="text-red-400 hover:text-red-600 p-1.5 flex-shrink-0"><Trash2 size={14}/></button>
+                  <button onClick={() => saveConfirmed(async () => { if (!(st as any).isNew) await trustStatStore.remove(st.id); setStats(rows => rows.filter(row => row.id !== st.id)) }, 'Stat removed')} className="text-red-400 hover:text-red-600 p-1.5 flex-shrink-0"><Trash2 size={14}/></button>
                 </div>
               ))}
             </div>
-            <Btn onClick={()=>{const n={id:Date.now().toString(),value:'',label:''};trustStatStore.add(n);setStats(s=>[...s,n])}} className="text-[12px] px-3 py-1.5 flex items-center gap-1"><Plus size={12}/>Add Stat</Btn>
+            <Btn onClick={()=>{const n={id:Date.now().toString(),value:'',label:'',isNew:true};setStats(s=>[...s,n])}} className="text-[12px] px-3 py-1.5 flex items-center gap-1"><Plus size={12}/>Add Stat</Btn>
           </div>
-          <Btn onClick={saveStats} className="flex items-center gap-2"><Save size={14}/>Save Stats</Btn>
+          <Btn disabled={saving} onClick={saveStats} className="flex items-center gap-2"><Save size={14}/>Save Stats</Btn>
         </div>
       )}
 
@@ -565,7 +581,7 @@ export default function AdminSettings() {
               <TA label="CTA Subtitle" value={projContent.ctaSubtitle||''} onChange={(e:any)=>setProjContent((p:any)=>({...p,ctaSubtitle:e.target.value}))} rows={2} className="mt-3"/>
             </div>
           </div>
-          <Btn onClick={()=>{ projectsContentStore.update(projContent); toast.success('Projects page content saved') }} className="flex items-center gap-2"><Save size={14}/>Save Projects Page Content</Btn>
+          <Btn onClick={() => saveConfirmed(() => projectsContentStore.update(projContent), 'Projects page content saved')} className="flex items-center gap-2"><Save size={14}/>Save Projects Page Content</Btn>
         </div>
       )}
 
@@ -615,7 +631,7 @@ export default function AdminSettings() {
               </div>
             </div>
           </div>
-          <Btn onClick={saveSimulator} className="flex items-center gap-2"><Save size={14}/>Save Simulator Page Content</Btn>
+          <Btn disabled={saving} onClick={saveSimulator} className="flex items-center gap-2"><Save size={14}/>Save Simulator Page Content</Btn>
         </div>
       )}
 

@@ -3,6 +3,7 @@ import { LangProvider, useLang } from "@/i18n/LangContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { lazy, Suspense, useEffect, useState, useRef } from "react";
+import SiteInformation from "@/pages/SiteInformation";
 import Layout from "@/components/Layout";
 import { FaviconSync } from "@/components/FaviconSync";
 import { trackEvent } from "@/lib/analytics";
@@ -130,6 +131,8 @@ export function PublicRoutes() {
       <Route path="locations/:city/billboards/:slug" element={<Layout><Product /></Layout>} />
       <Route path="blog"             element={<Layout><Blog /></Layout>} />
       <Route path="blog/:slug"       element={<Layout><BlogArticle /></Layout>} />
+      <Route path="privacy" element={<Layout><SiteInformation kind="privacy" /></Layout>} />
+      <Route path="terms" element={<Layout><SiteInformation kind="terms" /></Layout>} />
       <Route path="contact"          element={<Layout><Contact /></Layout>} />
       <Route path="login"            element={<Suspense fallback={<PageLoading />}><Login /></Suspense>} />
       <Route path="signup"           element={<Suspense fallback={<PageLoading />}><Signup /></Suspense>} />

@@ -155,7 +155,7 @@ export function Navbar() {
 
           {/* Desktop links — flex-shrink-0 prevents right section from
                compressing/shifting when logo or login/profile widths change */}
-          <div className="hidden md:flex items-center gap-6 ml-8" style={{ flexShrink: 0 }}>
+          <div className="hidden min-[1440px]:flex items-center gap-4 ml-4" style={{ flexShrink: 0 }}>
             {NAV_LINKS.map((link) => (
               <NavLink
                 key={link.href}
@@ -211,7 +211,7 @@ export function Navbar() {
 
             {/* CLS fix: fixed-width wrapper so Login↔Profile swap never
                 shifts the nav links or the GET A QUOTE button */}
-            <div style={{ minWidth: 160, display: 'flex', justifyContent: 'flex-end' }}>
+            <div style={{ minWidth: 120, display: 'flex', justifyContent: 'flex-end' }}>
             {siteUser ? (
               /* ── Profile button (logged in) ── */
               <div className="relative" ref={profileRef}>
@@ -281,7 +281,7 @@ export function Navbar() {
 
           {/* Mobile toggle */}
           <button
-            className="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-[5px] cursor-pointer"
+            className="min-[1440px]:hidden w-10 h-10 flex flex-col items-center justify-center gap-[5px] cursor-pointer"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
@@ -301,7 +301,7 @@ export function Navbar() {
       {/* Mobile menu */}
       {menuOpen && (
           <div
-            className="fixed top-[76px] left-0 right-0 z-40 bg-white border-b border-[#0B0F1A]/10 px-8 py-8 flex flex-col gap-5"
+            className="fixed top-[76px] left-0 right-0 z-40 min-[1440px]:hidden max-h-[calc(100dvh-76px)] overflow-y-auto bg-white border-b border-[#0B0F1A]/10 px-8 py-8 flex flex-col gap-5"
             style={{ animation: 'fadeSlideDown 0.22s ease forwards' }}
           >
             {NAV_LINKS.map((link) => (
@@ -502,9 +502,9 @@ export function Footer() {
         <div className="pt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <p className="text-white/70 text-[11px] tracking-[0.2em]">© 2026 {s.companyName} · {t('footer.rights')}</p>
           <div className="flex items-center gap-5">
-            {[t('footer.privacy'), t('footer.terms'), t('footer.sitemap')].map((item) => (
-              <span key={item} className="text-white/70 text-[11px] tracking-[0.15em] hover:text-white/70 cursor-pointer transition-colors">{item}</span>
-            ))}
+            <Link to={langPath(lang, '/privacy')} className="text-white/70 text-[11px] tracking-[0.15em] hover:text-white">{t('footer.privacy')}</Link>
+            <Link to={langPath(lang, '/terms')} className="text-white/70 text-[11px] tracking-[0.15em] hover:text-white">{t('footer.terms')}</Link>
+            <a href="/sitemap.xml" className="text-white/70 text-[11px] tracking-[0.15em] hover:text-white">{t('footer.sitemap')}</a>
             <div className="flex items-center gap-1.5 ml-1">
               <span className="w-1.5 h-1.5 block animate-pulse" style={{ background: RED }} />
               <span className="text-white/70 text-[10px] tracking-[0.2em] uppercase">{t('footer.madeIn')}</span>

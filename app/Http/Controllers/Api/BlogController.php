@@ -10,6 +10,15 @@ use Illuminate\Database\QueryException;
 
 class BlogController extends Controller
 {
+    private function canReadDrafts(): bool
+    {
+        try {
+            return in_array(auth('api')->user()?->role, ['admin', 'editor', 'viewer'], true);
+        } catch (\Throwable $e) {
+            return false;
+        }
+    }
+
     private function transform(BlogPost $p): array
     {
         return \App\Support\PublicImage::values([
@@ -23,6 +32,7 @@ class BlogController extends Controller
             'image'        => $p->image,
             'imageAlt' => $p->image_alt,
             'excerpt'      => $p->excerpt,
+            'excerptAr'    => $p->excerpt_ar,
             'content'      => $p->content,
             'body'         => $p->body ?? [],
             'bodyAr'       => $p->body_ar ?? [],
@@ -48,7 +58,7 @@ class BlogController extends Controller
     public function index(Request $request): JsonResponse
     {
         $q = BlogPost::orderBy('sort_order')->orderBy('published_at', 'desc');
-        if (!$request->filled('all')) $q->where('published', true);
+        if (!($request->boolean('all') && $this->canReadDrafts())) $q->where('published', true);
         $full = $request->boolean('all') || $request->boolean('full');
         return response()->json($q->get()->map(
             fn($p) => $full ? $this->transform($p) : $this->transformList($p)
@@ -57,7 +67,9 @@ class BlogController extends Controller
 
     public function show(string $slug): JsonResponse
     {
-        return response()->json($this->transform(BlogPost::where('slug', $slug)->firstOrFail()));
+        $query = BlogPost::where('slug', $slug);
+        if (!$this->canReadDrafts()) $query->where('published', true);
+        return response()->json($this->transform($query->firstOrFail()));
     }
 
     public function store(Request $request): JsonResponse
@@ -80,12 +92,7 @@ class BlogController extends Controller
         try {
             $post = BlogPost::findOrFail($id);
             $data = $this->validated($request, true);
-            if (isset($data['title'])) {
-                $newSlug = Str::slug($data['title']);
-                if ($newSlug !== $post->slug) {
-                    $data['slug'] = $this->uniqueSlug($newSlug, $post->id);
-                }
-            }
+            // Keep published URLs stable when editing an article or its title.
             $data = $this->normalize($data);
             $data = $this->stripUnknownKeys($data);
             $post->update($data);
@@ -116,6 +123,8 @@ class BlogController extends Controller
             'imageAlt' => 'nullable|string|max:1000',
             'image_alt' => 'nullable|string|max:1000',
             'excerpt'      => 'nullable|string',
+            'excerptAr'    => 'nullable|string',
+            'excerpt_ar'   => 'nullable|string',
             'content'      => 'nullable|string',
             'body'         => 'nullable|array',
             'body_ar'      => 'nullable|array',
@@ -156,6 +165,7 @@ class BlogController extends Controller
         $map = [
             'imageAlt' => 'image_alt',
             'titleAr'   => 'title_ar',
+            'excerptAr' => 'excerpt_ar',
             'readTime'  => 'read_time',
             'bodyAr'    => 'body_ar',
             'metaTitle' => 'meta_title',

@@ -88,6 +88,8 @@ XML;
             ['/locations',        '0.8',  'monthly', $now],
             ['/blog',             '0.8',  'weekly',  $now],
             ['/contact',          '0.7',  'yearly',  $now],
+            ['/privacy',          '0.3',  'yearly',  $now],
+            ['/terms',            '0.3',  'yearly',  $now],
         ];
         foreach ($statics as [$path, $priority, $freq, $lastmod]) {
             $urls->push(['path' => $path, 'priority' => $priority, 'freq' => $freq, 'lastmod' => $lastmod]);

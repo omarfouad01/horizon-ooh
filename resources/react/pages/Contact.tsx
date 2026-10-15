@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Reveal, RevealGroup, RevealItem, PageHero, Eyebrow } from "@/components/UI";
 import { RED, NAVY, ease } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { trackEvent } from "@/lib/analytics";
 
 export default function Contact() {
@@ -299,10 +299,9 @@ export default function Contact() {
                           { label: isAr ? 'استكشف خدماتنا' : 'Explore our services', href: "/services" },
                           { label: isAr ? 'اقرأ رؤيتنا' : 'Read our insights', href: "/blog" },
                         ].map((link) => (
-                          <a
+                          <Link
                             key={link.label}
-                            href={`#${link.href}`}
-                            onClick={(e) => { e.preventDefault(); window.location.hash = link.href; }}
+                            to={`${isAr ? "/ar" : ""}${link.href}`}
                             className="flex items-center gap-2 group cursor-pointer hover:opacity-80 transition-opacity"
                             style={{ textDecoration: "none" }}
                           >
@@ -310,7 +309,7 @@ export default function Contact() {
                             <span className="text-[12px] font-semibold tracking-[0.15em] uppercase transition-colors duration-200 group-hover:text-white" style={{ color: "rgba(255,255,255,0.35)" }}>
                               {link.label}
                             </span>
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     </div>

@@ -28,9 +28,9 @@ use App\Http\Controllers\Api\MediaUploadController;
 Route::get('/health', fn() => response()->json(['status' => 'ok', 'time' => now()->toISOString()]));
 
 // Auth — public endpoints
-Route::post('/auth/login',     [AuthController::class, 'login']);
+Route::post('/auth/login',     [AuthController::class, 'login'])->middleware('throttle:login');
 Route::post('/auth/register',  [AuthController::class, 'register']);
-Route::post('/login',          [AuthController::class, 'login']);
+Route::post('/login',          [AuthController::class, 'login'])->middleware('throttle:login');
 Route::post('/register',       [AuthController::class, 'register']);
 // Token refresh — accepts expired token, returns a fresh one
 Route::post('/auth/refresh',   [AuthController::class, 'refresh']);
@@ -42,7 +42,7 @@ Route::get('/locations',         [LocationController::class, 'index']);
 Route::get('/locations/{slug}',  [LocationController::class, 'show']);
 Route::get('/districts',         [DistrictController::class, 'index']);
 Route::get('/billboards',        [BillboardController::class, 'index']);
-Route::get('/billboards/{slug}', [BillboardController::class, 'show']);
+Route::get('/billboards/{slug}', [BillboardController::class, 'show'])->where('slug', '(?!next-code$)[^/]+');
 Route::get('/services',          [ServiceController::class, 'index']);
 Route::get('/services/{slug}',   [ServiceController::class, 'show']);
 Route::get('/projects',          [ProjectController::class, 'index']);
@@ -68,15 +68,21 @@ Route::post('/design-uploads',     [DesignUploadController::class, 'store']);
 // ── Authenticated (admin) endpoints ──────────────────────────────────────────
 
 Route::middleware('auth:api')->group(function () {
-
     Route::post('/auth/logout', [AuthController::class, 'logout']);
-    Route::get ('/auth/me',     [AuthController::class, 'me']);
+    Route::get('/auth/me', [AuthController::class, 'me']);
+    Route::put('/auth/profile', [AuthController::class, 'updateProfile']);
+});
+
+Route::middleware(['auth:api', \App\Http\Middleware\DashboardAccess::class])->group(function () {
+
+
+
 
     // ── Media upload — real file storage, returns a public URL ────────────
     Route::post('/media/upload', [MediaUploadController::class, 'upload']);
 
     // User profile update
-    Route::put('/auth/profile', [AuthController::class, 'updateProfile']);
+
 
     // Dashboard stats
     Route::get('/dashboard/stats', [SettingController::class, 'dashboardStats']);

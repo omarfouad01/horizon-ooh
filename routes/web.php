@@ -108,7 +108,7 @@ Route::get('/{any?}', function () {
     $publicPath = preg_replace('#^ar(?:/|$)#', '', $normalizedPath);
     $privateRoute = preg_match('#^(?:admin|login|signup|profile|design-simulator)(?:/|$)#', $publicPath);
     if (!$isSsg && !$privateRoute) {
-        $known = in_array($publicPath, ['', 'about', 'services', 'projects', 'locations', 'blog', 'contact'], true);
+        $known = in_array($publicPath, ['', 'about', 'services', 'projects', 'locations', 'blog', 'contact', 'privacy', 'terms'], true);
         if (preg_match('#^(services|projects|locations|blog)/([^/]+)$#', $publicPath, $match)) {
             $model = ['services' => \App\Models\Service::class, 'projects' => \App\Models\Project::class, 'locations' => \App\Models\Location::class, 'blog' => \App\Models\BlogPost::class][$match[1]];
             $query = $model::where('slug', $match[2]);

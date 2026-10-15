@@ -27,7 +27,7 @@ const NAV = [
 ] as const
 
 export default function AdminLayout() {
-  const { isAuth, authChecking, logout } = useAdmin()
+  const { isAuth, authChecking, logout, user } = useAdmin()
   const { pathname } = useLocation()
   const [mobile, setMobile] = useState(false)
   const store = useStore()
@@ -37,7 +37,7 @@ export default function AdminLayout() {
 
   // While validating an existing token, show a neutral loading screen
   // instead of immediately redirecting to login (prevents flicker).
-  if (authChecking) {
+  if (authChecking || !store.loaded) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="flex flex-col items-center gap-3">
@@ -50,6 +50,9 @@ export default function AdminLayout() {
 
   if (!isAuth) return <Navigate to="/admin/login" replace />
 
+  const adminOnly = ['/admin/users', '/admin/dashboard-users', '/admin/settings', '/admin/homepage', '/admin/about', '/admin/locations-page', '/admin/contact-page'];
+  if (user?.role !== 'admin' && adminOnly.includes(pathname)) return <Navigate to="/admin" replace />
+
   const Sidebar = ({ isMobile = false }) => (
     <aside className="flex flex-col h-full w-60" style={{ background: NAVY }}>
       <div className="flex items-center gap-2.5 px-5 py-5 border-b border-white/10">
@@ -61,7 +64,7 @@ export default function AdminLayout() {
         {isMobile && <button onClick={() => setMobile(false)} className="ml-auto text-white/30 hover:text-white"><X size={16} /></button>}
       </div>
       <nav className="flex-1 py-3 overflow-y-auto">
-        {NAV.map(({ to, label, icon: Icon, exact, badge }: any) => {
+        {NAV.filter(item => user?.role === 'admin' || !adminOnly.includes(item.to)).map(({ to, label, icon: Icon, exact, badge }: any) => {
           const active = exact ? pathname === to : pathname.startsWith(to)
           const badgeCount = badge ? newContactCount : 0
           return (
@@ -112,12 +115,15 @@ export default function AdminLayout() {
                 style={{ background: RED }}>{newContactCount}</span>
             )}
           </Link>
-          <a href="/#/" target="_blank" className="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-gray-400 hover:text-gray-700 border border-gray-200 rounded-lg px-3 py-1.5">
+          <a href="/" target="_blank" className="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-gray-400 hover:text-gray-700 border border-gray-200 rounded-lg px-3 py-1.5">
             <ExternalLink size={11} />Live Site
           </a>
           <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ background: RED }}>A</div>
         </header>
-        <main className="flex-1 overflow-y-auto"><Outlet /></main>
+        <main className="flex-1 overflow-y-auto">
+          {user?.role === 'viewer' && <p className="px-6 py-3 bg-amber-50 text-amber-900 text-sm" role="status">Read-only access. Your account cannot save or delete content.</p>}
+          <fieldset disabled={user?.role === 'viewer'} className="min-w-0 border-0 p-0 m-0"><Outlet /></fieldset>
+        </main>
       </div>
     </div>
   )
