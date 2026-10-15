@@ -38,7 +38,7 @@ export const UI: Record<string, Record<Lang, string>> = {
   'footer.privacy':        { en: 'Privacy',       ar: 'الخصوصية' },
   'footer.terms':          { en: 'Terms',         ar: 'الشروط' },
   'footer.sitemap':        { en: 'Sitemap',       ar: 'خريطة الموقع' },
-  'footer.estd':           { en: 'Est. 2008, Cairo', ar: 'تأسست 2008، القاهرة' },
+  'footer.estd':           { en: 'Est. 2013, Cairo', ar: 'تأسست 2013، القاهرة' },
 
   // ── Home ──
   'home.trustedBy':        { en: 'Trusted by 100+ brands', ar: 'يثق بنا أكثر من 100 علامة تجارية' },
