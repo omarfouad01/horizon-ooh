@@ -77,11 +77,12 @@ class BlogController extends Controller
         try {
             $data = $this->validated($request);
             $data['slug']         = $this->uniqueSlug(Str::slug($data['title'] ?? ('post-' . time())));
-            $data['published_at'] = $data['published_at'] ?? now();
+            $data['published'] = $data['published'] ?? false;
+            $data['published_at'] = $data['published'] ? ($data['published_at'] ?? now()) : null;
             $data = $this->normalize($data);
             $data = $this->stripUnknownKeys($data);
             $post = BlogPost::create($data);
-            return response()->json($this->transform($post), 201);
+            return response()->json($this->transform($post->fresh()), 201);
         } catch (QueryException $e) {
             return response()->json(['message' => 'Database error: ' . $e->getMessage()], 500);
         }
@@ -92,10 +93,12 @@ class BlogController extends Controller
         try {
             $post = BlogPost::findOrFail($id);
             $data = $this->validated($request, true);
+            if (!empty($data['published']) && !$post->published_at) $data['published_at'] = $data['published_at'] ?? now();
             // Keep published URLs stable when editing an article or its title.
             $data = $this->normalize($data);
             $data = $this->stripUnknownKeys($data);
             $post->update($data);
+            if (!$post->published) \App\Support\PublicSeoRefresh::removeBlogPage($post->slug);
             return response()->json($this->transform($post));
         } catch (QueryException $e) {
             return response()->json(['message' => 'Database error: ' . $e->getMessage()], 500);
@@ -104,7 +107,9 @@ class BlogController extends Controller
 
     public function destroy(int $id): JsonResponse
     {
-        BlogPost::findOrFail($id)->delete();
+        $post = BlogPost::findOrFail($id);
+        $post->delete();
+        \App\Support\PublicSeoRefresh::removeBlogPage($post->slug);
         return response()->json(['message' => 'Deleted']);
     }
 

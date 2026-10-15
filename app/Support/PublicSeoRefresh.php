@@ -3,6 +3,18 @@ namespace App\Support;
 
 class PublicSeoRefresh
 {
+    /** Remove an article's old static HTML immediately when withdrawing it. */
+    public static function removeBlogPage(string $slug): void
+    {
+        if (!preg_match('/^[a-zA-Z0-9][a-zA-Z0-9_-]*$/D', $slug)) return;
+        foreach (['blog/', 'ar/blog/'] as $prefix) {
+            foreach (['index.html', 'index.html.br', 'index.html.gz'] as $file) {
+                $path = public_path('ssg/'.$prefix.$slug.'/'.$file);
+                if (is_file($path) && !unlink($path)) throw new \RuntimeException('Could not invalidate the article page.');
+            }
+        }
+    }
+
     private static bool $scheduled = false;
 
     public static function schedule(): void

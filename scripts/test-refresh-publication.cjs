@@ -1,0 +1,8 @@
+const fs=require('fs'),vm=require('vm'),path=require('path'),assert=require('assert');
+const runtime='/fixture/storage/app/seo-runtime',dirty=runtime+'/dirty',output=runtime+'/build-123';
+const files=new Map([[dirty,'initial']]),dirs=new Set(),copies=[];let generations=0;
+const fakeFs={mkdirSync(p){dirs.add(p)},existsSync:p=>files.has(p)||dirs.has(p),writeFileSync:(p,v)=>files.set(p,String(v)),readFileSync:p=>{if(!files.has(p))throw Error('Missing '+p);return files.get(p)},unlinkSync:p=>files.delete(p),rmSync:p=>{for(const key of files.keys())if(key===p||key.startsWith(p+'/'))files.delete(key);dirs.delete(p)},copyFileSync:(a,b)=>{copies.push(files.get(a));files.set(b,files.get(a))},renameSync:(a,b)=>{files.set(b,files.get(a));files.delete(a)}};
+const child={spawnSync(){generations++;if(generations===1)files.set(dirty,'changed during build');files.set(output+'/manifest.json',JSON.stringify({routes:['/','/blog/fixture']}));for(const p of ['/index.html','/blog/fixture/index.html'])files.set(output+p,generations===1?'STALE':'FRESH');return {status:0}},spawn(){throw Error('Unexpected background process')}};
+vm.runInNewContext(fs.readFileSync('scripts/refresh-seo.cjs','utf8'),{__dirname:'/fixture/scripts',__filename:'/fixture/scripts/refresh-seo.cjs',process:{pid:123,execPath:'/node',env:{},kill(){},exit(){throw Error('Unexpected exit')}},console:{log(){}},require:name=>name==='node:fs'?fakeFs:name==='node:path'?path:child});
+assert.equal(generations,2);assert.equal(files.get('/fixture/public/ssg/blog/fixture/index.html'),'FRESH');assert.equal(copies.includes('STALE'),false);
+console.log('PASS: CMS changes during static generation discard the stale snapshot before publishing.');

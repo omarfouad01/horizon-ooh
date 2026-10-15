@@ -79,8 +79,10 @@ function BrandModal({ open, brand, onClose, onSave, saving }: { open:boolean; br
 
   const handleSave = async () => {
     if (!name.trim()) return
-    await onSave({ name: name.trim(), logoUrl, description: description.trim(), nameAr: nameAr.trim(), descriptionAr: descriptionAr.trim() } as any)
-    onClose()
+    try {
+      await onSave({ name: name.trim(), logoUrl, description: description.trim(), nameAr: nameAr.trim(), descriptionAr: descriptionAr.trim() } as any)
+      onClose()
+    } catch { /* Keep the editor and unsaved values open; the parent shows the error. */ }
   }
 
   return (
@@ -293,6 +295,7 @@ export default function AdminSettings() {
       toast.success(brandModal.brand ? 'Brand updated' : 'Brand added')
     } catch {
       toast.error('Failed to save brand — check your connection')
+      throw new Error('Brand save failed')
     } finally {
       setBrandSaving(false)
     }

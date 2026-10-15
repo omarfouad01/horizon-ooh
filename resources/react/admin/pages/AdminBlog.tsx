@@ -115,6 +115,7 @@ function BlogForm({ editing, onClose }: { editing?: BlogPost | null; onClose: ()
   const isEdit = !!editing
   const [formTab, setFormTab] = useState<'en'|'ar'>('en')
   const [f, setF] = useState({
+    published:   !!(editing as any)?.published,
     title:       editing?.title    || '',
     excerpt:     editing?.excerpt  || '',
     category:    editing?.category || 'Industry Guide',
@@ -170,6 +171,7 @@ function BlogForm({ editing, onClose }: { editing?: BlogPost | null; onClose: ()
   async function save(e: React.FormEvent) {
     e.preventDefault()
     if (!f.title.trim()) { toast.error('Title is required'); return }
+    if (saving) return
     setSaving(true)
     const slug = f.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
     const body   = blocks.map(({ id: _id, ...rest }) => rest)
@@ -178,7 +180,7 @@ function BlogForm({ editing, onClose }: { editing?: BlogPost | null; onClose: ()
     try {
       if (isEdit && editing) await blogStore.update(editing.id, data)
       else                   await blogStore.add(data as any)
-      toast.success(isEdit ? 'Post updated' : 'Post created')
+      toast.success(f.published ? 'Post published' : 'Draft saved')
       onClose()
     } catch (err: any) {
       const status = err?.response?.status
@@ -365,10 +367,17 @@ function BlogForm({ editing, onClose }: { editing?: BlogPost | null; onClose: ()
       </div>
       )}
 
+      <div className="p-4 border border-gray-200 rounded-xl">
+        <label htmlFor="post-publication" className="block text-sm font-semibold mb-2">Publication status</label>
+        <select id="post-publication" value={f.published ? 'published' : 'draft'} onChange={e => set('published', e.target.value === 'published')} className="border border-gray-200 rounded-lg p-2 w-full">
+          <option value="draft">Draft — visible only to dashboard users</option>
+          <option value="published">Published — visible on the website</option>
+        </select>
+      </div>
       {/* Actions */}
       <div className="flex gap-3 justify-end pt-3 border-t border-gray-100 sticky bottom-0 bg-white py-3">
         <Btn variant="ghost" type="button" onClick={onClose}>Cancel</Btn>
-        <Btn type="submit" disabled={saving}>{saving ? 'Saving…' : (isEdit ? 'Save Changes' : 'Publish Post')}</Btn>
+        <Btn type="submit" disabled={saving}>{saving ? 'Saving…' : (f.published ? 'Publish Post' : 'Save Draft')}</Btn>
       </div>
     </form>
   )
@@ -381,6 +390,14 @@ export default function AdminBlog() {
   const [edit, setEdit] = useState<BlogPost | null>(null)
   const [del,  setDel]  = useState<BlogPost | null>(null)
   const [q,    setQ]    = useState('')
+  const [deleting, setDeleting] = useState(false)
+  async function deletePost() {
+    if (!del || deleting) return
+    setDeleting(true)
+    try { await blogStore.remove(del.id); toast.success('Post deleted'); setDel(null) }
+    catch (err: any) { toast.error(err?.response?.data?.message || err?.message || 'Delete failed. Please retry.') }
+    finally { setDeleting(false) }
+  }
 
   const filtered = q
     ? blogPosts.filter(p => p.title.toLowerCase().includes(q.toLowerCase()) || p.category.toLowerCase().includes(q.toLowerCase()))
@@ -404,6 +421,7 @@ export default function AdminBlog() {
         <thead>
           <tr>
             <Th>Title</Th>
+            <Th>Status</Th>
             <Th>Category</Th>
             <Th>Blocks</Th>
             <Th>Date</Th>
@@ -422,6 +440,7 @@ export default function AdminBlog() {
                   </div>
                 </div>
               </Td>
+              <Td><Badge color={(p as any).published ? 'green' : 'gray'}>{(p as any).published ? 'Published' : 'Draft'}</Badge></Td>
               <Td><Badge color="blue">{p.category}</Badge></Td>
               <Td><span className="text-[13px] text-gray-500">{p.body?.length || 0} blocks</span></Td>
               <Td className="text-xs text-gray-500">{p.date}</Td>
@@ -436,7 +455,7 @@ export default function AdminBlog() {
             </Tr>
           ))}
           {filtered.length === 0 && (
-            <Tr><Td colSpan={5} className="text-center text-gray-400 py-10">No posts found</Td></Tr>
+            <Tr><Td colSpan={6} className="text-center text-gray-400 py-10">No posts found</Td></Tr>
           )}
         </tbody>
       </Tbl>
@@ -446,8 +465,8 @@ export default function AdminBlog() {
       </Modal>
 
       <Confirm open={!!del} title="Delete Post" message={`Delete "${del?.title}"? This cannot be undone.`}
-        onConfirm={() => { if (del) { blogStore.remove(del.id); toast.success('Post deleted'); setDel(null) } }}
-        onCancel={() => setDel(null)}/>
+        loading={deleting} onConfirm={deletePost}
+        onCancel={() => { if (!deleting) setDel(null) }}/>
     </div>
   )
 }

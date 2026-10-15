@@ -1,0 +1,20 @@
+const fs=require('fs'),vm=require('vm'),assert=require('assert'),ts=require('typescript');
+const compile=s=>ts.transpileModule(s,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020}}).outputText;
+const blog=fs.readFileSync('resources/react/admin/pages/AdminBlog.tsx','utf8');
+const start=blog.indexOf('  async function deletePost()');const deletion=blog.slice(start,blog.indexOf('  const filtered',start));
+let resolve,reject,success=0,errors=0,closed=false;
+const sandbox={del:{id:1},deleting:false,setDeleting(){},setDel(){closed=true},toast:{success(){success++},error(){errors++}},blogStore:{remove:()=>new Promise((a,b)=>{resolve=a;reject=b})}};
+vm.createContext(sandbox);vm.runInContext(compile(deletion),sandbox);
+(async()=>{
+ const pending=vm.runInContext('deletePost()',sandbox);assert.equal(success,0);assert.equal(closed,false);reject(Error('Fixture failure'));await pending;assert.equal(success,0);assert.equal(errors,1);assert.equal(closed,false);
+ const accepted=vm.runInContext('deletePost()',sandbox);resolve({});await accepted;assert.equal(success,1);assert.equal(closed,true);
+ const source=fs.readFileSync('resources/react/admin/pages/AdminSettings.tsx','utf8');
+ const save=source.slice(source.indexOf('  async function saveBrand('),source.indexOf('  async function removeBrand('));
+ const modal=source.slice(source.indexOf('  const handleSave = async () =>'),source.indexOf('\n  return (',source.indexOf('  const handleSave = async () =>')));
+ let failed=true,brandClosed=false,brandErrors=0;
+ const brand={module:{exports:{}},brandModal:{brand:{id:1}},brandStore:{update:async()=>{if(failed)throw Error('Rejected fixture')}},setBrandSaving(){},toast:{success(){},error(){brandErrors++}},name:'Fixture',logoUrl:'',description:'',nameAr:'',descriptionAr:'',onClose(){brandClosed=true}};
+ vm.createContext(brand);vm.runInContext(compile(save+'\n'+modal+'\nmodule.exports=handleSave;'),brand);brand.onSave=vm.runInContext('saveBrand',brand);
+ await brand.module.exports();assert.equal(brandErrors,1);assert.equal(brandClosed,false);assert.equal(brand.name,'Fixture');
+ failed=false;await brand.module.exports();assert.equal(brandClosed,true);
+ console.log('PASS: deletion waits for server acknowledgement; rejected delete and brand save preserve their editors; successful operations close normally.');
+})().catch(e=>{console.error(e);process.exit(1)});

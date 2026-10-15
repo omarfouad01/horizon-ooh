@@ -22,6 +22,8 @@ try {
         env:{...process.env, SSG_API_BASE:'https://horizonooh.com/api', SSG_OUTPUT_DIR:output, SSG_RUNTIME_DIR:runtime}
       });
       if (result.status !== 0) throw new Error(result.error?.message || result.stderr?.slice(-3000) || 'SEO generation failed');
+      // A CMS save during rendering makes this snapshot stale; regenerate before publishing it.
+      if (fs.existsSync(dirty)) continue;
       const manifest = JSON.parse(fs.readFileSync(path.join(output, 'manifest.json')));
       if (!manifest.routes?.length || !manifest.routes.every(safeRoute)) throw new Error('Invalid generated manifest');
       const live = path.join(root, 'public/ssg');
