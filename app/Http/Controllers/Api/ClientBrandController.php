@@ -50,11 +50,7 @@ class ClientBrandController extends Controller
                 'sort_order'     => 'nullable|integer',
             ]);
 
-            // Normalize camelCase → snake_case
-            if (!isset($data['logo_url']) && isset($data['logoUrl']))             $data['logo_url']       = $data['logoUrl'];
-            if (!isset($data['name_ar']) && isset($data['nameAr']))               $data['name_ar']        = $data['nameAr'];
-            if (!isset($data['description_ar']) && isset($data['descriptionAr'])) $data['description_ar'] = $data['descriptionAr'];
-            unset($data['logoUrl'], $data['nameAr'], $data['descriptionAr']);
+            $data = $this->normalize($data);
 
             // Only keep fillable keys
             $allowed = (new ClientBrand)->getFillable();
@@ -86,10 +82,7 @@ class ClientBrandController extends Controller
                 'sort_order'     => 'nullable|integer',
             ]);
 
-            if (!isset($data['logo_url']) && isset($data['logoUrl']))             $data['logo_url']       = $data['logoUrl'];
-            if (!isset($data['name_ar']) && isset($data['nameAr']))               $data['name_ar']        = $data['nameAr'];
-            if (!isset($data['description_ar']) && isset($data['descriptionAr'])) $data['description_ar'] = $data['descriptionAr'];
-            unset($data['logoUrl'], $data['nameAr'], $data['descriptionAr']);
+            $data = $this->normalize($data);
 
             $allowed = (new ClientBrand)->getFillable();
             $data = array_intersect_key($data, array_flip($allowed));
@@ -106,4 +99,21 @@ class ClientBrandController extends Controller
         ClientBrand::findOrFail($id)->delete();
         return response()->json(['message' => 'Deleted']);
     }
+    private function normalize(array $data): array
+    {
+        foreach (['logoUrl' => 'logo_url', 'nameAr' => 'name_ar', 'descriptionAr' => 'description_ar'] as $camel => $snake) {
+            // Null is an intentional clear; absence means leave the stored value alone.
+            if (!array_key_exists($snake, $data) && array_key_exists($camel, $data)) $data[$snake] = $data[$camel];
+            unset($data[$camel]);
+        }
+        // Clear both URL columns so legacy logo fallback cannot restore the removed logo.
+        // Keep uploaded files on disk: other records may still reference them.
+        if (array_key_exists('logo_url', $data) && ($data['logo_url'] === null || $data['logo_url'] === '')) {
+            $data['logo'] = null;
+        } elseif (array_key_exists('logo', $data) && ($data['logo'] === null || $data['logo'] === '') && !array_key_exists('logo_url', $data)) {
+            $data['logo_url'] = null;
+        }
+        return $data;
+    }
+
 }
