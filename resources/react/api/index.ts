@@ -6,6 +6,7 @@
  * Auth endpoints    → multiple fallback paths for Laravel compatibility
  */
 import api, { cachedGet } from './client';
+import { readWithRetry } from './readRetry';
 
 // ─── Auth ─────────────────────────────────────────────────────────────────────
 export const authApi = {
@@ -82,7 +83,7 @@ export const blogApi = {
 
 // ─── Contacts ─────────────────────────────────────────────────────────────────
 export const contactsApi = {
-  all:    ()           => api.get('/contacts'),
+  all:    ()           => readWithRetry(() => api.get('/contacts')),
   submit: (data: any)  => api.post('/contact', data),
   update: (id: any, data: any) => api.put(`/contacts/${id}`, data),
   remove: (id: any)    => api.delete(`/contacts/${id}`),
@@ -106,7 +107,7 @@ export const billboardFormatsApi = {
 
 // ─── Suppliers ────────────────────────────────────────────────────────────────
 export const suppliersApi = {
-  all:    ()           => api.get('/suppliers'),
+  all:    ()           => readWithRetry(() => api.get('/suppliers')),
   create: (data: any)  => api.post('/suppliers', data),
   update: (id: any, data: any) => api.put(`/suppliers/${id}`, data),
   remove: (id: any)    => api.delete(`/suppliers/${id}`),
@@ -114,7 +115,7 @@ export const suppliersApi = {
 
 // ─── Customers ────────────────────────────────────────────────────────────────
 export const customersApi = {
-  all:    ()           => api.get('/customers'),
+  all:    ()           => readWithRetry(() => api.get('/customers')),
   create: (data: any)  => api.post('/customers', data),
   update: (id: any, data: any) => api.put(`/customers/${id}`, data),
   remove: (id: any)    => api.delete(`/customers/${id}`),

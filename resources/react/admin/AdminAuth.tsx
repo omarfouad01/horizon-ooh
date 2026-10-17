@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import { readWithRetry } from '@/api/readRetry';
 import { authApi } from '@/api';
 import { markTokenStored } from '@/api/client';
 import { HAS_API, useApiStore, resolveTokenValidity } from '@/store/apiStore';
@@ -149,10 +150,10 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
     const baseURL = typeof window !== 'undefined'
       ? `${window.location.protocol}//${window.location.hostname}${window.location.port ? ':' + window.location.port : ''}/api`
       : '/api';
-    axios.get(`${baseURL}/auth/me`, {
+    readWithRetry(() => axios.get(`${baseURL}/auth/me`, {
       headers: { Authorization: `Bearer ${storedToken}`, Accept: 'application/json' },
       timeout: 8000,
-    }).then(({ data: currentUser }) => {
+    })).then(({ data: currentUser }) => {
       setUser(currentUser);
       localStorage.setItem('horizon_user', JSON.stringify(currentUser));
       resolveTokenValidity(['admin', 'editor', 'viewer'].includes(currentUser?.role));  // valid — let apiStore call admin APIs

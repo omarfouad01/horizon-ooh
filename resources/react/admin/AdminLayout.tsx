@@ -1,6 +1,6 @@
 import { Link, useLocation, Outlet, Navigate } from 'react-router-dom'
 import { useAdmin } from './AdminAuth'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { LayoutDashboard, MapPin, Monitor, Briefcase, BookOpen, MessageSquare, Settings, LogOut, Menu, X, ExternalLink, Layers, Info, Truck, User, Users, Bell, Home, Cpu, FileText, Phone, ShieldCheck } from 'lucide-react'
 import clsx from 'clsx'
 import { useStore } from '@/store/dataStore'
@@ -31,13 +31,16 @@ export default function AdminLayout() {
   const { pathname } = useLocation()
   const [mobile, setMobile] = useState(false)
   const store = useStore()
+  useEffect(() => {
+    if (!authChecking && isAuth) void store.reload()
+  }, [pathname, authChecking, isAuth])
 
   // Count unread contacts for badge
   const newContactCount = store.contacts.filter(c => c.status === 'new').length
 
   // While validating an existing token, show a neutral loading screen
   // instead of immediately redirecting to login (prevents flicker).
-  if (authChecking || !store.loaded) {
+  if (authChecking || (isAuth && (!store.loaded || store.readyPath !== pathname))) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="flex flex-col items-center gap-3">

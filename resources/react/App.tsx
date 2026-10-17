@@ -117,9 +117,11 @@ function PublicDataLoader() {
 }
 
 export function PublicRoutes() {
-  const { loaded } = useStore();
+  const { loaded, readyPath } = useStore();
+  const location = useLocation();
+  const routeReady = loaded && (typeof window === 'undefined' || readyPath === location.pathname);
   return (
-    <Suspense fallback={<PageLoading />}><PublicDataLoader />{loaded ? <Routes>
+    <Suspense fallback={<PageLoading />}><PublicDataLoader />{routeReady ? <Routes>
       <Route index                                        element={<Layout><Home /></Layout>} />
       <Route path="about"            element={<Layout><About /></Layout>} />
       <Route path="services"         element={<Layout><Services /></Layout>} />

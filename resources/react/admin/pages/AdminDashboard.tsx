@@ -4,7 +4,7 @@ import { MapPin, Monitor, Briefcase, BookOpen, MessageSquare, Star, Users } from
 
 export default function AdminDashboard() {
   const s = useStore()
-  const allBillboards = s.locations.flatMap(l => l.products || [])
+  const billboardCount = s.locations.reduce((total, location) => total + (location.productCount ?? location.products?.length ?? 0), 0)
   const newContacts   = s.contacts.filter(c => c.status === 'new')
   const STATUS:any={new:'red',read:'yellow',replied:'green',archived:'gray'}
   return (
@@ -12,7 +12,7 @@ export default function AdminDashboard() {
       <PageHeader title="Dashboard" subtitle="Live overview of all site content"/>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
         <StatCard label="Locations"    value={s.locations.length}   icon={<MapPin size={18}/>}        color="navy"/>
-        <StatCard label="Billboards"   value={allBillboards.length} icon={<Monitor size={18}/>}       color="red"/>
+        <StatCard label="Billboards"   value={billboardCount} icon={<Monitor size={18}/>}       color="red"/>
         <StatCard label="Services"     value={s.services.length}    icon={<Briefcase size={18}/>}     color="blue"/>
         <StatCard label="Projects"     value={s.projects.length}    icon={<Star size={18}/>}          color="green"/>
       </div>

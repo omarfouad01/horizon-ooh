@@ -41,6 +41,7 @@ if (typeof window !== 'undefined' && !window.location.pathname.startsWith('/admi
 /** Called by AdminAuth.tsx after /auth/me resolves (valid=true) or rejects (valid=false). */
 export function resolveTokenValidity(valid: boolean): void {
   if (_tokenValidityResolve) { _tokenValidityResolve(valid); _tokenValidityResolve = null; }
+  _tokenValidityPromise = Promise.resolve(valid);
 }
 
 /** Called by forceReload() (post-login) to immediately mark token as valid and
@@ -162,6 +163,7 @@ export interface BillboardFormatType {
 }
 
 export interface ApiState {
+  readyPath: string;
   loaded: boolean; loading: boolean; usingDemo: boolean; error: string | null;
   locations:       any[];
   districts:       any[];
@@ -399,10 +401,11 @@ const cachedPublic = HAS_API ? readPublicCache() : null;
 const initialPublic = HAS_API ? { ...liveEmpty, ...cachedPublic,
   loaded: !!cachedPublic, loading: false, usingDemo: false } : {};
 let activeReloadPath = '';
-let queuedRouteReload = false;
+let reloadGeneration = 0;
 
 export const useApiStore = create<ApiState>((set, get) => ({
   // Start with demo data so sections render instantly before API responds
+  readyPath: '',
   loaded: true, loading: false, usingDemo: true, error: null,
   locations: LOCATIONS as any[], districts: [], adFormats: AD_FORMATS_DEFAULT, billboardFormats: BILLBOARD_FORMATS_DEFAULT,
   services: SERVICES as any[], projects: PROJECTS as any[], blogPosts: BLOG_POSTS as any[],
@@ -501,10 +504,8 @@ forceReload: async () => {
 
   reload: async () => {
     const requestedPath = typeof window !== 'undefined' ? window.location.pathname : '/';
-    if (get().loading) {
-      if (requestedPath !== activeReloadPath) queuedRouteReload = true;
-      return;
-    }
+    if (get().loading && requestedPath === activeReloadPath) return;
+    const generation = ++reloadGeneration;
     activeReloadPath = requestedPath;
     // Keep loaded:true and don't clear data during refresh so the page
     // never goes blank. The demo/cached data shown initially stays visible
@@ -557,54 +558,64 @@ forceReload: async () => {
     const skipAuthCheck = !!(get() as any)._skipAuthCheck;
     if (skipAuthCheck) set({ _skipAuthCheck: false } as any);
 
-    // Wait for AdminAuth to validate the token, with a 10s timeout as fallback.
-    // skipAuthCheck=true means forceReload() was called after confirmed login — trust directly.
-    // If no token exists, skip the wait and resolve as false.
-    let isAuthenticated = false;
-    if (skipAuthCheck) {
-      // Post-login forceReload — token is guaranteed valid
-      isAuthenticated = hasToken;
-    } else if (hasToken) {
-      try {
-        const timeoutP = new Promise<boolean>((res) => setTimeout(() => res(false), 10000));
-        isAuthenticated = await Promise.race([_tokenValidityPromise, timeoutP]);
-      } catch {
-        isAuthenticated = false;
+    const authenticated = (async () => {
+      if (!requestedPath.startsWith('/admin') || !hasToken) return false;
+      let valid = skipAuthCheck;
+      if (!valid) {
+        let timer: ReturnType<typeof setTimeout>;
+        valid = await Promise.race([
+          _tokenValidityPromise,
+          new Promise<boolean>(resolve => { timer = setTimeout(() => resolve(false), 18000); }),
+        ]).finally(() => clearTimeout(timer!));
       }
-    }
+      try {
+        const role = JSON.parse(localStorage.getItem('horizon_user') || 'null')?.role;
+        return valid && ['admin', 'editor', 'viewer'].includes(role);
+      } catch { return false; }
+    })();
+    const privateRead = (needed: boolean, read: () => Promise<any>) =>
+      authenticated.then(valid => valid && needed ? read() : []);
 
-    try {
-      const role = JSON.parse(localStorage.getItem('horizon_user') || 'null')?.role;
-      isAuthenticated = isAuthenticated && ['admin', 'editor', 'viewer'].includes(role);
-    } catch { isAuthenticated = false; }
-
-    // Admin-only APIs: only called when token is confirmed valid
-    console.log('[apiStore] reload: isAuthenticated=', isAuthenticated, 'hasToken=', hasToken, 'skipAuthCheck=', skipAuthCheck);
-    const suppliersP     = isAuthenticated ? suppliersApi.all()     : Promise.resolve([]);
-    const customersP     = isAuthenticated ? customersApi.all()     : Promise.resolve([]);
-    const contactsP      = isAuthenticated ? contactsApi.all()      : Promise.resolve([]);
-    const designUploadsP = isAuthenticated ? designUploadsApi.all() : Promise.resolve([]);
-
-    // Public pages only request the collections they actually render. The home
-    // and admin experiences still receive the complete data set, while a
-    // contact/service visitor no longer downloads the entire inventory/blog.
+    // Load only this route's collections; editors do not need the entire
+    // billboard inventory to open a blog or brand form.
     const rawPath = requestedPath;
     const routePath = rawPath.replace(/^\/ar(?=\/|$)/, '') || '/';
     const isAdminRoute = routePath.startsWith('/admin');
     const isHomeRoute = routePath === '/';
-    const needsLocations = isHomeRoute || isAdminRoute || routePath.startsWith('/locations');
-    const needsServices = isHomeRoute || isAdminRoute || routePath.startsWith('/services');
-    const needsProjects = isHomeRoute || isAdminRoute || routePath.startsWith('/projects');
-    const needsBlog = isHomeRoute || isAdminRoute || routePath.startsWith('/blog');
-    const needsAbout = isAdminRoute || routePath === '/about';
-    const needsHomeContent = isHomeRoute || isAdminRoute;
-    const needsInventoryFilters = needsLocations || isAdminRoute;
-    const needsHomeCollections = isHomeRoute || isAdminRoute;
-    const needsBrands = isHomeRoute || needsProjects || isAdminRoute;
-    const needsSimulator = isAdminRoute || routePath.startsWith('/design-simulator');
+    const dashboard = routePath === '/admin' || routePath === '/admin/';
+    const adminPage = (page: string) => routePath === '/admin/' + page;
+    const needsLocations = isHomeRoute || dashboard || adminPage('locations') || adminPage('billboards') || (!isAdminRoute && routePath.startsWith('/locations'));
+    const needsServices = isHomeRoute || dashboard || adminPage('services') || routePath.startsWith('/services');
+    const needsProjects = isHomeRoute || dashboard || adminPage('projects') || routePath.startsWith('/projects');
+    const needsBlog = dashboard || adminPage('blog') || routePath.startsWith('/blog');
+    const needsAbout = adminPage('about') || routePath === '/about';
+    const needsHomeContent = isHomeRoute || adminPage('homepage') || adminPage('settings');
+    const needsInventoryFilters = needsLocations;
+    const needsHomeCollections = isHomeRoute || adminPage('homepage') || adminPage('settings');
+    const needsBrands = isHomeRoute || needsProjects || adminPage('settings');
+    const needsSimulator = adminPage('simulator') || adminPage('billboards') || routePath.startsWith('/design-simulator');
+    const suppliersP = privateRead(adminPage('suppliers') || adminPage('billboards'), () => suppliersApi.all());
+    const customersP = privateRead(adminPage('customers'), () => customersApi.all());
+    const contactsP = privateRead(isAdminRoute, () => contactsApi.all());
+    const designUploadsP = privateRead(adminPage('simulator'), () => designUploadsApi.all());
 
-    const results = await Promise.allSettled([
-      needsLocations ? locationsApi.all(isAdminRoute, isHomeRoute) : Promise.resolve([]), // 0
+    const requiredIndexes = [9];
+    if (needsHomeContent) requiredIndexes.push(10);
+    if (needsAbout) requiredIndexes.push(11);
+    if (needsLocations) requiredIndexes.push(0, 1, 2, 18);
+    if (needsServices) requiredIndexes.push(3);
+    if (needsProjects) requiredIndexes.push(4, 8);
+    if (needsBrands) requiredIndexes.push(8);
+    if (needsHomeCollections) requiredIndexes.push(6, 7);
+    if (needsBlog) requiredIndexes.push(5);
+    if (dashboard || adminPage('contacts')) requiredIndexes.push(17);
+    if (adminPage('customers')) requiredIndexes.push(16);
+    if (adminPage('suppliers')) requiredIndexes.push(15);
+    if (needsSimulator) requiredIndexes.push(12, 13);
+    if (adminPage('simulator')) requiredIndexes.push(14);
+
+    const requests = [
+      needsLocations ? locationsApi.all(isAdminRoute && !dashboard, isHomeRoute || dashboard) : Promise.resolve([]), // 0
       needsInventoryFilters ? districtsApi.all() : Promise.resolve([]), // 1
       needsInventoryFilters ? adFormatsApi.all() : Promise.resolve([]), // 2
       needsServices ? servicesApi.all() : Promise.resolve([]), // 3
@@ -623,8 +634,12 @@ forceReload: async () => {
       customersP,                   // 16 — customers (admin-only)
       contactsP,                    // 17 — contacts (admin-only)
       needsInventoryFilters ? billboardFormatsApi.all() : Promise.resolve([]), // 18
-    ]);
-
+    ];
+    const settled = new Set<number>();
+    const results: PromiseSettledResult<any>[] = requests.map(() => ({ status: 'rejected', reason: null }));
+    const publish = (complete: boolean) => {
+    // A slow response from the previous route must not replace newer state.
+    if (generation !== reloadGeneration) return;
     const val = (i: number) => results[i].status === 'fulfilled' ? (results[i] as PromiseFulfilledResult<any>).value : null;
 
     const locsRaw    = apiArr(val(0));
@@ -677,14 +692,8 @@ forceReload: async () => {
 
     // Preserve existing simulator data if API returned nothing
     const cur = get();
-    const requiredIndexes = [9];
-    if (needsHomeContent) requiredIndexes.push(10);
-    if (needsAbout) requiredIndexes.push(11);
-    if (needsLocations) requiredIndexes.push(0, 1, 2, 18);
-    if (needsServices) requiredIndexes.push(3);
-    if (needsProjects) requiredIndexes.push(4, 8);
-    if (needsBlog) requiredIndexes.push(5);
-    const failedRequiredRequests = requiredIndexes.filter(i => results[i].status === 'rejected').length;
+    const sameSession = isAdminRoute && localStorage.getItem('horizon_token') === authToken;
+    const failedRequiredRequests = requiredIndexes.filter(i => settled.has(i) && results[i].status === 'rejected').length;
 
     set({
       locations:          needsLocations ? (results[0].status === 'fulfilled' ? normLocs : cur.locations) : cur.locations,
@@ -733,9 +742,9 @@ forceReload: async () => {
         } catch { return {}; }
       })(),
       contactContent:     (() => { if (results[9].status === 'rejected') return cur.contactContent; try { const v = settsRaw['contact_page_content'];  return typeof v === 'string' ? JSON.parse(v) : (v ?? {});  } catch { return {};  } })(),
-      suppliers:          suppRaw.map((s: any) => ({ ...s, id: String(s.id) })),
-      customers:          custRaw,
-      contacts:           contsRaw,
+      suppliers:          results[15].status === 'fulfilled' && sameSession && (adminPage('suppliers') || adminPage('billboards')) ? suppRaw.map((s: any) => ({ ...s, id: String(s.id) })) : cur.suppliers,
+      customers:          results[16].status === 'fulfilled' && sameSession && adminPage('customers') ? custRaw : cur.customers,
+      contacts:           results[17].status === 'fulfilled' && sameSession ? contsRaw : cur.contacts,
       // Results: prefer those saved in homeContent (via dashboard Results tab), fallback to demo
       results: (() => {
         const hcResults = hcRaw?.results;
@@ -745,20 +754,25 @@ forceReload: async () => {
       // Simulator: keep existing store data if API returned nothing (localStorage seeded)
       billboardSizes:     sizesRaw.length  ? sizesRaw  : cur.billboardSizes,
       simulatorTemplates: normTpls.length  ? normTpls  : cur.simulatorTemplates,
-      designUploads:      uploadsRaw.length ? uploadsRaw : cur.designUploads,
-      loaded:    true,
-      loading:   false,
+      designUploads:      results[14].status === 'fulfilled' && sameSession && adminPage('simulator') ? uploadsRaw : cur.designUploads,
+      readyPath: requiredIndexes.every(i => settled.has(i)) ? requestedPath : cur.readyPath,
+      loaded:    cur.loaded || requiredIndexes.every(i => settled.has(i)),
+      loading:   !complete,
       usingDemo: false,
       error:     failedRequiredRequests > 0 ? 'Some live content could not be refreshed.' : null,
     });
-    if (!isAdminRoute && results[9].status === 'fulfilled') {
+    if (complete && !isAdminRoute && results[9].status === 'fulfilled') {
       const state = get();
       writePublicCache(Object.fromEntries(publicFields.map(key => [key, state[key]])));
     }
-    if (queuedRouteReload) {
-      queuedRouteReload = false;
-      void get().reload();
-    }
+    };
+    await Promise.all(requests.map(async (request, index) => {
+      try { results[index] = { status: 'fulfilled', value: await request }; }
+      catch (reason) { results[index] = { status: 'rejected', reason }; }
+      settled.add(index);
+      publish(false);
+    }));
+    publish(true);
 
   },
 }));

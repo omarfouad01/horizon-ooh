@@ -7,6 +7,7 @@
  *  3. /api as final fallback (Laravel SPA routing)
  */
 import axios from 'axios';
+import { readWithRetry } from './readRetry';
 
 function resolveBaseURL(): string {
   const env = import.meta.env.VITE_API_URL as string | undefined;
@@ -56,7 +57,7 @@ async function tryRefreshToken(): Promise<string | null> {
     const res = await axios.post(
       resolveBaseURL().replace(/\/api$/, '') + '/api/auth/refresh',
       {},
-      { headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' } }
+      { headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' }, timeout: 8000 }
     );
     const newToken: string = res.data?.token ?? res.data?.access_token;
     if (newToken) {
@@ -146,7 +147,7 @@ export async function cachedGet<T = any>(url: string, config?: object): Promise<
 
   if (_pending.has(key)) return _pending.get(key) as Promise<T>;
 
-  const req = api.get<T>(url, config).then((res) => {
+  const req = readWithRetry(() => api.get<T>(url, config)).then((res) => {
     const data = (res as any).data !== undefined ? (res as any).data : res;
     _cache.set(key, { data, ts: Date.now() });
     _pending.delete(key);
