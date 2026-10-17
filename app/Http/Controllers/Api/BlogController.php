@@ -39,6 +39,8 @@ class BlogController extends Controller
             'tags'         => $p->tags ?? [],
             'metaTitle'    => $p->meta_title,
             'metaDesc'     => $p->meta_desc,
+            'metaTitleAr' => $p->meta_title_ar,
+            'metaDescAr' => $p->meta_desc_ar,
             'featured'     => (bool) $p->featured,
             'published'    => (bool) $p->published,
             'publishedAt'  => $p->published_at?->toISOString(),
@@ -137,6 +139,10 @@ class BlogController extends Controller
             'tags'         => 'nullable|array',
             'meta_title'   => 'nullable|string',
             'metaTitle'    => 'nullable|string',
+            'metaTitleAr' => 'nullable|string|max:255',
+            'meta_title_ar' => 'nullable|string|max:255',
+            'metaDescAr' => 'nullable|string|max:1000',
+            'meta_desc_ar' => 'nullable|string|max:1000',
             'meta_desc'    => 'nullable|string',
             'metaDesc'     => 'nullable|string',
             'featured'     => 'nullable|boolean',
@@ -175,6 +181,8 @@ class BlogController extends Controller
             'bodyAr'    => 'body_ar',
             'metaTitle' => 'meta_title',
             'metaDesc'  => 'meta_desc',
+            'metaTitleAr' => 'meta_title_ar',
+            'metaDescAr' => 'meta_desc_ar',
         ];
         foreach ($map as $camel => $snake) {
             if (array_key_exists($camel, $d)) {

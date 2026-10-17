@@ -128,6 +128,8 @@ function BlogForm({ editing, onClose }: { editing?: BlogPost | null; onClose: ()
     excerptAr:   (editing as any)?.excerptAr   || '',
     metaTitle:   (editing as any)?.metaTitle   || '',
     metaDesc:    (editing as any)?.metaDesc    || '',
+    metaTitleAr: (editing as any)?.metaTitleAr || '',
+    metaDescAr: (editing as any)?.metaDescAr || '',
   })
   const [blocks, setBlocks] = useState<Block[]>(
     (editing?.body || []).map(b => ({ ...b, id: uid() })) as Block[]
@@ -223,6 +225,8 @@ function BlogForm({ editing, onClose }: { editing?: BlogPost | null; onClose: ()
       <div className="grid grid-cols-1 gap-4 p-4 rounded-xl" style={{background:'#FFF8F8', border:'1px solid #FFE0E0'}}>
         <p className="text-[11px] text-gray-400">اترك الحقول فارغة لعرض النص الإنجليزي افتراضياً.</p>
         <Field label="Arabic Title (العنوان)" value={f.titleAr||''} onChange={(e: any) => set('titleAr', e.target.value)} dir="rtl" placeholder="عنوان المقال بالعربية"/>
+        <Field label="Arabic SEO Title (عنوان محركات البحث)" value={f.metaTitleAr} onChange={(e: any) => set('metaTitleAr', e.target.value)} dir="rtl"/>
+        <TA label="Arabic SEO Description (وصف محركات البحث)" value={f.metaDescAr} onChange={(e: any) => set('metaDescAr', e.target.value)} rows={2} dir="rtl"/>
         <TA label="Arabic Excerpt (الوصف المختصر)" value={f.excerptAr||''} onChange={(e: any) => set('excerptAr', e.target.value)} rows={2} dir="rtl" placeholder="ملخص المقال بالعربية"/>
       </div>
       )}

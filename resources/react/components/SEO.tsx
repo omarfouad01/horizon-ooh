@@ -1,9 +1,12 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { metadata } from "@/lib/seo";
 
 export interface SEOProps {
   title: string;
   description: string;
+  titleAr?: string;
+  descriptionAr?: string;
   keywords?: string;
   ogImage?: string;
   canonical?: string;
@@ -26,8 +29,10 @@ function absoluteUrl(value?: unknown): string {
 }
 
 export default function SEO({
-  title,
-  description,
+  title: inputTitle,
+  description: inputDescription,
+  titleAr,
+  descriptionAr,
   keywords,
   ogImage,
   canonical,
@@ -36,6 +41,7 @@ export default function SEO({
 }: SEOProps) {
   const { pathname } = useLocation();
   const isArabic = pathname === "/ar" || pathname.startsWith("/ar/");
+  const { title, description } = metadata(pathname, isArabic, {title: inputTitle, description: inputDescription, titleAr, descriptionAr});
   const englishPath = (canonical || pathname).replace(/^https:\/\/horizonooh\.com/, "").replace(/^\/ar(?=\/|$)/, "") || "/";
   const routePath = isArabic ? (englishPath === "/" ? "/ar" : `/ar${englishPath}`) : englishPath;
   const canonicalUrl = `${SITE_URL}${routePath === "/" ? "" : routePath}`;
@@ -101,8 +107,10 @@ export default function SEO({
           keywords,
           image: absoluteUrl(ogImage),
           canonical: canonical || "/",
+          canonicalUrl,
           robots,
           type,
+          locale: isArabic ? "ar_EG" : "en_US",
         }).replace(/</g, "\\u003c"),
       }}
     />

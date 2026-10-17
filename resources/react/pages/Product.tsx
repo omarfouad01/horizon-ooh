@@ -282,7 +282,7 @@ export default function Product() {
   const seoTitle = [
     (isAr && product.nameAr ? product.nameAr : product.nameEn || product.name),
     product.code, product.district || product.city,
-    'Billboard Advertising', 'HORIZON OOH',
+    isAr ? 'لوحات إعلانية' : 'Billboard Advertising', 'HORIZON OOH',
   ].filter(Boolean).join(' | ');
   const billboardSchema = {
     "@context": "https://schema.org", "@type": "Service",
@@ -293,27 +293,17 @@ export default function Product() {
     "areaServed": {"@type": "City", "name": location.city},
   };
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home",      "item": "https://horizonooh.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Locations", "item": "https://horizonooh.com/locations" },
-      { "@type": "ListItem", "position": 3, "name": displayCityName, "item": `https://horizonooh.com/locations/${location.slug}` },
-      { "@type": "ListItem", "position": 4, "name": product.nameEn ?? product.name },
-    ],
-  };
 
   return (
     <>
       <SEO
         title={seoTitle}
-        description={`Premium outdoor advertising billboard at ${product.fullAddress ?? product.district ?? product.city ?? 'Egypt'}. ${product.sqm ? `${product.sqm} sqm` : ''} ${product.adFormat ?? ''}. Book now with HORIZON OOH.`}
+        description={`${product.code || product.slug} — ${product.nameEn || product.name}. ${product.adFormat || product.type || 'Billboard'} advertising in ${product.district || product.city || location.city}. ${product.sqm ? `${product.sqm} sqm.` : ''} Enquire with HORIZON OOH.`}
+        descriptionAr={`${product.code || product.slug} — ${product.nameAr || product.nameEn || product.name}. لوحة إعلانية في ${displayDistrictName || displayCityName}، ${displayCityName}. ${product.sqm ? `المساحة ${product.sqm} متر مربع.` : ''} استفسر عن حجز الموقع مع هورايزون.`}
         canonical={`/locations/${product.citySlug ?? citySlug}/billboards/${product.slug}`}
         ogImage={product.images?.[0]}
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(billboardSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }} />
       {/* ── Breadcrumb ───────────────────────────────────────────────── */}
       <div className="bg-white pt-4">
         <Breadcrumb items={[

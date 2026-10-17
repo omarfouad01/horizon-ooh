@@ -8,7 +8,7 @@ class BlogPost extends Model
     protected $fillable = [
         'slug','title','title_ar','category','author','read_time','image','image_alt',
         'excerpt','excerpt_ar','content','body','body_ar','tags',
-        'meta_title','meta_desc',
+        'meta_title','meta_desc','meta_title_ar','meta_desc_ar',
         'featured','published','published_at','sort_order',
     ];
     protected $casts = [

@@ -147,26 +147,16 @@ export default function ProjectDetail() {
     "mainEntityOfPage": { "@type": "WebPage", "@id": `https://horizonooh.com/projects/${project.slug}` },
   };
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home",     "item": "https://horizonooh.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://horizonooh.com/projects" },
-      { "@type": "ListItem", "position": 3, "name": project.title },
-    ],
-  };
 
   return (
     <>
       <SEO
         title={`${isAr && project.titleAr ? project.titleAr : project.title} | HORIZON OOH`}
-        description={(isAr && project.overviewAr ? project.overviewAr : project.overview) ? (isAr && project.overviewAr ? project.overviewAr : project.overview).substring(0, 160) : `${project.title} — outdoor advertising case study by HORIZON OOH in Egypt.`}
+        description={`${isAr && project.titleAr ? project.titleAr : project.title}. ${isAr && project.overviewAr ? project.overviewAr : project.overview || "Outdoor advertising case study by HORIZON OOH in Egypt."}`}
         canonical={`/projects/${project.slug}`}
         ogImage={project.coverImage || project.heroImage}
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(caseStudySchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }} />
       <div className="bg-white pt-4">
         <Breadcrumb items={[
           { label: "Home", href: "/" },

@@ -1866,12 +1866,6 @@ export default function Home() {
   return (
     <>
       <SEO title={isAr ? ((settings as any).metaTitleAr || "هورايزون | شركة إعلانات خارجية ولوحات إعلانية في مصر") : ((settings as any).metaTitle || "HORIZON OOH | Outdoor Advertising Agency in Egypt")} description={isAr ? ((settings as any).metaDescriptionAr || "حملات إعلانات خارجية ولوحات إعلانية وشاشات رقمية في القاهرة والإسكندرية ومختلف أنحاء مصر مع هورايزون.") : ((settings as any).metaDescription || "Billboard, DOOH, mall and airport advertising campaigns across Cairo, Alexandria and Egypt. Plan your outdoor campaign with HORIZON OOH.")} canonical="/" />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify({
-        "@context": "https://schema.org", "@graph": [
-          {"@type": "Organization", "@id": "https://horizonooh.com/#organization", "name": settings.companyName || "HORIZON OOH", "url": "https://horizonooh.com", "telephone": settings.phone || undefined, "email": settings.email || undefined, "address": settings.address || undefined,
-            "logo": typeof settings.headerLogoUrl === "string" && !settings.headerLogoUrl.startsWith("data:") ? (settings.headerLogoUrl.startsWith("http") ? settings.headerLogoUrl : `https://horizonooh.com${settings.headerLogoUrl}`) : undefined},
-          {"@type": "WebSite", "@id": "https://horizonooh.com/#website", "url": "https://horizonooh.com", "name": settings.companyName || "HORIZON OOH", "publisher": {"@id": "https://horizonooh.com/#organization"}, "inLanguage": ["en", "ar"]}
-        ]}).replace(/</g, "\\u003c")}} />
       <HeroSection />
       <ClientsSection />
       <StatementSection />

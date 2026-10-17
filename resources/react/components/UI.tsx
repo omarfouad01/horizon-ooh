@@ -414,6 +414,8 @@ export function CTABanner({
 
 // ─── Breadcrumb ───────────────────────────────────────────────────────────
 export function Breadcrumb({ items }: { items: { label: string; href?: string }[] }) {
+  const { lang } = useLang();
+  items = items.map(item => ({...item, href: item.href ? langPath(lang, item.href.replace(/^\/ar(?=\/|$)/, '') || '/') : undefined}));
   // BreadcrumbList JSON-LD for rich search results
   const schema = {
     "@context": "https://schema.org",

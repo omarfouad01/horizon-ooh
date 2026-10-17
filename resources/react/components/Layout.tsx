@@ -1,3 +1,4 @@
+import { businessGraph } from "@/lib/seo";
 import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 import { NAV_LINKS } from "@/data";
@@ -593,15 +594,11 @@ function DynamicFavicon() {
   return null;
 }
 
-// ─── Dynamic Page Title ───────────────────────────────────────────────────────
-function DynamicTitle() {
-  const store = useStore();
-  useEffect(() => {
-    if (store.settings.companyName) {
-      document.title = store.settings.companyName + " — " + store.settings.tagline;
-    }
-  }, [store.settings.companyName, store.settings.tagline]);
-  return null;
+function BusinessSchema() {
+  const { settings } = useStore();
+  const { pathname } = useLocation();
+  const schema = businessGraph(settings, pathname === '/ar' || pathname.startsWith('/ar/'));
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(schema).replace(/</g, '\\u003c')}} />;
 }
 
 // ─── Layout ────────────────────────────────────────────────────────────────
@@ -614,7 +611,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-white">
       <DynamicFavicon />
-      <DynamicTitle />
+      <BusinessSchema />
       <Navbar />
       <main className="pt-[76px]">{children}</main>
       <Footer />

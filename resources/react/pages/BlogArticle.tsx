@@ -94,6 +94,8 @@ export default function BlogArticle() {
 
   if (!post) return <ArticleSkeleton />;
 
+  const hasArabicTranslation = Array.isArray((post as any).bodyAr) && (post as any).bodyAr.length > 0;
+  const articleIsArabic = isAr && hasArabicTranslation;
   const metaTitle = (post as any).metaTitle || `${isAr && (post as any).titleAr ? (post as any).titleAr : post.title} | HORIZON OOH`;
   const metaDesc  = (post as any).metaDesc  || (isAr && (post as any).excerptAr ? (post as any).excerptAr : post.excerpt) || '';
 
@@ -101,8 +103,9 @@ export default function BlogArticle() {
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": post.title,
-    "description": post.excerpt ?? metaDesc,
+    "inLanguage": articleIsArabic ? "ar" : "en",
+    "headline": articleIsArabic && (post as any).titleAr ? (post as any).titleAr : post.title,
+    "description": articleIsArabic ? ((post as any).excerptAr || post.excerpt || metaDesc) : post.excerpt ?? metaDesc,
     "image": post.image ? (/^https?:/.test(post.image) ? post.image : `https://horizonooh.com${post.image}`) : undefined,
     "datePublished": (post as any).publishedAt || post.date || undefined,
     "dateModified": (post as any).updatedAt || (post as any).publishedAt || post.date || undefined,
@@ -116,30 +119,22 @@ export default function BlogArticle() {
       "name": "HORIZON OOH",
       "logo": { "@type": "ImageObject", "url": "https://horizonooh.com/favicon.ico" },
     },
-    "mainEntityOfPage": { "@type": "WebPage", "@id": `https://horizonooh.com/blog/${post.slug}` },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": `https://horizonooh.com${isAr ? "/ar" : ""}/blog/${post.slug}` },
   };
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://horizonooh.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://horizonooh.com/blog" },
-      { "@type": "ListItem", "position": 3, "name": post.category ?? post.title },
-    ],
-  };
 
   return (
     <>
       <SEO
         title={metaTitle}
         description={metaDesc}
+        titleAr={(post as any).metaTitleAr || ((post as any).titleAr ? `${(post as any).titleAr} | هورايزون` : undefined)}
+        descriptionAr={(post as any).metaDescAr || (post as any).excerptAr || undefined}
         ogImage={post.image}
         canonical={`/blog/${post.slug}`}
         type="article"
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(articleSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbSchema) }} />
       <div className="bg-white pt-4">
         <Breadcrumb items={[{ label: t('common.home'), href: "/" }, { label: t('blog.title'), href: "/blog" }, { label: post.category }]} />
       </div>
@@ -189,7 +184,7 @@ export default function BlogArticle() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             {/* Main content */}
-            <article className="col-span-12 lg:col-span-8">
+            <article lang={articleIsArabic ? "ar" : "en"} className="col-span-12 lg:col-span-8">
               {((isAr && (post as any).bodyAr?.length ? (post as any).bodyAr : null) ?? post.body ?? []).map((block: any, i: number) => {
                 if (block.type === "h2") {
                   return (

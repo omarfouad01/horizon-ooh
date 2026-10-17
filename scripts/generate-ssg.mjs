@@ -200,7 +200,8 @@ function publicBase(source) {
     "email",
     "address",
     "whatsapp",
-    "socialLinks",
+    "socialLinks", "site_name", "taglineAr", "metaDescription", "metaDescriptionAr",
+    "facebook", "instagram", "linkedin", "twitter", "youtube", "tiktok",
   ].filter((key) => source.settings?.[key] != null).map((key) => [key, source.settings[key]]));
   const footerServices = source.services.slice(0, 6).map((service) => ({
     id: service.id,
@@ -342,8 +343,8 @@ function replaceMeta(html, selector, tag) {
 function injectMetadata(html, metadata, route) {
   const canonicalPath = stripArabicPrefix(metadata.canonical || route);
   const englishUrl = `https://horizonooh.com${canonicalPath === "/" ? "" : canonicalPath}`;
-  const canonicalUrl = `https://horizonooh.com${route === "/" ? "" : route}`;
-  const routeUrl = `https://horizonooh.com${route === "/" ? "" : route}`;
+  const canonicalUrl = metadata.canonicalUrl || `https://horizonooh.com${route === "/" ? "" : route}`;
+  const routeUrl = canonicalUrl;
   const arPath = canonicalPath === "/" ? "/ar" : `/ar${canonicalPath}`;
   const arUrl = `https://horizonooh.com${arPath}`;
   const lang = route === "/ar" || route.startsWith("/ar/") ? "ar" : "en";
@@ -403,6 +404,8 @@ function injectMetadata(html, metadata, route) {
     `<meta name="twitter:image" content="${escapeHtml(metadata.image)}" />`,
   );
 
+  html = replaceMeta(html, /<meta property="og:locale" content="[^"]*"\s*\/?>/i,
+    `<meta property="og:locale" content="${lang === 'ar' ? 'ar_EG' : 'en_US'}" />`);
   const seoTags = [
     `<link rel="canonical" href="${escapeHtml(canonicalUrl)}" />`,
     `<link rel="alternate" hreflang="en" href="${escapeHtml(englishUrl)}" />`,
