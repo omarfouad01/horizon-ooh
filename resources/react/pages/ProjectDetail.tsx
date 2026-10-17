@@ -128,6 +128,9 @@ export default function ProjectDetail() {
   const clientBrief = buildClientBrief(project, clientProjects);
 
   // ── Structured data ────────────────────────────────────────────────────
+  // Distinguish campaign phases when their saved Arabic names are identical.
+  const arabicPhase = /\breveal\b/i.test(project.title || '') ? ' — مرحلة الكشف عن الحملة' : /\bteaser\b/i.test(project.title || '') ? ' — مرحلة التشويق' : '';
+  const seoName = isAr && project.titleAr ? `${project.titleAr}${arabicPhase}` : project.title;
   const caseStudySchema = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -151,8 +154,8 @@ export default function ProjectDetail() {
   return (
     <>
       <SEO
-        title={`${isAr && project.titleAr ? project.titleAr : project.title} | HORIZON OOH`}
-        description={`${isAr && project.titleAr ? project.titleAr : project.title}. ${isAr && project.overviewAr ? project.overviewAr : project.overview || "Outdoor advertising case study by HORIZON OOH in Egypt."}`}
+        title={`${seoName} | HORIZON OOH`}
+        description={`${seoName}. ${isAr && project.overviewAr ? project.overviewAr : project.overview || "Outdoor advertising case study by HORIZON OOH in Egypt."}`}
         canonical={`/projects/${project.slug}`}
         ogImage={project.coverImage || project.heroImage}
       />
