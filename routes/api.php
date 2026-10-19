@@ -38,6 +38,7 @@ Route::post('/auth/refresh',   [AuthController::class, 'refresh']);
 Route::post('/contact', [ContactController::class, 'submit']);
 
 // Public read endpoints
+Route::middleware(\App\Http\Middleware\CompressPublicJson::class)->group(function () {
 Route::get('/locations',         [LocationController::class, 'index']);
 Route::get('/locations/{slug}',  [LocationController::class, 'show']);
 Route::get('/districts',         [DistrictController::class, 'index']);
@@ -61,6 +62,8 @@ Route::get('/about-content',     [SettingController::class, 'aboutContent']);
 // Simulator public reads
 Route::get('/billboard-sizes',     [BillboardSizeController::class, 'index']);
 Route::get('/simulator-templates', [SimulatorTemplateController::class, 'index']);
+
+});
 
 // Design upload (public POST so visitors can submit without account)
 Route::post('/design-uploads',     [DesignUploadController::class, 'store']);
