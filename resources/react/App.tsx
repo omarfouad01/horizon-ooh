@@ -8,6 +8,7 @@ import Layout from "@/components/Layout";
 import { FaviconSync } from "@/components/FaviconSync";
 import { trackEvent } from "@/lib/analytics";
 import { useStore } from "@/store/dataStore";
+import { loadPublicSnapshot, parsePublicSnapshot, rememberPublicSnapshot, cachedPublicSnapshot } from "@/store/publicNavigation";
 
 function AnalyticsTracker() {
   const location = useLocation();
@@ -110,9 +111,36 @@ function PublicDataLoader() {
   useEffect(() => {
     const deferred = firstLoad.current && !!document.getElementById('horizon-ssg-state');
     firstLoad.current = false;
+    const path = location.pathname;
+    let active = true;
+    // Seed the current document once; revisit navigation can render immediately.
+    if (deferred) {
+      const data = parsePublicSnapshot(document.getElementById('horizon-ssg-state')?.outerHTML || '');
+      if (data) rememberPublicSnapshot(path, data);
+    } else {
+      const apply = (data: Record<string, any> | null) => {
+        if (data && active && window.location.pathname === path && useStore.getState().readyPath !== path) {
+          useStore.setState({ ...data, readyPath: path, loaded: true, usingDemo: false });
+        }
+      };
+      apply(cachedPublicSnapshot(path));
+      void loadPublicSnapshot(path).then(apply);
+    }
+    // Refresh independently: a slow API must not hide a valid SSG snapshot.
     const timer = window.setTimeout(() => { void reload(); }, deferred ? 2000 : 0);
-    return () => window.clearTimeout(timer);
+    return () => { active = false; window.clearTimeout(timer); };
   }, [location.pathname]);
+  useEffect(() => {
+    const prefetch = (event: Event) => {
+      const anchor = event.target instanceof Element ? event.target.closest('a[href]') : null;
+      if (!anchor || anchor.hasAttribute('download') || anchor.getAttribute('target') === '_blank') return;
+      const url = new URL(anchor.getAttribute('href')!, window.location.href);
+      if (url.origin === window.location.origin && url.pathname !== window.location.pathname && !url.search) void loadPublicSnapshot(url.pathname);
+    };
+    document.addEventListener('pointerover', prefetch);
+    document.addEventListener('focusin', prefetch);
+    return () => { document.removeEventListener('pointerover', prefetch); document.removeEventListener('focusin', prefetch); };
+  }, []);
   return null;
 }
 
