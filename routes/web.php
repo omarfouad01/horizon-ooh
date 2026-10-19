@@ -74,6 +74,10 @@ Route::get('/{any?}', function () {
     // If the URL maps to a real file in /public (e.g. /assets/react-core-xxx.js),
     // let Apache/Nginx serve it directly. This route should only handle SPA paths.
     $requestPath = ltrim(request()->getPathInfo(), '/');
+    $legacyTarget = \App\Support\LegacyPublicRedirect::destination($requestPath);
+    if ($legacyTarget !== null) {
+        return redirect()->to('https://horizonooh.com' . $legacyTarget, 301);
+    }
     $filePath    = public_path($requestPath);
     if ($requestPath !== '' && file_exists($filePath) && !is_dir($filePath)) {
         return response()->file($filePath);
