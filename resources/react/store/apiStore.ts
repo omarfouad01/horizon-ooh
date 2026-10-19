@@ -261,7 +261,7 @@ function safeArr(v: any): any[] {
   if (typeof v === 'string') { try { const p = JSON.parse(v); return Array.isArray(p) ? p : []; } catch { return []; } }
   return [];
 }
-function normProduct(p: any, idx: number): any {
+export function normProduct(p: any, idx: number): any {
   if (!p) return null;
   const slug = p.slug ?? p.code ?? toSlug(p.title ?? p.name ?? `product-${idx+1}`);
   // Ensure lat/lng are numbers (API may return strings)

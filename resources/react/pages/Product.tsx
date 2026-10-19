@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import SEO from "@/components/SEO";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useStore } from "@/store/dataStore";
+import { normProduct } from "@/store/apiStore";
 import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow, Breadcrumb, safeJsonLd } from "@/components/UI";
 import { langPath, RED, NAVY, ease } from "@/lib/routes";
 const ProductMap = lazy(() => import("@/components/ProductMap"));
@@ -181,12 +182,14 @@ export default function Product() {
         const data = payload?.data ?? payload;
         // Guard: only accept a real object with id or slug
         if (data && typeof data === 'object' && !Array.isArray(data) && (data.id || data.slug)) {
-          setFetchedProduct(data);
+          // Detail responses use title; share the list/SSG normalizer before replacing store data.
+          const normalized = normProduct(data, 0);
+          setFetchedProduct(normalized);
           setFetchedLocation({
-            slug: data.city_slug ?? citySlug ?? '',
+            slug: data.citySlug ?? data.city_slug ?? citySlug ?? '',
             city: data.city ?? '',
             cityAr: data.city_ar ?? data.cityAr ?? '',
-            products: [data],
+            products: [normalized],
           });
         }
       })

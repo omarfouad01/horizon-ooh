@@ -415,7 +415,9 @@ export function CTABanner({
 // ─── Breadcrumb ───────────────────────────────────────────────────────────
 export function Breadcrumb({ items }: { items: { label: string; href?: string }[] }) {
   const { lang } = useLang();
-  items = items.map(item => ({...item, href: item.href ? langPath(lang, item.href.replace(/^\/ar(?=\/|$)/, '') || '/') : undefined}));
+  // Never emit unnamed ListItems while API-backed content is loading.
+  items = items.filter(item => typeof item.label === 'string' && item.label.trim())
+    .map(item => ({...item, label: item.label.trim(), href: item.href ? langPath(lang, item.href.replace(/^\/ar(?=\/|$)/, '') || '/') : undefined}));
   // BreadcrumbList JSON-LD for rich search results
   const schema = {
     "@context": "https://schema.org",
@@ -430,10 +432,10 @@ export function Breadcrumb({ items }: { items: { label: string; href?: string }[
 
   return (
     <>
-      <script
+      {items.length >= 2 && <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
-      />
+      />}
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]" style={{ paddingTop: 16 }}>
         <div className="flex items-center gap-2">
           {items.map((item, i) => (
