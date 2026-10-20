@@ -10,6 +10,7 @@ const STATIC_PUBLIC_ROUTES = [
   "/contact",
   "/privacy",
   "/terms",
+  "/design-simulator",
 ] as const;
 
 function normalizeRoute(route: string): string | null {
@@ -18,7 +19,7 @@ function normalizeRoute(route: string): string | null {
   if (!clean.startsWith("/") || clean.includes("..") || clean.includes("?") || clean.includes("#")) {
     return null;
   }
-  if (/^\/(?:ar\/)?(?:admin|login|signup|profile|design-simulator)(?:\/|$)/.test(clean)) {
+  if (/^\/(?:ar\/)?(?:admin|login|signup|profile)(?:\/|$)/.test(clean)) {
     return null;
   }
   return clean;

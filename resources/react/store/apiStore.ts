@@ -589,7 +589,7 @@ forceReload: async () => {
     const needsProjects = isHomeRoute || dashboard || adminPage('projects') || routePath.startsWith('/projects');
     const needsBlog = dashboard || adminPage('blog') || routePath.startsWith('/blog');
     const needsAbout = adminPage('about') || routePath === '/about';
-    const needsHomeContent = isHomeRoute || adminPage('homepage') || adminPage('settings');
+    const needsHomeContent = isHomeRoute || routePath === '/design-simulator' || adminPage('homepage') || adminPage('settings');
     const needsInventoryFilters = needsLocations;
     const needsHomeCollections = isHomeRoute || adminPage('homepage') || adminPage('settings');
     const needsBrands = isHomeRoute || needsProjects || adminPage('settings');

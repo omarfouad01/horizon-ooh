@@ -2,8 +2,8 @@
 const publicFields = ['locations', 'districts', 'adFormats', 'billboardFormats', 'services',
   'projects', 'blogPosts', 'trustStats', 'processSteps', 'process', 'results', 'clientBrands',
   'settings', 'homeContent', 'about', 'aboutContent', 'projectsContent', 'locationsContent',
-  'contactContent'] as const;
-const mainPage = /^\/(?:ar(?:\/|$))?(?:about|contact|services|projects|locations|blog|privacy|terms)?\/?$/;
+  'contactContent', 'simulatorTemplates'] as const;
+const mainPage = /^\/(?:ar(?:\/|$))?(?:about|contact|services|projects|locations|blog|privacy|terms|design-simulator)?\/?$/;
 const snapshots = new Map<string, { data: Record<string, any>; savedAt: number }>();
 const pending = new Map<string, Promise<Record<string, any> | null>>();
 

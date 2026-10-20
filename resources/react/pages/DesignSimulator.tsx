@@ -5,12 +5,14 @@
  * - Upload design → preview appears immediately (no "Preview Simulation" button)
  * - Auto-saves upload to dashboard silently (no "Save to My Account" button)
  */
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useCallback, useEffect, lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { useLang } from '@/i18n/LangContext';
 import { Link } from 'react-router-dom';
 import { useStore, designUploadStore } from '@/store/dataStore';
-import SimulatorCanvas, { type SimulatorCanvasHandle } from '@/components/SimulatorCanvas';
+import type { SimulatorCanvasHandle } from '@/components/SimulatorCanvas';
+import SEO from '@/components/SEO';
+const SimulatorCanvas = lazy(() => import('@/components/SimulatorCanvas'));
 import type { SimulatorTemplate } from '@/store/dataStore';
 import { Upload, Download, ChevronRight, Layers, AlertCircle, LogIn, CheckCircle2 } from 'lucide-react';
 import toast from 'react-hot-toast';
@@ -101,6 +103,8 @@ function FormatCard({ t, selected, onClick }: {
           <img
             src={t.mockupUrl}
             alt={t.typeName}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
         ) : (
@@ -169,7 +173,9 @@ export default function DesignSimulator() {
   const [downloading, setDownloading]           = useState(false);
   const [autoSaved, setAutoSaved]               = useState(false);
 
-  const user      = getSiteUser();
+  // Keep server HTML and the first client render identical; auth stays client-only.
+  const [user, setUser] = useState<ReturnType<typeof getSiteUser>>(null);
+  useEffect(() => { setUser(getSiteUser()); }, []);
   const panelCount = selectedTemplate?.panels?.length ?? 1;
   const allUploaded = selectedTemplate
     ? Array.from({ length: panelCount }).every((_, i) => !!designFiles[i])
@@ -241,6 +247,7 @@ export default function DesignSimulator() {
   // ─── Render ─────────────────────────────────────────────────────────────────
   return (
     <div className="min-h-screen bg-gray-50">
+      <SEO title="Billboard Design Simulator | HORIZON OOH" description="Preview your design on real billboard formats with the HORIZON OOH simulator." titleAr="محاكي تصميم اللوحات الإعلانية | هورايزون" descriptionAr="عاين تصميمك على قوالب اللوحات الإعلانية الحقيقية باستخدام محاكي هورايزون." canonical="/design-simulator" robots="noindex, follow" />
 
       {/* ── Dark Hero ── */}
       <div className="bg-[#0B0F1A] text-white pt-12 pb-10 px-4">
@@ -413,6 +420,7 @@ export default function DesignSimulator() {
                           <p className="text-gray-300 text-xs mt-1">{t('sim.previewAuto')}</p>
                         </div>
                       ) : selectedTemplate.mockupUrl && (selectedTemplate.panels?.length ?? 0) > 0 ? (
+                        <Suspense fallback={<div role="status">{t('sim.generating')}</div>}>
                         <SimulatorCanvas
                           ref={canvasRef}
                           mockupUrl={selectedTemplate.mockupUrl}
@@ -420,6 +428,7 @@ export default function DesignSimulator() {
                           panels={selectedTemplate.panels!}
                           style={{ borderRadius: 12, overflow: 'hidden' }}
                         />
+                        </Suspense>
                       ) : (
                         <div className="text-center">
                           {selectedTemplate.mockupUrl && (

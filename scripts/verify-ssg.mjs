@@ -9,9 +9,9 @@ const manifest = JSON.parse(read("public/ssg/manifest.json"));
 assert.equal(manifest.routeCount, manifest.routes.length, "manifest route count must match");
 assert.ok(manifest.routeCount >= 20, "expected English and Arabic public route coverage");
 assert.equal(
-  manifest.routes.some((route) => /\/(?:admin|login|signup|profile|design-simulator)(?:\/|$)/.test(route)),
+  manifest.routes.some((route) => /\/(?:admin|login|signup|profile)(?:\/|$)/.test(route)),
   false,
-  "private/interactive-only routes must not be generated",
+  "private account routes must not be generated",
 );
 
 const coreChecks = [

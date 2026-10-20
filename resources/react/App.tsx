@@ -46,7 +46,7 @@ import { Home, About, Services, ServiceDetail, Projects, ProjectDetail, Location
 const Login          = lazy(() => import("@/pages/Login"));
 const Signup         = lazy(() => import("@/pages/Signup"));
 const Profile        = lazy(() => import("@/pages/Profile"));
-const DesignSimulator= lazy(() => import("@/pages/DesignSimulator"));
+import DesignSimulator from "@/pages/DesignSimulator";
 const NotFound       = lazy(() => import("./pages/not-found/Index"));
 
 // ── Admin Panel — LAZY LOADED so it never ships to website visitors ──────────

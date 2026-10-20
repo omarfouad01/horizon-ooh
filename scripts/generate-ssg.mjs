@@ -68,7 +68,7 @@ async function loadPublicSnapshot() {
     rawBlog,
     settings,
     homeContent,
-    aboutContent, rawClients, rawStats, rawSteps, rawFormats, rawBillboardFormats,
+    aboutContent, rawClients, rawStats, rawSteps, rawFormats, rawBillboardFormats, rawSimulatorTemplates,
   ] = await Promise.all([
     fetchJson(base, "locations?full=1"),
     fetchJson(base, "services"),
@@ -78,7 +78,7 @@ async function loadPublicSnapshot() {
     fetchJson(base, "home-content"),
     fetchJson(base, "about-content"),
     fetchJson(base, "clients"), fetchJson(base, "trust-stats"), fetchJson(base, "process-steps"),
-    fetchJson(base, "ad-formats"), fetchJson(base, "billboard-formats"),
+    fetchJson(base, "ad-formats"), fetchJson(base, "billboard-formats"), fetchJson(base, "simulator-templates"),
   ]);
 
   const projectList = apiArray(rawProjects);
@@ -142,6 +142,7 @@ async function loadPublicSnapshot() {
     usingDemo: false,
     error: null,
     locations,
+    simulatorTemplates: apiArray(rawSimulatorTemplates).map(t => ({...t, id: String(t.id), typeName: t.typeName ?? t.type_name ?? '', sizeLabel: t.sizeLabel ?? t.size_label ?? '', mockupUrl: t.mockupUrl ?? t.mockup_url ?? '', panels: apiArray(t.panels).length ? t.panels : (t.corners ? [t.corners] : [])})),
     districts,
     clientBrands: apiArray(rawClients), trustStats: apiArray(rawStats),
     process: apiArray(rawSteps), processSteps: apiArray(rawSteps),
@@ -268,7 +269,10 @@ function snapshotForRoute(source, route) {
     return scoped;
   }
 
-  if (path === "/about") {
+  if (path === "/design-simulator") {
+    scoped.homeContent = source.homeContent;
+    scoped.simulatorTemplates = source.simulatorTemplates || [];
+  } else if (path === "/about") {
     scoped.about = source.about;
     scoped.aboutContent = source.aboutContent;
   } else if (path === "/contact") {
@@ -444,7 +448,7 @@ for (const route of routes) {
     );
   }
   html = injectMetadata(html, metadata, route);
-  if (['/', '/about', '/contact', '/services', '/projects', '/locations', '/blog'].includes(stripArabicPrefix(route))) html = inlineHomeCss(html, publicDir);
+  if (['/', '/about', '/contact', '/services', '/projects', '/locations', '/blog', '/design-simulator'].includes(stripArabicPrefix(route))) html = inlineHomeCss(html, publicDir);
 
   const routePath = route === "/" ? "index.html" : `${route.slice(1)}/index.html`;
   const target = resolve(outputDir, routePath);

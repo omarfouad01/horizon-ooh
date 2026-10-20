@@ -41,6 +41,7 @@ class SimulatorTemplateController extends Controller
             'notes'      => $request->input('notes'),
         ]);
 
+        \App\Support\PublicSeoRefresh::schedule();
         return response()->json($this->transform($tpl), 201);
     }
 
@@ -80,6 +81,7 @@ class SimulatorTemplateController extends Controller
 
         $tpl->update($updates);
 
+        \App\Support\PublicSeoRefresh::schedule();
         return response()->json($this->transform($tpl->fresh()));
     }
 
@@ -92,6 +94,7 @@ class SimulatorTemplateController extends Controller
             Storage::disk('public')->delete($oldPath);
         }
         $tpl->delete();
+        \App\Support\PublicSeoRefresh::schedule();
         return response()->json(['message' => 'Deleted']);
     }
 
@@ -112,7 +115,8 @@ class SimulatorTemplateController extends Controller
             'id'        => $t->id,
             'typeName'  => $t->type_name,
             'sizeLabel' => $t->size_label,
-            'mockupUrl' => $t->mockup_url,
+            // Keep the exact natural dimensions/pixels used by panel coordinates.
+            'mockupUrl' => \App\Support\PublicImage::values($t->mockup_url, 1600, 1600, true),
             'panels'    => $t->panels,
             'notes'     => $t->notes,
         ];
