@@ -69,7 +69,9 @@ export default function LeafletMap({ filtered, allCount, selected, onSelect, cla
     });
     L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
       maxZoom: 19,
-      detectRetina: true,
+      // CARTO's {r} already supplies @2x tiles on high-density screens.
+      // Do not also subdivide the viewport into four times as many tiles.
+      detectRetina: false,
     }).addTo(map);
     L.control.zoom({ position: "bottomright" }).addTo(map);
     mapRef.current = map;
