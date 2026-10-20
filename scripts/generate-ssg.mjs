@@ -448,6 +448,7 @@ for (const route of routes) {
     );
   }
   html = injectMetadata(html, metadata, route);
+  if (route === '/ar' || route.startsWith('/ar/')) html = html.replace('title="Sitemap"', 'title="خريطة الموقع"');
   if (['/', '/about', '/contact', '/services', '/projects', '/locations', '/blog', '/design-simulator'].includes(stripArabicPrefix(route))) html = inlineHomeCss(html, publicDir);
 
   const routePath = route === "/" ? "index.html" : `${route.slice(1)}/index.html`;

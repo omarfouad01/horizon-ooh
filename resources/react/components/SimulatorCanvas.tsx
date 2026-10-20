@@ -1,3 +1,4 @@
+import {LocalizedText, LocalizedElement} from "@/components/Localized";
 /**
  * SimulatorCanvas.tsx — Renders uploaded design(s) onto a billboard mockup
  * using a real per-pixel homographic warp on HTML5 Canvas.
@@ -306,25 +307,25 @@ const SimulatorCanvas = forwardRef<SimulatorCanvasHandle, Props>(
             borderRadius: style?.borderRadius ?? 12,
           }}
         />
-        {!renderDone && !error && (
+        <LocalizedText>{!renderDone && !error && (
           <div style={{
             position: 'absolute', inset: 0,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             background: 'rgba(0,0,0,0.15)',
             color: '#fff', fontSize: 13, fontWeight: 600,
             borderRadius: 12,
-          }}>
+          }}><LocalizedText>
             Rendering…
-          </div>
-        )}
-        {error && (
+          </LocalizedText></div>
+        )}</LocalizedText>
+        <LocalizedText>{error && (
           <div style={{
             padding: 24, textAlign: 'center',
             color: '#ef4444', fontSize: 13,
           }}>
-            {error}
+            <LocalizedText>{error}</LocalizedText>
           </div>
-        )}
+        )}</LocalizedText>
       </div>
     );
   }

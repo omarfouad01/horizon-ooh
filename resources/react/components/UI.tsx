@@ -1,3 +1,5 @@
+import {LocalizedText, LocalizedElement} from "@/components/Localized";
+import {arabicText} from '@/i18n/publicArabic';
 // ─── HORIZON OOH — Shared UI Primitives ──────────────────────────────────
 import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -57,7 +59,7 @@ export function Reveal({
         transition: `opacity 0.8s cubic-bezier(0.16,1,0.3,1) ${delay}s, transform 0.8s cubic-bezier(0.16,1,0.3,1) ${delay}s`,
       }}
     >
-      {children}
+      <LocalizedText>{children}</LocalizedText>
     </div>
   );
 }
@@ -75,7 +77,7 @@ export function RevealGroup({
 }) {
   return (
     <div className={className} style={style}>
-      {children}
+      <LocalizedText>{children}</LocalizedText>
     </div>
   );
 }
@@ -125,7 +127,7 @@ export function RevealItem({
         height: '100%',
       }}
     >
-      <div ref={ref} style={{ height: '100%' }}>{children}</div>
+      <div ref={ref} style={{ height: '100%' }}><LocalizedText>{children}</LocalizedText></div>
     </div>
   );
 }
@@ -140,7 +142,7 @@ export function Eyebrow({ text, light = false, center = false }: { text: string;
           className="text-[10px] font-bold tracking-[0.35em] uppercase"
           style={{ color: light ? "rgba(255,255,255,0.7)" : "rgba(11,15,26,0.65)" }}
         >
-          {text}
+          <LocalizedText>{text}</LocalizedText>
         </span>
       </div>
     </Reveal>
@@ -184,25 +186,25 @@ export function PageHero({
               maxWidth: 900,
             }}
           >
-            {title}
-            {titleAccent && (
+            <LocalizedText>{title}</LocalizedText>
+            <LocalizedText>{titleAccent && (
               <>
                 <br />
-                <span style={{ color: dark ? "rgba(255,255,255,0.7)" : "rgba(11,15,26,0.65)" }}>{titleAccent}</span>
+                <span style={{ color: dark ? "rgba(255,255,255,0.7)" : "rgba(11,15,26,0.65)" }}><LocalizedText>{titleAccent}</LocalizedText></span>
               </>
-            )}
+            )}</LocalizedText>
           </h1>
         </Reveal>
-        {subtitle && (
+        <LocalizedText>{subtitle && (
           <Reveal delay={0.12}>
             <p
               className="text-[18px] leading-[1.65] mt-6"
               style={{ color: mutedColor, maxWidth: 560 }}
             >
-              {subtitle}
+              <LocalizedText>{subtitle}</LocalizedText>
             </p>
           </Reveal>
-        )}
+        )}</LocalizedText>
       </div>
     </section>
   );
@@ -226,7 +228,7 @@ export function SectionHeading({
 }) {
   return (
     <div className={`mb-16 ${center ? "text-center" : ""}`}>
-      {eyebrow && <Eyebrow text={eyebrow} light={light} center={center} />}
+      <LocalizedText>{eyebrow && <Eyebrow text={eyebrow} light={light} center={center} />}</LocalizedText>
       <Reveal delay={0.04}>
         <h2
           className="font-black leading-[0.9] tracking-[-0.04em]"
@@ -235,18 +237,18 @@ export function SectionHeading({
             color: light ? "white" : NAVY,
           }}
         >
-          {title}
-          {titleAccent && (
+          <LocalizedText>{title}</LocalizedText>
+          <LocalizedText>{titleAccent && (
             <>
               <br />
               <span style={{ color: light ? "rgba(255,255,255,0.7)" : "rgba(11,15,26,0.65)" }}>
-                {titleAccent}
+                <LocalizedText>{titleAccent}</LocalizedText>
               </span>
             </>
-          )}
+          )}</LocalizedText>
         </h2>
       </Reveal>
-      {subtitle && (
+      <LocalizedText>{subtitle && (
         <Reveal delay={0.1}>
           <p
             className="mt-5 text-[16px] leading-[1.7]"
@@ -256,10 +258,10 @@ export function SectionHeading({
               margin: center ? "20px auto 0" : "20px 0 0",
             }}
           >
-            {subtitle}
+            <LocalizedText>{subtitle}</LocalizedText>
           </p>
         </Reveal>
-      )}
+      )}</LocalizedText>
     </div>
   );
 }
@@ -297,16 +299,16 @@ export function RedBtn({
   };
   if (href) {
     return (
-      <Link to={href} style={styles} className="group active:scale-[0.97] transition-transform">
+      <LocalizedElement as={Link} to={href} style={styles} className="group active:scale-[0.97] transition-transform">
         <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" style={{ background: NAVY }} />
-        <span className="relative z-10">{label}</span>
-      </Link>
+        <span className="relative z-10"><LocalizedText>{label}</LocalizedText></span>
+      </LocalizedElement>
     );
   }
   return (
     <button onClick={onClick} style={styles} className="group active:scale-[0.97] transition-transform">
       <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" style={{ background: NAVY }} />
-      <span className="relative z-10">{label}</span>
+      <span className="relative z-10"><LocalizedText>{label}</LocalizedText></span>
     </button>
   );
 }
@@ -346,16 +348,16 @@ export function OutlineBtn({
   };
   if (href) {
     return (
-      <Link to={href} style={styles} className="group active:scale-[0.97] transition-transform">
+      <LocalizedElement as={Link} to={href} style={styles} className="group active:scale-[0.97] transition-transform">
         <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" style={{ background: light ? "rgba(255,255,255,0.12)" : NAVY }} />
-        <span className="relative z-10 group-hover:text-white transition-colors duration-300">{label}</span>
-      </Link>
+        <span className="relative z-10 group-hover:text-white transition-colors duration-300"><LocalizedText>{label}</LocalizedText></span>
+      </LocalizedElement>
     );
   }
   return (
     <button onClick={onClick} style={styles} className="group active:scale-[0.97] transition-transform">
       <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" style={{ background: light ? "rgba(255,255,255,0.12)" : NAVY }} />
-      <span className="relative z-10 group-hover:text-white transition-colors duration-300">{label}</span>
+      <span className="relative z-10 group-hover:text-white transition-colors duration-300"><LocalizedText>{label}</LocalizedText></span>
     </button>
   );
 }
@@ -390,7 +392,7 @@ export function CTABanner({
               className="font-black leading-[0.9] tracking-[-0.04em]"
               style={{ fontSize: "clamp(32px, 3.5vw, 48px)", color: dark ? "white" : NAVY }}
             >
-              {title}
+              <LocalizedText>{title}</LocalizedText>
             </h2>
           </Reveal>
           <Reveal delay={0.08}>
@@ -398,7 +400,7 @@ export function CTABanner({
               className="mt-4 text-[16px] leading-relaxed"
               style={{ color: dark ? "rgba(255,255,255,0.7)" : "rgba(11,15,26,0.65)" }}
             >
-              {subtitle}
+              <LocalizedText>{subtitle}</LocalizedText>
             </p>
           </Reveal>
         </div>
@@ -417,7 +419,7 @@ export function Breadcrumb({ items }: { items: { label: string; href?: string }[
   const { lang } = useLang();
   // Never emit unnamed ListItems while API-backed content is loading.
   items = items.filter(item => typeof item.label === 'string' && item.label.trim())
-    .map(item => ({...item, label: item.label.trim(), href: item.href ? langPath(lang, item.href.replace(/^\/ar(?=\/|$)/, '') || '/') : undefined}));
+    .map(item => ({...item, label: lang === 'ar' ? arabicText(item.label.trim()) : item.label.trim(), href: item.href ? langPath(lang, item.href.replace(/^\/ar(?=\/|$)/, '') || '/') : undefined}));
   // BreadcrumbList JSON-LD for rich search results
   const schema = {
     "@context": "https://schema.org",
@@ -432,33 +434,33 @@ export function Breadcrumb({ items }: { items: { label: string; href?: string }[
 
   return (
     <>
-      {items.length >= 2 && <script
+      <LocalizedText>{items.length >= 2 && <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
-      />}
+      />}</LocalizedText>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]" style={{ paddingTop: 16 }}>
         <div className="flex items-center gap-2">
-          {items.map((item, i) => (
+          <LocalizedText>{items.map((item, i) => (
             <span key={item.label} className="flex items-center gap-2">
-              {i > 0 && <span style={{ color: "rgba(11,15,26,0.65)", fontSize: 12 }}>›</span>}
-              {item.href ? (
-                <Link
+              <LocalizedText>{i > 0 && <span style={{ color: "rgba(11,15,26,0.65)", fontSize: 12 }}><LocalizedText>›</LocalizedText></span>}</LocalizedText>
+              <LocalizedText>{item.href ? (
+                <LocalizedElement as={Link}
                   to={item.href}
                   className="text-[11px] font-semibold tracking-[0.15em] uppercase transition-colors duration-150 hover:text-[#D90429] cursor-pointer"
                   style={{ color: "rgba(11,15,26,0.65)" }}
                 >
-                  {item.label}
-                </Link>
+                  <LocalizedText>{item.label}</LocalizedText>
+                </LocalizedElement>
               ) : (
                 <span
                   className="text-[11px] font-semibold tracking-[0.15em] uppercase"
                   style={{ color: "rgba(11,15,26,0.65)" }}
                 >
-                  {item.label}
+                  <LocalizedText>{item.label}</LocalizedText>
                 </span>
-              )}
+              )}</LocalizedText>
             </span>
-          ))}
+          ))}</LocalizedText>
         </div>
       </div>
     </>

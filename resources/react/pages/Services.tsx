@@ -1,3 +1,4 @@
+import {LocalizedText, LocalizedElement} from "@/components/Localized";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import { useStore } from "@/store/dataStore";
@@ -26,14 +27,14 @@ export default function Services() {
           <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-stretch gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
             {SERVICES.map((service, i) => (
               <RevealItem key={service.id} className="h-full">
-                <Link
+                <LocalizedElement as={Link}
                   to={serviceHref(lang, service.slug)}
                   className="group bg-white hover:bg-[#0B0F1A] transition-colors duration-500 flex flex-col h-full"
                   style={{ padding: "48px 40px 44px", textDecoration: "none" }}
                 >
                   {/* Icon or Number */}
                   <div className="flex items-center justify-between mb-10">
-                    {(service as any).icon ? (
+                    <LocalizedText>{(service as any).icon ? (
                       <span className="w-12 h-12 flex items-center justify-center rounded-2xl border border-[rgba(11,15,26,0.07)] group-hover:border-white/10 transition-all duration-500"
                             style={{ background: 'rgba(11,15,26,0.04)' }}>
                         <ServiceIcon
@@ -42,9 +43,9 @@ export default function Services() {
                           className="text-[#0B0F1A] group-hover:text-white transition-colors duration-500"
                         />
                       </span>
-                    ) : null}
+                    ) : null}</LocalizedText>
                     <span className="font-black text-[11px] tracking-[0.25em] uppercase text-[rgba(11,15,26,0.15)] group-hover:text-white/15 transition-colors duration-500 ml-auto">
-                      {String(i + 1).padStart(2, "0")}
+                      <LocalizedText>{String(i + 1).padStart(2, "0")}</LocalizedText>
                     </span>
                   </div>
 
@@ -53,7 +54,7 @@ export default function Services() {
                     className="font-bold tracking-[-0.02em] mb-4 text-[#0B0F1A] group-hover:text-white transition-colors duration-500"
                     style={{ fontSize: 22, lineHeight: 1.2 }}
                   >
-                    {isAr && (service as any).titleAr ? (service as any).titleAr : service.title}
+                    <LocalizedText>{isAr && (service as any).titleAr ? (service as any).titleAr : service.title}</LocalizedText>
                   </h2>
 
                   {/* Divider */}
@@ -70,7 +71,7 @@ export default function Services() {
                   <p
                     className="text-[15px] leading-[1.7] flex-1 text-[rgba(11,15,26,0.45)] group-hover:text-white/70 transition-colors duration-500"
                   >
-                    {isAr && (service as any).descriptionAr ? (service as any).descriptionAr : service.description}
+                    <LocalizedText>{isAr && (service as any).descriptionAr ? (service as any).descriptionAr : service.description}</LocalizedText>
                   </p>
 
                   {/* CTA */}
@@ -79,16 +80,16 @@ export default function Services() {
                       className="text-[11px] font-bold tracking-[0.2em] uppercase transition-colors duration-300"
                       style={{ color: RED }}
                     >
-                      {t('services.exploreService')}
+                      <LocalizedText>{t('services.exploreService')}</LocalizedText>
                     </span>
                     <span
                       className="opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-1 group-hover:translate-x-0"
                       style={{ color: RED, fontSize: 18, lineHeight: 1 }}
-                    >
+                    ><LocalizedText>
                       →
-                    </span>
+                    </LocalizedText></span>
                   </div>
-                </Link>
+                </LocalizedElement>
               </RevealItem>
             ))}
           </RevealGroup>
@@ -113,13 +114,13 @@ export default function Services() {
                     className="font-black leading-none tracking-[-0.05em] mb-3"
                     style={{ fontSize: "clamp(40px, 4.5vw, 60px)", color: RED }}
                   >
-                    {stat.value}
+                    <LocalizedText>{stat.value}</LocalizedText>
                   </span>
                   <span
                     className="text-[11px] font-semibold tracking-[0.22em] uppercase"
                     style={{ color: "rgba(11,15,26,0.35)" }}
                   >
-                    {t(stat.labelKey as any)}
+                    <LocalizedText>{t(stat.labelKey as any)}</LocalizedText>
                   </span>
                 </div>
               </RevealItem>

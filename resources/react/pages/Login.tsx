@@ -1,3 +1,6 @@
+import {publicMessage} from "@/i18n/publicArabic";
+import SEO from '@/components/SEO';
+import {LocalizedText, LocalizedElement} from "@/components/Localized";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -19,9 +22,9 @@ function AuthInput({
     <div>
       <label htmlFor={id} className="block text-[11px] font-bold tracking-[0.25em] uppercase mb-2"
         style={{ color: "rgba(11,15,26,0.45)" }}>
-        {label}
+        <LocalizedText>{label}</LocalizedText>
       </label>
-      <input
+      <LocalizedElement as="input"
         id={id} type={type} placeholder={placeholder} required={required}
         value={value} onChange={(e) => onChange(e.target.value)}
         onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}
@@ -45,8 +48,8 @@ function LoginLogo() {
   const companyName: string = store.settings?.companyName ?? 'HORIZON OOH';
   const hasCustomLogo = !!store.settings?.headerLogoUrl;
   return (
-    <Link to={ROUTES.HOME} className="flex items-center gap-3" style={{ textDecoration: 'none' }}>
-      {hasCustomLogo ? (
+    <LocalizedElement as={Link} to={ROUTES.HOME} className="flex items-center gap-3" style={{ textDecoration: 'none' }}>
+      <LocalizedText>{hasCustomLogo ? (
         <LogoMark size={40} variant="header" />
       ) : (
         <>
@@ -57,12 +60,12 @@ function LoginLogo() {
             </svg>
           </div>
           <div>
-            <p className="text-white font-black text-[13px] tracking-[0.22em] uppercase leading-none">{companyName.split(' ')[0]}</p>
-            <p className="text-white/30 font-semibold text-[9px] tracking-[0.35em] uppercase mt-0.5">OUT-OF-HOME</p>
+            <p className="text-white font-black text-[13px] tracking-[0.22em] uppercase leading-none"><LocalizedText>{companyName.split(' ')[0]}</LocalizedText></p>
+            <p className="text-white/30 font-semibold text-[9px] tracking-[0.35em] uppercase mt-0.5"><LocalizedText>OUT-OF-HOME</LocalizedText></p>
           </div>
         </>
-      )}
-    </Link>
+      )}</LocalizedText>
+    </LocalizedElement>
   );
 }
 
@@ -74,8 +77,8 @@ function MobileAuthLogo() {
   const companyName: string = store.settings?.companyName ?? 'HORIZON OOH';
   const hasCustomLogo = !!store.settings?.headerLogoUrl;
   return (
-    <Link to={ROUTES.HOME} className="flex items-center gap-3" style={{ textDecoration: 'none' }}>
-      {hasCustomLogo ? (
+    <LocalizedElement as={Link} to={ROUTES.HOME} className="flex items-center gap-3" style={{ textDecoration: 'none' }}>
+      <LocalizedText>{hasCustomLogo ? (
         <LogoMark size={32} variant="header" />
       ) : (
         <>
@@ -84,10 +87,10 @@ function MobileAuthLogo() {
               <path d="M2 2h5v14H2zM11 2h5v14h-5z" fill="white" />
             </svg>
           </div>
-          <span className="font-black text-[13px] tracking-[0.22em] uppercase" style={{ color: NAVY }}>{companyName}</span>
+          <span className="font-black text-[13px] tracking-[0.22em] uppercase" style={{ color: NAVY }}><LocalizedText>{companyName}</LocalizedText></span>
         </>
-      )}
-    </Link>
+      )}</LocalizedText>
+    </LocalizedElement>
   );
 }
 
@@ -101,13 +104,13 @@ function BrandPanel() {
         style={{ background: "radial-gradient(ellipse 70% 60% at 30% 60%, rgba(217,4,41,0.07) 0%, transparent 70%)" }} />
       {/* Grid overlay lines */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden>
-        {[...Array(5)].map((_, i) => (
+        <LocalizedText>{[...Array(5)].map((_, i) => (
           <div key={i} className="absolute top-0 bottom-0 border-l border-white/[0.03]"
             style={{ left: `${(i + 1) * 16.66}%` }} />
-        ))}
+        ))}</LocalizedText>
       </div>
       {/* Background billboard image */}
-      <img src="https://images.unsplash.com/photo-1702231942007-b255a41475c9?w=900&q=80&fit=crop"
+      <LocalizedElement as="img" src="https://images.unsplash.com/photo-1702231942007-b255a41475c9?w=900&q=80&fit=crop"
         alt="" aria-hidden width={900} height={1200} loading="lazy" decoding="async"
         className="absolute inset-0 w-full h-full object-cover"
         style={{ opacity: 0.12, mixBlendMode: "luminosity" }} />
@@ -120,7 +123,7 @@ function BrandPanel() {
 
       {/* Main headline */}
       <div className="relative z-10">
-        {["Access your", "campaigns.", "Control your", "visibility."].map((line, i) => (
+        <LocalizedText>{["Access your", "campaigns.", "Control your", "visibility."].map((line, i) => (
           <div key={i} className="overflow-hidden">
             <motion.p initial={{ y: "110%" }} animate={{ y: 0 }}
               transition={{ duration: 0.9, ease, delay: 0.2 + i * 0.1 }}
@@ -129,17 +132,17 @@ function BrandPanel() {
                 fontSize: "clamp(36px, 4vw, 58px)",
                 color: i === 1 || i === 3 ? "rgba(255,255,255,0.2)" : "white",
               }}>
-              {line}
+              <LocalizedText>{line}</LocalizedText>
             </motion.p>
           </div>
-        ))}
+        ))}</LocalizedText>
         <motion.div initial={{ opacity: 0, scaleX: 0 }} animate={{ opacity: 1, scaleX: 1 }}
           transition={{ duration: 0.7, ease, delay: 0.8 }}
           className="mt-10 flex items-center gap-4" style={{ transformOrigin: "left" }}>
           <span className="block w-8 h-[1.5px]" style={{ background: RED }} />
-          <span className="text-white/25 text-[11px] font-bold tracking-[0.3em] uppercase">
+          <span className="text-white/25 text-[11px] font-bold tracking-[0.3em] uppercase"><LocalizedText>
             Egypt's #1 OOH Network
-          </span>
+          </LocalizedText></span>
         </motion.div>
       </div>
 
@@ -147,12 +150,12 @@ function BrandPanel() {
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease, delay: 1.0 }}
         className="relative z-10 grid grid-cols-3 gap-6 pt-8 border-t border-white/[0.07]">
-        {[{ v: "9,500+", l: "Locations" }, { v: "100+", l: "Brands" }, { v: "5", l: "Cities" }].map((s) => (
+        <LocalizedText>{[{ v: "9,500+", l: "Locations" }, { v: "100+", l: "Brands" }, { v: "5", l: "Cities" }].map((s) => (
           <div key={s.l}>
-            <p className="font-black text-white tracking-[-0.04em]" style={{ fontSize: 24, color: RED }}>{s.v}</p>
-            <p className="text-white/30 text-[10px] tracking-[0.25em] uppercase font-bold mt-1">{s.l}</p>
+            <p className="font-black text-white tracking-[-0.04em]" style={{ fontSize: 24, color: RED }}><LocalizedText>{s.v}</LocalizedText></p>
+            <p className="text-white/30 text-[10px] tracking-[0.25em] uppercase font-bold mt-1"><LocalizedText>{s.l}</LocalizedText></p>
           </div>
-        ))}
+        ))}</LocalizedText>
       </motion.div>
     </div>
   );
@@ -173,7 +176,7 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    if (!email || !password) { setError("Please fill in all fields."); return; }
+    if (!email || !password) { setError(publicMessage("Please fill in all fields.")); return; }
     setLoading(true);
     try {
       let res: any;
@@ -195,9 +198,9 @@ export default function Login() {
       setLoading(false);
       const apiErrors = err?.response?.data?.errors;
       if (apiErrors && typeof apiErrors === 'object') {
-        setError(Object.values(apiErrors).flat().join(' '));
+        setError(publicMessage(Object.values(apiErrors).flat().join(' ')));
       } else {
-        setError(err?.response?.data?.message ?? err?.message ?? 'Login failed. Please check your credentials.');
+        setError(publicMessage(err?.response?.data?.message ?? err?.message ?? 'Login failed. Please check your credentials.'));
       }
     }
     setLoading(false);
@@ -205,6 +208,8 @@ export default function Login() {
 
   return (
     <div className="flex min-h-[100svh]" style={{ fontFamily: "Inter, sans-serif" }}>
+<SEO title="Login | HORIZON OOH" description="Your HORIZON OOH account." titleAr="تسجيل الدخول | هورايزون" descriptionAr="سجل الدخول إلى حسابك لإدارة حملاتك الإعلانية." canonical="/login" robots="noindex, follow" />
+
       <BrandPanel />
 
       {/* Right — form */}
@@ -212,8 +217,8 @@ export default function Login() {
         {/* Mobile logo */}
         <div className="lg:hidden flex items-center justify-between px-8 pt-8 pb-6 border-b border-[#0B0F1A]/[0.07]">
           <MobileAuthLogo />
-          <Link to={ROUTES.HOME} className="text-[11px] font-bold tracking-[0.15em] uppercase"
-            style={{ color: "rgba(11,15,26,0.4)", textDecoration: "none" }}>← Back</Link>
+          <LocalizedElement as={Link} to={ROUTES.HOME} className="text-[11px] font-bold tracking-[0.15em] uppercase"
+            style={{ color: "rgba(11,15,26,0.4)", textDecoration: "none" }}><LocalizedText>← Back</LocalizedText></LocalizedElement>
         </div>
 
         {/* Form container */}
@@ -223,13 +228,13 @@ export default function Login() {
 
             {/* Back to site — desktop */}
             <div className="hidden lg:flex items-center justify-between mb-12">
-              <Link to={ROUTES.HOME}
+              <LocalizedElement as={Link} to={ROUTES.HOME}
                 className="flex items-center gap-2 text-[11px] font-bold tracking-[0.15em] uppercase transition-colors hover:text-[#D90429]"
                 style={{ color: "rgba(11,15,26,0.35)", textDecoration: "none" }}>
-                <span style={{ fontSize: 14 }}>←</span> Back to site
-              </Link>
+                <span style={{ fontSize: 14 }}><LocalizedText>←</LocalizedText></span><LocalizedText> Back to site
+              </LocalizedText></LocalizedElement>
               <span className="text-[10px] font-semibold tracking-[0.2em] uppercase"
-                style={{ color: "rgba(11,15,26,0.2)" }}>Client Portal</span>
+                style={{ color: "rgba(11,15,26,0.2)" }}><LocalizedText>Client Portal</LocalizedText></span>
             </div>
 
             {/* Heading */}
@@ -237,17 +242,17 @@ export default function Login() {
               <div className="flex items-center gap-3 mb-6">
                 <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
                 <span className="text-[10px] font-bold tracking-[0.35em] uppercase"
-                  style={{ color: "rgba(11,15,26,0.35)" }}>Sign In</span>
+                  style={{ color: "rgba(11,15,26,0.35)" }}><LocalizedText>Sign In</LocalizedText></span>
               </div>
               <h1 className="font-black tracking-[-0.04em] leading-[0.92]"
-                style={{ fontSize: "clamp(36px, 4vw, 52px)", color: NAVY }}>
-                Welcome<br />
-                <span style={{ color: "rgba(11,15,26,0.2)" }}>back.</span>
+                style={{ fontSize: "clamp(36px, 4vw, 52px)", color: NAVY }}><LocalizedText>
+                Welcome</LocalizedText><br />
+                <span style={{ color: "rgba(11,15,26,0.2)" }}><LocalizedText>back.</LocalizedText></span>
               </h1>
               <p className="mt-4 text-[15px] leading-[1.65]"
-                style={{ color: "rgba(11,15,26,0.45)" }}>
+                style={{ color: "rgba(11,15,26,0.45)" }}><LocalizedText>
                 Sign in to manage your campaigns and inventory.
-              </p>
+              </LocalizedText></p>
             </div>
 
             {/* Form */}
@@ -258,15 +263,15 @@ export default function Login() {
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <label htmlFor="password" className="text-[11px] font-bold tracking-[0.25em] uppercase"
-                    style={{ color: "rgba(11,15,26,0.45)" }}>Password</label>
-                  <Link to={langPath(lang, "/forgot-password")}
+                    style={{ color: "rgba(11,15,26,0.45)" }}><LocalizedText>Password</LocalizedText></label>
+                  <LocalizedElement as={Link} to={langPath(lang, "/forgot-password")}
                     className="text-[11px] font-semibold transition-colors hover:text-[#D90429]"
-                    style={{ color: "rgba(11,15,26,0.35)", textDecoration: "none" }}>
+                    style={{ color: "rgba(11,15,26,0.35)", textDecoration: "none" }}><LocalizedText>
                     Forgot password?
-                  </Link>
+                  </LocalizedText></LocalizedElement>
                 </div>
                 <div className="relative">
-                  <input id="password" type={showPw ? "text" : "password"} placeholder="••••••••"
+                  <LocalizedElement as="input" id="password" type={showPw ? "text" : "password"} placeholder="••••••••"
                     required value={password} onChange={(e) => setPassword(e.target.value)}
                     className="w-full bg-white text-[15px] font-medium outline-none transition-all duration-200"
                     style={{
@@ -279,7 +284,7 @@ export default function Login() {
                     className="absolute right-4 top-1/2 -translate-y-1/2"
                     style={{ color: "rgba(11,15,26,0.35)", fontSize: 12, fontWeight: 600,
                       letterSpacing: "0.05em", background: "none", border: "none", cursor: "pointer" }}>
-                    {showPw ? "HIDE" : "SHOW"}
+                    <LocalizedText>{showPw ? "HIDE" : "SHOW"}</LocalizedText>
                   </button>
                 </div>
               </div>
@@ -289,25 +294,25 @@ export default function Login() {
                 <div className="relative flex-shrink-0 w-5 h-5 border border-[#0B0F1A]/20 rounded-[4px] flex items-center justify-center"
                   style={{ background: remember ? NAVY : "white" }}
                   onClick={() => setRemember(!remember)}>
-                  {remember && (
+                  <LocalizedText>{remember && (
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
                       <path d="M1.5 5l2.5 2.5 4.5-5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
-                  )}
+                  )}</LocalizedText>
                 </div>
-                <span className="text-[13px] font-medium" style={{ color: "rgba(11,15,26,0.5)" }}>
+                <span className="text-[13px] font-medium" style={{ color: "rgba(11,15,26,0.5)" }}><LocalizedText>
                   Remember me for 30 days
-                </span>
+                </LocalizedText></span>
               </label>
 
               {/* Error */}
-              {error && (
+              <LocalizedText>{error && (
                 <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}
                   className="flex items-start gap-3 p-4" style={{ background: "rgba(217,4,41,0.05)", border: "1px solid rgba(217,4,41,0.2)", borderRadius: 6 }}>
                   <span className="flex-shrink-0 w-1.5 h-1.5 mt-1.5 rounded-full" style={{ background: RED }} />
-                  <p className="text-[13px] font-medium" style={{ color: RED }}>{error}</p>
+                  <p className="text-[13px] font-medium" style={{ color: RED }}><LocalizedText>{error}</LocalizedText></p>
                 </motion.div>
-              )}
+              )}</LocalizedText>
 
               {/* Submit */}
               <button type="submit" disabled={loading}
@@ -317,8 +322,8 @@ export default function Login() {
                 <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"
                   style={{ background: NAVY }} />
                 <span className="relative z-10 flex items-center gap-3">
-                  {loading && <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />}
-                  {loading ? "Signing in…" : "Sign In"}
+                  <LocalizedText>{loading && <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />}</LocalizedText>
+                  <LocalizedText>{loading ? "Signing in…" : "Sign In"}</LocalizedText>
                 </span>
               </button>
             </form>
@@ -327,32 +332,32 @@ export default function Login() {
             <div className="flex items-center gap-4 my-8">
               <span className="flex-1 h-px" style={{ background: "rgba(11,15,26,0.08)" }} />
               <span className="text-[11px] font-semibold tracking-[0.2em] uppercase"
-                style={{ color: "rgba(11,15,26,0.25)" }}>or</span>
+                style={{ color: "rgba(11,15,26,0.25)" }}><LocalizedText>or</LocalizedText></span>
               <span className="flex-1 h-px" style={{ background: "rgba(11,15,26,0.08)" }} />
             </div>
 
             {/* Sign up link */}
-            <p className="text-center text-[14px]" style={{ color: "rgba(11,15,26,0.45)" }}>
-              Don't have an account?{" "}
-              <Link to={ROUTES.SIGNUP}
+            <p className="text-center text-[14px]" style={{ color: "rgba(11,15,26,0.45)" }}><LocalizedText>
+              Don't have an account?</LocalizedText><LocalizedText>{" "}</LocalizedText>
+              <LocalizedElement as={Link} to={ROUTES.SIGNUP}
                 className="font-bold transition-colors hover:text-[#D90429]"
-                style={{ color: NAVY, textDecoration: "none" }}>
+                style={{ color: NAVY, textDecoration: "none" }}><LocalizedText>
                 Create account →
-              </Link>
+              </LocalizedText></LocalizedElement>
             </p>
           </motion.div>
         </div>
 
         {/* Footer strip */}
         <div className="px-8 py-5 border-t border-[#0B0F1A]/[0.06] flex items-center justify-between">
-          <p className="text-[11px] tracking-[0.1em]" style={{ color: "rgba(11,15,26,0.2)" }}>
+          <p className="text-[11px] tracking-[0.1em]" style={{ color: "rgba(11,15,26,0.2)" }}><LocalizedText>
             © 2026 HORIZON OOH
-          </p>
+          </LocalizedText></p>
           <div className="flex gap-5">
-            {["Privacy", "Terms", "Help"].map((l) => (
+            <LocalizedText>{["Privacy", "Terms", "Help"].map((l) => (
               <span key={l} className="text-[11px] tracking-[0.12em] cursor-pointer hover:text-[#D90429] transition-colors"
-                style={{ color: "rgba(11,15,26,0.25)" }}>{l}</span>
-            ))}
+                style={{ color: "rgba(11,15,26,0.25)" }}><LocalizedText>{l}</LocalizedText></span>
+            ))}</LocalizedText>
           </div>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import {LocalizedText, LocalizedElement} from "@/components/Localized";
 import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
 import SEO from "@/components/SEO";
@@ -20,11 +21,11 @@ const NotFound = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <SEO title="Page not found | HORIZON OOH" description="This page is unavailable." robots="noindex, follow" />
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">404</h1>
-        <p className="text-xl text-gray-600 mb-4">Oops! Page not found</p>
-        <Link to={ROUTES.HOME} className="text-blue-500 hover:text-blue-700 underline">
+        <h1 className="text-4xl font-bold mb-4"><LocalizedText>404</LocalizedText></h1>
+        <p className="text-xl text-gray-600 mb-4"><LocalizedText>Oops! Page not found</LocalizedText></p>
+        <LocalizedElement as={Link} to={ROUTES.HOME} className="text-blue-500 hover:text-blue-700 underline"><LocalizedText>
           Return to Home
-        </Link>
+        </LocalizedText></LocalizedElement>
       </div>
     </div>
   );

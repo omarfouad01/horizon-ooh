@@ -1,3 +1,5 @@
+import {useLang} from '@/i18n/LangContext';
+import {arabicHtml, arabicText} from '@/i18n/publicArabic';
 /**
  * ProductMap — single-billboard pin map for the Product detail page.
  * Uses Leaflet, centred and zoomed on one coordinate.
@@ -52,6 +54,8 @@ interface Props {
 }
 
 export default function ProductMap({ lat, lng, name = "", type = "", district = "", city = "", traffic = "", size = "", className, style }: Props) {
+  const {isAr} = useLang();
+  const localizeMapHtml = (html: string) => isAr ? arabicHtml(html) : html;
   const divRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
 
@@ -67,18 +71,25 @@ export default function ProductMap({ lat, lng, name = "", type = "", district = 
       scrollWheelZoom:  false,   // disabled by default — activate on click/focus
     });
 
-    // Cartography — light minimal style consistent with homepage map
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+    // Same tile source and visible attribution as the public maps
+    L.control.attribution({prefix: false}).addTo(map);
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
+      attribution: isAr ? '&copy; <a href="https://www.openstreetmap.org/copyright">مساهمو أوبن ستريت ماب</a>' : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
 
     // Controls
-    L.control.zoom({ position: "bottomright" }).addTo(map);
+    L.control.zoom({ position: "bottomright", zoomInTitle: isAr ? "تكبير" : "Zoom in", zoomOutTitle: isAr ? "تصغير" : "Zoom out" }).addTo(map);
+    if (isAr) map.on('popupopen', ({popup}) => {
+      const close = popup.getElement()?.querySelector('.leaflet-popup-close-button');
+      close?.setAttribute('aria-label', 'إغلاق التفاصيل');
+      close?.setAttribute('title', 'إغلاق التفاصيل');
+    });
 
     // Single pin
     // aria fix: `title` becomes the marker's aria-label so screen readers
     // and AI agents can identify the interactive pin by billboard name.
-    const marker = L.marker([lat, lng], { icon: makeSinglePin(), zIndexOffset: 1000, title: name, alt: name }).addTo(map);
+    const marker = L.marker([lat, lng], { icon: makeSinglePin(), zIndexOffset: 1000, title: (isAr ? arabicText(name) : name), alt: (isAr ? arabicText(name) : name) }).addTo(map);
 
     // Auto-open popup
     marker.bindPopup(
@@ -89,7 +100,7 @@ export default function ProductMap({ lat, lng, name = "", type = "", district = 
         offset: [0, -8],
         autoClose: false,
         closeOnClick: false,
-      }).setContent(`
+      }).setContent(localizeMapHtml(`
         <div style="font-family:'Inter',sans-serif;padding:2px">
           <p style="font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:${RED};margin:0 0 5px">${type}</p>
           <p style="font-size:15px;font-weight:800;color:${NAVY};margin:0 0 3px;line-height:1.15">${name}</p>
@@ -104,7 +115,7 @@ export default function ProductMap({ lat, lng, name = "", type = "", district = 
               <p style="font-size:12px;font-weight:700;color:${NAVY};margin:0">${size}</p>
             </div>
           </div>
-        </div>`)
+        </div>`))
     );
     marker.openPopup();
 
@@ -115,7 +126,7 @@ export default function ProductMap({ lat, lng, name = "", type = "", district = 
     mapRef.current = map;
     return () => { map.remove(); mapRef.current = null; };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isAr]);
 
   return (
     <>

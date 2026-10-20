@@ -1,3 +1,6 @@
+import SEO from '@/components/SEO';
+import {publicMessage} from "@/i18n/publicArabic";
+import {LocalizedText, LocalizedElement} from "@/components/Localized";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -15,8 +18,8 @@ function AuthInput({ label, id, type = "text", placeholder, value, onChange, req
   return (
     <div>
       <label htmlFor={id} className="block text-[11px] font-bold tracking-[0.25em] uppercase mb-2"
-        style={{ color: "rgba(11,15,26,0.45)" }}>{label}</label>
-      <input
+        style={{ color: "rgba(11,15,26,0.45)" }}><LocalizedText>{label}</LocalizedText></label>
+      <LocalizedElement as="input"
         id={id} type={type} placeholder={placeholder} required={required}
         value={value} onChange={onChange ? (e) => onChange(e.target.value) : undefined}
         onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}
@@ -68,7 +71,7 @@ export default function Profile() {
 
   async function handleSave(e: React.FormEvent) {
     e.preventDefault();
-    if (!name.trim()) { toast.error(isAr ? 'الاسم مطلوب' : 'Name is required'); return; }
+    if (!name.trim()) { toast.error(publicMessage(isAr ? 'الاسم مطلوب' : 'Name is required')); return; }
     setLoading(true);
     try {
       const payload: any = { name, phone, company };
@@ -90,17 +93,17 @@ export default function Profile() {
         setUser(newUser);
       }
       setCurrentPw(''); setNewPw('');
-      toast.success(isAr ? 'تم تحديث الملف الشخصي بنجاح!' : 'Profile updated successfully!');
+      toast.success(publicMessage(isAr ? 'تم تحديث الملف الشخصي بنجاح!' : 'Profile updated successfully!'));
     } catch (err: any) {
       const apiErr = err?.response?.data?.errors;
       if (apiErr && typeof apiErr === 'object') {
-        toast.error(Object.values(apiErr).flat().join(' '));
+        toast.error(publicMessage(Object.values(apiErr).flat().join(' ')));
       } else {
         // Update locally even on API failure (preview / offline)
         const newUser = { name, email: user?.email || '', phone, company };
         localStorage.setItem('horizon_site_user', JSON.stringify(newUser));
         setUser(newUser);
-        toast.success(isAr ? 'تم تحديث البيانات محلياً' : 'Profile updated locally.');
+        toast.success(publicMessage(isAr ? 'تم تحديث البيانات محلياً' : 'Profile updated locally.'));
       }
     }
     setLoading(false);
@@ -110,6 +113,8 @@ export default function Profile() {
 
   return (
     <div className="min-h-screen bg-[#F8F9FC] pt-[76px]" style={{ fontFamily: "Inter, sans-serif" }}>
+<SEO title="Profile | HORIZON OOH" description="Your HORIZON OOH account." titleAr="الملف الشخصي | هورايزون" descriptionAr="راجع بيانات حسابك وملفك الشخصي في هورايزون." canonical="/profile" robots="noindex, follow" />
+
       <div className="max-w-[580px] mx-auto px-6 py-14">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease }}>
@@ -120,7 +125,7 @@ export default function Profile() {
               <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
               <span className="text-[10px] font-bold tracking-[0.35em] uppercase"
                 style={{ color: "rgba(11,15,26,0.35)" }}>
-                {isAr ? 'الملف الشخصي' : 'My Profile'}
+                <LocalizedText>{isAr ? 'الملف الشخصي' : 'My Profile'}</LocalizedText>
               </span>
             </div>
             <div className="flex items-center gap-4 mb-2">
@@ -152,7 +157,7 @@ export default function Profile() {
               {/* Password change section */}
               <div className="pt-4 border-t border-gray-100">
                 <p className="text-[11px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-4">
-                  {isAr ? 'تغيير كلمة المرور (اختياري)' : 'Change Password (optional)'}
+                  <LocalizedText>{isAr ? 'تغيير كلمة المرور (اختياري)' : 'Change Password (optional)'}</LocalizedText>
                 </p>
                 <div className="space-y-4">
                   <AuthInput label={isAr ? 'كلمة المرور الحالية' : 'Current Password'} id="current_pw" type="password"
@@ -168,9 +173,9 @@ export default function Profile() {
                 className="w-full h-[52px] text-[11px] font-bold tracking-[0.2em] uppercase text-white flex items-center justify-center transition-opacity"
                 style={{ background: loading ? "rgba(11,15,26,0.5)" : NAVY, borderRadius: 6 }}
               >
-                {loading
+                <LocalizedText>{loading
                   ? (isAr ? 'جار الحفظ...' : 'Saving...')
-                  : (isAr ? 'حفظ التغييرات' : 'Save Changes')}
+                  : (isAr ? 'حفظ التغييرات' : 'Save Changes')}</LocalizedText>
               </button>
             </form>
           </div>
@@ -178,8 +183,8 @@ export default function Profile() {
           <button
             onClick={() => navigate(-1)}
             className="text-[12px] font-semibold text-gray-400 hover:text-gray-700 transition-colors flex items-center gap-2"
-          >
-            ← {isAr ? 'رجوع' : 'Go Back'}
+          ><LocalizedText>
+            ← </LocalizedText><LocalizedText>{isAr ? 'رجوع' : 'Go Back'}</LocalizedText>
           </button>
         </motion.div>
       </div>

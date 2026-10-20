@@ -1,3 +1,5 @@
+import {useLang} from '@/i18n/LangContext';
+import {arabicHtml, arabicText} from '@/i18n/publicArabic';
 /**
  * LocationsMap — interactive split-screen Leaflet map for the Locations marketplace page.
  * Syncs pin hover/click with the card list on the left.
@@ -44,6 +46,8 @@ interface Props {
 export default function LocationsMap({
   billboards, hoveredId, selectedId, onHover, onSelect, className, style,
 }: Props) {
+  const {isAr} = useLang();
+  const localizeMapHtml = (html: string) => isAr ? arabicHtml(html) : html;
   const divRef     = useRef<HTMLDivElement>(null);
   const mapRef     = useRef<L.Map | null>(null);
   const markersRef = useRef<Map<string, L.Marker>>(new Map());
@@ -58,13 +62,15 @@ export default function LocationsMap({
       zoomControl: false,
       attributionControl: false,
     });
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+    L.control.attribution({prefix: false}).addTo(map);
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
+      attribution: isAr ? '&copy; <a href="https://www.openstreetmap.org/copyright">مساهمو أوبن ستريت ماب</a>' : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
-    L.control.zoom({ position: "bottomright" }).addTo(map);
+    L.control.zoom({ position: "bottomright", zoomInTitle: isAr ? "تكبير" : "Zoom in", zoomOutTitle: isAr ? "تصغير" : "Zoom out" }).addTo(map);
     mapRef.current = map;
     return () => { map.remove(); mapRef.current = null; markersRef.current.clear(); };
-  }, []);
+  }, [isAr]);
 
   // ── Sync markers when billboard list changes ───────────────────────────
   useEffect(() => {
@@ -85,14 +91,14 @@ export default function LocationsMap({
       const lng = typeof b.lng === 'number' ? b.lng : parseFloat(b.lng as any);
       if (isNaN(lat) || isNaN(lng) || lat === 0 || lng === 0) return;
       // aria fix: `title` → aria-label on the generated marker div
-      const marker = L.marker([lat, lng], { icon: makePin("default"), title: `${b.name} — ${b.city}`, alt: b.name }).addTo(map);
+      const marker = L.marker([lat, lng], { icon: makePin("default"), title: (isAr ? arabicText(`${b.name} — ${b.city}`) : `${b.name} — ${b.city}`), alt: (isAr ? arabicText(b.name) : b.name) }).addTo(map);
 
       marker.on("mouseover", () => onHover(b.id));
       marker.on("mouseout",  () => onHover(null));
       marker.on("click",     () => onSelect(selectedId === b.id ? null : b.id));
 
       // Tooltip (mini card on hover)
-      marker.bindTooltip(`
+      marker.bindTooltip(localizeMapHtml(`
         <div style="font-family:'Inter',sans-serif;padding:2px">
           <p style="font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:${RED};margin:0 0 3px">${b.type}</p>
           <p style="font-size:13px;font-weight:800;color:${NAVY};margin:0 0 2px;line-height:1.2">${b.name}</p>
@@ -103,7 +109,7 @@ export default function LocationsMap({
             <div><p style="font-size:7px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(11,15,26,.3);margin:0 0 1px">Size</p>
               <p style="font-size:11px;font-weight:700;color:${NAVY};margin:0">${b.size}</p></div>
           </div>
-        </div>`, {
+        </div>`), {
         permanent: false,
         direction: "top",
         className: "loc-map-tooltip",
@@ -125,7 +131,7 @@ export default function LocationsMap({
       map.fitBounds(bounds, { padding: [48, 48], maxZoom: 14, animate: true });
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [billboards]);
+  }, [billboards, isAr]);
 
   // ── Update pin states on hover/select changes ──────────────────────────
   useEffect(() => {

@@ -1,3 +1,5 @@
+import {LocalizedText, LocalizedElement} from "@/components/Localized";
+import {publicPath} from '@/i18n/publicArabic';
 import { useRef, useEffect, useState, lazy, Suspense } from "react";
 const LeafletMap = lazy(() => import("@/components/BillboardMap"));
 import { useStore, getState } from "@/store/dataStore";
@@ -77,7 +79,7 @@ function Reveal({
         contain: 'layout style',
       }}
     >
-      {children}
+      <LocalizedText>{children}</LocalizedText>
     </div>
   );
 }
@@ -93,7 +95,7 @@ function RevealGroup({
 }) {
   return (
     <div className={className}>
-      {children}
+      <LocalizedText>{children}</LocalizedText>
     </div>
   );
 }
@@ -145,7 +147,7 @@ function RevealItem({
         contain: 'layout style',
       }}
     >
-      <div ref={ref}>{children}</div>
+      <div ref={ref}><LocalizedText>{children}</LocalizedText></div>
     </div>
   );
 }
@@ -182,8 +184,8 @@ function Counter({ value, suffix = "" }: { value: number; suffix?: string }) {
 
   return (
     <span ref={ref}>
-      {count.toLocaleString()}
-      {suffix}
+      <LocalizedText>{count.toLocaleString()}</LocalizedText>
+      <LocalizedText>{suffix}</LocalizedText>
     </span>
   );
 }
@@ -198,7 +200,7 @@ function Eyebrow({ text, light = false }: { text: string; light?: boolean }) {
           className="text-[10px] font-bold tracking-[0.35em] uppercase"
           style={{ color: light ? "rgba(255,255,255,0.7)" : "rgba(11,15,26,0.65)" }}
         >
-          {text}
+          <LocalizedText>{text}</LocalizedText>
         </span>
       </div>
     </Reveal>
@@ -221,16 +223,16 @@ function RedButton({
         className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out"
         style={{ background: NAVY }}
       />
-      <span className="relative z-10">{label}</span>
+      <span className="relative z-10"><LocalizedText>{label}</LocalizedText></span>
     </>
   );
   if (href) {
     return (
-      <Link
+      <LocalizedElement as={Link}
         to={href}
         className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white active:scale-[0.97] transition-transform inline-flex items-center"
         style={{ background: RED, textDecoration: 'none' }}
-      >{inner}</Link>
+      ><LocalizedText>{inner}</LocalizedText></LocalizedElement>
     );
   }
   return (
@@ -238,7 +240,7 @@ function RedButton({
       onClick={onClick}
       className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white active:scale-[0.97] transition-transform cursor-pointer"
       style={{ background: RED }}
-    >{inner}</button>
+    ><LocalizedText>{inner}</LocalizedText></button>
   );
 }
 
@@ -263,16 +265,16 @@ function OutlineButton({
         className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out"
         style={{ background: light ? "rgba(255,255,255,0.1)" : NAVY }}
       />
-      <span className="relative z-10 group-hover:text-white transition-colors duration-400">{label}</span>
+      <span className="relative z-10 group-hover:text-white transition-colors duration-400"><LocalizedText>{label}</LocalizedText></span>
     </>
   );
   if (href) {
     return (
-      <Link
+      <LocalizedElement as={Link}
         to={href}
         className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase transition-all duration-300 active:scale-[0.97] inline-flex items-center"
         style={{ ...styles, textDecoration: 'none' }}
-      >{inner}</Link>
+      ><LocalizedText>{inner}</LocalizedText></LocalizedElement>
     );
   }
   return (
@@ -280,7 +282,7 @@ function OutlineButton({
       onClick={onClick}
       className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase transition-all duration-300 active:scale-[0.97] cursor-pointer"
       style={styles}
-    >{inner}</button>
+    ><LocalizedText>{inner}</LocalizedText></button>
   );
 }
 
@@ -385,7 +387,7 @@ function HeroSection() {
     cities.forEach(c    => params.append("city",     c));
     districts.forEach(d => params.append("district", d));
     formats.forEach(f   => params.append("format",   f));
-    navigate(`/locations${params.toString() ? "?" + params.toString() : ""}`);
+    navigate(publicPath(`/locations${params.toString() ? "?" + params.toString() : ""}`));
   }
 
   return (
@@ -409,7 +411,7 @@ function HeroSection() {
             srcSet="/images/hero-400.webp 400w, /images/hero-800.webp 800w, /images/hero-1200.webp 1200w, /images/hero-1600.webp 1600w"
             sizes="100vw"
           />
-          <img
+          <LocalizedElement as="img"
             src="/images/hero-1600.jpg"
             srcSet="/images/hero-400.jpg 400w, /images/hero-800.jpg 800w, /images/hero-1200.jpg 1200w, /images/hero-1600.jpg 1600w"
             sizes="100vw"
@@ -458,7 +460,7 @@ function HeroSection() {
               <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
               <span className="text-[10px] font-bold tracking-[0.38em] uppercase"
                 style={{ color: "rgba(255,255,255,0.7)" }}>
-                {heroEyebrow}
+                <LocalizedText>{heroEyebrow}</LocalizedText>
               </span>
             </div>
 
@@ -467,7 +469,7 @@ function HeroSection() {
               className="overflow-visible mb-5 font-black leading-[0.9] tracking-[-0.04em]"
               style={{ fontSize: "clamp(48px, 5vw, 80px)" }}
             >
-              {heroTitleLines.map((word: string, i: number) => (
+              <LocalizedText>{heroTitleLines.map((word: string, i: number) => (
                 <span key={word} className="block overflow-hidden">
                   <span
                     style={{
@@ -476,10 +478,10 @@ function HeroSection() {
                       animation: `heroSlideUp 1.0s cubic-bezier(0.16,1,0.3,1) ${0.2 + i * 0.11}s both`,
                     }}
                   >
-                    {word}
+                    <LocalizedText>{word}</LocalizedText>
                   </span>
                 </span>
-              ))}
+              ))}</LocalizedText>
             </h1>
 
             {/* Channels */}
@@ -487,7 +489,7 @@ function HeroSection() {
               className="text-[11px] font-bold tracking-[0.24em] uppercase mb-5"
               style={{ color: "rgba(255,255,255,0.7)", animation: 'heroFadeIn 0.7s ease 0.6s both' }}
             >
-              {heroChannels}
+              <LocalizedText>{heroChannels}</LocalizedText>
             </p>
 
             {/* Statement */}
@@ -495,7 +497,7 @@ function HeroSection() {
               className="text-[17px] font-medium leading-[1.6] mb-9"
               style={{ color: "rgba(255,255,255,0.7)", maxWidth: 360, animation: 'heroFadeIn 0.75s ease 0.75s both' }}
             >
-              {heroStatement}
+              <LocalizedText>{heroStatement}</LocalizedText>
             </p>
 
             {/* CTA row — 2 buttons only, contained within left panel */}
@@ -503,16 +505,16 @@ function HeroSection() {
               className="flex flex-row items-start gap-3 mb-12 flex-wrap"
               style={{ animation: 'heroFadeIn 0.75s ease 0.9s both' }}
             >
-              <Link
+              <LocalizedElement as={Link}
                 to={ROUTES.CONTACT}
                 className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase text-white cursor-pointer flex-shrink-0 inline-flex items-center"
                 style={{ background: RED, textDecoration: 'none' }}
               >
                 <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
                   style={{ background: "#f0042e" }} />
-                <span className="relative z-10">{t('nav.getQuote')}</span>
-              </Link>
-              <Link
+                <span className="relative z-10"><LocalizedText>{t('nav.getQuote')}</LocalizedText></span>
+              </LocalizedElement>
+              <LocalizedElement as={Link}
                 to={ROUTES.DESIGN_SIMULATOR}
                 className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.22em] uppercase cursor-pointer flex-shrink-0 inline-flex items-center"
                 style={{ border: "1.5px solid rgba(255,255,255,0.7)", color: "rgba(255,255,255,0.7)", background: "transparent", textDecoration: 'none' }}
@@ -520,9 +522,9 @@ function HeroSection() {
                 <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
                   style={{ background: "rgba(255,255,255,0.07)" }} />
                 <span className="relative z-10 group-hover:text-white transition-colors duration-300">
-                  {isAr ? 'جرّب المحاكي' : 'Try Simulator'}
+                  <LocalizedText>{isAr ? 'جرّب المحاكي' : 'Try Simulator'}</LocalizedText>
                 </span>
-              </Link>
+              </LocalizedElement>
             </div>
 
             {/* ── Divider ───────────────────────────────────────────── */}
@@ -531,7 +533,7 @@ function HeroSection() {
                 <span className="block w-4 h-[1px]" style={{ background: RED }} />
                 <p className="text-[9px] font-bold tracking-[0.35em] uppercase"
                   style={{ color: "rgba(255,255,255,0.7)" }}>
-                  {hc.searchTitle}
+                  <LocalizedText>{hc.searchTitle}</LocalizedText>
                 </p>
               </div>
 
@@ -585,17 +587,17 @@ function HeroSection() {
                     <circle cx="6" cy="6" r="4.5" stroke="white" strokeWidth="1.5"/>
                     <path d="M9.5 9.5l3 3" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
                   </svg>
-                  <span className="relative z-10">{isAr ? 'بحث عن اللوحات' : 'Search Billboards'}</span>
+                  <span className="relative z-10"><LocalizedText>{isAr ? 'بحث عن اللوحات' : 'Search Billboards'}</LocalizedText></span>
                 </button>
               </form>
 
-              {hasFilters && (
+              <LocalizedText>{hasFilters && (
                 <button onClick={reset}
                   className="mt-2 text-[10px] font-bold tracking-[0.15em] uppercase"
-                  style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.7)", textAlign: "left" }}>
+                  style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.7)", textAlign: "left" }}><LocalizedText>
                   ← Clear filters
-                </button>
-              )}
+                </LocalizedText></button>
+              )}</LocalizedText>
             </div>
           </div>
         </div>
@@ -607,7 +609,7 @@ function HeroSection() {
             background: "linear-gradient(to right, rgba(11,15,26,0.4) 0%, transparent 25%)"
           }} />
 
-          <ClientOnly fallback={<div className="absolute inset-0 bg-[#0b0f1a]" aria-label="Interactive map" />}>
+          <ClientOnly fallback={<LocalizedElement as="div" className="absolute inset-0 bg-[#0b0f1a]" aria-label="Interactive map" />}>
             <Suspense fallback={<div className="absolute inset-0 bg-[#0b0f1a]" />}>
               <LeafletMap
                 filtered={getBillboards().slice(0, 20)}
@@ -621,7 +623,7 @@ function HeroSection() {
           </ClientOnly>
 
 
-          {selectedPin && (
+          <LocalizedText>{selectedPin && (
               <div
                 className="absolute bottom-4 right-4 z-[1000]"
                 style={{ width: 268, animation: 'fadeSlideLeft 0.28s ease both' }}
@@ -629,7 +631,7 @@ function HeroSection() {
                 <div className="overflow-hidden"
                   style={{ background: NAVY, boxShadow: "0 8px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.07)" }}>
                   <div className="relative overflow-hidden" style={{ height: 120 }}>
-                    <img src={selectedPin.image} alt={selectedPin.name}
+                    <LocalizedElement as="img" src={selectedPin.image} alt={selectedPin.name}
                       width={400} height={120}
                       loading="lazy" decoding="async"
                       className="w-full h-full object-cover" style={{ opacity: 0.7 }}/>
@@ -637,7 +639,7 @@ function HeroSection() {
                       style={{ background: "linear-gradient(to top,rgba(11,15,26,.85) 0%,transparent 55%)" }}/>
                     <span className="absolute bottom-2.5 left-3 text-[9px] font-bold tracking-[0.18em] uppercase"
                       style={{ color: "rgba(255,255,255,0.7)" }}>
-                      {selectedPin.district} · {selectedPin.city}
+                      <LocalizedText>{selectedPin.district}</LocalizedText><LocalizedText> · </LocalizedText><LocalizedText>{selectedPin.city}</LocalizedText>
                     </span>
                     <button onClick={() => setSelectedPin(null)}
                       className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center"
@@ -649,24 +651,24 @@ function HeroSection() {
                   </div>
                   <div style={{ padding: "12px 16px 16px" }}>
                     <p className="text-[9px] font-bold tracking-[0.22em] uppercase mb-1" style={{ color: RED }}>
-                      {selectedPin.type}
+                      <LocalizedText>{selectedPin.type}</LocalizedText>
                     </p>
                     <p className="font-extrabold text-[14px] leading-tight mb-1.5 text-white">
-                      {selectedPin.name}
+                      <LocalizedText>{selectedPin.name}</LocalizedText>
                     </p>
                     <p className="text-[11px] mb-3" style={{ color: "rgba(255,255,255,0.7)" }}>
-                      {selectedPin.traffic} · {selectedPin.size}
+                      <LocalizedText>{selectedPin.traffic}</LocalizedText><LocalizedText> · </LocalizedText><LocalizedText>{selectedPin.size}</LocalizedText>
                     </p>
                     <button
-                      onClick={() => navigate(`/locations/${selectedPin.citySlug}/billboards/${selectedPin.slug}`)}
+                      onClick={() => navigate(publicPath(`/locations/${selectedPin.citySlug}/billboards/${selectedPin.slug}`))}
                       className="w-full h-9 text-[10px] font-bold tracking-[0.18em] uppercase text-white"
-                      style={{ background: RED, border: "none", cursor: "pointer" }}>
+                      style={{ background: RED, border: "none", cursor: "pointer" }}><LocalizedText>
                       View Full Details →
-                    </button>
+                    </LocalizedText></button>
                   </div>
                 </div>
               </div>
-            )}
+            )}</LocalizedText>
         </div>
       </div>
     </section>
@@ -725,11 +727,11 @@ function StatementSection() {
               transition: 'transform 1.1s cubic-bezier(0.16,1,0.3,1)',
             }}
           >
-            {statementEyebrow}
+            <LocalizedText>{statementEyebrow}</LocalizedText>
           </p>
         </div>
 
-        {statementLines.map((line: string, i: number) => (
+        <LocalizedText>{statementLines.map((line: string, i: number) => (
           <div key={i} className="overflow-hidden">
             <h2
               className="font-black leading-[0.88] tracking-[-0.04em] uppercase"
@@ -740,10 +742,10 @@ function StatementSection() {
                 transition: `transform 1.1s cubic-bezier(0.16,1,0.3,1) ${0.1 + i * 0.08}s`,
               }}
             >
-              {line}
+              <LocalizedText>{line}</LocalizedText>
             </h2>
           </div>
-        ))}
+        ))}</LocalizedText>
 
         <div
           className="mt-12 flex justify-center"
@@ -756,7 +758,7 @@ function StatementSection() {
         >
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
             <span className="block w-10 h-[1px] bg-white/15" />
-            <span className="text-white/70 text-[10px] tracking-[0.4em] uppercase font-bold">{hc.statementBrand}</span>
+            <span className="text-white/70 text-[10px] tracking-[0.4em] uppercase font-bold"><LocalizedText>{hc.statementBrand}</LocalizedText></span>
             <span className="block w-10 h-[1px] bg-white/15" />
           </div>
         </div>
@@ -795,13 +797,13 @@ function TrustStrip() {
                   className="font-black leading-none tracking-[-0.05em] mb-4"
                   style={{ fontSize: "clamp(48px, 5vw, 72px)", color: RED }}
                 >
-                  <span>{stat.value}</span>
+                  <span><LocalizedText>{stat.value}</LocalizedText></span>
                 </div>
                 <div
                   className="font-semibold tracking-[0.22em] uppercase"
                   style={{ fontSize: 11, color: "rgba(11,15,26,0.65)" }}
                 >
-                  {isAr ? statLabel(stat.label) : stat.label}
+                  <LocalizedText>{isAr ? statLabel(stat.label) : stat.label}</LocalizedText>
                 </div>
               </div>
             </RevealItem>
@@ -833,23 +835,23 @@ function ServicesSection() {
                 className="font-black leading-[0.9] tracking-[-0.04em]"
                 style={{ fontSize: "clamp(44px, 4.5vw, 64px)", color: NAVY }}
               >
-                {t('home.servicesTitle') || 'Full-spectrum'}
+                <LocalizedText>{t('home.servicesTitle') || 'Full-spectrum'}</LocalizedText>
                 <br />
-                <span style={{ color: "rgba(11,15,26,0.65)" }}>{t('home.servicesAccent') || 'OOH.'}</span>
+                <span style={{ color: "rgba(11,15,26,0.65)" }}><LocalizedText>{t('home.servicesAccent') || 'OOH.'}</LocalizedText></span>
               </h2>
             </Reveal>
           </div>
           <Reveal delay={0.15} className={`flex flex-col items-end gap-5 max-w-[260px] ${isAr ? 'items-start text-left' : 'items-end text-right'}`}>
             <p className="text-[15px] leading-[1.7]" style={{ color: "rgba(11,15,26,0.65)" }}>
-              {t('home.servicesSubtitle') || "Full-spectrum outdoor media solutions across Egypt's major urban centres."}
+              <LocalizedText>{t('home.servicesSubtitle') || "Full-spectrum outdoor media solutions across Egypt's major urban centres."}</LocalizedText>
             </p>
-            <Link
+            <LocalizedElement as={Link}
               to={ROUTES.SERVICES}
               className="group inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.18em] uppercase transition-colors"
               style={{ color: NAVY }}
             >
               <span className="group-hover:underline transition-all">
-                {isAr ? 'عرض كل الخدمات' : 'Show All Services'}
+                <LocalizedText>{isAr ? 'عرض كل الخدمات' : 'Show All Services'}</LocalizedText>
               </span>
               <span
                 className="flex items-center justify-center w-7 h-7 rounded-full transition-all group-hover:translate-x-1"
@@ -859,7 +861,7 @@ function ServicesSection() {
                   <path d="M2 5h6M5.5 2.5L8 5l-2.5 2.5" stroke="white" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </span>
-            </Link>
+            </LocalizedElement>
           </Reveal>
         </div>
 
@@ -870,7 +872,7 @@ function ServicesSection() {
         >
           {visible.map((service, i) => (
             <RevealItem key={service.id} className="h-full">
-              <Link
+              <LocalizedElement as={Link}
                 to={serviceHref(lang, service.slug)}
                 className="group bg-white hover:bg-[#0B0F1A] transition-colors duration-500 flex flex-col h-full"
                 style={{
@@ -882,7 +884,7 @@ function ServicesSection() {
               >
                 {/* Icon + Number row */}
                 <div className="flex items-center justify-between mb-10">
-                  {(service as any).icon ? (
+                  <LocalizedText>{(service as any).icon ? (
                     <span
                       className="w-12 h-12 flex items-center justify-center rounded-2xl border border-[rgba(11,15,26,0.07)] group-hover:border-white/10 transition-all duration-500"
                       style={{ background: 'rgba(11,15,26,0.04)' }}
@@ -893,11 +895,11 @@ function ServicesSection() {
                         className="text-[#0B0F1A] group-hover:text-white transition-colors duration-500"
                       />
                     </span>
-                  ) : null}
+                  ) : null}</LocalizedText>
                   <span
                     className="font-black text-[11px] tracking-[0.25em] uppercase text-[rgba(11,15,26,0.65)] group-hover:text-white/70 transition-colors duration-500 ml-auto"
                   >
-                    {String(i + 1).padStart(2, '0')}
+                    <LocalizedText>{String(i + 1).padStart(2, '0')}</LocalizedText>
                   </span>
                 </div>
 
@@ -906,7 +908,7 @@ function ServicesSection() {
                   className="font-bold tracking-[-0.02em] mb-4 text-[#0B0F1A] group-hover:text-white transition-colors duration-500"
                   style={{ fontSize: 22, lineHeight: 1.2 }}
                 >
-                  {isAr && (service as any).titleAr ? (service as any).titleAr : service.title}
+                  <LocalizedText>{isAr && (service as any).titleAr ? (service as any).titleAr : service.title}</LocalizedText>
                 </h3>
 
                 {/* Dual divider — gray default, red on hover */}
@@ -925,7 +927,7 @@ function ServicesSection() {
                 <p
                   className="text-[15px] leading-[1.7] flex-1 text-[rgba(11,15,26,0.65)] group-hover:text-white/70 transition-colors duration-500"
                 >
-                  {isAr && (service as any).descriptionAr ? (service as any).descriptionAr : service.description}
+                  <LocalizedText>{isAr && (service as any).descriptionAr ? (service as any).descriptionAr : service.description}</LocalizedText>
                 </p>
 
                 {/* CTA — always visible */}
@@ -934,16 +936,16 @@ function ServicesSection() {
                     className="text-[11px] font-bold tracking-[0.2em] uppercase transition-colors duration-300"
                     style={{ color: RED }}
                   >
-                    {t('services.exploreService') || 'Explore Service'}
+                    <LocalizedText>{t('services.exploreService') || 'Explore Service'}</LocalizedText>
                   </span>
                   <span
                     className="opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-1 group-hover:translate-x-0"
                     style={{ color: RED, fontSize: 18, lineHeight: 1 }}
-                  >
+                  ><LocalizedText>
                     →
-                  </span>
+                  </LocalizedText></span>
                 </div>
-              </Link>
+              </LocalizedElement>
             </RevealItem>
           ))}
         </RevealGroup>
@@ -982,7 +984,7 @@ function FeatureSection() {
               className="font-black leading-[0.88] tracking-[-0.05em] text-white mb-14"
               style={{ fontSize: "clamp(60px, 6vw, 88px)" }}
             >
-              {featureLine1}<br />{featureLine2}
+              <LocalizedText>{featureLine1}</LocalizedText><br /><LocalizedText>{featureLine2}</LocalizedText>
             </h2>
           </Reveal>
 
@@ -992,7 +994,7 @@ function FeatureSection() {
                 <div className="flex items-start gap-5">
                   <span className="mt-2 flex-shrink-0 w-[5px] h-[5px]" style={{ background: RED }} />
                   <p className="text-[16px] leading-[1.65]" style={{ color: "rgba(255,255,255,0.7)" }}>
-                    {bullet}
+                    <LocalizedText>{bullet}</LocalizedText>
                   </p>
                 </div>
               </RevealItem>
@@ -1007,7 +1009,7 @@ function FeatureSection() {
         {/* Right — image with parallax */}
         <div className="relative overflow-hidden">
           <div className="absolute inset-[-8%]">
-            <img
+            <LocalizedElement as="img"
               src={hc.featureImage ? thumb(hc.featureImage, 1000, 700) : 'https://images.unsplash.com/photo-1629150154933-a42577786d4f?w=700&q=80&fit=crop'}
               alt="Large format billboard advertising"
               width={1000} height={700}
@@ -1022,8 +1024,8 @@ function FeatureSection() {
           />
           {/* Stats overlay */}
           <div className="absolute bottom-10 right-10 text-right">
-            <p className="text-white/70 text-[10px] tracking-[0.3em] uppercase font-bold mb-1">{hc.featureStatsLabel}</p>
-            <p className="font-black text-white/70 tracking-[-0.04em]" style={{ fontSize: 36 }}>{hc.featureStatsValue}</p>
+            <p className="text-white/70 text-[10px] tracking-[0.3em] uppercase font-bold mb-1"><LocalizedText>{hc.featureStatsLabel}</LocalizedText></p>
+            <p className="font-black text-white/70 tracking-[-0.04em]" style={{ fontSize: 36 }}><LocalizedText>{hc.featureStatsValue}</LocalizedText></p>
           </div>
         </div>
       </div>
@@ -1057,8 +1059,8 @@ function LocationsSection() {
                 className="font-black leading-[0.9] tracking-[-0.04em]"
                 style={{ fontSize: "clamp(44px, 4.5vw, 64px)", color: NAVY }}
               >
-                {t('home.coverageTitle') || 'We cover'}<br />
-                <span style={{ color: "rgba(11,15,26,0.65)" }}>{t('home.coverageAccent') || 'every corner.'}</span>
+                <LocalizedText>{t('home.coverageTitle') || 'We cover'}</LocalizedText><br />
+                <span style={{ color: "rgba(11,15,26,0.65)" }}><LocalizedText>{t('home.coverageAccent') || 'every corner.'}</LocalizedText></span>
               </h2>
             </Reveal>
           </div>
@@ -1079,24 +1081,24 @@ function LocationsSection() {
                   <span
                     className="font-black text-[11px] tracking-[0.25em] uppercase text-[#D90429] group-hover:text-white/70 transition-colors duration-500"
                   >
-                    {String(i + 1).padStart(2, "0")}
+                    <LocalizedText>{String(i + 1).padStart(2, "0")}</LocalizedText>
                   </span>
                   <span
                     className="text-[20px] leading-none opacity-0 group-hover:opacity-100 transition-all duration-400 -translate-x-2 group-hover:translate-x-0 text-[#D90429]"
-                  >
+                  ><LocalizedText>
                     →
-                  </span>
+                  </LocalizedText></span>
                 </div>
                 <h3
                   className="font-extrabold tracking-[-0.02em] mb-3 text-[#0B0F1A] group-hover:text-white transition-colors duration-500"
                   style={{ fontSize: 26, lineHeight: 1.1 }}
                 >
-                  {isAr && (loc as any).cityAr ? (loc as any).cityAr : loc.city}
+                  <LocalizedText>{isAr && (loc as any).cityAr ? (loc as any).cityAr : loc.city}</LocalizedText>
                 </h3>
                 <p
                   className="text-[13px] leading-[1.6] text-[rgba(11,15,26,0.65)] group-hover:text-white/70 transition-colors duration-500"
                 >
-                  {isAr && (loc as any).detailAr ? (loc as any).detailAr : loc.detail}
+                  <LocalizedText>{isAr && (loc as any).detailAr ? (loc as any).detailAr : loc.detail}</LocalizedText>
                 </p>
               </div>
             </RevealItem>
@@ -1124,8 +1126,8 @@ function ProcessSection() {
                 className="font-black text-white leading-[0.9] tracking-[-0.04em]"
                 style={{ fontSize: "clamp(44px, 4.5vw, 64px)" }}
               >
-                {t('home.campaignIn') || 'Campaign in'}<br />
-                <span style={{ color: "rgba(255,255,255,0.7)" }}>{t('home.fourSteps') || '4 steps.'}</span>
+                <LocalizedText>{t('home.campaignIn') || 'Campaign in'}</LocalizedText><br />
+                <span style={{ color: "rgba(255,255,255,0.7)" }}><LocalizedText>{t('home.fourSteps') || '4 steps.'}</LocalizedText></span>
               </h2>
             </Reveal>
           </div>
@@ -1151,7 +1153,7 @@ function ProcessSection() {
                     className="font-black text-[11px] tracking-[0.3em] uppercase"
                     style={{ color: "rgba(255,255,255,0.7)" }}
                   >
-                    {step.step}
+                    <LocalizedText>{step.step}</LocalizedText>
                   </span>
                 </div>
 
@@ -1160,7 +1162,7 @@ function ProcessSection() {
                   className="font-extrabold text-white tracking-[-0.03em]"
                   style={{ fontSize: 28 }}
                 >
-                  {isAr && (step as any).labelAr ? (step as any).labelAr : step.label}
+                  <LocalizedText>{isAr && (step as any).labelAr ? (step as any).labelAr : step.label}</LocalizedText>
                 </h3>
 
                 {/* Rule */}
@@ -1168,7 +1170,7 @@ function ProcessSection() {
 
                 {/* Description */}
                 <p className="text-[14px] leading-[1.7]" style={{ color: "rgba(255,255,255,0.7)" }}>
-                  {isAr && (step as any).descriptionAr ? (step as any).descriptionAr : step.description}
+                  <LocalizedText>{isAr && (step as any).descriptionAr ? (step as any).descriptionAr : step.description}</LocalizedText>
                 </p>
               </div>
             </RevealItem>
@@ -1196,10 +1198,10 @@ function ResultsSection() {
             <h2
               className="font-black leading-[0.9] tracking-[-0.04em] max-w-xl"
               style={{ fontSize: "clamp(44px, 4.5vw, 64px)", color: NAVY }}
-            >
+            ><LocalizedText>
               Numbers
-              <br />
-              <span style={{ color: "rgba(11,15,26,0.65)" }}>that speak.</span>
+              </LocalizedText><br />
+              <span style={{ color: "rgba(11,15,26,0.65)" }}><LocalizedText>that speak.</LocalizedText></span>
             </h2>
           </Reveal>
         </div>
@@ -1219,7 +1221,7 @@ function ResultsSection() {
                   className="font-black leading-none tracking-[-0.05em] mb-6"
                   style={{ fontSize: "clamp(64px, 6vw, 88px)", color: RED }}
                 >
-                  {r.value}
+                  <LocalizedText>{r.value}</LocalizedText>
                 </div>
 
                 {/* Label */}
@@ -1227,7 +1229,7 @@ function ResultsSection() {
                   className="font-bold tracking-[-0.01em] mb-2"
                   style={{ fontSize: 20, color: NAVY }}
                 >
-                  {r.label}
+                  <LocalizedText>{r.label}</LocalizedText>
                 </p>
 
                 {/* Sublabel */}
@@ -1235,7 +1237,7 @@ function ResultsSection() {
                   className="text-[12px] tracking-[0.2em] uppercase font-semibold"
                   style={{ color: "rgba(11,15,26,0.65)" }}
                 >
-                  {(r as any).sublabel ?? (r as any).description ?? ''}
+                  <LocalizedText>{(r as any).sublabel ?? (r as any).description ?? ''}</LocalizedText>
                 </p>
 
                 {/* Red underline */}
@@ -1261,7 +1263,7 @@ function ClientsSection() {
         <Reveal>
           <div className="flex items-center justify-center gap-4 mb-10">
             <span className="block w-8 h-[1px]" style={{ background: "rgba(11,15,26,0.12)" }} />
-            <p className="text-[10px] font-bold tracking-[0.35em] uppercase text-center" style={{ color: "rgba(11,15,26,0.65)" }}>{t('home.trustedBy')}
+            <p className="text-[10px] font-bold tracking-[0.35em] uppercase text-center" style={{ color: "rgba(11,15,26,0.65)" }}><LocalizedText>{t('home.trustedBy')}</LocalizedText>
             </p>
             <span className="block w-8 h-[1px]" style={{ background: "rgba(11,15,26,0.12)" }} />
           </div>
@@ -1290,9 +1292,9 @@ function SignatureSection() {
     >
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none" aria-hidden>
         <p className="text-white/[0.03] font-black uppercase whitespace-nowrap"
-          style={{ fontSize: "clamp(120px, 18vw, 260px)", letterSpacing: "-0.05em" }}>
+          style={{ fontSize: "clamp(120px, 18vw, 260px)", letterSpacing: "-0.05em" }}><LocalizedText>
           HORIZON
-        </p>
+        </LocalizedText></p>
       </div>
       <div className="absolute inset-0 pointer-events-none"
         style={{ background: `radial-gradient(ellipse 50% 50% at 50% 50%, rgba(217,4,41,0.05) 0%, transparent 70%)` }}/>
@@ -1301,21 +1303,21 @@ function SignatureSection() {
           <div className="flex items-center justify-center gap-5 mb-12">
             <span className="block w-12 h-[1px]" style={{ background: "rgba(255,255,255,0.1)" }} />
             <span className="text-[10px] font-bold tracking-[0.4em] uppercase" style={{ color: "rgba(255,255,255,0.7)" }}>
-              {signatureEyebrow}
+              <LocalizedText>{signatureEyebrow}</LocalizedText>
             </span>
             <span className="block w-12 h-[1px]" style={{ background: "rgba(255,255,255,0.1)" }} />
           </div>
         </Reveal>
-        {signatureLines.map((line: string, i: number) => (
+        <LocalizedText>{signatureLines.map((line: string, i: number) => (
           <div key={i} className="overflow-hidden">
             <h2
               className="font-black leading-[0.88] tracking-[-0.05em] uppercase"
               style={{ fontSize: "clamp(48px, 7.5vw, 110px)", color: i === 1 ? RED : "white" }}
             >
-              {line}
+              <LocalizedText>{line}</LocalizedText>
             </h2>
           </div>
-        ))}
+        ))}</LocalizedText>
         <Reveal delay={0.5}>
           <div className="flex items-center justify-center gap-5 mt-12">
             <span className="block w-12 h-[1px]" style={{ background: "rgba(255,255,255,0.08)" }} />
@@ -1347,7 +1349,7 @@ function FinalCTASection() {
           <div className="flex items-center justify-center gap-4 mb-10">
             <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
             <span className="text-[10px] font-bold tracking-[0.35em] uppercase" style={{ color: "rgba(11,15,26,0.65)" }}>
-              {hc.finalCtaEyebrow}
+              <LocalizedText>{hc.finalCtaEyebrow}</LocalizedText>
             </span>
             <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
           </div>
@@ -1355,44 +1357,44 @@ function FinalCTASection() {
         <Reveal delay={0.08}>
           <h2 className="font-black leading-[0.9] tracking-[-0.04em] mx-auto mb-8"
             style={{ fontSize: "clamp(44px, 5vw, 72px)", color: NAVY, maxWidth: 720 }}>
-            {finalLine1}<br />
-            <span style={{ color: "rgba(11,15,26,0.65)" }}>{finalLine2}</span>
+            <LocalizedText>{finalLine1}</LocalizedText><br />
+            <span style={{ color: "rgba(11,15,26,0.65)" }}><LocalizedText>{finalLine2}</LocalizedText></span>
           </h2>
         </Reveal>
         <Reveal delay={0.16}>
           <p className="text-[18px] leading-[1.65] mx-auto mb-14"
             style={{ color: "rgba(11,15,26,0.65)", maxWidth: 380 }}>
-            {finalSubtext}
+            <LocalizedText>{finalSubtext}</LocalizedText>
           </p>
         </Reveal>
         <Reveal delay={0.24}>
           <div className="flex items-center justify-center gap-5 mb-16">
-            <Link
+            <LocalizedElement as={Link}
               to={ROUTES.CONTACT}
               className="inline-flex items-center h-[56px] px-11 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white relative group"
               style={{ background: RED, textDecoration: 'none' }}>
               <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out" style={{ background: NAVY }}/>
-              <span className="relative z-10">{finalPrimary}</span>
-            </Link>
-            <Link
+              <span className="relative z-10"><LocalizedText>{finalPrimary}</LocalizedText></span>
+            </LocalizedElement>
+            <LocalizedElement as={Link}
               to={ROUTES.CONTACT}
               className="group relative inline-flex items-center h-[56px] px-11 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase transition-colors duration-300"
               style={{ border: `1.5px solid ${NAVY}`, color: NAVY, textDecoration: 'none' }}>
               <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out" style={{ background: NAVY }}/>
-              <span className="relative z-10 group-hover:text-white transition-colors duration-400">{finalSecondary}</span>
-            </Link>
+              <span className="relative z-10 group-hover:text-white transition-colors duration-400"><LocalizedText>{finalSecondary}</LocalizedText></span>
+            </LocalizedElement>
           </div>
         </Reveal>
         <Reveal delay={0.32}>
           <div className="flex items-center justify-center gap-10 pt-10 border-t border-[#0B0F1A]/[0.06]">
-            {(hc.finalCtaBadges || []).map((label) => (
+            <LocalizedText>{(hc.finalCtaBadges || []).map((label) => (
               <div key={label} className="flex items-center gap-2.5">
                 <span className="block w-1 h-1" style={{ background: RED }} />
                 <span className="text-[11px] font-semibold tracking-[0.15em] uppercase" style={{ color: "rgba(11,15,26,0.65)" }}>
-                  {label}
+                  <LocalizedText>{label}</LocalizedText>
                 </span>
               </div>
-            ))}
+            ))}</LocalizedText>
           </div>
         </Reveal>
       </div>
@@ -1404,8 +1406,9 @@ function FinalCTASection() {
 // PROJECTS TEASER SECTION (HOME)
 // ═══════════════════════════════════════════════════════════════════════════
 function ProjectsSection() {
-  const { projects: PROJECTS } = useStore()
+  const { projects: rawProjects } = useStore()
   const { lang, isAr, t } = useLang()
+  const PROJECTS = rawProjects.map(project => isAr ? {...project, title: project.titleAr || project.title, tagline: project.taglineAr || project.tagline} : project);
   const ROUTES = makeRoutes(lang)
   const featured = PROJECTS.find((p) => p.featured) ?? PROJECTS[0] ?? null;
   const others   = PROJECTS.filter((p) => p !== featured).slice(0, 2);
@@ -1421,27 +1424,27 @@ function ProjectsSection() {
             <Reveal>
               <div className="flex items-center gap-3 mb-8">
                 <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
-                <span className="text-[10px] font-bold tracking-[0.35em] uppercase" style={{ color: "rgba(11,15,26,0.65)" }}>
+                <span className="text-[10px] font-bold tracking-[0.35em] uppercase" style={{ color: "rgba(11,15,26,0.65)" }}><LocalizedText>
                   Case Studies
-                </span>
+                </LocalizedText></span>
               </div>
             </Reveal>
             <Reveal delay={0.05}>
-              <h2 className="font-black leading-[0.9] tracking-[-0.04em]" style={{ fontSize: "clamp(40px, 4.5vw, 60px)", color: NAVY }}>
-                Campaigns that moved<br />
-                <span style={{ color: "rgba(11,15,26,0.65)" }}>the needle.</span>
+              <h2 className="font-black leading-[0.9] tracking-[-0.04em]" style={{ fontSize: "clamp(40px, 4.5vw, 60px)", color: NAVY }}><LocalizedText>
+                Campaigns that moved</LocalizedText><br />
+                <span style={{ color: "rgba(11,15,26,0.65)" }}><LocalizedText>the needle.</LocalizedText></span>
               </h2>
             </Reveal>
           </div>
           <Reveal delay={0.15}>
-            <Link
+            <LocalizedElement as={Link}
               to={ROUTES.PROJECTS}
               className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase flex items-center"
               style={{ border: `1.5px solid ${NAVY}`, color: NAVY, textDecoration: "none" }}
             >
               <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: NAVY }} />
-              <span className="relative z-10 group-hover:text-white transition-colors duration-300">View All Projects</span>
-            </Link>
+              <span className="relative z-10 group-hover:text-white transition-colors duration-300"><LocalizedText>View All Projects</LocalizedText></span>
+            </LocalizedElement>
           </Reveal>
         </div>
 
@@ -1449,12 +1452,12 @@ function ProjectsSection() {
         <RevealGroup className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Featured — spans 7 columns */}
           <RevealItem className="col-span-7">
-            <Link
+            <LocalizedElement as={Link}
               to={projectHref(lang, featured.slug)}
               className="group relative block overflow-hidden"
               style={{ textDecoration: "none", height: 500 }}
             >
-              <img
+              <LocalizedElement as="img"
                 src={thumb(featured.coverImage, 1200, 500)}
                 alt={featured.coverImageAlt || `${featured.title} — outdoor advertising case study`}
                 width={1200} height={500}
@@ -1466,36 +1469,36 @@ function ProjectsSection() {
 
               <div className="absolute inset-0 flex flex-col justify-end" style={{ padding: "40px" }}>
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="text-[10px] font-bold tracking-[0.25em] uppercase px-3 py-1 text-white" style={{ background: RED }}>{featured.category}</span>
-                  <span className="text-white/70 text-[10px] font-semibold tracking-[0.15em]">{featured.location}</span>
+                  <span className="text-[10px] font-bold tracking-[0.25em] uppercase px-3 py-1 text-white" style={{ background: RED }}><LocalizedText>{featured.category}</LocalizedText></span>
+                  <span className="text-white/70 text-[10px] font-semibold tracking-[0.15em]"><LocalizedText>{featured.location}</LocalizedText></span>
                 </div>
-                <h3 className="font-black text-white leading-[1.05] tracking-[-0.03em] mb-3" style={{ fontSize: "clamp(22px, 2.5vw, 32px)" }}>{featured.title}</h3>
-                <p className="text-white/70 text-[13px] mb-6 leading-[1.6]">{featured.tagline}</p>
+                <h3 className="font-black text-white leading-[1.05] tracking-[-0.03em] mb-3" style={{ fontSize: "clamp(22px, 2.5vw, 32px)" }}><LocalizedText>{featured.title}</LocalizedText></h3>
+                <p className="text-white/70 text-[13px] mb-6 leading-[1.6]"><LocalizedText>{featured.tagline}</LocalizedText></p>
                 <div className="flex items-center gap-8">
-                  {featured.results.slice(0, 2).map((r) => (
+                  <LocalizedText>{featured.results.slice(0, 2).map((r) => (
                     <div key={r.metric}>
-                      <p className="font-black text-white tracking-[-0.03em]" style={{ fontSize: 22, color: RED }}>{r.value}</p>
-                      <p className="text-white/70 text-[10px] tracking-[0.2em] uppercase font-bold">{r.metric}</p>
+                      <p className="font-black text-white tracking-[-0.03em]" style={{ fontSize: 22, color: RED }}><LocalizedText>{r.value}</LocalizedText></p>
+                      <p className="text-white/70 text-[10px] tracking-[0.2em] uppercase font-bold"><LocalizedText>{r.metric}</LocalizedText></p>
                     </div>
-                  ))}
+                  ))}</LocalizedText>
                 </div>
               </div>
               <div className="absolute top-5 right-5 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0">
-                <span style={{ color: RED, fontSize: 22 }}>→</span>
+                <span style={{ color: RED, fontSize: 22 }}><LocalizedText>→</LocalizedText></span>
               </div>
-            </Link>
+            </LocalizedElement>
           </RevealItem>
 
           {/* Two smaller cards — 5 columns */}
           <div className="col-span-5 flex flex-col gap-6">
-            {others.map((p) => (
+            <LocalizedText>{others.map((p) => (
               <RevealItem key={p.id} className="flex-1">
-                <Link
+                <LocalizedElement as={Link}
                   to={projectHref(lang, p.slug)}
                   className="group relative block overflow-hidden"
                   style={{ textDecoration: "none", height: "100%", minHeight: 230 }}
                 >
-                  <img
+                  <LocalizedElement as="img"
                     src={thumb(p.coverImage, 600, 230)}
                     alt={p.coverImageAlt || `${p.title} — outdoor advertising`}
                     width={600} height={230}
@@ -1506,18 +1509,18 @@ function ProjectsSection() {
                   <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(11,15,26,0.85) 0%, rgba(11,15,26,0.1) 70%, transparent 100%)" }} />
                   <div className="absolute inset-0 flex flex-col justify-end" style={{ padding: "24px 28px" }}>
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="text-[9px] font-bold tracking-[0.25em] uppercase px-2 py-1 text-white" style={{ background: RED }}>{p.category}</span>
-                      <span className="text-white/70 text-[9px] font-semibold tracking-[0.15em]">{p.city}</span>
+                      <span className="text-[9px] font-bold tracking-[0.25em] uppercase px-2 py-1 text-white" style={{ background: RED }}><LocalizedText>{p.category}</LocalizedText></span>
+                      <span className="text-white/70 text-[9px] font-semibold tracking-[0.15em]"><LocalizedText>{p.city}</LocalizedText></span>
                     </div>
-                    <h3 className="font-extrabold text-white leading-[1.1] tracking-[-0.02em]" style={{ fontSize: 17 }}>{p.title}</h3>
-                    <p className="text-white/70 text-[11px] mt-1">{p.client} · {p.year}</p>
+                    <h3 className="font-extrabold text-white leading-[1.1] tracking-[-0.02em]" style={{ fontSize: 17 }}><LocalizedText>{p.title}</LocalizedText></h3>
+                    <p className="text-white/70 text-[11px] mt-1"><LocalizedText>{p.client}</LocalizedText><LocalizedText> · </LocalizedText><LocalizedText>{p.year}</LocalizedText></p>
                   </div>
                   <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <span style={{ color: RED, fontSize: 18 }}>→</span>
+                    <span style={{ color: RED, fontSize: 18 }}><LocalizedText>→</LocalizedText></span>
                   </div>
-                </Link>
+                </LocalizedElement>
               </RevealItem>
-            ))}
+            ))}</LocalizedText>
           </div>
         </RevealGroup>
       </div>
@@ -1531,7 +1534,7 @@ function LatestBlogsSection() {
   const { blogPosts } = useStore();
   const { lang, isAr, t } = useLang();
   const ROUTES = makeRoutes(lang);
-  const latest = blogPosts.slice(0, 3);
+  const latest = blogPosts.slice(0, 3).map(post => isAr ? {...post, title: post.titleAr || post.title, excerpt: post.excerptAr || post.excerpt} : post);
   if (latest.length === 0) return null;
 
   return (
@@ -1541,19 +1544,19 @@ function LatestBlogsSection() {
         <Reveal>
           <div className="flex items-end justify-between mb-16 gap-8 flex-wrap">
             <div>
-              <p className="text-[10px] font-bold tracking-[0.35em] uppercase mb-4" style={{ color: "rgba(11,15,26,0.65)" }}>
+              <p className="text-[10px] font-bold tracking-[0.35em] uppercase mb-4" style={{ color: "rgba(11,15,26,0.65)" }}><LocalizedText>
                 Insights & Strategy
-              </p>
-              <h2 className="text-[#0B0F1A] font-black text-[clamp(28px,3.5vw,48px)] tracking-[-0.02em]" style={{ maxWidth: 560 }}>
+              </LocalizedText></p>
+              <h2 className="text-[#0B0F1A] font-black text-[clamp(28px,3.5vw,48px)] tracking-[-0.02em]" style={{ maxWidth: 560 }}><LocalizedText>
                 Latest from the Blog
-              </h2>
+              </LocalizedText></h2>
             </div>
-            <Link
+            <LocalizedElement as={Link}
               to={ROUTES.BLOG}
               className="shrink-0 border border-[#0B0F1A]/20 text-[#0B0F1A] text-[13px] font-semibold tracking-[0.08em] uppercase px-6 py-3 hover:border-[#D90429] hover:text-[#D90429] transition-colors duration-300"
-            >
+            ><LocalizedText>
               View All Articles
-            </Link>
+            </LocalizedText></LocalizedElement>
           </div>
         </Reveal>
 
@@ -1562,14 +1565,14 @@ function LatestBlogsSection() {
         <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[1px]">
           {latest.map((post) => (
             <RevealItem key={post.id}>
-              <Link
+              <LocalizedElement as={Link}
                 to={blogHref(lang, post.slug)}
                 className="group bg-white flex flex-col hover:bg-[#0B0F1A] transition-colors duration-500 h-full"
                 style={{ textDecoration: "none" }}
               >
                 {/* Image */}
                 <div className="relative overflow-hidden" style={{ height: 220 }}>
-                  <img
+                  <LocalizedElement as="img"
                     src={thumb(post.image, 600, 220)}
                     alt={(post as any).imageAlt || post.title}
                     width={600} height={220}
@@ -1581,32 +1584,32 @@ function LatestBlogsSection() {
                     className="absolute top-4 left-4 text-[10px] font-bold tracking-[0.2em] uppercase px-3 py-1.5"
                     style={{ background: RED, color: "white" }}
                   >
-                    {post.category}
+                    <LocalizedText>{post.category}</LocalizedText>
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="flex flex-col flex-1 p-8">
                   <div className="flex items-center gap-3 mb-4">
-                    <span className="text-[10px] font-semibold tracking-[0.2em] text-[rgba(11,15,26,0.65)] group-hover:text-white/70 transition-colors duration-500">{post.date}</span>
-                    <span className="text-[rgba(11,15,26,0.65)] group-hover:text-white/70 transition-colors duration-500" style={{ fontSize: 10 }}>·</span>
-                    <span className="text-[10px] font-semibold tracking-[0.2em] text-[rgba(11,15,26,0.65)] group-hover:text-white/70 transition-colors duration-500">{post.readTime}</span>
+                    <span className="text-[10px] font-semibold tracking-[0.2em] text-[rgba(11,15,26,0.65)] group-hover:text-white/70 transition-colors duration-500"><LocalizedText>{post.date}</LocalizedText></span>
+                    <span className="text-[rgba(11,15,26,0.65)] group-hover:text-white/70 transition-colors duration-500" style={{ fontSize: 10 }}><LocalizedText>·</LocalizedText></span>
+                    <span className="text-[10px] font-semibold tracking-[0.2em] text-[rgba(11,15,26,0.65)] group-hover:text-white/70 transition-colors duration-500"><LocalizedText>{post.readTime}</LocalizedText></span>
                   </div>
                   <h3
                     className="font-bold leading-[1.2] tracking-[-0.02em] mb-4 flex-1 transition-colors duration-500 text-[#0B0F1A] group-hover:text-white"
                     style={{ fontSize: 18 }}
                   >
-                    {post.title}
+                    <LocalizedText>{post.title}</LocalizedText>
                   </h3>
                   <p className="text-[13px] leading-[1.65] mb-6 transition-colors duration-500 text-[rgba(11,15,26,0.65)] group-hover:text-white/70">
-                    {post.excerpt.length > 100 ? post.excerpt.slice(0, 100) + "…" : post.excerpt}
+                    <LocalizedText>{post.excerpt.length > 100 ? post.excerpt.slice(0, 100) + "…" : post.excerpt}</LocalizedText>
                   </p>
                   <div className="flex items-center gap-2">
-                    <span className="text-[11px] font-bold tracking-[0.2em] uppercase" style={{ color: RED }}>Read More</span>
-                    <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 text-base" style={{ color: RED }}>→</span>
+                    <span className="text-[11px] font-bold tracking-[0.2em] uppercase" style={{ color: RED }}><LocalizedText>Read More</LocalizedText></span>
+                    <span className="opacity-0 group-hover:opacity-100 transition-all duration-300 text-base" style={{ color: RED }}><LocalizedText>→</LocalizedText></span>
                   </div>
                 </div>
-              </Link>
+              </LocalizedElement>
             </RevealItem>
           ))}
         </RevealGroup>
@@ -1650,17 +1653,17 @@ function WhyOOHSection() {
     <section style={{ background: NAVY, paddingTop: 120, paddingBottom: 120 }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         <Reveal>
-          <p className="text-white/70 text-[10px] tracking-[0.35em] uppercase mb-4">{eyebrow}</p>
+          <p className="text-white/70 text-[10px] tracking-[0.35em] uppercase mb-4"><LocalizedText>{eyebrow}</LocalizedText></p>
           <h2 className="text-white font-black text-[clamp(28px,3.5vw,48px)] tracking-[-0.02em] mb-16" style={{ maxWidth: 560 }}>
-            {title}
+            <LocalizedText>{title}</LocalizedText>
           </h2>
         </Reveal>
         <RevealGroup className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {cols.map((col, idx) => (
             <RevealItem key={idx}>
               <div className="h-[3px] w-10 mb-8" style={{ background: RED }} />
-              <h3 className="text-white font-bold text-[18px] leading-[1.4] mb-4">{col.title}</h3>
-              <p className="text-white/70 text-[14px] leading-[1.85]">{col.body}</p>
+              <h3 className="text-white font-bold text-[18px] leading-[1.4] mb-4"><LocalizedText>{col.title}</LocalizedText></h3>
+              <p className="text-white/70 text-[14px] leading-[1.85]"><LocalizedText>{col.body}</LocalizedText></p>
             </RevealItem>
           ))}
         </RevealGroup>
@@ -1694,19 +1697,19 @@ function BillboardBenefitsSection() {
     <section style={{ background: "#fff", paddingTop: 120, paddingBottom: 120 }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
         <Reveal>
-          <p className="text-[#0B0F1A]/65 text-[10px] tracking-[0.35em] uppercase mb-4">{eyebrow}</p>
+          <p className="text-[#0B0F1A]/65 text-[10px] tracking-[0.35em] uppercase mb-4"><LocalizedText>{eyebrow}</LocalizedText></p>
           <h2 className="text-[#0B0F1A] font-black text-[clamp(28px,3.5vw,48px)] tracking-[-0.02em] mb-16" style={{ maxWidth: 560 }}>
-            {title}
+            <LocalizedText>{title}</LocalizedText>
           </h2>
         </Reveal>
         <RevealGroup className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0">
           {benefits.map((b, i) => (
             <RevealItem key={i}>
               <div className={`pt-8 pb-8 ${i < benefits.length - 1 ? "border-r border-[#0B0F1A]/[0.06]" : ""} pr-8 ${i > 0 ? "pl-8" : ""}`}>
-                {b.num && <p className="text-[10px] font-bold tracking-[0.3em] uppercase mb-4" style={{ color: RED }}>{b.num}</p>}
+                <LocalizedText>{b.num && <p className="text-[10px] font-bold tracking-[0.3em] uppercase mb-4" style={{ color: RED }}><LocalizedText>{b.num}</LocalizedText></p>}</LocalizedText>
                 <div className="h-[1px] w-full bg-[#0B0F1A]/[0.07] mb-6" />
-                <h3 className="text-[#0B0F1A] font-bold text-[16px] leading-[1.4] mb-3">{b.title}</h3>
-                <p className="text-[#0B0F1A]/65 text-[13px] leading-[1.8]">{b.body}</p>
+                <h3 className="text-[#0B0F1A] font-bold text-[16px] leading-[1.4] mb-3"><LocalizedText>{b.title}</LocalizedText></h3>
+                <p className="text-[#0B0F1A]/65 text-[13px] leading-[1.8]"><LocalizedText>{b.body}</LocalizedText></p>
               </div>
             </RevealItem>
           ))}
@@ -1742,25 +1745,25 @@ function RecentBillboardsSection() {
           <div className="flex items-start justify-between mb-16 gap-8 flex-wrap">
             <div>
               <p className="text-[#0B0F1A]/65 text-[10px] tracking-[0.35em] uppercase mb-4">
-                {t('home.recentAdded') || 'Recently Added'}
+                <LocalizedText>{t('home.recentAdded') || 'Recently Added'}</LocalizedText>
               </p>
               <h2
                 id="recent-billboards-heading"
                 className="text-[#0B0F1A] font-black text-[clamp(28px,3.5vw,48px)] tracking-[-0.02em]"
                 style={{ maxWidth: 640 }}
               >
-                {t('home.recentTitleAccent') || 'Recently Added Billboards in Egypt'}
+                <LocalizedText>{t('home.recentTitleAccent') || 'Recently Added Billboards in Egypt'}</LocalizedText>
               </h2>
               <p className="text-[#0B0F1A]/65 text-[15px] mt-4 max-w-[480px] leading-relaxed">
-                {t('home.recentSubtitle') || 'New outdoor advertising locations across Cairo, Alexandria & nationwide.'}
+                <LocalizedText>{t('home.recentSubtitle') || 'New outdoor advertising locations across Cairo, Alexandria & nationwide.'}</LocalizedText>
               </p>
             </div>
-            <Link
+            <LocalizedElement as={Link}
               to={ROUTES.LOCATIONS}
               className="shrink-0 self-center border border-[#0B0F1A]/20 text-[#0B0F1A] text-[13px] font-semibold tracking-[0.08em] uppercase px-6 py-3 hover:border-[#D90429] hover:text-[#D90429] transition-colors duration-300"
             >
-              {t('home.viewAllLocations') || 'View All Locations'}
-            </Link>
+              <LocalizedText>{t('home.viewAllLocations') || 'View All Locations'}</LocalizedText>
+            </LocalizedElement>
           </div>
         </Reveal>
 
@@ -1768,14 +1771,14 @@ function RecentBillboardsSection() {
         <RevealGroup className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {RECENT_SIX.map((product) => (
             <RevealItem key={product.id}>
-              <Link
+              <LocalizedElement as={Link}
                 to={productHref(lang, product.citySlug, product.slug)}
                 className="group block border border-[#0B0F1A]/[0.08] hover:border-[#D90429]/25 transition-colors duration-300 overflow-hidden relative"
                 aria-label={`View billboard: ${product.name} in ${product.cityName}`}
               >
                 {/* Image with overlay */}
                 <div className="relative overflow-hidden" style={{ height: 220, contain: 'layout' }}>
-                  <img
+                  <LocalizedElement as="img"
                     src={thumb(product.image, 600, 220)}
                     alt={`billboard advertising ${product.cityName} — ${product.name}`}
                     width={600} height={220}
@@ -1797,7 +1800,7 @@ function RecentBillboardsSection() {
                     className="absolute top-3 left-3 text-white text-[10px] font-bold tracking-[0.25em] uppercase px-3 py-1"
                     style={{ background: RED }}
                   >
-                    {product.cityName}
+                    <LocalizedText>{product.cityName}</LocalizedText>
                   </span>
                   {/* NEW badge removed */}
                 </div>
@@ -1807,7 +1810,7 @@ function RecentBillboardsSection() {
                   {/* Name + arrow row */}
                   <div className="flex items-start justify-between gap-3 mb-1">
                     <h3 className="text-[#0B0F1A] font-bold text-[16px] tracking-[-0.01em] leading-snug flex-1 min-w-0">
-                      {isAr && (product as any).nameAr ? (product as any).nameAr : ((product as any).nameEn || product.name)}
+                      <LocalizedText>{isAr && (product as any).nameAr ? (product as any).nameAr : ((product as any).nameEn || product.name)}</LocalizedText>
                     </h3>
                     {/* Arrow — visible on hover */}
                     <div
@@ -1825,12 +1828,12 @@ function RecentBillboardsSection() {
                       <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" fill="currentColor"/>
                     </svg>
                     <p className="text-[#0B0F1A]/65 text-[12px] truncate">
-                      {product.location}
+                      <LocalizedText>{product.location}</LocalizedText>
                     </p>
                   </div>
                   {/* Code / Size / Format */}
                   <div className="grid grid-cols-3 gap-0 border border-[#0B0F1A]/[0.07]">
-                    {[
+                    <LocalizedText>{[
                       { label: t('spec.code')      || 'Code',   value: (product as any).code || '—' },
                       { label: t('spec.size')      || 'Size',   value: product.size },
                       { label: t('spec.adFormat')  || 'Format', value: (product as any).adFormat || product.type },
@@ -1840,13 +1843,13 @@ function RecentBillboardsSection() {
                         className="flex flex-col items-center justify-center py-3 px-2"
                         style={{ borderLeft: i > 0 ? '2px solid #D90429' : 'none' }}
                       >
-                        <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-[#0B0F1A]/65 mb-1">{stat.label}</span>
-                        <span className="text-[12px] font-bold text-[#0B0F1A] text-center leading-tight">{stat.value}</span>
+                        <span className="text-[9px] font-bold tracking-[0.2em] uppercase text-[#0B0F1A]/65 mb-1"><LocalizedText>{stat.label}</LocalizedText></span>
+                        <span className="text-[12px] font-bold text-[#0B0F1A] text-center leading-tight"><LocalizedText>{stat.value}</LocalizedText></span>
                       </div>
-                    ))}
+                    ))}</LocalizedText>
                   </div>
                 </div>
-              </Link>
+              </LocalizedElement>
             </RevealItem>
           ))}
         </RevealGroup>

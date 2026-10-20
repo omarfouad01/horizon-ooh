@@ -1,3 +1,5 @@
+import {publicPath} from '@/i18n/publicArabic';
+import {LocalizedText, LocalizedElement} from "@/components/Localized";
 import { businessGraph } from "@/lib/seo";
 import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
@@ -36,7 +38,7 @@ export function LogoMark({ size = 54, variant = 'header' }: { size?: number; var
   // render at their natural aspect ratio instead of being clipped to 54×54.
   if (url) {
     return (
-      <img
+      <LocalizedElement as="img"
         src={url}
         alt={store.settings.companyName}
         width={size}
@@ -102,7 +104,7 @@ export function Navbar() {
     setSiteUser(null);
     setProfileOpen(false);
     try { authApi.logout().catch(() => {}); } catch { /* ignore */ }
-    navigate('/');
+    navigate(publicPath('/'));
   }
 
   useEffect(() => { setMenuOpen(false); }, [location.pathname]);
@@ -135,7 +137,7 @@ export function Navbar() {
           {/* Logo — fixed-width container prevents nav links shifting when logo
                loads from API (wide logo would push links right without this) */}
           <div style={{ width: 200, flexShrink: 0, contain: 'layout style' }}>
-          <Link to={ROUTES.HOME} className="flex items-center gap-4 group">
+          <LocalizedElement as={Link} to={ROUTES.HOME} className="flex items-center gap-4 group">
             <LogoMark size={54} variant="header" />
             {/* CLS fix: keep in DOM always (space reserved). Show only when no logo URL.
                 opacity:0 while URL is loading or set — prevents the text→logo swap CLS. */}
@@ -145,20 +147,20 @@ export function Navbar() {
               aria-hidden={!!store.settings.headerLogoUrl}
             >
               <span className="text-[13px] font-black tracking-[0.22em] uppercase leading-none text-[#0B0F1A]">
-                {(companyName ?? 'HORIZON OOH').split(' ')[0] || 'HORIZON'}
+                <LocalizedText>{(companyName ?? 'HORIZON OOH').split(' ')[0] || 'HORIZON'}</LocalizedText>
               </span>
-              <span className="text-[9px] font-semibold tracking-[0.35em] uppercase leading-none text-[#0B0F1A]/65">
+              <span className="text-[9px] font-semibold tracking-[0.35em] uppercase leading-none text-[#0B0F1A]/65"><LocalizedText>
                 OUT-OF-HOME
-              </span>
+              </LocalizedText></span>
             </div>
-          </Link>
+          </LocalizedElement>
           </div>
 
           {/* Desktop links — flex-shrink-0 prevents right section from
                compressing/shifting when logo or login/profile widths change */}
           <div className="hidden min-[1440px]:flex items-center gap-4 ml-4" style={{ flexShrink: 0 }}>
-            {NAV_LINKS.map((link) => (
-              <NavLink
+            <LocalizedText>{NAV_LINKS.map((link) => (
+              <LocalizedElement as={NavLink}
                 key={link.href}
                 to={langPath(lang, link.href)}
                 className={({ isActive }) =>
@@ -169,18 +171,18 @@ export function Navbar() {
               >
                 {({ isActive }) => (
                   <>
-                    {t(`nav.${link.href.replace('/','') || 'home'}`) !== `nav.${link.href.replace('/','') || 'home'}` ? t(`nav.${link.href.replace('/','') || 'home'}`) : link.label}
+                    <LocalizedText>{t(`nav.${link.href.replace('/','') || 'home'}`) !== `nav.${link.href.replace('/','') || 'home'}` ? t(`nav.${link.href.replace('/','') || 'home'}`) : link.label}</LocalizedText>
                     <span
                       className="absolute -bottom-0.5 left-0 h-[1px] transition-all duration-300"
                       style={{ width: isActive ? "100%" : "0%", background: RED }}
                     />
                   </>
                 )}
-              </NavLink>
-            ))}
+              </LocalizedElement>
+            ))}</LocalizedText>
 
             {/* Simulator link */}
-            <NavLink
+            <LocalizedElement as={NavLink}
               to={langPath(lang, "/design-simulator")}
               className={({ isActive }) =>
                 `relative text-[12px] font-semibold tracking-[0.18em] uppercase transition-colors duration-200 group ${
@@ -189,31 +191,31 @@ export function Navbar() {
               }
             >
               {({ isActive }) => (
-                <>
+                <><LocalizedText>
                   SIMULATOR
-                  <span
+                  </LocalizedText><span
                     className="absolute -bottom-0.5 left-0 h-[1px] transition-all duration-300"
                     style={{ width: isActive ? '100%' : '0%', background: RED }}
                   />
                 </>
               )}
-            </NavLink>
+            </LocalizedElement>
 
             {/* Language Toggle */}
-            <button
+            <LocalizedElement as="button"
               onClick={() => setLang(lang === 'en' ? 'ar' : 'en')}
               className="h-[34px] px-3 text-[11px] font-bold tracking-[0.12em] uppercase flex items-center gap-1.5 border transition-colors duration-200 hover:border-[#0B0F1A] hover:text-[#0B0F1A] rounded-sm"
               style={{ borderColor: "rgba(11,15,26,0.15)", color: "rgba(11,15,26,0.65)" }}
               aria-label="Toggle language"
             >
-              <span className="text-base leading-none">{isAr ? '🇬🇧' : '🇪🇬'}</span>
-              <span>{isAr ? 'EN' : 'عربي'}</span>
-            </button>
+              <span className="text-base leading-none"><LocalizedText>{isAr ? '🇬🇧' : '🇪🇬'}</LocalizedText></span>
+              <span><LocalizedText>{isAr ? 'EN' : 'عربي'}</LocalizedText></span>
+            </LocalizedElement>
 
             {/* CLS fix: fixed-width wrapper so Login↔Profile swap never
                 shifts the nav links or the GET A QUOTE button */}
             <div style={{ minWidth: 120, display: 'flex', justifyContent: 'flex-end' }}>
-            {siteUser ? (
+            <LocalizedText>{siteUser ? (
               /* ── Profile button (logged in) ── */
               <div className="relative" ref={profileRef}>
                 <button
@@ -229,7 +231,7 @@ export function Navbar() {
                     <path d="M1.5 3.5l3 3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                   </svg>
                 </button>
-                {profileOpen && (
+                <LocalizedText>{profileOpen && (
                     <div
                       className="absolute right-0 top-[calc(100%+6px)] bg-white border border-gray-200 rounded-xl shadow-xl py-2 min-w-[180px] z-[9999]"
                       style={{ animation: 'fadeSlideDown 0.15s ease forwards' }}
@@ -238,26 +240,26 @@ export function Navbar() {
                         <p className="text-[12px] font-bold text-gray-900 truncate">{siteUser.name}</p>
                         <p className="text-[11px] text-gray-400 truncate">{siteUser.email}</p>
                       </div>
-                      <Link
+                      <LocalizedElement as={Link}
                         to={langPath(lang, "/profile")}
                         onClick={() => setProfileOpen(false)}
                         className="flex items-center gap-2 px-4 py-2 text-[12px] font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
                       >
                         <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="currentColor" strokeWidth="1.5"/><path d="M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
-                        {isAr ? 'ملف شخصي' : 'My Profile'}
-                      </Link>
+                        <LocalizedText>{isAr ? 'ملف شخصي' : 'My Profile'}</LocalizedText>
+                      </LocalizedElement>
                       <button
                         onClick={handleLogout}
                         className="w-full flex items-center gap-2 px-4 py-2 text-[12px] font-semibold text-red-500 hover:bg-red-50 transition-colors"
                       >
                         <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M6 2H3a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3M10 11l3-3-3-3M13 8H6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
-                        {isAr ? 'تسجيل الخروج' : 'Sign Out'}
+                        <LocalizedText>{isAr ? 'تسجيل الخروج' : 'Sign Out'}</LocalizedText>
                       </button>
                     </div>
-                  )}
+                  )}</LocalizedText>
               </div>
             ) : (
-              <Link
+              <LocalizedElement as={Link}
                 to={langPath(lang, "/login")}
                 className="h-[40px] px-5 text-[11px] font-bold tracking-[0.18em] uppercase flex items-center gap-2 border transition-colors duration-200 hover:border-[#0B0F1A] hover:text-[#0B0F1A]"
                 style={{ borderColor: "rgba(11,15,26,0.2)", color: "rgba(11,15,26,0.65)" }}
@@ -266,22 +268,22 @@ export function Navbar() {
                   <circle cx="8" cy="5" r="3" stroke="currentColor" strokeWidth="1.5"/>
                   <path d="M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                 </svg>
-                {t('nav.login')}
-              </Link>
-            )}
+                <LocalizedText>{t('nav.login')}</LocalizedText>
+              </LocalizedElement>
+            )}</LocalizedText>
             </div>{/* end CLS minWidth wrapper */}
-            <Link
+            <LocalizedElement as={Link}
               to={ROUTES.CONTACT}
               className="h-[40px] px-7 text-[11px] font-bold tracking-[0.2em] uppercase text-white flex items-center relative overflow-hidden group active:scale-[0.97] transition-transform"
               style={{ background: RED }}
             >
               <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" style={{ background: NAVY }} />
-              <span className="relative z-10">{t('nav.getQuote')}</span>
-            </Link>
+              <span className="relative z-10"><LocalizedText>{t('nav.getQuote')}</LocalizedText></span>
+            </LocalizedElement>
           </div>
 
           {/* Mobile toggle */}
-          <button
+          <LocalizedElement as="button"
             className="min-[1440px]:hidden w-10 h-10 flex flex-col items-center justify-center gap-[5px] cursor-pointer"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
@@ -289,7 +291,7 @@ export function Navbar() {
             <span className={`block w-6 h-[1.5px] bg-[#0B0F1A] transition-all duration-300 origin-center ${menuOpen ? "rotate-45 translate-y-[6.5px]" : ""}`} />
             <span className={`block h-[1.5px] bg-[#0B0F1A] transition-all duration-300 ${menuOpen ? "w-0 opacity-0" : "w-4"}`} />
             <span className={`block w-6 h-[1.5px] bg-[#0B0F1A] transition-all duration-300 origin-center ${menuOpen ? "-rotate-45 -translate-y-[6.5px]" : ""}`} />
-          </button>
+          </LocalizedElement>
         </div>
 
         {/* Scroll progress */}
@@ -300,13 +302,13 @@ export function Navbar() {
       </nav>
 
       {/* Mobile menu */}
-      {menuOpen && (
+      <LocalizedText>{menuOpen && (
           <div
             className="fixed top-[76px] left-0 right-0 z-40 min-[1440px]:hidden max-h-[calc(100dvh-76px)] overflow-y-auto bg-white border-b border-[#0B0F1A]/10 px-8 py-8 flex flex-col gap-5"
             style={{ animation: 'fadeSlideDown 0.22s ease forwards' }}
           >
-            {NAV_LINKS.map((link) => (
-              <NavLink
+            <LocalizedText>{NAV_LINKS.map((link) => (
+              <LocalizedElement as={NavLink}
                 key={link.href}
                 to={langPath(lang, link.href)}
                 className={({ isActive }) =>
@@ -315,47 +317,47 @@ export function Navbar() {
                   }`
                 }
               >
-                {t(`nav.${link.href.replace('/','') || 'home'}`) !== `nav.${link.href.replace('/','') || 'home'}` ? t(`nav.${link.href.replace('/','') || 'home'}`) : link.label}
-              </NavLink>
-            ))}
+                <LocalizedText>{t(`nav.${link.href.replace('/','') || 'home'}`) !== `nav.${link.href.replace('/','') || 'home'}` ? t(`nav.${link.href.replace('/','') || 'home'}`) : link.label}</LocalizedText>
+              </LocalizedElement>
+            ))}</LocalizedText>
             {/* Simulator — mobile */}
-            <NavLink
+            <LocalizedElement as={NavLink}
               to={langPath(lang, "/design-simulator")}
               className={({ isActive }) =>
                 `text-left text-[13px] font-semibold tracking-[0.2em] uppercase transition-colors ${
                   isActive ? 'text-[#D90429]' : 'text-[#0B0F1A]/65 hover:text-[#D90429]'
                 }`
               }
-            >
+            ><LocalizedText>
               SIMULATOR
-            </NavLink>
+            </LocalizedText></LocalizedElement>
             {/* Mobile language toggle */}
             <button
               onClick={() => setLang(lang === 'en' ? 'ar' : 'en')}
               className="flex items-center gap-2 text-[13px] font-semibold tracking-[0.2em] uppercase text-[#0B0F1A]/65 hover:text-[#D90429] transition-colors"
             >
-              <span className="text-base">{isAr ? '🇬🇧' : '🇪🇬'}</span>
-              <span>{isAr ? 'EN' : 'عربي'}</span>
+              <span className="text-base"><LocalizedText>{isAr ? '🇬🇧' : '🇪🇬'}</LocalizedText></span>
+              <span><LocalizedText>{isAr ? 'EN' : 'عربي'}</LocalizedText></span>
             </button>
-            {siteUser ? (
+            <LocalizedText>{siteUser ? (
               <div className="flex flex-col gap-0.5">
                 <span className="text-[12px] font-bold text-[#0B0F1A]/70">{siteUser.name || siteUser.email}</span>
                 <button onClick={handleLogout} className="text-left text-[12px] font-semibold text-red-500 hover:text-red-700 transition-colors">
-                  {isAr ? 'تسجيل الخروج' : 'Sign Out'}
+                  <LocalizedText>{isAr ? 'تسجيل الخروج' : 'Sign Out'}</LocalizedText>
                 </button>
               </div>
             ) : (
-              <Link to={langPath(lang, "/login")} className="flex items-center gap-2 text-[13px] font-semibold tracking-[0.2em] uppercase text-[#0B0F1A]/65 hover:text-[#D90429] transition-colors">{t('nav.login')}</Link>
-            )}
-            <Link
+              <LocalizedElement as={Link} to={langPath(lang, "/login")} className="flex items-center gap-2 text-[13px] font-semibold tracking-[0.2em] uppercase text-[#0B0F1A]/65 hover:text-[#D90429] transition-colors"><LocalizedText>{t('nav.login')}</LocalizedText></LocalizedElement>
+            )}</LocalizedText>
+            <LocalizedElement as={Link}
               to={ROUTES.CONTACT}
               className="mt-2 h-[44px] px-8 text-white text-[11px] font-bold tracking-[0.2em] uppercase w-fit flex items-center active:scale-[0.97] transition-transform"
               style={{ background: RED }}
             >
-              {t('nav.getQuote')}
-            </Link>
+              <LocalizedText>{t('nav.getQuote')}</LocalizedText>
+            </LocalizedElement>
           </div>
-        )}
+        )}</LocalizedText>
     </>
   );
 }
@@ -409,7 +411,7 @@ export function Footer() {
           className="text-white/[0.025] font-black uppercase whitespace-nowrap leading-none"
           style={{ fontSize: "clamp(80px, 12vw, 180px)", letterSpacing: "-0.04em", transform: "translateY(30%)" }}
         >
-          {s.companyName}
+          <LocalizedText>{s.companyName}</LocalizedText>
         </p>
       </div>
 
@@ -418,8 +420,8 @@ export function Footer() {
           {/* Brand */}
           <div style={{ maxWidth: 280 }}>
             <div className="flex items-center gap-3 mb-6">
-              {(s.footerLogoUrl || s.headerLogoUrl) ? (
-                <img src={s.footerLogoUrl || s.headerLogoUrl} alt={s.companyName} width={200} height={48} loading="lazy" decoding="async" style={{ height: 48, width: "auto", objectFit: "contain" }} />
+              <LocalizedText>{(s.footerLogoUrl || s.headerLogoUrl) ? (
+                <LocalizedElement as="img" src={s.footerLogoUrl || s.headerLogoUrl} alt={s.companyName} width={200} height={48} loading="lazy" decoding="async" style={{ height: 48, width: "auto", objectFit: "contain" }} />
               ) : (
                 <>
                   <div className="w-12 h-12 flex items-center justify-center flex-shrink-0" style={{ background: RED }}>
@@ -429,33 +431,33 @@ export function Footer() {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-white font-black text-[13px] tracking-[0.22em] uppercase leading-none">{(s.companyName ?? 'HORIZON OOH').split(' ')[0] || 'HORIZON'}</p>
-                    <p className="text-white/70 font-semibold text-[9px] tracking-[0.35em] uppercase mt-0.5">OUT-OF-HOME</p>
+                    <p className="text-white font-black text-[13px] tracking-[0.22em] uppercase leading-none"><LocalizedText>{(s.companyName ?? 'HORIZON OOH').split(' ')[0] || 'HORIZON'}</LocalizedText></p>
+                    <p className="text-white/70 font-semibold text-[9px] tracking-[0.35em] uppercase mt-0.5"><LocalizedText>OUT-OF-HOME</LocalizedText></p>
                   </div>
                 </>
-              )}
+              )}</LocalizedText>
             </div>
-            <p className="text-white/70 text-[14px] leading-[1.75]">{isAr && (s as any).taglineAr ? (s as any).taglineAr : s.tagline}</p>
+            <p className="text-white/70 text-[14px] leading-[1.75]"><LocalizedText>{isAr && (s as any).taglineAr ? (s as any).taglineAr : s.tagline}</LocalizedText></p>
             <div className="mt-8 flex items-center gap-1">
               <span className="w-6 h-[1px]" style={{ background: RED }} />
-              <span className="text-white/70 text-[10px] tracking-[0.3em] uppercase ml-2">{t('footer.estd')}</span>
+              <span className="text-white/70 text-[10px] tracking-[0.3em] uppercase ml-2"><LocalizedText>{t('footer.estd')}</LocalizedText></span>
             </div>
             {/* Social links */}
-            {s.socialLinks && (
+            <LocalizedText>{s.socialLinks && (
               <div className="mt-6 flex items-center gap-3">
-                {s.socialLinks.facebook  && <a href={s.socialLinks.facebook}  target="_blank" rel="noopener noreferrer" aria-label="Facebook"  className="w-8 h-8 rounded-full flex items-center justify-center transition-colors" style={{background:'rgba(255,255,255,0.07)'}} onMouseOver={e=>(e.currentTarget.style.background='rgba(255,255,255,0.15)')} onMouseOut={e=>(e.currentTarget.style.background='rgba(255,255,255,0.07)')}><svg width="14" height="14" fill="white" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>}
-                {s.socialLinks.instagram && <a href={s.socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-8 h-8 rounded-full flex items-center justify-center transition-colors" style={{background:'rgba(255,255,255,0.07)'}} onMouseOver={e=>(e.currentTarget.style.background='rgba(255,255,255,0.15)')} onMouseOut={e=>(e.currentTarget.style.background='rgba(255,255,255,0.07)')}><svg width="14" height="14" fill="none" stroke="white" strokeWidth="1.5" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>}
-                {s.socialLinks.linkedin  && <a href={s.socialLinks.linkedin}  target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"  className="w-8 h-8 rounded-full flex items-center justify-center transition-colors" style={{background:'rgba(255,255,255,0.07)'}} onMouseOver={e=>(e.currentTarget.style.background='rgba(255,255,255,0.15)')} onMouseOut={e=>(e.currentTarget.style.background='rgba(255,255,255,0.07)')}><svg width="14" height="14" fill="white" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>}
-                {s.socialLinks.twitter   && <a href={s.socialLinks.twitter}   target="_blank" rel="noopener noreferrer" aria-label="X/Twitter" className="w-8 h-8 rounded-full flex items-center justify-center transition-colors" style={{background:'rgba(255,255,255,0.07)'}} onMouseOver={e=>(e.currentTarget.style.background='rgba(255,255,255,0.15)')} onMouseOut={e=>(e.currentTarget.style.background='rgba(255,255,255,0.07)')}><svg width="13" height="13" fill="white" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L2.25 2.25H8.08l4.254 5.625L18.244 2.25zM17.5 19.77h1.834L6.604 4.126H4.64L17.5 19.77z"/></svg></a>}
-                {s.socialLinks.tiktok    && <a href={s.socialLinks.tiktok}    target="_blank" rel="noopener noreferrer" aria-label="TikTok"    className="w-8 h-8 rounded-full flex items-center justify-center transition-colors" style={{background:'rgba(255,255,255,0.07)'}} onMouseOver={e=>(e.currentTarget.style.background='rgba(255,255,255,0.15)')} onMouseOut={e=>(e.currentTarget.style.background='rgba(255,255,255,0.07)')}><svg width="13" height="13" fill="white" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.18a8.27 8.27 0 0 0 4.84 1.55V7.26a4.85 4.85 0 0 1-1.07-.57z"/></svg></a>}
-                {s.socialLinks.youtube   && <a href={s.socialLinks.youtube}   target="_blank" rel="noopener noreferrer" aria-label="YouTube"   className="w-8 h-8 rounded-full flex items-center justify-center transition-colors" style={{background:'rgba(255,255,255,0.07)'}} onMouseOver={e=>(e.currentTarget.style.background='rgba(255,255,255,0.15)')} onMouseOut={e=>(e.currentTarget.style.background='rgba(255,255,255,0.07)')}><svg width="14" height="14" fill="white" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon fill="#0B0F1A" points="9.75,15.02 15.5,12 9.75,8.98 9.75,15.02"/></svg></a>}
+                <LocalizedText>{s.socialLinks.facebook  && <LocalizedElement as="a" href={s.socialLinks.facebook}  target="_blank" rel="noopener noreferrer" aria-label="Facebook"  className="w-8 h-8 rounded-full flex items-center justify-center transition-colors" style={{background:'rgba(255,255,255,0.07)'}} onMouseOver={e=>(e.currentTarget.style.background='rgba(255,255,255,0.15)')} onMouseOut={e=>(e.currentTarget.style.background='rgba(255,255,255,0.07)')}><svg width="14" height="14" fill="white" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></LocalizedElement>}</LocalizedText>
+                <LocalizedText>{s.socialLinks.instagram && <LocalizedElement as="a" href={s.socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-8 h-8 rounded-full flex items-center justify-center transition-colors" style={{background:'rgba(255,255,255,0.07)'}} onMouseOver={e=>(e.currentTarget.style.background='rgba(255,255,255,0.15)')} onMouseOut={e=>(e.currentTarget.style.background='rgba(255,255,255,0.07)')}><svg width="14" height="14" fill="none" stroke="white" strokeWidth="1.5" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></LocalizedElement>}</LocalizedText>
+                <LocalizedText>{s.socialLinks.linkedin  && <LocalizedElement as="a" href={s.socialLinks.linkedin}  target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"  className="w-8 h-8 rounded-full flex items-center justify-center transition-colors" style={{background:'rgba(255,255,255,0.07)'}} onMouseOver={e=>(e.currentTarget.style.background='rgba(255,255,255,0.15)')} onMouseOut={e=>(e.currentTarget.style.background='rgba(255,255,255,0.07)')}><svg width="14" height="14" fill="white" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></LocalizedElement>}</LocalizedText>
+                <LocalizedText>{s.socialLinks.twitter   && <LocalizedElement as="a" href={s.socialLinks.twitter}   target="_blank" rel="noopener noreferrer" aria-label="X/Twitter" className="w-8 h-8 rounded-full flex items-center justify-center transition-colors" style={{background:'rgba(255,255,255,0.07)'}} onMouseOver={e=>(e.currentTarget.style.background='rgba(255,255,255,0.15)')} onMouseOut={e=>(e.currentTarget.style.background='rgba(255,255,255,0.07)')}><svg width="13" height="13" fill="white" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L2.25 2.25H8.08l4.254 5.625L18.244 2.25zM17.5 19.77h1.834L6.604 4.126H4.64L17.5 19.77z"/></svg></LocalizedElement>}</LocalizedText>
+                <LocalizedText>{s.socialLinks.tiktok    && <LocalizedElement as="a" href={s.socialLinks.tiktok}    target="_blank" rel="noopener noreferrer" aria-label="TikTok"    className="w-8 h-8 rounded-full flex items-center justify-center transition-colors" style={{background:'rgba(255,255,255,0.07)'}} onMouseOver={e=>(e.currentTarget.style.background='rgba(255,255,255,0.15)')} onMouseOut={e=>(e.currentTarget.style.background='rgba(255,255,255,0.07)')}><svg width="13" height="13" fill="white" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.18a8.27 8.27 0 0 0 4.84 1.55V7.26a4.85 4.85 0 0 1-1.07-.57z"/></svg></LocalizedElement>}</LocalizedText>
+                <LocalizedText>{s.socialLinks.youtube   && <LocalizedElement as="a" href={s.socialLinks.youtube}   target="_blank" rel="noopener noreferrer" aria-label="YouTube"   className="w-8 h-8 rounded-full flex items-center justify-center transition-colors" style={{background:'rgba(255,255,255,0.07)'}} onMouseOver={e=>(e.currentTarget.style.background='rgba(255,255,255,0.15)')} onMouseOut={e=>(e.currentTarget.style.background='rgba(255,255,255,0.07)')}><svg width="14" height="14" fill="white" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon fill="#0B0F1A" points="9.75,15.02 15.5,12 9.75,8.98 9.75,15.02"/></svg></LocalizedElement>}</LocalizedText>
               </div>
-            )}
+            )}</LocalizedText>
           </div>
 
           {/* Links grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
-          {[
+          <LocalizedText>{[
               {
                 heading: t('footer.services'),
                 links: serviceLinks,
@@ -482,33 +484,33 @@ export function Footer() {
               },
             ].map(({ heading, links }) => (
               <div key={heading}>
-                <p className="text-white/70 text-[10px] tracking-[0.3em] uppercase font-bold mb-5" dir={isAr ? 'rtl' : undefined}>{heading}</p>
+                <p className="text-white/70 text-[10px] tracking-[0.3em] uppercase font-bold mb-5" dir={isAr ? 'rtl' : undefined}><LocalizedText>{heading}</LocalizedText></p>
                 <div className="flex flex-col gap-3">
-                  {links.map((l, linkIndex) => (
-                    <Link
+                  <LocalizedText>{links.map((l, linkIndex) => (
+                    <LocalizedElement as={Link}
                       key={`${l.href}-${linkIndex}`}
                       to={l.href}
                       className="text-white/70 text-[13px] hover:text-white transition-colors duration-200 leading-none"
                     >
-                      {l.label}
-                    </Link>
-                  ))}
+                      <LocalizedText>{l.label}</LocalizedText>
+                    </LocalizedElement>
+                  ))}</LocalizedText>
                 </div>
               </div>
-            ))}
+            ))}</LocalizedText>
           </div>
         </div>
 
         {/* Bottom */}
         <div className="pt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-          <p className="text-white/70 text-[11px] tracking-[0.2em]">© 2026 {s.companyName} · {t('footer.rights')}</p>
+          <p className="text-white/70 text-[11px] tracking-[0.2em]"><LocalizedText>© 2026 </LocalizedText><LocalizedText>{s.companyName}</LocalizedText><LocalizedText> · </LocalizedText><LocalizedText>{t('footer.rights')}</LocalizedText></p>
           <div className="flex items-center gap-5">
-            <Link to={langPath(lang, '/privacy')} className="text-white/70 text-[11px] tracking-[0.15em] hover:text-white">{t('footer.privacy')}</Link>
-            <Link to={langPath(lang, '/terms')} className="text-white/70 text-[11px] tracking-[0.15em] hover:text-white">{t('footer.terms')}</Link>
-            <a href="/sitemap.xml" className="text-white/70 text-[11px] tracking-[0.15em] hover:text-white">{t('footer.sitemap')}</a>
+            <LocalizedElement as={Link} to={langPath(lang, '/privacy')} className="text-white/70 text-[11px] tracking-[0.15em] hover:text-white"><LocalizedText>{t('footer.privacy')}</LocalizedText></LocalizedElement>
+            <LocalizedElement as={Link} to={langPath(lang, '/terms')} className="text-white/70 text-[11px] tracking-[0.15em] hover:text-white"><LocalizedText>{t('footer.terms')}</LocalizedText></LocalizedElement>
+            <LocalizedElement as="a" href="/sitemap.xml" className="text-white/70 text-[11px] tracking-[0.15em] hover:text-white"><LocalizedText>{t('footer.sitemap')}</LocalizedText></LocalizedElement>
             <div className="flex items-center gap-1.5 ml-1">
               <span className="w-1.5 h-1.5 block animate-pulse" style={{ background: RED }} />
-              <span className="text-white/70 text-[10px] tracking-[0.2em] uppercase">{t('footer.madeIn')}</span>
+              <span className="text-white/70 text-[10px] tracking-[0.2em] uppercase"><LocalizedText>{t('footer.madeIn')}</LocalizedText></span>
             </div>
           </div>
         </div>
@@ -536,17 +538,17 @@ function FloatingCTAs() {
 
   // Build WhatsApp number — strip non-digits, ensure it starts with country code
   const waNumber = (store.settings?.whatsapp ?? '').replace(/\D/g, '') || '201234567890';
-  const waHref = `https://wa.me/${waNumber}?text=Hi%20${encodeURIComponent(store.settings?.companyName ?? 'HORIZON OOH')}%2C%20I%27d%20like%20a%20quote.`;
+  const waHref = lang === 'ar' ? `https://wa.me/${waNumber}?text=${encodeURIComponent('مرحبًا هورايزون، أود طلب عرض سعر.')}` : `https://wa.me/${waNumber}?text=Hi%20${encodeURIComponent(store.settings?.companyName ?? 'HORIZON OOH')}%2C%20I%27d%20like%20a%20quote.`;
 
   return (
     <>
-    {visible && (
+    <LocalizedText>{visible && (
         <div
           className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3"
           style={{ animation: 'fadeSlideUp 0.3s ease forwards' }}
         >
           {/* WhatsApp FAB */}
-          <a
+          <LocalizedElement as="a"
             href={waHref}
             target="_blank"
             rel="noopener noreferrer"
@@ -557,27 +559,27 @@ function FloatingCTAs() {
             <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
             </svg>
-          </a>
+          </LocalizedElement>
 
           {/* Sticky Get a Quote bar */}
           <div className="flex flex-col items-end gap-2 rounded-sm shadow-xl overflow-hidden" style={{ background: NAVY }}>
             <div className="px-4 pt-3 pb-1">
-              <p className="text-white/70 text-[9px] tracking-[0.25em] uppercase leading-none">Launch your campaign</p>
+              <p className="text-white/70 text-[9px] tracking-[0.25em] uppercase leading-none"><LocalizedText>Launch your campaign</LocalizedText></p>
             </div>
-            <Link
+            <LocalizedElement as={Link}
               to={ROUTES.CONTACT}
               className="mx-3 mb-3 px-5 py-2.5 text-white text-[10px] font-bold tracking-[0.2em] uppercase flex items-center gap-2 relative overflow-hidden group"
               style={{ background: RED }}
             >
               <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" style={{ background: "#ff1a3a" }} />
-              <span className="relative z-10">Get a Quote</span>
+              <span className="relative z-10"><LocalizedText>Get a Quote</LocalizedText></span>
               <svg className="relative z-10" width="10" height="10" viewBox="0 0 10 10" fill="none">
                 <path d="M1 9L9 1M9 1H3M9 1V7" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
-            </Link>
+            </LocalizedElement>
           </div>
         </div>
-      )}
+      )}</LocalizedText>
     </>
   );
 }
@@ -613,7 +615,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <DynamicFavicon />
       <BusinessSchema />
       <Navbar />
-      <main className="pt-[76px]">{children}</main>
+      <main className="pt-[76px]"><LocalizedText>{children}</LocalizedText></main>
       <Footer />
       <FloatingCTAs />
     </div>

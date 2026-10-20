@@ -1,3 +1,5 @@
+import {publicPath} from '@/i18n/publicArabic';
+import {LocalizedText, LocalizedElement} from "@/components/Localized";
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useStore } from "@/store/dataStore";
@@ -20,9 +22,9 @@ function ServiceSkeleton() {
             <div className="h-16 w-3/4 rounded animate-pulse mb-4" style={{ background: 'rgba(255,255,255,0.1)' }} />
             <div className="h-16 w-1/2 rounded animate-pulse mb-8" style={{ background: 'rgba(255,255,255,0.07)' }} />
             <div className="space-y-2 mb-8">
-              {[100, 90, 85].map((w, i) => (
+              <LocalizedText>{[100, 90, 85].map((w, i) => (
                 <div key={i} className="h-4 rounded animate-pulse" style={{ width: `${w}%`, background: 'rgba(255,255,255,0.05)' }} />
-              ))}
+              ))}</LocalizedText>
             </div>
             <div className="h-12 w-36 rounded animate-pulse" style={{ background: 'rgba(217,4,41,0.4)' }} />
           </div>
@@ -32,9 +34,9 @@ function ServiceSkeleton() {
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px] py-16">
         <div className="h-8 w-56 rounded animate-pulse mb-8" style={{ background: 'rgba(11,15,26,0.08)' }} />
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1,2,3].map((i) => (
+          <LocalizedText>{[1,2,3].map((i) => (
             <div key={i} className="h-32 rounded animate-pulse" style={{ background: 'rgba(11,15,26,0.06)' }} />
-          ))}
+          ))}</LocalizedText>
         </div>
       </div>
     </>
@@ -91,8 +93,8 @@ export default function ServiceDetail() {
   if (!service) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6">
-        <p className="text-[#0B0F1A]/40 text-lg">{isAr ? 'الخدمة غير موجودة.' : 'Service not found.'}</p>
-        <button onClick={() => navigate("/services")} className="text-[#D90429] font-bold underline hover:opacity-70 transition-opacity duration-150 cursor-pointer">{isAr ? 'العودة للخدمات' : 'Back to Services'}</button>
+        <p className="text-[#0B0F1A]/40 text-lg"><LocalizedText>{isAr ? 'الخدمة غير موجودة.' : 'Service not found.'}</LocalizedText></p>
+        <button onClick={() => navigate(publicPath("/services"))} className="text-[#D90429] font-bold underline hover:opacity-70 transition-opacity duration-150 cursor-pointer"><LocalizedText>{isAr ? 'العودة للخدمات' : 'Back to Services'}</LocalizedText></button>
       </div>
     );
   }
@@ -142,29 +144,29 @@ export default function ServiceDetail() {
                 className="font-black leading-[0.88] tracking-[-0.05em] text-white mb-6"
                 style={{ fontSize: "clamp(52px, 6vw, 84px)" }}
               >
-                {service.tagline}
+                <LocalizedText>{service.tagline}</LocalizedText>
               </h1>
             </Reveal>
             <Reveal delay={0.12}>
               <p className="text-[17px] leading-[1.75] mb-12" style={{ color: "rgba(255,255,255,0.45)" }}>
-                {service.longDescription}
+                <LocalizedText>{service.longDescription}</LocalizedText>
               </p>
             </Reveal>
             <Reveal delay={0.2}>
-              <Link
+              <LocalizedElement as={Link}
                 to={langPath(lang, "/contact")}
                 className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white w-fit flex items-center active:scale-[0.97] transition-transform"
                 style={{ background: RED, textDecoration: 'none' }}
               >
                 <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" style={{ background: "white" }} />
-                <span className="relative z-10 group-hover:text-[#0B0F1A] transition-colors duration-300">Get a Quote</span>
-              </Link>
+                <span className="relative z-10 group-hover:text-[#0B0F1A] transition-colors duration-300"><LocalizedText>Get a Quote</LocalizedText></span>
+              </LocalizedElement>
             </Reveal>
           </div>
 
           {/* Right image */}
           <div className="relative overflow-hidden">
-            <img
+            <LocalizedElement as="img"
               src={thumb(service.image, 800, 600)}
               srcSet={thumbSrcSet(service.image, [400, 800, 1200], 4 / 3)}
               sizes="(min-width: 1024px) 50vw, 100vw"
@@ -190,15 +192,15 @@ export default function ServiceDetail() {
             <div className="col-span-12 lg:col-span-4">
               <Eyebrow text="Overview" />
               <Reveal delay={0.04}>
-                <h2 className="font-black leading-[0.9] tracking-[-0.04em]" style={{ fontSize: "clamp(32px, 3.5vw, 44px)", color: NAVY }}>
-                  What is<br />{service.shortTitle}?
-                </h2>
+                <h2 className="font-black leading-[0.9] tracking-[-0.04em]" style={{ fontSize: "clamp(32px, 3.5vw, 44px)", color: NAVY }}><LocalizedText>
+                  What is</LocalizedText><br /><LocalizedText>{service.shortTitle}</LocalizedText><LocalizedText>?
+                </LocalizedText></h2>
               </Reveal>
             </div>
             <div className="col-span-12 lg:col-span-8 flex items-center">
               <Reveal delay={0.1}>
                 <p className="text-[17px] leading-[1.8]" style={{ color: "rgba(11,15,26,0.5)" }}>
-                  {service.whatIs}
+                  <LocalizedText>{service.whatIs}</LocalizedText>
                 </p>
               </Reveal>
             </div>
@@ -215,11 +217,11 @@ export default function ServiceDetail() {
               <RevealItem key={i}>
                 <div className="bg-white border border-[#0B0F1A]/[0.07] p-10">
                   <span className="font-black text-[11px] tracking-[0.25em] uppercase block mb-6" style={{ color: "rgba(11,15,26,0.2)" }}>
-                    {String(i + 1).padStart(2, "0")}
+                    <LocalizedText>{String(i + 1).padStart(2, "0")}</LocalizedText>
                   </span>
                   <div className="w-6 h-[2px] mb-6" style={{ background: RED }} />
                   <p className="text-[16px] leading-[1.7]" style={{ color: "rgba(11,15,26,0.65)" }}>
-                    {benefit}
+                    <LocalizedText>{benefit}</LocalizedText>
                   </p>
                 </div>
               </RevealItem>
@@ -235,14 +237,14 @@ export default function ServiceDetail() {
             <div>
               <Eyebrow text="Coverage" light />
               <Reveal delay={0.04}>
-                <h2 className="font-black leading-[0.9] tracking-[-0.04em] text-white" style={{ fontSize: "clamp(32px, 3.5vw, 48px)" }}>
-                  Where we<br /><span style={{ color: "rgba(255,255,255,0.2)" }}>deploy it.</span>
+                <h2 className="font-black leading-[0.9] tracking-[-0.04em] text-white" style={{ fontSize: "clamp(32px, 3.5vw, 48px)" }}><LocalizedText>
+                  Where we</LocalizedText><br /><span style={{ color: "rgba(255,255,255,0.2)" }}><LocalizedText>deploy it.</LocalizedText></span>
                 </h2>
               </Reveal>
             </div>
             <Reveal delay={0.1}>
               <p className="text-[17px] leading-[1.8]" style={{ color: "rgba(255,255,255,0.45)" }}>
-                {service.whereUsed}
+                <LocalizedText>{service.whereUsed}</LocalizedText>
               </p>
             </Reveal>
           </div>
@@ -257,11 +259,11 @@ export default function ServiceDetail() {
             {(service.process || []).map((step, i) => (
               <RevealItem key={i}>
                 <div className="bg-white p-10">
-                  <span className="font-black text-[11px] tracking-[0.25em] uppercase block mb-5" style={{ color: RED }}>
-                    Step {String(i + 1).padStart(2, "0")}
+                  <span className="font-black text-[11px] tracking-[0.25em] uppercase block mb-5" style={{ color: RED }}><LocalizedText>
+                    Step </LocalizedText><LocalizedText>{String(i + 1).padStart(2, "0")}</LocalizedText>
                   </span>
                   <p className="text-[16px] leading-[1.7]" style={{ color: "rgba(11,15,26,0.6)" }}>
-                    {step}
+                    <LocalizedText>{step}</LocalizedText>
                   </p>
                 </div>
               </RevealItem>
@@ -271,7 +273,7 @@ export default function ServiceDetail() {
       </section>
 
       {/* Why Choose HORIZON OOH — controlled from dashboard */}
-      {(() => {
+      <LocalizedText>{(() => {
         const whyCols: { title?: string; text?: string }[] = (service as any).whyChoose ?? [];
         // Only render section if at least one column has text
         const hasContent = whyCols.some(c => c?.text?.trim());
@@ -280,9 +282,9 @@ export default function ServiceDetail() {
           <section style={{ background: '#fff', paddingTop: 100, paddingBottom: 100 }}>
             <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
               <Reveal>
-                <h2 className="font-black text-[clamp(28px,3.5vw,44px)] tracking-[-0.03em] mb-12" style={{ color: NAVY }}>
-                  Why Choose HORIZON OOH for {service.shortTitle} Advertising?
-                </h2>
+                <h2 className="font-black text-[clamp(28px,3.5vw,44px)] tracking-[-0.03em] mb-12" style={{ color: NAVY }}><LocalizedText>
+                  Why Choose HORIZON OOH for </LocalizedText><LocalizedText>{service.shortTitle}</LocalizedText><LocalizedText> Advertising?
+                </LocalizedText></h2>
               </Reveal>
               <RevealGroup className="grid grid-cols-1 md:grid-cols-3 gap-12">
                 {whyCols.map((col, i) =>
@@ -290,11 +292,11 @@ export default function ServiceDetail() {
                     <RevealItem key={i}>
                       {col.title && (
                         <h3 className="font-extrabold text-[16px] mb-3 tracking-[-0.01em]" style={{ color: NAVY }}>
-                          {col.title}
+                          <LocalizedText>{col.title}</LocalizedText>
                         </h3>
                       )}
                       <p className="text-[15px] leading-[1.8]" style={{ color: 'rgba(11,15,26,0.6)' }}>
-                        {col.text}
+                        <LocalizedText>{col.text}</LocalizedText>
                       </p>
                     </RevealItem>
                   ) : null
@@ -303,34 +305,34 @@ export default function ServiceDetail() {
             </div>
           </section>
         );
-      })()}
+      })()}</LocalizedText>
 
       {/* Other services */}
       <section style={{ background: "#F5F5F6", paddingTop: 80, paddingBottom: 80 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <Reveal>
-            <p className="text-[11px] font-bold tracking-[0.3em] uppercase mb-8" style={{ color: "rgba(11,15,26,0.3)" }}>
+            <p className="text-[11px] font-bold tracking-[0.3em] uppercase mb-8" style={{ color: "rgba(11,15,26,0.3)" }}><LocalizedText>
               Other Services
-            </p>
+            </LocalizedText></p>
           </Reveal>
           <RevealGroup className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {others.map((s) => (
               <RevealItem key={s.id}>
-                <Link
+                <LocalizedElement as={Link}
                   to={serviceHref(lang, s.slug)}
                   className="group flex items-center justify-between p-6 bg-white border border-[#0B0F1A]/[0.08] hover:bg-[#0B0F1A] hover:border-[#D90429]/30 transition-all duration-300"
                   style={{ textDecoration: "none" }}
                 >
                   <div>
                     <p className="font-bold text-[16px] tracking-[-0.01em] text-[#0B0F1A] group-hover:text-white transition-colors duration-400">
-                      {s.title}
+                      <LocalizedText>{s.title}</LocalizedText>
                     </p>
                     <p className="text-[12px] font-semibold tracking-[0.1em] uppercase mt-1 text-[rgba(11,15,26,0.3)] group-hover:text-white/50 transition-colors duration-400">
-                      {s.tagline}
+                      <LocalizedText>{s.tagline}</LocalizedText>
                     </p>
                   </div>
-                  <span className="text-xl opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0" style={{ color: RED }}>→</span>
-                </Link>
+                  <span className="text-xl opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0" style={{ color: RED }}><LocalizedText>→</LocalizedText></span>
+                </LocalizedElement>
               </RevealItem>
             ))}
           </RevealGroup>

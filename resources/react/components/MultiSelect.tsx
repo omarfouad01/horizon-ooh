@@ -1,3 +1,6 @@
+import {useLang} from "@/i18n/LangContext";
+import {arabicText} from "@/i18n/publicArabic";
+import {LocalizedText, LocalizedElement} from "@/components/Localized";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 
@@ -16,6 +19,7 @@ interface Props {
 }
 
 export default function MultiSelect({ label, options, selected, onChange, icon, dark = false, optionLabels }: Props) {
+  const {isAr} = useLang();
   const [open, setOpen]           = useState(false);
   const [dropPos, setDropPos]     = useState({ top: 0, left: 0, width: 0 });
   const [query, setQuery]         = useState("");
@@ -75,19 +79,19 @@ export default function MultiSelect({ label, options, selected, onChange, icon, 
     onChange(selected.includes(val) ? selected.filter(v => v !== val) : [...selected, val]);
   };
 
-  const displayLabel = (val: string) => (optionLabels && optionLabels[val]) ? optionLabels[val] : val;
+  const displayLabel = (val: string) => { const text = (optionLabels && optionLabels[val]) || val; return isAr ? arabicText(text) : text; };
 
   const triggerLabel = selected.length === 0
-    ? `All ${label}s`
+    ? (isAr ? ({"المحافظة":"كل المحافظات","المدينة":"كل المدن","المنطقة":"كل المناطق","النوع":"كل الأنواع"}[label] || `كل ${label}`) : `All ${label}s`)
     : selected.length === 1
       ? displayLabel(selected[0])
       : selected.length <= 2
         ? selected.map(displayLabel).join(", ")
-        : `${selected.length} ${label}s`;
+        : (isAr ? `${selected.length} اختيارات` : `${selected.length} ${label}s`);
 
   const filteredOptions = options.filter(opt => {
     const enMatch = opt.toLowerCase().includes(query.trim().toLowerCase());
-    const arLabel = optionLabels ? optionLabels[opt] : '';
+    const arLabel = isAr ? displayLabel(opt) : (optionLabels ? optionLabels[opt] : '');
     const arMatch = arLabel ? arLabel.includes(query.trim()) : false;
     return enMatch || arMatch;
   });
@@ -108,17 +112,17 @@ export default function MultiSelect({ label, options, selected, onChange, icon, 
           cursor: "pointer",
         }}
       >
-        <span className="flex-shrink-0">{icon}</span>
-        <span className="flex-1 truncate">{triggerLabel}</span>
+        <span className="flex-shrink-0"><LocalizedText>{icon}</LocalizedText></span>
+        <span className="flex-1 truncate"><LocalizedText>{triggerLabel}</LocalizedText></span>
         {/* Selected count badge */}
-        {selected.length > 0 && (
+        <LocalizedText>{selected.length > 0 && (
           <span
             className="flex-shrink-0 w-4 h-4 flex items-center justify-center text-white rounded-full"
             style={{ background: RED, fontSize: 9, fontWeight: 900 }}
           >
-            {selected.length}
+            <LocalizedText>{selected.length}</LocalizedText>
           </span>
-        )}
+        )}</LocalizedText>
         {/* Chevron */}
         <span
           className="absolute right-3 top-1/2 pointer-events-none transition-transform duration-200"
@@ -131,7 +135,7 @@ export default function MultiSelect({ label, options, selected, onChange, icon, 
       </button>
 
       {/* Dropdown — rendered in a portal to escape any overflow:hidden ancestors */}
-      {open && createPortal(
+      <LocalizedText>{open && createPortal(
         <div
           ref={dropRef}
           className="overflow-y-auto"
@@ -149,7 +153,7 @@ export default function MultiSelect({ label, options, selected, onChange, icon, 
           }}
         >
           {/* Clear option */}
-          {selected.length > 0 && (
+          <LocalizedText>{selected.length > 0 && (
             <button
               type="button"
               onClick={() => onChange([])}
@@ -158,12 +162,12 @@ export default function MultiSelect({ label, options, selected, onChange, icon, 
             >
               <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
                 <path d="M1 1l6 6M7 1L1 7" stroke={RED} strokeWidth="1.4" strokeLinecap="round"/>
-              </svg>
+              </svg><LocalizedText>
               Clear selection
-            </button>
-          )}
+            </LocalizedText></button>
+          )}</LocalizedText>
           <div className="px-3 py-3" style={{ borderBottom: "1px solid rgba(11,15,26,0.06)" }}>
-            <input
+            <LocalizedElement as="input"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={`Search ${label.toLowerCase()}...`}
@@ -171,10 +175,10 @@ export default function MultiSelect({ label, options, selected, onChange, icon, 
               style={{ border: "1px solid rgba(11,15,26,0.12)", color: NAVY }}
             />
           </div>
-          {filteredOptions.length === 0 ? (
-            <div className="px-4 py-4 text-[12px]" style={{ color: "rgba(11,15,26,0.4)" }}>
+          <LocalizedText>{filteredOptions.length === 0 ? (
+            <div className="px-4 py-4 text-[12px]" style={{ color: "rgba(11,15,26,0.4)" }}><LocalizedText>
               No results found.
-            </div>
+            </LocalizedText></div>
           ) : filteredOptions.map(opt => {
             const checked = selected.includes(opt);
             return (
@@ -200,19 +204,19 @@ export default function MultiSelect({ label, options, selected, onChange, icon, 
                     background: checked ? RED : "white",
                   }}
                 >
-                  {checked && (
+                  <LocalizedText>{checked && (
                     <svg width="8" height="6" viewBox="0 0 8 6" fill="none">
                       <path d="M1 3l2 2 4-4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
-                  )}
+                  )}</LocalizedText>
                 </span>
-                <span>{displayLabel(opt)}</span>
+                <span><LocalizedText>{displayLabel(opt)}</LocalizedText></span>
               </button>
             );
-          })}
+          })}</LocalizedText>
         </div>,
         document.body
-      )}
+      )}</LocalizedText>
     </div>
   );
 }

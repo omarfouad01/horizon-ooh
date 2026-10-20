@@ -1,3 +1,6 @@
+import {publicPath} from '@/i18n/publicArabic';
+import {arabicText} from "@/i18n/publicArabic";
+import {LocalizedText, LocalizedElement} from "@/components/Localized";
 /**
  * Locations — Premium marketplace-style page
  * Layout: Sticky filter bar → Results header → Split-screen (cards left / map right)
@@ -117,9 +120,9 @@ function FilterDropdown({ label, options, values, onChange, icon, optionLabels }
           boxShadow: hasValues ? "0 2px 12px rgba(217,4,41,0.2)" : "0 1px 4px rgba(11,15,26,0.06)",
         }}
       >
-        <span style={{ opacity: hasValues ? 1 : 0.5, flexShrink: 0 }}>{icon}</span>
-        <span className="truncate" style={{ maxWidth: 140 }}>{triggerLabel}</span>
-        {hasValues ? (
+        <span style={{ opacity: hasValues ? 1 : 0.5, flexShrink: 0 }}><LocalizedText>{icon}</LocalizedText></span>
+        <span className="truncate" style={{ maxWidth: 140 }}><LocalizedText>{triggerLabel}</LocalizedText></span>
+        <LocalizedText>{hasValues ? (
           <span
             onClick={e => { e.stopPropagation(); onChange([]); }}
             className="flex items-center justify-center w-4 h-4 rounded-full ml-1 flex-shrink-0 transition-opacity hover:opacity-70"
@@ -134,7 +137,7 @@ function FilterDropdown({ label, options, values, onChange, icon, optionLabels }
           >
             <ChevronDown />
           </span>
-        )}
+        )}</LocalizedText>
       </button>
 
       {/* Dropdown panel — rendered inline, z-index handles layering */}
@@ -160,23 +163,23 @@ function FilterDropdown({ label, options, values, onChange, icon, optionLabels }
               style={{ borderBottom: "1px solid rgba(11,15,26,0.07)" }}>
               <span className="text-[11px] font-bold tracking-[0.2em] uppercase"
                 style={{ color: "rgba(11,15,26,0.4)" }}>
-                {label}
+                <LocalizedText>{label}</LocalizedText>
               </span>
-              {hasValues && (
+              <LocalizedText>{hasValues && (
                 <button
                   type="button"
                   onClick={() => onChange([])}
                   className="text-[10px] font-bold tracking-[0.12em] uppercase transition-colors hover:text-[#D90429]"
                   style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(11,15,26,0.35)" }}
-                >
+                ><LocalizedText>
                   Clear
-                </button>
-              )}
+                </LocalizedText></button>
+              )}</LocalizedText>
             </div>
 
             {/* Options list */}
             <div style={{ maxHeight: 240, overflowY: "auto" }}>
-              {options.map(opt => {
+              <LocalizedText>{options.map(opt => {
                 const checked = values.includes(opt);
                 return (
                   <button
@@ -202,12 +205,12 @@ function FilterDropdown({ label, options, values, onChange, icon, optionLabels }
                         background: checked ? RED : "white",
                       }}
                     >
-                      {checked && (
+                      <LocalizedText>{checked && (
                         <svg width="9" height="7" viewBox="0 0 9 7" fill="none">
                           <path d="M1 3.5l2.5 2.5 5-5" stroke="white" strokeWidth="1.6"
                             strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
-                      )}
+                      )}</LocalizedText>
                     </span>
                     <span
                       className="text-[13px]"
@@ -216,26 +219,26 @@ function FilterDropdown({ label, options, values, onChange, icon, optionLabels }
                         fontWeight: checked ? 700 : 450,
                       }}
                     >
-                      {displayLabel(opt)}
+                      <LocalizedText>{displayLabel(opt)}</LocalizedText>
                     </span>
                   </button>
                 );
-              })}
+              })}</LocalizedText>
             </div>
 
             {/* Footer — apply/done */}
-            {hasValues && (
+            <LocalizedText>{hasValues && (
               <div className="px-4 py-3" style={{ borderTop: "1px solid rgba(11,15,26,0.07)" }}>
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
                   className="w-full h-9 flex items-center justify-center text-[11px] font-bold tracking-[0.18em] uppercase text-white transition-opacity hover:opacity-90"
                   style={{ background: RED, border: "none", borderRadius: 6, cursor: "pointer" }}
-                >
-                  Apply · {values.length} selected
-                </button>
+                ><LocalizedText>
+                  Apply · </LocalizedText><LocalizedText>{values.length}</LocalizedText><LocalizedText> selected
+                </LocalizedText></button>
               </div>
-            )}
+            )}</LocalizedText>
           </motion.div>
         )}
       </AnimatePresence>
@@ -285,7 +288,7 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, w
     >
       {/* Image */}
       <div className="relative overflow-hidden" style={{ height: 200, contain: 'layout' }}>
-        <img
+        <LocalizedElement as="img"
           src={b.image}
           alt={`${b.name} — billboard advertising ${b.city}`}
           width={600} height={200}
@@ -302,11 +305,11 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, w
         <div className="absolute top-3 left-3 flex items-center gap-1.5">
           <span className="text-[9px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 text-white"
             style={{ background: RED, borderRadius: 3 }}>
-            {isAr && b.cityAr ? b.cityAr : b.city}
+            <LocalizedText>{isAr && b.cityAr ? b.cityAr : b.city}</LocalizedText>
           </span>
           <span className="text-[9px] font-semibold tracking-[0.12em] uppercase px-2.5 py-1 text-white/80"
             style={{ background: "rgba(11,15,26,0.6)", backdropFilter: "blur(6px)", borderRadius: 3 }}>
-            {isAr && b.districtAr ? b.districtAr : b.district}
+            <LocalizedText>{isAr && b.districtAr ? b.districtAr : b.district}</LocalizedText>
           </span>
         </div>
 
@@ -314,13 +317,13 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, w
         <div className="absolute top-3 right-3">
           <span className="text-[9px] font-bold tracking-[0.12em] uppercase px-2.5 py-1 text-white/70"
             style={{ background: "rgba(11,15,26,0.55)", backdropFilter: "blur(6px)", borderRadius: 3 }}>
-            {b.adFormat || b.type}
+            <LocalizedText>{b.adFormat || b.type}</LocalizedText>
           </span>
         </div>
 
         {/* Name overlay */}
         <div className="absolute bottom-3 left-3 right-3">
-          <p className="font-extrabold text-white leading-tight" style={{ fontSize: 15 }}>{isAr && b.nameAr ? b.nameAr : (b.nameEn || b.name)}</p>
+          <p className="font-extrabold text-white leading-tight" style={{ fontSize: 15 }}><LocalizedText>{isAr && b.nameAr ? b.nameAr : (b.nameEn || b.name)}</LocalizedText></p>
         </div>
       </div>
 
@@ -328,17 +331,17 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, w
       <div style={{ padding: "16px 18px 18px" }}>
         {/* English name + full address */}
         <div className="mb-4 pb-4 min-w-0" style={{ borderBottom: "1px solid rgba(11,15,26,0.06)" }}>
-          <p className="text-[13px] font-bold text-[#0B0F1A] leading-snug mb-1 truncate">{isAr && b.nameAr ? b.nameAr : (b.nameEn || b.name)}</p>
+          <p className="text-[13px] font-bold text-[#0B0F1A] leading-snug mb-1 truncate"><LocalizedText>{isAr && b.nameAr ? b.nameAr : (b.nameEn || b.name)}</LocalizedText></p>
           <div className="flex items-center gap-1.5 min-w-0">
             <svg className="shrink-0" width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ color: '#D90429' }}>
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" fill="currentColor"/>
             </svg>
-            <p className="text-[11px] truncate" style={{ color: "rgba(11,15,26,0.45)" }}>{b.location}</p>
+            <p className="text-[11px] truncate" style={{ color: "rgba(11,15,26,0.45)" }}><LocalizedText>{b.location}</LocalizedText></p>
           </div>
         </div>
         {/* Code / Size / Format stats row */}
         <div className="grid grid-cols-3 gap-0 mb-4" style={{ border: "1px solid rgba(11,15,26,0.07)" }}>
-          {[
+          <LocalizedText>{[
             { label: t('spec.code'),      value: b.code || "—" },
             { label: t('spec.size'),      value: b.size },
             { label: t('spec.adFormat'),  value: b.adFormat || b.type },
@@ -346,15 +349,15 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, w
             <div key={stat.label} className="flex flex-col items-center justify-center py-2.5 px-2"
               style={{ borderLeft: i > 0 ? '2px solid #D90429' : 'none' }}>
               <p className="text-[9px] font-semibold tracking-[0.18em] uppercase mb-0.5"
-                style={{ color: "rgba(11,15,26,0.3)" }}>{stat.label}</p>
-              <p className="text-[11px] font-bold text-center leading-tight" style={{ color: NAVY }}>{stat.value}</p>
+                style={{ color: "rgba(11,15,26,0.3)" }}><LocalizedText>{stat.label}</LocalizedText></p>
+              <p className="text-[11px] font-bold text-center leading-tight" style={{ color: NAVY }}><LocalizedText>{stat.value}</LocalizedText></p>
             </div>
-          ))}
+          ))}</LocalizedText>
         </div>
 
         {/* Badge tags */}
         <div className="flex flex-wrap gap-1.5 mb-4">
-          {badges.map(badge => (
+          <LocalizedText>{badges.map(badge => (
             <span key={badge}
               className="text-[9px] font-bold tracking-[0.1em] uppercase px-2.5 py-1"
               style={{
@@ -363,31 +366,31 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, w
                 borderRadius: 4,
                 border: "1px solid rgba(217,4,41,0.15)",
               }}>
-              {badge}
+              <LocalizedText>{badge}</LocalizedText>
             </span>
-          ))}
+          ))}</LocalizedText>
         </div>
 
         {/* CTA row */}
         <div className="flex items-center gap-2">
-          <Link
+          <LocalizedElement as={Link}
             to={productHref(lang, b.citySlug, b.slug)}
             onClick={e => { e.stopPropagation(); trackEvent('billboard_view', { source: 'locations', billboard_code: b.code || String(b.id) }); }}
             className="flex-1 h-9 flex items-center justify-center text-[10px] font-bold tracking-[0.18em] uppercase text-white transition-all duration-200 hover:opacity-90 active:scale-[0.97]"
             style={{ background: NAVY, borderRadius: 5, textDecoration: 'none' }}
           >
-            {isAr ? 'عرض التفاصيل' : 'View Details'}
-          </Link>
-          <Link
+            <LocalizedText>{isAr ? 'عرض التفاصيل' : 'View Details'}</LocalizedText>
+          </LocalizedElement>
+          <LocalizedElement as={Link}
             to={`${langPath(lang, "/contact")}?${new URLSearchParams({ billboard: b.code || String(b.id), name: b.name || '', source: 'locations' })}`}
             onClick={e => { e.stopPropagation(); trackEvent('quote_request_click', { source: 'locations', billboard_code: b.code || String(b.id) }); }}
             className="flex-1 h-9 flex items-center justify-center text-[10px] font-bold tracking-[0.18em] uppercase transition-all duration-200 hover:bg-[rgba(217,4,41,0.06)] active:scale-[0.97]"
             style={{ border: `1.5px solid ${RED}`, color: RED, borderRadius: 5, background: "transparent", textDecoration: 'none' }}
           >
-            {isAr ? 'اطلب عرض سعر' : 'Get Quote'}
-          </Link>
-          <a
-            href={`https://wa.me/${waNumber}?text=Hi%20HORIZON%20OOH%2C%20I%27m%20interested%20in%20${encodeURIComponent(b.name)}`}
+            <LocalizedText>{isAr ? 'اطلب عرض سعر' : 'Get Quote'}</LocalizedText>
+          </LocalizedElement>
+          <LocalizedElement as="a"
+            href={isAr ? `https://wa.me/${waNumber}?text=${encodeURIComponent(`مرحبًا هورايزون، أود الاستفسار عن اللوحة ${arabicText(b.name)} (${b.code || b.id}).`)}` : `https://wa.me/${waNumber}?text=Hi%20HORIZON%20OOH%2C%20I%27m%20interested%20in%20${encodeURIComponent(b.name)}`}
             target="_blank"
             rel="noopener noreferrer"
             onClick={e => { e.stopPropagation(); trackEvent('whatsapp_click', { source: 'locations', billboard_code: b.code || String(b.id) }); }}
@@ -398,7 +401,7 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, w
             <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
             </svg>
-          </a>
+          </LocalizedElement>
         </div>
       </div>
     </motion.div>
@@ -588,14 +591,14 @@ export default function Locations() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]" style={{ paddingBottom: 40 }}>
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 mb-6">
-            <button onClick={() => navigate("/")}
+            <button onClick={() => navigate(publicPath("/"))}
               className="text-[11px] font-semibold tracking-[0.12em] uppercase transition-colors hover:text-[#D90429]"
               style={{ color: "rgba(11,15,26,0.35)", background: "none", border: "none", cursor: "pointer" }}>
-              {t('common.home')}
+              <LocalizedText>{t('common.home')}</LocalizedText>
             </button>
-            <span style={{ color: "rgba(11,15,26,0.2)", fontSize: 12 }}>›</span>
+            <span style={{ color: "rgba(11,15,26,0.2)", fontSize: 12 }}><LocalizedText>›</LocalizedText></span>
             <span className="text-[11px] font-semibold tracking-[0.12em] uppercase" style={{ color: NAVY }}>
-              {t('nav.locations')}
+              <LocalizedText>{t('nav.locations')}</LocalizedText>
             </span>
           </div>
 
@@ -605,19 +608,19 @@ export default function Locations() {
                 <span className="block w-5 h-[1.5px]" style={{ background: RED }} />
                 <span className="text-[10px] font-bold tracking-[0.35em] uppercase"
                   style={{ color: "rgba(11,15,26,0.3)" }}>
-                  {isAr ? (lp.eyebrowAr || t('locations.ourNetwork')) : (lp.eyebrow || t('locations.ourNetwork'))}
+                  <LocalizedText>{isAr ? (lp.eyebrowAr || t('locations.ourNetwork')) : (lp.eyebrow || t('locations.ourNetwork'))}</LocalizedText>
                 </span>
               </div>
               <h1 className="font-black leading-[0.88] tracking-[-0.04em]"
                 style={{ fontSize: "clamp(36px, 4vw, 58px)", color: NAVY }}>
-                {isAr ? (lp.titleAr || t('locations.title')) : (lp.title || t('locations.title'))}<br />
+                <LocalizedText>{isAr ? (lp.titleAr || t('locations.title')) : (lp.title || t('locations.title'))}</LocalizedText><br />
                 <span style={{ color: "rgba(11,15,26,0.18)" }}>
-                  {isAr ? (lp.titleAccentAr || t('locations.titleAccent')) : (lp.titleAccent || t('locations.titleAccent'))}
+                  <LocalizedText>{isAr ? (lp.titleAccentAr || t('locations.titleAccent')) : (lp.titleAccent || t('locations.titleAccent'))}</LocalizedText>
                 </span>
               </h1>
             </div>
             <p className="text-[15px] leading-[1.7]" style={{ color: "rgba(11,15,26,0.45)", maxWidth: 340 }}>
-              {isAr ? (lp.subtitleAr || t('locations.subtitle')) : (lp.subtitle || t('locations.subtitle'))}
+              <LocalizedText>{isAr ? (lp.subtitleAr || t('locations.subtitle')) : (lp.subtitle || t('locations.subtitle'))}</LocalizedText>
             </p>
           </div>
         </div>
@@ -638,7 +641,7 @@ export default function Locations() {
           <div className="hidden lg:flex items-center gap-3 py-4">
             {/* Filters label */}
             <span className="text-[11px] font-bold tracking-[0.25em] uppercase mr-1 flex-shrink-0"
-              style={{ color: "rgba(11,15,26,0.45)" }}>{t('locations.filterLabel')}</span>
+              style={{ color: "rgba(11,15,26,0.45)" }}><LocalizedText>{t('locations.filterLabel')}</LocalizedText></span>
 
             <FilterDropdown
               label={isAr ? 'المحافظة' : 'City'} options={ALL_CITIES} values={cities} onChange={handleCitiesChange}
@@ -680,7 +683,7 @@ export default function Locations() {
                   className="flex items-center gap-1.5 h-10 px-3 text-[11px] font-bold tracking-[0.15em] uppercase transition-colors hover:text-[#D90429]"
                   style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(11,15,26,0.35)" }}
                 >
-                  <XIcon size={8} /> {t('common.clearAll')}
+                  <XIcon size={8} /> <LocalizedText>{t('common.clearAll')}</LocalizedText>
                 </motion.button>
               )}
             </AnimatePresence>
@@ -691,9 +694,9 @@ export default function Locations() {
             {/* Result count pill */}
             <div className="flex items-center gap-2 px-4 py-2"
               style={{ background: "rgba(11,15,26,0.06)", borderRadius: 8 }}>
-              <span className="text-[13px] font-black" style={{ color: NAVY }}>{sorted.length}</span>
+              <span className="text-[13px] font-black" style={{ color: NAVY }}><LocalizedText>{sorted.length}</LocalizedText></span>
               <span className="text-[10px] font-bold tracking-[0.15em] uppercase"
-                style={{ color: "rgba(11,15,26,0.45)" }}>{t('common.locations')}</span>
+                style={{ color: "rgba(11,15,26,0.45)" }}><LocalizedText>{t('common.locations')}</LocalizedText></span>
             </div>
           </div>
 
@@ -712,7 +715,7 @@ export default function Locations() {
               <svg width="13" height="11" viewBox="0 0 14 12" fill="none">
                 <path d="M1 2h12M3 6h8M5 10h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
-              {t('common.filters')} {hasFilters && `(${cities.length + districts.length + formats.length})`}
+              <LocalizedText>{t('common.filters')}</LocalizedText> <LocalizedText>{hasFilters && `(${cities.length + districts.length + formats.length})`}</LocalizedText>
               <ChevronDown />
             </button>
             <button
@@ -729,11 +732,11 @@ export default function Locations() {
                 <path d="M5 1L1 3v10l4-2 4 2 4-2V1l-4 2-4-2z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M5 1v10M9 3v10" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
               </svg>
-              {mobileMapOpen ? t('common.list') : t('common.map')}
+              <LocalizedText>{mobileMapOpen ? t('common.list') : t('common.map')}</LocalizedText>
             </button>
             <div className="px-3 py-2 flex-shrink-0"
               style={{ background: "rgba(11,15,26,0.05)", borderRadius: 6 }}>
-              <span className="text-[11px] font-bold" style={{ color: NAVY }}>{sorted.length}</span>
+              <span className="text-[11px] font-bold" style={{ color: NAVY }}><LocalizedText>{sorted.length}</LocalizedText></span>
             </div>
           </div>
 
@@ -757,13 +760,13 @@ export default function Locations() {
                   <FilterDropdown label={t('locations.formatLabel')} options={ALL_FORMATS} values={formats} onChange={handleFormatsChange}
                     icon={<svg width="13" height="11" viewBox="0 0 15 13" fill="none"><rect x="0.5" y="0.5" width="14" height="12" stroke="currentColor" strokeWidth="1.4"/><path d="M3 4h9M3 6.5h6M3 9h4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>}
                   />
-              {hasFilters && (
+              <LocalizedText>{hasFilters && (
                 <button onClick={() => { clearAll(); }}
                   className="text-[10px] font-bold tracking-[0.15em] uppercase flex items-center gap-1.5"
                   style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(11,15,26,0.4)" }}>
-                  <XIcon size={8}/> {t('common.clearAll')}
+                  <XIcon size={8}/> <LocalizedText>{t('common.clearAll')}</LocalizedText>
                 </button>
-              )}
+              )}</LocalizedText>
                 </div>
               </motion.div>
             )}
@@ -792,16 +795,16 @@ export default function Locations() {
             }}>
             <div className="flex items-center justify-between">
               <p className="text-[13px] font-semibold" style={{ color: "rgba(11,15,26,0.55)" }}>
-                <span className="font-black" style={{ color: NAVY }}>{sorted.length} </span>
-                {cityLabel ? <>{t('locations.premiumBillboards')} {t('common.in')} <span style={{ color: RED }}>{cityLabel}</span></> : t('locations.premiumBillboards')}
+                <span className="font-black" style={{ color: NAVY }}><LocalizedText>{sorted.length}</LocalizedText> </span>
+                <LocalizedText>{cityLabel ? <><LocalizedText>{t('locations.premiumBillboards')}</LocalizedText> <LocalizedText>{t('common.in')}</LocalizedText> <span style={{ color: RED }}><LocalizedText>{cityLabel}</LocalizedText></span></> : t('locations.premiumBillboards')}</LocalizedText>
               </p>
-              {hasFilters && (
+              <LocalizedText>{hasFilters && (
                 <button onClick={clearAll}
                   className="text-[10px] font-bold tracking-[0.15em] uppercase transition-colors hover:text-[#D90429]"
                   style={{ background: "none", border: "none", cursor: "pointer", color: "rgba(11,15,26,0.3)" }}>
-                  {t('common.clearFilters')}
+                  <LocalizedText>{t('common.clearFilters')}</LocalizedText>
                 </button>
-              )}
+              )}</LocalizedText>
             </div>
           </div>
 
@@ -814,7 +817,7 @@ export default function Locations() {
                 style={{ padding: "12px 32px 0", overflow: "hidden" }}
               >
                 <div className="flex items-center gap-2 flex-wrap">
-                  {[
+                  <LocalizedText>{[
                     ...cities.map(v    => ({ label: t('locations.cityLabel'),     value: isAr && cityLabelsAr[v] ? cityLabelsAr[v] : v,     clear: () => handleCitiesChange(cities.filter(x => x !== v)) })),
                     ...districts.map(v => ({ label: t('locations.districtLabel'), value: isAr && districtLabelsAr[v] ? districtLabelsAr[v] : v, clear: () => handleDistrictsChange(districts.filter(x => x !== v)) })),
                     ...formats.map(v   => ({ label: t('locations.formatLabel'),   value: v, clear: () => handleFormatsChange(formats.filter(x => x !== v)) })),
@@ -825,7 +828,7 @@ export default function Locations() {
                         className="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.12em] uppercase px-3 py-1.5"
                         style={{ background: NAVY, color: "white", borderRadius: 4 }}
                       >
-                        {chip.label}: {chip.value}
+                        <LocalizedText>{chip.label}</LocalizedText><LocalizedText>: </LocalizedText><LocalizedText>{chip.value}</LocalizedText>
                         <button
                           onClick={chip.clear}
                           className="flex items-center justify-center w-3.5 h-3.5 rounded-full transition-opacity hover:opacity-70"
@@ -834,7 +837,7 @@ export default function Locations() {
                           <XIcon size={6} />
                         </button>
                       </motion.span>
-                    ))}
+                    ))}</LocalizedText>
                 </div>
               </motion.div>
             )}
@@ -848,7 +851,7 @@ export default function Locations() {
                   key="results"
                   className="grid grid-cols-1 xl:grid-cols-2 gap-5"
                 >
-                  {paginatedBillboards.map(b => (
+                  <LocalizedText>{paginatedBillboards.map(b => (
                     <BillboardCard
                       key={b.id}
                       b={b}
@@ -862,9 +865,9 @@ export default function Locations() {
                         else cardRefs.current.delete(b.id);
                       }}
                     />
-                  ))}
+                  ))}</LocalizedText>
                   {/* Pagination — smart windowed (max 7 visible slots + ellipsis) */}
-                  {totalPages > 1 && (() => {
+                  <LocalizedText>{totalPages > 1 && (() => {
                     // Build page slots: always show first, last, current ±2, with "…" gaps
                     const slots: (number | '…')[] = [];
                     const delta = 2;
@@ -885,46 +888,46 @@ export default function Locations() {
                     return (
                       <div className="col-span-full flex items-center justify-center flex-wrap gap-1.5 py-8">
                         {/* Prev */}
-                        <button onClick={() => { setCurrentPage(p => Math.max(1, p - 1)); window.scrollTo({top:0,behavior:'smooth'}); }}
+                        <LocalizedElement as="button" onClick={() => { setCurrentPage(p => Math.max(1, p - 1)); window.scrollTo({top:0,behavior:'smooth'}); }}
                           disabled={currentPage === 1} className={btnNav} aria-label="Previous page">
-                          {isAr ? (
+                          <LocalizedText>{isAr ? (
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
                           ) : (
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                          )}
-                        </button>
+                          )}</LocalizedText>
+                        </LocalizedElement>
 
                         {/* Page slots */}
-                        {slots.map((slot, idx) =>
+                        <LocalizedText>{slots.map((slot, idx) =>
                           slot === '…' ? (
-                            <span key={`ellipsis-${idx}`} className="h-9 w-9 flex items-center justify-center text-[#0B0F1A]/30 text-[13px] font-bold select-none">…</span>
+                            <span key={`ellipsis-${idx}`} className="h-9 w-9 flex items-center justify-center text-[#0B0F1A]/30 text-[13px] font-bold select-none"><LocalizedText>…</LocalizedText></span>
                           ) : (
-                            <button key={slot} onClick={() => { setCurrentPage(slot as number); window.scrollTo({top:0,behavior:'smooth'}); }}
+                            <LocalizedElement as="button" key={slot} onClick={() => { setCurrentPage(slot as number); window.scrollTo({top:0,behavior:'smooth'}); }}
                               className={slot === currentPage ? btnActive : btnIdle}
                               style={slot === currentPage ? { background: '#D90429', border: 'none' } : {}}
                               aria-label={`Page ${slot}`} aria-current={slot === currentPage ? 'page' : undefined}>
-                              {slot}
-                            </button>
+                              <LocalizedText>{slot}</LocalizedText>
+                            </LocalizedElement>
                           )
-                        )}
+                        )}</LocalizedText>
 
                         {/* Next */}
-                        <button onClick={() => { setCurrentPage(p => Math.min(totalPages, p + 1)); window.scrollTo({top:0,behavior:'smooth'}); }}
+                        <LocalizedElement as="button" onClick={() => { setCurrentPage(p => Math.min(totalPages, p + 1)); window.scrollTo({top:0,behavior:'smooth'}); }}
                           disabled={currentPage === totalPages} className={btnNav} aria-label="Next page">
-                          {isAr ? (
+                          <LocalizedText>{isAr ? (
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
                           ) : (
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                          )}
-                        </button>
+                          )}</LocalizedText>
+                        </LocalizedElement>
 
                         {/* Page counter */}
                         <span className="w-full text-center text-[11px] text-[#0B0F1A]/35 tracking-[0.15em] uppercase font-semibold mt-1">
-                          {isAr ? `صفحة ${currentPage} من ${totalPages}` : `Page ${currentPage} of ${totalPages}`}
+                          <LocalizedText>{isAr ? `صفحة ${currentPage} من ${totalPages}` : `Page ${currentPage} of ${totalPages}`}</LocalizedText>
                         </span>
                       </div>
                     );
-                  })()}
+                  })()}</LocalizedText>
                 </motion.div>
               ) : (
                 /* ── EMPTY STATE ────────────────────────────────────── */
@@ -942,22 +945,22 @@ export default function Locations() {
                     </svg>
                   </div>
                   <h3 className="font-black text-[22px] tracking-[-0.03em] mb-3" style={{ color: NAVY }}>
-                    {isAr ? (lp.noResultsTitleAr || t('locations.noResults')) : (lp.noResultsTitle || t('locations.noResults'))}
+                    <LocalizedText>{isAr ? (lp.noResultsTitleAr || t('locations.noResults')) : (lp.noResultsTitle || t('locations.noResults'))}</LocalizedText>
                   </h3>
                   <p className="text-[14px] leading-[1.7] mb-8" style={{ color: "rgba(11,15,26,0.45)", maxWidth: 340 }}>
-                    {isAr ? (lp.noResultsHintAr || t('locations.noResultsHint')) : (lp.noResultsHint || t('locations.noResultsHint'))}
+                    <LocalizedText>{isAr ? (lp.noResultsHintAr || t('locations.noResultsHint')) : (lp.noResultsHint || t('locations.noResultsHint'))}</LocalizedText>
                   </p>
                   <div className="flex items-center gap-3">
                     <button onClick={clearAll}
                       className="h-11 px-6 text-[11px] font-bold tracking-[0.2em] uppercase text-white transition-opacity hover:opacity-90"
                       style={{ background: RED, border: "none", borderRadius: 6, cursor: "pointer" }}>
-                      {t('locations.showAll')}
+                      <LocalizedText>{t('locations.showAll')}</LocalizedText>
                     </button>
-                    <Link to={langPath(lang, "/contact")}
+                    <LocalizedElement as={Link} to={langPath(lang, "/contact")}
                       className="h-11 px-6 text-[11px] font-bold tracking-[0.2em] uppercase transition-all hover:border-[#D90429] hover:text-[#D90429] inline-flex items-center"
                       style={{ background: "transparent", border: `1.5px solid rgba(11,15,26,0.15)`, borderRadius: 6, color: "rgba(11,15,26,0.5)", textDecoration: 'none' }}>
-                      {t('common.contactUs')}
-                    </Link>
+                      <LocalizedText>{t('common.contactUs')}</LocalizedText>
+                    </LocalizedElement>
                   </div>
                 </motion.div>
               )}
@@ -971,8 +974,8 @@ export default function Locations() {
           style={{ flex: "0 0 34%", position: "sticky", top: 57, height: "calc(100vh - 57px)", background: "#e8eaed" }}
         >
           <div className="relative w-full h-full">
-            <ClientOnly fallback={<div className="absolute inset-0 bg-[#e8eaed]" aria-label="Interactive map" />}>
-              <Suspense fallback={<div className="absolute inset-0 bg-[#e8eaed]" aria-label="Map loading" />}>
+            <ClientOnly fallback={<LocalizedElement as="div" className="absolute inset-0 bg-[#e8eaed]" aria-label="Interactive map" />}>
+              <Suspense fallback={<LocalizedElement as="div" className="absolute inset-0 bg-[#e8eaed]" aria-label="Map loading" />}>
                 <LocationsMap
                   billboards={paginatedBillboards}
                   hoveredId={hoveredId}
@@ -993,7 +996,7 @@ export default function Locations() {
                   <path d="M16 0C7.163 0 0 7.163 0 16c0 10.293 14.222 23.156 15.259 24.114a1 1 0 0 0 1.482 0C17.778 39.156 32 26.293 32 16 32 7.163 24.837 0 16 0z" fill={NAVY}/>
                   <circle cx="16" cy="16" r="6" fill={RED}/>
                 </svg>
-                <span className="text-[9px] font-bold tracking-[0.18em] uppercase" style={{ color: NAVY }}>{t('common.billboard')}</span>
+                <span className="text-[9px] font-bold tracking-[0.18em] uppercase" style={{ color: NAVY }}><LocalizedText>{t('common.billboard')}</LocalizedText></span>
               </div>
               <div className="flex items-center gap-2 px-3 py-2"
                 style={{ background: "rgba(255,255,255,0.95)", backdropFilter: "blur(6px)", borderRadius: 6, boxShadow: "0 2px 12px rgba(11,15,26,0.1)" }}>
@@ -1001,7 +1004,7 @@ export default function Locations() {
                   <path d="M16 0C7.163 0 0 7.163 0 16c0 10.293 14.222 23.156 15.259 24.114a1 1 0 0 0 1.482 0C17.778 39.156 32 26.293 32 16 32 7.163 24.837 0 16 0z" fill={RED}/>
                   <circle cx="16" cy="16" r="6" fill="white}"/>
                 </svg>
-                <span className="text-[9px] font-bold tracking-[0.18em] uppercase" style={{ color: NAVY }}>{t('common.selected')}</span>
+                <span className="text-[9px] font-bold tracking-[0.18em] uppercase" style={{ color: NAVY }}><LocalizedText>{t('common.selected')}</LocalizedText></span>
               </div>
             </div>
 
@@ -1012,7 +1015,7 @@ export default function Locations() {
                 <svg width="8" height="8" viewBox="0 0 8 8" fill={RED}>
                   <circle cx="4" cy="4" r="4"/>
                 </svg>
-                <span className="text-[9px] font-bold tracking-[0.15em] uppercase text-white">{paginatedBillboards.length} / {sorted.length} {t('common.pins')}</span>
+                <span className="text-[9px] font-bold tracking-[0.15em] uppercase text-white"><LocalizedText>{paginatedBillboards.length}</LocalizedText><LocalizedText> / </LocalizedText><LocalizedText>{sorted.length}</LocalizedText> <LocalizedText>{t('common.pins')}</LocalizedText></span>
               </div>
             </div>
           </div>
@@ -1041,27 +1044,27 @@ export default function Locations() {
             style={{ borderRight: "1px solid rgba(11,15,26,0.1)" }}>
             <div className="w-2 h-2 rounded-full" style={{ background: RED, animation: "pulse 2s infinite" }} />
             <span className="text-[12px] font-semibold" style={{ color: "rgba(11,15,26,0.55)" }}>
-              {isAr ? (lp.ctaHelpTextAr || t('locations.helpChoosing')) : (lp.ctaHelpText || t('locations.helpChoosing'))}
+              <LocalizedText>{isAr ? (lp.ctaHelpTextAr || t('locations.helpChoosing')) : (lp.ctaHelpText || t('locations.helpChoosing'))}</LocalizedText>
             </span>
           </div>
-          <Link
+          <LocalizedElement as={Link}
             to={langPath(lang, "/contact")}
             className="flex items-center gap-2 h-9 px-4 text-[11px] font-bold tracking-[0.15em] uppercase text-white transition-opacity hover:opacity-90 active:scale-[0.97]"
             style={{ background: NAVY, borderRadius: 30, textDecoration: 'none' }}
           >
-            {isAr ? (lp.ctaButtonAr || t('locations.talkToExpert')) : (lp.ctaButton || t('locations.talkToExpert'))}
-          </Link>
-          <a
-            href={`https://wa.me/${waNumber}?text=Hi%20HORIZON%20OOH%2C%20I%20need%20help%20choosing%20billboard%20locations`}
+            <LocalizedText>{isAr ? (lp.ctaButtonAr || t('locations.talkToExpert')) : (lp.ctaButton || t('locations.talkToExpert'))}</LocalizedText>
+          </LocalizedElement>
+          <LocalizedElement as="a"
+            href={isAr ? `https://wa.me/${waNumber}?text=${encodeURIComponent('مرحبًا هورايزون، أحتاج إلى مساعدة في اختيار مواقع اللوحات الإعلانية.')}` : `https://wa.me/${waNumber}?text=Hi%20HORIZON%20OOH%2C%20I%20need%20help%20choosing%20billboard%20locations`}
             target="_blank" rel="noopener noreferrer"
             className="flex items-center gap-2 h-9 px-4 text-[11px] font-bold tracking-[0.15em] uppercase text-white transition-opacity hover:opacity-90 active:scale-[0.97]"
             style={{ background: "#25D366", borderRadius: 30, textDecoration: "none" }}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-            </svg>
+            </svg><LocalizedText>
             WhatsApp
-          </a>
+          </LocalizedText></LocalizedElement>
         </div>
       </motion.div>
 

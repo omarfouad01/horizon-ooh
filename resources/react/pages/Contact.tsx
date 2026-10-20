@@ -1,3 +1,4 @@
+import {LocalizedText, LocalizedElement} from "@/components/Localized";
 import { contactStore, siteUserStore, useStore } from "@/store/dataStore";
 import SEO from "@/components/SEO";
 import { useState } from "react";
@@ -91,11 +92,11 @@ export default function Contact() {
             <div className="col-span-7">
               <Reveal>
                 <p className="text-[10px] font-bold tracking-[0.35em] uppercase mb-8" style={{ color: "rgba(11,15,26,0.3)" }}>
-                  {isAr ? (cc.formLabelAr || 'نموذج الاستفسار عن الحملة') : (cc.formLabel || 'Campaign Enquiry Form')}
+                  <LocalizedText>{isAr ? (cc.formLabelAr || 'نموذج الاستفسار عن الحملة') : (cc.formLabel || 'Campaign Enquiry Form')}</LocalizedText>
                 </p>
               </Reveal>
 
-              {submitted ? (
+              <LocalizedText>{submitted ? (
                 <div
                   className="flex flex-col items-start gap-6"
                   style={{ padding: "60px 0" }}
@@ -106,25 +107,25 @@ export default function Contact() {
                     </svg>
                   </div>
                   <h2 className="font-black leading-[1.0] tracking-[-0.03em]" style={{ fontSize: 36, color: NAVY }}>
-                    {isAr ? (cc.successTitleAr || 'تم استلام رسالتك.') : (cc.successTitle || 'Message received.')}
+                    <LocalizedText>{isAr ? (cc.successTitleAr || 'تم استلام رسالتك.') : (cc.successTitle || 'Message received.')}</LocalizedText>
                   </h2>
                   <p className="text-[17px] leading-[1.75]" style={{ color: "rgba(11,15,26,0.45)", maxWidth: 420 }}>
-                    {isAr ? (cc.successTextAr || 'شكراً لتواصلك معنا. سيتواصل معك أحد خبرائنا الإعلاميين خلال 24 ساعة.') : (cc.successText || 'Thank you for reaching out. One of our media strategists will be in touch within 24 hours.')}
+                    <LocalizedText>{isAr ? (cc.successTextAr || 'شكراً لتواصلك معنا. سيتواصل معك أحد خبرائنا الإعلاميين خلال 24 ساعة.') : (cc.successText || 'Thank you for reaching out. One of our media strategists will be in touch within 24 hours.')}</LocalizedText>
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                  {billboardCode && (
+                  <LocalizedText>{billboardCode && (
                     <div className="p-4 border border-[#D90429]/20" style={{ background: 'rgba(217,4,41,0.04)' }}>
                       <p className="text-[10px] font-bold tracking-[0.2em] uppercase mb-1" style={{ color: RED }}>
-                        {isAr ? 'طلب عرض سعر لـ' : 'Quote request for'}
+                        <LocalizedText>{isAr ? 'طلب عرض سعر لـ' : 'Quote request for'}</LocalizedText>
                       </p>
-                      <p className="font-bold" style={{ color: NAVY }}>{billboardCode}{billboardName ? ` — ${billboardName}` : ''}</p>
+                      <p className="font-bold" style={{ color: NAVY }}><LocalizedText>{billboardCode}<LocalizedText></LocalizedText>{billboardName ? ` — ${billboardName}` : ''}</LocalizedText></p>
                     </div>
-                  )}
+                  )}</LocalizedText>
                   {/* Row 1 */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    {[
+                    <LocalizedText>{[
                       { name: "name",    label: isAr ? 'الاسم الكامل' : 'Full Name',   type: "text",  required: true,  placeholder: isAr ? 'مثال: أحمد حسن' : 'e.g. Ahmed Hassan' },
                       { name: "company", label: isAr ? 'الشركة' : 'Company',     type: "text",  required: false, placeholder: isAr ? 'مثال: هورايزون ميديا' : 'e.g. Horizon Media' },
                     ].map((field) => (
@@ -135,9 +136,9 @@ export default function Contact() {
                             className="text-[11px] font-bold tracking-[0.25em] uppercase"
                             style={{ color: "rgba(11,15,26,0.5)" }}
                           >
-                            {field.label}{field.required && <span style={{ color: RED }}>*</span>}
+                            <LocalizedText>{field.label}<LocalizedText></LocalizedText>{field.required && <span style={{ color: RED }}><LocalizedText>*</LocalizedText></span>}</LocalizedText>
                           </label>
-                          <input
+                          <LocalizedElement as="input"
                             id={field.name}
                             name={field.name}
                             type={field.type}
@@ -157,12 +158,12 @@ export default function Contact() {
                           />
                         </div>
                       </Reveal>
-                    ))}
+                    ))}</LocalizedText>
                   </div>
 
                   {/* Row 2 */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    {[
+                    <LocalizedText>{[
                       { name: "email", label: isAr ? 'البريد الإلكتروني' : 'Email Address', type: "email", required: true,  placeholder: "name@company.com" },
                       { name: "phone", label: isAr ? 'رقم الهاتف' : 'Phone Number',  type: "tel",   required: false, placeholder: "+20 100 000 0000" },
                     ].map((field) => (
@@ -173,9 +174,9 @@ export default function Contact() {
                             className="text-[11px] font-bold tracking-[0.25em] uppercase"
                             style={{ color: "rgba(11,15,26,0.5)" }}
                           >
-                            {field.label}{field.required && <span style={{ color: RED }}>*</span>}
+                            <LocalizedText>{field.label}<LocalizedText></LocalizedText>{field.required && <span style={{ color: RED }}><LocalizedText>*</LocalizedText></span>}</LocalizedText>
                           </label>
-                          <input
+                          <LocalizedElement as="input"
                             id={field.name}
                             name={field.name}
                             type={field.type}
@@ -195,7 +196,7 @@ export default function Contact() {
                           />
                         </div>
                       </Reveal>
-                    ))}
+                    ))}</LocalizedText>
                   </div>
 
                   {/* Message */}
@@ -206,9 +207,9 @@ export default function Contact() {
                         className="text-[11px] font-bold tracking-[0.25em] uppercase"
                         style={{ color: "rgba(11,15,26,0.5)" }}
                       >
-                        {isAr ? 'الرسالة' : 'Message'}<span style={{ color: RED }}>*</span>
+                        <LocalizedText>{isAr ? 'الرسالة' : 'Message'}</LocalizedText><span style={{ color: RED }}><LocalizedText>*</LocalizedText></span>
                       </label>
-                      <textarea
+                      <LocalizedElement as="textarea"
                         id="message"
                         name="message"
                         required
@@ -230,13 +231,13 @@ export default function Contact() {
                   </Reveal>
 
                   {/* API Error */}
-                  {apiError && (
+                  <LocalizedText>{apiError && (
                     <Reveal>
                       <div className="mt-6 p-4 border border-[#D90429]/30" style={{ background: "rgba(217,4,41,0.04)" }}>
-                        <p className="text-[13px] font-medium" style={{ color: RED }}>{apiError}</p>
+                        <p className="text-[13px] font-medium" style={{ color: RED }}><LocalizedText>{apiError}</LocalizedText></p>
                       </div>
                     </Reveal>
-                  )}
+                  )}</LocalizedText>
 
                   {/* Submit */}
                   <Reveal delay={0.1}>
@@ -249,19 +250,19 @@ export default function Contact() {
                       >
                         <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: NAVY }} />
                         <span className="relative z-10">
-                          {loading ? (isAr ? 'جارٍ الإرسال...' : 'Sending…') : (isAr ? (cc.sendBtnAr || 'إرسال الرسالة') : (cc.sendBtn || 'Send Message'))}
+                          <LocalizedText>{loading ? (isAr ? 'جارٍ الإرسال...' : 'Sending…') : (isAr ? (cc.sendBtnAr || 'إرسال الرسالة') : (cc.sendBtn || 'Send Message'))}</LocalizedText>
                         </span>
-                        {loading && (
+                        <LocalizedText>{loading && (
                           <span className="relative z-10 w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        )}
+                        )}</LocalizedText>
                       </button>
                       <p className="text-[11px]" style={{ color: "rgba(11,15,26,0.3)" }}>
-                        {isAr ? (cc.responseTimeAr || 'نرد خلال 24 ساعة.') : (cc.responseTime || 'We respond within 24 hours.')}
+                        <LocalizedText>{isAr ? (cc.responseTimeAr || 'نرد خلال 24 ساعة.') : (cc.responseTime || 'We respond within 24 hours.')}</LocalizedText>
                       </p>
                     </div>
                   </Reveal>
                 </form>
-              )}
+              )}</LocalizedText>
             </div>
 
             {/* Info — right */}
@@ -272,34 +273,34 @@ export default function Contact() {
                   <div style={{ background: NAVY, padding: "48px 48px" }}>
                     <div className="w-5 h-[1.5px] mb-8" style={{ background: RED }} />
                     <p className="font-black text-white text-[20px] tracking-[-0.02em] leading-[1.2] mb-10">
-                      {isAr ? (cc.infoTitleAr || 'تحدث مباشرة مع فريق الإعلام لدينا.') : (cc.infoTitle || 'Speak directly with our media team.')}
+                      <LocalizedText>{isAr ? (cc.infoTitleAr || 'تحدث مباشرة مع فريق الإعلام لدينا.') : (cc.infoTitle || 'Speak directly with our media team.')}</LocalizedText>
                     </p>
 
                     <div className="flex flex-col gap-8">
-                      {CONTACT_INFO.map((info) => (
+                      <LocalizedText>{CONTACT_INFO.map((info) => (
                         <div key={info.label}>
                           <p className="text-[10px] font-bold tracking-[0.3em] uppercase mb-2" style={{ color: "rgba(255,255,255,0.25)" }}>
-                            {info.label}
+                            <LocalizedText>{info.label}</LocalizedText>
                           </p>
                           <p className="text-[14px] font-medium" style={{ color: "rgba(255,255,255,0.65)" }}>
-                            {info.value}
+                            <LocalizedText>{info.value}</LocalizedText>
                           </p>
                         </div>
-                      ))}
+                      ))}</LocalizedText>
                     </div>
 
                     {/* Quick links */}
                     <div className="mt-12 pt-10 border-t border-white/[0.07]">
                       <p className="text-[10px] font-bold tracking-[0.3em] uppercase mb-5" style={{ color: "rgba(255,255,255,0.2)" }}>
-                        {isAr ? 'إجراءات سريعة' : 'Quick Actions'}
+                        <LocalizedText>{isAr ? 'إجراءات سريعة' : 'Quick Actions'}</LocalizedText>
                       </p>
                       <div className="flex flex-col gap-3">
-                        {[
+                        <LocalizedText>{[
                           { label: isAr ? 'عرض جميع المواقع' : 'View all locations', href: "/locations" },
                           { label: isAr ? 'استكشف خدماتنا' : 'Explore our services', href: "/services" },
                           { label: isAr ? 'اقرأ رؤيتنا' : 'Read our insights', href: "/blog" },
                         ].map((link) => (
-                          <Link
+                          <LocalizedElement as={Link}
                             key={link.label}
                             to={`${isAr ? "/ar" : ""}${link.href}`}
                             className="flex items-center gap-2 group cursor-pointer hover:opacity-80 transition-opacity"
@@ -307,10 +308,10 @@ export default function Contact() {
                           >
                             <span className="w-1 h-1 flex-shrink-0 group-hover:w-3 transition-all duration-300" style={{ background: RED }} />
                             <span className="text-[12px] font-semibold tracking-[0.15em] uppercase transition-colors duration-200 group-hover:text-white" style={{ color: "rgba(255,255,255,0.35)" }}>
-                              {link.label}
+                              <LocalizedText>{link.label}</LocalizedText>
                             </span>
-                          </Link>
-                        ))}
+                          </LocalizedElement>
+                        ))}</LocalizedText>
                       </div>
                     </div>
                   </div>
@@ -335,9 +336,9 @@ export default function Contact() {
                   className="flex flex-col py-8 px-10"
                   style={{ borderRight: i < 2 ? "1px solid rgba(11,15,26,0.08)" : "none" }}
                 >
-                  <span className="text-2xl mb-4" style={{ color: RED }}>{item.icon}</span>
-                  <p className="font-bold text-[16px] mb-2" style={{ color: NAVY }}>{item.label}</p>
-                  <p className="text-[13px] leading-[1.65]" style={{ color: "rgba(11,15,26,0.4)" }}>{item.desc}</p>
+                  <span className="text-2xl mb-4" style={{ color: RED }}><LocalizedText>{item.icon}</LocalizedText></span>
+                  <p className="font-bold text-[16px] mb-2" style={{ color: NAVY }}><LocalizedText>{item.label}</LocalizedText></p>
+                  <p className="text-[13px] leading-[1.65]" style={{ color: "rgba(11,15,26,0.4)" }}><LocalizedText>{item.desc}</LocalizedText></p>
                 </div>
               </RevealItem>
             ))}

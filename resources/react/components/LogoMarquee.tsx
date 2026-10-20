@@ -1,3 +1,4 @@
+import {LocalizedText, LocalizedElement} from "@/components/Localized";
 
 import { useRef, useEffect } from 'react'
 import type { ClientBrand } from '@/store/dataStore'
@@ -70,10 +71,10 @@ export default function LogoMarquee({ brands, speed = 40, light = true }: LogoMa
            style={{ background: `linear-gradient(to left, ${light ? 'white' : 'transparent'}, transparent)` }}/>
 
       <div ref={trackRef} className="flex items-center gap-16 will-change-transform" style={{ width: 'max-content', padding: '0 28px', direction: 'ltr' }}>
-        {items.map((brand, i) => (
+        <LocalizedText>{items.map((brand, i) => (
           <div key={`${brand.id}-${i}`} className="flex-shrink-0 flex items-center justify-center" style={{ height: 72, minWidth: 120 }}>
-            {brand.logoUrl ? (
-              <img
+            <LocalizedText>{brand.logoUrl ? (
+              <LocalizedElement as="img"
                 src={brand.logoUrl}
                 alt={brand.name}
                 title={brand.name}
@@ -98,16 +99,16 @@ export default function LogoMarquee({ brands, speed = 40, light = true }: LogoMa
                 }}
               />
             ) : (
-              <span
+              <LocalizedElement as="span"
                 className="font-bold tracking-[0.12em] uppercase whitespace-nowrap transition-colors duration-200"
                 style={{ fontSize: 13, color: textColor }}
                 title={brand.name}
               >
-                {brand.name}
-              </span>
-            )}
+                <LocalizedText>{brand.name}</LocalizedText>
+              </LocalizedElement>
+            )}</LocalizedText>
           </div>
-        ))}
+        ))}</LocalizedText>
       </div>
     </div>
   )

@@ -5,7 +5,7 @@
  * - Sets html[dir] and html[lang] automatically
  * - Loads Cairo + Tajawal Arabic Google Fonts on first AR switch
  */
-import { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import { createContext, useContext, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { UI } from './translations';
 export type { Lang } from './translations';
@@ -68,25 +68,21 @@ export function LangProvider({ children }: { children: React.ReactNode }) {
 
   // The URL is the only initial-render source of truth. Reading saved browser
   // state here would make the hydrated tree differ from the generated HTML.
-  const [lang, setLangState] = useState<Lang>(urlLang);
+  const lang = urlLang;
 
   // Sync state when URL changes (back/forward navigation)
   useEffect(() => {
-    if (urlLang !== lang) {
-      setLangState(urlLang);
-      try { localStorage.setItem('horizon_lang', urlLang); } catch { /* unavailable */ }
-    }
-  }, [urlLang]); // eslint-disable-line react-hooks/exhaustive-deps
+    try { localStorage.setItem('horizon_lang', urlLang); } catch { /* unavailable */ }
+  }, [urlLang]);
 
   // setLang navigates to the same page under the target language prefix
   const setLang = useCallback((l: Lang) => {
     try { localStorage.setItem('horizon_lang', l); } catch { /* unavailable */ }
-    setLangState(l);
     if (l === 'ar') loadArabicFonts();
     const bare = stripAr(location.pathname);
     const next = l === 'ar' ? addAr(bare) : bare;
-    navigate(next, { replace: true });
-  }, [location.pathname, navigate]);
+    navigate({pathname: next, search: location.search, hash: location.hash}, { replace: true });
+  }, [location.pathname, location.search, location.hash, navigate]);
 
   // Keep html[dir] + html[lang] in sync
   useEffect(() => {

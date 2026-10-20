@@ -1,3 +1,4 @@
+import {LocalizedText, LocalizedElement} from "@/components/Localized";
 import { useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
@@ -42,29 +43,29 @@ function buildClientBlurb(projects: any[]) {
 }
 
 // ─── Tiny translated label components ────────────────────────────────────────
-function LatestCampaignLabel()    { const { lang, t } = useLang(); return <>{t('projects.latestCampaign')}</>; }
-function FeaturedCampaignLabel()  { const { t } = useLang(); return <>{t('projects.featuredCampaign')}</>; }
-function ViewCaseStudyLabel()     { const { t } = useLang(); return <>{t('projects.viewCaseStudy')}</>; }
-function FilterItemLabel({ labelKey }: { labelKey: string }) { const { t } = useLang(); return <>{t(labelKey as any)}</>; }
-function ClientsLabel()           { const { t } = useLang(); return <>{t('projects.clientsLabel')}</>; }
+function LatestCampaignLabel()    { const { lang, t } = useLang(); return <><LocalizedText>{t('projects.latestCampaign')}</LocalizedText></>; }
+function FeaturedCampaignLabel()  { const { t } = useLang(); return <><LocalizedText>{t('projects.featuredCampaign')}</LocalizedText></>; }
+function ViewCaseStudyLabel()     { const { t } = useLang(); return <><LocalizedText>{t('projects.viewCaseStudy')}</LocalizedText></>; }
+function FilterItemLabel({ labelKey }: { labelKey: string }) { const { t } = useLang(); return <><LocalizedText>{t(labelKey as any)}</LocalizedText></>; }
+function ClientsLabel()           { const { t } = useLang(); return <><LocalizedText>{t('projects.clientsLabel')}</LocalizedText></>; }
 function ClientCampaignsLabel({ selectedClient }: { selectedClient: any }) {
   const { t } = useLang();
-  return <>{selectedClient ? `${selectedClient.name} ${t('projects.clientCampaigns')}` : t('projects.clientsLabel')}</>;
+  return <><LocalizedText>{selectedClient ? `${selectedClient.name} ${t('projects.clientCampaigns')}` : t('projects.clientsLabel')}</LocalizedText></>;
 }
-function SelectedClientLabel()    { const { t } = useLang(); return <>{t('projects.selectedClient')}</>; }
+function SelectedClientLabel()    { const { t } = useLang(); return <><LocalizedText>{t('projects.selectedClient')}</LocalizedText></>; }
 function CampaignCountLabel({ count }: { count: number }) {
   const { t } = useLang();
-  return <>{count} {t('projects.clientCampaigns')}</>;
+  return <><LocalizedText>{count}</LocalizedText> <LocalizedText>{t('projects.clientCampaigns')}</LocalizedText></>;
 }
-function NoProjectsLabel()        { const { t } = useLang(); return <>{t('projects.noProjects')}</>; }
-function SelectClientLabel()      { const { t } = useLang(); return <>{t('projects.selectClient')}</>; }
+function NoProjectsLabel()        { const { t } = useLang(); return <><LocalizedText>{t('projects.noProjects')}</LocalizedText></>; }
+function SelectClientLabel()      { const { t } = useLang(); return <><LocalizedText>{t('projects.selectClient')}</LocalizedText></>; }
 function FeaturedTitle({ featured }: { featured: any }) {
   const { isAr } = useLang();
-  return <>{isAr && featured.titleAr ? featured.titleAr : featured.title}</>;
+  return <><LocalizedText>{isAr && featured.titleAr ? featured.titleAr : featured.title}</LocalizedText></>;
 }
 function FeaturedTagline({ featured }: { featured: any }) {
   const { isAr } = useLang();
-  return <>{isAr && featured.taglineAr ? featured.taglineAr : featured.tagline}</>;
+  return <><LocalizedText>{isAr && featured.taglineAr ? featured.taglineAr : featured.tagline}</LocalizedText></>;
 }
 
 function ClientCard({ client, index, active, onClick }: { client: ClientGroup; index: number; active: boolean; onClick: () => void }) {
@@ -83,8 +84,8 @@ function ClientCard({ client, index, active, onClick }: { client: ClientGroup; i
       }}
     >
       <div className="relative overflow-hidden" style={{ height: 260 }}>
-        {client.coverImage
-          ? <img
+        <LocalizedText>{client.coverImage
+          ? <LocalizedElement as="img"
               src={client.coverImage}
               alt={client.coverImageAlt || `${client.name} client card`}
               width={600} height={260}
@@ -95,50 +96,50 @@ function ClientCard({ client, index, active, onClick }: { client: ClientGroup; i
               decoding="async"
             />
           : <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-              <span className="text-4xl font-black text-gray-300 select-none">{client.name?.charAt(0)?.toUpperCase()}</span>
+              <span className="text-4xl font-black text-gray-300 select-none"><LocalizedText>{client.name?.charAt(0)?.toUpperCase()}</LocalizedText></span>
             </div>
-        }
+        }</LocalizedText>
         <div
           className="absolute inset-0"
           style={{ background: "linear-gradient(to top, rgba(11,15,26,0.78) 0%, rgba(11,15,26,0.16) 60%, transparent 100%)" }}
         />
 
         <div className="absolute top-5 left-5 flex flex-wrap gap-2">
-          {client.categories.slice(0, 2).map((cat) => (
+          <LocalizedText>{client.categories.slice(0, 2).map((cat) => (
             <span key={cat} className="text-[10px] font-bold tracking-[0.25em] uppercase px-3 py-1.5 text-white" style={{ background: CAT_COLORS[cat] }}>
-              {cat}
+              <LocalizedText>{cat}</LocalizedText>
             </span>
-          ))}
+          ))}</LocalizedText>
         </div>
 
         <div className="absolute top-5 right-5">
-          <span className="text-[10px] font-semibold tracking-[0.2em] text-white/55">{client.latestYear}</span>
+          <span className="text-[10px] font-semibold tracking-[0.2em] text-white/55"><LocalizedText>{client.latestYear}</LocalizedText></span>
         </div>
 
         <div className="absolute bottom-0 left-0 right-0 p-6">
-          {client.logo ? (
+          <LocalizedText>{client.logo ? (
             <div className="mb-3">
-              <img src={client.logo} alt={client.logoAlt || client.name} style={{ height: 28, width: 'auto', objectFit: 'contain', maxWidth: 120, filter: 'brightness(10)', opacity: 0.85 }} loading="lazy" />
+              <LocalizedElement as="img" src={client.logo} alt={client.logoAlt || client.name} style={{ height: 28, width: 'auto', objectFit: 'contain', maxWidth: 120, filter: 'brightness(10)', opacity: 0.85 }} loading="lazy" />
             </div>
           ) : (
             <p className="text-white/45 text-[10px] font-bold tracking-[0.28em] uppercase mb-2"><ClientsLabel /></p>
-          )}
-          <h3 className="text-white font-black tracking-[-0.02em] leading-tight" style={{ fontSize: 24 }}>{client.name}</h3>
+          )}</LocalizedText>
+          <h3 className="text-white font-black tracking-[-0.02em] leading-tight" style={{ fontSize: 24 }}><LocalizedText>{client.name}</LocalizedText></h3>
         </div>
       </div>
 
       <div style={{ padding: "24px 24px 28px" }}>
         <div className="flex items-center justify-between mb-4">
           <span className="font-black text-[11px] tracking-[0.25em] uppercase" style={{ color: RED }}>
-            {String(index + 1).padStart(2, "0")}
+            <LocalizedText>{String(index + 1).padStart(2, "0")}</LocalizedText>
           </span>
           <span className="text-[11px] font-semibold tracking-[0.15em] uppercase" style={{ color: "rgba(11,15,26,0.3)" }}>
-            {client.projects.length} project{client.projects.length > 1 ? "s" : ""}
+            <LocalizedText>{client.projects.length}</LocalizedText><LocalizedText> project</LocalizedText><LocalizedText>{client.projects.length > 1 ? "s" : ""}</LocalizedText>
           </span>
         </div>
 
         <p className="text-[14px] leading-[1.7] mb-6" style={{ color: "rgba(11,15,26,0.48)" }}>
-          {client.blurb}
+          <LocalizedText>{client.blurb}</LocalizedText>
         </p>
 
         <div className="flex items-center justify-between pt-5 border-t border-[#0B0F1A]/[0.07]">
@@ -147,12 +148,12 @@ function ClientCard({ client, index, active, onClick }: { client: ClientGroup; i
               <LatestCampaignLabel />
             </p>
             <p className="font-black tracking-[-0.03em]" style={{ fontSize: 18, color: NAVY }}>
-              {client.projects[0]?.title}
+              <LocalizedText>{client.projects[0]?.title}</LocalizedText>
             </p>
           </div>
-          <span className="text-xl transition-all duration-300" style={{ color: active ? RED : "rgba(11,15,26,0.2)" }}>
+          <span className="text-xl transition-all duration-300" style={{ color: active ? RED : "rgba(11,15,26,0.2)" }}><LocalizedText>
             →
-          </span>
+          </LocalizedText></span>
         </div>
       </div>
     </motion.button>
@@ -168,14 +169,14 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
         visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease } },
       }}
     >
-      <Link
+      <LocalizedElement as={Link}
         to={projectHref(lang, project.slug)}
         className="group block overflow-hidden bg-white border border-[#0B0F1A]/[0.07] hover:border-[#D90429]/20 transition-all duration-500 cursor-pointer"
         style={{ textDecoration: "none" }}
       >
         <div className="relative overflow-hidden" style={{ height: 280 }}>
-          {project.coverImage
-            ? <img
+          <LocalizedText>{project.coverImage
+            ? <LocalizedElement as="img"
                 src={project.coverImage}
                 alt={project.coverImageAlt || `${project.title} — outdoor advertising ${project.location}`}
                 width={600} height={280}
@@ -186,9 +187,9 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
                 decoding="async"
               />
             : <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                <span className="text-4xl font-black text-gray-300 select-none">{project.title?.charAt(0)?.toUpperCase()}</span>
+                <span className="text-4xl font-black text-gray-300 select-none"><LocalizedText>{project.title?.charAt(0)?.toUpperCase()}</LocalizedText></span>
               </div>
-          }
+          }</LocalizedText>
           <div
             className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-60"
             style={{ background: "linear-gradient(to top, rgba(11,15,26,0.72) 0%, rgba(11,15,26,0.1) 55%, transparent 100%)" }}
@@ -196,17 +197,17 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
 
           <div className="absolute top-5 left-5">
             <span className="text-[10px] font-bold tracking-[0.25em] uppercase px-3 py-1.5 text-white" style={{ background: CAT_COLORS[project.category] }}>
-              {project.category}
+              <LocalizedText>{project.category}</LocalizedText>
             </span>
           </div>
 
           <div className="absolute top-5 right-5">
-            <span className="text-[10px] font-semibold tracking-[0.2em] text-white/50">{project.year}</span>
+            <span className="text-[10px] font-semibold tracking-[0.2em] text-white/50"><LocalizedText>{project.year}</LocalizedText></span>
           </div>
 
           <div className="absolute bottom-0 left-0 right-0 p-6">
             <p className="text-white font-black tracking-[-0.02em] leading-tight opacity-0 group-hover:opacity-100 transition-all duration-400 translate-y-2 group-hover:translate-y-0" style={{ fontSize: 13 }}>
-              {project.tagline}
+              <LocalizedText>{project.tagline}</LocalizedText>
             </p>
           </div>
         </div>
@@ -214,36 +215,36 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
         <div style={{ padding: "28px 28px 32px" }}>
           <div className="flex items-center justify-between mb-4">
             <span className="font-black text-[11px] tracking-[0.25em] uppercase" style={{ color: RED }}>
-              {String(index + 1).padStart(2, "0")}
+              <LocalizedText>{String(index + 1).padStart(2, "0")}</LocalizedText>
             </span>
             <span className="text-[11px] font-semibold tracking-[0.15em] uppercase" style={{ color: "rgba(11,15,26,0.3)" }}>
-              {project.location}
+              <LocalizedText>{project.location}</LocalizedText>
             </span>
           </div>
 
           <h3 className="font-extrabold leading-[1.15] tracking-[-0.02em] mb-3 transition-colors duration-400 group-hover:text-[#D90429]" style={{ fontSize: 20, color: NAVY }}>
-            {isAr && project.titleAr ? project.titleAr : project.title}
+            <LocalizedText>{isAr && project.titleAr ? project.titleAr : project.title}</LocalizedText>
           </h3>
 
           <p className="text-[13px] font-medium mb-6" style={{ color: "rgba(11,15,26,0.4)" }}>
-            {project.client} · {project.duration}
+            <LocalizedText>{project.client}</LocalizedText><LocalizedText> · </LocalizedText><LocalizedText>{project.duration}</LocalizedText>
           </p>
 
           <div className="flex items-center justify-between pt-5 border-t border-[#0B0F1A]/[0.07]">
             <div>
               <p className="text-[10px] font-bold tracking-[0.2em] uppercase mb-1" style={{ color: "rgba(11,15,26,0.3)" }}>
-                {project.results[0]?.metric || "Campaign"}
+                <LocalizedText>{project.results[0]?.metric || "Campaign"}</LocalizedText>
               </p>
               <p className="font-black tracking-[-0.03em]" style={{ fontSize: 22, color: RED }}>
-                {project.results[0]?.value || project.year}
+                <LocalizedText>{project.results[0]?.value || project.year}</LocalizedText>
               </p>
             </div>
-            <span className="text-xl opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0" style={{ color: RED }}>
+            <span className="text-xl opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0" style={{ color: RED }}><LocalizedText>
               →
-            </span>
+            </LocalizedText></span>
           </div>
         </div>
-      </Link>
+      </LocalizedElement>
     </motion.div>
   );
 }
@@ -263,19 +264,19 @@ function FeaturedProject() {
           </p>
         </Reveal>
 
-        <Link to={projectHref(lang, featured.slug)} className="group relative block overflow-hidden" style={{ textDecoration: "none", height: 560 }}>
-          {featured.heroImage
-            ? <img src={featured.heroImage} alt={featured.heroImageAlt || `${featured.title} — outdoor advertising case study Egypt`} width={1440} height={500} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" style={{ opacity: 0.8 }} {...({ fetchpriority: "high" } as any)} decoding="async" />
-            : <div className="absolute inset-0 bg-gradient-to-br from-[#0B0F1A] to-[#1a2035]" />}
+        <LocalizedElement as={Link} to={projectHref(lang, featured.slug)} className="group relative block overflow-hidden" style={{ textDecoration: "none", height: 560 }}>
+          <LocalizedText>{featured.heroImage
+            ? <LocalizedElement as="img" src={featured.heroImage} alt={featured.heroImageAlt || `${featured.title} — outdoor advertising case study Egypt`} width={1440} height={500} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" style={{ opacity: 0.8 }} {...({ fetchpriority: "high" } as any)} decoding="async" />
+            : <div className="absolute inset-0 bg-gradient-to-br from-[#0B0F1A] to-[#1a2035]" />}</LocalizedText>
           <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(11,15,26,0.88) 0%, rgba(11,15,26,0.5) 50%, rgba(11,15,26,0.15) 100%)" }} />
 
           <div className="absolute inset-0 flex flex-col justify-end" style={{ padding: "60px 80px" }}>
             <div className="flex items-center gap-3 mb-5">
               <span className="text-[10px] font-bold tracking-[0.3em] uppercase px-3 py-1.5 text-white" style={{ background: RED }}>
-                {featured.category}
+                <LocalizedText>{featured.category}</LocalizedText>
               </span>
               <span className="text-white/35 text-[10px] font-semibold tracking-[0.2em]">
-                {featured.year} · {featured.duration}
+                <LocalizedText>{featured.year}</LocalizedText><LocalizedText> · </LocalizedText><LocalizedText>{featured.duration}</LocalizedText>
               </span>
             </div>
 
@@ -288,29 +289,29 @@ function FeaturedProject() {
             </p>
 
             <div className="flex items-center gap-12 mb-10">
-              {(featured.results || []).slice(0, 3).map((r: any) => (
+              <LocalizedText>{(featured.results || []).slice(0, 3).map((r: any) => (
                 <div key={r.metric}>
-                  <p className="font-black text-white/90 tracking-[-0.04em]" style={{ fontSize: 28 }}>{r.value}</p>
-                  <p className="text-white/35 text-[10px] font-semibold tracking-[0.2em] uppercase mt-1">{r.metric}</p>
+                  <p className="font-black text-white/90 tracking-[-0.04em]" style={{ fontSize: 28 }}><LocalizedText>{r.value}</LocalizedText></p>
+                  <p className="text-white/35 text-[10px] font-semibold tracking-[0.2em] uppercase mt-1"><LocalizedText>{r.metric}</LocalizedText></p>
                 </div>
-              ))}
+              ))}</LocalizedText>
             </div>
 
             <div className="flex items-center gap-3">
               <span className="text-white font-bold text-[12px] tracking-[0.2em] uppercase"><ViewCaseStudyLabel /></span>
-              <span className="text-xl opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0" style={{ color: RED }}>
+              <span className="text-xl opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0" style={{ color: RED }}><LocalizedText>
                 →
-              </span>
+              </LocalizedText></span>
             </div>
           </div>
 
           <div className="absolute top-10 right-10">
             <div className="bg-white/10 backdrop-blur-sm px-5 py-3 border border-white/15">
-              <p className="text-white/40 text-[9px] tracking-[0.3em] uppercase font-bold mb-1">Client</p>
-              <p className="text-white font-bold text-[14px] tracking-[-0.01em]">{featured.client}</p>
+              <p className="text-white/40 text-[9px] tracking-[0.3em] uppercase font-bold mb-1"><LocalizedText>Client</LocalizedText></p>
+              <p className="text-white font-bold text-[14px] tracking-[-0.01em]"><LocalizedText>{featured.client}</LocalizedText></p>
             </div>
           </div>
-        </Link>
+        </LocalizedElement>
       </div>
     </section>
   );
@@ -331,8 +332,8 @@ function WhyItMatters({ pc }: { pc?: any }) {
             <Eyebrow text={isAr && (pc as any)?.whyEyebrowAr ? (pc as any).whyEyebrowAr : (pc?.whyEyebrow || t('projects.whyEyebrow'))} />
             <Reveal delay={0.04}>
               <h2 className="font-black leading-[0.9] tracking-[-0.04em]" style={{ fontSize: "clamp(32px, 3.5vw, 48px)", color: NAVY }}>
-                {isAr && (pc as any)?.whyTitleAr ? (pc as any).whyTitleAr : (pc?.whyTitle || t('projects.whyTitle'))}<br />
-                <span style={{ color: "rgba(11,15,26,0.2)" }}>{isAr && (pc as any)?.whyTitleAccentAr ? (pc as any).whyTitleAccentAr : (pc?.whyTitleAccent || t('projects.whyTitleAccent'))}</span>
+                <LocalizedText>{isAr && (pc as any)?.whyTitleAr ? (pc as any).whyTitleAr : (pc?.whyTitle || t('projects.whyTitle'))}</LocalizedText><br />
+                <span style={{ color: "rgba(11,15,26,0.2)" }}><LocalizedText>{isAr && (pc as any)?.whyTitleAccentAr ? (pc as any).whyTitleAccentAr : (pc?.whyTitleAccent || t('projects.whyTitleAccent'))}</LocalizedText></span>
               </h2>
             </Reveal>
           </div>
@@ -340,7 +341,7 @@ function WhyItMatters({ pc }: { pc?: any }) {
           <div className="col-span-12 lg:col-span-8">
             <Reveal delay={0.1}>
               <p className="text-[17px] leading-[1.85] mb-6" style={{ color: "rgba(11,15,26,0.5)" }}>
-                {isAr && (pc as any)?.whyParagraph1Ar ? (pc as any).whyParagraph1Ar : (pc?.whyParagraph1 || "Egypt's outdoor advertising market is among the fastest-growing in the MENA region — driven by rapid urbanisation, a young and mobile population, and a commuter culture that places millions of consumers in front of billboards, DOOH screens, and mall formats every single day. Unlike digital advertising, outdoor advertising in Egypt cannot be skipped, blocked, or scrolled past.")}
+                <LocalizedText>{isAr && (pc as any)?.whyParagraph1Ar ? (pc as any).whyParagraph1Ar : (pc?.whyParagraph1 || "Egypt's outdoor advertising market is among the fastest-growing in the MENA region — driven by rapid urbanisation, a young and mobile population, and a commuter culture that places millions of consumers in front of billboards, DOOH screens, and mall formats every single day. Unlike digital advertising, outdoor advertising in Egypt cannot be skipped, blocked, or scrolled past.")}</LocalizedText>
               </p>
             </Reveal>
 
@@ -348,9 +349,9 @@ function WhyItMatters({ pc }: { pc?: any }) {
               {stats.map((stat) => (
                 <RevealItem key={stat.label}>
                   <div className="bg-white p-8 border border-[#0B0F1A]/[0.07]">
-                    <p className="font-black leading-none tracking-[-0.04em] mb-3" style={{ fontSize: 40, color: RED }}>{stat.value}</p>
-                    <p className="font-bold text-[14px] mb-1" style={{ color: NAVY }}>{stat.label}</p>
-                    <p className="text-[11px] tracking-[0.15em] uppercase" style={{ color: "rgba(11,15,26,0.3)" }}>{stat.sub}</p>
+                    <p className="font-black leading-none tracking-[-0.04em] mb-3" style={{ fontSize: 40, color: RED }}><LocalizedText>{stat.value}</LocalizedText></p>
+                    <p className="font-bold text-[14px] mb-1" style={{ color: NAVY }}><LocalizedText>{stat.label}</LocalizedText></p>
+                    <p className="text-[11px] tracking-[0.15em] uppercase" style={{ color: "rgba(11,15,26,0.3)" }}><LocalizedText>{stat.sub}</LocalizedText></p>
                   </div>
                 </RevealItem>
               ))}
@@ -426,13 +427,13 @@ export default function Projects() {
           </Reveal>
           <Reveal delay={0.04}>
             <h1 className="font-black leading-[0.88] tracking-[-0.05em]" style={{ fontSize: "clamp(42px, 6vw, 86px)", color: NAVY, maxWidth: 980 }}>
-              {isAr && (pc as any)?.heroTitleAr ? (pc as any).heroTitleAr : (pc?.heroTitle || t('projects.title'))}<br />
-              <span style={{ color: "rgba(11,15,26,0.2)" }}>{isAr && (pc as any)?.heroTitleAccentAr ? (pc as any).heroTitleAccentAr : (pc?.heroTitleAccent || t('projects.titleAccent'))}</span>
+              <LocalizedText>{isAr && (pc as any)?.heroTitleAr ? (pc as any).heroTitleAr : (pc?.heroTitle || t('projects.title'))}</LocalizedText><br />
+              <span style={{ color: "rgba(11,15,26,0.2)" }}><LocalizedText>{isAr && (pc as any)?.heroTitleAccentAr ? (pc as any).heroTitleAccentAr : (pc?.heroTitleAccent || t('projects.titleAccent'))}</LocalizedText></span>
             </h1>
           </Reveal>
           <Reveal delay={0.08}>
             <p className="text-[17px] leading-[1.85] mt-8" style={{ color: "rgba(11,15,26,0.5)", maxWidth: 760 }}>
-              {isAr && (pc as any)?.heroParagraphAr ? (pc as any).heroParagraphAr : (pc?.heroParagraph || t('projects.subtitle'))}
+              <LocalizedText>{isAr && (pc as any)?.heroParagraphAr ? (pc as any).heroParagraphAr : (pc?.heroParagraph || t('projects.subtitle'))}</LocalizedText>
             </p>
           </Reveal>
         </div>
@@ -443,7 +444,7 @@ export default function Projects() {
       <section className="bg-white" style={{ paddingTop: 20, paddingBottom: 100 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <div className="flex flex-wrap items-center gap-3 mb-12">
-            {FILTER_KEYS.map((item) => {
+            <LocalizedText>{FILTER_KEYS.map((item) => {
               const active = filter === item.value;
               return (
                 <button
@@ -463,7 +464,7 @@ export default function Projects() {
                   <FilterItemLabel labelKey={item.labelKey} />
                 </button>
               );
-            })}
+            })}</LocalizedText>
           </div>
 
           <div ref={gridRef} className="grid grid-cols-1 xl:grid-cols-[1.05fr_0.95fr] gap-12 items-start">
@@ -473,13 +474,13 @@ export default function Projects() {
                   <ClientsLabel />
                 </p>
               </Reveal>
-              {clientGroups.length === 0 ? (
+              <LocalizedText>{clientGroups.length === 0 ? (
                 <div className="border border-[#0B0F1A]/[0.08] bg-[#F5F5F6] p-8">
                   <p style={{ color: "rgba(11,15,26,0.45)" }}><NoProjectsLabel /></p>
                 </div>
               ) : (
                 <motion.div initial="hidden" animate={inView ? "visible" : "hidden"} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {clientGroups.map((client, index) => (
+                  <LocalizedText>{clientGroups.map((client, index) => (
                     <ClientCard
                       key={client.name}
                       client={client}
@@ -487,9 +488,9 @@ export default function Projects() {
                       active={selectedClient?.name === client.name}
                       onClick={() => setActiveClient(client.name)}
                     />
-                  ))}
+                  ))}</LocalizedText>
                 </motion.div>
-              )}
+              )}</LocalizedText>
             </div>
 
             <div className="xl:sticky xl:top-28">
@@ -499,13 +500,13 @@ export default function Projects() {
                 </p>
               </Reveal>
 
-              {selectedClient ? (
+              <LocalizedText>{selectedClient ? (
                 <div className="border border-[#0B0F1A]/[0.07] bg-[#F5F5F6] p-6 sm:p-8">
                   <div className="flex items-start justify-between gap-4 mb-6">
                     <div>
                       <p className="text-[10px] font-bold tracking-[0.3em] uppercase mb-2" style={{ color: RED }}><SelectedClientLabel /></p>
                       <h2 className="font-black tracking-[-0.03em] leading-[0.95]" style={{ fontSize: "clamp(28px, 3vw, 40px)", color: NAVY }}>
-                        {selectedClient.name}
+                        <LocalizedText>{selectedClient.name}</LocalizedText>
                       </h2>
                     </div>
                     <span className="text-[11px] font-semibold tracking-[0.18em] uppercase" style={{ color: "rgba(11,15,26,0.3)" }}>
@@ -514,7 +515,7 @@ export default function Projects() {
                   </div>
 
                   <p className="text-[15px] leading-[1.8] mb-8" style={{ color: "rgba(11,15,26,0.5)" }}>
-                    {selectedClient.blurb}
+                    <LocalizedText>{selectedClient.blurb}</LocalizedText>
                   </p>
 
                   <RevealGroup className="flex flex-col gap-5">
@@ -529,7 +530,7 @@ export default function Projects() {
                 <div className="border border-[#0B0F1A]/[0.08] bg-[#F5F5F6] p-8">
                   <p style={{ color: "rgba(11,15,26,0.45)" }}><SelectClientLabel /></p>
                 </div>
-              )}
+              )}</LocalizedText>
             </div>
           </div>
         </div>

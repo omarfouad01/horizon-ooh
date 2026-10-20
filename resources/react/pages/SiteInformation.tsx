@@ -1,3 +1,4 @@
+import {LocalizedText, LocalizedElement} from "@/components/Localized";
 import { Link } from 'react-router-dom';
 import SEO from '@/components/SEO';
 import { useLang } from '@/i18n/LangContext';
@@ -25,9 +26,9 @@ export default function SiteInformation({ kind }: { kind: 'privacy' | 'terms' })
   ]);
   return <div className="bg-white text-[#0B0F1A] min-h-screen pt-32 pb-20 px-6" dir={isAr ? 'rtl' : 'ltr'}>
     <SEO title={`${title} | Horizon OOH`} description={sections[0][1]} canonical={`/${kind}`} />
-    <article className="max-w-3xl mx-auto"><h1 className="text-4xl font-bold mb-10">{title}</h1>
-      {sections.map(([heading, text]) => <section key={heading} className="mb-8"><h2 className="text-xl font-bold mb-3">{heading}</h2><p className="leading-8 text-gray-700">{text}</p></section>)}
-      <Link className="text-[#D90429] underline" to={isAr ? '/ar/contact' : '/contact'}>{isAr ? 'تواصل معنا' : 'Contact Horizon OOH'}</Link>
+    <article className="max-w-3xl mx-auto"><h1 className="text-4xl font-bold mb-10"><LocalizedText>{title}</LocalizedText></h1>
+      <LocalizedText>{sections.map(([heading, text]) => <section key={heading} className="mb-8"><h2 className="text-xl font-bold mb-3"><LocalizedText>{heading}</LocalizedText></h2><p className="leading-8 text-gray-700"><LocalizedText>{text}</LocalizedText></p></section>)}</LocalizedText>
+      <LocalizedElement as={Link} className="text-[#D90429] underline" to={isAr ? '/ar/contact' : '/contact'}><LocalizedText>{isAr ? 'تواصل معنا' : 'Contact Horizon OOH'}</LocalizedText></LocalizedElement>
     </article>
   </div>;
 }

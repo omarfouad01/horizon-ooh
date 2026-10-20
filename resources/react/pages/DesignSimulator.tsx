@@ -1,3 +1,4 @@
+import {LocalizedText, LocalizedElement} from "@/components/Localized";
 /**
  * DesignSimulator.tsx — "See Your Brand on Any Billboard"
  * - Login gate: if not signed in, show sign-in prompt
@@ -34,9 +35,9 @@ function StepDot({ n, label, active, done }: { n: number; label: string; active:
     <div className="flex items-center gap-2">
       <div className={`w-7 h-7 rounded-full flex items-center justify-center text-sm font-black border-2 transition-all
         ${done ? 'bg-[#D90429] border-[#D90429] text-white' : active ? 'bg-white border-white text-[#0B0F1A]' : 'border-white/30 text-white/40'}`}>
-        {done ? <CheckCircle2 size={14} /> : n}
+        <LocalizedText>{done ? <CheckCircle2 size={14} /> : n}</LocalizedText>
       </div>
-      <span className={`text-sm font-semibold hidden sm:block ${active ? 'text-white' : done ? 'text-white/70' : 'text-white/30'}`}>{label}</span>
+      <span className={`text-sm font-semibold hidden sm:block ${active ? 'text-white' : done ? 'text-white/70' : 'text-white/30'}`}><LocalizedText>{label}</LocalizedText></span>
     </div>
   );
 }
@@ -50,25 +51,25 @@ function UploadZone({ index, panelCount, value, onChange }: {
   const label = `Panel ${index + 1}`;
   return (
     <div>
-      {panelCount > 1 && (
+      <LocalizedText>{panelCount > 1 && (
         <div className="flex items-center gap-2 mb-2">
           <div className="w-2.5 h-2.5 rounded-full" style={{ background: color }} />
-          <p className="text-xs font-bold text-gray-600 uppercase tracking-wider">{label}</p>
+          <p className="text-xs font-bold text-gray-600 uppercase tracking-wider"><LocalizedText>{label}</LocalizedText></p>
         </div>
-      )}
+      )}</LocalizedText>
       <label className={`flex flex-col items-center justify-center h-28 rounded-xl border-2 border-dashed cursor-pointer transition-all text-sm overflow-hidden
         ${value ? 'border-green-400 bg-green-50/60' : 'border-gray-200 hover:bg-gray-50'}`}>
-        {value ? (
+        <LocalizedText>{value ? (
           <div className="relative w-full h-full">
-            <img src={value} alt="" className="w-full h-full object-contain p-1" />
+            <LocalizedElement as="img" src={value} alt="" className="w-full h-full object-contain p-1" />
           </div>
         ) : (
           <>
             <Upload size={22} className="text-gray-300 mb-1.5" />
-            <span className="text-gray-400 text-xs font-medium">{t('sim.clickToUpload')}</span>
+            <span className="text-gray-400 text-xs font-medium"><LocalizedText>{t('sim.clickToUpload')}</LocalizedText></span>
           </>
-        )}
-        <input type="file" accept="image/*" className="hidden" onChange={e => {
+        )}</LocalizedText>
+        <LocalizedElement as="input" type="file" accept="image/*" className="hidden" onChange={e => {
           const file = e.target.files?.[0];
           if (!file) return;
           const reader = new FileReader();
@@ -77,11 +78,11 @@ function UploadZone({ index, panelCount, value, onChange }: {
           e.target.value = '';
         }} />
       </label>
-      {value && (
+      <LocalizedText>{value && (
         <button onClick={() => onChange('')} className="text-xs text-gray-400 hover:text-red-500 mt-1 ml-1 transition-colors">
-          {t('sim.changeDesign')}
+          <LocalizedText>{t('sim.changeDesign')}</LocalizedText>
         </button>
-      )}
+      )}</LocalizedText>
     </div>
   );
 }
@@ -99,8 +100,8 @@ function FormatCard({ t, selected, onClick }: {
     >
       {/* Photo */}
       <div className="w-full aspect-video bg-gray-100 overflow-hidden relative">
-        {t.mockupUrl ? (
-          <img
+        <LocalizedText>{t.mockupUrl ? (
+          <LocalizedElement as="img"
             src={t.mockupUrl}
             alt={t.typeName}
             loading="lazy"
@@ -111,32 +112,32 @@ function FormatCard({ t, selected, onClick }: {
           <div className="w-full h-full flex items-center justify-center">
             <Layers size={32} className="text-gray-300" />
           </div>
-        )}
-        {pc > 1 && (
+        )}</LocalizedText>
+        <LocalizedText>{pc > 1 && (
           <span className="absolute top-2 right-2 text-[10px] bg-purple-600 text-white font-bold px-2 py-0.5 rounded-full">
-            {pc} panels
-          </span>
-        )}
-        {selected && (
+            <LocalizedText>{pc}</LocalizedText><LocalizedText> panels
+          </LocalizedText></span>
+        )}</LocalizedText>
+        <LocalizedText>{selected && (
           <div className="absolute inset-0 bg-[#D90429]/10 flex items-center justify-center">
             <CheckCircle2 size={28} className="text-[#D90429] drop-shadow" />
           </div>
-        )}
+        )}</LocalizedText>
       </div>
 
       {/* Info */}
       <div className="px-3 py-2.5">
         <p className={`font-black text-sm leading-tight ${selected ? 'text-[#D90429]' : 'text-gray-900'}`}>
-          {t.typeName}
+          <LocalizedText>{t.typeName}</LocalizedText>
         </p>
-        {t.sizeLabel && (
-          <p className="text-xs text-gray-400 font-medium mt-0.5">{t.sizeLabel}</p>
-        )}
-        {pc > 1 && (
+        <LocalizedText>{t.sizeLabel && (
+          <p className="text-xs text-gray-400 font-medium mt-0.5"><LocalizedText>{t.sizeLabel}</LocalizedText></p>
+        )}</LocalizedText>
+        <LocalizedText>{pc > 1 && (
           <p className="text-[10px] text-purple-600 font-semibold mt-1">
-            {pc === 2 ? 'Double Decker — 2 designs' : `${pc} designs needed`}
+            <LocalizedText>{pc === 2 ? 'Double Decker — 2 designs' : `${pc} designs needed`}</LocalizedText>
           </p>
-        )}
+        )}</LocalizedText>
       </div>
     </button>
   );
@@ -253,18 +254,18 @@ export default function DesignSimulator() {
       <div className="bg-[#0B0F1A] text-white pt-12 pb-10 px-4">
         <div className="max-w-6xl mx-auto" dir={isAr ? 'rtl' : 'ltr'}>
           <p className="text-[#D90429] text-[11px] font-black tracking-[0.22em] uppercase mb-3">
-            {simEyebrow}
+            <LocalizedText>{simEyebrow}</LocalizedText>
           </p>
           <h1 className="text-4xl md:text-6xl font-black mb-3 leading-tight">
-            {simTitle}{' '}
-            <span className="text-[#D90429]">{simTitleAccent}</span>
+            <LocalizedText>{simTitle}<LocalizedText></LocalizedText>{' '}</LocalizedText>
+            <span className="text-[#D90429]"><LocalizedText>{simTitleAccent}</LocalizedText></span>
           </h1>
           <p className="text-white/55 text-sm md:text-base max-w-lg mb-8">
-            {simSubtitle}
+            <LocalizedText>{simSubtitle}</LocalizedText>
           </p>
 
           {/* Step indicators — only show when logged in */}
-          {user && (
+          <LocalizedText>{user && (
             <div className={`flex items-center gap-3 flex-wrap ${isAr ? 'flex-row-reverse' : ''}`}>
               <StepDot n={1} label={t('sim.step1')} active={step === 1} done={step > 1} />
               <ChevronRight size={14} className="text-white/20" />
@@ -272,7 +273,7 @@ export default function DesignSimulator() {
               <ChevronRight size={14} className="text-white/20" />
               <StepDot n={3} label={t('sim.step3')} active={step === 3} done={false} />
             </div>
-          )}
+          )}</LocalizedText>
         </div>
       </div>
 
@@ -280,101 +281,101 @@ export default function DesignSimulator() {
       <div className="max-w-6xl mx-auto px-4 py-10">
 
         {/* ── LOGIN GATE ── */}
-        {!user && (
+        <LocalizedText>{!user && (
           <div className="flex flex-col items-center justify-center py-16 text-center">
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-10 max-w-md w-full">
               <div className="w-16 h-16 rounded-full bg-[#D90429]/10 flex items-center justify-center mx-auto mb-5">
                 <LogIn size={30} className="text-[#D90429]" />
               </div>
-              <h2 className="text-2xl font-black text-gray-900 mb-3">{t('sim.signInRequired')}</h2>
+              <h2 className="text-2xl font-black text-gray-900 mb-3"><LocalizedText>{t('sim.signInRequired')}</LocalizedText></h2>
               <p className="text-gray-500 text-sm mb-8 leading-relaxed">
-                {t('sim.signInDesc')}
+                <LocalizedText>{t('sim.signInDesc')}</LocalizedText>
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <Link
+                <LocalizedElement as={Link}
                   to={langPath(lang, "/login")}
                   className="flex items-center justify-center gap-2 px-6 py-3 bg-[#D90429] text-white font-bold rounded-xl text-sm hover:bg-[#b8031f] transition-colors"
                 >
                   <LogIn size={16} />
-                  {t('sim.loginBtn')}
-                </Link>
-                <Link
+                  <LocalizedText>{t('sim.loginBtn')}</LocalizedText>
+                </LocalizedElement>
+                <LocalizedElement as={Link}
                   to={langPath(lang, "/signup")}
                   className="flex items-center justify-center gap-2 px-6 py-3 border-2 border-gray-200 text-gray-700 font-bold rounded-xl text-sm hover:border-gray-400 transition-colors"
                 >
-                  {t('sim.createAccount')}
-                </Link>
+                  <LocalizedText>{t('sim.createAccount')}</LocalizedText>
+                </LocalizedElement>
               </div>
             </div>
           </div>
-        )}
+        )}</LocalizedText>
 
         {/* ── NO TEMPLATES YET ── */}
-        {user && allTemplates.length === 0 && (
+        <LocalizedText>{user && allTemplates.length === 0 && (
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-12 text-center max-w-lg mx-auto">
             <AlertCircle size={36} className="text-amber-400 mx-auto mb-4" />
-            <h2 className="text-lg font-bold text-gray-900 mb-2">{t('sim.templatesComingSoon')}</h2>
+            <h2 className="text-lg font-bold text-gray-900 mb-2"><LocalizedText>{t('sim.templatesComingSoon')}</LocalizedText></h2>
             <p className="text-gray-500 text-sm mb-6">
-              {t('sim.comingSoonDesc')}
+              <LocalizedText>{t('sim.comingSoonDesc')}</LocalizedText>
             </p>
-            <Link to={langPath(lang, "/contact")} className="inline-block px-6 py-2.5 bg-[#D90429] text-white font-bold rounded-xl text-sm hover:bg-[#b8031f] transition-colors">
-              {t('sim.contactTeam')}
-            </Link>
+            <LocalizedElement as={Link} to={langPath(lang, "/contact")} className="inline-block px-6 py-2.5 bg-[#D90429] text-white font-bold rounded-xl text-sm hover:bg-[#b8031f] transition-colors">
+              <LocalizedText>{t('sim.contactTeam')}</LocalizedText>
+            </LocalizedElement>
           </div>
-        )}
+        )}</LocalizedText>
 
         {/* ── SIMULATOR ── */}
-        {user && allTemplates.length > 0 && (
+        <LocalizedText>{user && allTemplates.length > 0 && (
           <div className="space-y-10">
 
             {/* ── STEP 1: Format grid ── */}
             <section>
               <div className="flex items-center gap-2 mb-5">
-                <span className="w-6 h-6 rounded-full bg-[#D90429] text-white text-[11px] flex items-center justify-center font-black">1</span>
-                <h2 className="text-base font-black text-gray-900 uppercase tracking-widest">{t('sim.chooseFormat')}</h2>
+                <span className="w-6 h-6 rounded-full bg-[#D90429] text-white text-[11px] flex items-center justify-center font-black"><LocalizedText>1</LocalizedText></span>
+                <h2 className="text-base font-black text-gray-900 uppercase tracking-widest"><LocalizedText>{t('sim.chooseFormat')}</LocalizedText></h2>
               </div>
 
-              {templates.length === 0 ? (
+              <LocalizedText>{templates.length === 0 ? (
                 <div className="flex items-start gap-2 text-xs text-amber-700 bg-amber-50 rounded-xl px-4 py-3 border border-amber-100 max-w-md">
                   <AlertCircle size={13} className="mt-0.5 shrink-0" />
-                  <span>{t('sim.templatesSetup')}</span>
+                  <span><LocalizedText>{t('sim.templatesSetup')}</LocalizedText></span>
                 </div>
               ) : (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                  {templates.map(tpl => (
+                  <LocalizedText>{templates.map(tpl => (
                     <FormatCard
                       key={tpl.id}
                       t={tpl}
                       selected={selectedTemplate?.id === tpl.id}
                       onClick={() => handleTemplateSelect(tpl)}
                     />
-                  ))}
+                  ))}</LocalizedText>
                 </div>
-              )}
+              )}</LocalizedText>
             </section>
 
             {/* ── STEP 2 + 3: Upload + Preview side-by-side ── */}
-            {selectedTemplate && (
+            <LocalizedText>{selectedTemplate && (
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
                 {/* Left: upload */}
                 <div className="lg:col-span-1">
                   <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
                     <div className="flex items-center gap-2 mb-4">
-                      <span className="w-6 h-6 rounded-full bg-[#D90429] text-white text-[11px] flex items-center justify-center font-black">2</span>
+                      <span className="w-6 h-6 rounded-full bg-[#D90429] text-white text-[11px] flex items-center justify-center font-black"><LocalizedText>2</LocalizedText></span>
                       <h3 className="text-xs font-black text-gray-500 uppercase tracking-widest">
-                        {panelCount > 1 ? t('sim.uploadDesigns') : t('sim.uploadDesign')}
+                        <LocalizedText>{panelCount > 1 ? t('sim.uploadDesigns') : t('sim.uploadDesign')}</LocalizedText>
                       </h3>
                     </div>
 
-                    {panelCount > 1 && (
+                    <LocalizedText>{panelCount > 1 && (
                       <p className="text-xs text-purple-600 bg-purple-50 rounded-lg px-3 py-2 mb-3 font-semibold border border-purple-100">
-                        {panelCount === 2 ? t('sim.doubleDecker') : t('sim.multiPanel')} — {panelCount} {t('sim.designsNeeded')}
+                        <LocalizedText>{panelCount === 2 ? t('sim.doubleDecker') : t('sim.multiPanel')}</LocalizedText><LocalizedText> — </LocalizedText><LocalizedText>{panelCount}</LocalizedText> <LocalizedText>{t('sim.designsNeeded')}</LocalizedText>
                       </p>
-                    )}
+                    )}</LocalizedText>
 
                     <div className="space-y-4">
-                      {Array.from({ length: panelCount }).map((_, i) => (
+                      <LocalizedText>{Array.from({ length: panelCount }).map((_, i) => (
                         <UploadZone
                           key={i}
                           index={i}
@@ -382,20 +383,20 @@ export default function DesignSimulator() {
                           value={designFiles[i] ?? ''}
                           onChange={url => setDesign(i, url)}
                         />
-                      ))}
+                      ))}</LocalizedText>
                     </div>
 
                     {/* Download button — shown once at least one design is uploaded */}
-                    {designFiles.some(Boolean) && (
+                    <LocalizedText>{designFiles.some(Boolean) && (
                       <button
                         onClick={handleDownload}
                         disabled={downloading}
                         className="mt-5 w-full flex items-center justify-center gap-2 bg-[#0B0F1A] text-white font-bold py-3 rounded-xl hover:bg-black transition-colors disabled:opacity-50 text-sm"
                       >
                         <Download size={15} />
-                        {downloading ? t('sim.generating') : t('sim.downloadMockup')}
+                        <LocalizedText>{downloading ? t('sim.generating') : t('sim.downloadMockup')}</LocalizedText>
                       </button>
-                    )}
+                    )}</LocalizedText>
                   </div>
                 </div>
 
@@ -404,23 +405,23 @@ export default function DesignSimulator() {
                   <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden" style={{ minHeight: 420 }}>
                     <div className="border-b border-gray-100 px-5 py-3 flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <span className="w-6 h-6 rounded-full bg-[#D90429] text-white text-[11px] flex items-center justify-center font-black">3</span>
-                        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">{t('sim.livePreview')}</p>
+                        <span className="w-6 h-6 rounded-full bg-[#D90429] text-white text-[11px] flex items-center justify-center font-black"><LocalizedText>3</LocalizedText></span>
+                        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest"><LocalizedText>{t('sim.livePreview')}</LocalizedText></p>
                       </div>
                       <p className="text-xs text-gray-500">
-                        {selectedTemplate.typeName}{selectedTemplate.sizeLabel ? ` · ${selectedTemplate.sizeLabel}` : ''}
+                        <LocalizedText>{selectedTemplate.typeName}<LocalizedText></LocalizedText>{selectedTemplate.sizeLabel ? ` · ${selectedTemplate.sizeLabel}` : ''}</LocalizedText>
                       </p>
                     </div>
 
                     <div className="flex items-center justify-center p-4" style={{ minHeight: 380 }}>
-                      {!designFiles.some(Boolean) ? (
+                      <LocalizedText>{!designFiles.some(Boolean) ? (
                         <div className="text-center">
                           <Upload size={52} className="text-gray-200 mx-auto mb-4" />
-                          <p className="text-gray-400 font-semibold text-sm">{t('sim.uploadFirst')}{panelCount > 1 ? 's' : ''}</p>
-                          <p className="text-gray-300 text-xs mt-1">{t('sim.previewAuto')}</p>
+                          <p className="text-gray-400 font-semibold text-sm"><LocalizedText>{isAr && panelCount > 1 ? 'ارفع تصاميمك' : t('sim.uploadFirst')}<LocalizedText></LocalizedText>{!isAr && panelCount > 1 ? 's' : ''}</LocalizedText></p>
+                          <p className="text-gray-300 text-xs mt-1"><LocalizedText>{t('sim.previewAuto')}</LocalizedText></p>
                         </div>
                       ) : selectedTemplate.mockupUrl && (selectedTemplate.panels?.length ?? 0) > 0 ? (
-                        <Suspense fallback={<div role="status">{t('sim.generating')}</div>}>
+                        <Suspense fallback={<div role="status"><LocalizedText>{t('sim.generating')}</LocalizedText></div>}>
                         <SimulatorCanvas
                           ref={canvasRef}
                           mockupUrl={selectedTemplate.mockupUrl}
@@ -431,27 +432,27 @@ export default function DesignSimulator() {
                         </Suspense>
                       ) : (
                         <div className="text-center">
-                          {selectedTemplate.mockupUrl && (
-                            <img
+                          <LocalizedText>{selectedTemplate.mockupUrl && (
+                            <LocalizedElement as="img"
                               src={selectedTemplate.mockupUrl}
                               alt="Mockup"
                               className="max-h-64 mx-auto rounded-xl mb-4 object-contain"
                             />
-                          )}
+                          )}</LocalizedText>
                           <p className="text-xs text-amber-600 bg-amber-50 rounded-lg px-3 py-2 border border-amber-100 inline-block">
-                            {t('sim.cornersNotSet')}
+                            <LocalizedText>{t('sim.cornersNotSet')}</LocalizedText>
                           </p>
                         </div>
-                      )}
+                      )}</LocalizedText>
                     </div>
                   </div>
                 </div>
 
               </div>
-            )}
+            )}</LocalizedText>
 
           </div>
-        )}
+        )}</LocalizedText>
       </div>
 
       {/* ── Final CTA ─────────────────────────────────────────────────────── */}
@@ -465,7 +466,7 @@ export default function DesignSimulator() {
           >
             <span className="block w-5 h-[1.5px] bg-[#D90429]" />
             <span className="text-[10px] font-bold tracking-[0.35em] uppercase text-[#0B0F1A]/30">
-              {simCtaEyebrow}
+              <LocalizedText>{simCtaEyebrow}</LocalizedText>
             </span>
             <span className="block w-5 h-[1.5px] bg-[#D90429]" />
           </motion.div>
@@ -477,8 +478,8 @@ export default function DesignSimulator() {
             initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.08 }}
           >
-            {simCtaTitle1}<br />
-            <span style={{ color: 'rgba(11,15,26,0.2)' }}>{simCtaTitle2}</span>
+            <LocalizedText>{simCtaTitle1}</LocalizedText><br />
+            <span style={{ color: 'rgba(11,15,26,0.2)' }}><LocalizedText>{simCtaTitle2}</LocalizedText></span>
           </motion.h2>
 
           {/* Sub text */}
@@ -488,7 +489,7 @@ export default function DesignSimulator() {
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.16 }}
           >
-            {simCtaSubtext}
+            <LocalizedText>{simCtaSubtext}</LocalizedText>
           </motion.p>
 
           {/* Buttons */}
@@ -497,22 +498,22 @@ export default function DesignSimulator() {
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.24 }}
           >
-            <Link
+            <LocalizedElement as={Link}
               to={simCtaBtn1Link}
               className="inline-flex items-center h-[56px] px-11 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white relative group"
               style={{ background: '#D90429' }}
             >
               <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out bg-[#0B0F1A]" />
-              <span className="relative z-10">{simCtaBtn1Label}</span>
-            </Link>
-            <Link
+              <span className="relative z-10"><LocalizedText>{simCtaBtn1Label}</LocalizedText></span>
+            </LocalizedElement>
+            <LocalizedElement as={Link}
               to={simCtaBtn2Link}
               className="group relative inline-flex items-center h-[56px] px-11 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase transition-colors duration-300"
               style={{ border: '1.5px solid #0B0F1A', color: '#0B0F1A' }}
             >
               <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out bg-[#0B0F1A]" />
-              <span className="relative z-10 group-hover:text-white transition-colors duration-400">{simCtaBtn2Label}</span>
-            </Link>
+              <span className="relative z-10 group-hover:text-white transition-colors duration-400"><LocalizedText>{simCtaBtn2Label}</LocalizedText></span>
+            </LocalizedElement>
           </motion.div>
 
           {/* Trust badges */}
@@ -521,16 +522,16 @@ export default function DesignSimulator() {
             initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
             viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.32 }}
           >
-            {[
+            <LocalizedText>{[
               `9,500+ ${t('home.statsLocations') || 'Locations'}`,
               `100+ ${t('home.statsBrands') || 'Brands'}`,
               t('sim.ctaCoverage') || 'Egypt-wide Coverage'
             ].map(label => (
               <div key={label} className="flex items-center gap-2.5">
                 <span className="block w-1 h-1 bg-[#D90429]" />
-                <span className="text-[11px] font-semibold tracking-[0.15em] uppercase text-[#0B0F1A]/30">{label}</span>
+                <span className="text-[11px] font-semibold tracking-[0.15em] uppercase text-[#0B0F1A]/30"><LocalizedText>{label}</LocalizedText></span>
               </div>
-            ))}
+            ))}</LocalizedText>
           </motion.div>
         </div>
       </section>

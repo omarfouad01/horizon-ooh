@@ -1,3 +1,4 @@
+import {LocalizedText, LocalizedElement} from "@/components/Localized";
 import { useNavigate } from "react-router-dom";
 import { useStore } from "@/store/dataStore";
 import LogoMarquee from "@/components/LogoMarquee";
@@ -15,12 +16,12 @@ export default function About() {
   if (!Object.keys(about).length) {
     return (
       <section className="bg-white min-h-[60vh] flex flex-col items-center justify-center gap-4" role="status" aria-live="polite">
-        <p>{store.error
-          ? (isAr ? 'ÊÚÐÑ ÊÍãíá ÇáãÍÊæì. ÍÇæá ãÑÉ ÃÎÑì.' : 'Unable to load this page. Please try again.')
-          : (isAr ? 'ÌÇÑí ÊÍãíá ÇáãÍÊæì…' : 'Loading content…')}</p>
-        {store.error && <button type="button" onClick={() => void store.reload()}>
-          {isAr ? 'ÅÚÇÏÉ ÇáãÍÇæáÉ' : 'Retry'}
-        </button>}
+        <p><LocalizedText>{store.error
+          ? (isAr ? 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.' : 'Unable to load this page. Please try again.')
+          : (isAr ? 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½' : 'Loading contentï¿½')}</LocalizedText></p>
+        <LocalizedText>{store.error && <button type="button" onClick={() => void store.reload()}>
+          <LocalizedText>{isAr ? 'ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½' : 'Retry'}</LocalizedText>
+        </button>}</LocalizedText>
       </section>
     );
   }
@@ -51,15 +52,15 @@ export default function About() {
                 className="font-black leading-[0.9] tracking-[-0.04em]"
                 style={{ fontSize: "clamp(32px, 3.5vw, 48px)", color: NAVY }}
               >
-                {isAr && (about as any).introHeadlineAr ? (about as any).introHeadlineAr : about.introHeadline}
+                <LocalizedText>{isAr && (about as any).introHeadlineAr ? (about as any).introHeadlineAr : about.introHeadline}</LocalizedText>
               </p>
             </Reveal>
             <Reveal delay={0.1}>
               <p className="text-[17px] leading-[1.75]" style={{ color: "rgba(11,15,26,0.5)" }}>
-                {isAr && (about as any).introParagraph1Ar ? (about as any).introParagraph1Ar : about.introParagraph1}
+                <LocalizedText>{isAr && (about as any).introParagraph1Ar ? (about as any).introParagraph1Ar : about.introParagraph1}</LocalizedText>
               </p>
               <p className="text-[17px] leading-[1.75] mt-5" style={{ color: "rgba(11,15,26,0.5)" }}>
-                {isAr && (about as any).introParagraph2Ar ? (about as any).introParagraph2Ar : about.introParagraph2}
+                <LocalizedText>{isAr && (about as any).introParagraph2Ar ? (about as any).introParagraph2Ar : about.introParagraph2}</LocalizedText>
               </p>
             </Reveal>
           </div>
@@ -71,7 +72,7 @@ export default function About() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <Reveal>
             <h2 className="font-black text-[clamp(28px,3.5vw,44px)] tracking-[-0.03em] mb-16" style={{ color: NAVY }}>
-              {isAr && (about as any).seoHeadingAr ? (about as any).seoHeadingAr : about.seoHeading}
+              <LocalizedText>{isAr && (about as any).seoHeadingAr ? (about as any).seoHeadingAr : about.seoHeading}</LocalizedText>
             </h2>
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-start">
@@ -83,15 +84,15 @@ export default function About() {
               ].map((item) => (
                 <RevealItem key={item.h}>
                   <div className="border-l-2 pl-6" style={{ borderColor: RED }}>
-                    <h3 className="font-bold text-[16px] mb-2" style={{ color: NAVY }}>{item.h}</h3>
-                    <p className="text-[14px] leading-[1.75]" style={{ color: "rgba(11,15,26,0.5)" }}>{item.p}</p>
+                    <h3 className="font-bold text-[16px] mb-2" style={{ color: NAVY }}><LocalizedText>{item.h}</LocalizedText></h3>
+                    <p className="text-[14px] leading-[1.75]" style={{ color: "rgba(11,15,26,0.5)" }}><LocalizedText>{item.p}</LocalizedText></p>
                   </div>
                 </RevealItem>
               ))}
             </RevealGroup>
             <Reveal delay={0.1}>
               <p className="text-[16px] leading-[1.85]" style={{ color: "rgba(11,15,26,0.55)" }}>
-                {isAr && (about as any).seoParagraphAr ? (about as any).seoParagraphAr : about.seoParagraph}
+                <LocalizedText>{isAr && (about as any).seoParagraphAr ? (about as any).seoParagraphAr : about.seoParagraph}</LocalizedText>
               </p>
             </Reveal>
           </div>
@@ -109,20 +110,20 @@ export default function About() {
                   className="font-black leading-[0.9] tracking-[-0.04em] text-white"
                   style={{ fontSize: "clamp(36px, 4vw, 52px)" }}
                 >
-                  {isAr && (about as any).darkTitleAr ? (about as any).darkTitleAr : about.darkTitle}
+                  <LocalizedText>{isAr && (about as any).darkTitleAr ? (about as any).darkTitleAr : about.darkTitle}</LocalizedText>
                   <br />
-                  <span style={{ color: "rgba(255,255,255,0.2)" }}>{isAr && (about as any).darkAccentAr ? (about as any).darkAccentAr : about.darkAccent}</span>
+                  <span style={{ color: "rgba(255,255,255,0.2)" }}><LocalizedText>{isAr && (about as any).darkAccentAr ? (about as any).darkAccentAr : about.darkAccent}</LocalizedText></span>
                 </h2>
               </Reveal>
             </div>
             <div className="col-span-12 lg:col-span-7 flex flex-col gap-6">
-              {(isAr && (about as any).darkParagraphsAr?.length ? (about as any).darkParagraphsAr : about.darkParagraphs).map((para: string, i: number) => (
+              <LocalizedText>{(isAr && (about as any).darkParagraphsAr?.length ? (about as any).darkParagraphsAr : about.darkParagraphs).map((para: string, i: number) => (
                 <Reveal key={i} delay={0.05 * i}>
                   <p className="text-[16px] leading-[1.8]" style={{ color: "rgba(255,255,255,0.45)" }}>
-                    {para}
+                    <LocalizedText>{para}</LocalizedText>
                   </p>
                 </Reveal>
-              ))}
+              ))}</LocalizedText>
             </div>
           </div>
         </div>
@@ -147,23 +148,23 @@ export default function About() {
                     className="font-black text-[11px] tracking-[0.25em] uppercase flex-shrink-0 mt-1"
                     style={{ color: RED, minWidth: 32 }}
                   >
-                    {item.num}
+                    <LocalizedText>{item.num}</LocalizedText>
                   </span>
                   <h3
                     className="font-bold tracking-[-0.02em] flex-shrink-0"
                     style={{ fontSize: 20, color: NAVY, minWidth: 280 }}
                   >
-                    {isAr && (item as any).titleAr ? (item as any).titleAr : item.title}
+                    <LocalizedText>{isAr && (item as any).titleAr ? (item as any).titleAr : item.title}</LocalizedText>
                   </h3>
                   <p className="text-[15px] leading-[1.7]" style={{ color: "rgba(11,15,26,0.45)" }}>
-                    {isAr && (item as any).descAr ? (item as any).descAr : item.desc}
+                    <LocalizedText>{isAr && (item as any).descAr ? (item as any).descAr : item.desc}</LocalizedText>
                   </p>
                   <span
                     className="text-xl ml-auto flex-shrink-0 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0"
                     style={{ color: RED, lineHeight: 1, marginTop: 2 }}
-                  >
+                  ><LocalizedText>
                     â†’
-                  </span>
+                  </LocalizedText></span>
                 </div>
               </RevealItem>
             ))}
@@ -186,13 +187,13 @@ export default function About() {
                     className="font-black leading-none tracking-[-0.05em] mb-4"
                     style={{ fontSize: "clamp(52px, 5vw, 72px)", color: RED }}
                   >
-                    {stat.value}
+                    <LocalizedText>{stat.value}</LocalizedText>
                   </span>
                   <span className="font-bold text-[18px] tracking-[-0.01em]" style={{ color: NAVY }}>
-                    {stat.label}
+                    <LocalizedText>{stat.label}</LocalizedText>
                   </span>
                   <span className="text-[12px] tracking-[0.2em] uppercase font-semibold mt-2" style={{ color: "rgba(11,15,26,0.3)" }}>
-                    {stat.sub}
+                    <LocalizedText>{stat.sub}</LocalizedText>
                   </span>
                 </div>
               </RevealItem>
@@ -208,7 +209,7 @@ export default function About() {
             <div className="flex items-center justify-center gap-4 mb-14">
               <span className="block w-8 h-[1px]" style={{ background: "rgba(11,15,26,0.15)" }} />
               <p className="text-[11px] font-bold tracking-[0.3em] uppercase text-center" style={{ color: "rgba(11,15,26,0.3)" }}>
-                {t('about.trustedBy')}
+                <LocalizedText>{t('about.trustedBy')}</LocalizedText>
               </p>
               <span className="block w-8 h-[1px]" style={{ background: "rgba(11,15,26,0.15)" }} />
             </div>

@@ -1,3 +1,4 @@
+import {arabicText} from "@/i18n/publicArabic";
 export const SITE_URL = 'https://horizonooh.com';
 export const hasArabic = (value: unknown) => typeof value === 'string' && /[\u0600-\u06ff]/.test(value);
 export function summary(value: string, limit = 160): string {
@@ -43,12 +44,12 @@ export function businessGraph(settings: Record<string, any>, ar: boolean) {
   const phone = String(settings.phone || '').replace(/[^+\d]/g, '');
   const telephone = phone.startsWith('0') ? '+20' + phone.slice(1) : phone.startsWith('20') ? '+' + phone : phone || undefined;
   return {'@context':'https://schema.org','@graph':[
-    {'@type':['Organization','LocalBusiness'],'@id':SITE_URL+'/#organization', name:settings.companyName || settings.site_name || 'HORIZON OOH', url:SITE_URL,
+    {'@type':['Organization','LocalBusiness'],'@id':SITE_URL+'/#organization', name:ar ? arabicText(settings.companyName || settings.site_name || 'HORIZON OOH') : (settings.companyName || settings.site_name || 'HORIZON OOH'), url:SITE_URL,
       foundingDate:'2013', telephone, email:settings.email || undefined,
       address:settings.address ? {'@type':'PostalAddress',streetAddress:settings.address,addressCountry:'EG'} : undefined,
       logo:absolute(settings.headerLogoUrl || settings.logoUrl || settings.footerLogoUrl),
       description:summary((ar ? settings.metaDescriptionAr : settings.metaDescription) || (ar ? settings.taglineAr : settings.tagline) || ''),
       areaServed:{'@type':'Country',name:'Egypt'}, sameAs:[...new Set([...['facebook','instagram','linkedin','twitter','youtube','tiktok'].map(key=>settings[key]), ...(Array.isArray(settings.socialLinks) ? settings.socialLinks.map((item: any)=>item.url || item.href) : Object.values(settings.socialLinks || {}))].map(absolute).filter(Boolean))]},
-    {'@type':'WebSite','@id':SITE_URL+'/#website',url:SITE_URL,name:settings.companyName || settings.site_name || 'HORIZON OOH',publisher:{'@id':SITE_URL+'/#organization'},inLanguage:['en','ar']}
+    {'@type':'WebSite','@id':SITE_URL+'/#website',url:SITE_URL,name:ar ? arabicText(settings.companyName || settings.site_name || 'HORIZON OOH') : (settings.companyName || settings.site_name || 'HORIZON OOH'),publisher:{'@id':SITE_URL+'/#organization'},inLanguage:['en','ar']}
   ]};
 }

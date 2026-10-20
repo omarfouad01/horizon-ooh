@@ -1,3 +1,4 @@
+import {arabicText} from "@/i18n/publicArabic";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { metadata } from "@/lib/seo";
@@ -33,7 +34,7 @@ export default function SEO({
   description: inputDescription,
   titleAr,
   descriptionAr,
-  keywords,
+  keywords: inputKeywords,
   ogImage,
   canonical,
   robots = "index, follow",
@@ -41,7 +42,10 @@ export default function SEO({
 }: SEOProps) {
   const { pathname } = useLocation();
   const isArabic = pathname === "/ar" || pathname.startsWith("/ar/");
-  const { title, description } = metadata(pathname, isArabic, {title: inputTitle, description: inputDescription, titleAr, descriptionAr});
+  const localizedMetadata = metadata(pathname, isArabic, {title: inputTitle, description: inputDescription, titleAr, descriptionAr});
+  const title = isArabic ? arabicText(localizedMetadata.title) : localizedMetadata.title;
+  const description = isArabic ? arabicText(localizedMetadata.description) : localizedMetadata.description;
+  const keywords = isArabic && inputKeywords ? arabicText(inputKeywords) : inputKeywords;
   const englishPath = (canonical || pathname).replace(/^https:\/\/horizonooh\.com/, "").replace(/^\/ar(?=\/|$)/, "") || "/";
   const routePath = isArabic ? (englishPath === "/" ? "/ar" : `/ar${englishPath}`) : englishPath;
   const canonicalUrl = `${SITE_URL}${routePath === "/" ? "" : routePath}`;

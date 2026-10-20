@@ -1,3 +1,6 @@
+import {LocalizedText, LocalizedElement} from "@/components/Localized";
+import {useLang} from '@/i18n/LangContext';
+import {arabicHtml, arabicText} from '@/i18n/publicArabic';
 /**
  * BillboardMap — standalone Leaflet map logic (no UI chrome)
  * Accepts filtered billboard list + callbacks from parent
@@ -52,6 +55,8 @@ interface Props {
 }
 
 export default function LeafletMap({ filtered, allCount, selected, onSelect, className, style }: Props) {
+  const {isAr} = useLang();
+  const localizeMapHtml = (html: string) => isAr ? arabicHtml(html) : html;
   const navigate    = useNavigate();
   const divRef      = useRef<HTMLDivElement>(null);
   const mapRef      = useRef<L.Map | null>(null);
@@ -67,16 +72,18 @@ export default function LeafletMap({ filtered, allCount, selected, onSelect, cla
       zoomControl: false,
       attributionControl: false,
     });
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+    L.control.attribution({prefix: false}).addTo(map);
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
-      // CARTO's {r} already supplies @2x tiles on high-density screens.
-      // Do not also subdivide the viewport into four times as many tiles.
+      attribution: isAr ? '&copy; <a href="https://www.openstreetmap.org/copyright">مساهمو أوبن ستريت ماب</a>' : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      // Use standard cached tiles without retina subdivision.
+
       detectRetina: false,
     }).addTo(map);
-    L.control.zoom({ position: "bottomright" }).addTo(map);
+    L.control.zoom({ position: "bottomright", zoomInTitle: isAr ? "تكبير" : "Zoom in", zoomOutTitle: isAr ? "تصغير" : "Zoom out" }).addTo(map);
     mapRef.current = map;
     return () => { map.remove(); mapRef.current = null; };
-  }, []);
+  }, [isAr]);
 
   // ── Sync markers ──────────────────────────────────────────────────────
   useEffect(() => {
@@ -95,8 +102,8 @@ export default function LeafletMap({ filtered, allCount, selected, onSelect, cla
       const marker = L.marker([lat, lng], {
         icon: makePin(isActive),
         zIndexOffset: isActive ? 1000 : 0,
-        title: `${b.name} — ${b.city}`,
-        alt: b.name,
+        title: (isAr ? arabicText(`${b.name} — ${b.city}`) : `${b.name} — ${b.city}`),
+        alt: (isAr ? arabicText(b.name) : b.name),
       }).addTo(map);
 
       marker.on("click", () => onSelect(selected?.id === b.id ? null : b));
@@ -107,7 +114,7 @@ export default function LeafletMap({ filtered, allCount, selected, onSelect, cla
           className: "horizon-popup",
           closeButton: false,
           offset: [0, -6],
-        }).setContent(`
+        }).setContent(localizeMapHtml(`
           <div style="font-family:'Inter',sans-serif">
             <p style="font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:${RED};margin:0 0 4px">${b.type}</p>
             <p style="font-size:14px;font-weight:800;color:${NAVY};margin:0 0 4px;line-height:1.2">${b.name}</p>
@@ -118,11 +125,11 @@ export default function LeafletMap({ filtered, allCount, selected, onSelect, cla
               <div><p style="font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(11,15,26,.3);margin:0 0 2px">Size</p>
                 <p style="font-size:12px;font-weight:700;color:${NAVY};margin:0">${b.size}</p></div>
             </div>
-            <a href="/locations/${b.citySlug}/billboards/${b.slug}"
+            <a href="${isAr ? '/ar' : ''}/locations/${b.citySlug}/billboards/${b.slug}"
               style="display:block;text-align:center;background:${RED};color:#fff;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:9px 0;text-decoration:none">
               View Details →
             </a>
-          </div>`)
+          </div>`))
       );
       marker.on("click", () => marker.openPopup());
       markersRef.current.push(marker);
@@ -144,7 +151,7 @@ export default function LeafletMap({ filtered, allCount, selected, onSelect, cla
       map.setView([30.0444, 31.2357], 7);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filtered, selected]);
+  }, [filtered, selected, isAr]);
 
   return (
     <>
@@ -158,9 +165,9 @@ export default function LeafletMap({ filtered, allCount, selected, onSelect, cla
             C17.778 39.156 32 26.293 32 16 32 7.163 24.837 0 16 0z" fill={NAVY}/>
           <circle cx="16" cy="16" r="6" fill={RED}/>
         </svg>
-        <span className="text-[9px] font-bold tracking-[0.22em] uppercase" style={{ color: NAVY }}>
+        <span className="text-[9px] font-bold tracking-[0.22em] uppercase" style={{ color: NAVY }}><LocalizedText>
           Billboard Location
-        </span>
+        </LocalizedText></span>
       </div>
 
       {/* Popup styles */}

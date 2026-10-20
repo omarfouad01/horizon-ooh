@@ -1,3 +1,5 @@
+import {publicPath} from '@/i18n/publicArabic';
+import {LocalizedText, LocalizedElement} from "@/components/Localized";
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useStore } from "@/store/dataStore";
@@ -28,9 +30,9 @@ function ArticleSkeleton() {
       {/* Body skeleton */}
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px] py-16 grid lg:grid-cols-[1fr_340px] gap-16">
         <div className="space-y-4">
-          {[100, 90, 95, 80, 85, 70, 90].map((w, i) => (
+          <LocalizedText>{[100, 90, 95, 80, 85, 70, 90].map((w, i) => (
             <div key={i} className="h-4 rounded animate-pulse" style={{ width: `${w}%`, background: 'rgba(11,15,26,0.07)' }} />
-          ))}
+          ))}</LocalizedText>
         </div>
         <div className="space-y-4">
           <div className="h-48 rounded animate-pulse" style={{ background: 'rgba(11,15,26,0.07)' }} />
@@ -86,8 +88,8 @@ export default function BlogArticle() {
   if (!post && fetchFailed) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6">
-        <p className="text-[#0B0F1A]/40 text-lg">{isAr ? 'المقال غير موجود.' : 'Article not found.'}</p>
-        <button onClick={() => navigate("/blog")} className="text-[#D90429] font-bold underline hover:opacity-70 transition-opacity duration-150 cursor-pointer">{t('blog.backToBlog')}</button>
+        <p className="text-[#0B0F1A]/40 text-lg"><LocalizedText>{isAr ? 'المقال غير موجود.' : 'Article not found.'}</LocalizedText></p>
+        <button onClick={() => navigate(publicPath("/blog"))} className="text-[#D90429] font-bold underline hover:opacity-70 transition-opacity duration-150 cursor-pointer"><LocalizedText>{t('blog.backToBlog')}</LocalizedText></button>
       </div>
     );
   }
@@ -145,24 +147,24 @@ export default function BlogArticle() {
           <div className="max-w-[800px] pt-16 pb-20">
             <div className="flex items-center gap-4 mb-8">
               <span className="text-[10px] font-bold tracking-[0.3em] uppercase px-3 py-1.5" style={{ background: RED, color: "white" }}>
-                {post.category}
+                <LocalizedText>{post.category}</LocalizedText>
               </span>
               <span className="text-[11px] font-semibold tracking-[0.2em]" style={{ color: "rgba(255,255,255,0.25)" }}>
-                {post.date}
+                <LocalizedText>{post.date}</LocalizedText>
               </span>
-              <span style={{ color: "rgba(255,255,255,0.15)" }}>·</span>
+              <span style={{ color: "rgba(255,255,255,0.15)" }}><LocalizedText>·</LocalizedText></span>
               <span className="text-[11px] font-semibold tracking-[0.2em]" style={{ color: "rgba(255,255,255,0.25)" }}>
-                {post.readTime}
+                <LocalizedText>{post.readTime}</LocalizedText>
               </span>
             </div>
             <Reveal delay={0.05}>
               <h1 className="font-black leading-[1.0] tracking-[-0.04em] text-white" style={{ fontSize: "clamp(36px, 5vw, 64px)" }}>
-                {isAr && (post as any).titleAr ? (post as any).titleAr : post.title}
+                <LocalizedText>{isAr && (post as any).titleAr ? (post as any).titleAr : post.title}</LocalizedText>
               </h1>
             </Reveal>
             <Reveal delay={0.12}>
               <p className="text-[18px] leading-[1.75] mt-6" style={{ color: "rgba(255,255,255,0.45)" }}>
-                {isAr && (post as any).excerptAr ? (post as any).excerptAr : post.excerpt}
+                <LocalizedText>{isAr && (post as any).excerptAr ? (post as any).excerptAr : post.excerpt}</LocalizedText>
               </p>
             </Reveal>
           </div>
@@ -173,7 +175,7 @@ export default function BlogArticle() {
           <div className="relative overflow-hidden" style={{ height: 480 }}>
             {/* The article hero is above the fold. Keep its presentation intact,
                 but allow it to be fetched immediately as this route's LCP image. */}
-            <img src={thumb(post.image, 1200, 480)} srcSet={thumbSrcSet(post.image, [600, 1200], 2.5)} sizes="(min-width: 1280px) 1200px, 100vw" alt={(post as any).imageAlt || post.title} width={1200} height={480} fetchPriority="high" decoding="async" className="w-full h-full object-cover" style={{ opacity: 0.75 }} />
+            <LocalizedElement as="img" src={thumb(post.image, 1200, 480)} srcSet={thumbSrcSet(post.image, [600, 1200], 2.5)} sizes="(min-width: 1280px) 1200px, 100vw" alt={(post as any).imageAlt || post.title} width={1200} height={480} fetchPriority="high" decoding="async" className="w-full h-full object-cover" style={{ opacity: 0.75 }} />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(11,15,26,0.5) 0%, transparent 50%)" }} />
           </div>
         </div>
@@ -185,7 +187,7 @@ export default function BlogArticle() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             {/* Main content */}
             <article lang={articleIsArabic ? "ar" : "en"} className="col-span-12 lg:col-span-8">
-              {((isAr && (post as any).bodyAr?.length ? (post as any).bodyAr : null) ?? post.body ?? []).map((block: any, i: number) => {
+              <LocalizedText>{((isAr && (post as any).bodyAr?.length ? (post as any).bodyAr : null) ?? post.body ?? []).map((block: any, i: number) => {
                 if (block.type === "h2") {
                   return (
                     <Reveal key={i} delay={0.04}>
@@ -193,7 +195,7 @@ export default function BlogArticle() {
                         className="font-black leading-[1.05] tracking-[-0.03em] mt-14 mb-6"
                         style={{ fontSize: "clamp(24px, 2.5vw, 34px)", color: NAVY }}
                       >
-                        {block.content}
+                        <LocalizedText>{block.content}</LocalizedText>
                       </h2>
                     </Reveal>
                   );
@@ -202,7 +204,7 @@ export default function BlogArticle() {
                   return (
                     <Reveal key={i} delay={0.04}>
                       <p className="text-[17px] leading-[1.85] mb-6" style={{ color: "rgba(11,15,26,0.55)" }}>
-                        {block.content}
+                        <LocalizedText>{block.content}</LocalizedText>
                       </p>
                     </Reveal>
                   );
@@ -211,12 +213,12 @@ export default function BlogArticle() {
                   return (
                     <Reveal key={i} delay={0.04}>
                       <ul className="my-6 flex flex-col gap-3">
-                        {block.items?.map((item, j) => (
+                        <LocalizedText>{block.items?.map((item, j) => (
                           <li key={j} className="flex items-start gap-4">
                             <span className="mt-2.5 flex-shrink-0 w-[5px] h-[5px]" style={{ background: RED }} />
-                            <span className="text-[16px] leading-[1.75]" style={{ color: "rgba(11,15,26,0.55)" }}>{item}</span>
+                            <span className="text-[16px] leading-[1.75]" style={{ color: "rgba(11,15,26,0.55)" }}><LocalizedText>{item}</LocalizedText></span>
                           </li>
-                        ))}
+                        ))}</LocalizedText>
                       </ul>
                     </Reveal>
                   );
@@ -232,11 +234,11 @@ export default function BlogArticle() {
                         style={{ background: NAVY }}
                       >
                         <div>
-                          <p className="font-bold text-white" style={{ fontSize: 18 }}>{block.content}</p>
-                          <p className="text-[14px] mt-2" style={{ color: "rgba(255,255,255,0.35)" }}>{isAr ? 'تحدث مع فريقنا — لا يلزم أي التزام.' : 'Talk to our team — no commitment required.'}</p>
+                          <p className="font-bold text-white" style={{ fontSize: 18 }}><LocalizedText>{block.content}</LocalizedText></p>
+                          <p className="text-[14px] mt-2" style={{ color: "rgba(255,255,255,0.35)" }}><LocalizedText>{isAr ? 'تحدث مع فريقنا — لا يلزم أي التزام.' : 'Talk to our team — no commitment required.'}</LocalizedText></p>
                         </div>
-                        {isExternal ? (
-                          <a
+                        <LocalizedText>{isExternal ? (
+                          <LocalizedElement as="a"
                             href={ctaHref}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -244,24 +246,24 @@ export default function BlogArticle() {
                             style={{ background: RED, textDecoration: 'none' }}
                           >
                             <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: "white" }} />
-                            <span className="relative z-10 group-hover:text-[#0B0F1A] transition-colors duration-300">{block.content || t('product.getQuote')}</span>
-                          </a>
+                            <span className="relative z-10 group-hover:text-[#0B0F1A] transition-colors duration-300"><LocalizedText>{block.content || t('product.getQuote')}</LocalizedText></span>
+                          </LocalizedElement>
                         ) : (
-                          <Link
+                          <LocalizedElement as={Link}
                             to={langPath(lang, ctaHref)}
                             className="group relative h-[48px] px-8 overflow-hidden text-[11px] font-bold tracking-[0.2em] uppercase text-white flex items-center flex-shrink-0 active:scale-[0.97] transition-transform"
                             style={{ background: RED, textDecoration: 'none' }}
                           >
                             <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: "white" }} />
-                            <span className="relative z-10 group-hover:text-[#0B0F1A] transition-colors duration-300">{block.content || t('product.getQuote')}</span>
-                          </Link>
-                        )}
+                            <span className="relative z-10 group-hover:text-[#0B0F1A] transition-colors duration-300"><LocalizedText>{block.content || t('product.getQuote')}</LocalizedText></span>
+                          </LocalizedElement>
+                        )}</LocalizedText>
                       </div>
                     </Reveal>
                   );
                 }
                 return null;
-              })}
+              })}</LocalizedText>
             </article>
 
             {/* Sidebar */}
@@ -272,46 +274,46 @@ export default function BlogArticle() {
                   <div className="p-8 mb-8" style={{ background: "#F5F5F6" }}>
                     <div className="w-5 h-[1.5px] mb-6" style={{ background: RED }} />
                     <p className="font-bold text-[18px] tracking-[-0.01em] mb-3" style={{ color: NAVY }}>
-                      {isAr ? 'هل أنت مستعد للإعلان؟' : 'Ready to advertise?'}
+                      <LocalizedText>{isAr ? 'هل أنت مستعد للإعلان؟' : 'Ready to advertise?'}</LocalizedText>
                     </p>
                     <p className="text-[14px] leading-[1.7] mb-6" style={{ color: "rgba(11,15,26,0.45)" }}>
-                      {isAr ? 'سيبني خبراؤنا الإعلاميون الحملة الخارجية المثالية لعلامتك التجارية.' : 'Our media strategists will build the perfect OOH campaign for your brand.'}
+                      <LocalizedText>{isAr ? 'سيبني خبراؤنا الإعلاميون الحملة الخارجية المثالية لعلامتك التجارية.' : 'Our media strategists will build the perfect OOH campaign for your brand.'}</LocalizedText>
                     </p>
-                    <Link
+                    <LocalizedElement as={Link}
                       to="/contact"
                       className="group relative w-full h-[48px] overflow-hidden text-[11px] font-bold tracking-[0.2em] uppercase text-white flex items-center justify-center active:scale-[0.97] transition-transform"
                       style={{ background: RED, textDecoration: 'none' }}
                     >
                       <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300" style={{ background: NAVY }} />
-                      <span className="relative z-10">{t('product.getQuote')}</span>
-                    </Link>
+                      <span className="relative z-10"><LocalizedText>{t('product.getQuote')}</LocalizedText></span>
+                    </LocalizedElement>
                   </div>
                 </Reveal>
 
                 {/* Related links */}
                 <Reveal delay={0.1}>
                   <p className="text-[10px] font-bold tracking-[0.3em] uppercase mb-5" style={{ color: "rgba(11,15,26,0.3)" }}>
-                    {isAr ? 'مقالات ذات صلة' : 'Related Articles'}
+                    <LocalizedText>{isAr ? 'مقالات ذات صلة' : 'Related Articles'}</LocalizedText>
                   </p>
                   <div className="flex flex-col gap-0 border-t border-[#0B0F1A]/[0.07]">
-                    {related.map((rel) => (
-                      <Link
+                    <LocalizedText>{related.map((rel) => (
+                      <LocalizedElement as={Link}
                         key={rel.id}
                         to={blogHref(lang, rel.slug)}
                         className="group flex items-start gap-4 py-5 border-b border-[#0B0F1A]/[0.07] hover:text-[#D90429] transition-colors"
                         style={{ textDecoration: "none" }}
                       >
-                        <img src={rel.image} alt={(rel as any).imageAlt || rel.title} width={56} height={48} className="w-14 h-12 object-cover flex-shrink-0" loading="lazy" decoding="async" />
+                        <LocalizedElement as="img" src={rel.image} alt={(rel as any).imageAlt || rel.title} width={56} height={48} className="w-14 h-12 object-cover flex-shrink-0" loading="lazy" decoding="async" />
                         <div>
                           <p className="text-[13px] font-semibold leading-[1.4] transition-colors group-hover:text-[#D90429]" style={{ color: NAVY }}>
-                          {(() => { const t = isAr && (rel as any).titleAr ? (rel as any).titleAr : rel.title; return t.length > 60 ? t.slice(0,60)+'…' : t; })()}
+                          <LocalizedText>{(() => { const t = isAr && (rel as any).titleAr ? (rel as any).titleAr : rel.title; return t.length > 60 ? t.slice(0,60)+'…' : t; })()}</LocalizedText>
                           </p>
                           <p className="text-[10px] font-semibold tracking-[0.15em] uppercase mt-1" style={{ color: "rgba(11,15,26,0.3)" }}>
-                            {rel.readTime}
+                            <LocalizedText>{rel.readTime}</LocalizedText>
                           </p>
                         </div>
-                      </Link>
-                    ))}
+                      </LocalizedElement>
+                    ))}</LocalizedText>
                   </div>
                 </Reveal>
               </div>
