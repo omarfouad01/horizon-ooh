@@ -31,11 +31,15 @@ try {
       for (const route of manifest.routes) {
         const relative = route === '/' ? 'index.html' : `${route.slice(1)}/index.html`;
         const dest = path.join(live,relative); fs.mkdirSync(path.dirname(dest),{recursive:true});
-        fs.copyFileSync(path.join(output,relative),dest+'.seo-tmp'); fs.renameSync(dest+'.seo-tmp',dest);
+        for (const suffix of ['.br', '.gz', '']) {
+          fs.copyFileSync(path.join(output,relative)+suffix,dest+suffix+'.seo-tmp');
+          fs.renameSync(dest+suffix+'.seo-tmp',dest+suffix);
+        }
       }
       // Only files owned by the previous generated manifest can be removed.
       for (const route of previous) if (safeRoute(route) && !manifest.routes.includes(route)) {
-        const dest = path.join(live,route.slice(1),'index.html'); if (fs.existsSync(dest)) fs.unlinkSync(dest);
+        const dest = path.join(live,route.slice(1),'index.html');
+        for (const suffix of ['', '.br', '.gz']) if (fs.existsSync(dest+suffix)) fs.unlinkSync(dest+suffix);
       }
       fs.copyFileSync(path.join(output,'manifest.json'),path.join(live,'manifest.json.seo-tmp'));
       fs.renameSync(path.join(live,'manifest.json.seo-tmp'),path.join(live,'manifest.json'));

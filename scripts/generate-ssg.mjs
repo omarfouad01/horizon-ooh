@@ -2,6 +2,9 @@ import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node
 import { dirname, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { inlineHomeCss } from "./inline-home-css.mjs";
+import { compactPublicSnapshot } from "./compact-public-snapshot.mjs";
+import { locationPageContent, projectPageContent } from "./public-page-content.mjs";
+import { gzipSync, brotliCompressSync, constants as zlibConstants } from "node:zlib";
 
 const projectRoot = resolve(import.meta.dirname, "..");
 const publicDir = resolve(projectRoot, "public");
@@ -149,6 +152,8 @@ async function loadPublicSnapshot() {
     projects: safeProjects,
     blogPosts,
     settings: settings?.data || settings || {},
+    locationsContent: locationPageContent(settings?.data || settings || {}),
+    projectsContent: projectPageContent(settings?.data || settings || {}),
     homeContent: homeContent?.data || homeContent || {},
     about: aboutContent?.data || aboutContent || {},
     aboutContent: aboutContent?.data || aboutContent || {},
@@ -278,6 +283,7 @@ function snapshotForRoute(source, route) {
     scoped.services = [target, ...source.services.filter((item) => item.slug !== slug).slice(0, 3)].filter(Boolean);
   } else if (path === "/projects") {
     scoped.projects = source.projects;
+    scoped.projectsContent = source.projectsContent;
   } else if (path.startsWith("/projects/")) {
     const slug = path.split("/")[2];
     const target = source.projects.find((item) => item.slug === slug);
@@ -289,6 +295,7 @@ function snapshotForRoute(source, route) {
     const target = source.blogPosts.find((item) => item.slug === slug);
     scoped.blogPosts = [target, ...source.blogPosts.filter((item) => item.slug !== slug).slice(0, 3)].filter(Boolean);
   } else if (path === "/locations") {
+    scoped.locationsContent = source.locationsContent;
     scoped.locations = source.locations;
     scoped.districts = source.districts;
   } else {
@@ -422,7 +429,7 @@ function injectMetadata(html, metadata, route) {
 rmSync(outputDir, { recursive: true, force: true });
 
 for (const route of routes) {
-  const routeSnapshot = snapshotForRoute(snapshot, route);
+  const routeSnapshot = compactPublicSnapshot(snapshotForRoute(snapshot, route), route);
   const markup = render(route, routeSnapshot);
   const marker = markup.match(/<script type="application\/json" data-horizon-seo="">([\s\S]*?)<\/script>/);
   if (!marker) throw new Error(`Missing SEO marker for route ${route}`);
@@ -437,12 +444,14 @@ for (const route of routes) {
     );
   }
   html = injectMetadata(html, metadata, route);
-  if (stripArabicPrefix(route) === '/') html = inlineHomeCss(html, publicDir);
+  if (['/', '/about', '/contact', '/services', '/projects', '/locations', '/blog'].includes(stripArabicPrefix(route))) html = inlineHomeCss(html, publicDir);
 
   const routePath = route === "/" ? "index.html" : `${route.slice(1)}/index.html`;
   const target = resolve(outputDir, routePath);
   mkdirSync(dirname(target), { recursive: true });
   writeFileSync(target, html);
+  writeFileSync(target + ".gz", gzipSync(html, { level: 6 }));
+  writeFileSync(target + ".br", brotliCompressSync(html, { params: { [zlibConstants.BROTLI_PARAM_QUALITY]: 5 } }));
 }
 
 const manifest = {

@@ -1,0 +1,11 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import { gunzipSync, brotliDecompressSync } from 'node:zlib';
+import { compactPublicSnapshot } from './compact-public-snapshot.mjs';
+import { locationPageContent, projectPageContent } from './public-page-content.mjs';
+const fixture={locations:[{id:1,products:[{id:3,slug:'saved',title:'Saved title',description:'Detail only',images:[{url:'/original.webp',alt:'Saved alt'}]}]}],blogPosts:[{id:1,title:'English',titleAr:'العنوان',body:['Saved English'],bodyAr:['المحتوى الأصلي']}]};
+const original=JSON.stringify(fixture);for(const route of ['/','/locations','/ar/locations']){const result=compactPublicSnapshot(fixture,route);assert.equal(result.locations[0].products.length,1);assert.deepEqual(result.locations[0].products[0].images,fixture.locations[0].products[0].images);assert.equal(result.locations[0].products[0].description,undefined);}
+assert.deepEqual(compactPublicSnapshot(fixture,'/blog/article'),fixture);assert.equal(compactPublicSnapshot(fixture,'/blog').blogPosts[0].titleAr,'العنوان');assert.equal(compactPublicSnapshot(fixture,'/ar/blog').blogPosts[0].bodyAr,undefined);assert.equal(JSON.stringify(fixture),original);
+const content=locationPageContent({locations_page_content:JSON.stringify({heroTitle:'Saved heading',heroTitleAr:'عنوان محفوظ',heroSubtitle:'Saved subtitle',ctaTalkText:'Talk'})});assert.equal(content.title,'Saved heading');assert.equal(content.titleAr,'عنوان محفوظ');assert.equal(content.subtitle,'Saved subtitle');assert.equal(content.ctaButton,'Talk');assert.deepEqual(locationPageContent({locations_page_content:'broken'}),{});assert.equal(projectPageContent({projects_page_content:'{"heroTitle":"Saved projects"}'}).heroTitle,'Saved projects');
+const manifest=JSON.parse(fs.readFileSync('public/ssg/manifest.json'));for(const route of manifest.routes){const file='public/ssg/'+(route==='/'?'index.html':route.slice(1)+'/index.html');const raw=fs.readFileSync(file);assert.deepEqual(gunzipSync(fs.readFileSync(file+'.gz')),raw);assert.deepEqual(brotliDecompressSync(fs.readFileSync(file+'.br')),raw);}
+console.log('PASS: immutable public snapshots, full record/image preservation, complete article details, Arabic page-field normalization, '+manifest.routes.length+' lossless compression pairs');

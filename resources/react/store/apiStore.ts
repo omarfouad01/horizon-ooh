@@ -770,7 +770,10 @@ forceReload: async () => {
       try { results[index] = { status: 'fulfilled', value: await request }; }
       catch (reason) { results[index] = { status: 'rejected', reason }; }
       settled.add(index);
-      publish(false);
+      // A ready public SSG page already has real content. Refresh it once,
+      // rather than rerendering the whole page for every collection response.
+      // Cold navigation and admin forms still publish progressively.
+      if (isAdminRoute || !get().loaded || get().readyPath !== requestedPath) publish(false);
     }));
     publish(true);
 

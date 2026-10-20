@@ -27,6 +27,50 @@
     # Must come BEFORE the !-f (file exists) check so the static file is bypassed
     RewriteRule ^favicon.ico$ index.php [L]
 
+# Precompressed static representations. Preserve original files for identity clients.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTP:Accept-Encoding} \bbr\b [NC]
+    RewriteCond %{HTTP:Accept-Encoding} !\bbr\s*;\s*q=0(?:\.0*)?(?:\s*,|\s*$) [NC]
+    RewriteCond %{REQUEST_FILENAME}.br -f
+    RewriteRule ^(.+\.(?:html|css|js|svg))$ $1.br [L]
+
+    RewriteCond %{HTTP:Accept-Encoding} \bgzip\b [NC]
+    RewriteCond %{HTTP:Accept-Encoding} !\bgzip\s*;\s*q=0(?:\.0*)?(?:\s*,|\s*$) [NC]
+    RewriteCond %{REQUEST_FILENAME}.gz -f
+    RewriteRule ^(.+\.(?:html|css|js|svg))$ $1.gz [L]
+</IfModule>
+<IfModule mod_mime.c>
+    AddEncoding br .br
+    AddEncoding gzip .gz
+    <FilesMatch "\.js\.(br|gz)$">
+        ForceType application/javascript
+    </FilesMatch>
+    <FilesMatch "\.css\.(br|gz)$">
+        ForceType text/css
+    </FilesMatch>
+    <FilesMatch "\.html\.(br|gz)$">
+        ForceType text/html
+    </FilesMatch>
+    <FilesMatch "\.svg\.(br|gz)$">
+        ForceType image/svg+xml
+    </FilesMatch>
+</IfModule>
+<IfModule mod_setenvif.c>
+    SetEnvIfNoCase Request_URI "\.(br|gz)$" no-gzip=1 no-brotli=1
+</IfModule>
+<IfModule mod_headers.c>
+    <FilesMatch "\.(html|css|js|svg)(\.(br|gz))?$">
+        Header merge Vary Accept-Encoding
+    </FilesMatch>
+    <FilesMatch "\.(css|js|svg)\.(br|gz)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    <FilesMatch "\.html\.(br|gz)$">
+        Header set Cache-Control "public, max-age=0, must-revalidate"
+    </FilesMatch>
+</IfModule>
+
     # Serve generated public pages directly; private routes have no SSG file.
     RewriteCond %{DOCUMENT_ROOT}/ssg/$1/index.html -f [OR]
     RewriteCond %{DOCUMENT_ROOT}/public/ssg/$1/index.html -f

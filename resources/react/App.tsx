@@ -105,7 +105,7 @@ function ClientEnhancements() {
 
 // ── All public page routes — reused for both /  and /ar/ prefixes ────────────
 function PublicDataLoader() {
-  const { reload } = useStore();
+  const reload = useStore(state => state.reload);
   const location = useLocation();
   const firstLoad = useRef(true);
   useEffect(() => {
@@ -145,7 +145,8 @@ function PublicDataLoader() {
 }
 
 export function PublicRoutes() {
-  const { loaded, readyPath } = useStore();
+  const loaded = useStore(state => state.loaded);
+  const readyPath = useStore(state => state.readyPath);
   const location = useLocation();
   const routeReady = loaded && (typeof window === 'undefined' || readyPath === location.pathname);
   return (
