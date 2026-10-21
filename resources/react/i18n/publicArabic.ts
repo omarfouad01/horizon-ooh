@@ -7,12 +7,26 @@ const escape = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const replacements = phrases.map(([key, value]) => [new RegExp(`(?<![A-Za-z])${escape(key).replace(/ /g, '\\s+')}(?![A-Za-z])`, 'gi'), value] as const);
 const cache = new Map<string, string>();
 
+// Preserve the industry's type names, including older Arabic display fallbacks.
+// This runs on labels only; API values, inventory IDs and filter keys stay exact.
+const industryNames: readonly (readonly [string, string])[] = [
+  ['لوحة مزدوجة الجانبين', 'باترفلاي'],
+  ['لوحات أحادية الأعمدة', 'لوحات يوني بول'],
+  ['لوحة أحادية العمود', 'يوني بول'],
+  ['لوحة على عمود حرف تي', 'تي بول'],
+  ['لوحة ضخمة', 'ميجا بوست'],
+  ['لوحة مزدوجة', 'دابل ديكر'],
+  ['لوحة مثلثة', 'تراينجل'],
+];
+const industryArabic = (text: string) => industryNames.reduce((value, [oldName, name]) => value.split(oldName).join(name), text);
+
 /** Display translation only: never apply to URLs, form values, IDs or API payloads. */
 export function arabicText(text: string): string {
+  text = industryArabic(text);
   if (!/[A-Za-z]/.test(text)) return text;
   const hit = cache.get(text); if (hit !== undefined) return hit;
   const exact = entries[normalize(text)];
-  if (exact) { const translated = (text.match(/^\s*/)?.[0] || '') + exact + (text.match(/\s*$/)?.[0] || ''); cache.set(text, translated); return translated; }
+  if (exact) { const translated = (text.match(/^\s*/)?.[0] || '') + industryArabic(exact) + (text.match(/\s*$/)?.[0] || ''); cache.set(text, translated); return translated; }
   // Keep contact destinations and inventory/location identifiers exact.
   const protectedValues: string[] = [];
   let result = text.replace(/https?:\/\/[^\s<>]+|[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}|\b[A-Z]{1,3}-\d+\b|\b[A-Z0-9]{4,8}\+[A-Z0-9]{2,5}\b/gi, value => {
@@ -29,6 +43,7 @@ export function arabicText(text: string): string {
   result = result.replace(/[A-Za-z]+(?:'[A-Za-z]+)?/g, word => entries[normalize(word)] || word);
   result = result.replace(/\uE000(\d+)\uE001/g, (_, index) => protectedValues[Number(index)]);
   result = result.replace(/الـ[\s-]+(?=ال)/g, '').replace(/الـ[\s-]+(?=[\u0600-\u06ff])/g, 'ال');
+  result = industryArabic(result);
   if (cache.size > 20000) cache.clear(); cache.set(text, result);
   return result;
 }

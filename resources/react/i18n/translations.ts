@@ -297,7 +297,7 @@ export const UI: Record<string, Record<Lang, string>> = {
   'sim.generating':        { en: 'Generating...',                    ar: 'جارٍ التوليد...' },
   'sim.uploadFirst':       { en: 'Upload your design',               ar: 'ارفع تصميمك' },
   'sim.previewAuto':       { en: 'The preview will appear here automatically', ar: 'ستظهر المعاينة هنا تلقائياً' },
-  'sim.doubleDecker':      { en: 'Double Decker',                    ar: 'لوحة مزدوجة' },
+  'sim.doubleDecker':      { en: 'Double Decker',                    ar: 'دابل ديكر' },
   'sim.multiPanel':        { en: 'Multi-Panel',                      ar: 'متعدد الألواح' },
   'sim.designsNeeded':     { en: 'designs needed',                   ar: 'تصاميم مطلوبة' },
   'sim.templatesComingSoon':{ en: 'Simulator Coming Soon',           ar: 'المحاكي قريباً' },

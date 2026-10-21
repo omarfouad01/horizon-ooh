@@ -8,6 +8,13 @@ const text=compile('resources/react/i18n/publicArabic.ts',{'./publicArabic.json'
 let isArabic=true;
 const {LocalizedText,LocalizedElement}=compile('resources/react/components/Localized.tsx',{'react':React,'@/i18n/LangContext':{useLang:()=>({isAr:isArabic})},'@/i18n/publicArabic':text});
 assert.equal(text.arabicText('Cairo'),'القاهرة');
+for(const value of ['Uni-pole','Uni pole','Unipole','لوحة أحادية العمود'])assert.equal(text.arabicText(value),'يوني بول');
+assert.equal(text.arabicText('نوع اللوحة: لوحة أحادية العمود'),'نوع اللوحة: يوني بول');
+assert.equal(text.arabicText('Mega Post - Cairo'),'ميجا بوست - القاهرة');
+assert.equal(text.arabicText('Double Decker'),'دابل ديكر');
+assert.equal(text.arabicText('T-Pole'),'تي بول');
+assert.equal(text.arabicText('Tringle'),'تراينجل');
+assert.equal(text.arabicText('Butterfly'),'باترفلاي');
 assert.equal(text.arabicText('Avg. Recall'),'متوسط تذكّر العلامة التجارية');
 assert.equal(text.arabicText('6 x 16 m'),'6 × 16 م');
 assert.equal(text.arabicText('H-14455'),'H-14455');
