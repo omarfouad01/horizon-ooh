@@ -10,6 +10,7 @@ const cache = new Map<string, string>();
 // Preserve the industry's type names, including older Arabic display fallbacks.
 // This runs on labels only; API values, inventory IDs and filter keys stay exact.
 const industryNames: readonly (readonly [string, string])[] = [
+  ['لوحة ثنائية الأعمدة', 'توين بول'],
   ['لوحة مزدوجة الجانبين', 'باترفلاي'],
   ['لوحات أحادية الأعمدة', 'لوحات يوني بول'],
   ['لوحة أحادية العمود', 'يوني بول'],
