@@ -1,5 +1,6 @@
 import {publicPath} from '@/i18n/publicArabic';
 import {arabicText} from "@/i18n/publicArabic";
+import {billboardFilterOptions, matchesBillboardFilter} from '@/lib/billboardTypes';
 import {LocalizedText, LocalizedElement} from "@/components/Localized";
 /**
  * Locations — Premium marketplace-style page
@@ -317,7 +318,7 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, w
         <div className="absolute top-3 right-3">
           <span className="text-[9px] font-bold tracking-[0.12em] uppercase px-2.5 py-1 text-white/70"
             style={{ background: "rgba(11,15,26,0.55)", backdropFilter: "blur(6px)", borderRadius: 3 }}>
-            <LocalizedText>{b.adFormat || b.type}</LocalizedText>
+            <LocalizedText>{isAr ? (b.type || b.adFormat) : (b.adFormat || b.type)}</LocalizedText>
           </span>
         </div>
 
@@ -344,7 +345,7 @@ function BillboardCard({ b, isHovered, isSelected, onHover, onSelect, cardRef, w
           <LocalizedText>{[
             { label: t('spec.code'),      value: b.code || "—" },
             { label: t('spec.size'),      value: b.size },
-            { label: t('spec.adFormat'),  value: b.adFormat || b.type },
+            { label: t(isAr ? 'spec.type' : 'spec.adFormat'), value: isAr ? (b.type || b.adFormat) : (b.adFormat || b.type) },
           ].map((stat, i) => (
             <div key={stat.label} className="flex flex-col items-center justify-center py-2.5 px-2"
               style={{ borderLeft: i > 0 ? '2px solid #D90429' : 'none' }}>
@@ -469,7 +470,7 @@ export default function Locations() {
 
   // Format dropdown = billboard_formats table (Billboard, Digital, Mall…); fallback to ad_formats
   const _fmtSource  = (billboardFormats && billboardFormats.length > 0) ? billboardFormats : adFormats
-  const ALL_FORMATS = _fmtSource.map((f: any) => f.label ?? f.name).filter(Boolean).sort()
+  const ALL_FORMATS = isAr ? billboardFilterOptions(_fmtSource, adFormats) : _fmtSource.map((f: any) => f.label ?? f.name).filter(Boolean).sort()
 
   const districtOptions = (() => {
     if (cities.length === 0) {
@@ -504,7 +505,7 @@ export default function Locations() {
       if (cities.length    > 0 && !cities.includes(b.city))        return false;
       if (districts.length > 0 && !districts.includes(b.district)) return false;
       // Match on adFormat (billboard_formats) OR type (ad_formats) for backward compat
-      if (formats.length   > 0 && !formats.includes(b.adFormat) && !formats.includes(b.type)) return false;
+      if (isAr ? !matchesBillboardFilter(formats, b) : (formats.length > 0 && !formats.includes(b.adFormat) && !formats.includes(b.type))) return false;
       return true;
     })
     .sort((a: any, b: any) => {

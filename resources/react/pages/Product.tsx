@@ -665,7 +665,7 @@ export default function Product() {
             <LocalizedText>{[
               { icon: "◉", label: t('product.market'), value: displayCityName, sub: isAr ? 'السوق الحضري الرئيسي' : 'Primary urban market' },
               { icon: "◎", label: t('product.zone'),   value: displayDistrictName, sub: isAr ? t('product.premiumCorridor') : 'Premium corridor' },
-              { icon: "◈", label: t('product.format'), value: product.adFormat || product.type, sub: `${product.size || '—'} · ${product.brightness || t('product.illuminated')}` },
+              { icon: "◈", label: t('product.format'), value: isAr ? (product.type || product.adFormat) : (product.adFormat || product.type), sub: `${product.size || '—'} · ${product.brightness || t('product.illuminated')}` },
             ].map((item) => (
               <div key={item.label} className="bg-white flex items-start gap-5" style={{ padding: "32px 36px" }}>
                 <span style={{ color: RED, fontSize: 20, lineHeight: 1, marginTop: 2 }}><LocalizedText>{item.icon}</LocalizedText></span>
@@ -765,7 +765,7 @@ export default function Product() {
                         <LocalizedText>{[
                           { label: 'Code',   value: (rel as any).code || '—' },
                           { label: 'Size',   value: rel.size || '—' },
-                          { label: 'Format', value: rel.adFormat || rel.type || '—' },
+                          { label: isAr ? 'Type' : 'Format', value: isAr ? (rel.type || rel.adFormat || '—') : (rel.adFormat || rel.type || '—') },
                         ].map((stat, i) => (
                           <div
                             key={stat.label}

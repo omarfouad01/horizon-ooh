@@ -1,5 +1,6 @@
 import {LocalizedText, LocalizedElement} from "@/components/Localized";
 import {publicPath} from '@/i18n/publicArabic';
+import {billboardFilterOptions} from '@/lib/billboardTypes';
 import { useRef, useEffect, useState, lazy, Suspense } from "react";
 const LeafletMap = lazy(() => import("@/components/BillboardMap"));
 import { useStore, getState } from "@/store/dataStore";
@@ -346,7 +347,7 @@ function HeroSection() {
     .map((l: any) => l.city); // preserve dashboard order — no .sort()
   // Format dropdown = billboard_formats table (Billboard, Digital, Mall…)
   const _bbFmtsList = (_bbFormats && _bbFormats.length > 0) ? _bbFormats : _adFormats;
-  const ALL_FORMATS = _bbFmtsList.map((f: any) => f.label ?? f.name).filter(Boolean).sort();
+  const ALL_FORMATS = isAr ? billboardFilterOptions(_bbFmtsList, _adFormats) : _bbFmtsList.map((f: any) => f.label ?? f.name).filter(Boolean).sort();
 
   const districtOptions = (() => {
     if (cities.length === 0) {
@@ -1836,7 +1837,7 @@ function RecentBillboardsSection() {
                     <LocalizedText>{[
                       { label: t('spec.code')      || 'Code',   value: (product as any).code || '—' },
                       { label: t('spec.size')      || 'Size',   value: product.size },
-                      { label: t('spec.adFormat')  || 'Format', value: (product as any).adFormat || product.type },
+                      { label: t(isAr ? 'spec.type' : 'spec.adFormat') || 'Format', value: isAr ? (product.type || (product as any).adFormat) : ((product as any).adFormat || product.type) },
                     ].map((stat, i) => (
                       <div
                         key={stat.label}

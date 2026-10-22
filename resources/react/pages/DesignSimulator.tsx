@@ -135,7 +135,7 @@ function FormatCard({ t, selected, onClick }: {
         )}</LocalizedText>
         <LocalizedText>{pc > 1 && (
           <p className="text-[10px] text-purple-600 font-semibold mt-1">
-            <LocalizedText>{pc === 2 ? 'Double Decker — 2 designs' : `${pc} designs needed`}</LocalizedText>
+            <LocalizedText>{`${pc} designs needed`}</LocalizedText>
           </p>
         )}</LocalizedText>
       </div>
@@ -370,7 +370,7 @@ export default function DesignSimulator() {
 
                     <LocalizedText>{panelCount > 1 && (
                       <p className="text-xs text-purple-600 bg-purple-50 rounded-lg px-3 py-2 mb-3 font-semibold border border-purple-100">
-                        <LocalizedText>{panelCount === 2 ? t('sim.doubleDecker') : t('sim.multiPanel')}</LocalizedText><LocalizedText> — </LocalizedText><LocalizedText>{panelCount}</LocalizedText> <LocalizedText>{t('sim.designsNeeded')}</LocalizedText>
+                        <LocalizedText>{selectedTemplate.typeName}</LocalizedText><LocalizedText> — </LocalizedText><LocalizedText>{panelCount}</LocalizedText> <LocalizedText>{t('sim.designsNeeded')}</LocalizedText>
                       </p>
                     )}</LocalizedText>
 
