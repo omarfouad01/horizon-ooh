@@ -91,7 +91,7 @@ function InlineMapPicker({
     ensureLeafletCss() // inject leaflet CSS non-blocking
     if (!divRef.current || mapRef.current) return
     const initLat = lat || 30.0444, initLng = lng || 31.2357
-    const map = L.map(divRef.current, { center: [initLat, initLng], zoom: 13, zoomControl: true })
+    const map = L.map(divRef.current, { center: [initLat, initLng], zoom: 13, zoomControl: true, zoomAnimation: false, fadeAnimation: false, markerZoomAnimation: false })
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors', maxZoom: 19,
     }).addTo(map)
@@ -111,12 +111,13 @@ function InlineMapPicker({
       onCoordsChange(la, lo)
       reverseGeocode(la, lo)
     })
-    const resizeObserver = new ResizeObserver(() => map.invalidateSize({pan:false}))
+    let disposed = false
+    const resizeObserver = new ResizeObserver(() => { if (!disposed) map.invalidateSize({pan:false}) })
     resizeObserver.observe(divRef.current)
-    requestAnimationFrame(() => map.invalidateSize({pan:false}))
+    const mapFrame = requestAnimationFrame(() => { if (!disposed) map.invalidateSize({pan:false}) })
     mapRef.current = map
     pinRef.current = marker
-    return () => { resizeObserver.disconnect(); if (geocodeTimer.current) clearTimeout(geocodeTimer.current); map.remove(); mapRef.current = null; pinRef.current = null }
+    return () => { disposed = true; cancelAnimationFrame(mapFrame); resizeObserver.disconnect(); if (geocodeTimer.current) clearTimeout(geocodeTimer.current); map.stop(); map.remove(); mapRef.current = null; pinRef.current = null }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -125,7 +126,7 @@ function InlineMapPicker({
     if (!mapRef.current || !pinRef.current) return
     if (!lat || !lng) return
     pinRef.current.setLatLng([lat, lng])
-    mapRef.current.setView([lat, lng], Math.max(mapRef.current.getZoom(), 15), { animate: true })
+    mapRef.current.setView([lat, lng], Math.max(mapRef.current.getZoom(), 15), { animate: false })
   }, [lat, lng])
 
   // Forward-geocode: type in address → search Nominatim → move pin
