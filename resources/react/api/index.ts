@@ -45,6 +45,7 @@ export const districtsApi = {
 
 // ─── Billboards ───────────────────────────────────────────────────────────────
 export const billboardsApi = {
+  dashboardData: () => api.get('/admin/billboard-data').then(r => r.data),
   all:         (params?: any) => cachedGet('/billboards', params ? { params } : {}),
   get:         (slug: string) => cachedGet(`/billboards/${slug}`),
   nextCode:    ()             => api.get('/billboards/next-code'),

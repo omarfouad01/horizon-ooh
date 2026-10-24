@@ -90,10 +90,10 @@ function InlineMapPicker({
   useEffect(() => {
     ensureLeafletCss() // inject leaflet CSS non-blocking
     if (!divRef.current || mapRef.current) return
-    const initLat = lat || 30.0444, initLng = lng || 31.2357
+    const initLat = lat || 24.7136, initLng = lng || 46.6753
     const map = L.map(divRef.current, { center: [initLat, initLng], zoom: 13, zoomControl: true })
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; OpenStreetMap &copy; CARTO', maxZoom: 19,
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors', maxZoom: 19,
     }).addTo(map)
     // aria fix: label the draggable admin pin
     const marker = L.marker([initLat, initLng], { icon: makeIcon(), draggable: true, title: 'Billboard location — drag to reposition', alt: 'Billboard location' }).addTo(map)
@@ -111,9 +111,12 @@ function InlineMapPicker({
       onCoordsChange(la, lo)
       reverseGeocode(la, lo)
     })
+    const resizeObserver = new ResizeObserver(() => map.invalidateSize({pan:false}))
+    resizeObserver.observe(divRef.current)
+    requestAnimationFrame(() => map.invalidateSize({pan:false}))
     mapRef.current = map
     pinRef.current = marker
-    return () => { map.remove(); mapRef.current = null; pinRef.current = null }
+    return () => { resizeObserver.disconnect(); if (geocodeTimer.current) clearTimeout(geocodeTimer.current); map.remove(); mapRef.current = null; pinRef.current = null }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -329,6 +332,7 @@ const [f, setF] = useState<any>(() => {
       ...empty,
       ...ed,
       clientPrice:   Number(ed.price ?? ed.clientPrice ?? 0),
+      agencyPrice: ed.agencyPrice == null ? '' : Number(ed.agencyPrice),
       nameEn:        ed.nameEn        || ed.title       || ed.name        || '',
       nameAr:        ed.nameAr        || ed.name_ar     || '',
       // adFormat = the 'format' column (Billboard/Digital/Mall…)
@@ -399,6 +403,7 @@ const save = async (e: React.FormEvent) => {
       if (f.descriptionEn)  fd.append('description',    f.descriptionEn)
       if (f.descriptionAr)  fd.append('description_ar', f.descriptionAr)
       fd.append('price', String(f.clientPrice ?? 0))
+      fd.append('agency_price', f.agencyPrice === '' || f.agencyPrice == null ? '' : String(f.agencyPrice))
       fd.append('quantity',       String(f.quantity || 1))
       fd.append('availability',   f.status === 'Available' ? 'available' : (f.status || 'available').toLowerCase())
       fd.append('illuminated',    f.brightness && f.brightness !== 'No Light' ? '1' : '0')
@@ -543,7 +548,7 @@ const save = async (e: React.FormEvent) => {
       <SectionDivider label="Commercial"/>
       <div className="grid grid-cols-2 gap-3">
         <Lbl label="Agency Price (SAR)">
-          <input className={inp} type="number" min={0} value={f.agencyPrice||''} onChange={e=>set('agencyPrice',parseFloat(e.target.value)||0)} placeholder="0"/>
+          <input className={inp} type="number" min={0} value={f.agencyPrice ?? ''} onChange={e=>set('agencyPrice',e.target.value === '' ? '' : Number(e.target.value))} placeholder="0"/>
         </Lbl>
         <Lbl label="Client Price (SAR)">
           <input className={inp} type="number" min={0} value={f.clientPrice||''} onChange={e=>set('clientPrice',parseFloat(e.target.value)||0)} placeholder="0"/>
@@ -590,6 +595,11 @@ const save = async (e: React.FormEvent) => {
         <textarea className={ta} rows={2} value={f.supplierNote||''} onChange={e=>set('supplierNote',e.target.value)} placeholder="Installation date, contract ref…"/>
       </Lbl>
 
+      {editing?.legacyDetails && <details className="rounded-xl border border-gray-200 p-4">
+        <summary className="cursor-pointer font-semibold text-sm">Original Yaftamap billboard data (read only)</summary>
+        <p className="text-xs text-gray-500 my-3">Original fields, annual prices, directions, targeting, dates and technical specifications are preserved below. These records are private to the dashboard; current editable fields above take precedence.</p>
+        <dl className="space-y-2 text-xs">{Object.entries(editing.legacyDetails).map(([key,value]) => <div key={key} className="grid grid-cols-2 gap-3 border-b border-gray-100 py-2"><dt className="font-semibold break-words">{key.replaceAll('_',' ')}</dt><dd className="whitespace-pre-wrap break-words">{value == null ? '—' : typeof value === 'object' ? JSON.stringify(value,null,2) : String(value)}</dd></div>)}</dl>
+      </details>}
       {/* ── DESCRIPTIONS ── */}
       <SectionDivider label="Descriptions"/>
       <Lbl label="English Description">
@@ -882,8 +892,18 @@ function BillboardFormatManager({ open, onClose }: { open:boolean; onClose:()=>v
 export default function AdminBillboards() {
   const store = useStore()
   const { locations, suppliers } = store
+  const [privateRows, setPrivateRows] = useState<Record<string, any>>({})
+  const [privateReady, setPrivateReady] = useState(false)
+  const loadPrivateRows = useCallback(async () => {
+    try {
+      const rows = await billboardsApi.dashboardData()
+      setPrivateRows(Object.fromEntries(rows.map((row: any) => [String(row.id), row])))
+      setPrivateReady(true)
+    } catch { setPrivateReady(false); toast.error('Unable to load agency prices. Retry before editing.') }
+  }, [])
+  useEffect(() => { void loadPrivateRows() }, [loadPrivateRows, locations])
   const allBillboards = locations
-    .flatMap((l: any) => (l.products || []).map((p: any) => ({ ...p, clientPrice: Number(p.price ?? p.clientPrice ?? 0), _locId: l.id, _locCity: l.city })))
+    .flatMap((l: any) => (l.products || []).map((p: any) => ({ ...p, ...privateRows[String(p.id)], clientPrice: Number(p.price ?? p.clientPrice ?? 0), _locId: l.id, _locCity: l.city })))
     .sort((a: any, b: any) => {
       // Newest first (descending by created_at)
       const da = new Date(a.createdAt || a.created_at || 0).getTime()
@@ -1009,7 +1029,7 @@ export default function AdminBillboards() {
             <Th>Format</Th>
             <Th>Size / m²</Th>
             <Th>Status</Th>
-            <Th>Client Price</Th>
+            <Th>Agency Price (SAR)</Th><Th>Client Price</Th>
             <Th>Supplier</Th>
             <Th className="w-24">Actions</Th>
           </tr>
@@ -1048,11 +1068,12 @@ export default function AdminBillboards() {
                   {(b.sqm||parseSqm(b.size||''))>0 && <div className="text-[10px] text-gray-400">{b.sqm||parseSqm(b.size||'')} m²</div>}
                 </Td>
                 <Td><Badge color={b.status==='Available'?'green':'red'}>{b.status||'Available'}</Badge></Td>
+                <Td>{b.agencyPrice != null ? <span className="font-semibold text-[13px]">{Number(b.agencyPrice).toLocaleString()} SAR</span> : <span className="text-gray-300 text-xs">—</span>}</Td>
                 <Td>{b.clientPrice>0?<span className="font-semibold text-[13px]">{b.clientPrice.toLocaleString()} SAR</span>:<span className="text-gray-300 text-xs">—</span>}</Td>
                 <Td className="text-xs text-gray-600">{sup?<span className="font-medium">{(sup as any).name}</span>:<span className="text-gray-300">—</span>}</Td>
                 <Td>
                   <div className="flex gap-1">
-                    <button className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-700" onClick={()=>{setEdit(b);setForm(true)}}><Pencil size={13}/></button>
+                    <button className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-700" disabled={!privateReady} title={privateReady ? 'Edit billboard' : 'Loading private billboard data'} onClick={()=>{setEdit(b);setForm(true)}}><Pencil size={13}/></button>
                     <button className="p-1.5 rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-500" onClick={()=>setDel(b)}><Trash2 size={13}/></button>
                   </div>
                 </Td>

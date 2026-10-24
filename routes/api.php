@@ -102,6 +102,7 @@ Route::middleware(['auth:api', \App\Http\Middleware\DashboardAccess::class])->gr
     Route::delete('/districts/{id}',  [DistrictController::class, 'destroy']);
 
     // Billboards
+    Route::get('/admin/billboard-data', [BillboardController::class, 'dashboardData']);
     Route::get   ('/billboards/next-code',   [BillboardController::class, 'nextCode']);
     Route::post  ('/billboards',             [BillboardController::class, 'store']);
     Route::put   ('/billboards/{id}',        [BillboardController::class, 'update']);

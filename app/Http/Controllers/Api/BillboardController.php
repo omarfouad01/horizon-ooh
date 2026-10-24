@@ -17,7 +17,7 @@ class BillboardController extends Controller
     private const ALLOWED = [
         'code', 'slug', 'title', 'name_ar', 'location_id', 'district_id',
         'format', 'type', 'quantity', 'size', 'sqm', 'sides',
-        'material', 'brightness', 'width', 'height', 'price',
+        'material', 'brightness', 'width', 'height', 'price', 'agency_price',
         'availability', 'illuminated', 'lat', 'lng', 'full_address',
         'description', 'description_ar', 'featured', 'sort_order', 'supplier_id',
     ];
@@ -55,6 +55,15 @@ class BillboardController extends Controller
         return response()->json($this->transform($b));
     }
 
+    // Private costs/source payload never enter the public listing, SSG or browser public cache.
+    public function dashboardData(): JsonResponse
+    {
+        return response()->json(Billboard::orderBy('id')->get()->map(fn($b) => [
+            'id' => $b->id, 'agencyPrice' => $b->agency_price,
+            'legacyDetails' => $b->legacy_details,
+        ]))->header('Cache-Control', 'private, no-store');
+    }
+
     public function nextCode(): JsonResponse
     {
         $last = Billboard::orderByRaw("CAST(REGEXP_REPLACE(code, '[^0-9]', '') AS UNSIGNED) DESC")->first();
@@ -84,6 +93,7 @@ class BillboardController extends Controller
             'width'          => 'nullable|numeric',
             'height'         => 'nullable|numeric',
             'price'          => 'nullable|numeric',
+            'agency_price'   => 'nullable|numeric|min:0',
             'availability'   => 'nullable|string',
             'illuminated'    => 'nullable|boolean',
             'lat'            => 'nullable|numeric',
@@ -128,6 +138,7 @@ class BillboardController extends Controller
             'width'          => 'nullable|numeric',
             'height'         => 'nullable|numeric',
             'price'          => 'nullable|numeric',
+            'agency_price'   => 'nullable|numeric|min:0',
             'availability'   => 'nullable|string',
             'illuminated'    => 'nullable|boolean',
             'lat'            => 'nullable|numeric',

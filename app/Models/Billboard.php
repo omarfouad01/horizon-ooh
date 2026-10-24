@@ -9,12 +9,13 @@ class Billboard extends Model
     protected $fillable = [
         'code', 'slug', 'title', 'name_ar', 'location_id', 'district_id',
         'format', 'type', 'quantity', 'size', 'sqm', 'sides', 'material', 'brightness',
-        'width', 'height', 'price', 'availability', 'illuminated',
+        'width', 'height', 'price', 'agency_price', 'legacy_details', 'availability', 'illuminated',
         'lat', 'lng', 'full_address', 'description', 'description_ar',
         'featured', 'sort_order', 'supplier_id', 'billboard_format_id',
     ];
 
-    protected $casts = ['illuminated' => 'boolean', 'featured' => 'boolean'];
+    protected $hidden = ['agency_price', 'legacy_details'];
+    protected $casts = ['agency_price' => 'decimal:2', 'legacy_details' => 'array', 'illuminated' => 'boolean', 'featured' => 'boolean'];
 
     public function location(): BelongsTo        { return $this->belongsTo(Location::class); }
     public function district(): BelongsTo        { return $this->belongsTo(District::class); }
