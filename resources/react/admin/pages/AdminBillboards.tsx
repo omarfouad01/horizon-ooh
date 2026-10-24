@@ -92,8 +92,8 @@ function InlineMapPicker({
     if (!divRef.current || mapRef.current) return
     const initLat = lat || 30.0444, initLng = lng || 31.2357
     const map = L.map(divRef.current, { center: [initLat, initLng], zoom: 13, zoomControl: true })
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; OpenStreetMap &copy; CARTO', maxZoom: 19,
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors', maxZoom: 19,
     }).addTo(map)
     // aria fix: label the draggable admin pin
     const marker = L.marker([initLat, initLng], { icon: makeIcon(), draggable: true, title: 'Billboard location — drag to reposition', alt: 'Billboard location' }).addTo(map)
@@ -111,9 +111,12 @@ function InlineMapPicker({
       onCoordsChange(la, lo)
       reverseGeocode(la, lo)
     })
+    const resizeObserver = new ResizeObserver(() => map.invalidateSize({pan:false}))
+    resizeObserver.observe(divRef.current)
+    requestAnimationFrame(() => map.invalidateSize({pan:false}))
     mapRef.current = map
     pinRef.current = marker
-    return () => { map.remove(); mapRef.current = null; pinRef.current = null }
+    return () => { resizeObserver.disconnect(); if (geocodeTimer.current) clearTimeout(geocodeTimer.current); map.remove(); mapRef.current = null; pinRef.current = null }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
