@@ -252,6 +252,7 @@ export const UI: Record<string, Record<Lang, string>> = {
   'projects.selectedClient':  { en: 'Selected client',     ar: 'العميل المحدد' },
   'projects.noProjects':      { en: 'No projects found for this category.', ar: 'لا توجد مشاريع لهذا التصنيف.' },
   'projects.selectClient':    { en: 'Select a client to see all projects and campaigns executed for them.', ar: 'اختر عميلاً لعرض جميع المشاريع والحملات المنفذة له.' },
+  'projects.filterOutdoor': { en: 'Outdoor Advertising', ar: 'الإعلانات الخارجية' },
   'projects.filterAll':       { en: 'All Projects',        ar: 'جميع المشاريع' },
   'projects.filterBillboards':{ en: 'Billboards',          ar: 'اللوحات الإعلانية' },
   'projects.filterDOOH':      { en: 'DOOH',                ar: 'الشاشات الرقمية' },

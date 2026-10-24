@@ -4,12 +4,14 @@ import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import { motion, useInView } from "framer-motion";
 import { useStore } from "@/store/dataStore";
-import { type ProjectCategory } from "@/data";
+import { type ProjectCategory as BaseProjectCategory } from "@/data";
+type ProjectCategory = BaseProjectCategory | "Outdoor Advertising";
 import { Reveal, RevealGroup, RevealItem, CTABanner, Eyebrow } from "@/components/UI";
 import { projectHref, RED, NAVY, ease } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
 
 const FILTER_KEYS: { labelKey: string; value: "All" | ProjectCategory }[] = [
+  { labelKey: 'projects.filterOutdoor', value: 'Outdoor Advertising' },
   { labelKey: 'projects.filterAll',        value: "All" },
   { labelKey: 'projects.filterBillboards', value: "Billboard" },
   { labelKey: 'projects.filterDOOH',       value: "DOOH" },
@@ -18,6 +20,7 @@ const FILTER_KEYS: { labelKey: string; value: "All" | ProjectCategory }[] = [
 ];
 
 const CAT_COLORS: Record<ProjectCategory, string> = {
+  "Outdoor Advertising": "#D90429",
   Billboard: "#D90429",
   DOOH: "#0B0F1A",
   Mall: "#4A4E69",
@@ -207,7 +210,7 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
 
           <div className="absolute bottom-0 left-0 right-0 p-6">
             <p className="text-white font-black tracking-[-0.02em] leading-tight opacity-0 group-hover:opacity-100 transition-all duration-400 translate-y-2 group-hover:translate-y-0" style={{ fontSize: 13 }}>
-              <LocalizedText>{project.tagline}</LocalizedText>
+              <LocalizedText>{isAr && project.taglineAr ? project.taglineAr : project.tagline}</LocalizedText>
             </p>
           </div>
         </div>
