@@ -328,6 +328,7 @@ const [f, setF] = useState<any>(() => {
     return {
       ...empty,
       ...ed,
+      clientPrice:   Number(ed.price ?? ed.clientPrice ?? 0),
       nameEn:        ed.nameEn        || ed.title       || ed.name        || '',
       nameAr:        ed.nameAr        || ed.name_ar     || '',
       // adFormat = the 'format' column (Billboard/Digital/Mall…)
@@ -397,7 +398,7 @@ const save = async (e: React.FormEvent) => {
       fd.append('full_address',   f.full_address || f.location || f.spot || '')
       if (f.descriptionEn)  fd.append('description',    f.descriptionEn)
       if (f.descriptionAr)  fd.append('description_ar', f.descriptionAr)
-      if (f.price || f.clientPrice) fd.append('price', String(f.price || f.clientPrice || 0))
+      fd.append('price', String(f.clientPrice ?? 0))
       fd.append('quantity',       String(f.quantity || 1))
       fd.append('availability',   f.status === 'Available' ? 'available' : (f.status || 'available').toLowerCase())
       fd.append('illuminated',    f.brightness && f.brightness !== 'No Light' ? '1' : '0')
@@ -541,10 +542,10 @@ const save = async (e: React.FormEvent) => {
       {/* ── COMMERCIAL ── */}
       <SectionDivider label="Commercial"/>
       <div className="grid grid-cols-2 gap-3">
-        <Lbl label="Agency Price (EGP)">
+        <Lbl label="Agency Price (SAR)">
           <input className={inp} type="number" min={0} value={f.agencyPrice||''} onChange={e=>set('agencyPrice',parseFloat(e.target.value)||0)} placeholder="0"/>
         </Lbl>
-        <Lbl label="Client Price (EGP)">
+        <Lbl label="Client Price (SAR)">
           <input className={inp} type="number" min={0} value={f.clientPrice||''} onChange={e=>set('clientPrice',parseFloat(e.target.value)||0)} placeholder="0"/>
         </Lbl>
       </div>
@@ -882,7 +883,7 @@ export default function AdminBillboards() {
   const store = useStore()
   const { locations, suppliers } = store
   const allBillboards = locations
-    .flatMap((l: any) => (l.products || []).map((p: any) => ({ ...p, _locId: l.id, _locCity: l.city })))
+    .flatMap((l: any) => (l.products || []).map((p: any) => ({ ...p, clientPrice: Number(p.price ?? p.clientPrice ?? 0), _locId: l.id, _locCity: l.city })))
     .sort((a: any, b: any) => {
       // Newest first (descending by created_at)
       const da = new Date(a.createdAt || a.created_at || 0).getTime()
@@ -1047,7 +1048,7 @@ export default function AdminBillboards() {
                   {(b.sqm||parseSqm(b.size||''))>0 && <div className="text-[10px] text-gray-400">{b.sqm||parseSqm(b.size||'')} m²</div>}
                 </Td>
                 <Td><Badge color={b.status==='Available'?'green':'red'}>{b.status||'Available'}</Badge></Td>
-                <Td>{b.clientPrice>0?<span className="font-semibold text-[13px]">{b.clientPrice.toLocaleString()} EGP</span>:<span className="text-gray-300 text-xs">—</span>}</Td>
+                <Td>{b.clientPrice>0?<span className="font-semibold text-[13px]">{b.clientPrice.toLocaleString()} SAR</span>:<span className="text-gray-300 text-xs">—</span>}</Td>
                 <Td className="text-xs text-gray-600">{sup?<span className="font-medium">{(sup as any).name}</span>:<span className="text-gray-300">—</span>}</Td>
                 <Td>
                   <div className="flex gap-1">
