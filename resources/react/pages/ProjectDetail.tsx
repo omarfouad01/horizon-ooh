@@ -48,13 +48,13 @@ const CAT_COLORS: Record<ProjectCategory, string> = {
   Airport: "#22577A",
 };
 
-function buildClientBrief(project: any, clientProjects: any[]) {
+function buildClientBrief(project: any, clientProjects: any[], isAr = false) {
   // If a manual description was entered in the dashboard, use it
   if (project.clientDescription?.trim()) return project.clientDescription.trim();
   // Otherwise fall back to auto-generated text
   const categories = Array.from(new Set(clientProjects.map((p) => p.category))).join(" / ");
   const markets = Array.from(new Set(clientProjects.map((p) => p.city))).join(", ");
-  return `${project.client} is featured across ${clientProjects.length} campaign${clientProjects.length > 1 ? "s" : ""} in our portfolio${categories ? `, spanning ${categories}` : ""}${markets ? ` across ${markets}` : ""}. This case study highlights one part of our ongoing execution for the brand.`;
+  return isAr ? `يتضمن معرض المشروعات ${clientProjects.length} من حملات ${project.client}. تتوفر معلومات الحملة وصورها الأصلية في هذه الصفحة.` : `The portfolio contains ${clientProjects.length} campaign record(s) for ${project.client}. This page preserves the original campaign information and photographs.`;
 }
 
 export default function ProjectDetail() {
@@ -127,7 +127,7 @@ export default function ProjectDetail() {
         : { url: item?.url ?? '', alt: item?.alt || `${project.title} campaign photo` }
     ).filter(item => item.url);
   })();
-  const clientBrief = buildClientBrief(project, clientProjects);
+  const clientBrief = buildClientBrief(project, clientProjects, isAr);
 
   // ── Structured data ────────────────────────────────────────────────────
   // Distinguish campaign phases when their saved Arabic names are identical.
@@ -326,7 +326,7 @@ export default function ProjectDetail() {
         </section>
       )}</LocalizedText>
 
-      <section style={{ background: NAVY, paddingTop: 100, paddingBottom: 100 }}>
+      {(project.results || []).length > 0 && <section style={{ background: NAVY, paddingTop: 100, paddingBottom: 100 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <Eyebrow text={t('projects.results')} light />
           <Reveal delay={0.04}>
@@ -349,7 +349,7 @@ export default function ProjectDetail() {
             ))}
           </RevealGroup>
         </div>
-      </section>
+      </section>}
 
       <LocalizedText>{relatedAll.length > 0 && (
         <section className="bg-white" style={{ paddingTop: 80, paddingBottom: 80 }}>

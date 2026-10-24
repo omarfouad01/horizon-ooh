@@ -207,7 +207,7 @@ function ProjectCard({ project, index }: { project: any; index: number }) {
 
           <div className="absolute bottom-0 left-0 right-0 p-6">
             <p className="text-white font-black tracking-[-0.02em] leading-tight opacity-0 group-hover:opacity-100 transition-all duration-400 translate-y-2 group-hover:translate-y-0" style={{ fontSize: 13 }}>
-              <LocalizedText>{project.tagline}</LocalizedText>
+              <LocalizedText>{isAr && project.taglineAr ? project.taglineAr : project.tagline}</LocalizedText>
             </p>
           </div>
         </div>

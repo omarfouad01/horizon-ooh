@@ -41,7 +41,7 @@ export const UI: Record<string, Record<Lang, string>> = {
   'footer.estd':           { en: 'Est. 2013', ar: 'تأسست 2013' },
 
   // ── Home ──
-  'home.trustedBy':        { en: 'Trusted by 100+ brands', ar: 'يثق بنا أكثر من 100 علامة تجارية' },
+  'home.trustedBy':        { en: 'Client logos', ar: 'شعارات العملاء' },
   'home.searchPlaceholder':{ en: 'Find a Billboard Location', ar: 'ابحث عن موقع إعلاني' },
   'home.city':             { en: 'City',          ar: 'المدينة' },
   'home.district':         { en: 'District',      ar: 'المنطقة' },
@@ -266,7 +266,7 @@ export const UI: Record<string, Record<Lang, string>> = {
   'about.byTheNumbers':    { en: 'By the Numbers',    ar: 'بالأرقام' },
   'about.scaleTitle':      { en: 'The scale behind',  ar: 'الحجم وراء' },
   'about.scaleAccent':     { en: 'every campaign.',   ar: 'كل حملة.' },
-  'about.trustedBy':       { en: 'Trusted by 100+ brands across Saudi Arabia', ar: 'يثق بنا أكثر من 100 علامة تجارية في السعودية' },
+  'about.trustedBy':       { en: 'Client logos', ar: 'شعارات العملاء' },
   'about.ctaTitle':        { en: 'Ready to make your brand impossible to ignore?', ar: 'هل أنت مستعد لجعل علامتك التجارية لا يمكن تجاهلها؟' },
   'about.ctaSubtitle':     { en: "Talk to our team and we'll build a campaign around your objectives.", ar: 'تحدث مع فريقنا وسنبني حملة حول أهدافك.' },
   'about.ctaButton':       { en: 'Start a Campaign',  ar: 'ابدأ حملة' },
