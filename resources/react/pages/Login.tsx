@@ -141,7 +141,7 @@ function BrandPanel() {
           className="mt-10 flex items-center gap-4" style={{ transformOrigin: "left" }}>
           <span className="block w-8 h-[1.5px]" style={{ background: RED }} />
           <span className="text-white/25 text-[11px] font-bold tracking-[0.3em] uppercase"><LocalizedText>
-            Egypt's #1 OOH Network
+            Saudi Arabia’s #1 OOH Network
           </LocalizedText></span>
         </motion.div>
       </div>

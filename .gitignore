@@ -71,3 +71,10 @@ public/storage/
 public/storage/
 public/hot
 public/imgcache/
+
+# Private Saudi preview database
+database/saudi-preview.sqlite*
+
+/public/ssg/
+/public/assets/
+/node_modules

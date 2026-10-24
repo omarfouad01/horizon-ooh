@@ -13,7 +13,7 @@ for(const route of ['/design-simulator','/ar/design-simulator']){
  const bytes=fs.readFileSync(file),html=bytes.toString();
  assert.match(html,/<h1\b/);assert.match(html,/data-horizon-seo/);
  assert.match(html,/<meta name="robots" content="noindex, follow"/);
- assert.match(html,new RegExp('rel="canonical" href="https://horizonooh.com'+route+'"'));
+ assert.match(html,new RegExp('rel="canonical" href="https://dev.horizonooh.com'+route+'"'));
  assert(!html.includes('horizon_site_token'));assert(!html.includes('horizon_site_user'));
  const data=JSON.parse(html.match(/<script id="horizon-ssg-state" type="application\/json">([\s\S]*?)<\/script>/)[1]);
  assert(data.loaded&&!data.usingDemo);assert.equal(data.simulatorTemplates.length,7);

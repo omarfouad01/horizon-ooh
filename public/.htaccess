@@ -121,3 +121,10 @@
         Header set Cache-Control "public, max-age=0, must-revalidate"
     </FilesMatch>
 </IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Robots-Tag "noindex, nofollow, noarchive"
+</IfModule>
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php83 .php .php8 .phtml
+</IfModule>

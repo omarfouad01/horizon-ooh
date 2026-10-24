@@ -412,7 +412,7 @@ export default function AdminSettings() {
               <p className="text-[12px] font-bold text-gray-700 mb-1">Browser Favicon</p>
               <p className="text-[11px] text-gray-400 mb-3">
                 Synced to the website automatically — updates the browser tab icon <strong>and</strong> the
-                <code className="mx-1 px-1 bg-gray-100 rounded text-[10px]">https://horizonooh.com/favicon.ico</code>
+                <code className="mx-1 px-1 bg-gray-100 rounded text-[10px]">https://dev.horizonooh.com/favicon.ico</code>
                 URL that Google Search Console reads.
               </p>
               <ImageUpload

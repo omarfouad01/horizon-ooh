@@ -38,10 +38,10 @@ interface PublicSnapshot {
 
 export function getStaticPublicRoutes(snapshot?: PublicSnapshot | null): string[] {
   const routes = new Set<string>(STATIC_PUBLIC_ROUTES);
-  const services = snapshot?.services?.length ? snapshot.services : SERVICES;
-  const projects = snapshot?.projects?.length ? snapshot.projects : PROJECTS;
-  const locations = snapshot?.locations?.length ? snapshot.locations : LOCATIONS;
-  const blogPosts = snapshot?.blogPosts?.length ? snapshot.blogPosts : BLOG_POSTS;
+  const services = snapshot?.services || [];
+  const projects = snapshot?.projects || [];
+  const locations = snapshot?.locations || [];
+  const blogPosts = snapshot?.blogPosts || [];
 
   services.forEach((service) => service.slug && routes.add(`/services/${service.slug}`));
   projects.forEach((project) => project.slug && routes.add(`/projects/${project.slug}`));

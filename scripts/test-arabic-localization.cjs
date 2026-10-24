@@ -58,7 +58,7 @@ const onChange=()=>{};
 function InspectProps(props){assert.equal(props.value,'Cairo');assert.equal(props.onChange,onChange);assert.equal(props.to,'/ar/contact');return React.createElement('a',{href:props.to},typeof props.children==='function'?props.children({isActive:true}):props.children);}
 const link=renderToStaticMarkup(React.createElement(LocalizedElement,{as:InspectProps,to:'/contact',value:'Cairo',onChange},()=>React.createElement(LocalizedText,null,'View Details')));
 assert.match(link,/href="\/ar\/contact"/);assert(link.includes('عرض التفاصيل'));
-const schema=JSON.stringify({'@context':'https://schema.org','@type':'Organization',name:'Horizon OOH',url:'https://horizonooh.com'});
+const schema=JSON.stringify({'@context':'https://schema.org','@type':'Organization',name:'Horizon OOH',url:'https://dev.horizonooh.com'});
 const json=renderToStaticMarkup(React.createElement(LocalizedElement,{as:'script',type:'application/ld+json',dangerouslySetInnerHTML:{__html:schema}}));
 assert.equal(json,'<script type="application/ld+json">'+schema+'</script>');
 isArabic=false;

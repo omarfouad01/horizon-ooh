@@ -12,6 +12,7 @@ return new class extends Migration
 {
     public function up(): void
     {
+        if (\DB::connection()->getDriverName() !== 'mysql') return;
         // Helper: change a column to LONGTEXT only if it exists and isn't already LONGTEXT
         // We use raw ALTER TABLE because ->change() on already-LONGTEXT can error on some MySQL versions
         $toLongText = function (string $table, string $col) {

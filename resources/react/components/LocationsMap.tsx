@@ -57,7 +57,7 @@ export default function LocationsMap({
     ensureLeafletCss(); // inject leaflet CSS non-blocking
     if (!divRef.current || mapRef.current) return;
     const map = L.map(divRef.current, {
-      center: [30.0444, 31.2357],
+      center: [24.7136, 46.6753],
       zoom: 7,
       zoomControl: false,
       attributionControl: false,

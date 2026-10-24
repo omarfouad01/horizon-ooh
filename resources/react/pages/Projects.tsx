@@ -266,7 +266,7 @@ function FeaturedProject() {
 
         <LocalizedElement as={Link} to={projectHref(lang, featured.slug)} className="group relative block overflow-hidden" style={{ textDecoration: "none", height: 560 }}>
           <LocalizedText>{featured.heroImage
-            ? <LocalizedElement as="img" src={featured.heroImage} alt={featured.heroImageAlt || `${featured.title} — outdoor advertising case study Egypt`} width={1440} height={500} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" style={{ opacity: 0.8 }} {...({ fetchpriority: "high" } as any)} decoding="async" />
+            ? <LocalizedElement as="img" src={featured.heroImage} alt={featured.heroImageAlt || `${featured.title} — outdoor advertising case study Saudi Arabia`} width={1440} height={500} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" style={{ opacity: 0.8 }} {...({ fetchpriority: "high" } as any)} decoding="async" />
             : <div className="absolute inset-0 bg-gradient-to-br from-[#0B0F1A] to-[#1a2035]" />}</LocalizedText>
           <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(11,15,26,0.88) 0%, rgba(11,15,26,0.5) 50%, rgba(11,15,26,0.15) 100%)" }} />
 
@@ -341,7 +341,7 @@ function WhyItMatters({ pc }: { pc?: any }) {
           <div className="col-span-12 lg:col-span-8">
             <Reveal delay={0.1}>
               <p className="text-[17px] leading-[1.85] mb-6" style={{ color: "rgba(11,15,26,0.5)" }}>
-                <LocalizedText>{isAr && (pc as any)?.whyParagraph1Ar ? (pc as any).whyParagraph1Ar : (pc?.whyParagraph1 || "Egypt's outdoor advertising market is among the fastest-growing in the MENA region — driven by rapid urbanisation, a young and mobile population, and a commuter culture that places millions of consumers in front of billboards, DOOH screens, and mall formats every single day. Unlike digital advertising, outdoor advertising in Egypt cannot be skipped, blocked, or scrolled past.")}</LocalizedText>
+                <LocalizedText>{isAr && (pc as any)?.whyParagraph1Ar ? (pc as any).whyParagraph1Ar : (pc?.whyParagraph1 || "Saudi Arabia’s outdoor advertising market is among the fastest-growing in the MENA region — driven by rapid urbanisation, a young and mobile population, and a commuter culture that places millions of consumers in front of billboards, DOOH screens, and mall formats every single day. Unlike digital advertising, outdoor advertising in Saudi Arabia cannot be skipped, blocked, or scrolled past.")}</LocalizedText>
               </p>
             </Reveal>
 
@@ -417,7 +417,7 @@ export default function Projects() {
     <>
       <SEO
         title={isAr ? 'دراسات الحالة والمشروعات | هورايزون' : 'Case Studies & Projects | HORIZON OOH'}
-        description={isAr ? 'استكشف دراسات الحالة ومشروعات الحملات الإعلانية الخارجية لهورايزون في مصر.' : "Browse HORIZON OOH's billboard advertising case studies and campaign projects across Egypt. Real results for real brands."}
+        description={isAr ? 'استكشف دراسات الحالة ومشروعات الحملات الإعلانية الخارجية لهورايزون في السعودية.' : "Browse HORIZON OOH's billboard advertising case studies and campaign projects across Saudi Arabia. Real results for real brands."}
         canonical={isAr ? '/ar/projects' : '/projects'}
       />
       <section className="bg-white" style={{ paddingTop: 64, paddingBottom: 40 }}>

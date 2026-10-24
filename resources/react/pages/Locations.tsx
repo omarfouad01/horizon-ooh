@@ -580,8 +580,8 @@ export default function Locations() {
   return (
     <div className="flex flex-col min-h-screen" style={{ background: "#F7F7F8" }}>
       <SEO
-        title={isAr ? 'مواقع اللوحات الإعلانية في مصر | هورايزون' : 'Billboard Locations in Egypt | HORIZON OOH'}
-        description={isAr ? 'استكشف مواقع الإعلانات الخارجية في القاهرة والجيزة وجميع أنحاء مصر، وابحث حسب المدينة والمنطقة ونوع الإعلان.' : 'Explore premium outdoor advertising locations across Cairo, Giza, Alexandria, and all Egyptian governorates. Filter by city, format and more.'}
+        title={isAr ? 'مواقع اللوحات الإعلانية في السعودية | هورايزون' : 'Billboard Locations in Saudi Arabia | HORIZON OOH'}
+        description={isAr ? 'استكشف مواقع الإعلانات الخارجية في الرياض والجيزة وجميع أنحاء السعودية، وابحث حسب المدينة والمنطقة ونوع الإعلان.' : 'Explore premium outdoor advertising locations across Cairo, Giza, Alexandria, and all Saudi governorates. Filter by city, format and more.'}
         canonical={langPath(lang, "/locations")}
       />
 

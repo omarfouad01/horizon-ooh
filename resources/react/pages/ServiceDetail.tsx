@@ -103,26 +103,26 @@ export default function ServiceDetail() {
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": `${service.title} in Egypt`,
+    "name": `${service.title} in Saudi Arabia`,
     "description": service.longDescription?.substring(0, 200) ?? "",
     "provider": {
       "@type": "Organization",
       "name": "HORIZON OOH",
-      "url": "https://horizonooh.com",
-      "logo": "https://horizonooh.com/favicon.ico",
+      "url": "https://dev.horizonooh.com",
+      "logo": "https://dev.horizonooh.com/favicon.ico",
     },
-    "areaServed": { "@type": "Country", "name": "Egypt" },
-    "url": `https://horizonooh.com/services/${service.slug}`,
+    "areaServed": { "@type": "Country", "name": "Saudi Arabia" },
+    "url": `https://dev.horizonooh.com/services/${service.slug}`,
   };
 
 
   return (
     <>
       <SEO
-        title={isAr && service.titleAr ? `${service.titleAr} | HORIZON OOH` : `${service.title} in Egypt | HORIZON OOH`}
+        title={isAr && service.titleAr ? `${service.titleAr} | HORIZON OOH` : `${service.title} in Saudi Arabia | HORIZON OOH`}
         description={`${isAr && service.titleAr ? service.titleAr : service.title}. ${isAr && service.longDescriptionAr ? service.longDescriptionAr : service.longDescription || service.description || ""}`}
         ogImage={service.image}
-        keywords={`${(service.title ?? '').toLowerCase()} Egypt, outdoor advertising Egypt, OOH advertising Egypt, ${(service.shortTitle ?? '').toLowerCase()} Cairo`}
+        keywords={`${(service.title ?? '').toLowerCase()} Saudi Arabia, outdoor advertising Saudi Arabia, OOH advertising Saudi Arabia, ${(service.shortTitle ?? '').toLowerCase()} Cairo`}
         canonical={`/services/${service.slug}`}
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(serviceSchema) }} />

@@ -15,7 +15,7 @@ export interface SEOProps {
   type?: "website" | "article";
 }
 
-const SITE_URL = "https://horizonooh.com";
+const SITE_URL = "https://dev.horizonooh.com";
 const DEFAULT_IMAGE = `${SITE_URL}/images/hero-1600.webp`;
 
 function absoluteUrl(value?: unknown): string {
@@ -37,7 +37,7 @@ export default function SEO({
   keywords: inputKeywords,
   ogImage,
   canonical,
-  robots = "index, follow",
+  robots = 'noindex, nofollow',
   type = "website",
 }: SEOProps) {
   const { pathname } = useLocation();
@@ -88,12 +88,12 @@ export default function SEO({
     setLink("alternate", enUrl, "en");
     setLink("alternate", `${SITE_URL}${englishPath === "/" ? "/ar" : `/ar${englishPath}`}`, "ar");
     setLink("alternate", enUrl, "x-default");
-    setMeta('meta[property="og:locale"]', { property: "og:locale", content: isArabic ? "ar_EG" : "en_US" });
+    setMeta('meta[property="og:locale"]', { property: "og:locale", content: isArabic ? "ar_SA" : "en_US" });
     if (!keywords) document.querySelector('meta[name="keywords"]')?.remove();
     if (keywords) setMeta('meta[name="keywords"]', { name: "keywords", content: keywords });
 
     return () => {
-      document.title = "HORIZON OOH | Outdoor Advertising Agency in Egypt";
+      document.title = "HORIZON OOH | Outdoor Advertising Agency in Saudi Arabia";
     };
   }, [title, description, keywords, ogImage, canonicalUrl, englishPath, isArabic, robots, type]);
 
@@ -114,7 +114,7 @@ export default function SEO({
           canonicalUrl,
           robots,
           type,
-          locale: isArabic ? "ar_EG" : "en_US",
+          locale: isArabic ? "ar_SA" : "en_US",
         }).replace(/</g, "\\u003c"),
       }}
     />

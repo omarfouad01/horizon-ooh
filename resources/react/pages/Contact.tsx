@@ -18,7 +18,7 @@ export default function Contact() {
   const billboardCode = searchParams.get('billboard') || '';
   const billboardName = searchParams.get('name') || '';
   const CONTACT_INFO = [
-    { label: isAr ? (cc.hqLabelAr || 'المقر الرئيسي بالقاهرة') : (cc.hqLabel || (settings as any).hqLabel || 'Cairo HQ'), value: settings.address || 'Cairo, Egypt', icon: '◉' },
+    { label: isAr ? (cc.hqLabelAr || 'المقر الرئيسي بالرياض') : (cc.hqLabel || (settings as any).hqLabel || 'Cairo HQ'), value: settings.address || 'Cairo, Saudi Arabia', icon: '◉' },
     { label: isAr ? 'الهاتف' : "Phone",   value: settings.phone   || "", icon: "◉" },
     { label: isAr ? 'البريد الإلكتروني' : "Email",   value: settings.email   || "info@horizonooh.com", icon: "◉" },
     { label: isAr ? 'ساعات العمل' : "Hours",   value: isAr ? 'الأحد – الخميس، 9:00 – 18:00 EET' : "Sun – Thu, 9:00 – 18:00 EET", icon: "◉" },
@@ -72,7 +72,7 @@ export default function Contact() {
     <>
       <SEO
         title={isAr ? 'تواصل معنا | هورايزون' : 'Contact Us | HORIZON OOH'}
-        description={isAr ? 'تواصل مع هورايزون للاستفسار عن الإعلانات الخارجية وحجز اللوحات وتخطيط الحملات في مصر.' : 'Get in touch with HORIZON OOH for outdoor advertising inquiries, billboard bookings and campaign planning across Egypt.'}
+        description={isAr ? 'تواصل مع هورايزون للاستفسار عن الإعلانات الخارجية وحجز اللوحات وتخطيط الحملات في السعودية.' : 'Get in touch with HORIZON OOH for outdoor advertising inquiries, billboard bookings and campaign planning across Saudi Arabia.'}
         canonical={isAr ? '/ar/contact' : '/contact'}
       />
       <PageHero

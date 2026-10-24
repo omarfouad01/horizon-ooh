@@ -844,7 +844,7 @@ function ServicesSection() {
           </div>
           <Reveal delay={0.15} className={`flex flex-col items-end gap-5 max-w-[260px] ${isAr ? 'items-start text-left' : 'items-end text-right'}`}>
             <p className="text-[15px] leading-[1.7]" style={{ color: "rgba(11,15,26,0.65)" }}>
-              <LocalizedText>{t('home.servicesSubtitle') || "Full-spectrum outdoor media solutions across Egypt's major urban centres."}</LocalizedText>
+              <LocalizedText>{t('home.servicesSubtitle') || "Full-spectrum outdoor media solutions across Saudi Arabia’s major urban centres."}</LocalizedText>
             </p>
             <LocalizedElement as={Link}
               to={ROUTES.SERVICES}
@@ -1258,6 +1258,7 @@ function ResultsSection() {
 function ClientsSection() {
   const { clientBrands } = useStore();
   const { t } = useLang();
+  if (!clientBrands.length) return null;
   return (
     <section id="about" style={{ background: "#ffffff", paddingTop: 52, paddingBottom: 52, borderTop: "1px solid rgba(11,15,26,0.06)" }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
@@ -1624,16 +1625,16 @@ function LatestBlogsSection() {
 // ─── WhyOOHSection ───────────────────────────────────────────────────────
 const DEFAULT_MARKET_INSIGHTS = [
   {
-    title: "Egypt's Fastest-Growing OOH Market",
-    body: "With a metropolitan Cairo population exceeding 22 million and rapid urbanisation driving infrastructure expansion, Egypt's out-of-home advertising market is growing at double-digit rates year-on-year. New highways, urban corridors, and mixed-use developments create premium new inventory that puts brands at the heart of Egypt's economic momentum.",
+    title: "Saudi Arabia’s Fastest-Growing OOH Market",
+    body: "With a metropolitan Cairo population exceeding 22 million and rapid urbanisation driving infrastructure expansion, Saudi Arabia’s out-of-home advertising market is growing at double-digit rates year-on-year. New highways, urban corridors, and mixed-use developments create premium new inventory that puts brands at the heart of Saudi Arabia’s economic momentum.",
   },
   {
-    title: "Unmatched Reach Across Cairo & Alexandria",
+    title: "Unmatched Reach Across Saudi cities",
     body: "From the Cairo Ring Road and Corniche el-Nil to Alexandria's Mediterranean Corniche and New Cairo's premium retail districts, HORIZON OOH's 9,500+ outdoor advertising locations deliver unparalleled daily reach. A single Ring Road unipole generates over 420,000 vehicle exposures per day — coverage that no digital channel can match.",
   },
   {
     title: "Higher Recall Than Digital Advertising",
-    body: "Independent research confirms that outdoor advertising in Egypt drives 78% unaided brand recall at Cairo International Airport and delivers +180% brand recall uplift over digital-only campaigns. Unlike online ads, billboard advertising cannot be skipped, blocked, or scrolled past — it commands attention 24 hours a day, 365 days a year.",
+    body: "Independent research confirms that outdoor advertising in Saudi Arabia drives 78% unaided brand recall at Cairo International Airport and delivers +180% brand recall uplift over digital-only campaigns. Unlike online ads, billboard advertising cannot be skipped, blocked, or scrolled past — it commands attention 24 hours a day, 365 days a year.",
   },
 ];
 
@@ -1643,7 +1644,7 @@ function WhyOOHSection() {
   const isAr = lang === 'ar';
 
   const eyebrow = isAr ? (hc.marketInsightEyebrowAr || hc.marketInsightEyebrow || 'رؤى السوق') : (hc.marketInsightEyebrow || 'Market Insights');
-  const title   = isAr ? (hc.marketInsightTitleAr   || hc.marketInsightTitle   || 'لماذا ينجح الإعلان الخارجي في مصر؟') : (hc.marketInsightTitle   || 'Why Outdoor Advertising Works in Egypt');
+  const title   = isAr ? (hc.marketInsightTitleAr   || hc.marketInsightTitle   || 'لماذا ينجح الإعلان الخارجي في السعودية؟') : (hc.marketInsightTitle   || 'Why Outdoor Advertising Works in Saudi Arabia');
   const cols: Array<{title:string;body:string}> = (() => {
     if (isAr && Array.isArray(hc.marketInsightColsAr) && hc.marketInsightColsAr.length > 0) return hc.marketInsightColsAr;
     if (Array.isArray(hc.marketInsightCols) && hc.marketInsightCols.length > 0) return hc.marketInsightCols;
@@ -1676,9 +1677,9 @@ function WhyOOHSection() {
 // ─── BillboardBenefitsSection ─────────────────────────────────────────────
 const DEFAULT_BENEFITS = [
   { num: "01", title: "24/7 Visibility", body: "Your brand never goes offline. Billboard advertising in Cairo operates around the clock, delivering continuous impressions to commuters, shoppers, and travellers." },
-  { num: "02", title: "Mass Reach", body: "A single Ring Road unipole delivers 420,000+ vehicle exposures daily. No other medium offers this scale of guaranteed reach across Egypt's most high-traffic corridors." },
-  { num: "03", title: "Premium Brand Association", body: "Outdoor advertising in Egypt positions your brand alongside major national and international advertisers, building the kind of prestige that digital platforms cannot replicate." },
-  { num: "04", title: "Proven ROI", body: "Our billboard advertising campaigns deliver an average 4.1× return on media investment, validated across 500+ campaigns for Egypt's leading brands." },
+  { num: "02", title: "Mass Reach", body: "A single Ring Road unipole delivers 420,000+ vehicle exposures daily. No other medium offers this scale of guaranteed reach across Saudi Arabia’s most high-traffic corridors." },
+  { num: "03", title: "Premium Brand Association", body: "Outdoor advertising in Saudi Arabia positions your brand alongside major national and international advertisers, building the kind of prestige that digital platforms cannot replicate." },
+  { num: "04", title: "Proven ROI", body: "Our billboard advertising campaigns deliver an average 4.1× return on media investment, validated across 500+ campaigns for Saudi Arabia’s leading brands." },
 ];
 
 function BillboardBenefitsSection() {
@@ -1687,7 +1688,7 @@ function BillboardBenefitsSection() {
   const isAr = lang === 'ar';
 
   const eyebrow  = isAr ? (hc.whyBillboardEyebrowAr || hc.whyBillboardEyebrow || 'لماذا اللوحات الإعلانية') : (hc.whyBillboardEyebrow || 'Why Billboard');
-  const title    = isAr ? (hc.whyBillboardTitleAr   || hc.whyBillboardTitle   || 'فوائد الإعلانات الخارجية في مصر') : (hc.whyBillboardTitle   || 'Benefits of Billboard Advertising in Egypt');
+  const title    = isAr ? (hc.whyBillboardTitleAr   || hc.whyBillboardTitle   || 'فوائد الإعلانات الخارجية في السعودية') : (hc.whyBillboardTitle   || 'Benefits of Billboard Advertising in Saudi Arabia');
   const benefits: Array<{num?:string;title:string;body:string}> = (() => {
     if (isAr && Array.isArray(hc.whyBillboardItemsAr) && hc.whyBillboardItemsAr.length > 0) return hc.whyBillboardItemsAr;
     if (Array.isArray(hc.whyBillboardItems) && hc.whyBillboardItems.length > 0) return hc.whyBillboardItems;
@@ -1753,10 +1754,10 @@ function RecentBillboardsSection() {
                 className="text-[#0B0F1A] font-black text-[clamp(28px,3.5vw,48px)] tracking-[-0.02em]"
                 style={{ maxWidth: 640 }}
               >
-                <LocalizedText>{t('home.recentTitleAccent') || 'Recently Added Billboards in Egypt'}</LocalizedText>
+                <LocalizedText>{t('home.recentTitleAccent') || 'Recently Added Billboards in Saudi Arabia'}</LocalizedText>
               </h2>
               <p className="text-[#0B0F1A]/65 text-[15px] mt-4 max-w-[480px] leading-relaxed">
-                <LocalizedText>{t('home.recentSubtitle') || 'New outdoor advertising locations across Cairo, Alexandria & nationwide.'}</LocalizedText>
+                <LocalizedText>{t('home.recentSubtitle') || 'New outdoor advertising locations across Saudi cities & nationwide.'}</LocalizedText>
               </p>
             </div>
             <LocalizedElement as={Link}
@@ -1869,7 +1870,7 @@ export default function Home() {
   const allBillboards = LOCATIONS.flatMap((l: any) => (l.products||[]).map((p: any) => ({ ...p, citySlug: l.slug })))
   return (
     <>
-      <SEO title={isAr ? ((settings as any).metaTitleAr || "هورايزون | شركة إعلانات خارجية ولوحات إعلانية في مصر") : ((settings as any).metaTitle || "HORIZON OOH | Outdoor Advertising Agency in Egypt")} description={isAr ? ((settings as any).metaDescriptionAr || "حملات إعلانات خارجية ولوحات إعلانية وشاشات رقمية في القاهرة والإسكندرية ومختلف أنحاء مصر مع هورايزون.") : ((settings as any).metaDescription || "Billboard, DOOH, mall and airport advertising campaigns across Cairo, Alexandria and Egypt. Plan your outdoor campaign with HORIZON OOH.")} canonical="/" />
+      <SEO title={isAr ? ((settings as any).metaTitleAr || "هورايزون | شركة إعلانات خارجية ولوحات إعلانية في السعودية") : ((settings as any).metaTitle || "HORIZON OOH | Outdoor Advertising Agency in Saudi Arabia")} description={isAr ? ((settings as any).metaDescriptionAr || "حملات إعلانات خارجية ولوحات إعلانية وشاشات رقمية في المدن السعودية ومختلف أنحاء السعودية مع هورايزون.") : ((settings as any).metaDescription || "Billboard, DOOH, mall and airport advertising campaigns across Saudi cities and Saudi Arabia. Plan your outdoor campaign with HORIZON OOH.")} canonical="/" />
       <HeroSection />
       <ClientsSection />
       <StatementSection />

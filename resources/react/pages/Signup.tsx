@@ -132,7 +132,7 @@ function BrandPanel() {
       </motion.div>
 
       <div className="relative z-10">
-        <LocalizedText>{["Join Egypt's", "premier OOH", "network.", "Start today."].map((line, i) => (
+        <LocalizedText>{["Join Saudi Arabia’s", "premier OOH", "network.", "Start today."].map((line, i) => (
           <div key={i} className="overflow-hidden">
             <motion.p initial={{ y: "110%" }} animate={{ y: 0 }}
               transition={{ duration: 0.9, ease, delay: 0.2 + i * 0.1 }}
@@ -286,7 +286,7 @@ export default function Signup() {
                     <span style={{ color: "rgba(11,15,26,0.2)" }}><LocalizedText>account.</LocalizedText></span>
                   </h1>
                   <p className="mt-4 text-[15px] leading-[1.65]" style={{ color: "rgba(11,15,26,0.45)" }}><LocalizedText>
-                    Start your campaign with Horizon OOH — Egypt's #1 outdoor network.
+                    Start your campaign with Horizon OOH — Saudi Arabia’s #1 outdoor network.
                   </LocalizedText></p>
                 </div>
 
@@ -301,7 +301,7 @@ export default function Signup() {
                   <div className="grid grid-cols-2 gap-4">
                     <AuthInput label="Email Address" id="email" type="email"
                       placeholder="you@brand.com" value={email} onChange={setEmail} />
-                    <AuthInput label="Company" id="company" placeholder="Brand Egypt"
+                    <AuthInput label="Company" id="company" placeholder="Brand Saudi Arabia"
                       value={company} onChange={setCompany} required={false} />
                   </div>
                   <PasswordInput label="Password" id="password" placeholder="Min. 8 characters"

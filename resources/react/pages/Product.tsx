@@ -293,9 +293,9 @@ export default function Product() {
   const billboardSchema = {
     "@context": "https://schema.org", "@type": "Service",
     "name": seoTitle, "serviceType": "Outdoor billboard advertising",
-    "description": product.description || `Billboard advertising in ${product.district || product.city || 'Egypt'}.`,
-    "image": product.images?.[0]?.url ? (product.images[0].url.startsWith('/') ? `https://horizonooh.com${product.images[0].url}` : product.images[0].url) : undefined,
-    "provider": {"@type": "Organization", "@id": "https://horizonooh.com/#organization", "name": "HORIZON OOH"},
+    "description": product.description || `Billboard advertising in ${product.district || product.city || 'Saudi Arabia'}.`,
+    "image": product.images?.[0]?.url ? (product.images[0].url.startsWith('/') ? `https://dev.horizonooh.com${product.images[0].url}` : product.images[0].url) : undefined,
+    "provider": {"@type": "Organization", "@id": "https://dev.horizonooh.com/#organization", "name": "HORIZON OOH"},
     "areaServed": {"@type": "City", "name": location.city},
   };
 

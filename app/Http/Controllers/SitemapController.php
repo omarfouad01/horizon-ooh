@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Schema;
  */
 class SitemapController extends Controller
 {
-    private string $base    = 'https://horizonooh.com';
+    private string $base    = 'https://dev.horizonooh.com';
     private int    $perPage = 500;   // billboards per sub-sitemap
 
     // ─────────────────────────────────────────────────────────────────────────

@@ -40,7 +40,7 @@ export default function LocationDetail() {
   }
 
   return (
-    <>      <SEO titleAr={`لوحات إعلانية في ${location.cityAr || location.city} | هورايزون`} descriptionAr={`استكشف اللوحات الإعلانية ومواقع الإعلانات الخارجية في ${location.cityAr || location.city}، واختر موقع حملتك مع هورايزون.`} title={`Billboards in ${location?.city ?? 'Egypt'} | HORIZON OOH`} description={`Browse premium outdoor advertising billboards in ${location?.city ?? 'Egypt'}. Find the best locations for your campaign with HORIZON OOH.`} canonical={`/locations/${location?.slug ?? ''}`} />
+    <>      <SEO titleAr={`لوحات إعلانية في ${location.cityAr || location.city} | هورايزون`} descriptionAr={`استكشف اللوحات الإعلانية ومواقع الإعلانات الخارجية في ${location.cityAr || location.city}، واختر موقع حملتك مع هورايزون.`} title={`Billboards in ${location?.city ?? 'Saudi Arabia'} | HORIZON OOH`} description={`Browse premium outdoor advertising billboards in ${location?.city ?? 'Saudi Arabia'}. Find the best locations for your campaign with HORIZON OOH.`} canonical={`/locations/${location?.slug ?? ''}`} />
 
       <div className="bg-white pt-4">
         <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Locations", href: "/locations" }, { label: location.city }]} />

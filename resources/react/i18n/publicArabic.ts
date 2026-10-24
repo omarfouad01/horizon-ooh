@@ -62,11 +62,11 @@ export function publicMessage(text: string): string {
 }
 
 export function arabicHref(value: string): string {
-  if (!value.startsWith('/') && !value.startsWith('https://horizonooh.com/')) return value;
+  if (!value.startsWith('/') && !value.startsWith('https://dev.horizonooh.com/')) return value;
   if (value.startsWith('//')) return value;
   const absolute = value.startsWith('https://');
-  const url = new URL(value, 'https://horizonooh.com');
-  if (url.origin !== 'https://horizonooh.com') return value;
+  const url = new URL(value, 'https://dev.horizonooh.com');
+  if (url.origin !== 'https://dev.horizonooh.com') return value;
   if (url.pathname === '/' || /^\/(?:about|contact|services|projects|locations|blog|privacy|terms|design-simulator|login|signup|profile)(?:\/|$)/.test(url.pathname)) {
     return (absolute ? url.origin : '') + (url.pathname === '/' ? '/ar' : '/ar' + url.pathname) + url.search + url.hash;
   }

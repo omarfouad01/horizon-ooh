@@ -174,11 +174,12 @@ async function loadPublicSnapshot() {
 let snapshot = null;
 try {
   snapshot = await loadPublicSnapshot();
+  if (!snapshot) throw new Error("Saudi builds require their own API snapshot");
   if (snapshot) {
     console.log(`Loaded build-time public data from ${process.env.SSG_API_BASE}`);
   }
 } catch (error) {
-  console.warn(`SSG API snapshot unavailable; using repository data: ${error.message}`);
+  throw error;
 }
 
 const routes = getStaticPublicRoutes(snapshot);
@@ -353,11 +354,11 @@ function replaceMeta(html, selector, tag) {
 
 function injectMetadata(html, metadata, route) {
   const canonicalPath = stripArabicPrefix(metadata.canonical || route);
-  const englishUrl = `https://horizonooh.com${canonicalPath === "/" ? "" : canonicalPath}`;
-  const canonicalUrl = metadata.canonicalUrl || `https://horizonooh.com${route === "/" ? "" : route}`;
+  const englishUrl = `https://dev.horizonooh.com${canonicalPath === "/" ? "" : canonicalPath}`;
+  const canonicalUrl = metadata.canonicalUrl || `https://dev.horizonooh.com${route === "/" ? "" : route}`;
   const routeUrl = canonicalUrl;
   const arPath = canonicalPath === "/" ? "/ar" : `/ar${canonicalPath}`;
-  const arUrl = `https://horizonooh.com${arPath}`;
+  const arUrl = `https://dev.horizonooh.com${arPath}`;
   const lang = route === "/ar" || route.startsWith("/ar/") ? "ar" : "en";
 
   html = html
@@ -416,7 +417,7 @@ function injectMetadata(html, metadata, route) {
   );
 
   html = replaceMeta(html, /<meta property="og:locale" content="[^"]*"\s*\/?>/i,
-    `<meta property="og:locale" content="${lang === 'ar' ? 'ar_EG' : 'en_US'}" />`);
+    `<meta property="og:locale" content="${lang === 'ar' ? 'ar_SA' : 'en_US'}" />`);
   const seoTags = [
     `<link rel="canonical" href="${escapeHtml(canonicalUrl)}" />`,
     `<link rel="alternate" hreflang="en" href="${escapeHtml(englishUrl)}" />`,

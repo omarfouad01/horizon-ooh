@@ -67,7 +67,7 @@ export default function LeafletMap({ filtered, allCount, selected, onSelect, cla
     ensureLeafletCss(); // inject leaflet CSS non-blocking when map first mounts
     if (!divRef.current || mapRef.current) return;
     const map = L.map(divRef.current, {
-      center: [30.0444, 31.2357],
+      center: [24.7136, 46.6753],
       zoom: 7,
       zoomControl: false,
       attributionControl: false,
@@ -148,7 +148,7 @@ export default function LeafletMap({ filtered, allCount, selected, onSelect, cla
         return [lat, lng] as [number, number];
       })), { padding: [50, 50], maxZoom: 13 });
     } else if (filtered.length === allCount) {
-      map.setView([30.0444, 31.2357], 7);
+      map.setView([24.7136, 46.6753], 7);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filtered, selected, isAr]);

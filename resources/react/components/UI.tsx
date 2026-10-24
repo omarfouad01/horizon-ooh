@@ -428,7 +428,7 @@ export function Breadcrumb({ items }: { items: { label: string; href?: string }[
       "@type": "ListItem",
       "position": i + 1,
       "name": item.label,
-      ...(item.href ? { "item": `https://horizonooh.com${item.href}` } : {}),
+      ...(item.href ? { "item": `https://dev.horizonooh.com${item.href}` } : {}),
     })),
   };
 

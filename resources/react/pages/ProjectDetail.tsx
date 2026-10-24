@@ -142,14 +142,14 @@ export default function ProjectDetail() {
     "author": {
       "@type": "Organization",
       "name": "HORIZON OOH",
-      "url": "https://horizonooh.com",
+      "url": "https://dev.horizonooh.com",
     },
     "publisher": {
       "@type": "Organization",
       "name": "HORIZON OOH",
-      "logo": { "@type": "ImageObject", "url": "https://horizonooh.com/favicon.ico" },
+      "logo": { "@type": "ImageObject", "url": "https://dev.horizonooh.com/favicon.ico" },
     },
-    "mainEntityOfPage": { "@type": "WebPage", "@id": `https://horizonooh.com/projects/${project.slug}` },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": `https://dev.horizonooh.com/projects/${project.slug}` },
   };
 
 
@@ -157,7 +157,7 @@ export default function ProjectDetail() {
     <>
       <SEO
         title={`${seoName} | HORIZON OOH`}
-        description={`${seoName}. ${isAr && project.overviewAr ? project.overviewAr : project.overview || "Outdoor advertising case study by HORIZON OOH in Egypt."}`}
+        description={`${seoName}. ${isAr && project.overviewAr ? project.overviewAr : project.overview || "Outdoor advertising case study by HORIZON OOH in Saudi Arabia."}`}
         canonical={`/projects/${project.slug}`}
         ogImage={project.coverImage || project.heroImage}
       />

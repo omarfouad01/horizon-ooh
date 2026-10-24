@@ -152,7 +152,7 @@ export default function DesignSimulator() {
   const simEyebrow     = hc.sim_eyebrow     || t('sim.eyebrow')     || 'Ad Design Simulator';
   const simTitle       = hc.sim_title       || t('sim.title')       || 'See Your Brand';
   const simTitleAccent = hc.sim_titleAccent || t('sim.titleAccent') || 'on Any Billboard';
-  const simSubtitle    = hc.sim_subtitle    || t('sim.subtitle')    || 'Upload your design and instantly preview it on real billboards across Egypt.';
+  const simSubtitle    = hc.sim_subtitle    || t('sim.subtitle')    || 'Upload your design and instantly preview it on real billboards across Saudi Arabia.';
   const simCtaEyebrow  = hc.sim_ctaEyebrow  || t('sim.ctaEyebrow')  || 'Ready to Go Live?';
   const simCtaTitle1   = hc.sim_ctaTitle1   || t('sim.ctaTitle1')   || 'Turn your design';
   const simCtaTitle2   = hc.sim_ctaTitle2   || t('sim.ctaTitle2')   || 'into a real campaign.';
@@ -525,7 +525,7 @@ export default function DesignSimulator() {
             <LocalizedText>{[
               `9,500+ ${t('home.statsLocations') || 'Locations'}`,
               `100+ ${t('home.statsBrands') || 'Brands'}`,
-              t('sim.ctaCoverage') || 'Egypt-wide Coverage'
+              t('sim.ctaCoverage') || 'Saudi Arabia-wide Coverage'
             ].map(label => (
               <div key={label} className="flex items-center gap-2.5">
                 <span className="block w-1 h-1 bg-[#D90429]" />

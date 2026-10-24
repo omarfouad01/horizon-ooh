@@ -19,7 +19,7 @@ try {
     try {
       const result = spawnSync(process.execPath, [path.join(root, 'scripts/generate-ssg.mjs')], {
         cwd:root, encoding:'utf8', maxBuffer:64*1024*1024, timeout:15*60*1000,
-        env:{...process.env, SSG_API_BASE:'https://horizonooh.com/api', SSG_OUTPUT_DIR:output, SSG_RUNTIME_DIR:runtime}
+        env:{...process.env, SSG_API_BASE:'https://dev.horizonooh.com/api', SSG_OUTPUT_DIR:output, SSG_RUNTIME_DIR:runtime}
       });
       if (result.status !== 0) throw new Error(result.error?.message || result.stderr?.slice(-3000) || 'SEO generation failed');
       // A CMS save during rendering makes this snapshot stale; regenerate before publishing it.

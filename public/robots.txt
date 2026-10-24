@@ -1,8 +1,2 @@
 User-agent: *
-Allow: /
-Disallow: /login
-Disallow: /signup
-Disallow: /profile
-Disallow: /admin
-
-Sitemap: https://horizonooh.com/sitemap.xml
+Disallow: /

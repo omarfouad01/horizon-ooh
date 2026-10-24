@@ -108,20 +108,20 @@ export default function BlogArticle() {
     "inLanguage": articleIsArabic ? "ar" : "en",
     "headline": articleIsArabic && (post as any).titleAr ? (post as any).titleAr : post.title,
     "description": articleIsArabic ? ((post as any).excerptAr || post.excerpt || metaDesc) : post.excerpt ?? metaDesc,
-    "image": post.image ? (/^https?:/.test(post.image) ? post.image : `https://horizonooh.com${post.image}`) : undefined,
+    "image": post.image ? (/^https?:/.test(post.image) ? post.image : `https://dev.horizonooh.com${post.image}`) : undefined,
     "datePublished": (post as any).publishedAt || post.date || undefined,
     "dateModified": (post as any).updatedAt || (post as any).publishedAt || post.date || undefined,
     "author": {
       "@type": "Organization",
       "name": "HORIZON OOH",
-      "url": "https://horizonooh.com",
+      "url": "https://dev.horizonooh.com",
     },
     "publisher": {
       "@type": "Organization",
       "name": "HORIZON OOH",
-      "logo": { "@type": "ImageObject", "url": "https://horizonooh.com/favicon.ico" },
+      "logo": { "@type": "ImageObject", "url": "https://dev.horizonooh.com/favicon.ico" },
     },
-    "mainEntityOfPage": { "@type": "WebPage", "@id": `https://horizonooh.com${isAr ? "/ar" : ""}/blog/${post.slug}` },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": `https://dev.horizonooh.com${isAr ? "/ar" : ""}/blog/${post.slug}` },
   };
 
 

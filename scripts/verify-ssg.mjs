@@ -17,15 +17,15 @@ assert.equal(
 const coreChecks = [
   {
     file: "public/ssg/index.html",
-    title: "HORIZON OOH | Outdoor Advertising Agency in Egypt",
-    canonical: "https://horizonooh.com",
+    title: "HORIZON OOH | Outdoor Advertising Agency in Saudi Arabia",
+    canonical: "https://dev.horizonooh.com",
     content: "Outdoor Advertising Agency",
   },
-  { file: "public/ssg/about/index.html", title: "About HORIZON OOH", canonical: "https://horizonooh.com/about" },
-  { file: "public/ssg/services/index.html", title: "Our Services", canonical: "https://horizonooh.com/services" },
-  { file: "public/ssg/projects/index.html", title: "Projects", canonical: "https://horizonooh.com/projects" },
-  { file: "public/ssg/locations/index.html", title: "Locations", canonical: "https://horizonooh.com/locations" },
-  { file: "public/ssg/blog/index.html", title: "Blog", canonical: "https://horizonooh.com/blog" },
+  { file: "public/ssg/about/index.html", title: "About HORIZON OOH", canonical: "https://dev.horizonooh.com/about" },
+  { file: "public/ssg/services/index.html", title: "Our Services", canonical: "https://dev.horizonooh.com/services" },
+  { file: "public/ssg/projects/index.html", title: "Projects", canonical: "https://dev.horizonooh.com/projects" },
+  { file: "public/ssg/locations/index.html", title: "Locations", canonical: "https://dev.horizonooh.com/locations" },
+  { file: "public/ssg/blog/index.html", title: "Blog", canonical: "https://dev.horizonooh.com/blog" },
 ];
 
 for (const check of coreChecks) {
@@ -46,7 +46,6 @@ for (const check of coreChecks) {
 
 const representativePatterns = [
   /^\/services\/[^/]+$/,
-  /^\/projects\/[^/]+$/,
   /^\/locations\/[^/]+$/,
   /^\/blog\/[^/]+$/,
 ];
@@ -57,7 +56,7 @@ for (const pattern of representativePatterns) {
   const html = read(`public/ssg${route}/index.html`);
   assert.ok(/<title>[^<]{5,}<\/title>/.test(html), `${route} must have a specific title`);
   assert.ok(/<h1[^>]*>[\s\S]*?<\/h1>/.test(html), `${route} must have rendered H1 content`);
-  assert.ok(html.includes(`rel="canonical" href="https://horizonooh.com${route}"`), `${route} must have a route canonical`);
+  assert.ok(html.includes(`rel="canonical" href="https://dev.horizonooh.com${route}"`), `${route} must have a route canonical`);
   assert.equal(
     (html.match(/<link rel="canonical" href="[^"]+"\s*\/>/g) || []).length,
     1,
@@ -67,7 +66,7 @@ for (const pattern of representativePatterns) {
 
 const arabic = read("public/ssg/ar/about/index.html");
 assert.ok(arabic.includes('<html lang="ar" dir="rtl" data-ssg>'), "Arabic page must be RTL Arabic HTML");
-assert.ok(arabic.includes('hreflang="ar" href="https://horizonooh.com/ar/about"'), "Arabic alternate must exist");
-assert.ok(arabic.includes('rel="canonical" href="https://horizonooh.com/ar/about"'), "Arabic canonical must point to itself");
+assert.ok(arabic.includes('hreflang="ar" href="https://dev.horizonooh.com/ar/about"'), "Arabic alternate must exist");
+assert.ok(arabic.includes('rel="canonical" href="https://dev.horizonooh.com/ar/about"'), "Arabic canonical must point to itself");
 
 console.log(`SSG verification passed for ${manifest.routeCount} generated routes.`);

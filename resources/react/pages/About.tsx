@@ -29,9 +29,9 @@ export default function About() {
   return (
     <>
       <SEO
-        title="About HORIZON OOH | Outdoor Advertising Agency Egypt"
-        description="HORIZON OOH is Egypt's premier outdoor advertising company — 9,500+ locations, billboard, DOOH, mall and airport advertising across Cairo, Alexandria and nationwide."
-        keywords="outdoor advertising Egypt, billboard advertising Egypt, DOOH Egypt, advertising agency Egypt, OOH advertising Egypt, HORIZON OOH"
+        title="About HORIZON OOH | Outdoor Advertising Agency Saudi Arabia"
+        description="Explore Saudi billboard locations and plan outdoor advertising campaigns with HORIZON OOH."
+        keywords="outdoor advertising Saudi Arabia, billboard advertising Saudi Arabia, DOOH Saudi Arabia, advertising agency Saudi Arabia, OOH advertising Saudi Arabia, HORIZON OOH"
         canonical="/about"
       />
 
@@ -78,9 +78,9 @@ export default function About() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-start">
             <RevealGroup className="flex flex-col gap-8">
               {[
-                { h: isAr ? 'الإعلان على اللوحات في مصر' : "Billboard Advertising Egypt", p: isAr ? 'أكثر من 9,500 موقع إعلاني متميز على الطرق في القاهرة والإسكندرية والمدن المصرية الكبرى' : "9,500+ premium roadside billboard locations across Cairo, Alexandria and major Egyptian cities" },
-                { h: isAr ? 'الإعلان الرقمي الخارجي في القاهرة' : "DOOH Advertising Cairo", p: isAr ? 'شاشات رقمية ديناميكية في البيئات الحضرية والتجزئة والنقل المتميزة في مصر' : "Dynamic digital screens in Egypt's premium urban, retail and transport environments" },
-                { h: isAr ? 'إعلانات المولات والمطارات' : "Mall & Airport Advertising", p: isAr ? 'تنسيقات متميزة في أفضل مراكز التسوق في مصر ومطار القاهرة الدولي' : "Premium formats in Egypt's top shopping centres and Cairo International Airport" },
+                { h: isAr ? 'اختيار المواقع' : 'Location selection', p: isAr ? 'قارن المدن والمناطق وصور المواقع الفعلية.' : 'Compare cities, districts and actual site photographs.' },
+                { h: isAr ? 'تجهيز التصميم' : 'Creative preparation', p: isAr ? 'أكد المقاسات ومتطلبات الإنتاج مع الفريق.' : 'Confirm dimensions and production requirements with the team.' },
+                { h: isAr ? 'تنسيق الحملة' : 'Campaign coordination', p: isAr ? 'راجع التوافر والمواعيد وتوثيق التنفيذ.' : 'Review availability, dates and delivery documentation.' },
               ].map((item) => (
                 <RevealItem key={item.h}>
                   <div className="border-l-2 pl-6" style={{ borderColor: RED }}>
@@ -117,7 +117,7 @@ export default function About() {
               </Reveal>
             </div>
             <div className="col-span-12 lg:col-span-7 flex flex-col gap-6">
-              <LocalizedText>{(isAr && (about as any).darkParagraphsAr?.length ? (about as any).darkParagraphsAr : about.darkParagraphs).map((para: string, i: number) => (
+              <LocalizedText>{(isAr && (about as any).darkParagraphsAr?.length ? (about as any).darkParagraphsAr : (about.darkParagraphs || [])).map((para: string, i: number) => (
                 <Reveal key={i} delay={0.05 * i}>
                   <p className="text-[16px] leading-[1.8]" style={{ color: "rgba(255,255,255,0.45)" }}>
                     <LocalizedText>{para}</LocalizedText>

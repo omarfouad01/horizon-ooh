@@ -16,7 +16,8 @@ import {
   suppliersApi, customersApi, contactsApi,
   billboardSizesApi, simulatorTemplatesApi, designUploadsApi,
 } from '@/api';
-import { LOCATIONS, SERVICES, PROJECTS, BLOG_POSTS, TRUST_STATS, PROCESS, CLIENT_BRANDS } from '@/data';
+// Saudi preview must never fall back to Egypt inventory or client claims.
+const LOCATIONS: any[] = [], SERVICES: any[] = [], PROJECTS: any[] = [], BLOG_POSTS: any[] = [], TRUST_STATS: any[] = [], PROCESS: any[] = [], CLIENT_BRANDS: any[] = [];
 
 // ─── Token validity gate ─────────────────────────────────────────────────────
 // AdminAuth.tsx validates the token via /auth/me on first load.
@@ -213,16 +214,16 @@ const AD_FORMATS_DEFAULT: AdFormatType[] = [
   { id:'5', name:'Mall Banner',  slug:'mall-banner',  label:'Mall Banner' },
   { id:'6', name:'Trivision',    slug:'trivision',    label:'Trivision' },
 ];
-const DEMO_SETTINGS = { tagline: 'Egypt\'s #1 Out-of-Home Advertising Network', taglineAr: 'شبكة الإعلانات الخارجية الأولى في مصر' };
-const DEMO_HOME: Record<string, any> = { heroHeadline:'Where Brands Come to Life', heroSubheadline:'Egypt\'s largest OOH network', heroCta1:'Explore Locations', heroCta2:'Talk to Us', heroCta1Ar:'استكشف المواقع', heroCta2Ar:'تواصل معنا', heroHeadlineAr:'حيث تحيا العلامات التجارية', heroSubheadlineAr:'أكبر شبكة إعلانات خارجية في مصر', statementTitle:'We don\'t just sell space', statementTitleAr:'لا نبيع مساحات فحسب', signatureItems:[], signatureItemsAr:[], finalCtaHeadline:'Ready to make an impact?', finalCtaHeadlineAr:'هل أنت مستعد؟', finalCtaCta1:'Get Started', finalCtaCta2:'View Locations', finalCtaCta1Ar:'ابدأ الآن', finalCtaCta2Ar:'عرض المواقع' };
+const DEMO_SETTINGS = { tagline: 'Saudi Arabia\'s #1 Out-of-Home Advertising Network', taglineAr: 'شبكة الإعلانات الخارجية الأولى في السعودية' };
+const DEMO_HOME: Record<string, any> = { heroHeadline:'Where Brands Come to Life', heroSubheadline:'Saudi Arabia\'s largest OOH network', heroCta1:'Explore Locations', heroCta2:'Talk to Us', heroCta1Ar:'استكشف المواقع', heroCta2Ar:'تواصل معنا', heroHeadlineAr:'حيث تحيا العلامات التجارية', heroSubheadlineAr:'أكبر شبكة إعلانات خارجية في السعودية', statementTitle:'We don\'t just sell space', statementTitleAr:'لا نبيع مساحات فحسب', signatureItems:[], signatureItemsAr:[], finalCtaHeadline:'Ready to make an impact?', finalCtaHeadlineAr:'هل أنت مستعد؟', finalCtaCta1:'Get Started', finalCtaCta2:'View Locations', finalCtaCta1Ar:'ابدأ الآن', finalCtaCta2Ar:'عرض المواقع' };
 const DEMO_ABOUT: AboutContent = { heroTitle:'About Horizon OOH', heroAccent:'We Are Horizon', whyItems:[], keyStats:[], stats:[], whyChoose:[], darkParagraphs:[] };
 const DEMO_PROJECTS_CONTENT = { heroEyebrow:'Our Work', heroTitle:'Projects That Make an Impact', featured:null };
 const DEMO_LOCATIONS_CONTENT: LocationsPageContent = {
   // Canonical keys matching what Locations.tsx reads
   eyebrow:        'Our Network',
   title:          'Advertising Locations',
-  titleAccent:    'across Egypt.',
-  subtitle:       'Discover premium outdoor advertising locations across Egypt.',
+  titleAccent:    'across Saudi Arabia.',
+  subtitle:       'Discover premium outdoor advertising locations across Saudi Arabia.',
   ctaHelpText:    'Need help choosing a location?',
   ctaButton:      'Talk to an expert',
   ctaWhatsApp:    '+201000000000',
@@ -231,12 +232,12 @@ const DEMO_LOCATIONS_CONTENT: LocationsPageContent = {
   // Legacy aliases
   heroEyebrow:    'Our Network',
   heroTitle:      'Advertising Locations',
-  heroSubtitle:   'Discover premium outdoor advertising locations across Egypt.',
+  heroSubtitle:   'Discover premium outdoor advertising locations across Saudi Arabia.',
 };
-const DEMO_CONTACT_CONTENT: ContactPageContent = { heroTitle:'Contact Us', heroSubtitle:'Get in touch with our team', formTitle:'Send us a message', whatsappNumber:'+201000000000', phone:'+20 2 1234 5678', email:'info@horizonooh.com', address:'Cairo, Egypt' };
+const DEMO_CONTACT_CONTENT: ContactPageContent = { heroTitle:'Contact Us', heroSubtitle:'Get in touch with our team', formTitle:'Send us a message', whatsappNumber:'+201000000000', phone:'+20 2 1234 5678', email:'info@horizonooh.com', address:'Cairo, Saudi Arabia' };
 const _demoContacts: ContactEntry[] = [];
 const _demoProcess: ProcessStep[] = (PROCESS as any[]).map((p: any, i: number) => ({ id: p.id ?? String(i+1), step: p.step ?? (i+1), title: p.title ?? '', description: p.description ?? p.desc ?? '', icon: p.icon ?? '' }));
-const DEMO_RESULTS: ResultStat[] = [{ id:'1', label:'Billboards', value:'3,200+', description:'Across Egypt' }, { id:'2', label:'Cities', value:'22', description:'Governorates' }];
+const DEMO_RESULTS: ResultStat[] = [{ id:'1', label:'Billboards', value:'3,200+', description:'Across Saudi Arabia' }, { id:'2', label:'Cities', value:'22', description:'Governorates' }];
 
 // ─── Normalizers ──────────────────────────────────────────────────────────────
 function toSlug(s: string): string {

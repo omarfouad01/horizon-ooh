@@ -12,7 +12,7 @@ export default function Services() {
   const { lang, isAr, t } = useLang()
   return (
     <>
-      <SEO title="Our Services | HORIZON OOH" description="Explore HORIZON OOH's full range of outdoor advertising services: billboards, digital screens, mall media, transit advertising and more across Egypt." canonical="/services" />
+      <SEO title="Our Services | HORIZON OOH" description="Explore HORIZON OOH's full range of outdoor advertising services: billboards, digital screens, mall media, transit advertising and more across Saudi Arabia." canonical="/services" />
       <PageHero
         eyebrow={t('services.whatWeDo')}
         title={t('services.title')}
