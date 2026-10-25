@@ -1,0 +1,4613 @@
+{
+  "country": "egypt",
+  "version": 1,
+  "processedAt": "2026-10-25",
+  "logos": {
+    "onDark": "resources/branding/horizon-on-dark.png",
+    "onLight": "resources/branding/horizon-on-light.png"
+  },
+  "photos": [
+    {
+      "sourceSha256": "0bc0eb67883d3ff6746d8c032e13c8acfc20b1d0bbc9e13d87bfc398722a8887",
+      "index": 1,
+      "profile": "audio-badge",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "aa6fbe536f8c6006e1bb3eb33300c51361059f2f65002bf2cc9dd15eb5f9fcec",
+      "masterSha256": "fe72cde43824ad7c66289405fa80ee52941ab8bcc39a8d6d9f81c65ea713271a",
+      "maskRectangles": [
+        [
+          0,
+          33,
+          335,
+          102
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/YGk0Exgz9WKxfNHZHiehtKwKboDZBsV7kzcDn6QZ.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/0bc0eb67883d3ff6746d8c032e13c8acfc20b1d0bbc9e13d87bfc398722a8887.webp",
+          "projects": [
+            "audio-technology"
+          ]
+        },
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1697902537410WhatsApp Image 2022-02-08 at 6.47.31 PM (1).jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/0bc0eb67883d3ff6746d8c032e13c8acfc20b1d0bbc9e13d87bfc398722a8887.webp",
+          "projects": [
+            "audio-technology"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "89be076dc1d5cb07a201980a0448d613e3c94352ff7110614f8bd8377cd8f636",
+      "index": 2,
+      "profile": "audio-badge",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "d0a1e1845e0961f9057393d98165af800411b2ebe70f26bc9d03100725a7b68e",
+      "masterSha256": "1afccc12e3cfdd9be1482d1ec42088c8f67905821ad7b66a6f2f0a97ffb88b39",
+      "maskRectangles": [
+        [
+          0,
+          33,
+          335,
+          102
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/Kj6db9vWeza6gTFr8ca9mcOjsBcIltmRWEUqE2oI.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/89be076dc1d5cb07a201980a0448d613e3c94352ff7110614f8bd8377cd8f636.webp",
+          "projects": [
+            "audio-technology"
+          ]
+        },
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1697902537414WhatsApp Image 2022-02-08 at 6.47.31 PM.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/89be076dc1d5cb07a201980a0448d613e3c94352ff7110614f8bd8377cd8f636.webp",
+          "projects": [
+            "audio-technology"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "79b8c6cb8db26532ca1a0024ec9577c3b6978fbc5d9f18eefdeeb26d236502a1",
+      "index": 3,
+      "profile": "white-frame",
+      "width": 1000,
+      "height": 1000,
+      "changed": true,
+      "outputSha256": "abda16d505ef544bc4ad5f14e1911576799d1781e617788cf939745611004a70",
+      "masterSha256": "a99a4c17223263d8d6000ebd5d3ee0f6037e9f2c4525aaea90adc04c5e9507c2",
+      "maskRectangles": [
+        [
+          45,
+          0,
+          210,
+          81
+        ],
+        [
+          79,
+          948,
+          843,
+          52
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/vtU8rdVckrVPFFbbRaq9cbcbpIjjU309pHh6BxdH.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/79b8c6cb8db26532ca1a0024ec9577c3b6978fbc5d9f18eefdeeb26d236502a1.webp",
+          "projects": [
+            "agex"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "5eac5caea9fcc613793466f1930d6d904ab6bbb29f4a09be0e5182dc9385fa8f",
+      "index": 4,
+      "profile": "white-frame",
+      "width": 1000,
+      "height": 1000,
+      "changed": true,
+      "outputSha256": "a84733fd88de6b4e63399947d81fe13f4336e22710702b84e91285a7f797286d",
+      "masterSha256": "35cfc7164a58deaf5a6badcb9f6389a3f2a37108dccdb826c151e5c6fbec8161",
+      "maskRectangles": [
+        [
+          45,
+          0,
+          210,
+          81
+        ],
+        [
+          79,
+          948,
+          843,
+          52
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/jwSgPpgY29DJYD4uhYhYv1jMyx9wez1Mvohn8KrB.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/5eac5caea9fcc613793466f1930d6d904ab6bbb29f4a09be0e5182dc9385fa8f.webp",
+          "projects": [
+            "agex"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "3686ed5e8d4161fa2fa5259340cf4db64e8e82c9937ed35de81a13f2b194fb91",
+      "index": 5,
+      "profile": "white-frame",
+      "width": 1000,
+      "height": 1000,
+      "changed": true,
+      "outputSha256": "c18c2e46df6f0b6f55d32f744c4fd1e3c5b81244df3b584c8ae4687d52fd4ee7",
+      "masterSha256": "268f9997a9d19a910fa6b0d2e45e74ceeaf722524d3e1c198e7c9a3e09a98c09",
+      "maskRectangles": [
+        [
+          45,
+          0,
+          210,
+          81
+        ],
+        [
+          79,
+          948,
+          843,
+          52
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/16979035339361(1).png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/3686ed5e8d4161fa2fa5259340cf4db64e8e82c9937ed35de81a13f2b194fb91.webp",
+          "projects": [
+            "agex"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "4e13685b5b5b61e645b03652620a52b6d48f61b3fc6487cc2ca88df0ffd40f96",
+      "index": 6,
+      "profile": "white-frame",
+      "width": 1000,
+      "height": 1000,
+      "changed": true,
+      "outputSha256": "536def92751e13af5808e7a43b8b132270b777320b73445818845ebd9d54f5b2",
+      "masterSha256": "fba04cc7676bfde900276ff10625d43946ce8f09b59c17e57793eb3cc64731de",
+      "maskRectangles": [
+        [
+          45,
+          0,
+          210,
+          81
+        ],
+        [
+          79,
+          948,
+          843,
+          52
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/16979035339391.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/4e13685b5b5b61e645b03652620a52b6d48f61b3fc6487cc2ca88df0ffd40f96.webp",
+          "projects": [
+            "agex"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "18ccf860c108dc800cba0746cc68439d555ec78c56caacdcd2eee43d69f4738d",
+      "index": 7,
+      "profile": "white-frame",
+      "width": 1000,
+      "height": 1000,
+      "changed": true,
+      "outputSha256": "b3cc6c943e90fe933528b3bf89f160a0861d141d182f6bbda265a2c7ee9610a3",
+      "masterSha256": "e78370a0ecdb28d917d203dac9e7b1da5ea4bc158fdb1b032754935bac984cf5",
+      "maskRectangles": [
+        [
+          45,
+          0,
+          210,
+          81
+        ],
+        [
+          79,
+          948,
+          843,
+          52
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/16979035339414(1).png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/18ccf860c108dc800cba0746cc68439d555ec78c56caacdcd2eee43d69f4738d.webp",
+          "projects": [
+            "agex"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "984d9aa06790a110bcd7f6b29c03d9859c9a3eb39fef439eb4e6050517228f56",
+      "index": 8,
+      "profile": "white-frame",
+      "width": 1000,
+      "height": 1000,
+      "changed": true,
+      "outputSha256": "8d8044394883a1be2e648fde2c2754aa6cfee838a7ffec051b4e92dc176727c7",
+      "masterSha256": "c6b4fd30ae837eba856e79dc19ea526a1fee867d554c379051531dba728ed768",
+      "maskRectangles": [
+        [
+          45,
+          0,
+          210,
+          81
+        ],
+        [
+          79,
+          948,
+          843,
+          52
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/16979035339402.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/984d9aa06790a110bcd7f6b29c03d9859c9a3eb39fef439eb4e6050517228f56.webp",
+          "projects": [
+            "agex"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "92ff02d5be1e5b7cd476bd2dd749d959fa5ee534a7498b6857a39212d7703c06",
+      "index": 9,
+      "profile": "white-frame",
+      "width": 1000,
+      "height": 1000,
+      "changed": true,
+      "outputSha256": "6f396fb2009bb39fd3d3053cd84f399c38bbd6850706974398e0d3832d9adc5b",
+      "masterSha256": "8a3efaa6a5589a86bee7dc1f9e6e66ae14e6f77226b7d8fce50ebcd37edcf36c",
+      "maskRectangles": [
+        [
+          45,
+          0,
+          210,
+          81
+        ],
+        [
+          79,
+          948,
+          843,
+          52
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/16979035339434.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/92ff02d5be1e5b7cd476bd2dd749d959fa5ee534a7498b6857a39212d7703c06.webp",
+          "projects": [
+            "agex"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "6abac2f1c2d1f8238e3834954d1c9079186b2b6db538b62afbefd2b3c0e2f598",
+      "index": 10,
+      "profile": "white-frame",
+      "width": 1000,
+      "height": 1000,
+      "changed": true,
+      "outputSha256": "63cd698e6f918faf9ad5fbe8570749a6c26252126d288f5e16d826850bcc97ee",
+      "masterSha256": "31b9bcfcb1d17eaab8a1d23e8610aefaea2d8a037c189a7c8dfee4c41904ce1d",
+      "maskRectangles": [
+        [
+          45,
+          0,
+          210,
+          81
+        ],
+        [
+          79,
+          948,
+          843,
+          52
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/16979035339445.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/6abac2f1c2d1f8238e3834954d1c9079186b2b6db538b62afbefd2b3c0e2f598.webp",
+          "projects": [
+            "agex"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "0f2453d05351c9c70f4de8cdffa77a073fe7a4896a3af0beedcc7d86f213a34c",
+      "index": 11,
+      "profile": "white-frame",
+      "width": 1000,
+      "height": 1000,
+      "changed": true,
+      "outputSha256": "f734172c49669ad92a21613e95864df2067e2f97cbaae62068b439dc97993399",
+      "masterSha256": "3d67bc9eb0d01dd1ef85811e4fe927da06dd53252ca61418ad00d0022a819a5d",
+      "maskRectangles": [
+        [
+          45,
+          0,
+          210,
+          81
+        ],
+        [
+          79,
+          948,
+          843,
+          52
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/16979035339467.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/0f2453d05351c9c70f4de8cdffa77a073fe7a4896a3af0beedcc7d86f213a34c.webp",
+          "projects": [
+            "agex"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "3569f778135cf59c7a64f915e4ad8010c20780b6406f456db81b344d3720c80d",
+      "index": 12,
+      "profile": "transparent-br",
+      "width": 648,
+      "height": 392,
+      "changed": true,
+      "outputSha256": "f789cdd209721cd8cf78d36ebcaef8246537f9d5b6bc54115d48da6d2609cdd3",
+      "masterSha256": "f7f2c4c9ded314c4a5c48cac6009eac829dcf980ab476b3daefe9a1962b6c5fc",
+      "maskRectangles": [
+        [
+          428,
+          333,
+          220,
+          59
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/98d2eleUJndO2Wmz0s7vx6MsUlr5WcedUN3SB0rH.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/3569f778135cf59c7a64f915e4ad8010c20780b6406f456db81b344d3720c80d.webp",
+          "projects": [
+            "agex-august"
+          ]
+        },
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/gbFjOhl3iaNFh4cwZHJhYwmjRmrvY6QQzgbcGKzs.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/3569f778135cf59c7a64f915e4ad8010c20780b6406f456db81b344d3720c80d.webp",
+          "projects": [
+            "agex-august"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "a4ab24049ede2c52ced9837659299f16093f34250dcbdfd7e5c6e43666dee4e1",
+      "index": 13,
+      "profile": "small-sign-bl",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "fe890177cd31a2d8ef7d4b1f658739dbdb6eb422a9067b245638d58f41cffe5d",
+      "masterSha256": "27f95a95c0a120703714e7b159dd1c1a97a47ff53b3d446a67d48b8b97b2231d",
+      "maskRectangles": [
+        [
+          59,
+          891,
+          194,
+          90
+        ],
+        [
+          162,
+          1011,
+          918,
+          39
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/16979096785705.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/a4ab24049ede2c52ced9837659299f16093f34250dcbdfd7e5c6e43666dee4e1.webp",
+          "projects": [
+            "agex-august"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "153cfcce9873b490b0d5fc1b94f7a4a193a4e3176b264311a692dfee24860ad7",
+      "index": 14,
+      "profile": "small-sign-bl",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "0f4a02b4caf0eef9dbe736636505423b930af444b20358b94bef08e0868a95ec",
+      "masterSha256": "04726ffe8095aad0eee9319e405d3df182b1dcf3ca75cb7973483c0de2725bff",
+      "maskRectangles": [
+        [
+          59,
+          891,
+          194,
+          90
+        ],
+        [
+          162,
+          1011,
+          918,
+          39
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/16979096785652.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/153cfcce9873b490b0d5fc1b94f7a4a193a4e3176b264311a692dfee24860ad7.webp",
+          "projects": [
+            "agex-august"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "2494dba89b2b669c777aa54e0d5e5b66090cf849cb9815aecd20ee153de0d66f",
+      "index": 15,
+      "profile": "small-sign-bl",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "570b5550f6d98c7cad6213b87b5180f899cfa11aa886b09542e44f35bb8f45a2",
+      "masterSha256": "cef3ee3438e0c8334eb9505faa82bfd8d3ac9186922e3445dfa3169e6cb3ecd4",
+      "maskRectangles": [
+        [
+          59,
+          891,
+          194,
+          90
+        ],
+        [
+          162,
+          1011,
+          918,
+          39
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/16979096785726.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/2494dba89b2b669c777aa54e0d5e5b66090cf849cb9815aecd20ee153de0d66f.webp",
+          "projects": [
+            "agex-august"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "6b9d54bd1443749eb4489006e44e779e47adfb85a3d4759a91c85334e4cc771c",
+      "index": 16,
+      "profile": "small-sign-bl",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "3f69c2d0a05c1810d241cc08e448427756c34edb04acc42b640e98c9881c8c3f",
+      "masterSha256": "d9543a3daaabc1bb2ee2526ce3ca6123d614f94fb92aee1b6062570045406454",
+      "maskRectangles": [
+        [
+          59,
+          891,
+          194,
+          90
+        ],
+        [
+          162,
+          1011,
+          918,
+          39
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/16979096785758.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/6b9d54bd1443749eb4489006e44e779e47adfb85a3d4759a91c85334e4cc771c.webp",
+          "projects": [
+            "agex-august"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "e0f2d5e8e257a44d5b57fb078c5b4f06ac53c247804955091d96e420b6eadb0a",
+      "index": 17,
+      "profile": "small-sign-bl",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "dd9e17c9036ddfaaececedcdf33501e83637357a4bb4e2eae064a0908e083d60",
+      "masterSha256": "abe2c940647f48327746bde88341e8b5df2a9bc180c8d630ed1fb3a9b1daf8bd",
+      "maskRectangles": [
+        [
+          59,
+          891,
+          194,
+          90
+        ],
+        [
+          162,
+          1011,
+          918,
+          39
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/169790967857710.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/e0f2d5e8e257a44d5b57fb078c5b4f06ac53c247804955091d96e420b6eadb0a.webp",
+          "projects": [
+            "agex-august"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "fc46fc80a90516ab3958bdcf012f170fb83b5b6f4d254a10b1d7112033b0ca70",
+      "index": 18,
+      "profile": "transparent-bl",
+      "width": 648,
+      "height": 392,
+      "changed": true,
+      "outputSha256": "0b722dc8f8d557cfe6908128f9ff2afe6d5b2d551ea93c4dfa97eaf3b5a9ab5e",
+      "masterSha256": "00be8bdd6dfb397405c872ba14f38cd5f1f0ff538d01155d76cf02ecdb789c45",
+      "maskRectangles": [
+        [
+          10,
+          329,
+          233,
+          63
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/iPqx2zj0e4g0R4rSE8ZQZS9BbR7VmQQqnA6iSAHP.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/fc46fc80a90516ab3958bdcf012f170fb83b5b6f4d254a10b1d7112033b0ca70.webp",
+          "projects": [
+            "premium-card"
+          ]
+        },
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/9xTk9yJhHuuJs8b6SyA8d09Jm3RMhrkHdA2M5peF.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/fc46fc80a90516ab3958bdcf012f170fb83b5b6f4d254a10b1d7112033b0ca70.webp",
+          "projects": [
+            "premium-card"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "b58b1b582dfc6b4c2fa3dcb5259ef259abd875fcd68ffb3adb94fcde6a7083fc",
+      "index": 19,
+      "profile": "white-frame",
+      "width": 1000,
+      "height": 1000,
+      "changed": true,
+      "outputSha256": "d97d67c3a9dce2ef92df216269728433b949f49cef28a3a4dfda172719ff97bc",
+      "masterSha256": "e099a060a05702b9634af33aa2f88b0a4ec37fe959a4afe8e4aad266b4a995ce",
+      "maskRectangles": [
+        [
+          45,
+          0,
+          210,
+          81
+        ],
+        [
+          79,
+          948,
+          843,
+          52
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1697910642797337854025_961353208646863_2127553964624028884_n.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/b58b1b582dfc6b4c2fa3dcb5259ef259abd875fcd68ffb3adb94fcde6a7083fc.webp",
+          "projects": [
+            "premium-card"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "480459463105d64532dd97c883dc00c650e035be0fd2b8904353e51147005789",
+      "index": 20,
+      "profile": "white-frame",
+      "width": 1000,
+      "height": 1000,
+      "changed": true,
+      "outputSha256": "f85cbdf3ba779ccfb94fa1a3132b05bcd33f2fcb48f805988f4336d7eb986f92",
+      "masterSha256": "17a2a878ab8320cc4a722e35a08e3f3a68cfed80f22d103b440150513832219a",
+      "maskRectangles": [
+        [
+          45,
+          0,
+          210,
+          81
+        ],
+        [
+          79,
+          948,
+          843,
+          52
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1697910642800337729332_603794874628998_8419843767942461543_n.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/480459463105d64532dd97c883dc00c650e035be0fd2b8904353e51147005789.webp",
+          "projects": [
+            "premium-card"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "a94db4b71ad9517451577f1e43ccb8d5bbd7b320820ca25881166a27039320cd",
+      "index": 21,
+      "profile": "white-frame",
+      "width": 1000,
+      "height": 1000,
+      "changed": true,
+      "outputSha256": "9d833db3cb8d267fedbf146e97cb485bf42336b9e4ad447f4e511edecf3e6da9",
+      "masterSha256": "a796c96805d193dd1dc9f0c4b7567514af145a659c865a11e95e27cd53348a67",
+      "maskRectangles": [
+        [
+          45,
+          0,
+          210,
+          81
+        ],
+        [
+          79,
+          948,
+          843,
+          52
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1697910642802337407805_756281146214551_6673306173867848098_n.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/a94db4b71ad9517451577f1e43ccb8d5bbd7b320820ca25881166a27039320cd.webp",
+          "projects": [
+            "premium-card"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "295bd2f83341b66ac8192a05587a1fc47f8f3c09e4e1cf938ad08f0ce671f452",
+      "index": 22,
+      "profile": "white-frame",
+      "width": 2000,
+      "height": 2000,
+      "changed": true,
+      "outputSha256": "9ab9309d71f5e3bcf2ea6e8ecb1fc85765b065f137731ec9dc88dd9407f11f88",
+      "masterSha256": "217ba52a3b1a36530f825bcef321a9551902183da8aa40905d85e4e5559459a5",
+      "maskRectangles": [
+        [
+          90,
+          0,
+          420,
+          162
+        ],
+        [
+          158,
+          1896,
+          1686,
+          104
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/X0Ee0MhdWhgnxkeEWT4UhWzb371Lk1U8N7KZrf7k.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/295bd2f83341b66ac8192a05587a1fc47f8f3c09e4e1cf938ad08f0ce671f452.webp",
+          "projects": [
+            "premium-card-40"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "2862f6b1d02061f8467a5347dcb5a95fc0d681bfb99c09ea1de9e43665f7e1a3",
+      "index": 23,
+      "profile": "white-frame",
+      "width": 2000,
+      "height": 2000,
+      "changed": true,
+      "outputSha256": "a8012b83575b0930c9112a32820b5a1d5b150abc2b54e66ae9b8fdcaeab54de5",
+      "masterSha256": "e394e720650813b0f70f6c931e27da0f19f4fc26e575b2e62299f8a797caa996",
+      "maskRectangles": [
+        [
+          90,
+          0,
+          420,
+          162
+        ],
+        [
+          158,
+          1896,
+          1686,
+          104
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/F9x5QasI0iHWbKigEfGSZoY4tDeMJN6yeCixg4bJ.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/2862f6b1d02061f8467a5347dcb5a95fc0d681bfb99c09ea1de9e43665f7e1a3.webp",
+          "projects": [
+            "premium-card-40"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "50e8086ad503a5b7e6d328a7daddad360f0aa3473c06807faaef97b690b1db11",
+      "index": 24,
+      "profile": "white-frame",
+      "width": 2000,
+      "height": 2000,
+      "changed": true,
+      "outputSha256": "60357f9e423996fc5c6e663bd13e79264d91f7d0a5932d647662599f68bb2052",
+      "masterSha256": "df9d6473e21b72fde146b01f8e86213bdf91fdc1175d1b16435ab3984c54ac54",
+      "maskRectangles": [
+        [
+          90,
+          0,
+          420,
+          162
+        ],
+        [
+          158,
+          1896,
+          1686,
+          104
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/16979110619962 (1).png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/50e8086ad503a5b7e6d328a7daddad360f0aa3473c06807faaef97b690b1db11.webp",
+          "projects": [
+            "premium-card-40"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "682b25933a6b428cd843094d5571ff19f82a4b07444ecdc37d2bfd3f58e2fbdb",
+      "index": 25,
+      "profile": "white-frame",
+      "width": 2000,
+      "height": 2000,
+      "changed": true,
+      "outputSha256": "90544a9a619599b26ce2c481e6d2d1878d50a32b67d0d0bd47949db9272ced07",
+      "masterSha256": "a15bcccf79197f8f16b8bc7046cc1450294779c254b1829c4a09868bbdf2b950",
+      "maskRectangles": [
+        [
+          90,
+          0,
+          420,
+          162
+        ],
+        [
+          158,
+          1896,
+          1686,
+          104
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/16979110619984 (1).png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/682b25933a6b428cd843094d5571ff19f82a4b07444ecdc37d2bfd3f58e2fbdb.webp",
+          "projects": [
+            "premium-card-40"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "fa172d4bd8a44c18f602ecb899719d10f9757751b785edd4f0ac9062f1d1a630",
+      "index": 26,
+      "profile": "white-frame",
+      "width": 2000,
+      "height": 2000,
+      "changed": true,
+      "outputSha256": "63b68a27e455f0e7fccd8ccf0b2595d967ff70431ea0aae4339d7773ecb97e54",
+      "masterSha256": "0a9121bc666ea0761a080b459aa5fa413133a04fd1d1d0a3aaeee02a97104806",
+      "maskRectangles": [
+        [
+          90,
+          0,
+          420,
+          162
+        ],
+        [
+          158,
+          1896,
+          1686,
+          104
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/169791106200011.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/fa172d4bd8a44c18f602ecb899719d10f9757751b785edd4f0ac9062f1d1a630.webp",
+          "projects": [
+            "premium-card-40"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "5c43c0b3c6dfc462c8c001937440617d48174bfc36f47a02abb33cd8c737cb45",
+      "index": 27,
+      "profile": "white-frame",
+      "width": 2000,
+      "height": 2000,
+      "changed": true,
+      "outputSha256": "2f628bc463eb4fc57f4101435cf86bbf22bceffb030bb8d5a2ad64a85aba2b14",
+      "masterSha256": "8d4b8a1d8e324882d54916fb2bfb151d3d7cd5a0f6b4d07d3b3a058dc30d1304",
+      "maskRectangles": [
+        [
+          90,
+          0,
+          420,
+          162
+        ],
+        [
+          158,
+          1896,
+          1686,
+          104
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/169791106199910.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/5c43c0b3c6dfc462c8c001937440617d48174bfc36f47a02abb33cd8c737cb45.webp",
+          "projects": [
+            "premium-card-40"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "b68e7f207d2f7b77a938cde48a8905aa0cb3d70b0b645501bce49c51a18e1dc7",
+      "index": 28,
+      "profile": "white-frame",
+      "width": 2000,
+      "height": 2000,
+      "changed": true,
+      "outputSha256": "f772c46ce4104c3dc46d0f47a1b69713b8bd924486160a8d90c0654a10ef705a",
+      "masterSha256": "f1511a9a3b1b7803be54c1f2b94749741ae48f782aaff966a48afc3b39d43be2",
+      "maskRectangles": [
+        [
+          90,
+          0,
+          420,
+          162
+        ],
+        [
+          158,
+          1896,
+          1686,
+          104
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1697911062002dsfag.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/b68e7f207d2f7b77a938cde48a8905aa0cb3d70b0b645501bce49c51a18e1dc7.webp",
+          "projects": [
+            "premium-card-40"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "7099e6dbceaeb427140d3db508b2faa0fe9c610a533ebe797152020b30027d6d",
+      "index": 29,
+      "profile": "white-frame",
+      "width": 2000,
+      "height": 2000,
+      "changed": true,
+      "outputSha256": "7da54fcb0730f2849e0f053b41416338e0afbaf90352eae8306043ece006ca5b",
+      "masterSha256": "136c384378c233956f9a1a5d77e07966e178925551cd4042c045e6d14868f7af",
+      "maskRectangles": [
+        [
+          90,
+          0,
+          420,
+          162
+        ],
+        [
+          158,
+          1896,
+          1686,
+          104
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1697911062003لبا.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/7099e6dbceaeb427140d3db508b2faa0fe9c610a533ebe797152020b30027d6d.webp",
+          "projects": [
+            "premium-card-40"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "a907465494c747804cabe43153838b4e01b3f770c045f0f04fa89a9729b5a38f",
+      "index": 30,
+      "profile": "linkem-br-wide",
+      "width": 1599,
+      "height": 799,
+      "changed": true,
+      "outputSha256": "1098f3c93d6a288a3f4a6737913231b232e1db9847510e7ba1916ce2181a5674",
+      "masterSha256": "e24db46bb9e280f7ce763ca7dcbf28ca30fc6a9441abc49dc05109ba96ced5dd",
+      "maskRectangles": [
+        [
+          1249,
+          664,
+          350,
+          108
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/vJKNYoZbJoamkfXoMochWkm9mXvbkYy1BKoZrVaX.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/a907465494c747804cabe43153838b4e01b3f770c045f0f04fa89a9729b5a38f.webp",
+          "projects": [
+            "linkem-stores"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "460195d8beffad37fd82e9293db9035493d4556047bd3bff14844305def2d338",
+      "index": 31,
+      "profile": "linkem-tr",
+      "width": 998,
+      "height": 642,
+      "changed": true,
+      "outputSha256": "4208a790278c4d5f64647fbe89ed9c926938dfbb22113d6414838375cad6ed88",
+      "masterSha256": "53a5c4cfbc97d7eb3a75b662b743089395ad7aa0896881d6833ebf37bc283896",
+      "maskRectangles": [
+        [
+          739,
+          48,
+          259,
+          78
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/uR8MwPNwCG3HxjgoAWioN3ROwYY3v1SqIGdX1p5X.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/460195d8beffad37fd82e9293db9035493d4556047bd3bff14844305def2d338.webp",
+          "projects": [
+            "linkem-stores"
+          ]
+        },
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1697911365888WhatsApp Image 2022-04-11 at 3.41.50 PM 2.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/460195d8beffad37fd82e9293db9035493d4556047bd3bff14844305def2d338.webp",
+          "projects": [
+            "linkem-stores"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "c9ecddf9e280d65be45a90d6d97a49de702924acdf3f4e06de169da9df99c50f",
+      "index": 32,
+      "profile": "linkem-tr-night",
+      "width": 1200,
+      "height": 900,
+      "changed": true,
+      "outputSha256": "29ac1129f8e8d640494877b3840f15e5747e4ed0713fc3ae43efb924753c3b2e",
+      "masterSha256": "9247d29178c73cb9871e1ba12f5cdcff11a8b8cdfd2aff9f3463503340e665f9",
+      "maskRectangles": [
+        [
+          847,
+          24,
+          353,
+          110
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1697911365884WhatsApp Image 2022-04-10 at 9.05.50 PM (1).jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/c9ecddf9e280d65be45a90d6d97a49de702924acdf3f4e06de169da9df99c50f.webp",
+          "projects": [
+            "linkem-stores"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "f8941f2fcd67a197dbe19a4433c0ce0360175a2fb6ce8449ebe5e4f067de9135",
+      "index": 33,
+      "profile": "linkem-br-portrait",
+      "width": 1200,
+      "height": 1600,
+      "changed": true,
+      "outputSha256": "288b9861b128a8e6fa24d29ed6a9b314675f807c718b0fea5c0d8fa73d3f1f8f",
+      "masterSha256": "ac99833bfbe29f1fef5c2104a96e0fb94c472fa244300dbe477a4f4c1e32d50e",
+      "maskRectangles": [
+        [
+          715,
+          1400,
+          485,
+          149
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1697911365886WhatsApp Image 2022-04-10 at 9.05.51 PM 2.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/f8941f2fcd67a197dbe19a4433c0ce0360175a2fb6ce8449ebe5e4f067de9135.webp",
+          "projects": [
+            "linkem-stores"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "0bfe048cdd319bfe31cbb02b58a85172899cb7e06e48ebc66b3a0416988d0b96",
+      "index": 34,
+      "profile": "transparent-bl",
+      "width": 648,
+      "height": 392,
+      "changed": true,
+      "outputSha256": "6c1d1ef3114dcab99663819fdc6b632a282f6062a9e105c9a57a745f6029ce2c",
+      "masterSha256": "8f877d3d9f163c27965364704ff853a4eb4f628ca34ae1754075bb9227317d29",
+      "maskRectangles": [
+        [
+          10,
+          329,
+          233,
+          63
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/ME5Z6VPB6RTV4W2rF88HxPLsO9p1sDKDyJ2TKPnv.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/0bfe048cdd319bfe31cbb02b58a85172899cb7e06e48ebc66b3a0416988d0b96.webp",
+          "projects": [
+            "differently-abled"
+          ]
+        },
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/MBuGqhRtUAqzhLNpLHnlxMdl0TYWcxAMhy8RJqbk.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/0bfe048cdd319bfe31cbb02b58a85172899cb7e06e48ebc66b3a0416988d0b96.webp",
+          "projects": [
+            "differently-abled"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "5ef3177aa60696025442c59177b5ccac54276948348a6fa465435f99f5de6b84",
+      "index": 35,
+      "profile": "white-frame",
+      "width": 1500,
+      "height": 1500,
+      "changed": true,
+      "outputSha256": "c93a0f20acdfb557a5a2b473b24b2e6af302fdadc6fc70dd40e8ace804fc84d7",
+      "masterSha256": "2cef946545a3c710436fa43a26d2b748a2d27cae2d6826221d51656067925aef",
+      "maskRectangles": [
+        [
+          68,
+          0,
+          315,
+          122
+        ],
+        [
+          119,
+          1422,
+          1265,
+          78
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1697922281996326779963_574668207844578_199265816028098027_n.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/5ef3177aa60696025442c59177b5ccac54276948348a6fa465435f99f5de6b84.webp",
+          "projects": [
+            "differently-abled"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "feefeb6a6197a438421640f4f092efbba617f5da289946299eb3bf0956616c52",
+      "index": 36,
+      "profile": "white-frame",
+      "width": 1500,
+      "height": 1500,
+      "changed": true,
+      "outputSha256": "00d5cd90698bac3f0332cec4ee4fb1a45e344dd9a675a7fa01cb6c95577e1f9e",
+      "masterSha256": "ceabfe8de1324a5530ac3b04177062ce8d1137a854d20bde74ebc9e37513e3d3",
+      "maskRectangles": [
+        [
+          68,
+          0,
+          315,
+          122
+        ],
+        [
+          119,
+          1422,
+          1265,
+          78
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1697922282000327120405_735919991089924_6549338560677864648_n.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/feefeb6a6197a438421640f4f092efbba617f5da289946299eb3bf0956616c52.webp",
+          "projects": [
+            "differently-abled"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "3ca1cc203dac97c3ac50d5619bc63c281893d57ca4b2bbd1cad581938d551b43",
+      "index": 37,
+      "profile": "white-frame",
+      "width": 2000,
+      "height": 2000,
+      "changed": true,
+      "outputSha256": "ffc657a9b1f70e52f15bc896ebbc22f0d5d51e4547e033ed25512bfd9ea675df",
+      "masterSha256": "1fd3320feae0412e37d75549874bf09f9afa66b6f22ea6835188c88dade6bdba",
+      "maskRectangles": [
+        [
+          90,
+          0,
+          420,
+          162
+        ],
+        [
+          158,
+          1896,
+          1686,
+          104
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1697922281999327062760_861532715057703_2379214063687156717_n.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/3ca1cc203dac97c3ac50d5619bc63c281893d57ca4b2bbd1cad581938d551b43.webp",
+          "projects": [
+            "differently-abled"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "43d130f1e2da7aa48a26b8a8b22c1b7e1f11d1e4c90c25844e56f7581053d2a5",
+      "index": 38,
+      "profile": "white-frame",
+      "width": 1500,
+      "height": 1500,
+      "changed": true,
+      "outputSha256": "874651d1059575159d2bef5d33550aaaa2ee6b680f82ee8cfcbe1a7857a83640",
+      "masterSha256": "6195383b3b42ef9e12af45553c2a874445082b41d34e8bb4a18374b0fbee589a",
+      "maskRectangles": [
+        [
+          68,
+          0,
+          315,
+          122
+        ],
+        [
+          119,
+          1422,
+          1265,
+          78
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1697922367265326724292_835726570863946_8048840101698952754_n.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/43d130f1e2da7aa48a26b8a8b22c1b7e1f11d1e4c90c25844e56f7581053d2a5.webp",
+          "projects": [
+            "differently-abled"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "2c5fe8d0da0310b129bbd1fe06cb137677d3bcc19922c6dcf4d31d9200d98689",
+      "index": 39,
+      "profile": "white-frame",
+      "width": 1280,
+      "height": 1280,
+      "changed": true,
+      "outputSha256": "ab305b5ce1ab4f2bc412a4e6d35e956d15fe8732996d4cc8eed624728ab0daf4",
+      "masterSha256": "18fd3b61289262ee2de7967c7f0da9303483863636a3c251dc506b875b60ef28",
+      "maskRectangles": [
+        [
+          58,
+          0,
+          269,
+          104
+        ],
+        [
+          101,
+          1213,
+          1079,
+          67
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/hmuGn09FvDdn6MGvTtLXPaNloW2qKEmnVGsjp7I8.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/2c5fe8d0da0310b129bbd1fe06cb137677d3bcc19922c6dcf4d31d9200d98689.webp",
+          "projects": [
+            "scandiweb"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "d6b0bbb937255fb42e7da5f6b0565bee506158d7bb240323854ad5ffcd519c2e",
+      "index": 40,
+      "profile": "white-frame",
+      "width": 1280,
+      "height": 1280,
+      "changed": true,
+      "outputSha256": "dff0e308f220e7105caee8fe2f7d28e42951539c78663f27ee4e50623e0224b3",
+      "masterSha256": "b1cf4244dde5d62683185ff89a0d678125170373ad998db1f05a4c679fa15f97",
+      "maskRectangles": [
+        [
+          58,
+          0,
+          269,
+          104
+        ],
+        [
+          101,
+          1213,
+          1079,
+          67
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/xgWcbtbnMdcILLebE2ZfcPEz8qeQnyNoWi0QpJ0X.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/d6b0bbb937255fb42e7da5f6b0565bee506158d7bb240323854ad5ffcd519c2e.webp",
+          "projects": [
+            "scandiweb"
+          ]
+        },
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1697927601370324445420_1022518289139351_4312789766238376662_n.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/d6b0bbb937255fb42e7da5f6b0565bee506158d7bb240323854ad5ffcd519c2e.webp",
+          "projects": [
+            "scandiweb"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "86c298cd0b884dcf4bbb7b72278c57207435c1b3502277bed661afc9190f3aca",
+      "index": 41,
+      "profile": "white-frame",
+      "width": 1280,
+      "height": 1280,
+      "changed": true,
+      "outputSha256": "5b89e44d1adb4f82c6d8af857797268a45f6e5cff737087ac171c69ef5e0142b",
+      "masterSha256": "344141eb5f6c50c02ae7b8a9975a3ccbf7bc58e9ca3f5c987a7e046117936093",
+      "maskRectangles": [
+        [
+          58,
+          0,
+          269,
+          104
+        ],
+        [
+          101,
+          1213,
+          1079,
+          67
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1697927601372324553435_1550627532085728_1471486499517410345_n.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/86c298cd0b884dcf4bbb7b72278c57207435c1b3502277bed661afc9190f3aca.webp",
+          "projects": [
+            "scandiweb"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "5c25d80d0537adfc1d776adbb12faa00002cfae1b1362bec7027f0e76e8d2896",
+      "index": 42,
+      "profile": "white-frame",
+      "width": 1280,
+      "height": 1280,
+      "changed": true,
+      "outputSha256": "9f9041565ef38e9ae21212cb740f0962177fe2cae765ecab8c1fbfdc8f73eb37",
+      "masterSha256": "d2547141d5b024a16e6e0a5402e5fa10aca23b3b8700c4fa38ef6b080cdffbe1",
+      "maskRectangles": [
+        [
+          58,
+          0,
+          269,
+          104
+        ],
+        [
+          101,
+          1213,
+          1079,
+          67
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1697927601373324673315_897884427892798_7187320066665290758_n.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/5c25d80d0537adfc1d776adbb12faa00002cfae1b1362bec7027f0e76e8d2896.webp",
+          "projects": [
+            "scandiweb"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "edc8c7d4f29888e16251c6ec3b1dec4893e2f1325b034e6a5aac94f23d12703b",
+      "index": 43,
+      "profile": "sign-br-large",
+      "width": 2000,
+      "height": 2000,
+      "changed": true,
+      "outputSha256": "a7d9f8dfe4265f4a705b0f28472047fd19ba8cf8254a3836474b0a717fc3cbe1",
+      "masterSha256": "127a7d9063eaed762e12ab5fc5113f09681c4e9af27dbab76a4dcb517f5839da",
+      "maskRectangles": [
+        [
+          1554,
+          1564,
+          404,
+          212
+        ],
+        [
+          54,
+          1860,
+          1688,
+          90
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/POn5muHAoFQh8YH0QovKTyEMe2rrLWwveEVCgziu.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/edc8c7d4f29888e16251c6ec3b1dec4893e2f1325b034e6a5aac94f23d12703b.webp",
+          "projects": [
+            "alx"
+          ]
+        },
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/17106830122046.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/edc8c7d4f29888e16251c6ec3b1dec4893e2f1325b034e6a5aac94f23d12703b.webp",
+          "projects": [
+            "alx"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "7cea063d2a13b2d36b2253a1c270ed3e11946e05c59ce6015858ba7f45479cb4",
+      "index": 44,
+      "profile": "sign-br-large",
+      "width": 2000,
+      "height": 2000,
+      "changed": true,
+      "outputSha256": "a74f3597318efa9d21b54719d70af39ffa4f81c82a329216ab5e39174e0a61ff",
+      "masterSha256": "d71e5de223aba79042fba19c5fecfd91008a6fcbce5b07daf7fb41f573e87839",
+      "maskRectangles": [
+        [
+          1554,
+          1564,
+          404,
+          212
+        ],
+        [
+          54,
+          1860,
+          1688,
+          90
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/BNUvxxQGzp4wxnsRmeqWB3Q85YVb00v2OopSWM1b.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/7cea063d2a13b2d36b2253a1c270ed3e11946e05c59ce6015858ba7f45479cb4.webp",
+          "projects": [
+            "alx"
+          ]
+        },
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/171068324864511.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/7cea063d2a13b2d36b2253a1c270ed3e11946e05c59ce6015858ba7f45479cb4.webp",
+          "projects": [
+            "alx"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "55c87db70b53c2329b0167ff1a1cbfb69cc566dacda45aa207118a324793ca1b",
+      "index": 45,
+      "profile": "sign-br-large",
+      "width": 2000,
+      "height": 2000,
+      "changed": true,
+      "outputSha256": "5bf064dc1f440fccbdd84b7e5b5007585a91ee0ecfbab72e07b52ef4e6b390ed",
+      "masterSha256": "11895667693f9e8fbfb45d9a9ace811d5c82622dd7da133e0557b6d13366be09",
+      "maskRectangles": [
+        [
+          1554,
+          1564,
+          404,
+          212
+        ],
+        [
+          54,
+          1860,
+          1688,
+          90
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/17106830122012 (1).jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/55c87db70b53c2329b0167ff1a1cbfb69cc566dacda45aa207118a324793ca1b.webp",
+          "projects": [
+            "alx"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "aad1de4d2e47615576315e02fba7815649f46711bd229c53ad33a50f4502330a",
+      "index": 46,
+      "profile": "sign-br-large",
+      "width": 2000,
+      "height": 2000,
+      "changed": true,
+      "outputSha256": "e1afe7cd542ca314cf295493f3bc267ff0953774ee283b2eb68325dbb6182889",
+      "masterSha256": "56968f6810266c08415c5dd192e5a12162ced83180dc27ad9c89dcddcc49eaf7",
+      "maskRectangles": [
+        [
+          1554,
+          1564,
+          404,
+          212
+        ],
+        [
+          54,
+          1860,
+          1688,
+          90
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/17106830122034.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/aad1de4d2e47615576315e02fba7815649f46711bd229c53ad33a50f4502330a.webp",
+          "projects": [
+            "alx"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "f732bcd131d1cd2288e4fa310b40a6a7bb6143cfe91357bec9bd6771c47cae5c",
+      "index": 47,
+      "profile": "sign-br-large",
+      "width": 2000,
+      "height": 2000,
+      "changed": true,
+      "outputSha256": "31f85d0d56fb611388862dce49ef04336d2645c351fbe5618ef8f5eae83245bd",
+      "masterSha256": "1c21645b15b210c8169fa76774ed3e2ec085539574c1f3c9c3b874c295a80c20",
+      "maskRectangles": [
+        [
+          1554,
+          1564,
+          404,
+          212
+        ],
+        [
+          54,
+          1860,
+          1688,
+          90
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/17106830122057.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/f732bcd131d1cd2288e4fa310b40a6a7bb6143cfe91357bec9bd6771c47cae5c.webp",
+          "projects": [
+            "alx"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "e0da1f0db8b9512fba24b5e9d50b982d04ed72fb2f11452e14b5f3f0a15a5939",
+      "index": 48,
+      "profile": "sign-br-large",
+      "width": 2000,
+      "height": 2000,
+      "changed": true,
+      "outputSha256": "3ee2284d92e428d0177317d30ecd7c5049de92dd1f174f3de50e660fb3af3caf",
+      "masterSha256": "0c1383bfe099a48487ebb3ba28e91a60187bdce771f356fdc8763f0917a80916",
+      "maskRectangles": [
+        [
+          1554,
+          1564,
+          404,
+          212
+        ],
+        [
+          54,
+          1860,
+          1688,
+          90
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/171068301220610.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/e0da1f0db8b9512fba24b5e9d50b982d04ed72fb2f11452e14b5f3f0a15a5939.webp",
+          "projects": [
+            "alx"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "e34b069516e6d63f408a820914763092d6aaa35164f8cec21185f99758e615ef",
+      "index": 49,
+      "profile": "sign-br-small",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "e6d4948ce18861a5a4786ce31cfc25f9346db70ebd9cd46bdbeafa888db12ddc",
+      "masterSha256": "95bb824e4a6f1720d1cbc0e9d5ee3f414882e290f9458dd65bfc68deab78b087",
+      "maskRectangles": [
+        [
+          839,
+          879,
+          211,
+          94
+        ],
+        [
+          58,
+          1007,
+          877,
+          37
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/VmPr53pXOBrwJkoLFen1UFvkp2kesb5ARDSBUWlZ.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/e34b069516e6d63f408a820914763092d6aaa35164f8cec21185f99758e615ef.webp",
+          "projects": [
+            "spiro-spathis"
+          ]
+        },
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/171163191578703.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/e34b069516e6d63f408a820914763092d6aaa35164f8cec21185f99758e615ef.webp",
+          "projects": [
+            "spiro-spathis"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "1de44128f016d45302acd5eb4af96c27d18af8d52ddb4d63bd9171b6816bcf9a",
+      "index": 50,
+      "profile": "sign-br-small",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "5c92820dbf66deb7247677ce30e1b6f76684e71d3e6af40da929add47868d13e",
+      "masterSha256": "1b412f06e144c130d18db5b035767bab5f42747a7f6c18483037dfd13255a8b2",
+      "maskRectangles": [
+        [
+          839,
+          879,
+          211,
+          94
+        ],
+        [
+          58,
+          1007,
+          877,
+          37
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/EvrVB7vYz4Ky7bFdGY1xS9T7dUFMvP8CLZc6V3A8.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/1de44128f016d45302acd5eb4af96c27d18af8d52ddb4d63bd9171b6816bcf9a.webp",
+          "projects": [
+            "spiro-spathis"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "7a45089ee977d9066cae72d011e2e87378b037c1a8a0fdf79532246e9e2a3426",
+      "index": 51,
+      "profile": "sign-br-small",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "dc42b590636b202f636120aa90699dbb0bf7598d01b5ce21c95ff9a366bb662e",
+      "masterSha256": "17dcbde3239afb9bb4df4f5b3994ed2af2c24545659ca38e9356feb255744656",
+      "maskRectangles": [
+        [
+          839,
+          879,
+          211,
+          94
+        ],
+        [
+          58,
+          1007,
+          877,
+          37
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/17116324104353ebcdb68a04c6554d8d98c3e6d77230d3db215c7.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/7a45089ee977d9066cae72d011e2e87378b037c1a8a0fdf79532246e9e2a3426.webp",
+          "projects": [
+            "spiro-spathis"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "e6d3846cba09defa8d612dd9270f567f548afbcaa02bcdecf1e300397f8b4410",
+      "index": 52,
+      "profile": "sign-br-small",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "be5685c17a9978e7dff419c6860bdb268791e0c4bf286fc4b49dfd59ff315cce",
+      "masterSha256": "0d9d745aadc27ed6596140c456493ab5601607c6620762b6a7ddcb9f20ff50a8",
+      "maskRectangles": [
+        [
+          839,
+          879,
+          211,
+          94
+        ],
+        [
+          58,
+          1007,
+          877,
+          37
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1711632410437c2756fdc219e82cd91f816213457b32ef883e9a3.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/e6d3846cba09defa8d612dd9270f567f548afbcaa02bcdecf1e300397f8b4410.webp",
+          "projects": [
+            "spiro-spathis"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "9d953c4bd5bcaddf454bc615de483711e85fe666313da29c7047f711ca465cba",
+      "index": 53,
+      "profile": "sign-br-small",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "cd7d2c8d3b6a1dc17e26226c17dbb3cd3ef4b6096bd803738e70e61850b824c4",
+      "masterSha256": "53c5823f7fcb11bb67095cac69f5bb504ebd49b508c5ace835a1930d57cfac33",
+      "maskRectangles": [
+        [
+          839,
+          879,
+          211,
+          94
+        ],
+        [
+          58,
+          1007,
+          877,
+          37
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/171163241044086432ff7223464c33da89f58583c54106e3adad1.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/9d953c4bd5bcaddf454bc615de483711e85fe666313da29c7047f711ca465cba.webp",
+          "projects": [
+            "spiro-spathis"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "8a949a6abb510d03b0ba2cbf76997a0be84c76c9bc4f00238de599f52320eafd",
+      "index": 54,
+      "profile": "sign-br-small",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "51d53b078af90405f0c5fc5b397c39c19c669a41622d1cb148a75dc66e79c580",
+      "masterSha256": "f6a38e10ff9faa69947688074a5ccec217313be17286071fd13f7456233cee8c",
+      "maskRectangles": [
+        [
+          839,
+          879,
+          211,
+          94
+        ],
+        [
+          58,
+          1007,
+          877,
+          37
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/171163241043945bb4addc22c365cab88a4b7ba00ceffdda1b35c.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/8a949a6abb510d03b0ba2cbf76997a0be84c76c9bc4f00238de599f52320eafd.webp",
+          "projects": [
+            "spiro-spathis"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "4cbcf3905e9ce7853da92c2fcbccf897c26689bd7bd22fcdc7c18009c7a8a8ca",
+      "index": 55,
+      "profile": "sign-br-small",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "48888e664f78feca94a5277542942bd186f125da7cd4df4dc2825e87e771e2ce",
+      "masterSha256": "9af9c277798c5886670c3fa29e708a703a49f3eed90bf853af3dd2a6a9cc0a15",
+      "maskRectangles": [
+        [
+          839,
+          879,
+          211,
+          94
+        ],
+        [
+          58,
+          1007,
+          877,
+          37
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/171163241044209b304b971997ce6a259bacc25d920d924775f07.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/4cbcf3905e9ce7853da92c2fcbccf897c26689bd7bd22fcdc7c18009c7a8a8ca.webp",
+          "projects": [
+            "spiro-spathis"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "1b80b1d9c0238b266a664428ae239dd6cec753ec9075de509650f55bcf0c5999",
+      "index": 56,
+      "profile": "sign-br-small",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "96f645ea06485e0d001ca831c89a7354d41ebbf3e18f2cffbf4fea870d7731a3",
+      "masterSha256": "fbf5de33a60f7269955a20f67da218db5f179fb148a49e6d0efaaa15e2902ea1",
+      "maskRectangles": [
+        [
+          839,
+          879,
+          211,
+          94
+        ],
+        [
+          58,
+          1007,
+          877,
+          37
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/17116324104432677f5f8bc364da8f91d30bcd2dbc835de9761ce.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/1b80b1d9c0238b266a664428ae239dd6cec753ec9075de509650f55bcf0c5999.webp",
+          "projects": [
+            "spiro-spathis"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "71c4ba5fbf1fa3df7f590b50400bd2c4727b965b3646bd180625ed3b80f140c2",
+      "index": 57,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "f96aa02233ff2cc1d39d2f2c0786ca633ddfe19f24beea3180c754ca20d5742d",
+      "masterSha256": "9401dda2ad64042aed683c68229e885d573c2f845f31fbca0d2abd41791711e8",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/3UyWftbe3JTpOMpHezyjOKQEigfGbEsbO7uv5jFN.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/71c4ba5fbf1fa3df7f590b50400bd2c4727b965b3646bd180625ed3b80f140c2.webp",
+          "projects": [
+            "air-arabia"
+          ]
+        },
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/OJKbjtYJsRF6pvs8MfHpvW87RfyZRV0eeJ2TFhZO.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/71c4ba5fbf1fa3df7f590b50400bd2c4727b965b3646bd180625ed3b80f140c2.webp",
+          "projects": [
+            "air-arabia"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "7b52903610d2c9304b451700bd930b27a2895f3713e4ec2b13a87f6f7d1825a6",
+      "index": 58,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "42a0c6bdcb8a5ac6a05772aaf31f04b626111d8abbb1d86137c4b1e0bd3c83cd",
+      "masterSha256": "894c294480d0f37523d91f6b910b9ac856a01d55fa1b11d97b2034151ba75a9b",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715088157893Album 01 - 1.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/7b52903610d2c9304b451700bd930b27a2895f3713e4ec2b13a87f6f7d1825a6.webp",
+          "projects": [
+            "air-arabia"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "d738547934efc8e237571fa0d52f44fbb641276e9b6227e9bd36e94c6dc594f6",
+      "index": 59,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "37823ed004c60e03cd6796e0891c041c4fe7c95a08ef000704efea97183db035",
+      "masterSha256": "45c798458ebf1f0a9c3832b55c7bd92271839ed91c387624801bc6e131b2596e",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715088157895Album 01 - 2.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/d738547934efc8e237571fa0d52f44fbb641276e9b6227e9bd36e94c6dc594f6.webp",
+          "projects": [
+            "air-arabia"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "7640115150f0364662c094603ea753a46ad9f1b6ef1b3cd1ef99cddee8421b9b",
+      "index": 60,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "fd809987930458d59dda4c6a213561711b8283696392fc587eba9e1fc3a293c3",
+      "masterSha256": "8612d8e7325088d6f401e400a5fac5ddc6dbd2b45e9f61ab0aa8db6274aa455b",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715088157896Album 01 - 3.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/7640115150f0364662c094603ea753a46ad9f1b6ef1b3cd1ef99cddee8421b9b.webp",
+          "projects": [
+            "air-arabia"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "3061844e38e801fd476fe43f7a24030645b39f6baa7f86b95e0d74f6d81da572",
+      "index": 61,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "236d0cf9df5738551d5de6cd168c466c304ff8ec4f446accfda579a599466854",
+      "masterSha256": "6b94950a0fd0377bd6df9af61b56050b4b6e63edddc18305525cf0f6de567d25",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715088157897Album 01 - 4.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/3061844e38e801fd476fe43f7a24030645b39f6baa7f86b95e0d74f6d81da572.webp",
+          "projects": [
+            "air-arabia"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "bb2d2f5d0e6e0fce36706e9f9ff9303f08a879cb2ebc28e28f5926fc91d2ebde",
+      "index": 62,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "674155398073cf206ad01a0fee8b93c7adf028a8ba470c5cdf3aeb6c7587c049",
+      "masterSha256": "7843224252bdd98af8e6994e5f7781a130c5efe9a54f45abe21312f8788ed0bc",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715088157899Album 01 - 5.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/bb2d2f5d0e6e0fce36706e9f9ff9303f08a879cb2ebc28e28f5926fc91d2ebde.webp",
+          "projects": [
+            "air-arabia"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "2963e3938a7918401d447f3ed74b6c3df32e1e7878b4a5e5e8eb9bed30871b93",
+      "index": 63,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "e63084e8b668fc4fca4d3b75d7e2f7953ef2bb6613185905e5d6f130d12ce280",
+      "masterSha256": "828fabf7a3d96aacc8ff4f369dc3f01d25024e004181326299da4850dad96bee",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715088157900Album 01 - 6.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/2963e3938a7918401d447f3ed74b6c3df32e1e7878b4a5e5e8eb9bed30871b93.webp",
+          "projects": [
+            "air-arabia"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "86d847757653e2b8f2710126673a885ea89240e52b99c70dba048a2f2e7b10d2",
+      "index": 64,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "56a59f76b7779d8e537d633859e93295d2d808e0a68cdaa3e0fa644295e832c4",
+      "masterSha256": "4537dfc3e8a118f59e417a850c4c6adc211b86a1549ecc42ad791ec2f844a9d6",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715088157901Album 01 - 7.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/86d847757653e2b8f2710126673a885ea89240e52b99c70dba048a2f2e7b10d2.webp",
+          "projects": [
+            "air-arabia"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "e2cecd64c5b9626a53c9a4ea471b35dd1eee9b3faac8e941a1526b59dd3daa71",
+      "index": 65,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "1e750e9ccbe6ab2faf188b5cee9911141916d2f8e7266c1c7ee544f6114682fa",
+      "masterSha256": "75bf53abb637ffb13c726b3427f34e8a49422e7cd77f6f8e2d12f9b66b773cad",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715088157902Album 01 - 8.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/e2cecd64c5b9626a53c9a4ea471b35dd1eee9b3faac8e941a1526b59dd3daa71.webp",
+          "projects": [
+            "air-arabia"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "fd99c3f6c1d2607d12171e22f17154d767b77ad2b1adf0da41443c49d7643df7",
+      "index": 66,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "0b46d2595bac1ecd561998f4b1b9d6fbd3458e7e9d6a35a39402c5973db20188",
+      "masterSha256": "2cd2b03671120bed44dc3e9f64b691a1810411a937ac19626adaa8c3c1703fe5",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715088157903Album 01 - 9.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/fd99c3f6c1d2607d12171e22f17154d767b77ad2b1adf0da41443c49d7643df7.webp",
+          "projects": [
+            "air-arabia"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "ed5fef0dc1a27c7a3dc38b487acd14f144030cf18b949f30baf7891335191703",
+      "index": 67,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "92ef7328b8375469ec2451a20d404aa5ba4470b9b2bba3b2e619f185a1597e6a",
+      "masterSha256": "655e0ac5ecc3dbd71a67d4c102017018f7277c7eb5cd8786124143c671b55efd",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715088157904Album 01 - 10.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/ed5fef0dc1a27c7a3dc38b487acd14f144030cf18b949f30baf7891335191703.webp",
+          "projects": [
+            "air-arabia"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "d10d405ee7f63a687abe04042b14c10f18cba72482c3f7085c353bf2c46b1df4",
+      "index": 68,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "02a178d9612eb478c0079f21838cad9a0985d4292a3ed7141ed55e4472d261fd",
+      "masterSha256": "967c6f3203a64deb220b543d7308da0106dd9960eaea1da828d1f42a8ebac051",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715088157906Album 01 - 12.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/d10d405ee7f63a687abe04042b14c10f18cba72482c3f7085c353bf2c46b1df4.webp",
+          "projects": [
+            "air-arabia"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "ebb38244e253031eaec342bed9d18a8982e1000a313548478fabf402ecf2a1ae",
+      "index": 69,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "a9b507c4ad2eb55fb8a5daa2698d87f65b083d768e5f5a6afac6511855dbaa26",
+      "masterSha256": "202d8d8366da8ae58818223791315062b9bcabe68440c4575b9b1a26020daf08",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715088157905Album 01 - 11.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/ebb38244e253031eaec342bed9d18a8982e1000a313548478fabf402ecf2a1ae.webp",
+          "projects": [
+            "air-arabia"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "0cd96daeca9f69e76f8a5c182839cc67167c281a68fa50f9a3a5beddd061651d",
+      "index": 70,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "16a4521ab0935becc76bc0c909bea10985bb820550100564a079709f3d5226dd",
+      "masterSha256": "dfab537f5c7be6d57394404d42e426639b986e34a05386b6ef1e853dba4e7565",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715088157907Album 01 - 13.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/0cd96daeca9f69e76f8a5c182839cc67167c281a68fa50f9a3a5beddd061651d.webp",
+          "projects": [
+            "air-arabia"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "4f2437086cb3916a0dbbd2afba81e2b6483b85d64f68bf9cb31cf99698de3e33",
+      "index": 71,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "c0c00b0000d37a7008cb78a511ae5ecbf7da12e1c7929ce783e4b1c2f5bed150",
+      "masterSha256": "dbb14d0384e26df55cf5fd3e157ba880a63f04a60bdc0182129043946c66b565",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715088157908Album 01 - 14.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/4f2437086cb3916a0dbbd2afba81e2b6483b85d64f68bf9cb31cf99698de3e33.webp",
+          "projects": [
+            "air-arabia"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "ee17b0b12ea3cbbcadf2783dcaf4a3af681ad17ac6ba88995f69f546140dc615",
+      "index": 72,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "828a89b5a1c752d9527f04da71ee9e49b588e126fdff84eecc40b8d78d83f771",
+      "masterSha256": "a01d9cb493eb9686c6955a4410ea84f429f0fe7634c7987e77a08b9f82973d0c",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715088157909Album 01 - 15.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/ee17b0b12ea3cbbcadf2783dcaf4a3af681ad17ac6ba88995f69f546140dc615.webp",
+          "projects": [
+            "air-arabia"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "1c27b021ec3fd34dc51bc465a59b77692d0cadb7c15efeb3a7915ca6d05bb731",
+      "index": 73,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "8fb86dfc029b85908c13bce86c39db9b14eba7123088c6cdc9152a754819378b",
+      "masterSha256": "f008249d343184dba89dd3217100a79ed5398e5fae29494fd8b3745d6c8f6389",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/zkvRSA4fN2t5q9N0kbYcGWt1N92g0TYQaZn4NHS5.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/1c27b021ec3fd34dc51bc465a59b77692d0cadb7c15efeb3a7915ca6d05bb731.webp",
+          "projects": [
+            "agex-2024"
+          ]
+        },
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/vBFsSrYjTquo1iMFBQSBGvQ8AN1r0hgzsPYaCw60.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/1c27b021ec3fd34dc51bc465a59b77692d0cadb7c15efeb3a7915ca6d05bb731.webp",
+          "projects": [
+            "agex-2024"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "e9d8ee6a5554790a15bf7933d75770f715dfc7c9ca19e59e548659730d1276e9",
+      "index": 74,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "2e1064e15f686816de6d6a635467dbcb5fccb07f5a5fbe5468c3c05339943421",
+      "masterSha256": "dd8a1a58ecd6de4e7c4ee9113c7c9a13f9da7e0410a78f1a3dc59d5c36db4b82",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715091943916Album 02 - 1.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/e9d8ee6a5554790a15bf7933d75770f715dfc7c9ca19e59e548659730d1276e9.webp",
+          "projects": [
+            "agex-2024"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "8250563c12a1488f9b5245a43ed1affbea4c83d04a7253cda61799145e18e831",
+      "index": 75,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "8c8b7f02f0a7a0a2567c154cfe5ce6194ff2865c68e3405f78699415a4bb3c13",
+      "masterSha256": "b08909ce41fad97a4e3cfdcbc77daa63121a2c5de4d328f6627739a3a21bfb44",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715091943918Album 02 - 2.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/8250563c12a1488f9b5245a43ed1affbea4c83d04a7253cda61799145e18e831.webp",
+          "projects": [
+            "agex-2024"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "62ace5443286e8126fd15fab5c95479c2ce72c361c0062958fb0c4036ea3dc11",
+      "index": 76,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "7307b6433e777b6070f3b0a4016f267bbc4729de002a5ad671e297d35c8dd34a",
+      "masterSha256": "bfed651203bdebf506cd6cbaa5f68ca97bbc6f2e3dcd4f067ccc997314500cce",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715091943920Album 02 - 4.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/62ace5443286e8126fd15fab5c95479c2ce72c361c0062958fb0c4036ea3dc11.webp",
+          "projects": [
+            "agex-2024"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "53ccbb0ebda714f45de0b79cc9a2c213ddec7f32aa8b0c7bd9ff478cf74626bb",
+      "index": 77,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "7c95fd82a56fb62cdfcaebfbd44cdd60be46d8d9e32e43da9cc81a4671540282",
+      "masterSha256": "e4fd70882a238bba1d67f6e862868c95d0dafecfb7856afe96b7f3e5a9b4e103",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715091943919Album 02 - 3.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/53ccbb0ebda714f45de0b79cc9a2c213ddec7f32aa8b0c7bd9ff478cf74626bb.webp",
+          "projects": [
+            "agex-2024"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "4df2fb8c87d8354cb066a0a4f602d8b23add69e016bbc9ca16e9f8b087ad1172",
+      "index": 78,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "10bca96618a2cb4e3ba4e83cc2fa9b80f9efe73bb26f9295bc4f68835c27a44a",
+      "masterSha256": "0f6e5bea4514850012010afc55f0105e2bbe55c1faf33b76fe76d4878013016c",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715091943922Album 02 - 6.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/4df2fb8c87d8354cb066a0a4f602d8b23add69e016bbc9ca16e9f8b087ad1172.webp",
+          "projects": [
+            "agex-2024"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "27e90a00ee1db0a8a703e2619ac5b634745fb1daff55c3f7499dd6acdb86aca5",
+      "index": 79,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "0530dd16a961d4da652b3ff674f6593efd4378eacd2241d8e94daab36e2ce525",
+      "masterSha256": "57fd0df05d76928231814d0e1bfd699776ab5e48b5fad95bf74db10092010538",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715091943921Album 02 - 5.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/27e90a00ee1db0a8a703e2619ac5b634745fb1daff55c3f7499dd6acdb86aca5.webp",
+          "projects": [
+            "agex-2024"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "0c979e4fbd0a925caf3f5adf19d6e74afe0ab2a0fd138a31949b1d15d0d86469",
+      "index": 80,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "d3d77e825838d5d5b9dfa2a3f8beaf0cc78ac065e29050b7213ae96cf53e833c",
+      "masterSha256": "7be50432cf09d3cce30beb5b9f72f597721743fa8d3f7c9383f6066608cc31d3",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715091943923Album 02 - 7.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/0c979e4fbd0a925caf3f5adf19d6e74afe0ab2a0fd138a31949b1d15d0d86469.webp",
+          "projects": [
+            "agex-2024"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "6d9132d62806d6f3476fbd2047a29bfbb611aa5a5d9b7bbcfb011a58c0f9ebf6",
+      "index": 81,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "66174980affa8b781b46a0ffda3f651760bab0a396830f1d8e4b82997c58d93f",
+      "masterSha256": "e45534b267bd26ea2e414bf03eebd051f352cb378feaec56cb6940c4d246238a",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715091943924Album 02 - 8.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/6d9132d62806d6f3476fbd2047a29bfbb611aa5a5d9b7bbcfb011a58c0f9ebf6.webp",
+          "projects": [
+            "agex-2024"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "0b3cff762c0787461cdfd9901d2c56120620dc7a253484641ec10156076e1f4f",
+      "index": 82,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "1f53849c053e9d374c2211b48c5b3937bf1d25686dea1c68e1eb92323b84c4be",
+      "masterSha256": "20c4a333b6cb485aab374facb022cfc2c4b182a705ede03c40dfa1708fe6a1ae",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715091943925Album 02 - 9.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/0b3cff762c0787461cdfd9901d2c56120620dc7a253484641ec10156076e1f4f.webp",
+          "projects": [
+            "agex-2024"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "83eaf9a57b0421e115ea6509d930bc137dc80ff048558da95c2c03335ecbb1ef",
+      "index": 83,
+      "profile": "sign-br-middle",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "471a2726b041d8c9f40072cd7e17b4a5afbdd69486aece067be561ba9e4bfe67",
+      "masterSha256": "99eb33f8619945715fa6bd5431e857644298dc22934ddbe4bea105f0df1d5c9a",
+      "maskRectangles": [
+        [
+          842,
+          853,
+          215,
+          118
+        ],
+        [
+          58,
+          1015,
+          877,
+          45
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1715091943925Album 02 - 12.png",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/83eaf9a57b0421e115ea6509d930bc137dc80ff048558da95c2c03335ecbb1ef.webp",
+          "projects": [
+            "agex-2024"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "2b42345ab4fde001fdd310443cf588bceaf69f3fc5c51a1bc0f2062c7b686c23",
+      "index": 84,
+      "profile": "sign-bl-portrait",
+      "width": 1080,
+      "height": 1350,
+      "changed": true,
+      "outputSha256": "8a67a49f888f30a81adee2868c404b311a86ea792989b512458ffc6389444ffd",
+      "masterSha256": "dc2700fcee6c8c30ca3f6eae0d20401478875a373f7d6fe1b83006c093fa188b",
+      "maskRectangles": [
+        [
+          60,
+          1135,
+          201,
+          104
+        ],
+        [
+          174,
+          1284,
+          833,
+          43
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/Q9oL1JehERz62VaOVvfk3Mx2OhCfCSLSDxQAryLd.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/2b42345ab4fde001fdd310443cf588bceaf69f3fc5c51a1bc0f2062c7b686c23.webp",
+          "projects": [
+            "misr-el-kheir"
+          ]
+        },
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/G9iPiWr05NPecgEq1N8ruXzhJtzCHuPCvGH65BTp.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/2b42345ab4fde001fdd310443cf588bceaf69f3fc5c51a1bc0f2062c7b686c23.webp",
+          "projects": [
+            "misr-el-kheir"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "ce91e93abc3b93c9775d5f0f9105df2f9ef8bf2ca337ddc01194ec042bcb5683",
+      "index": 85,
+      "profile": "sign-bl-portrait",
+      "width": 1080,
+      "height": 1350,
+      "changed": true,
+      "outputSha256": "426c838d232ce33ce70dbe076879c0ac25025ebbcc78b99e29209fc27beb44bd",
+      "masterSha256": "138e863b4f845eec6a9b6fe7f22b6542fe7ffe20941a4d0663439785a3faae7c",
+      "maskRectangles": [
+        [
+          60,
+          1135,
+          201,
+          104
+        ],
+        [
+          174,
+          1284,
+          833,
+          43
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1742821203617IMG-20250316-WA0021.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/ce91e93abc3b93c9775d5f0f9105df2f9ef8bf2ca337ddc01194ec042bcb5683.webp",
+          "projects": [
+            "misr-el-kheir"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "0880636c089e9dd6e61352878f295f68799a0f2f64b63ff851b763e7e141fd5f",
+      "index": 86,
+      "profile": "sign-bl-portrait",
+      "width": 1080,
+      "height": 1350,
+      "changed": true,
+      "outputSha256": "5c568ecd40e86e0daecb1c75f6941ca22f7065fbb6782811ecdebaf097be21a9",
+      "masterSha256": "502f8b3784bbf0553914b40c7de58071d739e5f6d3635550e9b5e104d5ce018f",
+      "maskRectangles": [
+        [
+          60,
+          1135,
+          201,
+          104
+        ],
+        [
+          174,
+          1284,
+          833,
+          43
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1742821203623IMG-20250316-WA0023.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/0880636c089e9dd6e61352878f295f68799a0f2f64b63ff851b763e7e141fd5f.webp",
+          "projects": [
+            "misr-el-kheir"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "d100317117b5d186abb9c92eac5b133d42724f5dc55990d378f52a2d081076a8",
+      "index": 87,
+      "profile": "sign-bl-portrait",
+      "width": 1080,
+      "height": 1350,
+      "changed": true,
+      "outputSha256": "4492e4d47a90df15a9d6fbf1b179c502b757544483ae69d1acff20c00e361471",
+      "masterSha256": "42af951fe744bf40bdaf10ea7dbde11137ac81f03e18bfdd074ac21c8c799487",
+      "maskRectangles": [
+        [
+          60,
+          1135,
+          201,
+          104
+        ],
+        [
+          174,
+          1284,
+          833,
+          43
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1742821203647IMG-20250316-WA0019.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/d100317117b5d186abb9c92eac5b133d42724f5dc55990d378f52a2d081076a8.webp",
+          "projects": [
+            "misr-el-kheir"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "386ff1df100ab259a081aa310cfb4a8a9e7fb033b78274fc1c455ee1fa67f655",
+      "index": 88,
+      "profile": "sign-bl-portrait",
+      "width": 1080,
+      "height": 1350,
+      "changed": true,
+      "outputSha256": "0b0506b1534f1f754f7db98c878d9e91afde8088421ba51798dcb16722a266aa",
+      "masterSha256": "9cb6267c6862052fcba9c5b614d7a2b1a7322d4a5fa3a13e0b51e7a42748148a",
+      "maskRectangles": [
+        [
+          60,
+          1135,
+          201,
+          104
+        ],
+        [
+          174,
+          1284,
+          833,
+          43
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1742821203628IMG-20250316-WA0018.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/386ff1df100ab259a081aa310cfb4a8a9e7fb033b78274fc1c455ee1fa67f655.webp",
+          "projects": [
+            "misr-el-kheir"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "dbc885e3a29c6d4c1416fe7de8105ffd330db135e9a36203f3659119e926d664",
+      "index": 89,
+      "profile": "sign-bl-portrait",
+      "width": 1080,
+      "height": 1350,
+      "changed": true,
+      "outputSha256": "1f62a5d3f67c0f08eab14824ee2a9655e77ce95d7b1cc642bc140fb1c096c7dd",
+      "masterSha256": "f69e7af1ccdf20553901a7be2b0c98d3e4756f2cc4ab5e50d4358b80550500a3",
+      "maskRectangles": [
+        [
+          60,
+          1135,
+          201,
+          104
+        ],
+        [
+          174,
+          1284,
+          833,
+          43
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1742821203652IMG-20250316-WA0020.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/dbc885e3a29c6d4c1416fe7de8105ffd330db135e9a36203f3659119e926d664.webp",
+          "projects": [
+            "misr-el-kheir"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "7ead53800c0bfbff1c4d52c3e8556384314ca5ab7e62ed8f4d2337ee5cf6d35e",
+      "index": 90,
+      "profile": "unbranded",
+      "width": 1600,
+      "height": 900,
+      "changed": false,
+      "outputSha256": null,
+      "masterSha256": null,
+      "maskRectangles": [],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1742821211760WhatsApp Image 2025-03-03 at 2.42.37 PM (1).jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio/1742821211760WhatsApp Image 2025-03-03 at 2.42.37 PM (1).jpeg",
+          "projects": [
+            "misr-el-kheir"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "9579df01eaf10d62be437630494aea6ff0439e29cc608b7db9bd8a88d291e617",
+      "index": 91,
+      "profile": "sign-bl-portrait",
+      "width": 1024,
+      "height": 1280,
+      "changed": true,
+      "outputSha256": "fc9891183f7550deddd34b70e01e37ba8bea1813c853e288ddc66e068bcd33e9",
+      "masterSha256": "f78368067f99ff4faebbd74bc756385b8f42a0cee4701862da88b4c62e5b1c5e",
+      "maskRectangles": [
+        [
+          57,
+          1076,
+          190,
+          99
+        ],
+        [
+          165,
+          1217,
+          790,
+          41
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/0gDj3kb5xkgYjg1LPDFPUSPZk4IXJz1AeN55sMZD.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/9579df01eaf10d62be437630494aea6ff0439e29cc608b7db9bd8a88d291e617.webp",
+          "projects": [
+            "nusuk"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "4cf6fbb56639661361061dd98ac7e6f19604da8e3fc3db6b7109d491aa152059",
+      "index": 92,
+      "profile": "sign-bl-portrait",
+      "width": 1024,
+      "height": 1280,
+      "changed": true,
+      "outputSha256": "2cabb3fdab59266278327e43565441edf7d3e64c6792ced4db5a9605277157e9",
+      "masterSha256": "725ef350f4b72bf709c4a64cb77baf61bcc4b7e49ea187e62171f1ef11097e07",
+      "maskRectangles": [
+        [
+          57,
+          1076,
+          190,
+          99
+        ],
+        [
+          165,
+          1217,
+          790,
+          41
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/uELY1RGluVOvYDSvhFbH0JbmfsYYjfeD0w5nIhRP.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/4cf6fbb56639661361061dd98ac7e6f19604da8e3fc3db6b7109d491aa152059.webp",
+          "projects": [
+            "nusuk"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "faf3434a40ce8a8b7018d5ef0f9a23b424abafbc76f9406922b9aee5801fc5fd",
+      "index": 93,
+      "profile": "sign-bl-portrait",
+      "width": 4000,
+      "height": 5000,
+      "changed": true,
+      "outputSha256": "34c034459fb1346c0e465b34f2cc4c723e0e2c580035dca9ab55072f0310bd8e",
+      "masterSha256": "525c342780b7dde9d853d9315c48d297a06b6b780356cf1d8a3757efbec94a31",
+      "maskRectangles": [
+        [
+          224,
+          4205,
+          744,
+          385
+        ],
+        [
+          644,
+          4755,
+          3084,
+          160
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/17603709920843.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/faf3434a40ce8a8b7018d5ef0f9a23b424abafbc76f9406922b9aee5801fc5fd.webp",
+          "projects": [
+            "nusuk"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "746bced6d0b495df9661e9f7eb2edbccf9ee5ded92d55f500650fc61f4533700",
+      "index": 94,
+      "profile": "sign-bl-portrait",
+      "width": 4000,
+      "height": 5000,
+      "changed": true,
+      "outputSha256": "fbaf9d3a164cdfadbe89e22c54c44f0270d4b9c1a408f610666831af14def95f",
+      "masterSha256": "ec63fd6aadec7b771c61ac8543c5eab4f2c5ea29474982a22f0b84eb3a282667",
+      "maskRectangles": [
+        [
+          224,
+          4205,
+          744,
+          385
+        ],
+        [
+          644,
+          4755,
+          3084,
+          160
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/17603709920885.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/746bced6d0b495df9661e9f7eb2edbccf9ee5ded92d55f500650fc61f4533700.webp",
+          "projects": [
+            "nusuk"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "0d5cce4ac7c0e160af2be37164b7a7d1202436604aa8e5da251ee8fa4df94b70",
+      "index": 95,
+      "profile": "sign-bl-portrait",
+      "width": 4000,
+      "height": 5000,
+      "changed": true,
+      "outputSha256": "962332ab2406d7651bd4072f073525bafd84f5e95d9cc52a2167aa4a576b18b1",
+      "masterSha256": "ab5aa6d599905dac41c899d1e85d133c01d546fd5de282f14747102194994fd4",
+      "maskRectangles": [
+        [
+          224,
+          4205,
+          744,
+          385
+        ],
+        [
+          644,
+          4755,
+          3084,
+          160
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/17603709920927.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/0d5cce4ac7c0e160af2be37164b7a7d1202436604aa8e5da251ee8fa4df94b70.webp",
+          "projects": [
+            "nusuk"
+          ]
+        },
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/17603714955367.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/0d5cce4ac7c0e160af2be37164b7a7d1202436604aa8e5da251ee8fa4df94b70.webp",
+          "projects": [
+            "nusuk"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "e906f6ddf7c094d0eaf53784be6ec4515d9ffb5baea96d39cc2cd031cdd9bb2a",
+      "index": 96,
+      "profile": "sign-bl-portrait",
+      "width": 4000,
+      "height": 5000,
+      "changed": true,
+      "outputSha256": "379d10a58575b1312b92e6bcda5d66ac3a7ae3e2bae9e478b7b281f69e0f1a95",
+      "masterSha256": "1ac33a8887d8cd2812aa73e34f782b0e8b917b0b0e7106b6c7b73d08496e5f14",
+      "maskRectangles": [
+        [
+          224,
+          4205,
+          744,
+          385
+        ],
+        [
+          644,
+          4755,
+          3084,
+          160
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1760370992094اكتوبر 2 _2.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/e906f6ddf7c094d0eaf53784be6ec4515d9ffb5baea96d39cc2cd031cdd9bb2a.webp",
+          "projects": [
+            "nusuk"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "b92e4dc3cf2f4f7eeaff80365784d4b36580bc574afa543fa8cbb8d620e326da",
+      "index": 97,
+      "profile": "sign-bl-portrait",
+      "width": 4000,
+      "height": 5000,
+      "changed": true,
+      "outputSha256": "cc88eb27027d02de9b14a70000d7d225811fea6a457a1cff6c0a5c180ae8141a",
+      "masterSha256": "4f03406fd41706107544783fff052095fdc6465e09f16e81f32c5f06db80c648",
+      "maskRectangles": [
+        [
+          224,
+          4205,
+          744,
+          385
+        ],
+        [
+          644,
+          4755,
+          3084,
+          160
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/17603714121071.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/b92e4dc3cf2f4f7eeaff80365784d4b36580bc574afa543fa8cbb8d620e326da.webp",
+          "projects": [
+            "nusuk"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "d6ce95535413e19fa7d8b4f590dd2d56445d426737a2f3824e7acdb9ebf0211b",
+      "index": 98,
+      "profile": "sign-bl-portrait",
+      "width": 4000,
+      "height": 5000,
+      "changed": true,
+      "outputSha256": "79b82299e6b0eb445ea812e734124c2766f48ecee6bdb2dae04a70e134737362",
+      "masterSha256": "aeaa8d3a97aba64d5f7c5aae72109b25d995ced3f7d623c68d13dbacdabd4487",
+      "maskRectangles": [
+        [
+          224,
+          4205,
+          744,
+          385
+        ],
+        [
+          644,
+          4755,
+          3084,
+          160
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1760371448327زايد.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/d6ce95535413e19fa7d8b4f590dd2d56445d426737a2f3824e7acdb9ebf0211b.webp",
+          "projects": [
+            "nusuk"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "df48b0434164e8788805e37107b7124dc4a67199b313017171f342ad0b26b5ce",
+      "index": 99,
+      "profile": "sign-bl-portrait",
+      "width": 4000,
+      "height": 5000,
+      "changed": true,
+      "outputSha256": "f6674e87ed3caebfaaafebec0110b71c9d16e05b4b40e0e394a9dc803e1f0895",
+      "masterSha256": "7455cbc9a6c693645c578c8b057b868878444e914943aff01604428cc312cf11",
+      "maskRectangles": [
+        [
+          224,
+          4205,
+          744,
+          385
+        ],
+        [
+          644,
+          4755,
+          3084,
+          160
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1760371464115دايري.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/df48b0434164e8788805e37107b7124dc4a67199b313017171f342ad0b26b5ce.webp",
+          "projects": [
+            "nusuk"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "d8a719cbbc30c894984137a5614da8f365e28d5d135de8da2ac5540383b4e15a",
+      "index": 100,
+      "profile": "sign-bl-portrait",
+      "width": 4000,
+      "height": 5000,
+      "changed": true,
+      "outputSha256": "96bb3e2e1a994f8db3f450ab8ae5a969afc6dce2249ee1a6d4d8c4d4c7803d78",
+      "masterSha256": "376646dbb21c36bc26f0be31a0c88f2ce6b644eaf0b6fbd054255e81fa0ff946",
+      "maskRectangles": [
+        [
+          224,
+          4205,
+          744,
+          385
+        ],
+        [
+          644,
+          4755,
+          3084,
+          160
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1760371474330اكتوبر.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/d8a719cbbc30c894984137a5614da8f365e28d5d135de8da2ac5540383b4e15a.webp",
+          "projects": [
+            "nusuk"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "2649a2b61661dbe8fc8371d9fa975cd123f9e3eac33070203173fa6e4978b001",
+      "index": 101,
+      "profile": "sign-bl-portrait",
+      "width": 4000,
+      "height": 5000,
+      "changed": true,
+      "outputSha256": "75686505bd2705758d9dbd531402c9e1d59282b5a399d855d00651303e3305db",
+      "masterSha256": "d9dacd1735c5d105f188100a4c43b413636bf03af29d7bb7e37f16549453820c",
+      "maskRectangles": [
+        [
+          224,
+          4205,
+          744,
+          385
+        ],
+        [
+          644,
+          4755,
+          3084,
+          160
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1760371664388سويس 2.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/2649a2b61661dbe8fc8371d9fa975cd123f9e3eac33070203173fa6e4978b001.webp",
+          "projects": [
+            "nusuk"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "376f2f64af2c73a344c7cd1d66540c380047b0fab8fb431342bbfed05b058094",
+      "index": 102,
+      "profile": "sign-bl-portrait",
+      "width": 4000,
+      "height": 5000,
+      "changed": true,
+      "outputSha256": "4ac147401070a0ec7e3389ebf60013cd0c3b4f04b455561e19f834bc312ada90",
+      "masterSha256": "8a5ba31d0071f7e27896e5a93c296e54650f1cfd73fcf7c93fcddbfab82ab8a7",
+      "maskRectangles": [
+        [
+          224,
+          4205,
+          744,
+          385
+        ],
+        [
+          644,
+          4755,
+          3084,
+          160
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1760371859629صلاح سالم.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/376f2f64af2c73a344c7cd1d66540c380047b0fab8fb431342bbfed05b058094.webp",
+          "projects": [
+            "nusuk"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "07284d92e9fb6b6e8890d62f3cbe86372b15900db9161270103dc81d866c9db0",
+      "index": 103,
+      "profile": "unbranded",
+      "width": 1280,
+      "height": 720,
+      "changed": false,
+      "outputSha256": null,
+      "masterSha256": null,
+      "maskRectangles": [],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/xpeBWDtZWCBbIe2Zsbp9o93rGz4TTFWopFLcSjNC.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio/campaigns/xpeBWDtZWCBbIe2Zsbp9o93rGz4TTFWopFLcSjNC.jpg",
+          "projects": [
+            "air-arabia-2025"
+          ]
+        },
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1762950600685WhatsApp Image 2025-10-02 at 8.34.25 PM.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio/1762950600685WhatsApp Image 2025-10-02 at 8.34.25 PM.jpeg",
+          "projects": [
+            "air-arabia-2025"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "2f10c6f63e599b3186bc6393d877681c92b06735f375db319a167c6729079e17",
+      "index": 104,
+      "profile": "unbranded",
+      "width": 1600,
+      "height": 1200,
+      "changed": false,
+      "outputSha256": null,
+      "masterSha256": null,
+      "maskRectangles": [],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/IeCMxW73TNyCm9lOIhlr3CSTNLvjX6eD2vQrNFXt.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio/campaigns/IeCMxW73TNyCm9lOIhlr3CSTNLvjX6eD2vQrNFXt.jpg",
+          "projects": [
+            "air-arabia-2025"
+          ]
+        },
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1762950600687WhatsApp Image 2025-10-02 at 15.01.51_d4607f2d.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio/1762950600687WhatsApp Image 2025-10-02 at 15.01.51_d4607f2d.jpg",
+          "projects": [
+            "air-arabia-2025"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "48503de06a8181962b10743fd8a9b5a9b486d2439cb4066b764f0f2d1aabfe3b",
+      "index": 105,
+      "profile": "unbranded",
+      "width": 1416,
+      "height": 1064,
+      "changed": false,
+      "outputSha256": null,
+      "masterSha256": null,
+      "maskRectangles": [],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1762950600688WhatsApp Image 2025-10-02 at 15.01.52_cc70211f.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio/1762950600688WhatsApp Image 2025-10-02 at 15.01.52_cc70211f.jpg",
+          "projects": [
+            "air-arabia-2025"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "7f214b67d62c3330c30f68720fca69f7ea1ba841a2da73e3aa95e7079521f30e",
+      "index": 106,
+      "profile": "unbranded",
+      "width": 1600,
+      "height": 1200,
+      "changed": false,
+      "outputSha256": null,
+      "masterSha256": null,
+      "maskRectangles": [],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1762950600690WhatsApp Image 2025-10-02 at 15.01.53_0254a0cd.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio/1762950600690WhatsApp Image 2025-10-02 at 15.01.53_0254a0cd.jpg",
+          "projects": [
+            "air-arabia-2025"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "9aafbde31e9145521fe801105445bc7b7d82cbc57b8d9483881f49aab04f8409",
+      "index": 107,
+      "profile": "unbranded",
+      "width": 1600,
+      "height": 900,
+      "changed": false,
+      "outputSha256": null,
+      "masterSha256": null,
+      "maskRectangles": [],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1762950600691WhatsApp Image 2025-10-02 at 15.02.08_b098a512.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio/1762950600691WhatsApp Image 2025-10-02 at 15.02.08_b098a512.jpg",
+          "projects": [
+            "air-arabia-2025"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "9af980174049ff5751ebb8f6e29f777bc5c40a6b2403178f280f80709238cf8a",
+      "index": 108,
+      "profile": "sign-bl-portrait",
+      "width": 1000,
+      "height": 1250,
+      "changed": true,
+      "outputSha256": "f04acd16de5b9d676b328bc6b0d5c5af9c53474c792b2f0ce94a50f726c047a2",
+      "masterSha256": "fd17bc9d66eee4fa1b12f4324bb0f4392ed3c44e759892aecccb6b0d2fe32e14",
+      "maskRectangles": [
+        [
+          56,
+          1051,
+          186,
+          96
+        ],
+        [
+          161,
+          1189,
+          771,
+          40
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/L3YAGpMpHVWHUWKVCDAJ4yaOk8qLXE9jAktwRbT4.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/9af980174049ff5751ebb8f6e29f777bc5c40a6b2403178f280f80709238cf8a.webp",
+          "projects": [
+            "zeds"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "9e86a1da559ee09fad15d3a6421e89ace1fda7f65f3f028443bb7b37772c71d9",
+      "index": 109,
+      "profile": "sign-bl-portrait",
+      "width": 1000,
+      "height": 1250,
+      "changed": true,
+      "outputSha256": "336d44e147858198e12610bf4aeb5c11084f573d9deee474e37d0f446eabe222",
+      "masterSha256": "db15f32ad632814fe55654f2ba3271aa41f487e0ca9fe57842211a76e3b3b249",
+      "maskRectangles": [
+        [
+          56,
+          1051,
+          186,
+          96
+        ],
+        [
+          161,
+          1189,
+          771,
+          40
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/v0KECG1lTkM8qSK7UIhciM1xHHYnkclMngufjyNV.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/9e86a1da559ee09fad15d3a6421e89ace1fda7f65f3f028443bb7b37772c71d9.webp",
+          "projects": [
+            "zeds"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "d798276efdcebcc989353484f58d914ae011510c9df2a5ce4b2b2303d377b89e",
+      "index": 110,
+      "profile": "sign-bl-portrait",
+      "width": 1000,
+      "height": 1250,
+      "changed": true,
+      "outputSha256": "d6b89dc5dbf11dfff818c004d37b38c081d75b3822e7faa75fb1d4fea996d426",
+      "masterSha256": "f851c8c55f0286498ba9114f0dfc830ce9c9978f133d504251502231cd96a3d8",
+      "maskRectangles": [
+        [
+          56,
+          1051,
+          186,
+          96
+        ],
+        [
+          161,
+          1189,
+          771,
+          40
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1765633525289WhatsApp Image 2025-11-18 at 3.14.57 PM (2).jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/d798276efdcebcc989353484f58d914ae011510c9df2a5ce4b2b2303d377b89e.webp",
+          "projects": [
+            "zeds"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "0425f9d071d3797a504373b19b33a880ac037c680e9ba557b8f8bd38a0b8afd0",
+      "index": 111,
+      "profile": "sign-bl-portrait",
+      "width": 1000,
+      "height": 1250,
+      "changed": true,
+      "outputSha256": "85594e8747aa710b6c58acd9d24c8ac8776a00dbfff0c461712a595afff6194e",
+      "masterSha256": "10b371be60824ba1664f439136bab6402c01742a63bd04fe30a7980d3876d0ca",
+      "maskRectangles": [
+        [
+          56,
+          1051,
+          186,
+          96
+        ],
+        [
+          161,
+          1189,
+          771,
+          40
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1765633525284WhatsApp Image 2025-11-18 at 3.14.57 PM (1).jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/0425f9d071d3797a504373b19b33a880ac037c680e9ba557b8f8bd38a0b8afd0.webp",
+          "projects": [
+            "zeds"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "dc5b7da8ef9b313182feb7d680168bdca9543832c503297cd49ca75f857c8a0d",
+      "index": 112,
+      "profile": "sign-bl-portrait",
+      "width": 1000,
+      "height": 1250,
+      "changed": true,
+      "outputSha256": "f17042faa01f5a7bc1aab714db0d02110b8420adfeaee74ce2454665be875070",
+      "masterSha256": "4e0633dd4ced01a62a3615f710ae3c022aa7e1db4f18e22a63f8ef53a54de3a9",
+      "maskRectangles": [
+        [
+          56,
+          1051,
+          186,
+          96
+        ],
+        [
+          161,
+          1189,
+          771,
+          40
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1765633525291WhatsApp Image 2025-11-18 at 3.14.58 PM (3).jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/dc5b7da8ef9b313182feb7d680168bdca9543832c503297cd49ca75f857c8a0d.webp",
+          "projects": [
+            "zeds"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "d4de09749187b5cfd4622d3d236c453a09d5e0bc351b2e12b1c841aabcfa8dc9",
+      "index": 113,
+      "profile": "sign-bl-portrait",
+      "width": 1000,
+      "height": 1250,
+      "changed": true,
+      "outputSha256": "6633d6d16dd9eb4e711c0de9dc0b45fcccb5a0e07fd626df3679ae5e9167069c",
+      "masterSha256": "d36be88f39bd230ee95865432919044001b833f51c88d6003571e68a087230e0",
+      "maskRectangles": [
+        [
+          56,
+          1051,
+          186,
+          96
+        ],
+        [
+          161,
+          1189,
+          771,
+          40
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1765633525290WhatsApp Image 2025-11-18 at 3.14.57 PM.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/d4de09749187b5cfd4622d3d236c453a09d5e0bc351b2e12b1c841aabcfa8dc9.webp",
+          "projects": [
+            "zeds"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "f0bf0e590983c57266cbf620ca84c84cabdc50edf0d7d22a9bc5546e92b4bd4d",
+      "index": 114,
+      "profile": "sign-bl-portrait",
+      "width": 1000,
+      "height": 1250,
+      "changed": true,
+      "outputSha256": "ce04138896fab4939ab23ca168003d15c8e034d0f4cc08f459c0fd324567e90b",
+      "masterSha256": "26c04a5b1964b00047e7263deeeebb30abb50ca694667ecdaad6af4aa1fbc90d",
+      "maskRectangles": [
+        [
+          56,
+          1051,
+          186,
+          96
+        ],
+        [
+          161,
+          1189,
+          771,
+          40
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1765633525295WhatsApp Image 2025-11-18 at 3.14.58 PM.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/f0bf0e590983c57266cbf620ca84c84cabdc50edf0d7d22a9bc5546e92b4bd4d.webp",
+          "projects": [
+            "zeds"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "c9a530245ee001005980fe00fb3bce1c1195a950f1c2550533f33643c421e4bf",
+      "index": 115,
+      "profile": "sign-bl-portrait",
+      "width": 1000,
+      "height": 1250,
+      "changed": true,
+      "outputSha256": "f485c921b77bc407754102895cec8a141206521570801b343f2ed05d4c97a8f3",
+      "masterSha256": "de10ee3c49bd03e4b76884545c540a88f3ce8d3cb7951dbcb3391a344359d01d",
+      "maskRectangles": [
+        [
+          56,
+          1051,
+          186,
+          96
+        ],
+        [
+          161,
+          1189,
+          771,
+          40
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1765633525292WhatsApp Image 2025-11-18 at 3.14.58 PM (5).jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/c9a530245ee001005980fe00fb3bce1c1195a950f1c2550533f33643c421e4bf.webp",
+          "projects": [
+            "zeds"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "c9bae898d2ba7864a5650b65e5215319eae3d5641107a4705154bf517a8107b1",
+      "index": 116,
+      "profile": "sign-bl-portrait",
+      "width": 1000,
+      "height": 1250,
+      "changed": true,
+      "outputSha256": "ab02c8287a1848af0535e65384987ba0bcbddf09288d76524ec8c99361a1600c",
+      "masterSha256": "314c9f42af61a40408c12d4f98aa89506321fd0223b93c7181d3cf12a497b8d3",
+      "maskRectangles": [
+        [
+          56,
+          1051,
+          186,
+          96
+        ],
+        [
+          161,
+          1189,
+          771,
+          40
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1765633525298WhatsApp Image 2025-11-18 at 3.14.59 PM (1).jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/c9bae898d2ba7864a5650b65e5215319eae3d5641107a4705154bf517a8107b1.webp",
+          "projects": [
+            "zeds"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "25491257938d614d607351e17d67f77c7a94bf090e592e216fe84990fecbe680",
+      "index": 117,
+      "profile": "sign-bl-portrait",
+      "width": 1000,
+      "height": 1250,
+      "changed": true,
+      "outputSha256": "24a432b7e4bb86c2ee93e7a6be4a1dd67d4df5e4bf8f7c91990b94a3f631f6c1",
+      "masterSha256": "3057270b76f7736ca048360030216f797a81d1fa124cc70a1a9ce6204f618dc1",
+      "maskRectangles": [
+        [
+          56,
+          1051,
+          186,
+          96
+        ],
+        [
+          161,
+          1189,
+          771,
+          40
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1765633525301WhatsApp Image 2025-11-18 at 3.14.59 PM.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/25491257938d614d607351e17d67f77c7a94bf090e592e216fe84990fecbe680.webp",
+          "projects": [
+            "zeds"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "12a2f5c67fc8c942692a90d87c0c22dd9f3b52c0b22dbbba39ae814597a12600",
+      "index": 118,
+      "profile": "hp-cover",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "62cfc403b2faabb250eda7ce35dbe6b90c02815c715988cf1a45622017cdf5e6",
+      "masterSha256": "f3592130f2296a1eb6edb9c59b44150b166cd95996b7a52722a64b6bd90b5c03",
+      "maskRectangles": [
+        [
+          0,
+          0,
+          1080,
+          1080
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/eGGpocRUz0jlPV373tN9hpZiN8Xdd9qRur6yIvEV.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/12a2f5c67fc8c942692a90d87c0c22dd9f3b52c0b22dbbba39ae814597a12600.webp",
+          "projects": [
+            "hp-omen-max"
+          ]
+        },
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/dVmnxKrfXJiipRNMWugCYqaYuTZfTsQ4qINyNbOI.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/12a2f5c67fc8c942692a90d87c0c22dd9f3b52c0b22dbbba39ae814597a12600.webp",
+          "projects": [
+            "hp-omen-max"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "c27f7019696fd438502e9e074df8011b3405abe8c25fa61bbafbbb70bb932d74",
+      "index": 119,
+      "profile": "gradient-frame",
+      "width": 1280,
+      "height": 1600,
+      "changed": true,
+      "outputSha256": "614b996d7b7b74823025a4aa04c4189a2733b465758a349356148fd214cd9b41",
+      "masterSha256": "ce5ac18902f3f962faac5a9a5ec3079fd091d1c6dbf9d0c271bbc1ebbf82566a",
+      "maskRectangles": [
+        [
+          26,
+          22,
+          262,
+          66
+        ],
+        [
+          0,
+          1414,
+          1280,
+          186
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1768998454543WhatsApp Image 2026-01-04 at 10.50.28 PM.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/c27f7019696fd438502e9e074df8011b3405abe8c25fa61bbafbbb70bb932d74.webp",
+          "projects": [
+            "hp-omen-max"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "b58d0acbddbc6f9e5fbbc24f147b41b36dc2d8918ae2276ce62ca73c23fedea8",
+      "index": 120,
+      "profile": "gradient-frame",
+      "width": 1280,
+      "height": 1600,
+      "changed": true,
+      "outputSha256": "bf5b288c599221e074e9023eb1ded7c5cf4eb68dea145e91fdb348bb41988796",
+      "masterSha256": "dbdb024335c9bf3dbf0832a13701fc793c151ec00831489f02a62af50e07dc9b",
+      "maskRectangles": [
+        [
+          26,
+          22,
+          262,
+          66
+        ],
+        [
+          0,
+          1414,
+          1280,
+          186
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1768998454542WhatsApp Image 2026-01-04 at 10.50.26 PM.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/b58d0acbddbc6f9e5fbbc24f147b41b36dc2d8918ae2276ce62ca73c23fedea8.webp",
+          "projects": [
+            "hp-omen-max"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "f2d0bf5159cb8e4c8f98111e599f31703a47c2f03bf49dfa9ac30d528f7d032d",
+      "index": 121,
+      "profile": "gradient-frame",
+      "width": 1280,
+      "height": 1600,
+      "changed": true,
+      "outputSha256": "bd2b718f4672e6805cebb9077ca5e0ecb51f3ac3eb7b4ad7db82d3ee8b3ddfb5",
+      "masterSha256": "56de990bd9a4075b6e1089bf8a6927a044d67a4336b360e352f96095341bd910",
+      "maskRectangles": [
+        [
+          26,
+          22,
+          262,
+          66
+        ],
+        [
+          0,
+          1414,
+          1280,
+          186
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1768998454544WhatsApp Image 2026-01-04 at 10.50.30 PM.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/f2d0bf5159cb8e4c8f98111e599f31703a47c2f03bf49dfa9ac30d528f7d032d.webp",
+          "projects": [
+            "hp-omen-max"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "e08e262ceabdc7fdd38c770cc7896ed254969de8aec99c7c4a1af93dfc0b25bf",
+      "index": 122,
+      "profile": "gradient-frame",
+      "width": 1280,
+      "height": 1600,
+      "changed": true,
+      "outputSha256": "17cef5fcf94c1037dac7683cfcd1015fa8d51527758e0b62b57895c22652097b",
+      "masterSha256": "a34955adb428bc2f32d88a2bf93d0a8f6ed2a50ae358d7efc8e916c01f4831a5",
+      "maskRectangles": [
+        [
+          26,
+          22,
+          262,
+          66
+        ],
+        [
+          0,
+          1414,
+          1280,
+          186
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1768998454544WhatsApp Image 2026-01-04 at 10.50.31 PM.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/e08e262ceabdc7fdd38c770cc7896ed254969de8aec99c7c4a1af93dfc0b25bf.webp",
+          "projects": [
+            "hp-omen-max"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "f1daa7e29152a026a1882c13d4b6d55627f3c67b7f15f2aac7449d13a8167585",
+      "index": 123,
+      "profile": "gradient-frame",
+      "width": 1280,
+      "height": 1600,
+      "changed": true,
+      "outputSha256": "77ae8e098f8c3e93e0a39954ece96076ac744c12a5c83eb22f436068e5d89c00",
+      "masterSha256": "a5fb3d31111d8ec53e5252616443d64ddd41b47acf005423718d0bdf3c6ea59d",
+      "maskRectangles": [
+        [
+          26,
+          22,
+          262,
+          66
+        ],
+        [
+          0,
+          1414,
+          1280,
+          186
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1768998454545WhatsApp Image 2026-01-04 at 10.50.33 PM.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/f1daa7e29152a026a1882c13d4b6d55627f3c67b7f15f2aac7449d13a8167585.webp",
+          "projects": [
+            "hp-omen-max"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "b5ce97ee83062ae3ba686224d873c248f98e02251ed8907880e1eb8d3b3f515c",
+      "index": 124,
+      "profile": "gradient-frame",
+      "width": 1280,
+      "height": 1600,
+      "changed": true,
+      "outputSha256": "0cf1b16b07269a60f7b90904a7638f2ffca319cecf56a5897b49a3537d2a34dc",
+      "masterSha256": "517925debd8c5d1b3c1e2c35ada5ddd5cad4c54a541318c300a94f31f9c576fb",
+      "maskRectangles": [
+        [
+          26,
+          22,
+          262,
+          66
+        ],
+        [
+          0,
+          1414,
+          1280,
+          186
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1768998454546WhatsApp Image 2026-01-04 at 10.50.34 PM (1).jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/b5ce97ee83062ae3ba686224d873c248f98e02251ed8907880e1eb8d3b3f515c.webp",
+          "projects": [
+            "hp-omen-max"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "6984005fb8433da9070f77c4b9ab2a28c3f877147b182de3b8c5e4b5b0d9cc3f",
+      "index": 125,
+      "profile": "gradient-frame",
+      "width": 1280,
+      "height": 1600,
+      "changed": true,
+      "outputSha256": "5cf19aed351dc6d62834753aeeed0e35d904a42014c83d6042706525122c83af",
+      "masterSha256": "f1ed78b630e6a2c3e6abdc2909fd7f9944c244076a6ae3154153aa11a91512df",
+      "maskRectangles": [
+        [
+          26,
+          22,
+          262,
+          66
+        ],
+        [
+          0,
+          1414,
+          1280,
+          186
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1768998454546WhatsApp Image 2026-01-04 at 10.50.34 PM.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/6984005fb8433da9070f77c4b9ab2a28c3f877147b182de3b8c5e4b5b0d9cc3f.webp",
+          "projects": [
+            "hp-omen-max"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "98afcc215e82895ec2d262f13a512a5692fa7b9303b45e412e302a10c5334357",
+      "index": 126,
+      "profile": "gradient-frame",
+      "width": 1280,
+      "height": 1600,
+      "changed": true,
+      "outputSha256": "547a552f9300c6ad33df95706db027f35f206750662f410e70fdcf44bb8598e1",
+      "masterSha256": "14af8bce64380cc45c747800c1f1bb8522434c5ca65372714846844b37eaf1b2",
+      "maskRectangles": [
+        [
+          26,
+          22,
+          262,
+          66
+        ],
+        [
+          0,
+          1414,
+          1280,
+          186
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1768998454547WhatsApp Image 2026-01-04 at 10.50.36 PM.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/98afcc215e82895ec2d262f13a512a5692fa7b9303b45e412e302a10c5334357.webp",
+          "projects": [
+            "hp-omen-max"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "2e23ce456b531817bc1938e4ed9df5a372eb763662a34c82bbe00db6838ec91f",
+      "index": 127,
+      "profile": "gradient-frame",
+      "width": 1280,
+      "height": 1600,
+      "changed": true,
+      "outputSha256": "8f2bf08d4b41ec550c43a0d87cd3875a482032a4d7a43f800d8c3f32be59b043",
+      "masterSha256": "6592e1ca78e06ae3b79e13bbd223f806515c4fab03da11dbdd7e662cb2dbd8af",
+      "maskRectangles": [
+        [
+          26,
+          22,
+          262,
+          66
+        ],
+        [
+          0,
+          1414,
+          1280,
+          186
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1768998454547WhatsApp Image 2026-01-04 at 10.50.37 PM.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/2e23ce456b531817bc1938e4ed9df5a372eb763662a34c82bbe00db6838ec91f.webp",
+          "projects": [
+            "hp-omen-max"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "33edf220995c49621cd073baf3637f2e74da6b26bb695dae714ff7ae4ba12ab5",
+      "index": 128,
+      "profile": "gradient-frame",
+      "width": 1280,
+      "height": 1600,
+      "changed": true,
+      "outputSha256": "61350211e2f6ca05a9ca77841f8db9cdad61d68980767c2b1cb21316c773ac1f",
+      "masterSha256": "4426363975ccc307e54801ba048ddae404bd3d5f60f69c3c8d66f0d16ed9d48d",
+      "maskRectangles": [
+        [
+          26,
+          22,
+          262,
+          66
+        ],
+        [
+          0,
+          1414,
+          1280,
+          186
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1768998454548WhatsApp Image 2026-01-04 at 11.12.13 PM.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/33edf220995c49621cd073baf3637f2e74da6b26bb695dae714ff7ae4ba12ab5.webp",
+          "projects": [
+            "hp-omen-max"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "cb7b83fd6137839f7fce8dc04b02c43cd9acd8ac8cd797553c7378009396812f",
+      "index": 129,
+      "profile": "gradient-frame",
+      "width": 1280,
+      "height": 1600,
+      "changed": true,
+      "outputSha256": "fa5ab6a1330ae097fa1bfb24b27b6d3f69a081598d00c4311e6cb1b540218a11",
+      "masterSha256": "119961a02a41f919baa82b2ee4e3899e6f7cd6f636752515f3e822ddeb4daf1d",
+      "maskRectangles": [
+        [
+          26,
+          22,
+          262,
+          66
+        ],
+        [
+          0,
+          1414,
+          1280,
+          186
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1768998454548WhatsApp Image 2026-01-06 at 11.30.42 PM.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/cb7b83fd6137839f7fce8dc04b02c43cd9acd8ac8cd797553c7378009396812f.webp",
+          "projects": [
+            "hp-omen-max"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "5b9fa0ba5dce2e74173035eee6b28a749c866b149835aa91d322fe6da52e4c69",
+      "index": 130,
+      "profile": "gradient-frame",
+      "width": 1280,
+      "height": 1600,
+      "changed": true,
+      "outputSha256": "b541c61a797cb9982516de71b2029ef7652096b29f5670644027264cf923fd4f",
+      "masterSha256": "a1ac8487e3bba2e64c686e2aa96a9e8fd72d316b95ec476b8ccc77c8bd91eb91",
+      "maskRectangles": [
+        [
+          26,
+          22,
+          262,
+          66
+        ],
+        [
+          0,
+          1414,
+          1280,
+          186
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1768998454549WhatsApp Image 2026-01-06 at 11.30.43 PM.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/5b9fa0ba5dce2e74173035eee6b28a749c866b149835aa91d322fe6da52e4c69.webp",
+          "projects": [
+            "hp-omen-max"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "f43b1e95e359e71b07a8986fbabfa207f9050159604a336c9d62060a2b4a5d50",
+      "index": 131,
+      "profile": "sam-cover",
+      "width": 1638,
+      "height": 2048,
+      "changed": true,
+      "outputSha256": "8155240e0bd956f9db414b941748b77c824d8f54ba961587e44dc9c7639812a7",
+      "masterSha256": "bdf8536f6762a1ff81810528f49b10a3be032484d8d0e72a565d738feba43285",
+      "maskRectangles": [
+        [
+          0,
+          0,
+          1638,
+          2048
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/ItKp7OMInq0go4qqIkcEnjoolXlszZWs1koG3GKO.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/f43b1e95e359e71b07a8986fbabfa207f9050159604a336c9d62060a2b4a5d50.webp",
+          "projects": [
+            "sam-precious-metals"
+          ]
+        },
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/campaigns/3U4jMab3RWbyPXFUiKtBfunNnPkmX7pDHOcLySML.jpg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/f43b1e95e359e71b07a8986fbabfa207f9050159604a336c9d62060a2b4a5d50.webp",
+          "projects": [
+            "sam-precious-metals"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "7d4e4ea3c0fab50a3b7f858e7637e2eb90e0d678256e1d92687ff82469b0f194",
+      "index": 132,
+      "profile": "gradient-frame",
+      "width": 1280,
+      "height": 1600,
+      "changed": true,
+      "outputSha256": "57b8b8c07a165acc0839ac04faae1d9bb65cfed26946cab5e05c9abab04c836f",
+      "masterSha256": "26872ecedc35af935563f77da98aff43c8d1dd87b223e74c731ffd4a6f6f774e",
+      "maskRectangles": [
+        [
+          26,
+          22,
+          262,
+          66
+        ],
+        [
+          0,
+          1414,
+          1280,
+          186
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1768999264853WhatsApp Image 2026-01-06 at 11.37.33 PM.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/7d4e4ea3c0fab50a3b7f858e7637e2eb90e0d678256e1d92687ff82469b0f194.webp",
+          "projects": [
+            "sam-precious-metals"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "d74b21fe008ae95d37ae61f1892fffb613611271be031bbf24095c5466c1aab2",
+      "index": 133,
+      "profile": "gradient-frame",
+      "width": 1280,
+      "height": 1600,
+      "changed": true,
+      "outputSha256": "02adb3791a01af9bcefe00ada23d6411407a1de9c596eadaa1478a8dbb988eb0",
+      "masterSha256": "f6a794dc3e7f561f1bbf1d224d4116a43c1284f52f43ef9e1ab79f13c16f8a72",
+      "maskRectangles": [
+        [
+          26,
+          22,
+          262,
+          66
+        ],
+        [
+          0,
+          1414,
+          1280,
+          186
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1768999264856WhatsApp Image 2026-01-06 at 11.37.39 PM.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/d74b21fe008ae95d37ae61f1892fffb613611271be031bbf24095c5466c1aab2.webp",
+          "projects": [
+            "sam-precious-metals"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "89daf40f8d569825f90a78aed5dadfd9750484629adee3250f6ab7541f2c80a1",
+      "index": 134,
+      "profile": "gradient-frame",
+      "width": 1280,
+      "height": 1600,
+      "changed": true,
+      "outputSha256": "a1cd14b9e8a747f9a03da155277fa641006c5f1ff625d02b9d6ee51a0338d2f9",
+      "masterSha256": "a63a02b01c1012d13e598ec8bb962b585c2c210dbde8fc46ffe5d16327298762",
+      "maskRectangles": [
+        [
+          26,
+          22,
+          262,
+          66
+        ],
+        [
+          0,
+          1414,
+          1280,
+          186
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1768999264855WhatsApp Image 2026-01-06 at 11.37.34 PM.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/89daf40f8d569825f90a78aed5dadfd9750484629adee3250f6ab7541f2c80a1.webp",
+          "projects": [
+            "sam-precious-metals"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "15fd7e453f62fc083ca394cf60622104ed97307fafd24efb65679bf6e4fb793d",
+      "index": 135,
+      "profile": "gradient-frame",
+      "width": 1280,
+      "height": 1600,
+      "changed": true,
+      "outputSha256": "9e3524cc3acf3b780d49486c808453ce65e29572b7e45cc1385025c66e9af070",
+      "masterSha256": "ccee3f4566e9971eb316faeafc95c88c36dced228ba3ac461e03dfe0ab12cf83",
+      "maskRectangles": [
+        [
+          26,
+          22,
+          262,
+          66
+        ],
+        [
+          0,
+          1414,
+          1280,
+          186
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1768999264856WhatsApp Image 2026-01-06 at 11.37.40 PM (1).jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/15fd7e453f62fc083ca394cf60622104ed97307fafd24efb65679bf6e4fb793d.webp",
+          "projects": [
+            "sam-precious-metals"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "c125d5803e855dc41e4bae371d3f23ad23dc1684e71e704a56f24c3dac284ead",
+      "index": 136,
+      "profile": "gradient-frame",
+      "width": 1280,
+      "height": 1600,
+      "changed": true,
+      "outputSha256": "38cba838c01739979680c48f6d0c7b656779b7c7593348b5974963fa6a3c8103",
+      "masterSha256": "7e85fb9e07f6fe3ad576045dfe29ef0397cf3c0c4f11eb4b0e497ec9582d68a9",
+      "maskRectangles": [
+        [
+          26,
+          22,
+          262,
+          66
+        ],
+        [
+          0,
+          1414,
+          1280,
+          186
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1768999264858WhatsApp Image 2026-01-06 at 11.37.41 PM (1).jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/c125d5803e855dc41e4bae371d3f23ad23dc1684e71e704a56f24c3dac284ead.webp",
+          "projects": [
+            "sam-precious-metals"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "e0f47339d42e9ffbbec377dbf3f5c99b470c29d9d567729fb8034c2545ff9562",
+      "index": 137,
+      "profile": "gradient-frame",
+      "width": 1280,
+      "height": 1600,
+      "changed": true,
+      "outputSha256": "30d62c1483c605496290493679ab17d429207ef20e044c84a27e01d06c974569",
+      "masterSha256": "5435d5dd4fc1abc062ab93404b17bf02ab882a60627df037fe1c65cf3155f011",
+      "maskRectangles": [
+        [
+          26,
+          22,
+          262,
+          66
+        ],
+        [
+          0,
+          1414,
+          1280,
+          186
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1768999264859WhatsApp Image 2026-01-06 at 11.37.41 PM.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/e0f47339d42e9ffbbec377dbf3f5c99b470c29d9d567729fb8034c2545ff9562.webp",
+          "projects": [
+            "sam-precious-metals"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "4eb231385e5df0a2caaafc107d1447e79d16406fc1c3f97fb81b83bbb3801297",
+      "index": 138,
+      "profile": "gradient-frame",
+      "width": 1280,
+      "height": 1600,
+      "changed": true,
+      "outputSha256": "d5b6bd44efdaef2a03c18b43e5fcbb88ce8989c70437d51b78a5fdefd8d17036",
+      "masterSha256": "11fcb5d3d8ff47e40309b0a89af9a05af68724872d32e0644a9d59f1712853a1",
+      "maskRectangles": [
+        [
+          26,
+          22,
+          262,
+          66
+        ],
+        [
+          0,
+          1414,
+          1280,
+          186
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1768999264860WhatsApp Image 2026-01-06 at 11.37.42 PM (1).jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/4eb231385e5df0a2caaafc107d1447e79d16406fc1c3f97fb81b83bbb3801297.webp",
+          "projects": [
+            "sam-precious-metals"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "fceea7dc6b652b05153c361ba5f818cd1608cb4baae2cf8d0ebd14e7bdb19f94",
+      "index": 139,
+      "profile": "gradient-frame",
+      "width": 1280,
+      "height": 1600,
+      "changed": true,
+      "outputSha256": "95cb6c325a37d96e1192b418e44a3777f3fd29f40141a7c03337302d2565ce28",
+      "masterSha256": "fd4c824f9e17ea29f4c0f6b9c317fb22e6cefc61ec23c7a5080a04720a8f6bd8",
+      "maskRectangles": [
+        [
+          26,
+          22,
+          262,
+          66
+        ],
+        [
+          0,
+          1414,
+          1280,
+          186
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1768999264857WhatsApp Image 2026-01-06 at 11.37.40 PM.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/fceea7dc6b652b05153c361ba5f818cd1608cb4baae2cf8d0ebd14e7bdb19f94.webp",
+          "projects": [
+            "sam-precious-metals"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "5f570e9eab4652100b5e8e37604686a4f2674c48e47cf1b3817bf6046b135937",
+      "index": 140,
+      "profile": "gradient-frame",
+      "width": 1280,
+      "height": 1600,
+      "changed": true,
+      "outputSha256": "aaae9a1da2ea8beec46f10314b35e2ab49742a79ce7c85d24778199459c2d9a0",
+      "masterSha256": "ba63633f8b7a8296e076dd3e1559a4c4b322afe44a0da2d99ed04399da643683",
+      "maskRectangles": [
+        [
+          26,
+          22,
+          262,
+          66
+        ],
+        [
+          0,
+          1414,
+          1280,
+          186
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/legacy-egypt/portfolio/1768999268340WhatsApp Image 2026-01-06 at 11.37.42 PM.jpeg",
+          "replacementUrl": "/storage/legacy-egypt/portfolio-horizon-v1/5f570e9eab4652100b5e8e37604686a4f2674c48e47cf1b3817bf6046b135937.webp",
+          "projects": [
+            "sam-precious-metals"
+          ]
+        }
+      ]
+    }
+  ]
+}
