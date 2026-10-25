@@ -1,0 +1,6 @@
+const fs=require('node:fs'),cp=require('node:child_process');const b=process.env.PROJECT_PHOTO_BRANDING_WORKSPACE;const rows=JSON.parse(fs.readFileSync(b+'/'+(process.argv[2]||'render-ledger.json'),'utf8'));const errors=[];let checked=0;for(const r of rows){if(!r.changed||['hp-cover','sam-cover'].includes(r.profile))continue;const draw=r.masks.map(([x,y,w,h])=>`rectangle ${x},${y} ${x+w-1},${y+h-1}`).join(' ');const result=cp.execFileSync('convert',['-limit','thread','2','-limit','memory','1GiB','-limit','map','2GiB',r.file,'-background','white','-alpha','remove','-alpha','off','(',(r.masterOutput||r.output),'-background','white','-alpha','remove','-alpha','off',')','-compose','Difference','-composite','(','-size',`${r.width}x${r.height}`,'xc:white','-fill','black','-draw',draw,')','-compose','Multiply','-composite','-format','%[fx:maxima]','info:'],{encoding:'utf8'}).trim();if(Number(result)>1/255)errors.push({index:r.index,maxOutsideDifference:result});checked++;}const report={allowed8BitRoundingLevels:1,pixelPreservationChecks:checked,coverDesignsVisuallyChecked:2,errors};fs.writeFileSync(b+'/'+(process.argv[2]?'sample-pixel-verification.json':'pixel-verification.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report));if(errors.length)process.exitCode=1;
+
+
+
+
+

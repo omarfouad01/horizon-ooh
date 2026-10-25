@@ -1,0 +1,647 @@
+{
+  "country": "saudi",
+  "version": 1,
+  "processedAt": "2026-10-25",
+  "logos": {
+    "onDark": "resources/branding/horizon-on-dark.png",
+    "onLight": "resources/branding/horizon-on-light.png"
+  },
+  "photos": [
+    {
+      "sourceSha256": "e24653a0c9bd115985e653ac390678411e18b0ccfb41a48a522256fcf1bf6f57",
+      "index": 141,
+      "profile": "small-sign-bl",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "ffd43612148f5ce3da52ab61d0f9189e61e0f7be35b3ac78bedeb9f64cf86afc",
+      "masterSha256": "b2dd0107ad6ffe951e2847a41aeb6f94a9696d3724c987a08e08f050ac66264a",
+      "maskRectangles": [
+        [
+          59,
+          891,
+          194,
+          90
+        ],
+        [
+          162,
+          1011,
+          918,
+          39
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/saudi/portfolio/campaigns/KInRrGttAwuDIgex5wWJtFWZsBYIQATwmJTTVRCD.jpeg",
+          "replacementUrl": "/storage/saudi/portfolio-horizon-v1/e24653a0c9bd115985e653ac390678411e18b0ccfb41a48a522256fcf1bf6f57.webp",
+          "projects": [
+            "agex"
+          ]
+        },
+        {
+          "originalUrl": "/storage/saudi/portfolio/campaigns/fKGUsFeJkIM4b9OTHb4c74Nikti3GCRiYdJpeA5B.jpeg",
+          "replacementUrl": "/storage/saudi/portfolio-horizon-v1/e24653a0c9bd115985e653ac390678411e18b0ccfb41a48a522256fcf1bf6f57.webp",
+          "projects": [
+            "agex"
+          ]
+        },
+        {
+          "originalUrl": "/storage/saudi/portfolio/17001359600373.jpg",
+          "replacementUrl": "/storage/saudi/portfolio-horizon-v1/e24653a0c9bd115985e653ac390678411e18b0ccfb41a48a522256fcf1bf6f57.webp",
+          "projects": [
+            "agex"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "0bc12957f21df328c8bad69ab674ceb16d584b484467b1e34b964b9ad927c547",
+      "index": 142,
+      "profile": "small-sign-bl",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "fcfb8cd302e7fd9be42c98e24f5c13bb0c41aecdca9fc4f678d7ecc64705e778",
+      "masterSha256": "5b4ec4e6d6aa36b686b48e3dfc7267e07003c854e7d32ffb969f88f2ba4607a0",
+      "maskRectangles": [
+        [
+          59,
+          891,
+          194,
+          90
+        ],
+        [
+          162,
+          1011,
+          918,
+          39
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/saudi/portfolio/16998855962614.jpg",
+          "replacementUrl": "/storage/saudi/portfolio-horizon-v1/0bc12957f21df328c8bad69ab674ceb16d584b484467b1e34b964b9ad927c547.webp",
+          "projects": [
+            "agex"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "662865ecee4bffa96617bc9ee124bd2e07afbf3dd22bc0dac3e5137e00deee69",
+      "index": 143,
+      "profile": "small-sign-bl",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "f9fbc3107737935a3a40ed3bba23c96de2058ef52d7978a6a0e88fdea66ebf65",
+      "masterSha256": "0089ff347645b338f91a2f0a44e0a76cf65f95f0dba374e360abc8b68129d22d",
+      "maskRectangles": [
+        [
+          59,
+          891,
+          194,
+          90
+        ],
+        [
+          162,
+          1011,
+          918,
+          39
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/saudi/portfolio/16998855962635.jpg",
+          "replacementUrl": "/storage/saudi/portfolio-horizon-v1/662865ecee4bffa96617bc9ee124bd2e07afbf3dd22bc0dac3e5137e00deee69.webp",
+          "projects": [
+            "agex"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "d2c822d4c037dd1382d15a6e803c224ddc789c648e23b56936d485357b470ddd",
+      "index": 144,
+      "profile": "small-sign-bl",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "6978321b5c19a109e4ae417617d85b2252c9a297bcdea44f10ceb0fa48678e4c",
+      "masterSha256": "b09e9bd5797929e9e8f0fdab020f42faef87eedec7cd81023ba5b930c9d514a2",
+      "maskRectangles": [
+        [
+          59,
+          891,
+          194,
+          90
+        ],
+        [
+          162,
+          1011,
+          918,
+          39
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/saudi/portfolio/1699885596265392917135_801578125309091_122657670741382734_n.jpg",
+          "replacementUrl": "/storage/saudi/portfolio-horizon-v1/d2c822d4c037dd1382d15a6e803c224ddc789c648e23b56936d485357b470ddd.webp",
+          "projects": [
+            "agex"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "c1213c624c1d3e98d6c72d0ef7b29b10cb55f81ebf5e51744db9f300ffa1ddef",
+      "index": 145,
+      "profile": "small-sign-bl",
+      "width": 1080,
+      "height": 1080,
+      "changed": true,
+      "outputSha256": "167e715c5c6f5362274aa4bbfa3d4a8e546cbb89ba584678fe1ff057cc5dd9ec",
+      "masterSha256": "05fe89e4544309eec1cfdb78327d9650e909b2f47ba0a0d531a9e2143384ef04",
+      "maskRectangles": [
+        [
+          59,
+          891,
+          194,
+          90
+        ],
+        [
+          162,
+          1011,
+          918,
+          39
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/saudi/portfolio/17001359209982.jpg",
+          "replacementUrl": "/storage/saudi/portfolio-horizon-v1/c1213c624c1d3e98d6c72d0ef7b29b10cb55f81ebf5e51744db9f300ffa1ddef.webp",
+          "projects": [
+            "agex"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "3e59607d19f1127daeb49accae9a1b5ee3a11c6f6c191ba8e9276349af349f11",
+      "index": 146,
+      "profile": "fabex-cover",
+      "width": 4096,
+      "height": 4096,
+      "changed": true,
+      "outputSha256": "7b65cecc217a549d47a52c71d52e377f55f791bd18b74765314a36dbd9fc209e",
+      "masterSha256": "894ff797f68b112f7805f8283b6c92a1930bc45c798e924a7ef9819e141acd0c",
+      "maskRectangles": [
+        [
+          1745,
+          143,
+          618,
+          406
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/saudi/portfolio/campaigns/bJaPFcaDuoN9ErFfX9KJktZ6V5uH8sVzAYHqu9Yn.jpg",
+          "replacementUrl": "/storage/saudi/portfolio-horizon-v1/3e59607d19f1127daeb49accae9a1b5ee3a11c6f6c191ba8e9276349af349f11.webp",
+          "projects": [
+            "agex-fabex"
+          ]
+        },
+        {
+          "originalUrl": "/storage/saudi/portfolio/campaigns/R8ksDFIUAQydYBXyrl70XBPk4y44Wko3Kr7mWzaR.jpg",
+          "replacementUrl": "/storage/saudi/portfolio-horizon-v1/3e59607d19f1127daeb49accae9a1b5ee3a11c6f6c191ba8e9276349af349f11.webp",
+          "projects": [
+            "agex-fabex"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "cd62124065c624643fa701c24ff3fb48abdb090921910c4b75cdd3e59a22226f",
+      "index": 147,
+      "profile": "sign-br-large",
+      "width": 2000,
+      "height": 2000,
+      "changed": true,
+      "outputSha256": "8f056e3ac0f5a2e1c98e5abeb07d3f1c5889f163b70b8f6f1e9fb76de8beeb4d",
+      "masterSha256": "c7ec0b97fafde663d9a9b1433426a54bee8dd3382b4187e7fafa9384bcf0bd9e",
+      "maskRectangles": [
+        [
+          1554,
+          1564,
+          404,
+          212
+        ],
+        [
+          54,
+          1860,
+          1688,
+          90
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/saudi/portfolio/172978728314802 (1).jpg",
+          "replacementUrl": "/storage/saudi/portfolio-horizon-v1/cd62124065c624643fa701c24ff3fb48abdb090921910c4b75cdd3e59a22226f.webp",
+          "projects": [
+            "agex-fabex"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "d9078663c0c8cf6685072270e7ca30cdea27d038753068ce4df5d1c992667049",
+      "index": 148,
+      "profile": "sign-br-large",
+      "width": 2000,
+      "height": 2000,
+      "changed": true,
+      "outputSha256": "04a3f13dd99f13e8ac2f37fafac39ac21a96afdd840602c5f1067b5a9c3163c6",
+      "masterSha256": "c5d58ebb08764d07e5181c434c5eeb7523611619ffb1e42a597ce1d85f2ea454",
+      "maskRectangles": [
+        [
+          1554,
+          1564,
+          404,
+          212
+        ],
+        [
+          54,
+          1860,
+          1688,
+          90
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/saudi/portfolio/172978728314901.jpg",
+          "replacementUrl": "/storage/saudi/portfolio-horizon-v1/d9078663c0c8cf6685072270e7ca30cdea27d038753068ce4df5d1c992667049.webp",
+          "projects": [
+            "agex-fabex"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "9fe6f030d167a629870373583d502da860a41821c26378bad4e99199218e4f3c",
+      "index": 149,
+      "profile": "sign-br-large",
+      "width": 2000,
+      "height": 2000,
+      "changed": true,
+      "outputSha256": "cd651690a6598dfa66ad3269db5bcec16d2af02c1daa605808a76b9fac4b1200",
+      "masterSha256": "34e90f9cd5d19b0601da0555d87cfc76f0b2f181936fe9604584dfbc14ebc660",
+      "maskRectangles": [
+        [
+          1554,
+          1564,
+          404,
+          212
+        ],
+        [
+          54,
+          1860,
+          1688,
+          90
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/saudi/portfolio/172978728315000 (1).jpg",
+          "replacementUrl": "/storage/saudi/portfolio-horizon-v1/9fe6f030d167a629870373583d502da860a41821c26378bad4e99199218e4f3c.webp",
+          "projects": [
+            "agex-fabex"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "68ad6b619ba0c287fc6d0cd202be4a115decaeaab718e187a98ba6f4b84cb649",
+      "index": 150,
+      "profile": "sign-br-large",
+      "width": 2000,
+      "height": 2000,
+      "changed": true,
+      "outputSha256": "418bc5c04c565fa59abb0249b140eb0116997335ac2484adc1fb55df8db700f5",
+      "masterSha256": "ad0ce48c6b46500cde673de1db84bfde50e866ecc74bd7cf8b1e3b40d8a5aa02",
+      "maskRectangles": [
+        [
+          1554,
+          1564,
+          404,
+          212
+        ],
+        [
+          54,
+          1860,
+          1688,
+          90
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/saudi/portfolio/172978728315400.jpg",
+          "replacementUrl": "/storage/saudi/portfolio-horizon-v1/68ad6b619ba0c287fc6d0cd202be4a115decaeaab718e187a98ba6f4b84cb649.webp",
+          "projects": [
+            "agex-fabex"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "2e4cd3d0eb8f9a4277fef4ac532cf346a3b1132b3920883dd631f8e74c3eb5d2",
+      "index": 151,
+      "profile": "sign-br-large",
+      "width": 2000,
+      "height": 2000,
+      "changed": true,
+      "outputSha256": "9426379e6baaf746ebbd09d5dd24e3d7c1ac9edbe40fb5fd6529ed27f1196c03",
+      "masterSha256": "2b5d31424420bdf9ee7c61912db06f1ea81145378db47dfa5710dc821814bd91",
+      "maskRectangles": [
+        [
+          1554,
+          1564,
+          404,
+          212
+        ],
+        [
+          54,
+          1860,
+          1688,
+          90
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/saudi/portfolio/1729787785967464350315_1076683337798567_3670575417948997036_n.jpg",
+          "replacementUrl": "/storage/saudi/portfolio-horizon-v1/2e4cd3d0eb8f9a4277fef4ac532cf346a3b1132b3920883dd631f8e74c3eb5d2.webp",
+          "projects": [
+            "agex-fabex"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "75afe4f3b9f788edf4189df01091282a3faff5c57b0b509eec762727838c2b00",
+      "index": 152,
+      "profile": "sign-br-large",
+      "width": 2000,
+      "height": 2000,
+      "changed": true,
+      "outputSha256": "386e6a062f549146cff62f6221cb44fd9074e70a12d31da6db1385debaf05ce6",
+      "masterSha256": "70d345cb31c892eae38335a3f5d6029311a02918a7a5feffaf884358c0eed3e2",
+      "maskRectangles": [
+        [
+          1554,
+          1564,
+          404,
+          212
+        ],
+        [
+          54,
+          1860,
+          1688,
+          90
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/saudi/portfolio/1729787882647464514117_1076683327798568_6390825017182020585_n.jpg",
+          "replacementUrl": "/storage/saudi/portfolio-horizon-v1/75afe4f3b9f788edf4189df01091282a3faff5c57b0b509eec762727838c2b00.webp",
+          "projects": [
+            "agex-fabex"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "a3c8b1cda121aa5e173dbc23c2d62101035a5c9ff2d64782565e8984c9a45544",
+      "index": 153,
+      "profile": "sign-bl-portrait",
+      "width": 1080,
+      "height": 1350,
+      "changed": true,
+      "outputSha256": "3d6bc779288e17689b5092fc6c09a41a83555aecee21a828c8dc1f0fcab221c8",
+      "masterSha256": "53d9b6808f4f39b547f81f23cbda6e6141a78b4d4c4adc17ab77ccd4757f7d04",
+      "maskRectangles": [
+        [
+          60,
+          1135,
+          201,
+          104
+        ],
+        [
+          174,
+          1284,
+          833,
+          43
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/saudi/portfolio/campaigns/gURdHi8kbxTO4qp3FXW4GqGfGACARizTpIjFyKyF.jpg",
+          "replacementUrl": "/storage/saudi/portfolio-horizon-v1/a3c8b1cda121aa5e173dbc23c2d62101035a5c9ff2d64782565e8984c9a45544.webp",
+          "projects": [
+            "kdk"
+          ]
+        },
+        {
+          "originalUrl": "/storage/saudi/portfolio/campaigns/z2WfwCBZRTNAwsVZVXOjBlTFwJvhOyM7KLaRsg3T.jpg",
+          "replacementUrl": "/storage/saudi/portfolio-horizon-v1/a3c8b1cda121aa5e173dbc23c2d62101035a5c9ff2d64782565e8984c9a45544.webp",
+          "projects": [
+            "kdk"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "3c77dd0b3f999c0aeed7dd17c0aa5be382a9b348ce1e7f64894af132eeab88e0",
+      "index": 154,
+      "profile": "sign-bl-portrait",
+      "width": 1080,
+      "height": 1350,
+      "changed": true,
+      "outputSha256": "d8e5d214920f4b1a9e919dbe2991c5264c4ba8bf655eb17cf9b80a28a6914003",
+      "masterSha256": "c1d3bf0fa8034c7a103842f9e0f101975e33d36ca50838ce1a785498bf70e34b",
+      "maskRectangles": [
+        [
+          60,
+          1135,
+          201,
+          104
+        ],
+        [
+          174,
+          1284,
+          833,
+          43
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/saudi/portfolio/1743546465766kdk copy4.jpg",
+          "replacementUrl": "/storage/saudi/portfolio-horizon-v1/3c77dd0b3f999c0aeed7dd17c0aa5be382a9b348ce1e7f64894af132eeab88e0.webp",
+          "projects": [
+            "kdk"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "7bc74aa14e4fee5ff20f7e1f31b54a98961d4507944a1d1306d85a13bb13bdfe",
+      "index": 155,
+      "profile": "sign-bl-portrait",
+      "width": 1080,
+      "height": 1350,
+      "changed": true,
+      "outputSha256": "063e545986e1b50ecade5fad82ec61cb52c4be09b41456c52b4ac523bedbd6fa",
+      "masterSha256": "f1f8710f5dad0fb7244d096982eb5bd65477386fadd81ff91d19afe1bbd07a37",
+      "maskRectangles": [
+        [
+          60,
+          1135,
+          201,
+          104
+        ],
+        [
+          174,
+          1284,
+          833,
+          43
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/saudi/portfolio/1743546465768kdk copy6.jpg",
+          "replacementUrl": "/storage/saudi/portfolio-horizon-v1/7bc74aa14e4fee5ff20f7e1f31b54a98961d4507944a1d1306d85a13bb13bdfe.webp",
+          "projects": [
+            "kdk"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "6871ad6eb0a2c0a6782352e2bbd19640dbe3effedeea4379e43a98c435633c19",
+      "index": 156,
+      "profile": "sign-bl-portrait",
+      "width": 1080,
+      "height": 1350,
+      "changed": true,
+      "outputSha256": "ab42563bb31c8ec8c9313a122067b8c9eddcc0342d1805d2e75d00261c20e3cf",
+      "masterSha256": "31707c6d70cfb73f910d55a7a3adf66a5f6b7e64228bb15a53b2104c642cd239",
+      "maskRectangles": [
+        [
+          60,
+          1135,
+          201,
+          104
+        ],
+        [
+          174,
+          1284,
+          833,
+          43
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/saudi/portfolio/1743546465769kdk copy5.jpg",
+          "replacementUrl": "/storage/saudi/portfolio-horizon-v1/6871ad6eb0a2c0a6782352e2bbd19640dbe3effedeea4379e43a98c435633c19.webp",
+          "projects": [
+            "kdk"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "37d5bfc6de94d58e3872e6c26b2685080b869ebb873e1688b4727b3dd91ea08c",
+      "index": 157,
+      "profile": "sign-bl-portrait",
+      "width": 1080,
+      "height": 1350,
+      "changed": true,
+      "outputSha256": "89b0590c66cb5978de5fae382d0959cb0fce97323983249c75e827bbed109365",
+      "masterSha256": "42fe69a71f2a5e2e87b226832c9bc347fb0e4d41eb34ec110cb4293dcff80370",
+      "maskRectangles": [
+        [
+          60,
+          1135,
+          201,
+          104
+        ],
+        [
+          174,
+          1284,
+          833,
+          43
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/saudi/portfolio/17435464657711 (2).jpg",
+          "replacementUrl": "/storage/saudi/portfolio-horizon-v1/37d5bfc6de94d58e3872e6c26b2685080b869ebb873e1688b4727b3dd91ea08c.webp",
+          "projects": [
+            "kdk"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "5fe7845c3f8dfb081d47380efd6168ece57088005ca1c289dd80b222425692c9",
+      "index": 158,
+      "profile": "unbranded",
+      "width": 960,
+      "height": 1280,
+      "changed": false,
+      "outputSha256": null,
+      "masterSha256": null,
+      "maskRectangles": [],
+      "sources": [
+        {
+          "originalUrl": "/storage/saudi/portfolio/1743546465772KDK - LED Screens - Jeddah (3).jpg",
+          "replacementUrl": "/storage/saudi/portfolio/1743546465772KDK - LED Screens - Jeddah (3).jpg",
+          "projects": [
+            "kdk"
+          ]
+        }
+      ]
+    },
+    {
+      "sourceSha256": "041a4a784137094835ff6008ea06a01bf34c4c155b9697cb44ebd803f08af932",
+      "index": 159,
+      "profile": "sign-bl-portrait",
+      "width": 1080,
+      "height": 1350,
+      "changed": true,
+      "outputSha256": "e39dfa30beecd7b4bd27967db616dcb09e7afb31aaed8a6b4bf1ba50f1420bea",
+      "masterSha256": "334b481f5ea8936efaa90f75cba0a0a88e352a5bf4b8334b77b1433c31c18d3c",
+      "maskRectangles": [
+        [
+          60,
+          1135,
+          201,
+          104
+        ],
+        [
+          174,
+          1284,
+          833,
+          43
+        ]
+      ],
+      "sources": [
+        {
+          "originalUrl": "/storage/saudi/portfolio/1743546465770kdk copy2.jpg",
+          "replacementUrl": "/storage/saudi/portfolio-horizon-v1/041a4a784137094835ff6008ea06a01bf34c4c155b9697cb44ebd803f08af932.webp",
+          "projects": [
+            "kdk"
+          ]
+        }
+      ]
+    }
+  ]
+}
