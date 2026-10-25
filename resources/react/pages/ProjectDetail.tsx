@@ -136,8 +136,9 @@ export default function ProjectDetail() {
   const caseStudySchema = {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": `${project.title} | HORIZON OOH Case Study`,
-    "description": project.overview?.substring(0, 200) ?? "",
+    "headline": seoName,
+    "inLanguage": isAr ? "ar" : "en",
+    "description": (isAr && project.overviewAr ? project.overviewAr : project.overview)?.substring(0, 200) ?? "",
     "image": project.heroImage ?? "",
     "author": {
       "@type": "Organization",
@@ -149,7 +150,7 @@ export default function ProjectDetail() {
       "name": "HORIZON OOH",
       "logo": { "@type": "ImageObject", "url": "https://dev.horizonooh.com/favicon.ico" },
     },
-    "mainEntityOfPage": { "@type": "WebPage", "@id": `https://dev.horizonooh.com/projects/${project.slug}` },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": `https://dev.horizonooh.com/${isAr ? "ar/" : ""}projects/${project.slug}` },
   };
 
 
