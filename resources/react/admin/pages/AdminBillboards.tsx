@@ -93,9 +93,14 @@ function InlineMapPicker({
     if (!divRef.current || mapRef.current) return
     const initLat = lat || 24.7136, initLng = lng || 46.6753
     const map = L.map(divRef.current, { center: [initLat, initLng], zoom: 13, zoomControl: true, zoomAnimation: false, fadeAnimation: false, markerZoomAnimation: false })
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors', maxZoom: 19,
+    const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles &copy; Esri &mdash; Sources: Esri, Maxar, Earthstar Geographics, and the GIS User Community',
+      maxNativeZoom: 19, maxZoom: 21,
     }).addTo(map)
+    const streets = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors', maxZoom: 19,
+    })
+    L.control.layers({ 'Satellite / الأقمار الصناعية': satellite, 'Streets / الشوارع': streets }, undefined, { position: 'topright' }).addTo(map)
     // aria fix: label the draggable admin pin
     const marker = L.marker([initLat, initLng], { icon: makeIcon(), draggable: true, title: 'Billboard location — drag to reposition', alt: 'Billboard location' }).addTo(map)
     marker.on('dragend', () => {
