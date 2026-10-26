@@ -1,0 +1,249 @@
+{
+  "batch": "garnish-trial-20261027",
+  "sourcePdfSha256": "95d761b44f3483d3d1da91f187f0e6328aecb37ee95aeb2f37b2f8f36a05576d",
+  "site": "egypt",
+  "supplierId": 244,
+  "existingInventoryUnchanged": true,
+  "rows": [
+    {
+      "code": "H-14471",
+      "title": "Gate - Almaza Bridge - Opposite EgyptAir Hospital",
+      "name_ar": "بوابه - كوبري ألماظة - أمام مستشفى مصر للطيران",
+      "type": "Gate",
+      "district_id": 5,
+      "size": "18 x 5",
+      "sqm": 90,
+      "sides": 4,
+      "quantity": 2,
+      "lat": 30.0897266,
+      "lng": 31.3472796,
+      "address": "Almaza Bridge, opposite EgyptAir Hospital, Abu Bakr El-Sedek Street, Heliopolis, Cairo, Egypt",
+      "address_ar": "كوبري ألماظة أمام مستشفى مصر للطيران، شارع أبو بكر الصديق، مصر الجديدة، القاهرة",
+      "pages": [
+        5,
+        6
+      ],
+      "coordinate_basis": "Approximate Almaza Park / Abu Bakr El-Sedek Street landmark from OSM Nominatim; not a surveyed billboard pin.",
+      "location_id": 2,
+      "supplier_id": 244,
+      "format": "Billboard",
+      "brightness": "Back Light",
+      "illuminated": true,
+      "availability": "Available",
+      "trial": true,
+      "description": "Gate billboard advertising at Almaza Bridge, opposite EgyptAir Hospital, Abu Bakr El-Sedek Street, Heliopolis, Cairo, Egypt. Display size: 18 x 5 metres. Backlit; 4 total advertising faces across 2 units. Imported from the Garnish August 2026 presentation as a separate trial listing. Map pin is approximate and based on the written address, not supplier-confirmed coordinates.",
+      "description_ar": "موقع إعلاني: كوبري ألماظة أمام مستشفى مصر للطيران، شارع أبو بكر الصديق، مصر الجديدة، القاهرة. المقاس: 18 x 5 متر. إضاءة باك لايت، بإجمالي 4 وجه وعدد 2 وحدة. تمت إضافته كسجل تجريبي مستقل من عرض مورد جارنيش لشهر أغسطس 2026. دبوس الخريطة تقريبي حسب العنوان وليس إحداثيات مؤكدة من المورد.",
+      "images": [
+        {
+          "source": "p5-0-Im0.jpg",
+          "sourceSha256": "542322a444152b2092f0361f5abb3eeed6f13659d978dd3406f60b86b30b14a2",
+          "fileName": "h-14471-garnish-20261027-1.jpg",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Gate - Almaza Bridge - Opposite EgyptAir Hospital — H-14471 — view 1",
+          "altAr": "بوابه - كوبري ألماظة - أمام مستشفى مصر للطيران — H-14471 — صورة 1",
+          "sha256": "0bca422e2075de8983c80a83c2f750782b138f0b0ef97a37a4380abc99281c42",
+          "bytes": 55151,
+          "url": "/images/h-14471-garnish-20261027-1.jpg"
+        },
+        {
+          "source": "p6-0-Im0.jpg",
+          "sourceSha256": "80d0b381ceb55ce76da99d41f65675a475c9a53c7b3db7924306cc0d980456f8",
+          "fileName": "h-14471-garnish-20261027-2.jpg",
+          "sortOrder": 1,
+          "isPrimary": false,
+          "alt": "Gate - Almaza Bridge - Opposite EgyptAir Hospital — H-14471 — view 2",
+          "altAr": "بوابه - كوبري ألماظة - أمام مستشفى مصر للطيران — H-14471 — صورة 2",
+          "sha256": "73c0a7830f2eebf28a425d6aa3bd8718963780fedab81f01414ba3eb303e98b0",
+          "bytes": 58641,
+          "url": "/images/h-14471-garnish-20261027-2.jpg"
+        }
+      ]
+    },
+    {
+      "code": "H-14472",
+      "title": "Uni Pole - Suez Road - After Cairo Airport Exit",
+      "name_ar": "يوني بول - طريق السويس - بعد مخرج مطار القاهرة",
+      "type": "Uni Pole",
+      "district_id": 457,
+      "size": "24 x 8",
+      "sqm": 192,
+      "sides": 2,
+      "quantity": 1,
+      "lat": 30.0800847,
+      "lng": 31.4212055,
+      "address": "Suez Road after Cairo Airport exit, Cairo, Egypt",
+      "address_ar": "طريق السويس بعد مخرج مطار القاهرة، القاهرة",
+      "pages": [
+        8,
+        9
+      ],
+      "coordinate_basis": "Approximate point on Suez Road based on existing Garnish inventory H-13458 and source address; not confirmed by supplier.",
+      "location_id": 2,
+      "supplier_id": 244,
+      "format": "Billboard",
+      "brightness": "Back Light",
+      "illuminated": true,
+      "availability": "Available",
+      "trial": true,
+      "description": "Uni Pole billboard advertising at Suez Road after Cairo Airport exit, Cairo, Egypt. Display size: 24 x 8 metres. Backlit; 2 total advertising faces across 1 units. Imported from the Garnish August 2026 presentation as a separate trial listing. Map pin is approximate and based on the written address, not supplier-confirmed coordinates.",
+      "description_ar": "موقع إعلاني: طريق السويس بعد مخرج مطار القاهرة، القاهرة. المقاس: 24 x 8 متر. إضاءة باك لايت، بإجمالي 2 وجه وعدد 1 وحدة. تمت إضافته كسجل تجريبي مستقل من عرض مورد جارنيش لشهر أغسطس 2026. دبوس الخريطة تقريبي حسب العنوان وليس إحداثيات مؤكدة من المورد.",
+      "images": [
+        {
+          "source": "p8-0-Im0.jpg",
+          "sourceSha256": "67fbd1ff95978a15ab1db550bfc12f3cd851e7953fb527be5d70198877635b93",
+          "fileName": "h-14472-garnish-20261027-1.jpg",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Uni Pole - Suez Road - After Cairo Airport Exit — H-14472 — view 1",
+          "altAr": "يوني بول - طريق السويس - بعد مخرج مطار القاهرة — H-14472 — صورة 1",
+          "sha256": "7e9b07b8863810499e321bd871632efe453e3e2455f655aa8d15731cff800cd4",
+          "bytes": 42151,
+          "url": "/images/h-14472-garnish-20261027-1.jpg"
+        },
+        {
+          "source": "p9-0-Im0.jpg",
+          "sourceSha256": "7955e4ad4fc2a801abeabed6095e4110db03fc5b9cd281c9fa94247e7fd72b8b",
+          "fileName": "h-14472-garnish-20261027-2.jpg",
+          "sortOrder": 1,
+          "isPrimary": false,
+          "alt": "Uni Pole - Suez Road - After Cairo Airport Exit — H-14472 — view 2",
+          "altAr": "يوني بول - طريق السويس - بعد مخرج مطار القاهرة — H-14472 — صورة 2",
+          "sha256": "d5c11d9a77f467eb599a6e9c4e9f7c7f8081b3674dc071cf32437de97323df8e",
+          "bytes": 52637,
+          "url": "/images/h-14472-garnish-20261027-2.jpg"
+        }
+      ]
+    },
+    {
+      "code": "H-14473",
+      "title": "Combo - El-Mosher Tantawy Axis - Gate A1",
+      "name_ar": "كومبو - محور المشير طنطاوي - بوابة A1",
+      "type": "Combo",
+      "district_id": 473,
+      "size": "16 x 8 + 6 x 3",
+      "sqm": null,
+      "sides": 20,
+      "quantity": 10,
+      "lat": 30.0213892,
+      "lng": 31.3741682,
+      "address": "El-Mosher Tantawy Axis, Gate A1, Cairo, Egypt",
+      "address_ar": "محور المشير طنطاوي، بوابة A1، القاهرة",
+      "pages": [
+        11,
+        12
+      ],
+      "coordinate_basis": "Approximate El-Mosher Tantawy Axis center from OSM way 252981687; Gate A1 pin not provided. Mixed-size quantity distribution unknown.",
+      "location_id": 2,
+      "supplier_id": 244,
+      "format": "Billboard",
+      "brightness": "Back Light",
+      "illuminated": true,
+      "availability": "Available",
+      "trial": true,
+      "description": "Combo billboard advertising at El-Mosher Tantawy Axis, Gate A1, Cairo, Egypt. Display size: 16 x 8 + 6 x 3 metres. Backlit; 20 total advertising faces across 10 units. Imported from the Garnish August 2026 presentation as a separate trial listing. Map pin is approximate and based on the written address, not supplier-confirmed coordinates. The 10 units and 20 total faces are user-confirmed; the split between the two sizes is unspecified, so a total area is not asserted.",
+      "description_ar": "موقع إعلاني: محور المشير طنطاوي، بوابة A1، القاهرة. المقاس: 16 x 8 + 6 x 3 متر. إضاءة باك لايت، بإجمالي 20 وجه وعدد 10 وحدة. تمت إضافته كسجل تجريبي مستقل من عرض مورد جارنيش لشهر أغسطس 2026. دبوس الخريطة تقريبي حسب العنوان وليس إحداثيات مؤكدة من المورد. العدد10 وإجمالي20 وجه مؤكدان من المستخدم. توزيع الوحدات بين المقاسين غير محدد، لذلك لا يتم تأكيد مساحة إجمالية.",
+      "images": [
+        {
+          "source": "p11-0-Im0.jpg",
+          "sourceSha256": "4e27be12c8e51e1d7f923eab75d44c255be5d433d470b71a0a14ead1c59f1770",
+          "fileName": "h-14473-garnish-20261027-1.jpg",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Combo - El-Mosher Tantawy Axis - Gate A1 — H-14473 — view 1",
+          "altAr": "كومبو - محور المشير طنطاوي - بوابة A1 — H-14473 — صورة 1",
+          "sha256": "b1962bc1fb52f0211ce25f36e1c84743501147ccc215618b3dc3141649143755",
+          "bytes": 55822,
+          "url": "/images/h-14473-garnish-20261027-1.jpg"
+        },
+        {
+          "source": "p12-0-Im0.jpg",
+          "sourceSha256": "2c2b9f956b6f8ed14f91323bd22e60eed47acd9d4ab246ccf320833957ad6c30",
+          "fileName": "h-14473-garnish-20261027-2.jpg",
+          "sortOrder": 1,
+          "isPrimary": false,
+          "alt": "Combo - El-Mosher Tantawy Axis - Gate A1 — H-14473 — view 2",
+          "altAr": "كومبو - محور المشير طنطاوي - بوابة A1 — H-14473 — صورة 2",
+          "sha256": "51d61fe9de582c9a940948c1d65e9eda95a313f5bab7bcdb8a1dcba8a8505d44",
+          "bytes": 55567,
+          "url": "/images/h-14473-garnish-20261027-2.jpg"
+        }
+      ]
+    },
+    {
+      "code": "H-14474",
+      "title": "Uni Pole - Al Nasr Road - Rabaa Al-Adawiya",
+      "name_ar": "يوني بول - طريق النصر - رابعة العدوية",
+      "type": "Uni Pole",
+      "district_id": 6,
+      "size": "16 x 8",
+      "sqm": 128,
+      "sides": 2,
+      "quantity": 1,
+      "lat": 30.0668737,
+      "lng": 31.3258158,
+      "address": "Al Nasr Road, Rabaa Al-Adawiya, Nasr City, Cairo, Egypt",
+      "address_ar": "طريق النصر، رابعة العدوية، مدينة نصر، القاهرة",
+      "pages": [
+        14
+      ],
+      "coordinate_basis": "Approximate Rabaa Al-Adawiya Mosque landmark from OSM way 38071250; not a surveyed billboard pin.",
+      "location_id": 2,
+      "supplier_id": 244,
+      "format": "Billboard",
+      "brightness": "Back Light",
+      "illuminated": true,
+      "availability": "Available",
+      "trial": true,
+      "description": "Uni Pole billboard advertising at Al Nasr Road, Rabaa Al-Adawiya, Nasr City, Cairo, Egypt. Display size: 16 x 8 metres. Backlit; 2 total advertising faces across 1 units. Imported from the Garnish August 2026 presentation as a separate trial listing. Map pin is approximate and based on the written address, not supplier-confirmed coordinates.",
+      "description_ar": "موقع إعلاني: طريق النصر، رابعة العدوية، مدينة نصر، القاهرة. المقاس: 16 x 8 متر. إضاءة باك لايت، بإجمالي 2 وجه وعدد 1 وحدة. تمت إضافته كسجل تجريبي مستقل من عرض مورد جارنيش لشهر أغسطس 2026. دبوس الخريطة تقريبي حسب العنوان وليس إحداثيات مؤكدة من المورد.",
+      "images": [
+        {
+          "source": "p14-1-Im1.jpg",
+          "sourceSha256": "789ba381cd24dbac567fa2756469b55adc4e921424a6f2b9ae90e84b80ff9d4b",
+          "fileName": "h-14474-garnish-20261027-1.jpg",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Uni Pole - Al Nasr Road - Rabaa Al-Adawiya — H-14474 — view 1",
+          "altAr": "يوني بول - طريق النصر - رابعة العدوية — H-14474 — صورة 1",
+          "sha256": "985ff4c7d92f3fa9aad5887aceb62b1438623d26f666473d5c0f4bb540bb3657",
+          "bytes": 68318,
+          "url": "/images/h-14474-garnish-20261027-1.jpg"
+        }
+      ]
+    }
+  ],
+  "processing": {
+    "dimensions": "640x380",
+    "resize": "Contain, no enlargement, whole photograph preserved",
+    "retouch": "Adaptive brightness; saturation 103%; mild unsharp 0x0.5+0.35+0.02",
+    "frameSha256": "7e152a6488bdd886e127faa64dd08d6bdb503001c353afa191ca2cf04b984d1d",
+    "encoding": "JPEG quality90 4:4:4 stripped metadata"
+  },
+  "created": [
+    {
+      "id": 14474,
+      "code": "H-14471",
+      "slug": "h-14471-gate-almaza-bridge-opposite-egyptair-hospital",
+      "url": "https://horizonooh.com/locations/cairo/billboards/h-14471-gate-almaza-bridge-opposite-egyptair-hospital"
+    },
+    {
+      "id": 14475,
+      "code": "H-14472",
+      "slug": "h-14472-uni-pole-suez-road-after-cairo-airport-exit",
+      "url": "https://horizonooh.com/locations/cairo/billboards/h-14472-uni-pole-suez-road-after-cairo-airport-exit"
+    },
+    {
+      "id": 14476,
+      "code": "H-14473",
+      "slug": "h-14473-combo-el-mosher-tantawy-axis-gate-a1",
+      "url": "https://horizonooh.com/locations/cairo/billboards/h-14473-combo-el-mosher-tantawy-axis-gate-a1"
+    },
+    {
+      "id": 14477,
+      "code": "H-14474",
+      "slug": "h-14474-uni-pole-al-nasr-road-rabaa-al-adawiya",
+      "url": "https://horizonooh.com/locations/cairo/billboards/h-14474-uni-pole-al-nasr-road-rabaa-al-adawiya"
+    }
+  ]
+}
