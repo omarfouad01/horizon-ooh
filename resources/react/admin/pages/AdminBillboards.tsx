@@ -976,8 +976,8 @@ export default function AdminBillboards() {
           </div>
         }
       />
-      {/* Filters + Search */}
-      <div className="flex flex-wrap gap-3 mb-5">
+      {/* Keep filters pinned inside the dashboard main scroll container. */}
+      <div role="region" aria-label="Billboard search and filters" className="sticky top-0 z-20 flex flex-wrap gap-3 mb-5 py-3 border-b border-gray-200" style={{ background: '#f8f9fb', boxShadow: '0 4px 8px -6px rgba(15,23,42,0.2)' }}>
         {/* Code / name search */}
         <div className="relative">
           <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" width="13" height="13" viewBox="0 0 14 14" fill="none">
