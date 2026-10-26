@@ -1,0 +1,69 @@
+{
+  "sourceSite": "Egypt",
+  "targetSite": "Saudi Arabia",
+  "selected": [
+    {
+      "sourceId": 3,
+      "sourceSlug": "outdoor-advertising-in-egypt",
+      "targetSlug": "outdoor-advertising-saudi-arabia-guide"
+    },
+    {
+      "sourceId": 4,
+      "sourceSlug": "why-billboard-advertising-still-works-in-2026",
+      "targetSlug": "why-billboard-advertising-matters-saudi-arabia"
+    },
+    {
+      "sourceId": 5,
+      "sourceSlug": "dooh-advertising-in-egypt",
+      "targetSlug": "dooh-advertising-saudi-arabia"
+    },
+    {
+      "sourceId": 10,
+      "sourceSlug": "the-future-of-outdoor-advertising-in-egypt",
+      "targetSlug": "future-outdoor-advertising-saudi-arabia"
+    },
+    {
+      "sourceId": 11,
+      "sourceSlug": "billboard-design-best-practices",
+      "targetSlug": "billboard-design-best-practices-saudi-arabia"
+    },
+    {
+      "sourceId": 13,
+      "sourceSlug": "commercial-video-production-outdoor-dooh-campaigns",
+      "targetSlug": "motion-graphics-video-creative-saudi-dooh"
+    },
+    {
+      "sourceId": 15,
+      "sourceSlug": "best-outdoor-advertising-companies-egypt",
+      "targetSlug": "choose-outdoor-advertising-agency-saudi-arabia"
+    }
+  ],
+  "excluded": [
+    {
+      "sourceId": 6,
+      "reason": "Airport advertising is not a current shared standalone service."
+    },
+    {
+      "sourceId": 7,
+      "reason": "Mall advertising is not a current shared standalone service."
+    },
+    {
+      "sourceId": 8,
+      "reason": "Egypt-specific historical campaign case study; not a Saudi campaign."
+    },
+    {
+      "sourceId": 9,
+      "reason": "Cinema advertising is not a current shared standalone service."
+    },
+    {
+      "sourceId": 12,
+      "reason": "Brand activation delivery is not a current shared standalone service."
+    }
+  ],
+  "notes": [
+    "The commercial video article is adapted to motion graphics and screen creative, without asserting live-action filming services.",
+    "Existing two Saudi guides and all Egypt data remain unchanged.",
+    "The common neutral Horizon cover is reused without adding embedded base64 data.",
+    "Arabic buttons store unprefixed paths; the existing renderer applies the Arabic prefix."
+  ]
+}
