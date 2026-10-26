@@ -142,7 +142,7 @@ export default function About() {
             {(about.whyItems || []).map((item) => (
               <RevealItem key={item.id}>
                 <div
-                  className="group flex items-start gap-10 py-8 border-b border-[#0B0F1A]/[0.07] hover:bg-[#F5F5F6] transition-colors duration-300 px-4 -mx-4 cursor-default"
+                  className="group grid grid-cols-1 md:grid-cols-[32px_minmax(0,1fr)_minmax(0,2fr)_24px] items-start gap-6 py-8 border-b border-[#0B0F1A]/[0.07] hover:bg-[#F5F5F6] transition-colors duration-300 px-4 -mx-4 cursor-default"
                 >
                   <span
                     className="font-black text-[11px] tracking-[0.25em] uppercase flex-shrink-0 mt-1"
@@ -152,7 +152,7 @@ export default function About() {
                   </span>
                   <h3
                     className="font-bold tracking-[-0.02em] flex-shrink-0"
-                    style={{ fontSize: 20, color: NAVY, minWidth: 280 }}
+                    style={{ fontSize: 20, color: NAVY }}
                   >
                     <LocalizedText>{isAr && (item as any).titleAr ? (item as any).titleAr : item.title}</LocalizedText>
                   </h3>

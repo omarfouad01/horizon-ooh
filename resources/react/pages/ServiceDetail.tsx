@@ -122,7 +122,7 @@ export default function ServiceDetail() {
         title={isAr && service.titleAr ? `${service.titleAr} | HORIZON OOH` : `${service.title} in Saudi Arabia | HORIZON OOH`}
         description={`${isAr && service.titleAr ? service.titleAr : service.title}. ${isAr && service.longDescriptionAr ? service.longDescriptionAr : service.longDescription || service.description || ""}`}
         ogImage={service.image}
-        keywords={`${(service.title ?? '').toLowerCase()} Saudi Arabia, outdoor advertising Saudi Arabia, OOH advertising Saudi Arabia, ${(service.shortTitle ?? '').toLowerCase()} Cairo`}
+        keywords={`${(service.title ?? '').toLowerCase()} Saudi Arabia, outdoor advertising Saudi Arabia, OOH advertising Saudi Arabia, ${(service.shortTitle ?? '').toLowerCase()} Saudi Arabia`}
         canonical={`/services/${service.slug}`}
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(serviceSchema) }} />
@@ -254,7 +254,7 @@ export default function ServiceDetail() {
       {/* Process */}
       <section className="bg-white" style={{ paddingTop: 100, paddingBottom: 100 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
-          <SectionHeading eyebrow="Campaign Process" title={`Our ${service.shortTitle} Campaign Process`} titleAccent="" />
+          <SectionHeading eyebrow="Campaign Process" title={isAr ? `مراحل خدمة ${service.titleAr || service.shortTitle}` : `Our ${service.shortTitle} Campaign Process`} titleAccent="" />
           <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
             {(service.process || []).map((step, i) => (
               <RevealItem key={i}>
@@ -339,7 +339,7 @@ export default function ServiceDetail() {
         </div>
       </section>
 
-      <CTABanner title={`Launch your ${service.shortTitle} campaign.`} subtitle="We'll handle everything — from site selection to campaign reporting." buttonLabel="Get a Quote" />
+      <CTABanner title={isAr ? `ابدأ مع ${service.titleAr || service.shortTitle}` : `Launch your ${service.shortTitle} campaign.`} subtitle={isAr ? "ناقش هدف حملتك والمدن المستهدفة ونطاق العمل مع الفريق." : "Discuss your campaign objective, target cities and scope with the team."} buttonLabel="Get a Quote" />
     </>
   );
 }

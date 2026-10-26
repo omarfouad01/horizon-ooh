@@ -1625,17 +1625,17 @@ function LatestBlogsSection() {
 // ─── WhyOOHSection ───────────────────────────────────────────────────────
 const DEFAULT_MARKET_INSIGHTS = [
   {
-    title: "Saudi Arabia’s Fastest-Growing OOH Market",
-    body: "With a metropolitan Cairo population exceeding 22 million and rapid urbanisation driving infrastructure expansion, Saudi Arabia’s out-of-home advertising market is growing at double-digit rates year-on-year. New highways, urban corridors, and mixed-use developments create premium new inventory that puts brands at the heart of Saudi Arabia’s economic momentum.",
+    "title": "Explore Saudi billboard locations with context",
+    "body": "A billboard is more than a point on a map. Its value to a campaign depends on the road, approach direction, surrounding activity and the way the message can be seen. Use the location filters to narrow the available inventory by region and format, then open individual billboards to compare photographs, dimensions and map positions. Keep the unique H-code when discussing any location with the team."
   },
   {
-    title: "Unmatched Reach Across Saudi cities",
-    body: "From the Cairo Ring Road and Corniche el-Nil to Alexandria's Mediterranean Corniche and New Cairo's premium retail districts, HORIZON OOH's 9,500+ outdoor advertising locations deliver unparalleled daily reach. A single Ring Road unipole generates over 420,000 vehicle exposures per day — coverage that no digital channel can match.",
+    "title": "Build a shortlist by city and audience",
+    "body": "Start with the places where your audience lives, works, shops or travels. A focused local campaign may need a different selection from a launch covering several Saudi cities. Compare alternatives within the available inventory and consider how the locations work together. A combination of routes and formats should support the message and campaign objective, rather than simply maximise the number of sites."
   },
   {
-    title: "Higher Recall Than Digital Advertising",
-    body: "Independent research confirms that outdoor advertising in Saudi Arabia drives 78% unaided brand recall at Cairo International Airport and delivers +180% brand recall uplift over digital-only campaigns. Unlike online ads, billboard advertising cannot be skipped, blocked, or scrolled past — it commands attention 24 hours a day, 365 days a year.",
-  },
+    "title": "Read the specification before designing",
+    "body": "Confirm the display dimensions, number of faces, lighting and format for each selected code. Technical names such as uni pole, gate, combo and digital screen describe different inventory and should not be treated as interchangeable. For digital media, request the current file specification, spot duration and scheduling details. For printed media, confirm the final production dimensions and installation responsibilities before approving artwork."
+  }
 ];
 
 function WhyOOHSection() {
@@ -1676,10 +1676,26 @@ function WhyOOHSection() {
 
 // ─── BillboardBenefitsSection ─────────────────────────────────────────────
 const DEFAULT_BENEFITS = [
-  { num: "01", title: "24/7 Visibility", body: "Your brand never goes offline. Billboard advertising in Cairo operates around the clock, delivering continuous impressions to commuters, shoppers, and travellers." },
-  { num: "02", title: "Mass Reach", body: "A single Ring Road unipole delivers 420,000+ vehicle exposures daily. No other medium offers this scale of guaranteed reach across Saudi Arabia’s most high-traffic corridors." },
-  { num: "03", title: "Premium Brand Association", body: "Outdoor advertising in Saudi Arabia positions your brand alongside major national and international advertisers, building the kind of prestige that digital platforms cannot replicate." },
-  { num: "04", title: "Proven ROI", body: "Our billboard advertising campaigns deliver an average 4.1× return on media investment, validated across 500+ campaigns for Saudi Arabia’s leading brands." },
+  {
+    "num": "01",
+    "title": "One campaign, a connected plan",
+    "body": "A Saudi campaign works best when media selection, creative development and supporting digital content share the same objective. Start with the product, audience and locations that matter to the business. We use that brief to discuss suitable billboard opportunities, visual identity, motion graphics and social content, so each channel contributes to a recognisable campaign rather than carrying a disconnected message."
+  },
+  {
+    "num": "02",
+    "title": "Outdoor media chosen for the brief",
+    "body": "Compare the actual position, viewing direction, format and dimensions of each proposed location. A roadside placement, a digital screen and a bridge format have different creative requirements. Browse the available Saudi locations, keep the codes of your preferred billboards, and share a shortlist with the team. Availability, campaign dates and commercial terms are confirmed for the specific enquiry."
+  },
+  {
+    "num": "03",
+    "title": "Creative made for real viewing conditions",
+    "body": "Outdoor artwork needs an obvious message, strong contrast and a clear brand signature. Digital creative also needs the correct duration and screen specifications. We discuss deliverables before production, including language versions, artwork sizes and the approvals required for release. The same campaign identity can then be adapted to social content without forcing every format to use the same layout."
+  },
+  {
+    "num": "04",
+    "title": "A clear scope before work begins",
+    "body": "Tell us your target cities, approximate timing, preferred formats and available creative materials. The proposal should identify the work included, the responsibilities of each party and the information still awaiting confirmation. Production, installation, media duration and reporting should be discussed explicitly. This makes it easier to compare options and select the combination that fits the brief and budget."
+  }
 ];
 
 function BillboardBenefitsSection() {

@@ -1,3 +1,4 @@
+import SaudiEditorial from '@/components/SaudiEditorial';
 import {LocalizedText, LocalizedElement} from "@/components/Localized";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
@@ -194,6 +195,7 @@ export default function Blog() {
         </div>
       </section>
 
+      <SaudiEditorial page="blog"/>
       <CTABanner
         title={t('blog.ctaTitle')}
         subtitle={t('blog.ctaSubtitle')}

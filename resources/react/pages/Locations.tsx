@@ -1,3 +1,4 @@
+import SaudiEditorial from '@/components/SaudiEditorial';
 import {publicPath} from '@/i18n/publicArabic';
 import {arabicText} from "@/i18n/publicArabic";
 import {billboardFilterOptions, matchesBillboardFilter} from '@/lib/billboardTypes';
@@ -581,7 +582,7 @@ export default function Locations() {
     <div className="flex flex-col min-h-screen" style={{ background: "#F7F7F8" }}>
       <SEO
         title={isAr ? 'مواقع اللوحات الإعلانية في السعودية | هورايزون' : 'Billboard Locations in Saudi Arabia | HORIZON OOH'}
-        description={isAr ? 'استكشف مواقع الإعلانات الخارجية في الرياض والجيزة وجميع أنحاء السعودية، وابحث حسب المدينة والمنطقة ونوع الإعلان.' : 'Explore premium outdoor advertising locations across Cairo, Giza, Alexandria, and all Saudi governorates. Filter by city, format and more.'}
+        description={isAr ? 'استكشف مواقع اليافطات السعودية في الرياض وجدة والمنطقة الشرقية والمناطق المتاحة، وقارن الصور والمواصفات والأنواع.' : 'Explore Saudi billboard locations in Riyadh, Jeddah and the available regions. Compare photographs, map positions and advertising formats.'}
         canonical={langPath(lang, "/locations")}
       />
 
@@ -797,7 +798,8 @@ export default function Locations() {
             <div className="flex items-center justify-between">
               <p className="text-[13px] font-semibold" style={{ color: "rgba(11,15,26,0.55)" }}>
                 <span className="font-black" style={{ color: NAVY }}><LocalizedText>{sorted.length}</LocalizedText> </span>
-                <LocalizedText>{cityLabel ? <><LocalizedText>{t('locations.premiumBillboards')}</LocalizedText> <LocalizedText>{t('common.in')}</LocalizedText> <span style={{ color: RED }}><LocalizedText>{cityLabel}</LocalizedText></span></> : t('locations.premiumBillboards')}</LocalizedText>
+                <LocalizedText>{cityLabel ? <><LocalizedText>{t('locations.premiumBillboards')}</LocalizedText> <LocalizedText>{t('common.in')}</LocalizedText> <span style={{ color: RED }}><LocalizedText>{cityLabel}</LocalizedText></span>
+      </> : t('locations.premiumBillboards')}</LocalizedText>
               </p>
               <LocalizedText>{hasFilters && (
                 <button onClick={clearAll}
@@ -1075,6 +1077,7 @@ export default function Locations() {
           50% { opacity: .4; }
         }
       `}</style>
+      <SaudiEditorial page="locations"/>
     </div>
   );
 }

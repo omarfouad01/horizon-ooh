@@ -1,3 +1,4 @@
+import SaudiEditorial from '@/components/SaudiEditorial';
 import {LocalizedText, LocalizedElement} from "@/components/Localized";
 import { useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
@@ -538,6 +539,7 @@ export default function Projects() {
 
       <WhyItMatters pc={pc} />
 
+      <SaudiEditorial page="projects"/>
       <CTABanner
         title={isAr && (pc as any)?.ctaTitleAr ? (pc as any).ctaTitleAr : (pc?.ctaTitle || t('projects.ctaTitle'))}
         subtitle={isAr && (pc as any)?.ctaSubtitleAr ? (pc as any).ctaSubtitleAr : (pc?.ctaSubtitle || t('projects.ctaSubtitle'))}

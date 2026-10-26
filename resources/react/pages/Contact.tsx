@@ -1,3 +1,4 @@
+import SaudiEditorial from '@/components/SaudiEditorial';
 import {LocalizedText, LocalizedElement} from "@/components/Localized";
 import { contactStore, siteUserStore, useStore } from "@/store/dataStore";
 import SEO from "@/components/SEO";
@@ -18,7 +19,7 @@ export default function Contact() {
   const billboardCode = searchParams.get('billboard') || '';
   const billboardName = searchParams.get('name') || '';
   const CONTACT_INFO = [
-    { label: isAr ? (cc.hqLabelAr || 'المقر الرئيسي بالرياض') : (cc.hqLabel || (settings as any).hqLabel || 'Cairo HQ'), value: settings.address || 'Cairo, Saudi Arabia', icon: '◉' },
+    { label: isAr ? (cc.hqLabelAr || 'استفسارات الحملات') : (cc.hqLabel || (settings as any).hqLabel || 'Campaign enquiries'), value: settings.address || '', icon: '◉' },
     { label: isAr ? 'الهاتف' : "Phone",   value: settings.phone   || "", icon: "◉" },
     { label: isAr ? 'البريد الإلكتروني' : "Email",   value: settings.email   || "info@horizonooh.com", icon: "◉" },
     { label: isAr ? 'ساعات العمل' : "Hours",   value: isAr ? 'الأحد – الخميس، 9:00 – 18:00 EET' : "Sun – Thu, 9:00 – 18:00 EET", icon: "◉" },
@@ -345,6 +346,7 @@ export default function Contact() {
           </RevealGroup>
         </div>
       </section>
-    </>
+    <SaudiEditorial page="contact"/>
+      </>
   );
 }

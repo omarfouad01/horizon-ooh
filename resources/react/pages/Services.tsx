@@ -1,3 +1,4 @@
+import SaudiEditorial from '@/components/SaudiEditorial';
 import {LocalizedText, LocalizedElement} from "@/components/Localized";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
@@ -8,7 +9,7 @@ import { useLang } from "@/i18n/LangContext";
 import { ServiceIcon } from "@/components/ServiceIcon";
 
 export default function Services() {
-  const { services: SERVICES } = useStore()
+  const { services: SERVICES, locations: LOCATIONS } = useStore()
   const { lang, isAr, t } = useLang()
   return (
     <>
@@ -101,11 +102,11 @@ export default function Services() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { value: "9,500+", labelKey: 'services.stat1Label' },
-              { value: "6",      labelKey: 'services.stat2Label' },
-              { value: "100+",  labelKey: 'services.stat3Label' },
+              { value: String(LOCATIONS.reduce((total, city) => total + (city.products || []).length, 0)), label: isAr ? 'مواقع اليافطات السعودية' : 'Saudi billboard locations' },
+              { value: String(LOCATIONS.length), label: isAr ? 'مجموعات المناطق والمدن' : 'Region and city groups' },
+              { value: String(SERVICES.length), label: isAr ? 'خدمات الحملة' : 'Campaign services' },
             ].map((stat, i) => (
-              <RevealItem key={stat.labelKey}>
+              <RevealItem key={stat.label}>
                 <div
                   className="flex flex-col items-center py-10 text-center"
                   style={{ borderRight: i < 2 ? "1px solid rgba(11,15,26,0.08)" : "none" }}
@@ -120,7 +121,7 @@ export default function Services() {
                     className="text-[11px] font-semibold tracking-[0.22em] uppercase"
                     style={{ color: "rgba(11,15,26,0.35)" }}
                   >
-                    <LocalizedText>{t(stat.labelKey as any)}</LocalizedText>
+                    <LocalizedText>{stat.label}</LocalizedText>
                   </span>
                 </div>
               </RevealItem>
@@ -129,6 +130,7 @@ export default function Services() {
         </div>
       </section>
 
+      <SaudiEditorial page="services"/>
       <CTABanner
         title={t('services.ctaTitle')}
         subtitle={t('services.ctaSubtitle')}
