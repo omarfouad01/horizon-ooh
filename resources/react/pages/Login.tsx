@@ -141,7 +141,7 @@ function BrandPanel() {
           className="mt-10 flex items-center gap-4" style={{ transformOrigin: "left" }}>
           <span className="block w-8 h-[1.5px]" style={{ background: RED }} />
           <span className="text-white/25 text-[11px] font-bold tracking-[0.3em] uppercase"><LocalizedText>
-            Saudi Arabia’s #1 OOH Network
+            Saudi Outdoor Advertising
           </LocalizedText></span>
         </motion.div>
       </div>
@@ -150,7 +150,7 @@ function BrandPanel() {
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease, delay: 1.0 }}
         className="relative z-10 grid grid-cols-3 gap-6 pt-8 border-t border-white/[0.07]">
-        <LocalizedText>{[{ v: "9,500+", l: "Locations" }, { v: "100+", l: "Brands" }, { v: "5", l: "Cities" }].map((s) => (
+        <LocalizedText>{[{"v":"01","l":"Explore locations"},{"v":"02","l":"Compare specifications"},{"v":"03","l":"Discuss your campaign"}].map((s) => (
           <div key={s.l}>
             <p className="font-black text-white tracking-[-0.04em]" style={{ fontSize: 24, color: RED }}><LocalizedText>{s.v}</LocalizedText></p>
             <p className="text-white/30 text-[10px] tracking-[0.25em] uppercase font-bold mt-1"><LocalizedText>{s.l}</LocalizedText></p>

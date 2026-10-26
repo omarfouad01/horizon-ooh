@@ -321,10 +321,22 @@ function FeaturedProject() {
 function WhyItMatters({ pc }: { pc?: any }) {
   const { isAr, t } = useLang();
   const stats = [
-    { value: pc?.stat1Value || '+178%', label: pc?.stat1Label || 'Avg. brand recall lift',  sub: pc?.stat1Sub || 'Across all 2025 campaigns' },
-    { value: pc?.stat2Value || '4.1×',  label: pc?.stat2Label || 'Average campaign ROI',    sub: pc?.stat2Sub || 'vs. media investment' },
-    { value: pc?.stat3Value || '100+',  label: pc?.stat3Label || 'Campaigns delivered',     sub: pc?.stat3Sub || 'In 2024–2025' },
-  ];
+  {
+    "value": "01",
+    "label": "Site selection",
+    "sub": "Review the actual locations"
+  },
+  {
+    "value": "02",
+    "label": "Creative preparation",
+    "sub": "Confirm the specifications"
+  },
+  {
+    "value": "03",
+    "label": "Delivery review",
+    "sub": "Agree the documentation"
+  }
+];
   return (
     <section style={{ background: "#F5F5F6", paddingTop: 100, paddingBottom: 100 }}>
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
@@ -342,7 +354,7 @@ function WhyItMatters({ pc }: { pc?: any }) {
           <div className="col-span-12 lg:col-span-8">
             <Reveal delay={0.1}>
               <p className="text-[17px] leading-[1.85] mb-6" style={{ color: "rgba(11,15,26,0.5)" }}>
-                <LocalizedText>{isAr && (pc as any)?.whyParagraph1Ar ? (pc as any).whyParagraph1Ar : (pc?.whyParagraph1 || "Saudi Arabia’s outdoor advertising market is among the fastest-growing in the MENA region — driven by rapid urbanisation, a young and mobile population, and a commuter culture that places millions of consumers in front of billboards, DOOH screens, and mall formats every single day. Unlike digital advertising, outdoor advertising in Saudi Arabia cannot be skipped, blocked, or scrolled past.")}</LocalizedText>
+                <LocalizedText>{isAr && (pc as any)?.whyParagraph1Ar ? (pc as any).whyParagraph1Ar : (pc?.whyParagraph1 || "A useful campaign connects the target audience, selected locations and creative message. Compare real site photographs and specifications, confirm availability for your dates, and agree production responsibilities and delivery documentation before booking. Project images are creative references, not evidence of a guaranteed return or measured audience uplift.")}</LocalizedText>
               </p>
             </Reveal>
 

@@ -523,9 +523,9 @@ export default function DesignSimulator() {
             viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.32 }}
           >
             <LocalizedText>{[
-              `9,500+ ${t('home.statsLocations') || 'Locations'}`,
-              `100+ ${t('home.statsBrands') || 'Brands'}`,
-              t('sim.ctaCoverage') || 'Saudi Arabia-wide Coverage'
+"Explore Saudi billboard locations",
+              "Preview your artwork",
+              "Confirm availability with the team"
             ].map(label => (
               <div key={label} className="flex items-center gap-2.5">
                 <span className="block w-1 h-1 bg-[#D90429]" />

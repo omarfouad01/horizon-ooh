@@ -132,7 +132,7 @@ function BrandPanel() {
       </motion.div>
 
       <div className="relative z-10">
-        <LocalizedText>{["Join Saudi Arabia’s", "premier OOH", "network.", "Start today."].map((line, i) => (
+        <LocalizedText>{["Plan your", "Saudi outdoor", "campaign.", "Start here."].map((line, i) => (
           <div key={i} className="overflow-hidden">
             <motion.p initial={{ y: "110%" }} animate={{ y: 0 }}
               transition={{ duration: 0.9, ease, delay: 0.2 + i * 0.1 }}
@@ -147,13 +147,13 @@ function BrandPanel() {
           transition={{ duration: 0.7, ease, delay: 0.85 }}
           className="mt-10 flex items-center gap-4" style={{ transformOrigin: "left" }}>
           <span className="block w-8 h-[1.5px]" style={{ background: RED }} />
-          <span className="text-white/25 text-[11px] font-bold tracking-[0.3em] uppercase"><LocalizedText>9,500+ Premium Locations</LocalizedText></span>
+          <span className="text-white/25 text-[11px] font-bold tracking-[0.3em] uppercase"><LocalizedText>Saudi Billboard Locations</LocalizedText></span>
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease, delay: 1.1 }}
           className="mt-10 flex flex-col gap-4">
-          <LocalizedText>{["Access all 9,500+ advertising locations", "Manage campaigns in real time", "Download reports and analytics"].map((item) => (
+          <LocalizedText>{["Explore available Saudi billboard locations", "Compare location photographs and specifications", "Contact the team about your campaign"].map((item) => (
             <div key={item} className="flex items-center gap-3">
               <span className="w-1.5 h-1.5 flex-shrink-0" style={{ background: RED }} />
               <span className="text-white/35 text-[13px] leading-[1.5]"><LocalizedText>{item}</LocalizedText></span>
@@ -165,7 +165,7 @@ function BrandPanel() {
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease, delay: 1.1 }}
         className="relative z-10 grid grid-cols-3 gap-6 pt-8 border-t border-white/[0.07]">
-        <LocalizedText>{[{ v: "100+", l: "Brands" }, { v: "+180%", l: "Avg. Recall" }, { v: "4.1×", l: "Avg. ROI" }].map((s) => (
+        <LocalizedText>{[{"v":"01","l":"Explore locations"},{"v":"02","l":"Compare specifications"},{"v":"03","l":"Discuss your campaign"}].map((s) => (
           <div key={s.l}>
             <p className="font-black tracking-[-0.04em]" style={{ fontSize: 24, color: RED }}><LocalizedText>{s.v}</LocalizedText></p>
             <p className="text-white/30 text-[10px] tracking-[0.25em] uppercase font-bold mt-1"><LocalizedText>{s.l}</LocalizedText></p>
@@ -286,7 +286,7 @@ export default function Signup() {
                     <span style={{ color: "rgba(11,15,26,0.2)" }}><LocalizedText>account.</LocalizedText></span>
                   </h1>
                   <p className="mt-4 text-[15px] leading-[1.65]" style={{ color: "rgba(11,15,26,0.45)" }}><LocalizedText>
-                    Start your campaign with Horizon OOH — Saudi Arabia’s #1 outdoor network.
+                    Plan your Saudi outdoor advertising campaign with Horizon OOH.
                   </LocalizedText></p>
                 </div>
 
