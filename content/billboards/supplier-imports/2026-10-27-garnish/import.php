@@ -34,7 +34,8 @@ $ids=array_column($created,'id');
 $after=['billboards'=>DB::table('billboards')->whereNotIn('id',$ids)->orderBy('id')->get()->toArray(),'images'=>DB::table('billboard_images')->whereNotIn('billboard_id',$ids)->orderBy('id')->get()->toArray(),'suppliers'=>DB::table('suppliers')->orderBy('id')->get()->toArray()];
 if($hash($after)!==$oldHash)throw new RuntimeException('Existing inventory changed; inspect backup');
 $dict=json_decode(file_get_contents($dictPath),true,512,JSON_THROW_ON_ERROR);
-foreach($m['rows']as$r){$dict[$r['title']]=$r['name_ar'];$dict[$r['address']]=$r['address_ar'];$dict[$r['description']]=$r['description_ar'];foreach($r['images']as$i)$dict[$i['alt']]=$i['altAr'];}
+$normalize=fn($s)=>strtolower(trim(preg_replace('/\s+/u',' ',$s)));
+foreach($m['rows']as$r){$pairs=[[$r['title'],$r['name_ar']],[$r['address'],$r['address_ar']],[$r['description'],$r['description_ar']]];foreach($r['images']as$i)$pairs[]=[$i['alt'],$i['altAr']];foreach($pairs as[$en,$ar]){$dict[$normalize($en)]=$ar;$dict[$normalize($ar)]=$ar;}}
 file_put_contents($dictPath,json_encode($dict,JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES)."\n");
 $result=['records'=>$created,'images'=>count($copied),'existing_inventory_unchanged'=>true,'backup'=>$backup,'all_pins_approximate'=>true];
 file_put_contents($base.'/import-result.json',json_encode($result,JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES));chmod($base.'/import-result.json',0600);
