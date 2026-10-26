@@ -13,6 +13,8 @@ import BillboardWebsiteLink from './BillboardWebsiteLink'
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 function parseSqm(size: string): number {
+  // A mixed-size package has no single area without the unit distribution.
+  if (size.includes('+')) return 0
   const nums = size.replace(/[^\d.]+/g, ' ').trim().split(/\s+/).map(Number).filter(n => n > 0)
   if (nums.length >= 2) return Math.round(nums[0] * nums[1] * 10) / 10
   return 0
@@ -531,7 +533,7 @@ const save = async (e: React.FormEvent) => {
           <input className={inp} value={f.size||''} onChange={e=>set('size',e.target.value)} required placeholder="12m × 6m"/>
         </Lbl>
         <Lbl label="Sq. Meters (auto)">
-          <input className={inp} value={f.sqm || parseSqm(f.size||'')} readOnly style={{background:'#f9fafb',color:'#9ca3af'}}/>
+          <input className={inp} value={f.sqm || parseSqm(f.size||'') || '—'} readOnly style={{background:'#f9fafb',color:'#9ca3af'}}/>
         </Lbl>
         <Lbl label="Sides">
           <input className={inp} type="number" min={1} value={f.sides||1} onChange={e=>set('sides',parseInt(e.target.value)||1)}/>
