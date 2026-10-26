@@ -100,17 +100,13 @@ function InlineMapPicker({
     const streets = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors', maxZoom: 19,
     })
-    const roadLabels = L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}', {
-      attribution: 'Roads &copy; Esri, HERE, Garmin, OpenStreetMap contributors',
-      maxNativeZoom: 19, maxZoom: 21, pane: 'overlayPane',
-    })
     const placeLabels = L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
       attribution: 'Place labels &copy; Esri and contributors',
       maxNativeZoom: 19, maxZoom: 21, pane: 'overlayPane',
     })
     // Keep imagery and its reference labels together when switching basemaps.
     map.removeLayer(satellite)
-    const hybrid = L.layerGroup([satellite, roadLabels, placeLabels]).addTo(map)
+    const hybrid = L.layerGroup([satellite, placeLabels]).addTo(map)
     L.control.layers({ 'Satellite + labels / أقمار صناعية وأسماء': hybrid, 'Streets / الشوارع': streets }, undefined, { position: 'topright', collapsed: false }).addTo(map)
     // aria fix: label the draggable admin pin
     const marker = L.marker([initLat, initLng], { icon: makeIcon(), draggable: true, title: 'Billboard location — drag to reposition', alt: 'Billboard location' }).addTo(map)
