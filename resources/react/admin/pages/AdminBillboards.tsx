@@ -9,6 +9,7 @@ import { billboardsApi } from '@/api'
 import { Btn, PageHeader, Tbl, Th, Td, Tr, Badge, Confirm, Modal, Field, Sel } from '../ui'
 import { Plus, Pencil, Trash2, X, Upload, MapPin, Settings2, ExternalLink, Copy } from 'lucide-react'
 import toast from 'react-hot-toast'
+import BillboardWebsiteLink from './BillboardWebsiteLink'
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 function parseSqm(size: string): number {
@@ -657,6 +658,7 @@ const save = async (e: React.FormEvent) => {
 
       <div className="flex gap-3 justify-end pt-3 border-t border-gray-100 mt-2">
         <Btn variant="ghost" type="button" onClick={onClose}>Cancel</Btn>
+        <BillboardWebsiteLink billboard={editing} locations={locations}/>
         <Btn type="submit" disabled={saving}>{saving ? 'Saving…' : (editing ? 'Save Changes' : 'Create Billboard')}</Btn>
       </div>
     </form>
@@ -1032,7 +1034,7 @@ export default function AdminBillboards() {
             <Th>Status</Th>
             <Th>Agency Price (SAR)</Th><Th>Client Price</Th>
             <Th>Supplier</Th>
-            <Th className="w-24">Actions</Th>
+            <Th className="w-48">Actions</Th>
           </tr>
         </thead>
         <tbody>
@@ -1073,7 +1075,8 @@ export default function AdminBillboards() {
                 <Td>{b.clientPrice>0?<span className="font-semibold text-[13px]">{b.clientPrice.toLocaleString()} SAR</span>:<span className="text-gray-300 text-xs">—</span>}</Td>
                 <Td className="text-xs text-gray-600">{sup?<span className="font-medium">{(sup as any).name}</span>:<span className="text-gray-300">—</span>}</Td>
                 <Td>
-                  <div className="flex gap-1">
+                  <div className="flex items-center gap-1">
+                    <BillboardWebsiteLink billboard={b} locations={locations} compact/>
                     <button className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-700" disabled={!privateReady} title={privateReady ? 'Edit billboard' : 'Loading private billboard data'} onClick={()=>{setEdit(b);setForm(true)}}><Pencil size={13}/></button>
                     <button className="p-1.5 rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-500" onClick={()=>setDel(b)}><Trash2 size={13}/></button>
                   </div>
