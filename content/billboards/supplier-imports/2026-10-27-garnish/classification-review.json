@@ -1,0 +1,13 @@
+{
+ "reviewDate":"2026-10-27",
+ "billboard":"H-14471",
+ "reason":"User identified the Almaza pedestrian bridge advertising as Mirror / مرايه; photo review agrees.",
+ "previousType":"Gate",
+ "correctedType":"Mirror",
+ "preservedSlug":"h-14471-gate-almaza-bridge-opposite-egyptair-hospital",
+ "userCorrectedPinsPreserved":["H-14471","H-14473","H-14474"],
+ "changes":["type","English and Arabic name","generated English image ALT and Arabic display translations"],
+ "mapRule":"Roadside installations must be placed using road/bridge geometry, supplier map evidence and photo landmarks, never a nearby landmark centroid.",
+ "audit":{"totalListings":2906,"rawTypeLabels":37,"visualSamples":68,"outsideEgyptCandidates":["H-13869","H-14379"],"sharedCoordinateGroups":123},
+ "otherRecordsChanged":false
+}
