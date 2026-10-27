@@ -5,6 +5,12 @@ namespace App\Support;
 class LegacyPublicRedirect
 {
     private const ALIASES = [
+        // Retired Garnish duplicates; keep the updated inventory URLs.
+        'locations/cairo/billboards/uni-poles-suez-rd' => 'locations/cairo/billboards/h-14472-uni-pole-suez-road-after-cairo-airport-exit',
+        'product/uni-poles-suez-rd' => 'locations/cairo/billboards/h-14472-uni-pole-suez-road-after-cairo-airport-exit',
+        'locations/cairo/billboards/gate-e-l-moshir-tantawy' => 'locations/cairo/billboards/h-14473-combo-el-mosher-tantawy-axis-gate-a1',
+        'product/gate-e-l-moshir-tantawy' => 'locations/cairo/billboards/h-14473-combo-el-mosher-tantawy-axis-gate-a1',
+
         'home' => '',
         'about-us' => 'about',
         'about-us/why-choose-us' => 'about',
