@@ -60,3 +60,7 @@ Imported on 27 October 2026 into the Egypt site.
 | 161 | H-14496 | create | Uni-pole - 26 July Axis - Middle Section - 12 Flags |
 | 167 | H-14497 | create | Uni-pole - North Dahshour Extension - Zayed Entrance 4 |
 | 173 | H-14498 | create | Uni-pole - Cairo Alexandria Desert Road - Dandy Mall |
+
+## District correction
+
+H-14490 (Moneeb Chillout digital screen) is classified under the Ring Road district within Giza, rather than Giza City Centre. The owner-adjusted map coordinates and all other billboard fields were retained.
