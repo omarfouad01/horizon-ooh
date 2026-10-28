@@ -298,8 +298,8 @@
       "units": 1,
       "faces": 2,
       "coordinates": [
-        30.028928,
-        31.474816
+        30.025299,
+        31.474787
       ],
       "approximate": false,
       "source": "network",
@@ -310,6 +310,7 @@
       "sourceLinks": [
         "https://maps.app.goo.gl/bYtjSebRtABuReEP9"
       ],
+      "ownerPinOverride": "Current dashboard edit 2026-10-28 14:22:47 UTC preserved over supplier link.",
       "images": [
         {
           "sourceFile": "photos/network-p063.jpg",
@@ -940,8 +941,8 @@
       "units": 1,
       "faces": 2,
       "coordinates": [
-        30.07502,
-        31.28462
+        "30.0736600",
+        "31.2870130"
       ],
       "approximate": true,
       "source": "december",
@@ -950,6 +951,23 @@
         20
       ],
       "sourceLinks": [],
+      "dashboardOverrides": {
+        "updatedAt": "2026-10-28T14:27:28.000000Z",
+        "changes": {
+          "lat": {
+            "source": 30.07502,
+            "dashboard": "30.0736600"
+          },
+          "lng": {
+            "source": 31.28462,
+            "dashboard": "31.2870130"
+          },
+          "illuminated": {
+            "source": false,
+            "dashboard": true
+          }
+        }
+      },
       "images": [
         {
           "sourceFile": "photos/december-p019.jpg",
@@ -1052,8 +1070,8 @@
       "units": 1,
       "faces": 1,
       "coordinates": [
-        30.01595,
-        31.41147
+        "30.0164540",
+        "31.4108030"
       ],
       "approximate": true,
       "source": "december",
@@ -1061,6 +1079,23 @@
         23
       ],
       "sourceLinks": [],
+      "dashboardOverrides": {
+        "updatedAt": "2026-10-28T14:29:59.000000Z",
+        "changes": {
+          "lat": {
+            "source": 30.01595,
+            "dashboard": "30.0164540"
+          },
+          "lng": {
+            "source": 31.41147,
+            "dashboard": "31.4108030"
+          },
+          "illuminated": {
+            "source": false,
+            "dashboard": true
+          }
+        }
+      },
       "images": [
         {
           "sourceFile": "photos/december-p023.jpg",

@@ -26,14 +26,14 @@ class LocationController extends Controller
                 ->orderBy('sort_order')->orderBy('city')
                 ->get()
                 ->map(fn($l) => $this->transform($l, $full, $home))
-        );
+        )->header('Cache-Control', 'private, no-store')->header('Vary', 'Authorization');
     }
 
     public function show(string $slug): JsonResponse
     {
         $loc = Location::with(['districts', 'billboards.images'])
             ->where('slug', $slug)->firstOrFail();
-        return response()->json($this->transform($loc));
+        return response()->json($this->transform($loc))->header('Cache-Control', 'private, no-store')->header('Vary', 'Authorization');
     }
 
     public function store(Request $request): JsonResponse
@@ -154,7 +154,7 @@ class LocationController extends Controller
             'brightness'     => $full ? $b->brightness : null,
             'width'          => $b->width,
             'height'         => $b->height,
-            'price'          => $b->price,
+            'price'          => in_array(request()->user('api')?->role, ['admin', 'editor', 'viewer'], true) ? $b->price : null,
             'availability'   => $b->availability,
             'illuminated'    => $b->illuminated,
             'lat'            => $b->lat !== null ? (float) $b->lat : null,

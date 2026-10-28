@@ -22,3 +22,9 @@ November/December availability is described with its source month and requires b
 
 ## Verification
 Import preflight guards supplier, every existing target record, unique new codes, correct governorate/district relationship, image checksums/dimensions and bilingual ALT. Transaction checks protected fields, existing prices, retained image rows and unrelated tables; no deletes. Live EN/AR pages, canonical URLs, map coordinates, image URLs/ALT/order, public price redaction, old-city redirects and SSG are checked after deployment.
+
+The owner updated H-14530 coordinates during the audit (14:22:47 UTC). Preserved the newer dashboard pin (30.025299, 31.474787) over the supplier-link pin.
+
+Deployment encountered a full server filesystem. Incomplete isolated generated SSG output was discarded. Four older generated-page backup trees were streamed to local archives and every member checksum verified against the server before removing the expanded copies; database/image backups and the most recent SSG rollback tree remain on the server. Archives and verification manifests are in work/aud-20261028/archived-generated-backups.
+
+Nested products in public location list/detail/home/full responses also redact prices with the same dashboard-role check and private/no-store Authorization-vary headers. Regression tests cover this nested transform for every role. Newer dashboard pin/lighting edits to H-14547 and H-14550 were also preserved, without replaying supplier coordinates over them.
