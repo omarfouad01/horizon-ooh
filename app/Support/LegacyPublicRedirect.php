@@ -5,6 +5,10 @@ namespace App\Support;
 class LegacyPublicRedirect
 {
     private const ALIASES = [
+        // AUD governorate corrections retain the original indexed URLs.
+        'locations/giza/billboards/h-14166-digital-screen-rod-al-farag-axis' => 'locations/cairo/billboards/h-14166-digital-screen-rod-al-farag-axis',
+        'locations/cairo/billboards/digital-screen-dahshur' => 'locations/giza/billboards/digital-screen-dahshur',
+
         // Retired Garnish duplicates; keep the updated inventory URLs.
         'locations/cairo/billboards/uni-poles-suez-rd' => 'locations/cairo/billboards/h-14472-uni-pole-suez-road-after-cairo-airport-exit',
         'product/uni-poles-suez-rd' => 'locations/cairo/billboards/h-14472-uni-pole-suez-road-after-cairo-airport-exit',

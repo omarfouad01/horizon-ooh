@@ -46,13 +46,13 @@ class BillboardController extends Controller
         return response()->json(
             $q->orderBy('created_at', 'desc')
               ->get()->map(fn($b) => $this->transform($b))
-        );
+        )->header('Cache-Control', 'private, no-store')->header('Vary', 'Authorization');
     }
 
     public function show(string $slug): JsonResponse
     {
         $b = Billboard::with(['location', 'district', 'images'])->where('slug', $slug)->firstOrFail();
-        return response()->json($this->transform($b));
+        return response()->json($this->transform($b))->header('Cache-Control', 'private, no-store')->header('Vary', 'Authorization');
     }
 
     public function nextCode(): JsonResponse
@@ -317,7 +317,7 @@ class BillboardController extends Controller
             'brightness'     => in_array('brightness', $cols)     ? $b->brightness     : null,
             'width'          => $b->width,
             'height'         => $b->height,
-            'price'          => $b->price,
+            'price'          => in_array(request()->user('api')?->role, ['admin', 'editor', 'viewer'], true) ? $b->price : null,
             'availability'   => $b->availability,
             'illuminated'    => $b->illuminated,
             'lat'            => $b->lat  !== null ? (float) $b->lat  : null,

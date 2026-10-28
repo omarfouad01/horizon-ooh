@@ -1,0 +1,2693 @@
+{
+  "batch": "aud-20261028",
+  "supplierId": 282,
+  "newRows": [
+    {
+      "code": "H-14524",
+      "key": "DS02",
+      "title": "Digital Screen Network - Golden Area, Sheikh Zayed",
+      "nameAr": "شبكة شاشات رقمية - جولدن إيريا، الشيخ زايد",
+      "size": "7 x 5 + 3 x 6",
+      "units": 13,
+      "faces": 15,
+      "coordinates": [
+        30.02849,
+        31.000202
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/CdcJeSgKBZa8fmFv7",
+        "https://maps.app.goo.gl/NxsbuDXKT3AAatLG8"
+      ],
+      "images": [
+        {
+          "sourceFile": "photos/network-p008.jpg",
+          "sourceSha256": "c4e4dde5c4b25b5ff473d8f2324c0f14950db82009cd5d327651e99fc4630fc2",
+          "fileName": "h-14524-aud-20261028-1.jpg",
+          "url": "/images/h-14524-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen Network - Golden Area, Sheikh Zayed - H-14524 - view 1 | Horizon OOH",
+          "altAr": "شبكة شاشات رقمية - جولدن إيريا، الشيخ زايد - H-14524 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "4fd52770186ce08ac917d1fd24ec0d0602a265dcf1b889301aac9cbb0fe5c6a3",
+          "bytes": 45580
+        },
+        {
+          "sourceFile": "photos/network-p009.jpg",
+          "sourceSha256": "82d0b2791a26d04312fd2cdb139bf9e8bbf75aaaa8ebd14c28b139f0e9b60268",
+          "fileName": "h-14524-aud-20261028-2.jpg",
+          "url": "/images/h-14524-aud-20261028-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Digital Screen Network - Golden Area, Sheikh Zayed - H-14524 - view 2 | Horizon OOH",
+          "altAr": "شبكة شاشات رقمية - جولدن إيريا، الشيخ زايد - H-14524 - صورة 2 | هورايزون للإعلانات الخارجية",
+          "sha256": "f5b4e749cda7700d0f48b260137ced29b5b1bc5a9dba7b818ad4358d5283ec50",
+          "bytes": 39553
+        },
+        {
+          "sourceFile": "photos/network-p010.jpg",
+          "sourceSha256": "d70d826f077ada11d53b99348d4a9f4d37510f27202d71b6a7fe7a3c5d6bef56",
+          "fileName": "h-14524-aud-20261028-3.jpg",
+          "url": "/images/h-14524-aud-20261028-3.jpg",
+          "isPrimary": false,
+          "sortOrder": 2,
+          "alt": "Digital Screen Network - Golden Area, Sheikh Zayed - H-14524 - view 3 | Horizon OOH",
+          "altAr": "شبكة شاشات رقمية - جولدن إيريا، الشيخ زايد - H-14524 - صورة 3 | هورايزون للإعلانات الخارجية",
+          "sha256": "b6f4c0081a753d45761270782d6428fa070c212c46e6fbbe018d608e0835187a",
+          "bytes": 45526
+        },
+        {
+          "sourceFile": "photos/network-p011.jpg",
+          "sourceSha256": "32fb94f4eb9bd8f4da083f30b0427a0d469e450d5cd4aca686770b2552e45c42",
+          "fileName": "h-14524-aud-20261028-4.jpg",
+          "url": "/images/h-14524-aud-20261028-4.jpg",
+          "isPrimary": false,
+          "sortOrder": 3,
+          "alt": "Digital Screen Network - Golden Area, Sheikh Zayed - H-14524 - view 4 | Horizon OOH",
+          "altAr": "شبكة شاشات رقمية - جولدن إيريا، الشيخ زايد - H-14524 - صورة 4 | هورايزون للإعلانات الخارجية",
+          "sha256": "160a21f65d565d88a6fc2c2912e1b1c38f84e9831cd4e1bf50c99caca89df4b6",
+          "bytes": 64263
+        }
+      ]
+    },
+    {
+      "code": "H-14525",
+      "key": "DS-WEST",
+      "title": "Digital Screen - Dahshur Connection, West Yard Mall",
+      "nameAr": "شاشة رقمية - وصلة دهشور، ويست يارد مول",
+      "size": "18 x 8",
+      "units": 1,
+      "faces": 1,
+      "coordinates": [
+        30.0149632,
+        30.9761864
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        19
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/CuG3BC7Yy5oAerJe8"
+      ],
+      "images": [
+        {
+          "sourceFile": "photos/network-p019.jpg",
+          "sourceSha256": "0c8f96339648aca0f8028491651459159559ee840359dbfd0ec375dfbbf71c95",
+          "fileName": "h-14525-aud-20261028-1.jpg",
+          "url": "/images/h-14525-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen - Dahshur Connection, West Yard Mall - H-14525 - view 1 | Horizon OOH",
+          "altAr": "شاشة رقمية - وصلة دهشور، ويست يارد مول - H-14525 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "385d0c2e5b415e684f91d72aeb7ec214d1b96848726df007892fe763d59a9694",
+          "bytes": 44562
+        }
+      ]
+    },
+    {
+      "code": "H-14526",
+      "key": "DS-NEWGIZA",
+      "title": "Digital Screen - New Giza",
+      "nameAr": "شاشة رقمية - نيو جيزة",
+      "size": "14 x 7",
+      "units": 1,
+      "faces": 1,
+      "coordinates": [
+        30.026839,
+        31.063785
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        22
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/qmtsppLh3XkBkztN6"
+      ],
+      "images": [
+        {
+          "sourceFile": "photos/network-p022.jpg",
+          "sourceSha256": "fea193e5977f578f207be848c88d121a9444ec631271091b42bbfa136f60a7f0",
+          "fileName": "h-14526-aud-20261028-1.jpg",
+          "url": "/images/h-14526-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen - New Giza - H-14526 - view 1 | Horizon OOH",
+          "altAr": "شاشة رقمية - نيو جيزة - H-14526 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "a2b49d3cc864d240ac4fbf119d68f3e282d078f991519362b01979717f4b7640",
+          "bytes": 38443
+        }
+      ]
+    },
+    {
+      "code": "H-14527",
+      "key": "DS-VODAFONE",
+      "title": "Digital Screen - El Mehwar, Vodafone Tunnel",
+      "nameAr": "شاشة رقمية - المحور، نفق فودافون",
+      "size": "30 x 5",
+      "units": 1,
+      "faces": 1,
+      "coordinates": [
+        30.055537,
+        31.073592
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        25
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/XNqFDDoZuywgQBsJ8"
+      ],
+      "images": [
+        {
+          "sourceFile": "photos/network-p025.jpg",
+          "sourceSha256": "1ebe4bc369109f8adce7cdb255598fadf21af911b1d1879f4a4f08d88104788b",
+          "fileName": "h-14527-aud-20261028-1.jpg",
+          "url": "/images/h-14527-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen - El Mehwar, Vodafone Tunnel - H-14527 - view 1 | Horizon OOH",
+          "altAr": "شاشة رقمية - المحور، نفق فودافون - H-14527 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "c236ba2edacae287e5c2dc07ac88af28f4768ff16d988c1fa8e54856d4cbee7c",
+          "bytes": 52232
+        }
+      ]
+    },
+    {
+      "code": "H-14528",
+      "key": "DS-BATAL-NET",
+      "title": "Digital Screen Network - Al Batal Ahmed Abdel Aziz Street",
+      "nameAr": "شبكة شاشات رقمية - شارع البطل أحمد عبد العزيز",
+      "size": "3 x 6",
+      "units": 4,
+      "faces": 8,
+      "coordinates": [
+        30.051833,
+        31.208329
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        33,
+        34,
+        35,
+        36
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/on6qAABSX6bqK4kw8"
+      ],
+      "images": [
+        {
+          "sourceFile": "photos/network-p033.jpg",
+          "sourceSha256": "c21732c6b6cf479930c2b34a8b355cf72da9786cf860075f9bd688cc2f469b89",
+          "fileName": "h-14528-aud-20261028-1.jpg",
+          "url": "/images/h-14528-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen Network - Al Batal Ahmed Abdel Aziz Street - H-14528 - view 1 | Horizon OOH",
+          "altAr": "شبكة شاشات رقمية - شارع البطل أحمد عبد العزيز - H-14528 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "afb28f11937bea26314f48791544c2c27f00c0f6c1ce26e356fde7f3a66bbaa4",
+          "bytes": 71701
+        },
+        {
+          "sourceFile": "photos/network-p034.jpg",
+          "sourceSha256": "b14ca0b4060949d90acff0e122a5e2ad2c0d91caeb5217ec2384dbed560a1e35",
+          "fileName": "h-14528-aud-20261028-2.jpg",
+          "url": "/images/h-14528-aud-20261028-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Digital Screen Network - Al Batal Ahmed Abdel Aziz Street - H-14528 - view 2 | Horizon OOH",
+          "altAr": "شبكة شاشات رقمية - شارع البطل أحمد عبد العزيز - H-14528 - صورة 2 | هورايزون للإعلانات الخارجية",
+          "sha256": "941efe837910ba63985f7b37960aeebd02a7b7a6d631f1c22309cbce4722a7aa",
+          "bytes": 68739
+        },
+        {
+          "sourceFile": "photos/network-p035.jpg",
+          "sourceSha256": "0d168adf2dd1aabcb824a2217f15ad2b72ac5f1a1dbb6259b240789e1b06ca0d",
+          "fileName": "h-14528-aud-20261028-3.jpg",
+          "url": "/images/h-14528-aud-20261028-3.jpg",
+          "isPrimary": false,
+          "sortOrder": 2,
+          "alt": "Digital Screen Network - Al Batal Ahmed Abdel Aziz Street - H-14528 - view 3 | Horizon OOH",
+          "altAr": "شبكة شاشات رقمية - شارع البطل أحمد عبد العزيز - H-14528 - صورة 3 | هورايزون للإعلانات الخارجية",
+          "sha256": "2018243c30d044583642064c72b490fda21cff67db440982c9658ac6281be843",
+          "bytes": 76007
+        },
+        {
+          "sourceFile": "photos/network-p036.jpg",
+          "sourceSha256": "6d090daeb0d1e556811893a98636d531b6fa3717e3d8cec0e8d68a8c87be5dbc",
+          "fileName": "h-14528-aud-20261028-4.jpg",
+          "url": "/images/h-14528-aud-20261028-4.jpg",
+          "isPrimary": false,
+          "sortOrder": 3,
+          "alt": "Digital Screen Network - Al Batal Ahmed Abdel Aziz Street - H-14528 - view 4 | Horizon OOH",
+          "altAr": "شبكة شاشات رقمية - شارع البطل أحمد عبد العزيز - H-14528 - صورة 4 | هورايزون للإعلانات الخارجية",
+          "sha256": "88840dbcb83f8d2799e51fec006039e765a89b3717e6f38f53003db7f773a067",
+          "bytes": 81946
+        }
+      ]
+    },
+    {
+      "code": "H-14529",
+      "key": "DS-WATERWAY",
+      "title": "Digital Screen Network - Waterway, Petro Sport",
+      "nameAr": "شبكة شاشات رقمية - الواتر واي، بتروسبورت",
+      "size": "3 x 6",
+      "units": 4,
+      "faces": 4,
+      "coordinates": [
+        30.03947,
+        31.47503
+      ],
+      "approximate": true,
+      "source": "network",
+      "pages": [
+        56
+      ],
+      "sourceLinks": [],
+      "images": [
+        {
+          "sourceFile": "photos/network-p056.jpg",
+          "sourceSha256": "8158a1b69f96d758bd739c0f83f8470b48edd57b7206c214cfe62c81b619eb5b",
+          "fileName": "h-14529-aud-20261028-1.jpg",
+          "url": "/images/h-14529-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen Network - Waterway, Petro Sport - H-14529 - view 1 | Horizon OOH",
+          "altAr": "شبكة شاشات رقمية - الواتر واي، بتروسبورت - H-14529 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "27bce4da1e4256beadb0c83476a0715fa0653ff1299b33391c1692b298d72995",
+          "bytes": 70767
+        }
+      ]
+    },
+    {
+      "code": "H-14530",
+      "key": "DS28-ARK",
+      "title": "Digital Screen - Mohamed Naguib Bridge, South 90, The Ark",
+      "nameAr": "شاشة رقمية - كوبري محمد نجيب، التسعين الجنوبي، ذا آرك",
+      "size": "30 x 5",
+      "units": 1,
+      "faces": 2,
+      "coordinates": [
+        30.028928,
+        31.474816
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        63,
+        64
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/bYtjSebRtABuReEP9"
+      ],
+      "images": [
+        {
+          "sourceFile": "photos/network-p063.jpg",
+          "sourceSha256": "57906c6c54c015c3ad85760f72dcb5e0550e1cd04068d50be8b2b84e879eade6",
+          "fileName": "h-14530-aud-20261028-1.jpg",
+          "url": "/images/h-14530-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen - Mohamed Naguib Bridge, South 90, The Ark - H-14530 - view 1 | Horizon OOH",
+          "altAr": "شاشة رقمية - كوبري محمد نجيب، التسعين الجنوبي، ذا آرك - H-14530 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "ec53eee9d81ca8ad034201dd7f3e9a7c78da693b70b3729be8de939200218a7e",
+          "bytes": 76340
+        },
+        {
+          "sourceFile": "photos/network-p064.jpg",
+          "sourceSha256": "43cf543b03ee21125737460c69be78b8aca744b7664f8d775ddd89d3f6912f2d",
+          "fileName": "h-14530-aud-20261028-2.jpg",
+          "url": "/images/h-14530-aud-20261028-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Digital Screen - Mohamed Naguib Bridge, South 90, The Ark - H-14530 - view 2 | Horizon OOH",
+          "altAr": "شاشة رقمية - كوبري محمد نجيب، التسعين الجنوبي، ذا آرك - H-14530 - صورة 2 | هورايزون للإعلانات الخارجية",
+          "sha256": "b5b4b1fbc33090d61e61bd52a0fcb5071b08ddbb9c7f7a8c8693337eff457284",
+          "bytes": 62941
+        }
+      ]
+    },
+    {
+      "code": "H-14531",
+      "key": "DS-ABUBAKR",
+      "title": "Digital Screen - Abu Bakr Al Siddiq Street",
+      "nameAr": "شاشة رقمية - شارع أبو بكر الصديق",
+      "size": "3 x 6",
+      "units": 1,
+      "faces": 1,
+      "coordinates": [
+        30.100809,
+        31.332862
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        71
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/x5C79AvPW8djR6AM9"
+      ],
+      "images": [
+        {
+          "sourceFile": "photos/network-p071.jpg",
+          "sourceSha256": "70be6486b9042a2514d43323eaf2ced9487fd24c1f9b6e706677eca0a27f056e",
+          "fileName": "h-14531-aud-20261028-1.jpg",
+          "url": "/images/h-14531-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen - Abu Bakr Al Siddiq Street - H-14531 - view 1 | Horizon OOH",
+          "altAr": "شاشة رقمية - شارع أبو بكر الصديق - H-14531 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "dd873093aec2365412901549b5e068b0add13b1e590f8c748ad876045c83ba67",
+          "bytes": 51678
+        }
+      ]
+    },
+    {
+      "code": "H-14532",
+      "key": "DS-ABBAS",
+      "title": "Digital Screen - Abbas Al Akkad Street After McDonald's",
+      "nameAr": "شاشة رقمية - شارع عباس العقاد بعد ماكدونالدز",
+      "size": "3 x 6",
+      "units": 1,
+      "faces": 1,
+      "coordinates": [
+        30.05988,
+        31.337386
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        72
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/mUBSJBS4pA9EKxRU7"
+      ],
+      "images": [
+        {
+          "sourceFile": "photos/network-p072.jpg",
+          "sourceSha256": "08cbfa7dce845bad16a5933fd919fb23a5733019f3b524a75b71ca6cdee8c5b6",
+          "fileName": "h-14532-aud-20261028-1.jpg",
+          "url": "/images/h-14532-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen - Abbas Al Akkad Street After McDonald's - H-14532 - view 1 | Horizon OOH",
+          "altAr": "شاشة رقمية - شارع عباس العقاد بعد ماكدونالدز - H-14532 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "8853b1c52a55781ec4e082c30e09ba2f8831b77e853fcce99d90dc307017e780",
+          "bytes": 68830
+        }
+      ]
+    },
+    {
+      "code": "H-14533",
+      "key": "DS-SIDIGABER",
+      "title": "Digital Screen - Sidi Gaber Corniche, Alexandria",
+      "nameAr": "شاشة رقمية - كورنيش سيدي جابر، الإسكندرية",
+      "size": "14 x 7",
+      "units": 1,
+      "faces": 1,
+      "coordinates": [
+        31.226112,
+        29.937043
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        76
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/rrbKMbAzFkyeibkQ7"
+      ],
+      "images": [
+        {
+          "sourceFile": "photos/network-p076.jpg",
+          "sourceSha256": "b1a8ff01f719fb97875b4b6780ee8ddfdc35fabfe9d364a90b48b7853de30840",
+          "fileName": "h-14533-aud-20261028-1.jpg",
+          "url": "/images/h-14533-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen - Sidi Gaber Corniche, Alexandria - H-14533 - view 1 | Horizon OOH",
+          "altAr": "شاشة رقمية - كورنيش سيدي جابر، الإسكندرية - H-14533 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "1e082f76154dbd8c5af4c9198cade4cf4a898d27653e017ddf3211e903a3e1b7",
+          "bytes": 71451
+        }
+      ]
+    },
+    {
+      "code": "H-14534",
+      "key": "SS-GOLF",
+      "title": "Mirror Package - BRT Golf Station, Ring Road",
+      "nameAr": "باكدج مرايه - محطة أتوبيس الجولف، الطريق الدائري",
+      "size": "55 x 5 + 46 x 5 + 32 x 5",
+      "units": 1,
+      "faces": 3,
+      "coordinates": [
+        30.0796365,
+        31.4354729
+      ],
+      "approximate": false,
+      "source": "november",
+      "pages": [
+        6,
+        7
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/DYT2zTk9xXxU6CiH8"
+      ],
+      "images": [
+        {
+          "sourceFile": "photos/november-p006.jpg",
+          "sourceSha256": "47917e7d31a049e8c58b9e80b8ff757ce17733d5ee05c4cc3d0d699ad18b8d03",
+          "fileName": "h-14534-aud-20261028-1.jpg",
+          "url": "/images/h-14534-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Mirror Package - BRT Golf Station, Ring Road - H-14534 - view 1 | Horizon OOH",
+          "altAr": "باكدج مرايه - محطة أتوبيس الجولف، الطريق الدائري - H-14534 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "2c24901c0a750c1e6ec64104b3071739397f9a2c53efce8edb444a6536d6ab79",
+          "bytes": 46599
+        },
+        {
+          "sourceFile": "photos/november-p007.jpg",
+          "sourceSha256": "b923eb1ac20f4b36b253c3ebda1646232e051057e6b1f73a389da74f940817fb",
+          "fileName": "h-14534-aud-20261028-2.jpg",
+          "url": "/images/h-14534-aud-20261028-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Mirror Package - BRT Golf Station, Ring Road - H-14534 - view 2 | Horizon OOH",
+          "altAr": "باكدج مرايه - محطة أتوبيس الجولف، الطريق الدائري - H-14534 - صورة 2 | هورايزون للإعلانات الخارجية",
+          "sha256": "1afcac7c6a1bb85ccad78ea08e4ff47f98cb5e6e905c3a8dcd8b3345c3614114",
+          "bytes": 40302
+        }
+      ]
+    },
+    {
+      "code": "H-14535",
+      "key": "SS-MOSHEER",
+      "title": "Mirror Package - BRT Al Mosheer Station, Ring Road",
+      "nameAr": "باكدج مرايه - محطة أتوبيس المشير، الطريق الدائري",
+      "size": "40 x 5 + 16 x 5 + 36 x 5 + 20 x 5 + 50 x 5 + 22 x 5 + 44 x 5",
+      "units": 1,
+      "faces": 7,
+      "coordinates": [
+        30.014511,
+        31.400676
+      ],
+      "approximate": false,
+      "source": "november",
+      "pages": [
+        8,
+        9
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/WE15RbSJRxaWoTBa9"
+      ],
+      "images": [
+        {
+          "sourceFile": "photos/november-p008.jpg",
+          "sourceSha256": "9d618bdecf3262f7e2393166de797dd0431fe79d3fa00d0f0b0097b112d06a2b",
+          "fileName": "h-14535-aud-20261028-1.jpg",
+          "url": "/images/h-14535-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Mirror Package - BRT Al Mosheer Station, Ring Road - H-14535 - view 1 | Horizon OOH",
+          "altAr": "باكدج مرايه - محطة أتوبيس المشير، الطريق الدائري - H-14535 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "a5f26be43b8c63bd3c26ea444db52c2fd4243b2f5b7a91474fb00770754a987e",
+          "bytes": 43970
+        },
+        {
+          "sourceFile": "photos/november-p009.jpg",
+          "sourceSha256": "a8c498b1becc53e9511b2703af37bdfdeecc862859c40eeec659604159110df3",
+          "fileName": "h-14535-aud-20261028-2.jpg",
+          "url": "/images/h-14535-aud-20261028-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Mirror Package - BRT Al Mosheer Station, Ring Road - H-14535 - view 2 | Horizon OOH",
+          "altAr": "باكدج مرايه - محطة أتوبيس المشير، الطريق الدائري - H-14535 - صورة 2 | هورايزون للإعلانات الخارجية",
+          "sha256": "a77bd6471e2466947b6ad46fa735c8a47703c9ce77abb32ca5d7aa9a5a8b5fea",
+          "bytes": 35960
+        }
+      ]
+    },
+    {
+      "code": "H-14536",
+      "key": "SS-SUN",
+      "title": "Mirror Package - BRT Sun Capital Station, Ring Road",
+      "nameAr": "باكدج مرايه - محطة أتوبيس صن كابيتال، الطريق الدائري",
+      "size": "31.5 x 5 + 21.7 x 5 + 19.6 x 5 + 20 x 5",
+      "units": 1,
+      "faces": 4,
+      "coordinates": [
+        29.94694,
+        31.099795
+      ],
+      "approximate": false,
+      "source": "november",
+      "pages": [
+        15,
+        16
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/5aFgpXsEkxcS5t8A7"
+      ],
+      "images": [
+        {
+          "sourceFile": "photos/november-p015.jpg",
+          "sourceSha256": "cdd4532872b8914141bbdb49b735039268162dac9369b543a84d0bd8c0715156",
+          "fileName": "h-14536-aud-20261028-1.jpg",
+          "url": "/images/h-14536-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Mirror Package - BRT Sun Capital Station, Ring Road - H-14536 - view 1 | Horizon OOH",
+          "altAr": "باكدج مرايه - محطة أتوبيس صن كابيتال، الطريق الدائري - H-14536 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "75858cd8a63b560c8bcaf1c0561d2c59ce93a635580943eb539bc45af78b4a05",
+          "bytes": 48591
+        },
+        {
+          "sourceFile": "photos/november-p016.jpg",
+          "sourceSha256": "eea7a7ab511af75f11124db9622e59b26340dd144d798cd8d58775e15aeaedec",
+          "fileName": "h-14536-aud-20261028-2.jpg",
+          "url": "/images/h-14536-aud-20261028-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Mirror Package - BRT Sun Capital Station, Ring Road - H-14536 - view 2 | Horizon OOH",
+          "altAr": "باكدج مرايه - محطة أتوبيس صن كابيتال، الطريق الدائري - H-14536 - صورة 2 | هورايزون للإعلانات الخارجية",
+          "sha256": "30137a943299c9cb329bb7e9acd299c389762c1dad59fcd0c9a494d76f44c844",
+          "bytes": 44784
+        }
+      ]
+    },
+    {
+      "code": "H-14537",
+      "key": "SS-MEHWAR",
+      "title": "Mega Post Network - El Mehwar Road",
+      "nameAr": "شبكة ميجا بوست - طريق المحور",
+      "size": "3 x 6",
+      "units": 8,
+      "faces": 16,
+      "coordinates": [
+        30.045472,
+        31.049851
+      ],
+      "approximate": true,
+      "source": "november",
+      "pages": [
+        18
+      ],
+      "sourceLinks": [],
+      "images": [
+        {
+          "sourceFile": "photos/november-p018.jpg",
+          "sourceSha256": "c7b698623c6794a4ea5171ecc2de9359585beffb212a5f29bc87ccd2ce259c90",
+          "fileName": "h-14537-aud-20261028-1.jpg",
+          "url": "/images/h-14537-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Mega Post Network - El Mehwar Road - H-14537 - view 1 | Horizon OOH",
+          "altAr": "شبكة ميجا بوست - طريق المحور - H-14537 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "8db0cc3a9d1e0b5f4e92e09580d9509369d0d24d8056e9711147ad078ea03383",
+          "bytes": 44693
+        }
+      ]
+    },
+    {
+      "code": "H-14538",
+      "key": "SS-MUSEUM21",
+      "title": "Mega Post Network - Grand Museum Area, 21 Units",
+      "nameAr": "شبكة ميجا بوست - منطقة المتحف الكبير، ٢١ وحدة",
+      "size": "3 x 6",
+      "units": 21,
+      "faces": 42,
+      "coordinates": [
+        29.9972185,
+        31.1132775
+      ],
+      "approximate": true,
+      "source": "december",
+      "pages": [
+        6
+      ],
+      "sourceLinks": [],
+      "images": [
+        {
+          "sourceFile": "photos/december-p006.jpg",
+          "sourceSha256": "444423bea8a91338d552f7dac0aab7aa6547ae0918931fed6475dff8c15d805f",
+          "fileName": "h-14538-aud-20261028-1.jpg",
+          "url": "/images/h-14538-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Mega Post Network - Grand Museum Area, 21 Units - H-14538 - view 1 | Horizon OOH",
+          "altAr": "شبكة ميجا بوست - منطقة المتحف الكبير، ٢١ وحدة - H-14538 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "19b05cd48f94f6d4d070b9418975bc83747d422a407676270a15fa4bc271edb5",
+          "bytes": 34023
+        }
+      ]
+    },
+    {
+      "code": "H-14539",
+      "key": "SS-MUSEUM34",
+      "title": "Flag Network - Grand Museum Area, 34 Units",
+      "nameAr": "شبكة فلاج - منطقة المتحف الكبير، ٣٤ وحدة",
+      "size": "1.3 x 2.8",
+      "units": 34,
+      "faces": 68,
+      "coordinates": [
+        29.9976187,
+        31.1144577
+      ],
+      "approximate": true,
+      "source": "december",
+      "pages": [
+        7
+      ],
+      "sourceLinks": [],
+      "images": [
+        {
+          "sourceFile": "photos/december-p007.jpg",
+          "sourceSha256": "1df1cc2ff119457fc4e915c79462492497f98731e5a2510c752a0d5212337495",
+          "fileName": "h-14539-aud-20261028-1.jpg",
+          "url": "/images/h-14539-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Flag Network - Grand Museum Area, 34 Units - H-14539 - view 1 | Horizon OOH",
+          "altAr": "شبكة فلاج - منطقة المتحف الكبير، ٣٤ وحدة - H-14539 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "e6e685c52bb4d52c1ee6f3b3bd1ea2a8acd32cb0b1b29ec863f8d22f0fd8ac9f",
+          "bytes": 53106
+        }
+      ]
+    },
+    {
+      "code": "H-14540",
+      "key": "SS-R",
+      "title": "Monorail Column Branding - Sector R, Sheikh Zayed",
+      "nameAr": "إعلانات أعمدة المونوريل - قطاع آر، الشيخ زايد",
+      "size": "3 x 6 + 3 x 5.5",
+      "units": 26,
+      "faces": 52,
+      "coordinates": [
+        30.02849,
+        31.000202
+      ],
+      "approximate": true,
+      "source": "december",
+      "pages": [
+        8,
+        9
+      ],
+      "sourceLinks": [],
+      "images": [
+        {
+          "sourceFile": "photos/december-p008.jpg",
+          "sourceSha256": "4c865f69dd32bcc355a96becd2089091ff4af16c6b8f20c939680ec093363740",
+          "fileName": "h-14540-aud-20261028-1.jpg",
+          "url": "/images/h-14540-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Monorail Column Branding - Sector R, Sheikh Zayed - H-14540 - view 1 | Horizon OOH",
+          "altAr": "إعلانات أعمدة المونوريل - قطاع آر، الشيخ زايد - H-14540 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "2bce684ce1f9b8a2ef7619948f2b6b57747374a2e0fdcfe002fb8b4d3f059261",
+          "bytes": 43953
+        }
+      ]
+    },
+    {
+      "code": "H-14541",
+      "key": "SS-E",
+      "title": "Monorail Column Branding - Sector E, Sheikh Zayed",
+      "nameAr": "إعلانات أعمدة المونوريل - قطاع إي، الشيخ زايد",
+      "size": "3 x 6 + 3 x 5.5",
+      "units": 30,
+      "faces": 60,
+      "coordinates": [
+        30.019958,
+        31.006941
+      ],
+      "approximate": true,
+      "source": "december",
+      "pages": [
+        10,
+        11
+      ],
+      "sourceLinks": [],
+      "images": [
+        {
+          "sourceFile": "photos/december-p010.jpg",
+          "sourceSha256": "59ab8cbcf54b75ab3c853444e1c18ad9ecfcddeb0701bcfdb5f3270f3cdea119",
+          "fileName": "h-14541-aud-20261028-1.jpg",
+          "url": "/images/h-14541-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Monorail Column Branding - Sector E, Sheikh Zayed - H-14541 - view 1 | Horizon OOH",
+          "altAr": "إعلانات أعمدة المونوريل - قطاع إي، الشيخ زايد - H-14541 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "3221edea7562d46e417f484d6704c4e105111d2f054c173d844e2956cab25b19",
+          "bytes": 40898
+        }
+      ]
+    },
+    {
+      "code": "H-14542",
+      "key": "SS-MONO10",
+      "title": "Monorail Column Branding - Mehwar Zayed, 10 Units",
+      "nameAr": "إعلانات أعمدة المونوريل - محور زايد، ١٠ وحدات",
+      "size": "4.6 x 8",
+      "units": 10,
+      "faces": 20,
+      "coordinates": [
+        30.02412,
+        31.007
+      ],
+      "approximate": true,
+      "source": "december",
+      "pages": [
+        12
+      ],
+      "sourceLinks": [],
+      "images": [
+        {
+          "sourceFile": "photos/december-p012.jpg",
+          "sourceSha256": "3ab8ac61fbd598175b6e3a8fffab920ff3b6905c3a10dd0c2cd0b8ce0adaafa0",
+          "fileName": "h-14542-aud-20261028-1.jpg",
+          "url": "/images/h-14542-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Monorail Column Branding - Mehwar Zayed, 10 Units - H-14542 - view 1 | Horizon OOH",
+          "altAr": "إعلانات أعمدة المونوريل - محور زايد، ١٠ وحدات - H-14542 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "c04b2017d06cb8f7ea30271b7d5d378458ea7bf7f6a848b7038f21d02c8536c9",
+          "bytes": 42800
+        }
+      ]
+    },
+    {
+      "code": "H-14543",
+      "key": "SS-MONO8",
+      "title": "Monorail Column Branding - Mehwar Zayed, 8 Units",
+      "nameAr": "إعلانات أعمدة المونوريل - محور زايد، ٨ وحدات",
+      "size": "4.6 x 8 + 4.6 x 6",
+      "units": 8,
+      "faces": 16,
+      "coordinates": [
+        30.0194783,
+        31.007421
+      ],
+      "approximate": true,
+      "source": "december",
+      "pages": [
+        13
+      ],
+      "sourceLinks": [],
+      "images": [
+        {
+          "sourceFile": "photos/december-p013.jpg",
+          "sourceSha256": "70611fa89bf36e2da5293b930e3d63a33188ae3a061443d8846f8f3c89c8e5ec",
+          "fileName": "h-14543-aud-20261028-1.jpg",
+          "url": "/images/h-14543-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Monorail Column Branding - Mehwar Zayed, 8 Units - H-14543 - view 1 | Horizon OOH",
+          "altAr": "إعلانات أعمدة المونوريل - محور زايد، ٨ وحدات - H-14543 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "4eaffe06962340f694e0ba13a83d0d7bfebed7f82601f7d0926361222b9c35c3",
+          "bytes": 41825
+        }
+      ]
+    },
+    {
+      "code": "H-14544",
+      "key": "SS-MAADI",
+      "title": "Mega Post Network - City Centre Maadi, Ring Road",
+      "nameAr": "شبكة ميجا بوست - سيتي سنتر المعادي، الطريق الدائري",
+      "size": "2.88 x 5.75",
+      "units": 6,
+      "faces": 6,
+      "coordinates": [
+        29.98431,
+        31.31526
+      ],
+      "approximate": true,
+      "source": "december",
+      "pages": [
+        15
+      ],
+      "sourceLinks": [],
+      "images": [
+        {
+          "sourceFile": "photos/december-p015.jpg",
+          "sourceSha256": "d136507dc63247870f1b682fefacd42334e141b091970f1ac3bfb7a491cdc418",
+          "fileName": "h-14544-aud-20261028-1.jpg",
+          "url": "/images/h-14544-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Mega Post Network - City Centre Maadi, Ring Road - H-14544 - view 1 | Horizon OOH",
+          "altAr": "شبكة ميجا بوست - سيتي سنتر المعادي، الطريق الدائري - H-14544 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "eccde3c1dcd3cd7bf79f60916c3017bfe901db900ae6c65596328a38c492d07f",
+          "bytes": 48270
+        }
+      ]
+    },
+    {
+      "code": "H-14545",
+      "key": "SS-TAHRIR",
+      "title": "Uni-pole - Tahrir Square, 6th October Bridge",
+      "nameAr": "يوني بول - ميدان التحرير، كوبري ٦ أكتوبر",
+      "size": "16 x 6",
+      "units": 1,
+      "faces": 2,
+      "coordinates": [
+        30.04971,
+        31.2347
+      ],
+      "approximate": true,
+      "source": "december",
+      "pages": [
+        16,
+        17
+      ],
+      "sourceLinks": [],
+      "images": [
+        {
+          "sourceFile": "photos/december-p016.jpg",
+          "sourceSha256": "0099c17df328512363831f347ef69a555c8331c4e81717863296bd98cb80d17d",
+          "fileName": "h-14545-aud-20261028-1.jpg",
+          "url": "/images/h-14545-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Uni-pole - Tahrir Square, 6th October Bridge - H-14545 - view 1 | Horizon OOH",
+          "altAr": "يوني بول - ميدان التحرير، كوبري ٦ أكتوبر - H-14545 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "3a122c03d7009d8b20c9c24be128838051d22fb83ea72d5e7aa8e82b78c226d3",
+          "bytes": 54288
+        },
+        {
+          "sourceFile": "photos/december-p017.jpg",
+          "sourceSha256": "daec2c9c5441bd6e03fed57824b4241888ec9f034b869e9cb3707f95ee8ba0c0",
+          "fileName": "h-14545-aud-20261028-2.jpg",
+          "url": "/images/h-14545-aud-20261028-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Uni-pole - Tahrir Square, 6th October Bridge - H-14545 - view 2 | Horizon OOH",
+          "altAr": "يوني بول - ميدان التحرير، كوبري ٦ أكتوبر - H-14545 - صورة 2 | هورايزون للإعلانات الخارجية",
+          "sha256": "1ffea1aeabaf59d4240c5baa462b9fb54c800bc4ff44f1cd6183e37aad84d70c",
+          "bytes": 73562
+        }
+      ]
+    },
+    {
+      "code": "H-14546",
+      "key": "SS-GEZIRA",
+      "title": "Double Decker - Gezira Youth Centre, 6th October Bridge",
+      "nameAr": "دابل ديكر - مركز شباب الجزيرة، كوبري ٦ أكتوبر",
+      "size": "16 x 6",
+      "units": 1,
+      "faces": 4,
+      "coordinates": [
+        30.0489843,
+        31.22316
+      ],
+      "approximate": true,
+      "source": "december",
+      "pages": [
+        18
+      ],
+      "sourceLinks": [],
+      "images": [
+        {
+          "sourceFile": "photos/december-p018.jpg",
+          "sourceSha256": "9485c0e33cd0eeb3d515f2290557262ccbc470fe87164c1b498ca8d3edc90518",
+          "fileName": "h-14546-aud-20261028-1.jpg",
+          "url": "/images/h-14546-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Double Decker - Gezira Youth Centre, 6th October Bridge - H-14546 - view 1 | Horizon OOH",
+          "altAr": "دابل ديكر - مركز شباب الجزيرة، كوبري ٦ أكتوبر - H-14546 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "6d2e74d08cc251aaac6e953b73c779fa672039a4393082b4f557ca4aea57cf60",
+          "bytes": 39143
+        }
+      ]
+    },
+    {
+      "code": "H-14547",
+      "key": "SS-AIN1",
+      "title": "Double Decker - Ain Shams University, 6th October Bridge",
+      "nameAr": "دابل ديكر - جامعة عين شمس، كوبري ٦ أكتوبر",
+      "size": "14 x 7",
+      "units": 1,
+      "faces": 2,
+      "coordinates": [
+        30.07502,
+        31.28462
+      ],
+      "approximate": true,
+      "source": "december",
+      "pages": [
+        19,
+        20
+      ],
+      "sourceLinks": [],
+      "images": [
+        {
+          "sourceFile": "photos/december-p019.jpg",
+          "sourceSha256": "ec46f54f0db394529a1abe481ac8c05cb46a568eee3adf223859f5c957bf3ede",
+          "fileName": "h-14547-aud-20261028-1.jpg",
+          "url": "/images/h-14547-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Double Decker - Ain Shams University, 6th October Bridge - H-14547 - view 1 | Horizon OOH",
+          "altAr": "دابل ديكر - جامعة عين شمس، كوبري ٦ أكتوبر - H-14547 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "fa6949e35d90998fe047813f05543f3f8eb548efc91e3e79f405ec4527c1705c",
+          "bytes": 49246
+        },
+        {
+          "sourceFile": "photos/december-p020.jpg",
+          "sourceSha256": "82d6be4192f3d11e4b75a17e76b380966b443de5e9198a7894a64e1e54d798fe",
+          "fileName": "h-14547-aud-20261028-2.jpg",
+          "url": "/images/h-14547-aud-20261028-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Double Decker - Ain Shams University, 6th October Bridge - H-14547 - view 2 | Horizon OOH",
+          "altAr": "دابل ديكر - جامعة عين شمس، كوبري ٦ أكتوبر - H-14547 - صورة 2 | هورايزون للإعلانات الخارجية",
+          "sha256": "98825daf7b4d84ca705a43757fb06f1e95729bf8028a87938d397f1736a06565",
+          "bytes": 55510
+        }
+      ]
+    },
+    {
+      "code": "H-14548",
+      "key": "SS-JAZZI",
+      "title": "Static Network - Mohamed Naguib Axis, Al Jazzi Hotel",
+      "nameAr": "شبكة إعلانات ثابتة - محور محمد نجيب، فندق الجازي",
+      "size": "3 x 6 + 1.5 x 2",
+      "units": 45,
+      "faces": 90,
+      "coordinates": [
+        30.04537,
+        31.47502
+      ],
+      "approximate": true,
+      "source": "december",
+      "pages": [
+        21
+      ],
+      "sourceLinks": [],
+      "images": [
+        {
+          "sourceFile": "photos/december-p021.jpg",
+          "sourceSha256": "1b68656a88853363485e441a98c8b1c7c4e32477881348d436d3ae0431526e47",
+          "fileName": "h-14548-aud-20261028-1.jpg",
+          "url": "/images/h-14548-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Static Network - Mohamed Naguib Axis, Al Jazzi Hotel - H-14548 - view 1 | Horizon OOH",
+          "altAr": "شبكة إعلانات ثابتة - محور محمد نجيب، فندق الجازي - H-14548 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "3c367b8fb4592257bb6ca5a0a0fcca7c8caf5ca583e68dc5ef29377838d86108",
+          "bytes": 54065
+        }
+      ]
+    },
+    {
+      "code": "H-14549",
+      "key": "SS-O1",
+      "title": "Static Network - Mohamed Naguib Axis, O1 Mall",
+      "nameAr": "شبكة إعلانات ثابتة - محور محمد نجيب، أو وان مول",
+      "size": "1.5 x 2 + 3 x 6 + 1.25 x 2",
+      "units": 64,
+      "faces": 128,
+      "coordinates": [
+        30.04721,
+        31.47501
+      ],
+      "approximate": true,
+      "source": "december",
+      "pages": [
+        22
+      ],
+      "sourceLinks": [],
+      "images": [
+        {
+          "sourceFile": "photos/december-p022.jpg",
+          "sourceSha256": "97b9c74865852f46456b22d452422c4534994a68031df33e3bd0b6dd529bb134",
+          "fileName": "h-14549-aud-20261028-1.jpg",
+          "url": "/images/h-14549-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Static Network - Mohamed Naguib Axis, O1 Mall - H-14549 - view 1 | Horizon OOH",
+          "altAr": "شبكة إعلانات ثابتة - محور محمد نجيب، أو وان مول - H-14549 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "6070b8bc943b68a662996c0cedb0d1b726aea67f1585ed3e5dfb79fcd8f04128",
+          "bytes": 38083
+        }
+      ]
+    },
+    {
+      "code": "H-14550",
+      "key": "SS-SOUTH90",
+      "title": "Uni-pole - South 90 Street Exit, New Cairo",
+      "nameAr": "يوني بول - مخرج التسعين الجنوبي، القاهرة الجديدة",
+      "size": "16 x 8",
+      "units": 1,
+      "faces": 1,
+      "coordinates": [
+        30.01595,
+        31.41147
+      ],
+      "approximate": true,
+      "source": "december",
+      "pages": [
+        23
+      ],
+      "sourceLinks": [],
+      "images": [
+        {
+          "sourceFile": "photos/december-p023.jpg",
+          "sourceSha256": "c9faca7e96bf28b9b80d5dccc1fa4435e447c1f9a7ce027627b93c7322a26b55",
+          "fileName": "h-14550-aud-20261028-1.jpg",
+          "url": "/images/h-14550-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Uni-pole - South 90 Street Exit, New Cairo - H-14550 - view 1 | Horizon OOH",
+          "altAr": "يوني بول - مخرج التسعين الجنوبي، القاهرة الجديدة - H-14550 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "258e45f6b4dd14e18e8927fdd562d3ca34ec56ce5cb5414a58c9875905a7769e",
+          "bytes": 51337
+        }
+      ]
+    },
+    {
+      "code": "H-14551",
+      "key": "SS-GAMAL20",
+      "title": "Mega Post Network - Gamal Abdel Nasser Axis, 20 Units",
+      "nameAr": "شبكة ميجا بوست - محور جمال عبد الناصر، 20 وحدة",
+      "size": "3 x 6",
+      "units": 20,
+      "faces": 40,
+      "coordinates": [
+        29.99108,
+        31.4253
+      ],
+      "approximate": true,
+      "source": "december",
+      "pages": [
+        24
+      ],
+      "sourceLinks": [],
+      "images": [
+        {
+          "sourceFile": "photos/december-p024.jpg",
+          "sourceSha256": "0af149159a53e24f5e478e13b1bc7e819496adefb0650de568ece94b66daf77b",
+          "fileName": "h-14551-aud-20261028-1.jpg",
+          "url": "/images/h-14551-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Mega Post Network - Gamal Abdel Nasser Axis, 20 Units - H-14551 - view 1 | Horizon OOH",
+          "altAr": "شبكة ميجا بوست - محور جمال عبد الناصر، 20 وحدة - H-14551 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "07b8c86d0c0829ca69ba15941cc0189b5b022214a12233d85b358e0a0fbea830",
+          "bytes": 40929
+        }
+      ]
+    },
+    {
+      "code": "H-14552",
+      "key": "SS-GAMAL21",
+      "title": "Mega Post Network - Gamal Abdel Nasser Axis, 21 Units",
+      "nameAr": "شبكة ميجا بوست - محور جمال عبد الناصر، 21 وحدة",
+      "size": "3 x 6",
+      "units": 21,
+      "faces": 42,
+      "coordinates": [
+        29.9925,
+        31.43325
+      ],
+      "approximate": true,
+      "source": "december",
+      "pages": [
+        25
+      ],
+      "sourceLinks": [],
+      "images": [
+        {
+          "sourceFile": "photos/december-p025.jpg",
+          "sourceSha256": "bd965f770428ad791e81868115ca4289bcea87581fc7315408a12eeab540371f",
+          "fileName": "h-14552-aud-20261028-1.jpg",
+          "url": "/images/h-14552-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Mega Post Network - Gamal Abdel Nasser Axis, 21 Units - H-14552 - view 1 | Horizon OOH",
+          "altAr": "شبكة ميجا بوست - محور جمال عبد الناصر، 21 وحدة - H-14552 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "14550c6213d680c6b6442d582b54f5a3ecf7cb6d2ec9e41e5cad6fd6f94c49ed",
+          "bytes": 47151
+        }
+      ]
+    },
+    {
+      "code": "H-14553",
+      "key": "SS-GAMAL15",
+      "title": "Mega Post Network - Gamal Abdel Nasser Axis, 15 Units",
+      "nameAr": "شبكة ميجا بوست - محور جمال عبد الناصر، 15 وحدة",
+      "size": "3 x 6",
+      "units": 15,
+      "faces": 30,
+      "coordinates": [
+        29.9923834,
+        31.4328413
+      ],
+      "approximate": true,
+      "source": "december",
+      "pages": [
+        26
+      ],
+      "sourceLinks": [],
+      "images": [
+        {
+          "sourceFile": "photos/december-p026.jpg",
+          "sourceSha256": "37bf6f887111a18be9058f5396f5626cad25ce271482d0bb9f28a81c20c2eddf",
+          "fileName": "h-14553-aud-20261028-1.jpg",
+          "url": "/images/h-14553-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Mega Post Network - Gamal Abdel Nasser Axis, 15 Units - H-14553 - view 1 | Horizon OOH",
+          "altAr": "شبكة ميجا بوست - محور جمال عبد الناصر، 15 وحدة - H-14553 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "cb8af0d6ad32c5972ad9aed2dd78bc8de8b0c26e13c2b6d677d4fce938219c01",
+          "bytes": 38387
+        }
+      ]
+    },
+    {
+      "code": "H-14554",
+      "key": "SS-SHARBATLY",
+      "title": "Mega Post Network - Talaat Harb Axis, Fatma Al Sharbatly Square",
+      "nameAr": "شبكة ميجا بوست - محور طلعت حرب، ميدان فاطمة الشربتلي",
+      "size": "2 x 4",
+      "units": 6,
+      "faces": 12,
+      "coordinates": [
+        30.006044,
+        31.445213
+      ],
+      "approximate": true,
+      "source": "december",
+      "pages": [
+        27
+      ],
+      "sourceLinks": [],
+      "images": [
+        {
+          "sourceFile": "photos/december-p027.jpg",
+          "sourceSha256": "2154a04ff47d69433c1463bff583ccf5f0b855765d3e303548e5d85b93a6be4f",
+          "fileName": "h-14554-aud-20261028-1.jpg",
+          "url": "/images/h-14554-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Mega Post Network - Talaat Harb Axis, Fatma Al Sharbatly Square - H-14554 - view 1 | Horizon OOH",
+          "altAr": "شبكة ميجا بوست - محور طلعت حرب، ميدان فاطمة الشربتلي - H-14554 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "6212ddf5c20556597e4a45e97b8a6880721f37df273e996db3731782cb43ddd8",
+          "bytes": 47725
+        }
+      ]
+    },
+    {
+      "code": "H-14555",
+      "key": "SS-NOZHA",
+      "title": "Flag Network - Al Nozha Bridge, Heliopolis",
+      "nameAr": "شبكة فلاج - كوبري النزهة، مصر الجديدة",
+      "size": "1.25 x 2",
+      "units": 44,
+      "faces": 88,
+      "coordinates": [
+        30.08114,
+        31.34011
+      ],
+      "approximate": true,
+      "source": "december",
+      "pages": [
+        28
+      ],
+      "sourceLinks": [],
+      "images": [
+        {
+          "sourceFile": "photos/december-p028.jpg",
+          "sourceSha256": "69d1ebdc45260afb6e88e2fc2aa16aef59fb9098999c43f4222675644c36d5ea",
+          "fileName": "h-14555-aud-20261028-1.jpg",
+          "url": "/images/h-14555-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Flag Network - Al Nozha Bridge, Heliopolis - H-14555 - view 1 | Horizon OOH",
+          "altAr": "شبكة فلاج - كوبري النزهة، مصر الجديدة - H-14555 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "da652e01e7b4c2832bf1efb339b77f940e834f061ea3724d52df8bf537a23685",
+          "bytes": 56932
+        }
+      ]
+    },
+    {
+      "code": "H-14556",
+      "key": "SS-SUEZ1",
+      "title": "Uni-pole - Suez Road, Site 1",
+      "nameAr": "يوني بول - طريق السويس، موقع ١",
+      "size": "24 x 8",
+      "units": 1,
+      "faces": 2,
+      "coordinates": [
+        30.0812321,
+        31.4003694
+      ],
+      "approximate": true,
+      "source": "december",
+      "pages": [
+        29,
+        30
+      ],
+      "sourceLinks": [],
+      "images": [
+        {
+          "sourceFile": "photos/december-p029.jpg",
+          "sourceSha256": "ee481134d635dd20eac3d021177a829ee609b5372b624b60f8441383e445b83a",
+          "fileName": "h-14556-aud-20261028-1.jpg",
+          "url": "/images/h-14556-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Uni-pole - Suez Road, Site 1 - H-14556 - view 1 | Horizon OOH",
+          "altAr": "يوني بول - طريق السويس، موقع ١ - H-14556 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "dd585d664bf0b4db06863bf48056b6601e4261b3e06a324328dab1d00b8a0838",
+          "bytes": 49230
+        },
+        {
+          "sourceFile": "photos/december-p030.jpg",
+          "sourceSha256": "5f1a3446810c0980e7edf442afe87128248fb7fe4dd598df406e0835d29020cb",
+          "fileName": "h-14556-aud-20261028-2.jpg",
+          "url": "/images/h-14556-aud-20261028-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Uni-pole - Suez Road, Site 1 - H-14556 - view 2 | Horizon OOH",
+          "altAr": "يوني بول - طريق السويس، موقع ١ - H-14556 - صورة 2 | هورايزون للإعلانات الخارجية",
+          "sha256": "bac6a1c69f4bf64b01e3938598efdb6b6d77044813c4f9c13f3dd8c2334d1066",
+          "bytes": 38891
+        }
+      ]
+    },
+    {
+      "code": "H-14557",
+      "key": "SS-SUEZ2",
+      "title": "Uni-pole - Suez Road, Site 2",
+      "nameAr": "يوني بول - طريق السويس، موقع ٢",
+      "size": "24 x 8",
+      "units": 1,
+      "faces": 2,
+      "coordinates": [
+        30.0813621,
+        31.4019358
+      ],
+      "approximate": true,
+      "source": "december",
+      "pages": [
+        31,
+        32
+      ],
+      "sourceLinks": [],
+      "images": [
+        {
+          "sourceFile": "photos/december-p031.jpg",
+          "sourceSha256": "fe845cd94cce036f71742639eca10bc32549ceab68681fe105678b63b85ed8bd",
+          "fileName": "h-14557-aud-20261028-1.jpg",
+          "url": "/images/h-14557-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Uni-pole - Suez Road, Site 2 - H-14557 - view 1 | Horizon OOH",
+          "altAr": "يوني بول - طريق السويس، موقع ٢ - H-14557 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "79ebb47765247820a7680e2b992452324d504a527487ad72c8ed69ee117e7a7d",
+          "bytes": 49440
+        },
+        {
+          "sourceFile": "photos/december-p032.jpg",
+          "sourceSha256": "d9c28aa0b6566799e9b25a09b9ba53afe62307df15a2e2da6a298f0989703790",
+          "fileName": "h-14557-aud-20261028-2.jpg",
+          "url": "/images/h-14557-aud-20261028-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Uni-pole - Suez Road, Site 2 - H-14557 - view 2 | Horizon OOH",
+          "altAr": "يوني بول - طريق السويس، موقع ٢ - H-14557 - صورة 2 | هورايزون للإعلانات الخارجية",
+          "sha256": "ec3d178d4b9a97516056c3692c563a2b2a12f1f6dc1e198233ec4d87df876e92",
+          "bytes": 37137
+        }
+      ]
+    }
+  ],
+  "updates": [
+    {
+      "code": "H-14189",
+      "id": 14189,
+      "key": "DS01",
+      "title": "Digital Screen - Arkan, Sheikh Zayed",
+      "nameAr": "شاشة رقمية - أركان، الشيخ زايد",
+      "size": "7 x 5",
+      "units": 1,
+      "faces": 1,
+      "coordinates": [
+        30.019958,
+        31.006941
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        7
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/NxsbuDXKT3AAatLG8"
+      ]
+    },
+    {
+      "code": "H-14188",
+      "id": 14188,
+      "key": "DS03",
+      "title": "Digital Screen - Hyper One, Sheikh Zayed",
+      "nameAr": "شاشة رقمية - هايبر وان، الشيخ زايد",
+      "size": "25 x 5",
+      "units": 1,
+      "faces": 2,
+      "coordinates": [
+        30.028385,
+        31.021716
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        12,
+        13
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/PEngniWtSM4BMvLA7"
+      ]
+    },
+    {
+      "code": "H-14436",
+      "id": 14439,
+      "key": "DS04",
+      "title": "Digital Screen Package - Palm Hills",
+      "nameAr": "باكدج شاشات رقمية - بالم هيلز",
+      "size": "12 x 5 + 3 x 6",
+      "units": 2,
+      "faces": 2,
+      "coordinates": [
+        30.016465,
+        31.012131
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        14,
+        15
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/GVkswo64jvaUapfs6"
+      ]
+    },
+    {
+      "code": "H-14180",
+      "id": 14180,
+      "key": "DS35",
+      "title": "Digital Screen Network - Towards Juhayna Square",
+      "nameAr": "شبكة شاشات رقمية - اتجاه ميدان جهينة",
+      "size": "1.5 x 3",
+      "units": 37,
+      "faces": 37,
+      "coordinates": [
+        30.008808,
+        30.990097
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        16,
+        17
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/TEDkGHdHjDrq6qMp6"
+      ]
+    },
+    {
+      "code": "H-14178",
+      "id": 14178,
+      "key": "DS06",
+      "title": "Digital Screen Network - Dahshur Connection",
+      "nameAr": "شبكة شاشات رقمية - وصلة دهشور",
+      "size": "3 x 6",
+      "units": 6,
+      "faces": 6,
+      "coordinates": [
+        30.026027,
+        30.966632
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        18
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/73ZdjVfdHPiYcpo58"
+      ]
+    },
+    {
+      "code": "H-14179",
+      "id": 14179,
+      "key": "DS-SOUTH",
+      "title": "Digital Screen - South Dahshur",
+      "nameAr": "شاشة رقمية - جنوب دهشور",
+      "size": "18 x 8",
+      "units": 1,
+      "faces": 2,
+      "coordinates": [
+        30.001696,
+        30.988165
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        20,
+        21
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/VqtB74fYKXkqzJHT7"
+      ]
+    },
+    {
+      "code": "H-14185",
+      "id": 14185,
+      "key": "DS07",
+      "title": "Digital Screen - El Mehwar, Sheikh Zayed",
+      "nameAr": "شاشة رقمية - المحور، الشيخ زايد",
+      "size": "30 x 9",
+      "units": 1,
+      "faces": 2,
+      "coordinates": [
+        30.045472,
+        31.049851
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        23,
+        24
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/2pjShG332brHpCUw6"
+      ]
+    },
+    {
+      "code": "H-14437",
+      "id": 14440,
+      "key": "DS08",
+      "title": "Digital Screen - El Mehwar, Mohandessin",
+      "nameAr": "شاشة رقمية - المحور، المهندسين",
+      "size": "20 x 5",
+      "units": 1,
+      "faces": 2,
+      "coordinates": [
+        30.060862,
+        31.181383
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        27,
+        28
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/CJ3dSSWme9AdbS8f8"
+      ]
+    },
+    {
+      "code": "H-14184",
+      "id": 14184,
+      "key": "DS09",
+      "title": "Digital Screen - Lebanon Square",
+      "nameAr": "شاشة رقمية - ميدان لبنان",
+      "size": "11.52 x 4.8",
+      "units": 1,
+      "faces": 2,
+      "coordinates": [
+        30.059686,
+        31.19251
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        29,
+        30
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/y6FknPeCy2wseut3A"
+      ]
+    },
+    {
+      "code": "H-14183",
+      "id": 14183,
+      "key": "DS10",
+      "title": "Digital Screen - Gameat Al Dewal Street",
+      "nameAr": "شاشة رقمية - شارع جامعة الدول العربية",
+      "size": "20 x 5",
+      "units": 1,
+      "faces": 1,
+      "coordinates": [
+        30.053845,
+        31.202002
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        31
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/iDhzwgYKrPEPXYDu7"
+      ]
+    },
+    {
+      "code": "H-14182",
+      "id": 14182,
+      "key": "DS11",
+      "title": "Digital Screen - Al Batal Ahmed Abdel Aziz Street",
+      "nameAr": "شاشة رقمية - شارع البطل أحمد عبد العزيز",
+      "size": "10 x 4",
+      "units": 1,
+      "faces": 1,
+      "coordinates": [
+        30.050486,
+        31.210092
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        32
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/kD6wx7Vg7PhXaUNy8"
+      ]
+    },
+    {
+      "code": "H-14181",
+      "id": 14181,
+      "key": "DS12",
+      "title": "Digital Screen - In Front of Om Kolthom Hotel, Zamalek",
+      "nameAr": "شاشة رقمية - أمام فندق أم كلثوم، الزمالك",
+      "size": "15 x 6",
+      "units": 1,
+      "faces": 1,
+      "coordinates": [
+        30.064186,
+        31.215559
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        37
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/NFqDh6C5gRF6VE27A"
+      ]
+    },
+    {
+      "code": "H-14175",
+      "id": 14175,
+      "key": "DS-TAHRIR",
+      "title": "Digital Screen - 6th October Bridge, Tahrir Towards Ramsis",
+      "nameAr": "شاشة رقمية - كوبري ٦ أكتوبر، من التحرير إلى رمسيس",
+      "size": "20 x 10",
+      "units": 1,
+      "faces": 1,
+      "coordinates": [
+        30.05849,
+        31.242965
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        39
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/6ZMr3S6vbRi5WZ8e9"
+      ]
+    },
+    {
+      "code": "H-14177",
+      "id": 14177,
+      "key": "DS13",
+      "title": "Digital Screen Package - Azbakiya, 6th October Bridge",
+      "nameAr": "باكدج شاشات رقمية - الأزبكية، كوبري ٦ أكتوبر",
+      "size": "16 x 8 + 10 x 9",
+      "units": 3,
+      "faces": 4,
+      "coordinates": [
+        30.061279,
+        31.245238
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        40,
+        41
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/ScxSwkzTfpiG5key9"
+      ]
+    },
+    {
+      "code": "H-14176",
+      "id": 14176,
+      "key": "DS-EGYPT",
+      "title": "Digital Screen - Egypt Station, 6th October Bridge",
+      "nameAr": "شاشة رقمية - محطة مصر، كوبري ٦ أكتوبر",
+      "size": "35 x 10",
+      "units": 1,
+      "faces": 1,
+      "coordinates": [
+        30.066426,
+        31.253185
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        42
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/nmXyp7yz57cMU6pYA"
+      ]
+    },
+    {
+      "code": "H-14173",
+      "id": 14173,
+      "key": "DS17",
+      "title": "Digital Screen - Salah Salem, 6th October Bridge Exit",
+      "nameAr": "شاشة رقمية - صلاح سالم، مخرج كوبري ٦ أكتوبر",
+      "size": "14 x 10",
+      "units": 1,
+      "faces": 1,
+      "coordinates": [
+        30.070921,
+        31.294653
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        43
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/cBpb1M7h5QK1tDV67"
+      ]
+    },
+    {
+      "code": "H-14174",
+      "id": 14174,
+      "key": "DS18",
+      "title": "Digital Screen - Salah Salem, Towards Cairo Airport",
+      "nameAr": "شاشة رقمية - صلاح سالم، اتجاه مطار القاهرة",
+      "size": "22 x 5 + 26 x 5",
+      "units": 1,
+      "faces": 2,
+      "coordinates": [
+        30.100031,
+        31.350766
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        44,
+        45
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/iK5hAwmPpjNCmAw58"
+      ]
+    },
+    {
+      "code": "H-14172",
+      "id": 14172,
+      "key": "DS19",
+      "title": "Digital Screen Package - City Centre Almaza, Suez Road",
+      "nameAr": "باكدج شاشات رقمية - سيتي سنتر ألماظة، طريق السويس",
+      "size": "22 x 5 + 3 x 6",
+      "units": 3,
+      "faces": 6,
+      "coordinates": [
+        30.079451,
+        31.367349
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        46,
+        47
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/iAe7a7bLzFQ7f4hz8"
+      ]
+    },
+    {
+      "code": "H-14167",
+      "id": 14167,
+      "key": "DS29",
+      "title": "Digital Screen Package - City Centre Maadi, Ring Road",
+      "nameAr": "باكدج شاشات رقمية - سيتي سنتر المعادي، الطريق الدائري",
+      "size": "40 x 5 + 3 x 6",
+      "units": 7,
+      "faces": 8,
+      "coordinates": [
+        29.984361,
+        31.315598
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        48,
+        49
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/nWsG3LRCUjBSKYjPA"
+      ]
+    },
+    {
+      "code": "H-14166",
+      "id": 14166,
+      "key": "DS30",
+      "title": "Digital Screen Network - Tahia Misr Gates, Rod El Farag Axis",
+      "nameAr": "شبكة شاشات رقمية - بوابات تحيا مصر، محور روض الفرج",
+      "size": "11.52 x 3.84",
+      "units": 6,
+      "faces": 6,
+      "coordinates": [
+        30.11123,
+        31.224261
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        50
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/CzT2VXDfaFi1z5278"
+      ]
+    },
+    {
+      "code": "H-14171",
+      "id": 14171,
+      "key": "DS20",
+      "title": "Digital Screen - Downtown Mall, New Cairo",
+      "nameAr": "شاشة رقمية - داون تاون مول، القاهرة الجديدة",
+      "size": "77 x 6",
+      "units": 1,
+      "faces": 1,
+      "coordinates": [
+        30.016973,
+        31.41339
+      ],
+      "approximate": true,
+      "source": "network",
+      "pages": [
+        52
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/7ifAZWXS5JF7HgfA7"
+      ]
+    },
+    {
+      "code": "H-14165",
+      "id": 14165,
+      "key": "DS21",
+      "title": "Digital Screen Network - North 90 Street Between Downtown and CFC",
+      "nameAr": "شبكة شاشات رقمية - التسعين الشمالي بين داون تاون وكايرو فيستيفال سيتي",
+      "size": "3 x 6",
+      "units": 4,
+      "faces": 4,
+      "coordinates": [
+        30.017426,
+        31.411305
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        53
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/eF8uyjt3RBgfofkF8"
+      ]
+    },
+    {
+      "code": "H-14438",
+      "id": 14441,
+      "key": "DS22",
+      "title": "Digital Screen - North 90 Street Exit",
+      "nameAr": "شاشة رقمية - مخرج التسعين الشمالي",
+      "size": "16 x 8",
+      "units": 1,
+      "faces": 1,
+      "coordinates": [
+        30.01655,
+        31.410837
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        54
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/DgjBciCRT8FHet5e9"
+      ]
+    },
+    {
+      "code": "H-14439",
+      "id": 14442,
+      "key": "DS-NORTH-NET",
+      "title": "Digital Screen Package - North 90 Towards Ring Road Before CFC",
+      "nameAr": "باكدج شاشات رقمية - التسعين الشمالي اتجاه الدائري قبل كايرو فيستيفال سيتي",
+      "size": "16 x 8 + 3 x 6",
+      "units": 5,
+      "faces": 5,
+      "coordinates": [
+        30.021438,
+        31.419257
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        55
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/LZ5ZxEYrK5Zsc2BV6"
+      ]
+    },
+    {
+      "code": "H-14440",
+      "id": 14443,
+      "key": "DS24",
+      "title": "Digital Screen - O1 Mall, Mohamed Naguib Axis",
+      "nameAr": "شاشة رقمية - أو وان مول، محور محمد نجيب",
+      "size": "16 x 8",
+      "units": 1,
+      "faces": 1,
+      "coordinates": [
+        30.047371,
+        31.475198
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        57
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/s3kL72iVeGzJ5yzKA"
+      ]
+    },
+    {
+      "code": "H-14441",
+      "id": 14444,
+      "key": "DS25",
+      "title": "Digital Screen - Americana Plaza, New Cairo",
+      "nameAr": "شاشة رقمية - أمريكانا بلازا، القاهرة الجديدة",
+      "size": "16 x 8",
+      "units": 1,
+      "faces": 1,
+      "coordinates": [
+        30.025598,
+        31.496253
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        58
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/3HmGTrqGxU14Pz87A"
+      ]
+    },
+    {
+      "code": "H-14168",
+      "id": 14168,
+      "key": "DS25",
+      "title": "Digital Screen - Americana Plaza, New Cairo",
+      "nameAr": "شاشة رقمية - أمريكانا بلازا، القاهرة الجديدة",
+      "size": "16 x 8",
+      "units": 1,
+      "faces": 1,
+      "coordinates": [
+        30.025598,
+        31.496253
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        58
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/3HmGTrqGxU14Pz87A"
+      ]
+    },
+    {
+      "code": "H-14170",
+      "id": 14170,
+      "key": "DS34",
+      "title": "Digital Screen - South 90 Street, AUC",
+      "nameAr": "شاشة رقمية - التسعين الجنوبي، الجامعة الأمريكية",
+      "size": "24 x 8",
+      "units": 1,
+      "faces": 1,
+      "coordinates": [
+        30.024918,
+        31.495906
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        59
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/hxHhXwEEvtnnt2kTA"
+      ]
+    },
+    {
+      "code": "H-14442",
+      "id": 14445,
+      "key": "DS26",
+      "title": "Digital Screen Package - Sodic Square, New Cairo",
+      "nameAr": "باكدج شاشات رقمية - سوديك سكوير، القاهرة الجديدة",
+      "size": "16 x 8 + 3 x 6",
+      "units": 5,
+      "faces": 5,
+      "coordinates": [
+        30.010204,
+        31.521765
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        60,
+        61
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/nQWHbp6BB3kNZcsi7"
+      ]
+    },
+    {
+      "code": "H-14443",
+      "id": 14446,
+      "key": "DS28-KH",
+      "title": "Digital Screen - Ring Road, Katameya Heights",
+      "nameAr": "شاشة رقمية - الطريق الدائري، قطامية هايتس",
+      "size": "24 x 8",
+      "units": 1,
+      "faces": 1,
+      "coordinates": [
+        29.99923,
+        31.405711
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        62
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/Jn9By8Y7FSVUnGsS6"
+      ]
+    },
+    {
+      "code": "H-14169",
+      "id": 14169,
+      "key": "DS28-KH",
+      "title": "Digital Screen - Ring Road, Katameya Heights",
+      "nameAr": "شاشة رقمية - الطريق الدائري، قطامية هايتس",
+      "size": "24 x 8",
+      "units": 1,
+      "faces": 1,
+      "coordinates": [
+        29.99923,
+        31.405711
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        62
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/Jn9By8Y7FSVUnGsS6"
+      ]
+    },
+    {
+      "code": "H-14444",
+      "id": 14447,
+      "key": "DS27",
+      "title": "Digital Screen - Al Rehab Entrance, Suez Road",
+      "nameAr": "شاشة رقمية - مدخل الرحاب، طريق السويس",
+      "size": "14 x 7",
+      "units": 1,
+      "faces": 2,
+      "coordinates": [
+        30.082163,
+        31.470902
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        65,
+        66
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/FjsnamhS39qT4GETA"
+      ]
+    },
+    {
+      "code": "H-14445",
+      "id": 14448,
+      "key": "DS-NAGUIB",
+      "title": "Digital Screen - Mohamed Naguib Axis Before O1 Mall and Waterway 1",
+      "nameAr": "شاشة رقمية - محور محمد نجيب قبل أو وان مول والواتر واي ١",
+      "size": "8 x 4",
+      "units": 1,
+      "faces": 2,
+      "coordinates": [
+        30.05925,
+        31.474966
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        67,
+        68
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/ogmjAxF1TP9NKzUc8"
+      ]
+    },
+    {
+      "code": "H-14446",
+      "id": 14449,
+      "key": "DS-HELIO",
+      "title": "Digital Screen - Heliopolis Towards Salah Salem and Al Korba",
+      "nameAr": "شاشة رقمية - مصر الجديدة اتجاه صلاح سالم والكوربة",
+      "size": "20 x 5",
+      "units": 1,
+      "faces": 2,
+      "coordinates": [
+        30.097648,
+        31.338307
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        69,
+        70
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/fd5dyD4XmrrF6QfN9"
+      ]
+    },
+    {
+      "code": "H-14447",
+      "id": 14450,
+      "key": "DS32",
+      "title": "Digital Screen - Sidi Bishr Corniche, Alexandria",
+      "nameAr": "شاشة رقمية - كورنيش سيدي بشر، الإسكندرية",
+      "size": "16 x 8",
+      "units": 1,
+      "faces": 2,
+      "coordinates": [
+        31.254713,
+        29.97395
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        74,
+        75
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/Ps21mL5ExGNysiza7"
+      ]
+    },
+    {
+      "code": "H-14448",
+      "id": 14451,
+      "key": "DS33",
+      "title": "Digital Screen Package - City Centre Alexandria",
+      "nameAr": "باكدج شاشات رقمية - سيتي سنتر الإسكندرية",
+      "size": "14 x 7 + 3 x 6",
+      "units": 3,
+      "faces": 3,
+      "coordinates": [
+        31.168035,
+        29.935151
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        77
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/MvKBtCc7FRWAnEWt6"
+      ]
+    },
+    {
+      "code": "H-14449",
+      "id": 14452,
+      "key": "DS-SMOUHA",
+      "title": "Digital Screen - Smouha, Alexandria",
+      "nameAr": "شاشة رقمية - سموحة، الإسكندرية",
+      "size": "14 x 6",
+      "units": 1,
+      "faces": 1,
+      "coordinates": [
+        31.218565,
+        29.947098
+      ],
+      "approximate": false,
+      "source": "network",
+      "pages": [
+        78
+      ],
+      "sourceLinks": [
+        "https://maps.app.goo.gl/g2KLbKYHUoNhsd8E8"
+      ]
+    },
+    {
+      "code": "H-14186",
+      "id": 14186,
+      "key": "SS-DAHSHUR",
+      "title": "Mega Post Network - Dahshur Connection, 6 Units",
+      "nameAr": "شبكة ميجا بوست - وصلة دهشور، ٦ وحدات",
+      "size": "3 x 6",
+      "units": 6,
+      "faces": 6,
+      "coordinates": [
+        30.01604,
+        30.97554
+      ],
+      "approximate": true,
+      "source": "december",
+      "pages": [
+        14
+      ],
+      "sourceLinks": []
+    }
+  ],
+  "imageReplacements": [
+    {
+      "code": "H-14168",
+      "id": 14168,
+      "images": [
+        {
+          "sourceFile": "photos/network-p058.jpg",
+          "sourceSha256": "443166b542ba3e0b530839568b727a877b7be2c07e57617d7a738e5fa8e6415b",
+          "fileName": "h-14168-aud-20261028-1.jpg",
+          "url": "/images/h-14168-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen - Americana Plaza, New Cairo - H-14168 - view 1 | Horizon OOH",
+          "altAr": "شاشة رقمية - أمريكانا بلازا، القاهرة الجديدة - H-14168 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "8f720de9293524e49362f7635d18fe3c289f94fdb4122ae62bb822cce0016f7d",
+          "bytes": 45598
+        }
+      ]
+    },
+    {
+      "code": "H-14186",
+      "id": 14186,
+      "images": [
+        {
+          "sourceFile": "photos/december-p014.jpg",
+          "sourceSha256": "0a8ba2ffadd0fc2c09c34199af3b903990e2ff517629ca0e37ad5003ec4e76e6",
+          "fileName": "h-14186-aud-20261028-1.jpg",
+          "url": "/images/h-14186-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Mega Post Network - Dahshur Connection, 6 Units - H-14186 - view 1 | Horizon OOH",
+          "altAr": "شبكة ميجا بوست - وصلة دهشور، ٦ وحدات - H-14186 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "7eac92cd275de5d5e27e47d485774249e51603275af6fdccb58d9440b9407a20",
+          "bytes": 58132
+        }
+      ]
+    },
+    {
+      "code": "H-14187",
+      "id": 14187,
+      "images": [
+        {
+          "sourceFile": "existing-images/H-14187-5869.jpg",
+          "sourceSha256": "0b284049875992e441406d2a0a2ba01080ebf4ae1709ee6be9acacb60fdb69aa",
+          "crop": "640x330+0+0",
+          "fileName": "h-14187-aud-20261028-1.jpg",
+          "url": "/images/h-14187-aud-20261028-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital screen over the Mall of Egypt road approach - H-14187 | Horizon OOH",
+          "altAr": "شاشة رقمية فوق مدخل مول مصر من الطريق - H-14187 | هورايزون للإعلانات الخارجية",
+          "sha256": "90c7cee84580ca0fa478fceba90c1cb247610152b7c27f79373f3f272dab8a80",
+          "bytes": 60914
+        }
+      ]
+    }
+  ],
+  "result": {
+    "created": [
+      {
+        "id": 14527,
+        "code": "H-14524",
+        "slug": "h-14524-digital-screen-network-golden-area-sheikh-zayed",
+        "citySlug": "giza"
+      },
+      {
+        "id": 14528,
+        "code": "H-14525",
+        "slug": "h-14525-digital-screen-dahshur-connection-west-yard-mall",
+        "citySlug": "giza"
+      },
+      {
+        "id": 14529,
+        "code": "H-14526",
+        "slug": "h-14526-digital-screen-new-giza",
+        "citySlug": "giza"
+      },
+      {
+        "id": 14530,
+        "code": "H-14527",
+        "slug": "h-14527-digital-screen-el-mehwar-vodafone-tunnel",
+        "citySlug": "giza"
+      },
+      {
+        "id": 14531,
+        "code": "H-14528",
+        "slug": "h-14528-digital-screen-network-al-batal-ahmed-abdel-aziz-street",
+        "citySlug": "giza"
+      },
+      {
+        "id": 14532,
+        "code": "H-14529",
+        "slug": "h-14529-digital-screen-network-waterway-petro-sport",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14533,
+        "code": "H-14530",
+        "slug": "h-14530-digital-screen-mohamed-naguib-bridge-south-90-the-ark",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14534,
+        "code": "H-14531",
+        "slug": "h-14531-digital-screen-abu-bakr-al-siddiq-street",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14535,
+        "code": "H-14532",
+        "slug": "h-14532-digital-screen-abbas-al-akkad-street-after-mcdonalds",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14536,
+        "code": "H-14533",
+        "slug": "h-14533-digital-screen-sidi-gaber-corniche-alexandria",
+        "citySlug": "alexandria"
+      },
+      {
+        "id": 14537,
+        "code": "H-14534",
+        "slug": "h-14534-mirror-package-brt-golf-station-ring-road",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14538,
+        "code": "H-14535",
+        "slug": "h-14535-mirror-package-brt-al-mosheer-station-ring-road",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14539,
+        "code": "H-14536",
+        "slug": "h-14536-mirror-package-brt-sun-capital-station-ring-road",
+        "citySlug": "giza"
+      },
+      {
+        "id": 14540,
+        "code": "H-14537",
+        "slug": "h-14537-mega-post-network-el-mehwar-road",
+        "citySlug": "giza"
+      },
+      {
+        "id": 14541,
+        "code": "H-14538",
+        "slug": "h-14538-mega-post-network-grand-museum-area-21-units",
+        "citySlug": "giza"
+      },
+      {
+        "id": 14542,
+        "code": "H-14539",
+        "slug": "h-14539-flag-network-grand-museum-area-34-units",
+        "citySlug": "giza"
+      },
+      {
+        "id": 14543,
+        "code": "H-14540",
+        "slug": "h-14540-monorail-column-branding-sector-r-sheikh-zayed",
+        "citySlug": "giza"
+      },
+      {
+        "id": 14544,
+        "code": "H-14541",
+        "slug": "h-14541-monorail-column-branding-sector-e-sheikh-zayed",
+        "citySlug": "giza"
+      },
+      {
+        "id": 14545,
+        "code": "H-14542",
+        "slug": "h-14542-monorail-column-branding-mehwar-zayed-10-units",
+        "citySlug": "giza"
+      },
+      {
+        "id": 14546,
+        "code": "H-14543",
+        "slug": "h-14543-monorail-column-branding-mehwar-zayed-8-units",
+        "citySlug": "giza"
+      },
+      {
+        "id": 14547,
+        "code": "H-14544",
+        "slug": "h-14544-mega-post-network-city-centre-maadi-ring-road",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14548,
+        "code": "H-14545",
+        "slug": "h-14545-uni-pole-tahrir-square-6th-october-bridge",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14549,
+        "code": "H-14546",
+        "slug": "h-14546-double-decker-gezira-youth-centre-6th-october-bridge",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14550,
+        "code": "H-14547",
+        "slug": "h-14547-double-decker-ain-shams-university-6th-october-bridge",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14551,
+        "code": "H-14548",
+        "slug": "h-14548-static-network-mohamed-naguib-axis-al-jazzi-hotel",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14552,
+        "code": "H-14549",
+        "slug": "h-14549-static-network-mohamed-naguib-axis-o1-mall",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14553,
+        "code": "H-14550",
+        "slug": "h-14550-uni-pole-south-90-street-exit-new-cairo",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14554,
+        "code": "H-14551",
+        "slug": "h-14551-mega-post-network-gamal-abdel-nasser-axis-20-units",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14555,
+        "code": "H-14552",
+        "slug": "h-14552-mega-post-network-gamal-abdel-nasser-axis-21-units",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14556,
+        "code": "H-14553",
+        "slug": "h-14553-mega-post-network-gamal-abdel-nasser-axis-15-units",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14557,
+        "code": "H-14554",
+        "slug": "h-14554-mega-post-network-talaat-harb-axis-fatma-al-sharbatly-square",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14558,
+        "code": "H-14555",
+        "slug": "h-14555-flag-network-al-nozha-bridge-heliopolis",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14559,
+        "code": "H-14556",
+        "slug": "h-14556-uni-pole-suez-road-site-1",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14560,
+        "code": "H-14557",
+        "slug": "h-14557-uni-pole-suez-road-site-2",
+        "citySlug": "cairo"
+      }
+    ],
+    "updated": [
+      {
+        "id": 14189,
+        "code": "H-14189",
+        "slug": "h-14189-digital-screen-arkan",
+        "citySlug": "giza"
+      },
+      {
+        "id": 14188,
+        "code": "H-14188",
+        "slug": "h-14188-digital-screen-hayper-zayed",
+        "citySlug": "giza"
+      },
+      {
+        "id": 14439,
+        "code": "H-14436",
+        "slug": "h-14436-2-digital-screens-palm-hills",
+        "citySlug": "giza"
+      },
+      {
+        "id": 14180,
+        "code": "H-14180",
+        "slug": "h-14180-digital-screen-6th-october-city",
+        "citySlug": "giza"
+      },
+      {
+        "id": 14178,
+        "code": "H-14178",
+        "slug": "h-14178-digital-screen-6t-october-city-giza",
+        "citySlug": "giza"
+      },
+      {
+        "id": 14179,
+        "code": "H-14179",
+        "slug": "h-14179-digital-screen-6th-october-city-south-dahshur",
+        "citySlug": "giza"
+      },
+      {
+        "id": 14185,
+        "code": "H-14185",
+        "slug": "h-14185-digital-screen-el-mehwar-zayed-city",
+        "citySlug": "giza"
+      },
+      {
+        "id": 14440,
+        "code": "H-14437",
+        "slug": "h-14437-digital-screen-el-mehwer-mohandseen",
+        "citySlug": "giza"
+      },
+      {
+        "id": 14184,
+        "code": "H-14184",
+        "slug": "h-14184-digital-screen-lebanon-square",
+        "citySlug": "giza"
+      },
+      {
+        "id": 14183,
+        "code": "H-14183",
+        "slug": "h-14183-digital-screen-gameat-el-dewal",
+        "citySlug": "giza"
+      },
+      {
+        "id": 14182,
+        "code": "H-14182",
+        "slug": "h-14182-digital-screen-al-batal-ahmed-abdel-aziz",
+        "citySlug": "giza"
+      },
+      {
+        "id": 14181,
+        "code": "H-14181",
+        "slug": "h-14181-digital-screen-el-zamalek",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14175,
+        "code": "H-14175",
+        "slug": "h-14175-digital-screen-6th-october-bridge-egypt",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14177,
+        "code": "H-14177",
+        "slug": "h-14177-digital-screen-6th-of-october-bridge-azbakiya",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14176,
+        "code": "H-14176",
+        "slug": "h-14176-digital-screen-egypt-station",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14173,
+        "code": "H-14173",
+        "slug": "h-14173-digital-screen-salah-salem-road-6th-oct-bridge-exit",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14174,
+        "code": "H-14174",
+        "slug": "h-14174-digital-screen-salah-salem-cairo",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14172,
+        "code": "H-14172",
+        "slug": "h-14172-digital-screen-almaza-city-center-suez-road",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14167,
+        "code": "H-14167",
+        "slug": "h-14167-digital-screen-city-center-maadi-ring-road",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14166,
+        "code": "H-14166",
+        "slug": "h-14166-digital-screen-rod-al-farag-axis",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14171,
+        "code": "H-14171",
+        "slug": "h-14171-digital-screen-downtown-mall-new-cairo",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14165,
+        "code": "H-14165",
+        "slug": "h-14165-digital-screen-north-90-street-in-front-of-downtown-mall",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14441,
+        "code": "H-14438",
+        "slug": "h-14438-digital-screen-north-90-street-exit",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14442,
+        "code": "H-14439",
+        "slug": "h-14439-digital-screen-north-90-cairo",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14443,
+        "code": "H-14440",
+        "slug": "h-14440-digital-screen-o1-mall-mohamed-nagib-axis",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14444,
+        "code": "H-14441",
+        "slug": "h-14441-digital-screen-in-front-of-americana-plaza-new-cairo",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14168,
+        "code": "H-14168",
+        "slug": "digital-screen-americana-plaza-new-cairo",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14170,
+        "code": "H-14170",
+        "slug": "h-14170-digital-screen-90th-south-street-auc",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14445,
+        "code": "H-14442",
+        "slug": "h-14442-digital-screen-golden-square-new-cairo",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14446,
+        "code": "H-14443",
+        "slug": "h-14443-digital-screen-gamal-abdelnaser-axis",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14169,
+        "code": "H-14169",
+        "slug": "h-14169-digital-screen-ring-road-kattamya-entrance",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14447,
+        "code": "H-14444",
+        "slug": "h-14444-digital-screen-al-rehab-entrance-suez-road",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14448,
+        "code": "H-14445",
+        "slug": "h-14445-digital-screen-mohamed-naguib-axis",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14449,
+        "code": "H-14446",
+        "slug": "h-14446-digital-screen-heliopolis",
+        "citySlug": "cairo"
+      },
+      {
+        "id": 14450,
+        "code": "H-14447",
+        "slug": "h-14447-digital-screen-sidi-bishr-corniche",
+        "citySlug": "alexandria"
+      },
+      {
+        "id": 14451,
+        "code": "H-14448",
+        "slug": "h-14448-3-digita-screens-alexandria",
+        "citySlug": "alexandria"
+      },
+      {
+        "id": 14452,
+        "code": "H-14449",
+        "slug": "h-14449-digital-screen-smouha",
+        "citySlug": "alexandria"
+      },
+      {
+        "id": 14186,
+        "code": "H-14186",
+        "slug": "digital-screen-dahshur",
+        "citySlug": "giza"
+      }
+    ],
+    "new": 34,
+    "updates": 38,
+    "photoReplacements": 3,
+    "newImages": 51,
+    "deletedBillboards": 0,
+    "preservedExistingPrices": true,
+    "preservedCorrectlyFramedImages": true,
+    "backup": "/home/horizon/deploy-backups/aud-20261028/backup-20261028-141423"
+  },
+  "prices": "Customer rates retained only in the dashboard; public API redacts prices."
+}
