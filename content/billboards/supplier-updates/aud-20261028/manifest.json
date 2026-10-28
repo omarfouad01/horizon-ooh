@@ -452,8 +452,8 @@
       "units": 1,
       "faces": 3,
       "coordinates": [
-        30.0796365,
-        31.4354729
+        "30.0017060",
+        "31.3968440"
       ],
       "approximate": false,
       "source": "november",
@@ -464,6 +464,23 @@
       "sourceLinks": [
         "https://maps.app.goo.gl/DYT2zTk9xXxU6CiH8"
       ],
+      "dashboardOverrides": {
+        "updatedAt": "2026-10-28T14:32:20.000000Z",
+        "changes": {
+          "lat": {
+            "source": 30.0796365,
+            "dashboard": "30.0017060"
+          },
+          "lng": {
+            "source": 31.4354729,
+            "dashboard": "31.3968440"
+          },
+          "illuminated": {
+            "source": false,
+            "dashboard": true
+          }
+        }
+      },
       "images": [
         {
           "sourceFile": "photos/november-p006.jpg",
