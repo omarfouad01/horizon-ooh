@@ -28,6 +28,13 @@ const articles: Record<string, string> = {
   'the-future-of-outdoor-advertising-in-egypt':'مستقبل الإعلانات الخارجية في مصر', 'why-billboard-advertising-still-works-in-2026':'لماذا تستمر فعالية اللوحات الإعلانية في 2026',
 };
 export function metadata(route: string, ar: boolean, input: {title: string; description: string; titleAr?: string; descriptionAr?: string}) {
+  const valid = (value: unknown): value is string => typeof value === 'string' && !!value.trim() && !/\b(?:undefined|null)\b|\[object Object\]/i.test(value);
+  const fallbackTitle = ar ? 'الإعلانات الخارجية في مصر | هورايزون' : 'Outdoor Advertising in Egypt | HORIZON OOH';
+  const fallbackDescription = ar ? 'خطط لحملات اللوحات الإعلانية والشاشات الرقمية في مصر مع هورايزون. تواصل مع فريقنا لاختيار المواقع والخدمات المناسبة لعلامتك التجارية.' : 'Plan billboard and digital out-of-home campaigns in Egypt with HORIZON OOH. Contact our team to choose locations and services for your brand.';
+  input = {...input, title: valid(input.title) ? input.title.trim() : fallbackTitle,
+    description: valid(input.description) ? input.description : fallbackDescription,
+    titleAr: valid(input.titleAr) ? input.titleAr : undefined,
+    descriptionAr: valid(input.descriptionAr) ? input.descriptionAr : undefined};
   if (!ar) return {title: input.title, description: summary(input.description)};
   const path = route.replace(/^\/ar(?=\/|$)/, '') || '/';
   const topic = articles[path.split('/').pop() || ''] || input.title.replace(/\s*\|.*$/, '');

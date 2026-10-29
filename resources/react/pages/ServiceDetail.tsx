@@ -8,6 +8,7 @@ import { serviceHref, langPath, RED, NAVY, ease } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
 import { motion } from "framer-motion";
 import SEO from "@/components/SEO";
+import { serviceMetadata } from "@/lib/serviceMetadata";
 import { servicesApi } from "@/api";
 import { thumb, thumbSrcSet } from "@/lib/img";
 
@@ -79,7 +80,9 @@ export default function ServiceDetail() {
 
   // Resolve: direct fetch is authoritative; store supplements once loaded
   const storeService = SERVICES.find((s: any) => s.slug === slug);
-  const service      = fetchedService ?? storeService;
+  const rawService = fetchedService ?? storeService;
+  const service = rawService ? { ...rawService, title: rawService.title || rawService.name || rawService.shortTitle,
+    shortTitle: rawService.shortTitle || rawService.name || rawService.title } : null;
   const others       = SERVICES.filter((s: any) => s.id !== service?.id).slice(0, 3);
 
   // ── Conditional returns AFTER all hooks ──
@@ -99,12 +102,14 @@ export default function ServiceDetail() {
     );
   }
 
+  const serviceSeo = serviceMetadata(service);
+
   // ── Structured data ────────────────────────────────────────────────────
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": `${service.title} in Egypt`,
-    "description": service.longDescription?.substring(0, 200) ?? "",
+    "name": isAr ? serviceSeo.titleAr : serviceSeo.title,
+    "description": isAr ? serviceSeo.descriptionAr : serviceSeo.description,
     "provider": {
       "@type": "Organization",
       "name": "HORIZON OOH",
@@ -112,15 +117,14 @@ export default function ServiceDetail() {
       "logo": "https://horizonooh.com/favicon.ico",
     },
     "areaServed": { "@type": "Country", "name": "Egypt" },
-    "url": `https://horizonooh.com/services/${service.slug}`,
+    "url": `https://horizonooh.com${isAr ? "/ar" : ""}/services/${service.slug}`,
   };
 
 
   return (
     <>
       <SEO
-        title={isAr && service.titleAr ? `${service.titleAr} | HORIZON OOH` : `${service.title} in Egypt | HORIZON OOH`}
-        description={`${isAr && service.titleAr ? service.titleAr : service.title}. ${isAr && service.longDescriptionAr ? service.longDescriptionAr : service.longDescription || service.description || ""}`}
+        {...serviceSeo}
         ogImage={service.image}
         keywords={`${(service.title ?? '').toLowerCase()} Egypt, outdoor advertising Egypt, OOH advertising Egypt, ${(service.shortTitle ?? '').toLowerCase()} Cairo`}
         canonical={`/services/${service.slug}`}

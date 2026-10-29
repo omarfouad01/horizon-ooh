@@ -71,7 +71,7 @@ export default function Contact() {
   return (
     <>
       <SEO
-        title={isAr ? 'تواصل معنا | هورايزون' : 'Contact Us | HORIZON OOH'}
+        title={isAr ? 'تواصل معنا | هورايزون' : 'Contact HORIZON OOH | Outdoor Advertising in Egypt'}
         description={isAr ? 'تواصل مع هورايزون للاستفسار عن الإعلانات الخارجية وحجز اللوحات وتخطيط الحملات في مصر.' : 'Get in touch with HORIZON OOH for outdoor advertising inquiries, billboard bookings and campaign planning across Egypt.'}
         canonical={isAr ? '/ar/contact' : '/contact'}
       />

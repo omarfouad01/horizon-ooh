@@ -30,7 +30,7 @@ export default function About() {
     <>
       <SEO
         title="About HORIZON OOH | Outdoor Advertising Agency Egypt"
-        description="HORIZON OOH is Egypt's premier outdoor advertising company — 9,500+ locations, billboard, DOOH, mall and airport advertising across Cairo, Alexandria and nationwide."
+        description="Meet HORIZON OOH, an outdoor advertising agency in Egypt since 2013. Plan billboard, DOOH, mall and airport campaigns across Cairo and nationwide."
         keywords="outdoor advertising Egypt, billboard advertising Egypt, DOOH Egypt, advertising agency Egypt, OOH advertising Egypt, HORIZON OOH"
         canonical="/about"
       />

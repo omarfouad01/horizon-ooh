@@ -1,3 +1,4 @@
+import { summary } from "@/lib/seo";
 import {publicPath} from '@/i18n/publicArabic';
 import {arabicText} from "@/i18n/publicArabic";
 import {LocalizedText, LocalizedElement} from "@/components/Localized";
@@ -285,11 +286,8 @@ export default function Product() {
   const whatsappNumber = (settings.whatsapp ?? '').replace(/\D/g, '') || '201234567890';
 
   // ── Structured data ────────────────────────────────────────────────────
-  const seoTitle = [
-    (isAr && product.nameAr ? product.nameAr : product.nameEn || product.name),
-    product.code, product.district || product.city,
-    isAr ? 'لوحات إعلانية' : 'Billboard Advertising', 'HORIZON OOH',
-  ].filter(Boolean).join(' | ');
+  const seoName = isAr ? (product.nameAr || product.nameEn || product.name) : (product.nameEn || product.name);
+  const seoTitle = [product.code, summary(String(seoName || (isAr ? 'لوحة إعلانية' : 'Billboard')).replace(product.code || /$^/, '').replace(/^[\s—–|:-]+|[\s—–|:-]+$/g, ''), 55), isAr ? 'هورايزون' : 'HORIZON OOH'].filter(Boolean).join(' | ');
   const billboardSchema = {
     "@context": "https://schema.org", "@type": "Service",
     "name": seoTitle, "serviceType": "Outdoor billboard advertising",

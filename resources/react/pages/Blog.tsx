@@ -31,7 +31,7 @@ export default function Blog() {
     <>
       <SEO
         title={isAr ? 'مدونة الإعلانات الخارجية | هورايزون' : 'Outdoor Advertising Blog | HORIZON OOH'}
-        description={isAr ? 'رؤى ونصائح وأفكار لحملات الإعلانات الخارجية في مصر.' : "Industry insights, OOH advertising tips and campaign inspiration from Egypt's leading billboard agency."}
+        description={isAr ? 'اكتشف أدلة اللوحات الإعلانية والشاشات الرقمية ونصائح التصميم والتخطيط الإعلامي لحملات الإعلانات الخارجية في مصر على مدونة هورايزون.' : "Explore billboard and DOOH advertising guides, design tips and media planning insights for campaigns in Egypt from HORIZON OOH."}
         canonical={langPath(lang, "/blog")}
       />
       <PageHero
