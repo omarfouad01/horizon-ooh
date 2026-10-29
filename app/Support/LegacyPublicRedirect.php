@@ -5,6 +5,9 @@ namespace App\Support;
 class LegacyPublicRedirect
 {
     private const ALIASES = [
+        // Mall of Arabia belongs to Giza; preserve both language URLs after correction.
+        'locations/cairo/billboards/uni-pole-6-oct-city-mall-of-arabia' => 'locations/giza/billboards/uni-pole-6-oct-city-mall-of-arabia',
+
         // AUD governorate corrections retain the original indexed URLs.
         'locations/giza/billboards/h-14166-digital-screen-rod-al-farag-axis' => 'locations/cairo/billboards/h-14166-digital-screen-rod-al-farag-axis',
         'locations/cairo/billboards/digital-screen-dahshur' => 'locations/giza/billboards/digital-screen-dahshur',

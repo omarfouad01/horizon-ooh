@@ -1,0 +1,1186 @@
+{
+  "batch": "beyond-20261029",
+  "sourceDocument": "Beyound August 2026 OOH Proposal (Amended).pdf",
+  "sourcePages": 50,
+  "supplierId": 115,
+  "newRows": [
+    {
+      "data": {
+        "title": "Digital Screen Network - North and South Dahshur Road, 16 Faces",
+        "name_ar": "شبكة شاشات رقمية - شمال وجنوب دهشور، ١٦ وجهًا",
+        "type": "Digital Screen",
+        "format": "Digital",
+        "size": "8 x 5",
+        "quantity": 8,
+        "sides": 16,
+        "illuminated": true,
+        "location_id": 3,
+        "district_id": 494,
+        "lat": 30.0435,
+        "lng": 30.9515,
+        "description": "Digital Screen Network - North and South Dahshur Road, 16 Faces. Outdoor advertising in Giza, Egypt, through Horizon OOH. Package: 8 unit(s), 16 total faces. Dimensions (width x height): 8 x 5 m. Eight double-sided screen positions inferred from 16 faces; the supplier map marks two south and six north positions. Creative resolution: 672 x 480 pixels. 10-second slot every 2 minutes. Map pin is an approximate roadside reference for this site/network, not surveyed coordinates. Source: supplier August 2026 proposal. Contact Horizon OOH to confirm booking dates and request a campaign quote.",
+        "description_ar": "شبكة شاشات رقمية - شمال وجنوب دهشور، ١٦ وجهًا. إعلانات خارجية في الجيزة مع هورايزون. الباكدج يضم 8 وحدة بإجمالي 16 وجهًا. المقاسات (العرض × الارتفاع): 8 x 5 متر. ثمانية مواقع شاشات بوجهين وفق إجمالي ١٦ وجهًا؛ خريطة المورد تحدد موقعين في الجنوب وستة في الشمال. دقة المحتوى ٦٧٢ × ٤٨٠ بكسل. مدة العرض ١٠ ثوان كل دقيقتين. نقطة الخريطة مرجع تقريبي على الطريق لهذا الموقع أو الشبكة وليست إحداثيات مساحية معتمدة. المصدر عرض المورد لأغسطس ٢٠٢٦. تواصل مع هورايزون لتأكيد مواعيد الحجز وطلب عرض لحملتك.",
+        "full_address": "North and South Dahshur Road, 16 Faces, Giza, Egypt",
+        "brightness": "Digital LED",
+        "width": 8,
+        "height": 5,
+        "sqm": 40,
+        "code": "H-14561",
+        "supplier_id": 115,
+        "availability": "available"
+      },
+      "images": [
+        {
+          "sourceFile": "extracted/page-09.jpg",
+          "sourceSha256": "53277e1738e2b47a2a5a82d7990feb986d5c0a9ece157f0998fa38a678d6aaed",
+          "fileName": "h-14561-beyond-20261029-1.jpg",
+          "url": "/images/h-14561-beyond-20261029-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen Network - North and South Dahshur Road, 16 Faces - H-14561 - view 1 | Horizon OOH",
+          "altAr": "شبكة شاشات رقمية - شمال وجنوب دهشور، ١٦ وجهًا - H-14561 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "7cf90d0b6ea13fd518e83ff10bb023f48e4ad51fcb0380e89eb3aadee78bad86",
+          "bytes": 44402
+        }
+      ],
+      "addressAr": "شمال وجنوب دهشور، ١٦ وجهًا، الجيزة، مصر",
+      "provenance": {
+        "key": "P09",
+        "pages": [
+          9
+        ],
+        "priceBasis": "package per month",
+        "approximate": true,
+        "matchedExisting": false,
+        "originalSupplierId": 115
+      }
+    },
+    {
+      "data": {
+        "title": "Mega Post Network - Ain Sokhna Road, Ring Road Towards District 5",
+        "name_ar": "شبكة ميجا بوست - طريق العين السخنة، من الدائري باتجاه ديستريكت ٥",
+        "type": "Mega Post",
+        "format": "Billboard",
+        "size": "3 x 6",
+        "quantity": 15,
+        "sides": 30,
+        "illuminated": false,
+        "location_id": 2,
+        "district_id": 465,
+        "lat": 29.9668,
+        "lng": 31.39,
+        "description": "Mega Post Network - Ain Sokhna Road, Ring Road Towards District 5. Outdoor advertising in Cairo, Egypt, through Horizon OOH. Package: 15 unit(s), 30 total faces. Dimensions (width x height): 3 x 6 m. Non-illuminated roadside network. Supplier rental is quoted per unit; the package can be planned by selected units. Map pin is an approximate roadside reference for this site/network, not surveyed coordinates. Source: supplier August 2026 proposal. Contact Horizon OOH to confirm booking dates and request a campaign quote.",
+        "description_ar": "شبكة ميجا بوست - طريق العين السخنة، من الدائري باتجاه ديستريكت ٥. إعلانات خارجية في القاهرة مع هورايزون. الباكدج يضم 15 وحدة بإجمالي 30 وجهًا. المقاسات (العرض × الارتفاع): 3 x 6 متر. شبكة إعلانات على الطريق غير مضاءة. تسعير المورد للوحدة، ويمكن تخطيط الحملة حسب الوحدات المختارة. نقطة الخريطة مرجع تقريبي على الطريق لهذا الموقع أو الشبكة وليست إحداثيات مساحية معتمدة. المصدر عرض المورد لأغسطس ٢٠٢٦. تواصل مع هورايزون لتأكيد مواعيد الحجز وطلب عرض لحملتك.",
+        "full_address": "Ain Sokhna Road, Ring Road Towards District 5, Cairo, Egypt",
+        "brightness": "Not Lit",
+        "width": 3,
+        "height": 6,
+        "sqm": 18,
+        "code": "H-14562",
+        "supplier_id": 115,
+        "availability": "available"
+      },
+      "images": [
+        {
+          "sourceFile": "extracted/page-20.jpg",
+          "sourceSha256": "934f2328b58e95e818bfcf948789fbbc67386e1f884176301e0df694afc9043f",
+          "fileName": "h-14562-beyond-20261029-1.jpg",
+          "url": "/images/h-14562-beyond-20261029-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Mega Post Network - Ain Sokhna Road, Ring Road Towards District 5 - H-14562 - view 1 | Horizon OOH",
+          "altAr": "شبكة ميجا بوست - طريق العين السخنة، من الدائري باتجاه ديستريكت ٥ - H-14562 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "405412bc0859a539c461d30ba662e3fdba0e33e5b2ca521f001b13fe1a659d20",
+          "bytes": 47507
+        },
+        {
+          "sourceFile": "extracted/page-21.jpg",
+          "sourceSha256": "f710012b167b30037a7a1b7a909d244634654974d9a72cb59007d1c88a071fb2",
+          "fileName": "h-14562-beyond-20261029-2.jpg",
+          "url": "/images/h-14562-beyond-20261029-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Mega Post Network - Ain Sokhna Road, Ring Road Towards District 5 - H-14562 - view 2 | Horizon OOH",
+          "altAr": "شبكة ميجا بوست - طريق العين السخنة، من الدائري باتجاه ديستريكت ٥ - H-14562 - صورة 2 | هورايزون للإعلانات الخارجية",
+          "sha256": "4f59f5300f9acfefe51618322c1e3bcf21c0ef7864f2b2043ef4551d2234dc33",
+          "bytes": 51648
+        }
+      ],
+      "addressAr": "طريق العين السخنة، من الدائري باتجاه ديستريكت ٥، القاهرة، مصر",
+      "provenance": {
+        "key": "P20",
+        "pages": [
+          20,
+          21
+        ],
+        "priceBasis": "per unit per month",
+        "approximate": true,
+        "matchedExisting": false,
+        "originalSupplierId": 115
+      }
+    },
+    {
+      "data": {
+        "title": "Mega Post Network - Ain Sokhna Road, One Kilometre Before District 5",
+        "name_ar": "شبكة ميجا بوست - طريق العين السخنة، قبل ديستريكت ٥ بكيلومتر",
+        "type": "Mega Post",
+        "format": "Billboard",
+        "size": "3 x 6",
+        "quantity": 15,
+        "sides": 30,
+        "illuminated": false,
+        "location_id": 2,
+        "district_id": 465,
+        "lat": 29.9553,
+        "lng": 31.4425,
+        "description": "Mega Post Network - Ain Sokhna Road, One Kilometre Before District 5. Outdoor advertising in Cairo, Egypt, through Horizon OOH. Package: 15 unit(s), 30 total faces. Dimensions (width x height): 3 x 6 m. Non-illuminated roadside network. Supplier rental is quoted per unit; the package can be planned by selected units. Map pin is an approximate roadside reference for this site/network, not surveyed coordinates. Source: supplier August 2026 proposal. Contact Horizon OOH to confirm booking dates and request a campaign quote.",
+        "description_ar": "شبكة ميجا بوست - طريق العين السخنة، قبل ديستريكت ٥ بكيلومتر. إعلانات خارجية في القاهرة مع هورايزون. الباكدج يضم 15 وحدة بإجمالي 30 وجهًا. المقاسات (العرض × الارتفاع): 3 x 6 متر. شبكة إعلانات على الطريق غير مضاءة. تسعير المورد للوحدة، ويمكن تخطيط الحملة حسب الوحدات المختارة. نقطة الخريطة مرجع تقريبي على الطريق لهذا الموقع أو الشبكة وليست إحداثيات مساحية معتمدة. المصدر عرض المورد لأغسطس ٢٠٢٦. تواصل مع هورايزون لتأكيد مواعيد الحجز وطلب عرض لحملتك.",
+        "full_address": "Ain Sokhna Road, One Kilometre Before District 5, Cairo, Egypt",
+        "brightness": "Not Lit",
+        "width": 3,
+        "height": 6,
+        "sqm": 18,
+        "code": "H-14563",
+        "supplier_id": 115,
+        "availability": "available"
+      },
+      "images": [
+        {
+          "sourceFile": "extracted/page-22.jpg",
+          "sourceSha256": "42b8937abbe9a230a1cc6e8ba1a8a89f761c442b09b66df8284c01fc3a778796",
+          "fileName": "h-14563-beyond-20261029-1.jpg",
+          "url": "/images/h-14563-beyond-20261029-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Mega Post Network - Ain Sokhna Road, One Kilometre Before District 5 - H-14563 - view 1 | Horizon OOH",
+          "altAr": "شبكة ميجا بوست - طريق العين السخنة، قبل ديستريكت ٥ بكيلومتر - H-14563 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "959493c8e6e1d93c46005034192e421b258284cebeb49b601bd41c38f95ae5e2",
+          "bytes": 42980
+        },
+        {
+          "sourceFile": "extracted/page-23.jpg",
+          "sourceSha256": "2ef7e81db00c229d75dcc58869d1b4ee8692d184d6c7eb5a08258922214e03cb",
+          "fileName": "h-14563-beyond-20261029-2.jpg",
+          "url": "/images/h-14563-beyond-20261029-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Mega Post Network - Ain Sokhna Road, One Kilometre Before District 5 - H-14563 - view 2 | Horizon OOH",
+          "altAr": "شبكة ميجا بوست - طريق العين السخنة، قبل ديستريكت ٥ بكيلومتر - H-14563 - صورة 2 | هورايزون للإعلانات الخارجية",
+          "sha256": "d1248b2074cdbbab578fcecee4d801f985e69701c6fd7dab550b233aef546f6c",
+          "bytes": 45223
+        }
+      ],
+      "addressAr": "طريق العين السخنة، قبل ديستريكت ٥ بكيلومتر، القاهرة، مصر",
+      "provenance": {
+        "key": "P22",
+        "pages": [
+          22,
+          23
+        ],
+        "priceBasis": "per unit per month",
+        "approximate": true,
+        "matchedExisting": false,
+        "originalSupplierId": 115
+      }
+    },
+    {
+      "data": {
+        "title": "Mega Post Network - Ain Sokhna Road, Toll Station Towards District 5",
+        "name_ar": "شبكة ميجا بوست - طريق العين السخنة، من محطة الرسوم باتجاه ديستريكت ٥",
+        "type": "Mega Post",
+        "format": "Billboard",
+        "size": "3 x 6",
+        "quantity": 9,
+        "sides": 18,
+        "illuminated": false,
+        "location_id": 2,
+        "district_id": 465,
+        "lat": 29.9668,
+        "lng": 31.4685,
+        "description": "Mega Post Network - Ain Sokhna Road, Toll Station Towards District 5. Outdoor advertising in Cairo, Egypt, through Horizon OOH. Package: 9 unit(s), 18 total faces. Dimensions (width x height): 3 x 6 m. Non-illuminated roadside network. Supplier rental is quoted per unit; the package can be planned by selected units. Map pin is an approximate roadside reference for this site/network, not surveyed coordinates. Source: supplier August 2026 proposal. Contact Horizon OOH to confirm booking dates and request a campaign quote.",
+        "description_ar": "شبكة ميجا بوست - طريق العين السخنة، من محطة الرسوم باتجاه ديستريكت ٥. إعلانات خارجية في القاهرة مع هورايزون. الباكدج يضم 9 وحدة بإجمالي 18 وجهًا. المقاسات (العرض × الارتفاع): 3 x 6 متر. شبكة إعلانات على الطريق غير مضاءة. تسعير المورد للوحدة، ويمكن تخطيط الحملة حسب الوحدات المختارة. نقطة الخريطة مرجع تقريبي على الطريق لهذا الموقع أو الشبكة وليست إحداثيات مساحية معتمدة. المصدر عرض المورد لأغسطس ٢٠٢٦. تواصل مع هورايزون لتأكيد مواعيد الحجز وطلب عرض لحملتك.",
+        "full_address": "Ain Sokhna Road, Toll Station Towards District 5, Cairo, Egypt",
+        "brightness": "Not Lit",
+        "width": 3,
+        "height": 6,
+        "sqm": 18,
+        "code": "H-14564",
+        "supplier_id": 115,
+        "availability": "available"
+      },
+      "images": [
+        {
+          "sourceFile": "extracted/page-24.jpg",
+          "sourceSha256": "85f42e8c6ee1dc05cc52d3e2149d732224ccc2cb203c9552112b63f9529382cc",
+          "fileName": "h-14564-beyond-20261029-1.jpg",
+          "url": "/images/h-14564-beyond-20261029-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Mega Post Network - Ain Sokhna Road, Toll Station Towards District 5 - H-14564 - view 1 | Horizon OOH",
+          "altAr": "شبكة ميجا بوست - طريق العين السخنة، من محطة الرسوم باتجاه ديستريكت ٥ - H-14564 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "f6d87165db5cdd8e043596b2c1e1266a9d271dd4d252d19af674f4909e536178",
+          "bytes": 45874
+        },
+        {
+          "sourceFile": "extracted/page-25.jpg",
+          "sourceSha256": "5bf661da08d830d48def7f7799797bd599776d70b5005640f24b039f9a35610d",
+          "fileName": "h-14564-beyond-20261029-2.jpg",
+          "url": "/images/h-14564-beyond-20261029-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Mega Post Network - Ain Sokhna Road, Toll Station Towards District 5 - H-14564 - view 2 | Horizon OOH",
+          "altAr": "شبكة ميجا بوست - طريق العين السخنة، من محطة الرسوم باتجاه ديستريكت ٥ - H-14564 - صورة 2 | هورايزون للإعلانات الخارجية",
+          "sha256": "70b810754873fad64ba345b37bcc0f884f6951e0e6fa01cf476b5f7ba250e8ad",
+          "bytes": 47728
+        }
+      ],
+      "addressAr": "طريق العين السخنة، من محطة الرسوم باتجاه ديستريكت ٥، القاهرة، مصر",
+      "provenance": {
+        "key": "P24",
+        "pages": [
+          24,
+          25
+        ],
+        "priceBasis": "per unit per month",
+        "approximate": true,
+        "matchedExisting": false,
+        "originalSupplierId": 115
+      }
+    },
+    {
+      "data": {
+        "title": "Mega Post Network - Ain Sokhna Road, After Toll Station Towards Ain Sokhna",
+        "name_ar": "شبكة ميجا بوست - طريق العين السخنة، بعد محطة الرسوم باتجاه العين السخنة",
+        "type": "Mega Post",
+        "format": "Billboard",
+        "size": "3 x 6",
+        "quantity": 5,
+        "sides": 10,
+        "illuminated": false,
+        "location_id": 2,
+        "district_id": 465,
+        "lat": 29.9558,
+        "lng": 31.489,
+        "description": "Mega Post Network - Ain Sokhna Road, After Toll Station Towards Ain Sokhna. Outdoor advertising in Cairo, Egypt, through Horizon OOH. Package: 5 unit(s), 10 total faces. Dimensions (width x height): 3 x 6 m. Non-illuminated roadside network. Supplier rental is quoted per unit; the package can be planned by selected units. Map pin is an approximate roadside reference for this site/network, not surveyed coordinates. Source: supplier August 2026 proposal. Contact Horizon OOH to confirm booking dates and request a campaign quote.",
+        "description_ar": "شبكة ميجا بوست - طريق العين السخنة، بعد محطة الرسوم باتجاه العين السخنة. إعلانات خارجية في القاهرة مع هورايزون. الباكدج يضم 5 وحدة بإجمالي 10 وجهًا. المقاسات (العرض × الارتفاع): 3 x 6 متر. شبكة إعلانات على الطريق غير مضاءة. تسعير المورد للوحدة، ويمكن تخطيط الحملة حسب الوحدات المختارة. نقطة الخريطة مرجع تقريبي على الطريق لهذا الموقع أو الشبكة وليست إحداثيات مساحية معتمدة. المصدر عرض المورد لأغسطس ٢٠٢٦. تواصل مع هورايزون لتأكيد مواعيد الحجز وطلب عرض لحملتك.",
+        "full_address": "Ain Sokhna Road, After Toll Station Towards Ain Sokhna, Cairo, Egypt",
+        "brightness": "Not Lit",
+        "width": 3,
+        "height": 6,
+        "sqm": 18,
+        "code": "H-14565",
+        "supplier_id": 115,
+        "availability": "available"
+      },
+      "images": [
+        {
+          "sourceFile": "extracted/page-26.jpg",
+          "sourceSha256": "9e3f20a9466b1bc229bd11c624610e5c91a301c901f8e8805b8cbc778f653ea6",
+          "fileName": "h-14565-beyond-20261029-1.jpg",
+          "url": "/images/h-14565-beyond-20261029-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Mega Post Network - Ain Sokhna Road, After Toll Station Towards Ain Sokhna - H-14565 - view 1 | Horizon OOH",
+          "altAr": "شبكة ميجا بوست - طريق العين السخنة، بعد محطة الرسوم باتجاه العين السخنة - H-14565 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "4789f399a46d72e1d32728410de9d6674c0735069dfd0e5275f6196c6ecb71e4",
+          "bytes": 38357
+        },
+        {
+          "sourceFile": "extracted/page-27.jpg",
+          "sourceSha256": "98f9db5c32c98db36cbec7df95e1057e216200e3b725764dbb3872d3d51aa951",
+          "fileName": "h-14565-beyond-20261029-2.jpg",
+          "url": "/images/h-14565-beyond-20261029-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Mega Post Network - Ain Sokhna Road, After Toll Station Towards Ain Sokhna - H-14565 - view 2 | Horizon OOH",
+          "altAr": "شبكة ميجا بوست - طريق العين السخنة، بعد محطة الرسوم باتجاه العين السخنة - H-14565 - صورة 2 | هورايزون للإعلانات الخارجية",
+          "sha256": "8bd79b7cdd7e8336aec7ca9135e24954e41aa342923dbfcfeb038f6738149d9a",
+          "bytes": 38700
+        }
+      ],
+      "addressAr": "طريق العين السخنة، بعد محطة الرسوم باتجاه العين السخنة، القاهرة، مصر",
+      "provenance": {
+        "key": "P26",
+        "pages": [
+          26,
+          27
+        ],
+        "priceBasis": "per unit per month",
+        "approximate": true,
+        "matchedExisting": false,
+        "originalSupplierId": 115
+      }
+    },
+    {
+      "data": {
+        "title": "Uni-pole - Ring Road, Opposite BMW Showroom",
+        "name_ar": "يوني بول - الدائري، أمام معرض بي إم دبليو",
+        "type": "Uni pole",
+        "format": "Billboard",
+        "size": "24 x 8",
+        "quantity": 1,
+        "sides": 2,
+        "illuminated": true,
+        "location_id": 2,
+        "district_id": 451,
+        "lat": 29.98215,
+        "lng": 31.3365,
+        "description": "Uni-pole - Ring Road, Opposite BMW Showroom. Outdoor advertising in Cairo, Egypt, through Horizon OOH. Package: 1 unit(s), 2 total faces. Dimensions (width x height): 24 x 8 m.  Map pin is an approximate roadside reference for this site/network, not surveyed coordinates. Source: supplier August 2026 proposal. Contact Horizon OOH to confirm booking dates and request a campaign quote.",
+        "description_ar": "يوني بول - الدائري، أمام معرض بي إم دبليو. إعلانات خارجية في القاهرة مع هورايزون. الباكدج يضم 1 وحدة بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 24 x 8 متر.  نقطة الخريطة مرجع تقريبي على الطريق لهذا الموقع أو الشبكة وليست إحداثيات مساحية معتمدة. المصدر عرض المورد لأغسطس ٢٠٢٦. تواصل مع هورايزون لتأكيد مواعيد الحجز وطلب عرض لحملتك.",
+        "full_address": "Ring Road, Opposite BMW Showroom, Cairo, Egypt",
+        "brightness": "Back Light",
+        "width": 24,
+        "height": 8,
+        "sqm": 192,
+        "code": "H-14566",
+        "supplier_id": 115,
+        "availability": "available"
+      },
+      "images": [
+        {
+          "sourceFile": "extracted/page-31.jpg",
+          "sourceSha256": "182420d99f5179927c7fcb91981012ab31a1b5705def002867b310b4d3cdb157",
+          "fileName": "h-14566-beyond-20261029-1.jpg",
+          "url": "/images/h-14566-beyond-20261029-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Uni-pole - Ring Road, Opposite BMW Showroom - H-14566 - view 1 | Horizon OOH",
+          "altAr": "يوني بول - الدائري، أمام معرض بي إم دبليو - H-14566 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "dffaa09e331fbd7d98c110039bbce595fe074a423fe9e41d070b27db4dae8d9a",
+          "bytes": 67990
+        },
+        {
+          "sourceFile": "extracted/page-32.jpg",
+          "sourceSha256": "77aee23183d6aa7bf74664a95af554e81b5ac011d8dac4350fc3667851282959",
+          "fileName": "h-14566-beyond-20261029-2.jpg",
+          "url": "/images/h-14566-beyond-20261029-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Uni-pole - Ring Road, Opposite BMW Showroom - H-14566 - view 2 | Horizon OOH",
+          "altAr": "يوني بول - الدائري، أمام معرض بي إم دبليو - H-14566 - صورة 2 | هورايزون للإعلانات الخارجية",
+          "sha256": "b5733fbb2ef6f4976391daf5567703a8a296395fd2b5588f838b7fa1330ebf92",
+          "bytes": 67440
+        }
+      ],
+      "addressAr": "الدائري، أمام معرض بي إم دبليو، القاهرة، مصر",
+      "provenance": {
+        "key": "P31",
+        "pages": [
+          31,
+          32
+        ],
+        "priceBasis": "package per month",
+        "approximate": true,
+        "matchedExisting": false,
+        "originalSupplierId": 115
+      }
+    },
+    {
+      "data": {
+        "title": "Uni-pole - Ring Road, Opposite JW Marriott",
+        "name_ar": "يوني بول - الدائري، أمام جي دبليو ماريوت",
+        "type": "Uni pole",
+        "format": "Billboard",
+        "size": "24 x 8",
+        "quantity": 1,
+        "sides": 2,
+        "illuminated": true,
+        "location_id": 2,
+        "district_id": 451,
+        "lat": 30.073,
+        "lng": 31.4313,
+        "description": "Uni-pole - Ring Road, Opposite JW Marriott. Outdoor advertising in Cairo, Egypt, through Horizon OOH. Package: 1 unit(s), 2 total faces. Dimensions (width x height): 24 x 8 m.  Map pin is an approximate roadside reference for this site/network, not surveyed coordinates. Source: supplier August 2026 proposal. Contact Horizon OOH to confirm booking dates and request a campaign quote.",
+        "description_ar": "يوني بول - الدائري، أمام جي دبليو ماريوت. إعلانات خارجية في القاهرة مع هورايزون. الباكدج يضم 1 وحدة بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 24 x 8 متر.  نقطة الخريطة مرجع تقريبي على الطريق لهذا الموقع أو الشبكة وليست إحداثيات مساحية معتمدة. المصدر عرض المورد لأغسطس ٢٠٢٦. تواصل مع هورايزون لتأكيد مواعيد الحجز وطلب عرض لحملتك.",
+        "full_address": "Ring Road, Opposite JW Marriott, Cairo, Egypt",
+        "brightness": "Back Light",
+        "width": 24,
+        "height": 8,
+        "sqm": 192,
+        "code": "H-14567",
+        "supplier_id": 115,
+        "availability": "available"
+      },
+      "images": [
+        {
+          "sourceFile": "extracted/page-35.jpg",
+          "sourceSha256": "222b2895c293f668098dde3c9944d0a8f78ca8ee41296c6e759c0b44d5f90600",
+          "fileName": "h-14567-beyond-20261029-1.jpg",
+          "url": "/images/h-14567-beyond-20261029-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Uni-pole - Ring Road, Opposite JW Marriott - H-14567 - view 1 | Horizon OOH",
+          "altAr": "يوني بول - الدائري، أمام جي دبليو ماريوت - H-14567 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "376bfbe9ec49677358159bfa21e3b3928d0250d9ede923ae7cdb520da566c654",
+          "bytes": 51444
+        },
+        {
+          "sourceFile": "extracted/page-36.jpg",
+          "sourceSha256": "5639186b1934b9b34f3cf11685a92aadd24cca5163ab0ae06f4c7a82f1823083",
+          "fileName": "h-14567-beyond-20261029-2.jpg",
+          "url": "/images/h-14567-beyond-20261029-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Uni-pole - Ring Road, Opposite JW Marriott - H-14567 - view 2 | Horizon OOH",
+          "altAr": "يوني بول - الدائري، أمام جي دبليو ماريوت - H-14567 - صورة 2 | هورايزون للإعلانات الخارجية",
+          "sha256": "c9b0c38cb3cb8cdfeaae2b7860b7caba2931c97b816c30b655d2871ce8ca5c5c",
+          "bytes": 52121
+        }
+      ],
+      "addressAr": "الدائري، أمام جي دبليو ماريوت، القاهرة، مصر",
+      "provenance": {
+        "key": "P35",
+        "pages": [
+          35,
+          36
+        ],
+        "priceBasis": "package per month",
+        "approximate": true,
+        "matchedExisting": false,
+        "originalSupplierId": 115
+      }
+    },
+    {
+      "data": {
+        "title": "Digital Screen - Al Thawra Street",
+        "name_ar": "شاشة رقمية - شارع الثورة",
+        "type": "Digital Screen",
+        "format": "Digital",
+        "size": "35 x 5",
+        "quantity": 1,
+        "sides": 2,
+        "illuminated": true,
+        "location_id": 2,
+        "district_id": 457,
+        "lat": 30.0808,
+        "lng": 31.397,
+        "description": "Digital Screen - Al Thawra Street. Outdoor advertising in Cairo, Egypt, through Horizon OOH. Package: 1 unit(s), 2 total faces. Dimensions (width x height): 35 x 5 m. Creative resolution: 3456 x 480 pixels. 10-second slot every 2 minutes. Standalone screen offer; also included in the separate screen-and-network package. Map pin is an approximate roadside reference for this site/network, not surveyed coordinates. Source: supplier August 2026 proposal. Contact Horizon OOH to confirm booking dates and request a campaign quote.",
+        "description_ar": "شاشة رقمية - شارع الثورة. إعلانات خارجية في القاهرة مع هورايزون. الباكدج يضم 1 وحدة بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 35 x 5 متر. دقة المحتوى ٣٤٥٦ × ٤٨٠ بكسل. العرض ١٠ ثوان كل دقيقتين. عرض مستقل للشاشة، وهي مشمولة أيضًا في باكدج الشاشة والشبكة المنفصل. نقطة الخريطة مرجع تقريبي على الطريق لهذا الموقع أو الشبكة وليست إحداثيات مساحية معتمدة. المصدر عرض المورد لأغسطس ٢٠٢٦. تواصل مع هورايزون لتأكيد مواعيد الحجز وطلب عرض لحملتك.",
+        "full_address": "Al Thawra Street, Cairo, Egypt",
+        "brightness": "Digital LED",
+        "width": 35,
+        "height": 5,
+        "sqm": 175,
+        "code": "H-14568",
+        "supplier_id": 115,
+        "availability": "available"
+      },
+      "images": [
+        {
+          "sourceFile": "extracted/page-45.jpg",
+          "sourceSha256": "4f6c1184eae78bdc1ee97402b811ca14c765f0c8da160b6b3edcbae1589b9c56",
+          "fileName": "h-14568-beyond-20261029-1.jpg",
+          "url": "/images/h-14568-beyond-20261029-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen - Al Thawra Street - H-14568 - view 1 | Horizon OOH",
+          "altAr": "شاشة رقمية - شارع الثورة - H-14568 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "6f40d0323199d4b6e0d1b31afc8e01f9d0ed99f577616651987ec4c17bf9009f",
+          "bytes": 70044
+        },
+        {
+          "sourceFile": "extracted/page-46.jpg",
+          "sourceSha256": "51f4ba772487ed001119a919c3149ea109635ef6e931848396df0c0e9e8cc090",
+          "fileName": "h-14568-beyond-20261029-2.jpg",
+          "url": "/images/h-14568-beyond-20261029-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Digital Screen - Al Thawra Street - H-14568 - view 2 | Horizon OOH",
+          "altAr": "شاشة رقمية - شارع الثورة - H-14568 - صورة 2 | هورايزون للإعلانات الخارجية",
+          "sha256": "9066f4e88d514697d273f18389ff46ad88665a43c3dddbeb942a24318b44b75a",
+          "bytes": 58864
+        }
+      ],
+      "addressAr": "شارع الثورة، القاهرة، مصر",
+      "provenance": {
+        "key": "P45",
+        "pages": [
+          45,
+          46
+        ],
+        "priceBasis": "package per month",
+        "approximate": true,
+        "matchedExisting": false,
+        "originalSupplierId": 115
+      }
+    },
+    {
+      "data": {
+        "title": "Combo Package - Al Thawra Towards Ring Road and Madinaty",
+        "name_ar": "باكدج كومبو - الثورة باتجاه الدائري ومدينتي",
+        "type": "Combo",
+        "format": "Digital",
+        "size": "35 x 5 + 3 x 6",
+        "quantity": 16,
+        "sides": 32,
+        "illuminated": true,
+        "location_id": 2,
+        "district_id": 457,
+        "lat": 30.0808,
+        "lng": 31.397,
+        "description": "Combo Package - Al Thawra Towards Ring Road and Madinaty. Outdoor advertising in Cairo, Egypt, through Horizon OOH. Package: 16 unit(s), 32 total faces. Dimensions (width x height): 35 x 5 + 3 x 6 m. One double-sided 35 x 5 m digital screen plus 15 static units, 30 faces, 3 x 6 m. Includes the screen offered separately; this is a distinct combined booking option. Map pin is an approximate roadside reference for this site/network, not surveyed coordinates. Source: supplier August 2026 proposal. Contact Horizon OOH to confirm booking dates and request a campaign quote.",
+        "description_ar": "باكدج كومبو - الثورة باتجاه الدائري ومدينتي. إعلانات خارجية في القاهرة مع هورايزون. الباكدج يضم 16 وحدة بإجمالي 32 وجهًا. المقاسات (العرض × الارتفاع): 35 x 5 + 3 x 6 متر. شاشة رقمية بوجهين مقاس ٣٥ × ٥ متر مع ١٥ وحدة ثابتة بإجمالي ٣٠ وجهًا مقاس ٣ × ٦ متر. تضم الشاشة المتاحة منفردة، وتمثل خيار حجز مجمعًا مختلفًا. نقطة الخريطة مرجع تقريبي على الطريق لهذا الموقع أو الشبكة وليست إحداثيات مساحية معتمدة. المصدر عرض المورد لأغسطس ٢٠٢٦. تواصل مع هورايزون لتأكيد مواعيد الحجز وطلب عرض لحملتك.",
+        "full_address": "Al Thawra Towards Ring Road and Madinaty, Cairo, Egypt",
+        "brightness": "Digital LED + static units",
+        "width": null,
+        "height": null,
+        "sqm": null,
+        "code": "H-14569",
+        "supplier_id": 115,
+        "availability": "available"
+      },
+      "images": [
+        {
+          "sourceFile": "extracted/page-47.jpg",
+          "sourceSha256": "8fdca8ca80c29fd08e251f91bd9bcb574fc5b033bd0bd0bdbf1ccfbed3f40283",
+          "fileName": "h-14569-beyond-20261029-1.jpg",
+          "url": "/images/h-14569-beyond-20261029-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Combo Package - Al Thawra Towards Ring Road and Madinaty - H-14569 - view 1 | Horizon OOH",
+          "altAr": "باكدج كومبو - الثورة باتجاه الدائري ومدينتي - H-14569 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "ef27359d8afb1b02ce256dc52bdb4acf95d183be328bd6cd3abfcb5c49e84404",
+          "bytes": 48501
+        },
+        {
+          "sourceFile": "extracted/page-48.jpg",
+          "sourceSha256": "06a836fca20a05ee616123091b26bc3bc1b82909bf35a72a0aba8fcda7fb2cd0",
+          "fileName": "h-14569-beyond-20261029-2.jpg",
+          "url": "/images/h-14569-beyond-20261029-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Combo Package - Al Thawra Towards Ring Road and Madinaty - H-14569 - view 2 | Horizon OOH",
+          "altAr": "باكدج كومبو - الثورة باتجاه الدائري ومدينتي - H-14569 - صورة 2 | هورايزون للإعلانات الخارجية",
+          "sha256": "d41089dd597036d1752780e0a808cf7704716b8752290c295b96389d01fc3022",
+          "bytes": 62065
+        }
+      ],
+      "addressAr": "الثورة باتجاه الدائري ومدينتي، القاهرة، مصر",
+      "provenance": {
+        "key": "P47",
+        "pages": [
+          47,
+          48
+        ],
+        "priceBasis": "package per month",
+        "approximate": true,
+        "matchedExisting": false,
+        "originalSupplierId": 115
+      }
+    }
+  ],
+  "updates": [
+    {
+      "id": 13877,
+      "code": "H-13877",
+      "data": {
+        "title": "Double Decker - 6 October Bridge, Ramses Railway Station Towards Ghamra",
+        "name_ar": "دبل ديكر - كوبري أكتوبر، محطة رمسيس باتجاه غمرة",
+        "type": "Double Decker",
+        "format": "Billboard",
+        "size": "12 x 5",
+        "quantity": 1,
+        "sides": 4,
+        "illuminated": true,
+        "location_id": 2,
+        "district_id": 449,
+        "lat": 30.0638919,
+        "lng": 31.2508008,
+        "description": "Double Decker - 6 October Bridge, Ramses Railway Station Towards Ghamra. Outdoor advertising in Cairo, Egypt, through Horizon OOH. Package: 1 unit(s), 4 total faces. Dimensions (width x height): 12 x 5 m.  Source: supplier August 2026 proposal. Contact Horizon OOH to confirm booking dates and request a campaign quote.",
+        "description_ar": "دبل ديكر - كوبري أكتوبر، محطة رمسيس باتجاه غمرة. إعلانات خارجية في القاهرة مع هورايزون. الباكدج يضم 1 وحدة بإجمالي 4 وجهًا. المقاسات (العرض × الارتفاع): 12 x 5 متر.  المصدر عرض المورد لأغسطس ٢٠٢٦. تواصل مع هورايزون لتأكيد مواعيد الحجز وطلب عرض لحملتك.",
+        "full_address": "6 October Bridge, Ramses Railway Station Towards Ghamra, Cairo, Egypt",
+        "brightness": "Back Light",
+        "width": 12,
+        "height": 5,
+        "sqm": 60
+      },
+      "addressAr": "كوبري أكتوبر، محطة رمسيس باتجاه غمرة، القاهرة، مصر",
+      "provenance": {
+        "key": "P03",
+        "pages": [
+          3,
+          4
+        ],
+        "priceBasis": "package per month",
+        "approximate": false,
+        "matchedExisting": true,
+        "originalSupplierId": 115
+      },
+      "slug": "double-decker-october-bridge",
+      "oldCitySlug": "cairo"
+    },
+    {
+      "id": 13903,
+      "code": "H-13903",
+      "data": {
+        "title": "Double Decker - 6 October Bridge, Salah Salem Towards Ramses",
+        "name_ar": "دبل ديكر - كوبري أكتوبر، من صلاح سالم باتجاه رمسيس",
+        "type": "Double Decker",
+        "format": "Billboard",
+        "size": "14 x 5",
+        "quantity": 1,
+        "sides": 2,
+        "illuminated": true,
+        "location_id": 2,
+        "district_id": 449,
+        "lat": 30.0640962,
+        "lng": 31.2525268,
+        "description": "Double Decker - 6 October Bridge, Salah Salem Towards Ramses. Outdoor advertising in Cairo, Egypt, through Horizon OOH. Package: 1 unit(s), 2 total faces. Dimensions (width x height): 14 x 5 m.  Source: supplier August 2026 proposal. Contact Horizon OOH to confirm booking dates and request a campaign quote.",
+        "description_ar": "دبل ديكر - كوبري أكتوبر، من صلاح سالم باتجاه رمسيس. إعلانات خارجية في القاهرة مع هورايزون. الباكدج يضم 1 وحدة بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 14 x 5 متر.  المصدر عرض المورد لأغسطس ٢٠٢٦. تواصل مع هورايزون لتأكيد مواعيد الحجز وطلب عرض لحملتك.",
+        "full_address": "6 October Bridge, Salah Salem Towards Ramses, Cairo, Egypt",
+        "brightness": "Back Light",
+        "width": 14,
+        "height": 5,
+        "sqm": 70
+      },
+      "addressAr": "كوبري أكتوبر، من صلاح سالم باتجاه رمسيس، القاهرة، مصر",
+      "provenance": {
+        "key": "P05",
+        "pages": [
+          5
+        ],
+        "priceBasis": "package per month",
+        "approximate": false,
+        "matchedExisting": true,
+        "originalSupplierId": 15
+      },
+      "slug": "double-decker-october-bridge-sharabia",
+      "oldCitySlug": "cairo"
+    },
+    {
+      "id": 14105,
+      "code": "H-14105",
+      "data": {
+        "title": "Digital Screen - Sheikh Zayed, Chillout Gate",
+        "name_ar": "شاشة رقمية - الشيخ زايد، بوابة شيل أوت",
+        "type": "Digital Screen",
+        "format": "Digital",
+        "size": "20 x 10",
+        "quantity": 1,
+        "sides": 2,
+        "illuminated": true,
+        "location_id": 3,
+        "district_id": 494,
+        "lat": 30.02955,
+        "lng": 30.96391,
+        "description": "Digital Screen - Sheikh Zayed, Chillout Gate. Outdoor advertising in Giza, Egypt, through Horizon OOH. Package: 1 unit(s), 2 total faces. Dimensions (width x height): 20 x 10 m. Creative resolution: 1824 x 960 pixels. 10-second slot repeated every 2 minutes. Map pin is an approximate roadside reference for this site/network, not surveyed coordinates. Source: supplier August 2026 proposal. Contact Horizon OOH to confirm booking dates and request a campaign quote.",
+        "description_ar": "شاشة رقمية - الشيخ زايد، بوابة شيل أوت. إعلانات خارجية في الجيزة مع هورايزون. الباكدج يضم 1 وحدة بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 20 x 10 متر. دقة المحتوى ١٨٢٤ × ٩٦٠ بكسل. مدة العرض ١٠ ثوان تتكرر كل دقيقتين. نقطة الخريطة مرجع تقريبي على الطريق لهذا الموقع أو الشبكة وليست إحداثيات مساحية معتمدة. المصدر عرض المورد لأغسطس ٢٠٢٦. تواصل مع هورايزون لتأكيد مواعيد الحجز وطلب عرض لحملتك.",
+        "full_address": "Sheikh Zayed, Chillout Gate, Giza, Egypt",
+        "brightness": "Digital LED",
+        "width": 20,
+        "height": 10,
+        "sqm": 200
+      },
+      "addressAr": "الشيخ زايد، بوابة شيل أوت، الجيزة، مصر",
+      "provenance": {
+        "key": "P07",
+        "pages": [
+          7,
+          8
+        ],
+        "priceBasis": "package per month",
+        "approximate": true,
+        "matchedExisting": true,
+        "originalSupplierId": 48
+      },
+      "slug": "h-14105-digital-screen-sheikh-zayed-dahshour",
+      "oldCitySlug": "giza"
+    },
+    {
+      "id": 12621,
+      "code": "H-12621",
+      "data": {
+        "title": "Uni-pole Package - Mall of Arabia Road Frontage",
+        "name_ar": "باكدج يوني بول - أمام مول العرب",
+        "type": "Uni pole",
+        "format": "Billboard",
+        "size": "16 x 8",
+        "quantity": 2,
+        "sides": 4,
+        "illuminated": true,
+        "location_id": 3,
+        "district_id": 39,
+        "lat": 30.0059459,
+        "lng": 30.9783447,
+        "description": "Uni-pole Package - Mall of Arabia Road Frontage. Outdoor advertising in Giza, Egypt, through Horizon OOH. Package: 2 unit(s), 4 total faces. Dimensions (width x height): 16 x 8 m.  Source: supplier August 2026 proposal. Contact Horizon OOH to confirm booking dates and request a campaign quote.",
+        "description_ar": "باكدج يوني بول - أمام مول العرب. إعلانات خارجية في الجيزة مع هورايزون. الباكدج يضم 2 وحدة بإجمالي 4 وجهًا. المقاسات (العرض × الارتفاع): 16 x 8 متر.  المصدر عرض المورد لأغسطس ٢٠٢٦. تواصل مع هورايزون لتأكيد مواعيد الحجز وطلب عرض لحملتك.",
+        "full_address": "Mall of Arabia Road Frontage, Giza, Egypt",
+        "brightness": "Back Light",
+        "width": 16,
+        "height": 8,
+        "sqm": 128
+      },
+      "addressAr": "أمام مول العرب، الجيزة، مصر",
+      "provenance": {
+        "key": "P14",
+        "pages": [
+          14,
+          15
+        ],
+        "priceBasis": "package per month",
+        "approximate": false,
+        "matchedExisting": true,
+        "originalSupplierId": 82
+      },
+      "slug": "uni-pole-6-oct-city-mall-of-arabia",
+      "oldCitySlug": "cairo"
+    },
+    {
+      "id": 13883,
+      "code": "H-13883",
+      "data": {
+        "title": "Uni-pole - Maadi Corniche, The Platform Towards Entrance 1",
+        "name_ar": "يوني بول - كورنيش المعادي، ذا بلاتفورم باتجاه مدخل ١",
+        "type": "Uni pole",
+        "format": "Billboard",
+        "size": "16 x 8",
+        "quantity": 1,
+        "sides": 2,
+        "illuminated": true,
+        "location_id": 2,
+        "district_id": 455,
+        "lat": 29.9746,
+        "lng": 31.2348,
+        "description": "Uni-pole - Maadi Corniche, The Platform Towards Entrance 1. Outdoor advertising in Cairo, Egypt, through Horizon OOH. Package: 1 unit(s), 2 total faces. Dimensions (width x height): 16 x 8 m.  Map pin is an approximate roadside reference for this site/network, not surveyed coordinates. Source: supplier August 2026 proposal. Contact Horizon OOH to confirm booking dates and request a campaign quote.",
+        "description_ar": "يوني بول - كورنيش المعادي، ذا بلاتفورم باتجاه مدخل ١. إعلانات خارجية في القاهرة مع هورايزون. الباكدج يضم 1 وحدة بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 16 x 8 متر.  نقطة الخريطة مرجع تقريبي على الطريق لهذا الموقع أو الشبكة وليست إحداثيات مساحية معتمدة. المصدر عرض المورد لأغسطس ٢٠٢٦. تواصل مع هورايزون لتأكيد مواعيد الحجز وطلب عرض لحملتك.",
+        "full_address": "Maadi Corniche, The Platform Towards Entrance 1, Cairo, Egypt",
+        "brightness": "Back Light",
+        "width": 16,
+        "height": 8,
+        "sqm": 128
+      },
+      "addressAr": "كورنيش المعادي، ذا بلاتفورم باتجاه مدخل ١، القاهرة، مصر",
+      "provenance": {
+        "key": "P17",
+        "pages": [
+          17,
+          18
+        ],
+        "priceBasis": "package per month",
+        "approximate": true,
+        "matchedExisting": true,
+        "originalSupplierId": 115
+      },
+      "slug": "uni-pole-maadi-cornish-cairo",
+      "oldCitySlug": "cairo"
+    },
+    {
+      "id": 13884,
+      "code": "H-13884",
+      "data": {
+        "title": "Gate Package - Ring Road, Moneeb Towards Maadi Carrefour and Ain Sokhna",
+        "name_ar": "باكدج بوابه - الدائري، من المنيب باتجاه كارفور المعادي والعين السخنة",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "16 x 8 + 24 x 8",
+        "quantity": 2,
+        "sides": 4,
+        "illuminated": true,
+        "location_id": 2,
+        "district_id": 451,
+        "lat": 29.9907672,
+        "lng": 31.296245,
+        "description": "Gate Package - Ring Road, Moneeb Towards Maadi Carrefour and Ain Sokhna. Outdoor advertising in Cairo, Egypt, through Horizon OOH. Package: 2 unit(s), 4 total faces. Dimensions (width x height): 16 x 8 + 24 x 8 m. Two 16 x 8 m faces and two 24 x 8 m faces. Source: supplier August 2026 proposal. Contact Horizon OOH to confirm booking dates and request a campaign quote.",
+        "description_ar": "باكدج بوابه - الدائري، من المنيب باتجاه كارفور المعادي والعين السخنة. إعلانات خارجية في القاهرة مع هورايزون. الباكدج يضم 2 وحدة بإجمالي 4 وجهًا. المقاسات (العرض × الارتفاع): 16 x 8 + 24 x 8 متر. وجهان بمقاس ١٦ × ٨ متر ووجهان بمقاس ٢٤ × ٨ متر. المصدر عرض المورد لأغسطس ٢٠٢٦. تواصل مع هورايزون لتأكيد مواعيد الحجز وطلب عرض لحملتك.",
+        "full_address": "Ring Road, Moneeb Towards Maadi Carrefour and Ain Sokhna, Cairo, Egypt",
+        "brightness": "Back Light",
+        "width": null,
+        "height": null,
+        "sqm": null
+      },
+      "addressAr": "الدائري، من المنيب باتجاه كارفور المعادي والعين السخنة، القاهرة، مصر",
+      "provenance": {
+        "key": "P29",
+        "pages": [
+          29,
+          30
+        ],
+        "priceBasis": "package per month",
+        "approximate": false,
+        "matchedExisting": true,
+        "originalSupplierId": 115
+      },
+      "slug": "gate-ring-road-1",
+      "oldCitySlug": "cairo"
+    },
+    {
+      "id": 13893,
+      "code": "H-13893",
+      "data": {
+        "title": "Uni-pole - Ring Road, Opposite Royal Maxim Palace Kempinski",
+        "name_ar": "يوني بول - الدائري، أمام رويال مكسيم بالاس كمبينسكي",
+        "type": "Uni pole",
+        "format": "Billboard",
+        "size": "24 x 8",
+        "quantity": 1,
+        "sides": 2,
+        "illuminated": true,
+        "location_id": 2,
+        "district_id": 451,
+        "lat": 30.0647483,
+        "lng": 31.421541,
+        "description": "Uni-pole - Ring Road, Opposite Royal Maxim Palace Kempinski. Outdoor advertising in Cairo, Egypt, through Horizon OOH. Package: 1 unit(s), 2 total faces. Dimensions (width x height): 24 x 8 m.  Source: supplier August 2026 proposal. Contact Horizon OOH to confirm booking dates and request a campaign quote.",
+        "description_ar": "يوني بول - الدائري، أمام رويال مكسيم بالاس كمبينسكي. إعلانات خارجية في القاهرة مع هورايزون. الباكدج يضم 1 وحدة بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 24 x 8 متر.  المصدر عرض المورد لأغسطس ٢٠٢٦. تواصل مع هورايزون لتأكيد مواعيد الحجز وطلب عرض لحملتك.",
+        "full_address": "Ring Road, Opposite Royal Maxim Palace Kempinski, Cairo, Egypt",
+        "brightness": "Back Light",
+        "width": 24,
+        "height": 8,
+        "sqm": 192
+      },
+      "addressAr": "الدائري، أمام رويال مكسيم بالاس كمبينسكي، القاهرة، مصر",
+      "provenance": {
+        "key": "P33",
+        "pages": [
+          33,
+          34
+        ],
+        "priceBasis": "package per month",
+        "approximate": false,
+        "matchedExisting": true,
+        "originalSupplierId": 115
+      },
+      "slug": "uni-pole-ring-road-kempiniski-cairo",
+      "oldCitySlug": "cairo"
+    },
+    {
+      "id": 14028,
+      "code": "H-14028",
+      "data": {
+        "title": "Gate - Katameya Heights Towards Arabella",
+        "name_ar": "بوابه - القطامية هايتس باتجاه أرابيلا",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "16 x 8",
+        "quantity": 2,
+        "sides": 4,
+        "illuminated": true,
+        "location_id": 2,
+        "district_id": 7,
+        "lat": 29.99937,
+        "lng": 31.403365,
+        "description": "Gate - Katameya Heights Towards Arabella. Outdoor advertising in Cairo, Egypt, through Horizon OOH. Package: 2 unit(s), 4 total faces. Dimensions (width x height): 16 x 8 m.  Source: supplier August 2026 proposal. Contact Horizon OOH to confirm booking dates and request a campaign quote.",
+        "description_ar": "بوابه - القطامية هايتس باتجاه أرابيلا. إعلانات خارجية في القاهرة مع هورايزون. الباكدج يضم 2 وحدة بإجمالي 4 وجهًا. المقاسات (العرض × الارتفاع): 16 x 8 متر.  المصدر عرض المورد لأغسطس ٢٠٢٦. تواصل مع هورايزون لتأكيد مواعيد الحجز وطلب عرض لحملتك.",
+        "full_address": "Katameya Heights Towards Arabella, Cairo, Egypt",
+        "brightness": "Back Light",
+        "width": 16,
+        "height": 8,
+        "sqm": 128
+      },
+      "addressAr": "القطامية هايتس باتجاه أرابيلا، القاهرة، مصر",
+      "provenance": {
+        "key": "P38",
+        "pages": [
+          38,
+          39
+        ],
+        "priceBasis": "package per month",
+        "approximate": false,
+        "matchedExisting": true,
+        "originalSupplierId": 296
+      },
+      "slug": "h-14028-gate-mehwar-gamal-abd-el-nasser",
+      "oldCitySlug": "cairo"
+    },
+    {
+      "id": 14087,
+      "code": "H-14087",
+      "data": {
+        "title": "Digital Screen Package - North 90 Street, Waterway 2",
+        "name_ar": "باكدج شاشات رقمية - التسعين الشمالي، واتر واي ٢",
+        "type": "Combo",
+        "format": "Digital",
+        "size": "25 x 5 + 3 x 6",
+        "quantity": 3,
+        "sides": 6,
+        "illuminated": true,
+        "location_id": 2,
+        "district_id": 7,
+        "lat": 30.028585,
+        "lng": 31.479969,
+        "description": "Digital Screen Package - North 90 Street, Waterway 2. Outdoor advertising in Cairo, Egypt, through Horizon OOH. Package: 3 unit(s), 6 total faces. Dimensions (width x height): 25 x 5 + 3 x 6 m. Two 25 x 5 m faces and four 3 x 6 m faces. Creative resolutions: 3600 x 720 and 432 x 864 pixels. 10-second slot every 2 minutes. Source: supplier August 2026 proposal. Contact Horizon OOH to confirm booking dates and request a campaign quote.",
+        "description_ar": "باكدج شاشات رقمية - التسعين الشمالي، واتر واي ٢. إعلانات خارجية في القاهرة مع هورايزون. الباكدج يضم 3 وحدة بإجمالي 6 وجهًا. المقاسات (العرض × الارتفاع): 25 x 5 + 3 x 6 متر. وجهان بمقاس ٢٥ × ٥ متر وأربعة أوجه بمقاس ٣ × ٦ متر. دقة المحتوى ٣٦٠٠ × ٧٢٠ و٤٣٢ × ٨٦٤ بكسل. العرض ١٠ ثوان كل دقيقتين. المصدر عرض المورد لأغسطس ٢٠٢٦. تواصل مع هورايزون لتأكيد مواعيد الحجز وطلب عرض لحملتك.",
+        "full_address": "North 90 Street, Waterway 2, Cairo, Egypt",
+        "brightness": "Digital LED",
+        "width": null,
+        "height": null,
+        "sqm": null
+      },
+      "addressAr": "التسعين الشمالي، واتر واي ٢، القاهرة، مصر",
+      "provenance": {
+        "key": "P40",
+        "pages": [
+          40,
+          41
+        ],
+        "priceBasis": "package per month",
+        "approximate": false,
+        "matchedExisting": true,
+        "originalSupplierId": 48
+      },
+      "slug": "h-14087-combo-north-90th-street-waterway-2",
+      "oldCitySlug": "cairo"
+    },
+    {
+      "id": 14093,
+      "code": "H-14093",
+      "data": {
+        "title": "Digital Screen Package - Mohamed Naguib Axis Towards O1 Mall",
+        "name_ar": "باكدج شاشات رقمية - محور محمد نجيب باتجاه أو وان مول",
+        "type": "Combo",
+        "format": "Digital",
+        "size": "25 x 5 + 3 x 6",
+        "quantity": 3,
+        "sides": 6,
+        "illuminated": true,
+        "location_id": 2,
+        "district_id": 7,
+        "lat": 30.0494167,
+        "lng": 31.4751389,
+        "description": "Digital Screen Package - Mohamed Naguib Axis Towards O1 Mall. Outdoor advertising in Cairo, Egypt, through Horizon OOH. Package: 3 unit(s), 6 total faces. Dimensions (width x height): 25 x 5 + 3 x 6 m. Two 25 x 5 m faces and four 3 x 6 m faces. Creative resolutions: 3600 x 720 and 432 x 864 pixels. 10-second slot every 2 minutes. Map pin is an approximate roadside reference for this site/network, not surveyed coordinates. Source: supplier August 2026 proposal. Contact Horizon OOH to confirm booking dates and request a campaign quote.",
+        "description_ar": "باكدج شاشات رقمية - محور محمد نجيب باتجاه أو وان مول. إعلانات خارجية في القاهرة مع هورايزون. الباكدج يضم 3 وحدة بإجمالي 6 وجهًا. المقاسات (العرض × الارتفاع): 25 x 5 + 3 x 6 متر. وجهان بمقاس ٢٥ × ٥ متر وأربعة أوجه بمقاس ٣ × ٦ متر. دقة المحتوى ٣٦٠٠ × ٧٢٠ و٤٣٢ × ٨٦٤ بكسل. العرض ١٠ ثوان كل دقيقتين. نقطة الخريطة مرجع تقريبي على الطريق لهذا الموقع أو الشبكة وليست إحداثيات مساحية معتمدة. المصدر عرض المورد لأغسطس ٢٠٢٦. تواصل مع هورايزون لتأكيد مواعيد الحجز وطلب عرض لحملتك.",
+        "full_address": "Mohamed Naguib Axis Towards O1 Mall, Cairo, Egypt",
+        "brightness": "Digital LED",
+        "width": null,
+        "height": null,
+        "sqm": null
+      },
+      "addressAr": "محور محمد نجيب باتجاه أو وان مول، القاهرة، مصر",
+      "provenance": {
+        "key": "P42",
+        "pages": [
+          42,
+          43
+        ],
+        "priceBasis": "package per month",
+        "approximate": true,
+        "matchedExisting": true,
+        "originalSupplierId": 48
+      },
+      "slug": "h-14093-combo-water-way-1-new-cairo",
+      "oldCitySlug": "cairo"
+    },
+    {
+      "id": 13896,
+      "code": "H-13896",
+      "data": {
+        "title": "Mega Post Network - Al Thawra Street Towards Ring Road",
+        "name_ar": "شبكة ميجا بوست - شارع الثورة باتجاه الدائري",
+        "type": "Mega Post",
+        "format": "Billboard",
+        "size": "3 x 6",
+        "quantity": 30,
+        "sides": 60,
+        "illuminated": true,
+        "location_id": 2,
+        "district_id": 457,
+        "lat": 30.080802,
+        "lng": 31.4011744,
+        "description": "Mega Post Network - Al Thawra Street Towards Ring Road. Outdoor advertising in Cairo, Egypt, through Horizon OOH. Package: 30 unit(s), 60 total faces. Dimensions (width x height): 3 x 6 m. Back-lit network of 30 units and 60 faces. Supplier rental is quoted per unit. Source: supplier August 2026 proposal. Contact Horizon OOH to confirm booking dates and request a campaign quote.",
+        "description_ar": "شبكة ميجا بوست - شارع الثورة باتجاه الدائري. إعلانات خارجية في القاهرة مع هورايزون. الباكدج يضم 30 وحدة بإجمالي 60 وجهًا. المقاسات (العرض × الارتفاع): 3 x 6 متر. شبكة بإضاءة خلفية تضم ٣٠ وحدة و٦٠ وجهًا. تسعير المورد للوحدة. المصدر عرض المورد لأغسطس ٢٠٢٦. تواصل مع هورايزون لتأكيد مواعيد الحجز وطلب عرض لحملتك.",
+        "full_address": "Al Thawra Street Towards Ring Road, Cairo, Egypt",
+        "brightness": "Back Light",
+        "width": 3,
+        "height": 6,
+        "sqm": 18
+      },
+      "addressAr": "شارع الثورة باتجاه الدائري، القاهرة، مصر",
+      "provenance": {
+        "key": "P49",
+        "pages": [
+          49
+        ],
+        "priceBasis": "per unit per month",
+        "approximate": false,
+        "matchedExisting": true,
+        "originalSupplierId": 115
+      },
+      "slug": "mega-post-thawra-street-el-suez-road",
+      "oldCitySlug": "cairo"
+    }
+  ],
+  "imageReplacements": [
+    {
+      "id": 13877,
+      "code": "H-13877",
+      "images": [
+        {
+          "sourceFile": "extracted/page-03.jpg",
+          "sourceSha256": "520b5218c69c4b5b0b8f7d0e5a903506cf8ca1e63c869e2c331af2a6a20cf681",
+          "fileName": "h-13877-beyond-20261029-1.jpg",
+          "url": "/images/h-13877-beyond-20261029-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Double Decker - 6 October Bridge, Ramses Railway Station Towards Ghamra - H-13877 - view 1 | Horizon OOH",
+          "altAr": "دبل ديكر - كوبري أكتوبر، محطة رمسيس باتجاه غمرة - H-13877 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "6d05f02899867b7c55cc2b960577627ac1b5b9c34f5e2a3648d1c852715d23d5",
+          "bytes": 74563
+        },
+        {
+          "sourceFile": "extracted/page-04.jpg",
+          "sourceSha256": "e1e385eaed74ad405addfb44c32ced8d1be58a3fa280ca27507adcc0ea0b210c",
+          "fileName": "h-13877-beyond-20261029-2.jpg",
+          "url": "/images/h-13877-beyond-20261029-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Double Decker - 6 October Bridge, Ramses Railway Station Towards Ghamra - H-13877 - view 2 | Horizon OOH",
+          "altAr": "دبل ديكر - كوبري أكتوبر، محطة رمسيس باتجاه غمرة - H-13877 - صورة 2 | هورايزون للإعلانات الخارجية",
+          "sha256": "9c5e22a99886a6ce81afecb5eeab3d4d72b6f100344ef3bb9c825533470f492f",
+          "bytes": 50028
+        }
+      ]
+    },
+    {
+      "id": 12621,
+      "code": "H-12621",
+      "images": [
+        {
+          "sourceFile": "extracted/page-14.jpg",
+          "sourceSha256": "ec476d5277c949c0c39d524bf970e7c3276bfa7b17181df5b369f3c8ee982b46",
+          "fileName": "h-12621-beyond-20261029-1.jpg",
+          "url": "/images/h-12621-beyond-20261029-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Uni-pole Package - Mall of Arabia Road Frontage - H-12621 - view 1 | Horizon OOH",
+          "altAr": "باكدج يوني بول - أمام مول العرب - H-12621 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "fe9d2c24b35ccc3f58bde1a26b60094c97d3c004d9f37131b8b2c034dc3d0571",
+          "bytes": 47119
+        },
+        {
+          "sourceFile": "extracted/page-15.jpg",
+          "sourceSha256": "ac20a50e88296e66a04a28d44d6d7707780cad2846fc7ec9be57d405ce604703",
+          "fileName": "h-12621-beyond-20261029-2.jpg",
+          "url": "/images/h-12621-beyond-20261029-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Uni-pole Package - Mall of Arabia Road Frontage - H-12621 - view 2 | Horizon OOH",
+          "altAr": "باكدج يوني بول - أمام مول العرب - H-12621 - صورة 2 | هورايزون للإعلانات الخارجية",
+          "sha256": "4c34570c4c642cd6a1f7ad2440750a3ce69f6983f7cc98cf8b6656e66f2ca9c0",
+          "bytes": 60416
+        }
+      ]
+    },
+    {
+      "id": 13883,
+      "code": "H-13883",
+      "images": [
+        {
+          "sourceFile": "extracted/page-17.jpg",
+          "sourceSha256": "88804aaad188605ec22f448665bcff475c029ed9cf31161905418b0cb810089d",
+          "fileName": "h-13883-beyond-20261029-1.jpg",
+          "url": "/images/h-13883-beyond-20261029-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Uni-pole - Maadi Corniche, The Platform Towards Entrance 1 - H-13883 - view 1 | Horizon OOH",
+          "altAr": "يوني بول - كورنيش المعادي، ذا بلاتفورم باتجاه مدخل ١ - H-13883 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "7b16f12275baf90e5eefbc3eb8fb175c5a6336b72541f846b583a12dc16865ff",
+          "bytes": 65639
+        },
+        {
+          "sourceFile": "extracted/page-18.jpg",
+          "sourceSha256": "3c0428baa659fa10f4dd15b83d9145c401cb37437d040b47e919b4b99d675635",
+          "fileName": "h-13883-beyond-20261029-2.jpg",
+          "url": "/images/h-13883-beyond-20261029-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Uni-pole - Maadi Corniche, The Platform Towards Entrance 1 - H-13883 - view 2 | Horizon OOH",
+          "altAr": "يوني بول - كورنيش المعادي، ذا بلاتفورم باتجاه مدخل ١ - H-13883 - صورة 2 | هورايزون للإعلانات الخارجية",
+          "sha256": "15c93fcfa46b3e2e09635b5d97f6828fc25a8b50490d893dd2ebdfc642142b3d",
+          "bytes": 56358
+        }
+      ]
+    },
+    {
+      "id": 13884,
+      "code": "H-13884",
+      "images": [
+        {
+          "sourceFile": "extracted/page-29.jpg",
+          "sourceSha256": "2f576bde468486633c09f9fc43a17d852980081877a937e84b4eb823eb84b132",
+          "fileName": "h-13884-beyond-20261029-1.jpg",
+          "url": "/images/h-13884-beyond-20261029-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Gate Package - Ring Road, Moneeb Towards Maadi Carrefour and Ain Sokhna - H-13884 - view 1 | Horizon OOH",
+          "altAr": "باكدج بوابه - الدائري، من المنيب باتجاه كارفور المعادي والعين السخنة - H-13884 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "ff6ad66d77280d2937e591b1437dd79b499cb18e6d6a42187eeba51d48328722",
+          "bytes": 59741
+        },
+        {
+          "sourceFile": "extracted/page-30.jpg",
+          "sourceSha256": "0532aaea3a9b8a6734d556b4e61ba9f5669b971332e62116570839177592c7a3",
+          "fileName": "h-13884-beyond-20261029-2.jpg",
+          "url": "/images/h-13884-beyond-20261029-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Gate Package - Ring Road, Moneeb Towards Maadi Carrefour and Ain Sokhna - H-13884 - view 2 | Horizon OOH",
+          "altAr": "باكدج بوابه - الدائري، من المنيب باتجاه كارفور المعادي والعين السخنة - H-13884 - صورة 2 | هورايزون للإعلانات الخارجية",
+          "sha256": "7894e541bc6e100ea7daf3bfd8ed123dd99ebe568eab9093b71c52231b34a3c1",
+          "bytes": 60007
+        }
+      ]
+    },
+    {
+      "id": 13893,
+      "code": "H-13893",
+      "images": [
+        {
+          "sourceFile": "extracted/page-33.jpg",
+          "sourceSha256": "e395c163d15d33762b0183baaa946be421aa4f0b940caf42d0d353306a37095a",
+          "fileName": "h-13893-beyond-20261029-1.jpg",
+          "url": "/images/h-13893-beyond-20261029-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Uni-pole - Ring Road, Opposite Royal Maxim Palace Kempinski - H-13893 - view 1 | Horizon OOH",
+          "altAr": "يوني بول - الدائري، أمام رويال مكسيم بالاس كمبينسكي - H-13893 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "60afae925520312a5045b0e9bfee013e6a00b79d0bf413aa53ddc67c65bb9090",
+          "bytes": 59841
+        },
+        {
+          "sourceFile": "extracted/page-34.jpg",
+          "sourceSha256": "20b8ee83d32d10af4bf64bcd1f31ec3e01dd103a4062e4061acab4e5a791fe1b",
+          "fileName": "h-13893-beyond-20261029-2.jpg",
+          "url": "/images/h-13893-beyond-20261029-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Uni-pole - Ring Road, Opposite Royal Maxim Palace Kempinski - H-13893 - view 2 | Horizon OOH",
+          "altAr": "يوني بول - الدائري، أمام رويال مكسيم بالاس كمبينسكي - H-13893 - صورة 2 | هورايزون للإعلانات الخارجية",
+          "sha256": "314b670bf927e5dcd385fed8469216a81ae0d079c6bba096ce546d81951ee97e",
+          "bytes": 52313
+        }
+      ]
+    },
+    {
+      "id": 13896,
+      "code": "H-13896",
+      "images": [
+        {
+          "sourceFile": "extracted/page-49.jpg",
+          "sourceSha256": "31bd2b6dec02a0f74be3e4f73abab27fe9c86494814d5d94f812f05fc224245b",
+          "fileName": "h-13896-beyond-20261029-1.jpg",
+          "url": "/images/h-13896-beyond-20261029-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Mega Post Network - Al Thawra Street Towards Ring Road - H-13896 - view 1 | Horizon OOH",
+          "altAr": "شبكة ميجا بوست - شارع الثورة باتجاه الدائري - H-13896 - صورة 1 | هورايزون للإعلانات الخارجية",
+          "sha256": "1bc6d14e7f5d1ccaa5c45644f2a1684334642ed29478c2d29c003fdf7352bd61",
+          "bytes": 54523
+        }
+      ]
+    }
+  ],
+  "processing": {
+    "canvas": "640x380",
+    "fit": "Contain, whole photograph, no enlargement",
+    "retouch": "Brightness/contrast 2x1, saturation 103%, unsharp 0x0.6+0.4+0.02; no changes to billboard artwork",
+    "frameSha256": "7e152a6488bdd886e127faa64dd08d6bdb503001c353afa191ca2cf04b984d1d",
+    "encoding": "JPEG 90, 4:4:4, metadata stripped"
+  },
+  "preserve": {
+    "existingSlugs": true,
+    "existingPrices": true,
+    "existingSupplierAssignments": true,
+    "existingAvailability": true,
+    "correctlyFramedExistingImages": 11
+  },
+  "newAvailability": "available",
+  "publicPrices": false
+}
