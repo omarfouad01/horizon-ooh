@@ -1,0 +1,15 @@
+# Three Angles supplier review — 30 October 2026
+
+Source: all 194 flattened pages of the October 2026 portfolio. Reviewed 72 supplier booking groups; the two already existing Courtyard placements remain separate records instead of creating a duplicate aggregate. Created 39 listings, H-14570 through H-14608, and updated 27 existing records. Seven existing covered records remain unchanged; the eighth covered record, H-12921, has only a map/district correction. No billboard deleted.
+
+New listings use supplier Three angles (46) and Available, explicitly confirmed by the owner. Existing supplier assignments, prices, availability and slugs are preserved. Rate headings in the source have no amounts; new prices remain null. Public prices remain hidden. Existing inventory belonging to other suppliers is reused rather than duplicated.
+
+Replaced 23 legacy Three Angles photo sets with 116 processed supplier photographs across new and updated records. Correct Horizon-framed photos on other matched inventory remain unchanged. Each new photo has English and Arabic ALT. Original supplier footer furniture is cropped out; the approved Horizon frame is composited using ImageMagick. Retouch is deliberately mild because source photos already have strong color grading. Source advertising artwork is preserved.
+
+Dimensions use width x height. Screen pixel resolutions remain descriptions, never physical dimensions. Mixed-media dimensions are retained separately in the size field. New unknown lighting is labeled Not specified in the brightness field and disclosed in descriptions. The contradictory Hyper One table is not reinterpreted: all existing dimension/count fields are preserved per explicit owner instruction. The inconsistent 31-stand city-wide aggregate is not added on top of the named child sites. The reused 500-500/El Ghyaz photograph on page 150 is excluded from the 500-500 group.
+
+The supplier repeats one Google short link across different digital sites; it resolves to the Mehwar corridor and is not reused as a location for unrelated venues. Pins are approximate roadside references based on venue names, supplier photographs, existing inventory and inspected satellite road alignment, disclosed in both languages. Network pins represent corridor coverage rather than all individual supports. Twenty-three existing west-Cairo records are corrected from Cairo governorate to Giza, with 46 English/Arabic permanent redirects retaining indexed URLs. These approximate references are not surveyed support coordinates.
+
+Private backup: /home/horizon/deploy-backups/three-angles-20261030/backup-20261030-011914. The guarded transaction compares baselines before writes and verifies unchanged unrelated billboards, retained photos, supplier/district records and protected fields. Saudi is untouched.
+
+Validation reports are kept privately with the batch: database field comparisons, public API price redaction and image ordering, generated English/Arabic pages and self-canonicals, all processed-image HTTP hashes, old URL redirects and sitemap coverage. Client and SSG are built with the normal isolated production build workflow.
