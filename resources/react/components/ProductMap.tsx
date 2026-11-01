@@ -1,3 +1,4 @@
+import { addMapBasemaps } from '@/lib/mapBasemaps';
 import {useLang} from '@/i18n/LangContext';
 import {arabicHtml, arabicText} from '@/i18n/publicArabic';
 /**
@@ -71,12 +72,9 @@ export default function ProductMap({ lat, lng, name = "", type = "", district = 
       scrollWheelZoom:  false,   // disabled by default — activate on click/focus
     });
 
-    // Same tile source and visible attribution as the public maps
+    // Match the dashboard satellite view, with visible provider attribution
     L.control.attribution({prefix: false}).addTo(map);
-    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
-      attribution: isAr ? '&copy; <a href="https://www.openstreetmap.org/copyright">مساهمو أوبن ستريت ماب</a>' : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(map);
+    addMapBasemaps(map, { isAr });
 
     // Controls
     L.control.zoom({ position: "bottomright", zoomInTitle: isAr ? "تكبير" : "Zoom in", zoomOutTitle: isAr ? "تصغير" : "Zoom out" }).addTo(map);

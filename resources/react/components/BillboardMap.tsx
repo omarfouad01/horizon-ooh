@@ -1,3 +1,4 @@
+import { addMapBasemaps } from '@/lib/mapBasemaps';
 import {LocalizedText, LocalizedElement} from "@/components/Localized";
 import {useLang} from '@/i18n/LangContext';
 import {arabicHtml, arabicText} from '@/i18n/publicArabic';
@@ -73,13 +74,7 @@ export default function LeafletMap({ filtered, allCount, selected, onSelect, cla
       attributionControl: false,
     });
     L.control.attribution({prefix: false}).addTo(map);
-    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
-      attribution: isAr ? '&copy; <a href="https://www.openstreetmap.org/copyright">مساهمو أوبن ستريت ماب</a>' : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      // Use standard cached tiles without retina subdivision.
-
-      detectRetina: false,
-    }).addTo(map);
+    addMapBasemaps(map, { isAr });
     L.control.zoom({ position: "bottomright", zoomInTitle: isAr ? "تكبير" : "Zoom in", zoomOutTitle: isAr ? "تصغير" : "Zoom out" }).addTo(map);
     mapRef.current = map;
     return () => { map.remove(); mapRef.current = null; };
