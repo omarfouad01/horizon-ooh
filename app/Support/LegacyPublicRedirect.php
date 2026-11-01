@@ -5,6 +5,12 @@ namespace App\Support;
 class LegacyPublicRedirect
 {
     private const ALIASES = [
+        // Volcano governorate corrections retain previously indexed URLs; retain indexed URLs.
+        'locations/alexandria/billboards/h-14352-gate-before-bridge-alex-desert-road' => 'locations/beheira/billboards/h-14352-gate-before-bridge-alex-desert-road',
+        'locations/matruh/billboards/h-14354-gate-before-wadi-el-natron' => 'locations/beheira/billboards/h-14354-gate-before-wadi-el-natron',
+        'locations/matruh/billboards/h-14355-gate-wadi-el-natroun-egypt' => 'locations/beheira/billboards/h-14355-gate-wadi-el-natroun-egypt',
+        'locations/alexandria/billboards/uni-pole-marassi-1' => 'locations/matruh/billboards/uni-pole-marassi-1',
+
         // Color Studio Giza inventory belongs to Giza; retain indexed URLs.
         'locations/cairo/billboards/digital-screen-doki-bridge' => 'locations/giza/billboards/digital-screen-doki-bridge',
         'locations/cairo/billboards/roof-top-mohandesin-cairo' => 'locations/giza/billboards/roof-top-mohandesin-cairo',

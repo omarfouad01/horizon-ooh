@@ -1,0 +1,2471 @@
+{
+  "batch": "volcano-20261101",
+  "supplierId": 292,
+  "sourceDocuments": [
+    "North Coast 2027 by volcano.pdf",
+    "19 Apr 2026 northcoast.pdf"
+  ],
+  "newRows": [
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P04-1.jpg",
+          "sourcePage": 4,
+          "fileName": "h-14613-volcano-20261101-1.jpg",
+          "url": "/images/h-14613-volcano-20261101-1.jpg",
+          "sha256": "fedf178bee76fcc5fa22e957b60756f0eaf2cd13cd6b7ba70e3833f7c751c0ae",
+          "bytes": 65026,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Uni-pole Sequence - Sphinx Airport Entrance - H-14613 - view 1 | Horizon OOH",
+          "altAr": "تتابع يوني بول - مدخل مطار سفنكس - H-14613 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14613",
+        "supplier_id": 292,
+        "title": "Uni-pole Sequence - Sphinx Airport Entrance",
+        "name_ar": "تتابع يوني بول - مدخل مطار سفنكس",
+        "description": "Uni-pole Sequence - Sphinx Airport Entrance. North Coast 2027 advertising with Horizon OOH. The booking contains 3 advertising units and 6 advertised faces. Dimensions (width x height): 14 x 7 m.  The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "تتابع يوني بول - مدخل مطار سفنكس. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 3 وحدة إعلانية بإجمالي 6 وجهًا. المقاسات (العرض × الارتفاع): 14 x 7 متر.  نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Uni-pole Sequence - Sphinx Airport Entrance, Giza, Egypt",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "14 x 7",
+        "quantity": 3,
+        "sides": 6,
+        "location_id": 3,
+        "district_id": 456,
+        "lat": 30.120886625014275,
+        "lng": 30.875014760075207,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 14,
+        "height": 7,
+        "sqm": 98
+      },
+      "addressAr": "تتابع يوني بول - مدخل مطار سفنكس، الجيزة، مصر",
+      "provenance": {
+        "key": "P04",
+        "page": 4,
+        "anchor": "sphinx",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P05-1.jpg",
+          "sourcePage": 5,
+          "fileName": "h-14614-volcano-20261101-1.jpg",
+          "url": "/images/h-14614-volcano-20261101-1.jpg",
+          "sha256": "518411b0f682dffa6c14de1b42c72d0e01bb2bb80ea6d78c93f31a2389f5ab64",
+          "bytes": 67382,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Uni-pole Sequence - Sadat City Entrance - H-14614 - view 1 | Horizon OOH",
+          "altAr": "تتابع يوني بول - مدخل مدينة السادات - H-14614 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14614",
+        "supplier_id": 292,
+        "title": "Uni-pole Sequence - Sadat City Entrance",
+        "name_ar": "تتابع يوني بول - مدخل مدينة السادات",
+        "description": "Uni-pole Sequence - Sadat City Entrance. North Coast 2027 advertising with Horizon OOH. The booking contains 3 advertising units and 6 advertised faces. Dimensions (width x height): 24 x 8 + 14 x 7 m. Two faces at 24 x 8 m and four at 14 x 7 m. The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "تتابع يوني بول - مدخل مدينة السادات. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 3 وحدة إعلانية بإجمالي 6 وجهًا. المقاسات (العرض × الارتفاع): 24 x 8 + 14 x 7 متر. وجهان بمقاس ٢٤ × ٨ متر و٤ أوجه بمقاس ١٤ × ٧ متر. نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Uni-pole Sequence - Sadat City Entrance, Monufia, Egypt",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "24 x 8 + 14 x 7",
+        "quantity": 3,
+        "sides": 6,
+        "location_id": 10,
+        "district_id": 119,
+        "lat": 30.333146961748717,
+        "lng": 30.50380410223525,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": null,
+        "height": null,
+        "sqm": null
+      },
+      "addressAr": "تتابع يوني بول - مدخل مدينة السادات، المنوفية، مصر",
+      "provenance": {
+        "key": "P05",
+        "page": 5,
+        "anchor": "sadat",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P16-1.jpg",
+          "sourcePage": 16,
+          "fileName": "h-14615-volcano-20261101-1.jpg",
+          "url": "/images/h-14615-volcano-20261101-1.jpg",
+          "sha256": "bb18fd8749fafd8d67d0d873e49460d51354926f793083ba0fee027f79315d14",
+          "bytes": 61148,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Mirror - Marina 7 Bridge - H-14615 - view 1 | Horizon OOH",
+          "altAr": "مرايه - كوبري مارينا ٧ - H-14615 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14615",
+        "supplier_id": 292,
+        "title": "Mirror - Marina 7 Bridge",
+        "name_ar": "مرايه - كوبري مارينا ٧",
+        "description": "Mirror - Marina 7 Bridge. North Coast 2027 advertising with Horizon OOH. The booking contains 2 advertising units and 2 advertised faces. Dimensions (width x height): 40 x 5 m. Supplier states two mirror units and two advertised faces. The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "مرايه - كوبري مارينا ٧. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 2 وحدة إعلانية بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 40 x 5 متر. يذكر المورد وحدتي مرايه بإجمالي وجهين إعلانيين. نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Mirror - Marina 7 Bridge, Matruh, Egypt",
+        "type": "Mirror",
+        "format": "Billboard",
+        "size": "40 x 5",
+        "quantity": 2,
+        "sides": 2,
+        "location_id": 7,
+        "district_id": 484,
+        "lat": 30.85171,
+        "lng": 28.91048,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 40,
+        "height": 5,
+        "sqm": 200
+      },
+      "addressAr": "مرايه - كوبري مارينا ٧، مطروح، مصر",
+      "provenance": {
+        "key": "P16",
+        "page": 16,
+        "anchor": "marina7",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P17-1.jpg",
+          "sourcePage": 17,
+          "fileName": "h-14616-volcano-20261101-1.jpg",
+          "url": "/images/h-14616-volcano-20261101-1.jpg",
+          "sha256": "a85bc4870379f5cfe5f3610f3c98a1d2bbc449c55c5a83ec9847ec22b170e1c4",
+          "bytes": 58823,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Stand Network - Marina 7 - H-14616 - view 1 | Horizon OOH",
+          "altAr": "شبكة ستاندات - مارينا ٧ - H-14616 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14616",
+        "supplier_id": 292,
+        "title": "Stand Network - Marina 7",
+        "name_ar": "شبكة ستاندات - مارينا ٧",
+        "description": "Stand Network - Marina 7. North Coast 2027 advertising with Horizon OOH. The booking contains 20 advertising units and 20 advertised faces. Dimensions (width x height): 6 x 3 m.  The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "شبكة ستاندات - مارينا ٧. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 20 وحدة إعلانية بإجمالي 20 وجهًا. المقاسات (العرض × الارتفاع): 6 x 3 متر.  نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Stand Network - Marina 7, Matruh, Egypt",
+        "type": "Stand",
+        "format": "Billboard",
+        "size": "6 x 3",
+        "quantity": 20,
+        "sides": 20,
+        "location_id": 7,
+        "district_id": 484,
+        "lat": 30.850322168794868,
+        "lng": 28.913454631002303,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 6,
+        "height": 3,
+        "sqm": 18
+      },
+      "addressAr": "شبكة ستاندات - مارينا ٧، مطروح، مصر",
+      "provenance": {
+        "key": "P17",
+        "page": 17,
+        "anchor": "marina7",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P18-1.jpg",
+          "sourcePage": 18,
+          "fileName": "h-14617-volcano-20261101-1.jpg",
+          "url": "/images/h-14617-volcano-20261101-1.jpg",
+          "sha256": "78b75c8b98855752e86e0dbc41d970a31b3e19b320a6b2f1948708de8a219217",
+          "bytes": 55208,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Stand Network - Opposite Golf Porto Marina - H-14617 - view 1 | Horizon OOH",
+          "altAr": "شبكة ستاندات - أمام جولف بورتو مارينا - H-14617 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14617",
+        "supplier_id": 292,
+        "title": "Stand Network - Opposite Golf Porto Marina",
+        "name_ar": "شبكة ستاندات - أمام جولف بورتو مارينا",
+        "description": "Stand Network - Opposite Golf Porto Marina. North Coast 2027 advertising with Horizon OOH. The booking contains 20 advertising units and 40 advertised faces. Dimensions (width x height): 6 x 3 m. Stand component only; the two existing uni-poles H-14359 remain separate. The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "شبكة ستاندات - أمام جولف بورتو مارينا. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 20 وحدة إعلانية بإجمالي 40 وجهًا. المقاسات (العرض × الارتفاع): 6 x 3 متر. مكون الستاندات فقط؛ وحدتا اليوني بول المسجلتان بالكود H-14359 تظلان منفصلتين. نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Stand Network - Opposite Golf Porto Marina, Matruh, Egypt",
+        "type": "Stand",
+        "format": "Billboard",
+        "size": "6 x 3",
+        "quantity": 20,
+        "sides": 40,
+        "location_id": 7,
+        "district_id": 484,
+        "lat": 30.846978082899362,
+        "lng": 28.92379888328445,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 6,
+        "height": 3,
+        "sqm": 18
+      },
+      "addressAr": "شبكة ستاندات - أمام جولف بورتو مارينا، مطروح، مصر",
+      "provenance": {
+        "key": "P18",
+        "page": 18,
+        "anchor": "porto",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P20-1.jpg",
+          "sourcePage": 20,
+          "fileName": "h-14618-volcano-20261101-1.jpg",
+          "url": "/images/h-14618-volcano-20261101-1.jpg",
+          "sha256": "f27345dbd2cb7f612f38dbdfcfe05aed7beef376a255addac5a08a2cb3d73b68",
+          "bytes": 60608,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Stand Network - El Alamein - H-14618 - view 1 | Horizon OOH",
+          "altAr": "شبكة ستاندات - العلمين - H-14618 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14618",
+        "supplier_id": 292,
+        "title": "Stand Network - El Alamein",
+        "name_ar": "شبكة ستاندات - العلمين",
+        "description": "Stand Network - El Alamein. North Coast 2027 advertising with Horizon OOH. The booking contains 20 advertising units and 40 advertised faces. Dimensions (width x height): 6 x 3 m. Stand component only; existing uni-pole H-14361 is not duplicated. The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "شبكة ستاندات - العلمين. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 20 وحدة إعلانية بإجمالي 40 وجهًا. المقاسات (العرض × الارتفاع): 6 x 3 متر. مكون الستاندات فقط؛ لم تكرر وحدة اليوني بول المسجلة بالكود H-14361. نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Stand Network - El Alamein, Matruh, Egypt",
+        "type": "Stand",
+        "format": "Billboard",
+        "size": "6 x 3",
+        "quantity": 20,
+        "sides": 40,
+        "location_id": 7,
+        "district_id": 88,
+        "lat": 30.841896790191075,
+        "lng": 28.94885611700932,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 6,
+        "height": 3,
+        "sqm": 18
+      },
+      "addressAr": "شبكة ستاندات - العلمين، مطروح، مصر",
+      "provenance": {
+        "key": "P20",
+        "page": 20,
+        "anchor": "alamein",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P21-1.jpg",
+          "sourcePage": 21,
+          "fileName": "h-14619-volcano-20261101-1.jpg",
+          "url": "/images/h-14619-volcano-20261101-1.jpg",
+          "sha256": "f53d61fab962eedb80669efc6c010d972689f2f4ba4c20815cf98606b9043682",
+          "bytes": 42678,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Uni-pole - Rixos Premium Alamein - H-14619 - view 1 | Horizon OOH",
+          "altAr": "يوني بول - ريكسوس بريميوم العلمين - H-14619 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14619",
+        "supplier_id": 292,
+        "title": "Uni-pole - Rixos Premium Alamein",
+        "name_ar": "يوني بول - ريكسوس بريميوم العلمين",
+        "description": "Uni-pole - Rixos Premium Alamein. North Coast 2027 advertising with Horizon OOH. The booking contains 1 advertising units and 2 advertised faces. Dimensions (width x height): 16 x 8 m.  The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "يوني بول - ريكسوس بريميوم العلمين. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 1 وحدة إعلانية بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 16 x 8 متر.  نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Uni-pole - Rixos Premium Alamein, Matruh, Egypt",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "16 x 8",
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 7,
+        "district_id": 88,
+        "lat": 30.844256,
+        "lng": 28.944775,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 16,
+        "height": 8,
+        "sqm": 128
+      },
+      "addressAr": "يوني بول - ريكسوس بريميوم العلمين، مطروح، مصر",
+      "provenance": {
+        "key": "P21",
+        "page": 21,
+        "anchor": "rixos",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P22-1.jpg",
+          "sourcePage": 22,
+          "fileName": "h-14620-volcano-20261101-1.jpg",
+          "url": "/images/h-14620-volcano-20261101-1.jpg",
+          "sha256": "56f89a45367478a2b441cf03a9a43efd48a88ad2e97525eb0a8d26b60b069fe6",
+          "bytes": 44947,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Mirror - Sidi Abdel Rahman Bridge - H-14620 - view 1 | Horizon OOH",
+          "altAr": "مرايه - كوبري سيدي عبد الرحمن - H-14620 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14620",
+        "supplier_id": 292,
+        "title": "Mirror - Sidi Abdel Rahman Bridge",
+        "name_ar": "مرايه - كوبري سيدي عبد الرحمن",
+        "description": "Mirror - Sidi Abdel Rahman Bridge. North Coast 2027 advertising with Horizon OOH. The booking contains 1 advertising units and 2 advertised faces. Dimensions (width x height): 40 x 5 m.  The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "مرايه - كوبري سيدي عبد الرحمن. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 1 وحدة إعلانية بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 40 x 5 متر.  نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Mirror - Sidi Abdel Rahman Bridge, Matruh, Egypt",
+        "type": "Mirror",
+        "format": "Billboard",
+        "size": "40 x 5",
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 7,
+        "district_id": 495,
+        "lat": 30.97106,
+        "lng": 28.73942,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 40,
+        "height": 5,
+        "sqm": 200
+      },
+      "addressAr": "مرايه - كوبري سيدي عبد الرحمن، مطروح، مصر",
+      "provenance": {
+        "key": "P22",
+        "page": 22,
+        "anchor": "sidi",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P23-1.jpg",
+          "sourcePage": 23,
+          "fileName": "h-14621-volcano-20261101-1.jpg",
+          "url": "/images/h-14621-volcano-20261101-1.jpg",
+          "sha256": "664534d0872602eff245395e39869f36236d3b4c6a4e2b6ca1bd9ed32ad60013",
+          "bytes": 65636,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Uni-pole Sequence - Crysta Gate, Sidi Abdel Rahman - H-14621 - view 1 | Horizon OOH",
+          "altAr": "تتابع يوني بول - بوابة كريستا، سيدي عبد الرحمن - H-14621 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14621",
+        "supplier_id": 292,
+        "title": "Uni-pole Sequence - Crysta Gate, Sidi Abdel Rahman",
+        "name_ar": "تتابع يوني بول - بوابة كريستا، سيدي عبد الرحمن",
+        "description": "Uni-pole Sequence - Crysta Gate, Sidi Abdel Rahman. North Coast 2027 advertising with Horizon OOH. The booking contains 3 advertising units and 6 advertised faces. Dimensions (width x height): 16 x 8 m.  The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "تتابع يوني بول - بوابة كريستا، سيدي عبد الرحمن. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 3 وحدة إعلانية بإجمالي 6 وجهًا. المقاسات (العرض × الارتفاع): 16 x 8 متر.  نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Uni-pole Sequence - Crysta Gate, Sidi Abdel Rahman, Matruh, Egypt",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "16 x 8",
+        "quantity": 3,
+        "sides": 6,
+        "location_id": 7,
+        "district_id": 495,
+        "lat": 30.926111133848988,
+        "lng": 28.79644183187264,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 16,
+        "height": 8,
+        "sqm": 128
+      },
+      "addressAr": "تتابع يوني بول - بوابة كريستا، سيدي عبد الرحمن، مطروح، مصر",
+      "provenance": {
+        "key": "P23",
+        "page": 23,
+        "anchor": "plage",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P26-1.jpg",
+          "sourcePage": 26,
+          "fileName": "h-14622-volcano-20261101-1.jpg",
+          "url": "/images/h-14622-volcano-20261101-1.jpg",
+          "sha256": "d478c62aff3a8e5a3d6e5c3c2c4c43c2d47a4a4d24a6b61c89f7cb91c3a49c90",
+          "bytes": 55636,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Uni-pole Pair - El Karma - H-14622 - view 1 | Horizon OOH",
+          "altAr": "زوج يوني بول - الكرمة - H-14622 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14622",
+        "supplier_id": 292,
+        "title": "Uni-pole Pair - El Karma",
+        "name_ar": "زوج يوني بول - الكرمة",
+        "description": "Uni-pole Pair - El Karma. North Coast 2027 advertising with Horizon OOH. The booking contains 2 advertising units and 4 advertised faces. Dimensions (width x height): 16 x 8 m. Uni-pole component only; existing stand network H-14370 is separate. The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "زوج يوني بول - الكرمة. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 2 وحدة إعلانية بإجمالي 4 وجهًا. المقاسات (العرض × الارتفاع): 16 x 8 متر. مكون اليوني بول فقط؛ شبكة الستاندات H-14370 منفصلة. نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Uni-pole Pair - El Karma, Matruh, Egypt",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "16 x 8",
+        "quantity": 2,
+        "sides": 4,
+        "location_id": 7,
+        "district_id": 495,
+        "lat": 30.977879491371166,
+        "lng": 28.721718233317766,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 16,
+        "height": 8,
+        "sqm": 128
+      },
+      "addressAr": "زوج يوني بول - الكرمة، مطروح، مصر",
+      "provenance": {
+        "key": "P26",
+        "page": 26,
+        "anchor": "karma",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P34-1.jpg",
+          "sourcePage": 34,
+          "fileName": "h-14623-volcano-20261101-1.jpg",
+          "url": "/images/h-14623-volcano-20261101-1.jpg",
+          "sha256": "5e63ca68a40d2a5d8b7deb49edec68c3696c9366b201a75cea5302ea70e145d6",
+          "bytes": 57962,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Stand Network - Blumar, Before Hacienda White - H-14623 - view 1 | Horizon OOH",
+          "altAr": "شبكة ستاندات - بلومار، قبل هاسيندا وايت - H-14623 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14623",
+        "supplier_id": 292,
+        "title": "Stand Network - Blumar, Before Hacienda White",
+        "name_ar": "شبكة ستاندات - بلومار، قبل هاسيندا وايت",
+        "description": "Stand Network - Blumar, Before Hacienda White. North Coast 2027 advertising with Horizon OOH. The booking contains 20 advertising units and 40 advertised faces. Dimensions (width x height): 6 x 3 m. Stand component only; existing uni-pole H-14375 remains separate. The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "شبكة ستاندات - بلومار، قبل هاسيندا وايت. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 20 وحدة إعلانية بإجمالي 40 وجهًا. المقاسات (العرض × الارتفاع): 6 x 3 متر. مكون الستاندات فقط؛ اليوني بول H-14375 يبقى منفصلًا. نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Stand Network - Blumar, Before Hacienda White, Matruh, Egypt",
+        "type": "Stand",
+        "format": "Billboard",
+        "size": "6 x 3",
+        "quantity": 20,
+        "sides": 40,
+        "location_id": 7,
+        "district_id": 495,
+        "lat": 30.993114909857947,
+        "lng": 28.66955939876114,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 6,
+        "height": 3,
+        "sqm": 18
+      },
+      "addressAr": "شبكة ستاندات - بلومار، قبل هاسيندا وايت، مطروح، مصر",
+      "provenance": {
+        "key": "P34",
+        "page": 34,
+        "anchor": "blumar",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P38-1.jpg",
+          "sourcePage": 38,
+          "fileName": "h-14624-volcano-20261101-1.jpg",
+          "url": "/images/h-14624-volcano-20261101-1.jpg",
+          "sha256": "e1c15438528941fd791385ccecaa04ff0ccefe0b32bcfd322d51da43e28458c1",
+          "bytes": 59154,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Stand Network - Telal Gate 1 - H-14624 - view 1 | Horizon OOH",
+          "altAr": "شبكة ستاندات - تلال بوابة ١ - H-14624 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14624",
+        "supplier_id": 292,
+        "title": "Stand Network - Telal Gate 1",
+        "name_ar": "شبكة ستاندات - تلال بوابة ١",
+        "description": "Stand Network - Telal Gate 1. North Coast 2027 advertising with Horizon OOH. The booking contains 20 advertising units and 60 advertised faces. Dimensions (width x height): 6 x 3 m. Supplier states twenty stands and sixty faces; face distribution is not provided. The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "شبكة ستاندات - تلال بوابة ١. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 20 وحدة إعلانية بإجمالي 60 وجهًا. المقاسات (العرض × الارتفاع): 6 x 3 متر. يذكر المورد ٢٠ ستاند و٦٠ وجهًا؛ توزيع الأوجه على الوحدات غير موضح. نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Stand Network - Telal Gate 1, Matruh, Egypt",
+        "type": "Stand",
+        "format": "Billboard",
+        "size": "6 x 3",
+        "quantity": 20,
+        "sides": 60,
+        "location_id": 7,
+        "district_id": 89,
+        "lat": 31.007260095363158,
+        "lng": 28.611184710442767,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 6,
+        "height": 3,
+        "sqm": 18
+      },
+      "addressAr": "شبكة ستاندات - تلال بوابة ١، مطروح، مصر",
+      "provenance": {
+        "key": "P38",
+        "page": 38,
+        "anchor": "telal1",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P39-1.jpg",
+          "sourcePage": 39,
+          "fileName": "h-14625-volcano-20261101-1.jpg",
+          "url": "/images/h-14625-volcano-20261101-1.jpg",
+          "sha256": "d6f3480b8eaf7fe9b8fee84904470ad231e8ca2d43f2036360cbfc6748c7fc3d",
+          "bytes": 63139,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Stand Network - Telal Gate 2 - H-14625 - view 1 | Horizon OOH",
+          "altAr": "شبكة ستاندات - تلال بوابة ٢ - H-14625 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14625",
+        "supplier_id": 292,
+        "title": "Stand Network - Telal Gate 2",
+        "name_ar": "شبكة ستاندات - تلال بوابة ٢",
+        "description": "Stand Network - Telal Gate 2. North Coast 2027 advertising with Horizon OOH. The booking contains 20 advertising units and 60 advertised faces. Dimensions (width x height): 6 x 3 m. Supplier states twenty stands and sixty faces; face distribution is not provided. The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "شبكة ستاندات - تلال بوابة ٢. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 20 وحدة إعلانية بإجمالي 60 وجهًا. المقاسات (العرض × الارتفاع): 6 x 3 متر. يذكر المورد ٢٠ ستاند و٦٠ وجهًا؛ توزيع الأوجه على الوحدات غير موضح. نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Stand Network - Telal Gate 2, Matruh, Egypt",
+        "type": "Stand",
+        "format": "Billboard",
+        "size": "6 x 3",
+        "quantity": 20,
+        "sides": 60,
+        "location_id": 7,
+        "district_id": 89,
+        "lat": 31.010414029623,
+        "lng": 28.60160802396301,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 6,
+        "height": 3,
+        "sqm": 18
+      },
+      "addressAr": "شبكة ستاندات - تلال بوابة ٢، مطروح، مصر",
+      "provenance": {
+        "key": "P39",
+        "page": 39,
+        "anchor": "telal2",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P40-1.jpg",
+          "sourcePage": 40,
+          "fileName": "h-14626-volcano-20261101-1.jpg",
+          "url": "/images/h-14626-volcano-20261101-1.jpg",
+          "sha256": "2bdf3ebd3dfa5f2781d51d4dd402da195d0107111a726a433b0fec165930b379",
+          "bytes": 68153,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Gate - El Alamein Airport Approach - H-14626 - view 1 | Horizon OOH",
+          "altAr": "بوابه - مدخل مطار العلمين - H-14626 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14626",
+        "supplier_id": 292,
+        "title": "Gate - El Alamein Airport Approach",
+        "name_ar": "بوابه - مدخل مطار العلمين",
+        "description": "Gate - El Alamein Airport Approach. North Coast 2027 advertising with Horizon OOH. The booking contains 2 advertising units and 4 advertised faces. Dimensions (width x height): 16 x 8 m.  The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "بوابه - مدخل مطار العلمين. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 2 وحدة إعلانية بإجمالي 4 وجهًا. المقاسات (العرض × الارتفاع): 16 x 8 متر.  نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Gate - El Alamein Airport Approach, Matruh, Egypt",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "16 x 8",
+        "quantity": 2,
+        "sides": 4,
+        "location_id": 7,
+        "district_id": 89,
+        "lat": 31.034710020411623,
+        "lng": 28.46822914571534,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 16,
+        "height": 8,
+        "sqm": 128
+      },
+      "addressAr": "بوابه - مدخل مطار العلمين، مطروح، مصر",
+      "provenance": {
+        "key": "P40",
+        "page": 40,
+        "anchor": "airport",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P43-1.jpg",
+          "sourcePage": 43,
+          "fileName": "h-14627-volcano-20261101-1.jpg",
+          "url": "/images/h-14627-volcano-20261101-1.jpg",
+          "sha256": "0810009afcc164945c10d36dc8b9d7a93a5163a9b15aa95b8d3ae7e208747fbc",
+          "bytes": 51617,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Gate Package - Saada Compound, North Coast - H-14627 - view 1 | Horizon OOH",
+          "altAr": "باكدج بوابات - سعادة، الساحل الشمالي - H-14627 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14627",
+        "supplier_id": 292,
+        "title": "Gate Package - Saada Compound, North Coast",
+        "name_ar": "باكدج بوابات - سعادة، الساحل الشمالي",
+        "description": "Gate Package - Saada Compound, North Coast. North Coast 2027 advertising with Horizon OOH. The booking contains 4 advertising units and 8 advertised faces. Dimensions (width x height): 16 x 8 + 14 x 7 m. The portfolio repeats the Katameya Coast photograph for this offer; the owner explicitly approved using the supplied photograph for both. The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "باكدج بوابات - سعادة، الساحل الشمالي. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 4 وحدة إعلانية بإجمالي 8 وجهًا. المقاسات (العرض × الارتفاع): 16 x 8 + 14 x 7 متر. يكرر العرض صورة قطامية كوست لهذا العرض؛ وافق المالك صراحة على استخدام صورة المورد للعرضين. نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Gate Package - Saada Compound, North Coast, Matruh, Egypt",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "16 x 8 + 14 x 7",
+        "quantity": 4,
+        "sides": 8,
+        "location_id": 7,
+        "district_id": 496,
+        "lat": 31.057963935628376,
+        "lng": 28.212911806245568,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": null,
+        "height": null,
+        "sqm": null
+      },
+      "addressAr": "باكدج بوابات - سعادة، الساحل الشمالي، مطروح، مصر",
+      "provenance": {
+        "key": "P43",
+        "page": 43,
+        "anchor": "saada",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P45-1.jpg",
+          "sourcePage": 45,
+          "fileName": "h-14628-volcano-20261101-1.jpg",
+          "url": "/images/h-14628-volcano-20261101-1.jpg",
+          "sha256": "7baceb41dace564684de4887d1576af92915f15d5fc8b996b0043ca833229671",
+          "bytes": 51076,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Triple Uni-pole Package - Katameya Coast Gate 1 - H-14628 - view 1 | Horizon OOH",
+          "altAr": "باكدج يوني بول ثلاثي - قطامية كوست بوابة ١ - H-14628 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14628",
+        "supplier_id": 292,
+        "title": "Triple Uni-pole Package - Katameya Coast Gate 1",
+        "name_ar": "باكدج يوني بول ثلاثي - قطامية كوست بوابة ١",
+        "description": "Triple Uni-pole Package - Katameya Coast Gate 1. North Coast 2027 advertising with Horizon OOH. The booking contains 3 advertising units and 12 advertised faces. Dimensions (width x height): 16 x 8 + 14 x 7 m. Source lists three units and twelve faces; the count relationship requires supplier confirmation. This Gate 1 offer is separate from the two-gate package H-14386. The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "باكدج يوني بول ثلاثي - قطامية كوست بوابة ١. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 3 وحدة إعلانية بإجمالي 12 وجهًا. المقاسات (العرض × الارتفاع): 16 x 8 + 14 x 7 متر. يذكر المصدر ٣ وحدات و١٢ وجهًا؛ العلاقة بين عدد الوحدات والأوجه تحتاج تأكيد المورد. عرض بوابة ١ منفصل عن باكدج البوابتين H-14386. نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Triple Uni-pole Package - Katameya Coast Gate 1, Matruh, Egypt",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "16 x 8 + 14 x 7",
+        "quantity": 3,
+        "sides": 12,
+        "location_id": 7,
+        "district_id": 496,
+        "lat": 31.065485933829788,
+        "lng": 28.18674443204515,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": null,
+        "height": null,
+        "sqm": null
+      },
+      "addressAr": "باكدج يوني بول ثلاثي - قطامية كوست بوابة ١، مطروح، مصر",
+      "provenance": {
+        "key": "P45",
+        "page": 45,
+        "anchor": "katameya1",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P47-1.jpg",
+          "sourcePage": 47,
+          "fileName": "h-14629-volcano-20261101-1.jpg",
+          "url": "/images/h-14629-volcano-20261101-1.jpg",
+          "sha256": "6189b1f257bd4658c1827a26d2b09b0c2e3a274435f5684f537f21c7faddb73a",
+          "bytes": 43955,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Gate Package - Hassan Allam, North Coast - H-14629 - view 1 | Horizon OOH",
+          "altAr": "باكدج بوابات - حسن علام، الساحل الشمالي - H-14629 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14629",
+        "supplier_id": 292,
+        "title": "Gate Package - Hassan Allam, North Coast",
+        "name_ar": "باكدج بوابات - حسن علام، الساحل الشمالي",
+        "description": "Gate Package - Hassan Allam, North Coast. North Coast 2027 advertising with Horizon OOH. The booking contains 4 advertising units and 8 advertised faces. Dimensions (width x height): 16 x 8 + 14 x 7 m.  The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "باكدج بوابات - حسن علام، الساحل الشمالي. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 4 وحدة إعلانية بإجمالي 8 وجهًا. المقاسات (العرض × الارتفاع): 16 x 8 + 14 x 7 متر.  نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Gate Package - Hassan Allam, North Coast, Matruh, Egypt",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "16 x 8 + 14 x 7",
+        "quantity": 4,
+        "sides": 8,
+        "location_id": 7,
+        "district_id": 496,
+        "lat": 31.069908061550645,
+        "lng": 28.145376778777994,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": null,
+        "height": null,
+        "sqm": null
+      },
+      "addressAr": "باكدج بوابات - حسن علام، الساحل الشمالي، مطروح، مصر",
+      "provenance": {
+        "key": "P47",
+        "page": 47,
+        "anchor": "swan1",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P48-1.jpg",
+          "sourcePage": 48,
+          "fileName": "h-14630-volcano-20261101-1.jpg",
+          "url": "/images/h-14630-volcano-20261101-1.jpg",
+          "sha256": "d1f745944bbded013f6baebcc5dd079e6ae92a24aee79648d0491e7cb06b1008",
+          "bytes": 46585,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Triple Uni-pole Sequence - Hassan Allam - H-14630 - view 1 | Horizon OOH",
+          "altAr": "تتابع يوني بول ثلاثي - حسن علام - H-14630 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14630",
+        "supplier_id": 292,
+        "title": "Triple Uni-pole Sequence - Hassan Allam",
+        "name_ar": "تتابع يوني بول ثلاثي - حسن علام",
+        "description": "Triple Uni-pole Sequence - Hassan Allam. North Coast 2027 advertising with Horizon OOH. The booking contains 3 advertising units and 6 advertised faces. Dimensions (width x height): 16 x 8 + 14 x 7 m.  The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "تتابع يوني بول ثلاثي - حسن علام. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 3 وحدة إعلانية بإجمالي 6 وجهًا. المقاسات (العرض × الارتفاع): 16 x 8 + 14 x 7 متر.  نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Triple Uni-pole Sequence - Hassan Allam, Matruh, Egypt",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "16 x 8 + 14 x 7",
+        "quantity": 3,
+        "sides": 6,
+        "location_id": 7,
+        "district_id": 496,
+        "lat": 31.069737921706214,
+        "lng": 28.13697847484099,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": null,
+        "height": null,
+        "sqm": null
+      },
+      "addressAr": "تتابع يوني بول ثلاثي - حسن علام، مطروح، مصر",
+      "provenance": {
+        "key": "P48",
+        "page": 48,
+        "anchor": "swan2",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P49-1.jpg",
+          "sourcePage": 49,
+          "fileName": "h-14631-volcano-20261101-1.jpg",
+          "url": "/images/h-14631-volcano-20261101-1.jpg",
+          "sha256": "8dec2cc64ca01db848b5d65cca53196b55bf3aa0ddbcbf3943ab525903d58726",
+          "bytes": 44892,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Gate Package - Mountain View Ras El Hekma - H-14631 - view 1 | Horizon OOH",
+          "altAr": "باكدج بوابات - ماونتن فيو رأس الحكمة - H-14631 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/P49-2.jpg",
+          "sourcePage": 50,
+          "fileName": "h-14631-volcano-20261101-2.jpg",
+          "url": "/images/h-14631-volcano-20261101-2.jpg",
+          "sha256": "ef65441279fd7245deb94beb2ea1f289d38aca06d9b9444667a1de15f1c285f1",
+          "bytes": 52566,
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Gate Package - Mountain View Ras El Hekma - H-14631 - view 2 | Horizon OOH",
+          "altAr": "باكدج بوابات - ماونتن فيو رأس الحكمة - H-14631 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14631",
+        "supplier_id": 292,
+        "title": "Gate Package - Mountain View Ras El Hekma",
+        "name_ar": "باكدج بوابات - ماونتن فيو رأس الحكمة",
+        "description": "Gate Package - Mountain View Ras El Hekma. North Coast 2027 advertising with Horizon OOH. The booking contains 4 advertising units and 8 advertised faces. Dimensions (width x height): 16 x 8 + 14 x 7 m. Pages 49 and 50 have the same offer name and counts; combined into one record with two views. The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "باكدج بوابات - ماونتن فيو رأس الحكمة. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 4 وحدة إعلانية بإجمالي 8 وجهًا. المقاسات (العرض × الارتفاع): 16 x 8 + 14 x 7 متر. الصفحتان ٤٩ و٥٠ تحملان اسم العرض والأعداد نفسها؛ تم جمعهما في سجل واحد بصورتين. نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Gate Package - Mountain View Ras El Hekma, Matruh, Egypt",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "16 x 8 + 14 x 7",
+        "quantity": 4,
+        "sides": 8,
+        "location_id": 7,
+        "district_id": 496,
+        "lat": 31.065139280713407,
+        "lng": 28.030148559089135,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": null,
+        "height": null,
+        "sqm": null
+      },
+      "addressAr": "باكدج بوابات - ماونتن فيو رأس الحكمة، مطروح، مصر",
+      "provenance": {
+        "key": "P49",
+        "page": 49,
+        "anchor": "mountain",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P52-1.jpg",
+          "sourcePage": 52,
+          "fileName": "h-14632-volcano-20261101-1.jpg",
+          "url": "/images/h-14632-volcano-20261101-1.jpg",
+          "sha256": "242708bd6f81d006f918db80bc5868ec8c404c888057e6789338dbbc6fb328eb",
+          "bytes": 46502,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Combo - Ras El Hekma Gates and Stands - H-14632 - view 1 | Horizon OOH",
+          "altAr": "كومبو - بوابات وستاندات رأس الحكمة - H-14632 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/P52-2.jpg",
+          "sourcePage": 51,
+          "fileName": "h-14632-volcano-20261101-2.jpg",
+          "url": "/images/h-14632-volcano-20261101-2.jpg",
+          "sha256": "cfda55665f8160aac5646d27f6c3afdd8590b4eb8d7cf6c6426cf51c0f7260f5",
+          "bytes": 54040,
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Combo - Ras El Hekma Gates and Stands - H-14632 - view 2 | Horizon OOH",
+          "altAr": "كومبو - بوابات وستاندات رأس الحكمة - H-14632 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14632",
+        "supplier_id": 292,
+        "title": "Combo - Ras El Hekma Gates and Stands",
+        "name_ar": "كومبو - بوابات وستاندات رأس الحكمة",
+        "description": "Combo - Ras El Hekma Gates and Stands. North Coast 2027 advertising with Horizon OOH. The booking contains 11 advertising units and 22 advertised faces. Dimensions (width x height): 16 x 8 + 6 x 3 m. Four billboard units/eight faces plus seven stands/fourteen faces. The billboard-only view on page 51 is included without creating a duplicate standalone offer. The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "كومبو - بوابات وستاندات رأس الحكمة. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 11 وحدة إعلانية بإجمالي 22 وجهًا. المقاسات (العرض × الارتفاع): 16 x 8 + 6 x 3 متر. ٤ وحدات لوحات بإجمالي ٨ أوجه و٧ ستاندات بإجمالي ١٤ وجهًا. أدرجت لقطة اللوحات من الصفحة ٥١ دون إنشاء عرض منفصل مكرر. نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Combo - Ras El Hekma Gates and Stands, Matruh, Egypt",
+        "type": "Combo",
+        "format": "Billboard",
+        "size": "16 x 8 + 6 x 3",
+        "quantity": 11,
+        "sides": 22,
+        "location_id": 7,
+        "district_id": 496,
+        "lat": 31.078052861855635,
+        "lng": 27.95329710893352,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": null,
+        "height": null,
+        "sqm": null
+      },
+      "addressAr": "كومبو - بوابات وستاندات رأس الحكمة، مطروح، مصر",
+      "provenance": {
+        "key": "P52",
+        "page": 52,
+        "anchor": "hekma",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P53-1.jpg",
+          "sourcePage": 53,
+          "fileName": "h-14633-volcano-20261101-1.jpg",
+          "url": "/images/h-14633-volcano-20261101-1.jpg",
+          "sha256": "46d4a4c29c6caeec51042da8c666a2ea9a48c526922af39d3b8064396f3c4cc4",
+          "bytes": 39692,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Gate Network - Sidi Heneish Entrance - H-14633 - view 1 | Horizon OOH",
+          "altAr": "شبكة بوابات - مدخل سيدي حنيش - H-14633 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14633",
+        "supplier_id": 292,
+        "title": "Gate Network - Sidi Heneish Entrance",
+        "name_ar": "شبكة بوابات - مدخل سيدي حنيش",
+        "description": "Gate Network - Sidi Heneish Entrance. North Coast 2027 advertising with Horizon OOH. The booking contains 8 advertising units and 16 advertised faces. Dimensions (width x height): 16 x 8 m.  The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "شبكة بوابات - مدخل سيدي حنيش. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 8 وحدة إعلانية بإجمالي 16 وجهًا. المقاسات (العرض × الارتفاع): 16 x 8 متر.  نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Gate Network - Sidi Heneish Entrance, Matruh, Egypt",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "16 x 8",
+        "quantity": 8,
+        "sides": 16,
+        "location_id": 7,
+        "district_id": 87,
+        "lat": 31.161857678948508,
+        "lng": 27.62492793057757,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 16,
+        "height": 8,
+        "sqm": 128
+      },
+      "addressAr": "شبكة بوابات - مدخل سيدي حنيش، مطروح، مصر",
+      "provenance": {
+        "key": "P53",
+        "page": 53,
+        "anchor": "heneish",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P54-1.jpg",
+          "sourcePage": 54,
+          "fileName": "h-14634-volcano-20261101-1.jpg",
+          "url": "/images/h-14634-volcano-20261101-1.jpg",
+          "sha256": "ae17d7c2a74c6512c84346f45e5b49cfa71bae8745e3262ae926a905800dc107",
+          "bytes": 34317,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Gate - Marsa Baghush - H-14634 - view 1 | Horizon OOH",
+          "altAr": "بوابه - مرسى باغوش - H-14634 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14634",
+        "supplier_id": 292,
+        "title": "Gate - Marsa Baghush",
+        "name_ar": "بوابه - مرسى باغوش",
+        "description": "Gate - Marsa Baghush. North Coast 2027 advertising with Horizon OOH. The booking contains 2 advertising units and 4 advertised faces. Dimensions (width x height): 16 x 8 m.  The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "بوابه - مرسى باغوش. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 2 وحدة إعلانية بإجمالي 4 وجهًا. المقاسات (العرض × الارتفاع): 16 x 8 متر.  نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Gate - Marsa Baghush, Matruh, Egypt",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "16 x 8",
+        "quantity": 2,
+        "sides": 4,
+        "location_id": 7,
+        "district_id": 87,
+        "lat": 31.159464000391782,
+        "lng": 27.63234775860208,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 16,
+        "height": 8,
+        "sqm": 128
+      },
+      "addressAr": "بوابه - مرسى باغوش، مطروح، مصر",
+      "provenance": {
+        "key": "P54",
+        "page": 54,
+        "anchor": "baghush",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P55-1.jpg",
+          "sourcePage": 55,
+          "fileName": "h-14635-volcano-20261101-1.jpg",
+          "url": "/images/h-14635-volcano-20261101-1.jpg",
+          "sha256": "b0e7390f97126eb85126bacaa5245afcac02792445f3806e01309083e780f961",
+          "bytes": 42789,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Triple Uni-pole Network - Silver Sands - H-14635 - view 1 | Horizon OOH",
+          "altAr": "شبكة يوني بول ثلاثي - سيلفر ساندز - H-14635 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14635",
+        "supplier_id": 292,
+        "title": "Triple Uni-pole Network - Silver Sands",
+        "name_ar": "شبكة يوني بول ثلاثي - سيلفر ساندز",
+        "description": "Triple Uni-pole Network - Silver Sands. North Coast 2027 advertising with Horizon OOH. The booking contains 15 advertising units and 30 advertised faces. Dimensions (width x height): 16 x 8 + 14 x 7 m.  The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "شبكة يوني بول ثلاثي - سيلفر ساندز. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 15 وحدة إعلانية بإجمالي 30 وجهًا. المقاسات (العرض × الارتفاع): 16 x 8 + 14 x 7 متر.  نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Triple Uni-pole Network - Silver Sands, Matruh, Egypt",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "16 x 8 + 14 x 7",
+        "quantity": 15,
+        "sides": 30,
+        "location_id": 7,
+        "district_id": 87,
+        "lat": 31.118997886418448,
+        "lng": 27.784289350345457,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": null,
+        "height": null,
+        "sqm": null
+      },
+      "addressAr": "شبكة يوني بول ثلاثي - سيلفر ساندز، مطروح، مصر",
+      "provenance": {
+        "key": "P55",
+        "page": 55,
+        "anchor": "silver",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P56-1.jpg",
+          "sourcePage": 56,
+          "fileName": "h-14636-volcano-20261101-1.jpg",
+          "url": "/images/h-14636-volcano-20261101-1.jpg",
+          "sha256": "ec1769ba77a53f929e73dddf8d1554aa8ebbefd7af490e7fc6cd402908b32a78",
+          "bytes": 45377,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Gate Package - Almaza Bay, Two Gates - H-14636 - view 1 | Horizon OOH",
+          "altAr": "باكدج بوابات - ألماظة باي، بوابتان - H-14636 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14636",
+        "supplier_id": 292,
+        "title": "Gate Package - Almaza Bay, Two Gates",
+        "name_ar": "باكدج بوابات - ألماظة باي، بوابتان",
+        "description": "Gate Package - Almaza Bay, Two Gates. North Coast 2027 advertising with Horizon OOH. The booking contains 4 advertising units and 8 advertised faces. Dimensions (width x height): 16 x 8 + 14 x 7 m.  The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "باكدج بوابات - ألماظة باي، بوابتان. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 4 وحدة إعلانية بإجمالي 8 وجهًا. المقاسات (العرض × الارتفاع): 16 x 8 + 14 x 7 متر.  نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Gate Package - Almaza Bay, Two Gates, Matruh, Egypt",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "16 x 8 + 14 x 7",
+        "quantity": 4,
+        "sides": 8,
+        "location_id": 7,
+        "district_id": 87,
+        "lat": 31.183360244990727,
+        "lng": 27.550676721050593,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": null,
+        "height": null,
+        "sqm": null
+      },
+      "addressAr": "باكدج بوابات - ألماظة باي، بوابتان، مطروح، مصر",
+      "provenance": {
+        "key": "P56",
+        "page": 56,
+        "anchor": "almaza1",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P57-1.jpg",
+          "sourcePage": 57,
+          "fileName": "h-14637-volcano-20261101-1.jpg",
+          "url": "/images/h-14637-volcano-20261101-1.jpg",
+          "sha256": "b14f4c1ece3ad1b5e0c4aefef9fa9ea1fd11fae1bdf60a0b956c743248584e06",
+          "bytes": 39205,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Gate - Almaza Bay - H-14637 - view 1 | Horizon OOH",
+          "altAr": "بوابه - ألماظة باي - H-14637 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14637",
+        "supplier_id": 292,
+        "title": "Gate - Almaza Bay",
+        "name_ar": "بوابه - ألماظة باي",
+        "description": "Gate - Almaza Bay. North Coast 2027 advertising with Horizon OOH. The booking contains 2 advertising units and 4 advertised faces. Dimensions (width x height): 16 x 8 + 14 x 7 m.  The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "بوابه - ألماظة باي. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 2 وحدة إعلانية بإجمالي 4 وجهًا. المقاسات (العرض × الارتفاع): 16 x 8 + 14 x 7 متر.  نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Gate - Almaza Bay, Matruh, Egypt",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "16 x 8 + 14 x 7",
+        "quantity": 2,
+        "sides": 4,
+        "location_id": 7,
+        "district_id": 87,
+        "lat": 31.176548806789935,
+        "lng": 27.568274499347144,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": null,
+        "height": null,
+        "sqm": null
+      },
+      "addressAr": "بوابه - ألماظة باي، مطروح، مصر",
+      "provenance": {
+        "key": "P57",
+        "page": 57,
+        "anchor": "almaza2",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P58-1.jpg",
+          "sourcePage": 58,
+          "fileName": "h-14638-volcano-20261101-1.jpg",
+          "url": "/images/h-14638-volcano-20261101-1.jpg",
+          "sha256": "64796569a90c407d8a25fbcca3315ee564a95b0390cf87cae60cade0e65b436d",
+          "bytes": 49436,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Gate - Almaza Bay Entrance - H-14638 - view 1 | Horizon OOH",
+          "altAr": "بوابه - مدخل ألماظة باي - H-14638 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "code": "H-14638",
+        "supplier_id": 292,
+        "title": "Gate - Almaza Bay Entrance",
+        "name_ar": "بوابه - مدخل ألماظة باي",
+        "description": "Gate - Almaza Bay Entrance. North Coast 2027 advertising with Horizon OOH. The booking contains 2 advertising units and 4 advertised faces. Dimensions (width x height): 16 x 8 m.  The map pin is an approximate roadside reference near the named location, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and a tailored quote.",
+        "description_ar": "بوابه - مدخل ألماظة باي. إعلانات موسم الساحل ٢٠٢٧ مع هورايزون. يشمل عرض الحجز 2 وحدة إعلانية بإجمالي 4 وجهًا. المقاسات (العرض × الارتفاع): 16 x 8 متر.  نقطة الخريطة مرجع تقريبي على الطريق قرب الموقع المذكور وليست إحداثيات مساحية لحامل اليافطة؛ نقاط الشبكات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Gate - Almaza Bay Entrance, Matruh, Egypt",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "16 x 8",
+        "quantity": 2,
+        "sides": 4,
+        "location_id": 7,
+        "district_id": 87,
+        "lat": 31.174235851454355,
+        "lng": 27.57720011451856,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 16,
+        "height": 8,
+        "sqm": 128
+      },
+      "addressAr": "بوابه - مدخل ألماظة باي، مطروح، مصر",
+      "provenance": {
+        "key": "P58",
+        "page": 58,
+        "anchor": "almaza3",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    }
+  ],
+  "updates": [
+    {
+      "id": 14352,
+      "code": "H-14352",
+      "slug": "h-14352-gate-before-bridge-alex-desert-road",
+      "oldCitySlug": "alexandria",
+      "data": {
+        "title": "Gate - before bridge - Alex desert road",
+        "name_ar": "بوابة - قبل الكوبري - طريق اسكندرية",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Gate - before bridge - Alex desert road, Cairo–Alexandria Desert Road, Beheira, Egypt",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "8 × 24",
+        "quantity": 1,
+        "sides": 4,
+        "location_id": 6,
+        "district_id": 498,
+        "lat": 30.449483113361193,
+        "lng": 30.317455322735086
+      },
+      "addressAr": "بوابة - قبل الكوبري - طريق اسكندرية، البحيرة، مصر",
+      "provenance": {
+        "key": "H-14352",
+        "page": null,
+        "anchor": "wadi",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14354,
+      "code": "H-14354",
+      "slug": "h-14354-gate-before-wadi-el-natron",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Gate - before WADI EL NATRON",
+        "name_ar": "بوابة - قبل وادي النطرون",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Gate - before WADI EL NATRON, Cairo–Alexandria Desert Road, Beheira, Egypt",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "8 × 16",
+        "quantity": 1,
+        "sides": 4,
+        "location_id": 6,
+        "district_id": 498,
+        "lat": 30.449483113361193,
+        "lng": 30.317455322735086
+      },
+      "addressAr": "بوابة - قبل وادي النطرون، البحيرة، مصر",
+      "provenance": {
+        "key": "H-14354",
+        "page": 7,
+        "anchor": "wadi",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14355,
+      "code": "H-14355",
+      "slug": "h-14355-gate-wadi-el-natroun-egypt",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Gate - WADI EL NATROUN - Egypt",
+        "name_ar": "بوابة - وادي النطرون - مصر",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Beheira, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Gate - WADI EL NATROUN - Egypt, Cairo–Alexandria Desert Road, Beheira, Egypt",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "8 × 16",
+        "quantity": 1,
+        "sides": 4,
+        "location_id": 6,
+        "district_id": 498,
+        "lat": 30.47458247030328,
+        "lng": 30.277789786264258
+      },
+      "addressAr": "بوابة - وادي النطرون - مصر، البحيرة، مصر",
+      "provenance": {
+        "key": "H-14355",
+        "page": null,
+        "anchor": "wadi",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14359,
+      "code": "H-14359",
+      "slug": "h-14359-2-uni-pole-golf-porto-marina",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "2 Uni pole - GOLF PORTO MARINA",
+        "name_ar": "يوني بول 2 - بورتو مارينا الجولف",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "2 Uni pole - GOLF PORTO MARINA, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "8 × 16",
+        "quantity": 1,
+        "sides": 4,
+        "location_id": 7,
+        "district_id": 484,
+        "lat": 30.846978082899362,
+        "lng": 28.92379888328445
+      },
+      "addressAr": "يوني بول 2 - بورتو مارينا الجولف، مطروح، مصر",
+      "provenance": {
+        "key": "H-14359",
+        "page": 18,
+        "anchor": "porto",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14360,
+      "code": "H-14360",
+      "slug": "h-14360-combo-downtown-al-alamein",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Combo - DOWNTOWN - Al-Alamein",
+        "name_ar": "كومبو - داون تاون - العلمين",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Combo - DOWNTOWN - Al-Alamein, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Combo",
+        "format": "Billboard",
+        "size": "3 × 4",
+        "quantity": 22,
+        "sides": 44,
+        "location_id": 7,
+        "district_id": 88,
+        "lat": 30.84858019494409,
+        "lng": 28.916871598773
+      },
+      "addressAr": "كومبو - داون تاون - العلمين، مطروح، مصر",
+      "provenance": {
+        "key": "H-14360",
+        "page": 19,
+        "anchor": "downtown",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14361,
+      "code": "H-14361",
+      "slug": "h-14361-uni-pole-new-alamein",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Uni pole - NEW ALAMEIN",
+        "name_ar": "يوني بول - العلمين الجديدة",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Uni pole - NEW ALAMEIN, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "8 × 16",
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 7,
+        "district_id": 88,
+        "lat": 30.841896790191075,
+        "lng": 28.94885611700932
+      },
+      "addressAr": "يوني بول - العلمين الجديدة، مطروح، مصر",
+      "provenance": {
+        "key": "H-14361",
+        "page": 20,
+        "anchor": "alamein",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14362,
+      "code": "H-14362",
+      "slug": "h-14362-uni-pole-tolip-resort",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Uni pole - TOLIP RESORT",
+        "name_ar": "يوني بول - منتجع توليب",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Uni pole - TOLIP RESORT, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "8 × 16",
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 7,
+        "district_id": 88,
+        "lat": 30.841896790191075,
+        "lng": 28.94885611700932
+      },
+      "addressAr": "يوني بول - منتجع توليب، مطروح، مصر",
+      "provenance": {
+        "key": "H-14362",
+        "page": null,
+        "anchor": "alamein",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14364,
+      "code": "H-14364",
+      "slug": "h-14364-mega-post-sidi-abd-el-rahman-beach",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Mega post - SIDI ABD EL-RAHMAN beach",
+        "name_ar": "ميجا بوست - شاطئ سيدي عبدالرحمن",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Mega post - SIDI ABD EL-RAHMAN beach, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Mega Post",
+        "format": "Billboard",
+        "size": "3 × 4",
+        "quantity": 20,
+        "sides": 40,
+        "location_id": 7,
+        "district_id": 495,
+        "lat": 30.971642801576767,
+        "lng": 28.738265530075086
+      },
+      "addressAr": "ميجا بوست - شاطئ سيدي عبدالرحمن، مطروح، مصر",
+      "provenance": {
+        "key": "H-14364",
+        "page": null,
+        "anchor": "sidi",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14365,
+      "code": "H-14365",
+      "slug": "h-14365-mega-post-hacienda-bay-1",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Mega post - HACIENDA BAY 1",
+        "name_ar": "ميجا بوست - خليج هاسيندا 1",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Mega post - HACIENDA BAY 1, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Mega Post",
+        "format": "Billboard",
+        "size": "3 × 4",
+        "quantity": 20,
+        "sides": 40,
+        "location_id": 7,
+        "district_id": 495,
+        "lat": 30.9312911584925,
+        "lng": 28.79178194536461
+      },
+      "addressAr": "ميجا بوست - خليج هاسيندا 1، مطروح، مصر",
+      "provenance": {
+        "key": "H-14365",
+        "page": null,
+        "anchor": "bay1",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14366,
+      "code": "H-14366",
+      "slug": "h-14366-mega-post-hacienda-bay-2",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Mega post - HACIENDA BAY 2",
+        "name_ar": "ميجا بوست - خليج هاسيندا 2",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Mega post - HACIENDA BAY 2, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Mega Post",
+        "format": "Billboard",
+        "size": "3 × 4",
+        "quantity": 20,
+        "sides": 40,
+        "location_id": 7,
+        "district_id": 495,
+        "lat": 30.93432786835782,
+        "lng": 28.789042557651893
+      },
+      "addressAr": "ميجا بوست - خليج هاسيندا 2، مطروح، مصر",
+      "provenance": {
+        "key": "H-14366",
+        "page": null,
+        "anchor": "bay2",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14367,
+      "code": "H-14367",
+      "slug": "uni-pole-marassi-1",
+      "oldCitySlug": "alexandria",
+      "data": {
+        "title": "Uni pole - MARASSI 1",
+        "name_ar": "يوني بول - مراسي 1",
+        "description": "Uni pole - MARASSI 1 Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "يوني بول - مراسي 1 نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Uni pole - MARASSI 1, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "billboard",
+        "format": "billboard",
+        "size": "8 × 24",
+        "quantity": 20,
+        "sides": 2,
+        "location_id": 7,
+        "district_id": 495,
+        "lat": 30.957272780695074,
+        "lng": 28.76493328071935
+      },
+      "addressAr": "يوني بول - مراسي 1، مطروح، مصر",
+      "provenance": {
+        "key": "H-14367",
+        "page": 25,
+        "anchor": "marassi1",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14368,
+      "code": "H-14368",
+      "slug": "h-14368-combo-marassi-2",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Combo - MARASSI 2",
+        "name_ar": "كومبو - مراسي 2",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Combo - MARASSI 2, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Combo",
+        "format": "Billboard",
+        "size": "3 × 4",
+        "quantity": 20,
+        "sides": 42,
+        "location_id": 7,
+        "district_id": 495,
+        "lat": 30.96210938904213,
+        "lng": 28.755964145454257
+      },
+      "addressAr": "كومبو - مراسي 2، مطروح، مصر",
+      "provenance": {
+        "key": "H-14368",
+        "page": 24,
+        "anchor": "marassi2",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14369,
+      "code": "H-14369",
+      "slug": "h-14369-uni-pole-marassi-3",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Uni pole - MARASSI 3",
+        "name_ar": "يوني بول - مراسي 3",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Uni pole - MARASSI 3, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "8 × 16",
+        "quantity": 20,
+        "sides": 4,
+        "location_id": 7,
+        "district_id": 495,
+        "lat": 30.965233292167884,
+        "lng": 28.750171096342264
+      },
+      "addressAr": "يوني بول - مراسي 3، مطروح، مصر",
+      "provenance": {
+        "key": "H-14369",
+        "page": 25,
+        "anchor": "marassi3",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14370,
+      "code": "H-14370",
+      "slug": "h-14370-mega-post-el-karma-beach",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Mega post - EL KARMA beach",
+        "name_ar": "ميجا بوست - شاطئ الكارما",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Mega post - EL KARMA beach, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Mega Post",
+        "format": "Billboard",
+        "size": "3 × 4",
+        "quantity": 10,
+        "sides": 20,
+        "location_id": 7,
+        "district_id": 495,
+        "lat": 30.977879491371166,
+        "lng": 28.721718233317766
+      },
+      "addressAr": "ميجا بوست - شاطئ الكارما، مطروح، مصر",
+      "provenance": {
+        "key": "H-14370",
+        "page": 26,
+        "anchor": "karma",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14371,
+      "code": "H-14371",
+      "slug": "h-14371-combo-stella",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Combo - STELLA",
+        "name_ar": "كومبو - ستيلا",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Combo - STELLA, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Combo",
+        "format": "Billboard",
+        "size": "3 × 4",
+        "quantity": 21,
+        "sides": 42,
+        "location_id": 7,
+        "district_id": 495,
+        "lat": 30.981214493918518,
+        "lng": 28.70984630519282
+      },
+      "addressAr": "كومبو - ستيلا، مطروح، مصر",
+      "provenance": {
+        "key": "H-14371",
+        "page": 27,
+        "anchor": "stella",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14372,
+      "code": "H-14372",
+      "slug": "h-14372-mega-post-seashell",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Mega post - SEASHELL",
+        "name_ar": "ميجا بوست - سي سيشل",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Mega post - SEASHELL, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Mega Post",
+        "format": "Billboard",
+        "size": "3 × 4",
+        "quantity": 20,
+        "sides": 40,
+        "location_id": 7,
+        "district_id": 495,
+        "lat": 30.989056812900824,
+        "lng": 28.692869976679617
+      },
+      "addressAr": "ميجا بوست - سي سيشل، مطروح، مصر",
+      "provenance": {
+        "key": "H-14372",
+        "page": 31,
+        "anchor": "seashell",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14373,
+      "code": "H-14373",
+      "slug": "h-14373-mega-post-amwaj-1",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Mega post - Amwaj 1",
+        "name_ar": "ميجا بوست - أمواج 1",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Mega post - Amwaj 1, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Mega Post",
+        "format": "Billboard",
+        "size": "3 × 4",
+        "quantity": 20,
+        "sides": 24,
+        "location_id": 7,
+        "district_id": 495,
+        "lat": 30.990621888057788,
+        "lng": 28.68391038306214
+      },
+      "addressAr": "ميجا بوست - أمواج 1، مطروح، مصر",
+      "provenance": {
+        "key": "H-14373",
+        "page": 32,
+        "anchor": "amwaj1",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14374,
+      "code": "H-14374",
+      "slug": "h-14374-mega-post-amwaj-2",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Mega post - Amwaj 2",
+        "name_ar": "ميجا بوست - أمواج 2",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Mega post - Amwaj 2, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Mega Post",
+        "format": "Billboard",
+        "size": "3 × 4",
+        "quantity": 20,
+        "sides": 20,
+        "location_id": 7,
+        "district_id": 495,
+        "lat": 30.9922207396162,
+        "lng": 28.674730380165744
+      },
+      "addressAr": "ميجا بوست - أمواج 2، مطروح، مصر",
+      "provenance": {
+        "key": "H-14374",
+        "page": 33,
+        "anchor": "amwaj2",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14375,
+      "code": "H-14375",
+      "slug": "h-14375-uni-pole-blumar-el-alamein",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Uni pole - BLUMAR - El Alamein",
+        "name_ar": "يوني بول - بلومار - العلمين",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Uni pole - BLUMAR - El Alamein, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "8 × 24",
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 7,
+        "district_id": 495,
+        "lat": 30.993114909857947,
+        "lng": 28.66955939876114
+      },
+      "addressAr": "يوني بول - بلومار - العلمين، مطروح، مصر",
+      "provenance": {
+        "key": "H-14375",
+        "page": 34,
+        "anchor": "blumar",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14376,
+      "code": "H-14376",
+      "slug": "h-14376-mega-post-hacienda-white-1",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Mega post - HACIENDA WHITE 1",
+        "name_ar": "ميجا بوست -هاسيندا وايت 1",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Mega post - HACIENDA WHITE 1, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Mega Post",
+        "format": "Billboard",
+        "size": "3 × 4",
+        "quantity": 10,
+        "sides": 20,
+        "location_id": 7,
+        "district_id": 495,
+        "lat": 30.994585170926236,
+        "lng": 28.661909724914103
+      },
+      "addressAr": "ميجا بوست -هاسيندا وايت 1، مطروح، مصر",
+      "provenance": {
+        "key": "H-14376",
+        "page": 35,
+        "anchor": "white1",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14377,
+      "code": "H-14377",
+      "slug": "h-14377-mega-post-hacienda-white-2",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Mega post - HACIENDA WHITE 2",
+        "name_ar": "ميجا بوست -هاسيندا وايت 2",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Mega post - HACIENDA WHITE 2, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Mega Post",
+        "format": "Billboard",
+        "size": "3 × 4",
+        "quantity": 10,
+        "sides": 40,
+        "location_id": 7,
+        "district_id": 495,
+        "lat": 30.99622373886183,
+        "lng": 28.657160557238683
+      },
+      "addressAr": "ميجا بوست -هاسيندا وايت 2، مطروح، مصر",
+      "provenance": {
+        "key": "H-14377",
+        "page": 35,
+        "anchor": "white2",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14378,
+      "code": "H-14378",
+      "slug": "h-14378-uni-pole-hacienda-white-3",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Uni pole - HACIENDA WHITE 3",
+        "name_ar": "يوني بول - هاسيندا وايت 3",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Uni pole - HACIENDA WHITE 3, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "8 × 16",
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 7,
+        "district_id": 495,
+        "lat": 30.994585170926236,
+        "lng": 28.661909724914103
+      },
+      "addressAr": "يوني بول - هاسيندا وايت 3، مطروح، مصر",
+      "provenance": {
+        "key": "H-14378",
+        "page": 35,
+        "anchor": "white1",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14379,
+      "code": "H-14379",
+      "slug": "h-14379-mega-post-hacienda-red-1",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Mega post - HACIENDA RED 1",
+        "name_ar": "ميجا بوست - هاسيندا ريد 1",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Mega post - HACIENDA RED 1, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Mega Post",
+        "format": "Billboard",
+        "size": "2 × 3",
+        "quantity": 1,
+        "sides": 40,
+        "location_id": 7,
+        "district_id": 495,
+        "lat": 30.999730304322856,
+        "lng": 28.638945220639762
+      },
+      "addressAr": "ميجا بوست - هاسيندا ريد 1، مطروح، مصر",
+      "provenance": {
+        "key": "H-14379",
+        "page": 37,
+        "anchor": "red2",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14380,
+      "code": "H-14380",
+      "slug": "h-14380-combo-hacienda-red-2",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Combo - HACIENDA RED 2",
+        "name_ar": "كومبو - هاسيندا ريد 2",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Combo - HACIENDA RED 2, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Combo",
+        "format": "Billboard",
+        "size": "3 × 4",
+        "quantity": 21,
+        "sides": 22,
+        "location_id": 7,
+        "district_id": 495,
+        "lat": 30.998682297061883,
+        "lng": 28.64606990494291
+      },
+      "addressAr": "كومبو - هاسيندا ريد 2، مطروح، مصر",
+      "provenance": {
+        "key": "H-14380",
+        "page": 36,
+        "anchor": "red1",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14381,
+      "code": "H-14381",
+      "slug": "h-14381-gate-dabaa-road",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Gate - DABAA road",
+        "name_ar": "بوابة - طريق الضبعة",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Gate - DABAA road, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "7 × 14",
+        "quantity": 1,
+        "sides": 4,
+        "location_id": 7,
+        "district_id": 89,
+        "lat": 31.039271402991375,
+        "lng": 28.448851138862256
+      },
+      "addressAr": "بوابة - طريق الضبعة، مطروح، مصر",
+      "provenance": {
+        "key": "H-14381",
+        "page": 41,
+        "anchor": "dabaa",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14382,
+      "code": "H-14382",
+      "slug": "h-14382-gate-before-lvls-north-coast",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Gate - BEFORE LVLS - North coast",
+        "name_ar": "بوابة -قبل قرية ليفلز - الساحل الشمالي",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Gate - BEFORE LVLS - North coast, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "7 × 14",
+        "quantity": 1,
+        "sides": 4,
+        "location_id": 7,
+        "district_id": 496,
+        "lat": 31.05441788164759,
+        "lng": 28.26597661384023
+      },
+      "addressAr": "بوابة -قبل قرية ليفلز - الساحل الشمالي، مطروح، مصر",
+      "provenance": {
+        "key": "H-14382",
+        "page": null,
+        "anchor": "beforelvls",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14383,
+      "code": "H-14383",
+      "slug": "h-14383-uni-pole-lvls-village",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Uni pole - LVLS village",
+        "name_ar": "يوني بول - قرية لفلز",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Uni pole - LVLS village, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "7 × 14",
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 7,
+        "district_id": 496,
+        "lat": 31.056255622941926,
+        "lng": 28.254584984403827
+      },
+      "addressAr": "يوني بول - قرية لفلز، مطروح، مصر",
+      "provenance": {
+        "key": "H-14383",
+        "page": null,
+        "anchor": "lvls",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14384,
+      "code": "H-14384",
+      "slug": "h-14384-gate-soul-village",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Gate - Soul Village",
+        "name_ar": "بوابة - قرية صول",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Gate - Soul Village, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "7 × 14",
+        "quantity": 3,
+        "sides": 12,
+        "location_id": 7,
+        "district_id": 496,
+        "lat": 31.056652165730593,
+        "lng": 28.225868838076664
+      },
+      "addressAr": "بوابة - قرية صول، مطروح، مصر",
+      "provenance": {
+        "key": "H-14384",
+        "page": 42,
+        "anchor": "soul",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14385,
+      "code": "H-14385",
+      "slug": "h-14385-gate-safia-il-cazar",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Gate - SAFIA IL CAZAR",
+        "name_ar": "بوابة - صفية الكازار",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Gate - SAFIA IL CAZAR, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "7 × 14",
+        "quantity": 2,
+        "sides": 8,
+        "location_id": 7,
+        "district_id": 496,
+        "lat": 31.068334462745643,
+        "lng": 28.16970295847603
+      },
+      "addressAr": "بوابة - صفية الكازار، مطروح، مصر",
+      "provenance": {
+        "key": "H-14385",
+        "page": 44,
+        "anchor": "safia",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14386,
+      "code": "H-14386",
+      "slug": "h-14386-gate-katameya-coast",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Gate - KATAMEYA COAST",
+        "name_ar": "بوابة - ساحل القطامية",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Gate - KATAMEYA COAST, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "7 × 14",
+        "quantity": 3,
+        "sides": 12,
+        "location_id": 7,
+        "district_id": 496,
+        "lat": 31.066667874986855,
+        "lng": 28.17966914514303
+      },
+      "addressAr": "بوابة - ساحل القطامية، مطروح، مصر",
+      "provenance": {
+        "key": "H-14386",
+        "page": 46,
+        "anchor": "katameya2",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 14387,
+      "code": "H-14387",
+      "slug": "h-14387-gate-youd",
+      "oldCitySlug": "matruh",
+      "data": {
+        "title": "Gate - YOUD",
+        "name_ar": "بوابة - يود",
+        "description": "This premium billboard location is strategically positioned in one of the highest traffic areas in Matruh, offering exceptional visibility and continuous exposure to thousands of daily commuters.\r\n\r\nIdeal for brands looking to maximize awareness and create a strong market presence, this location ensures your campaign reaches the right audience with high impact.\r\n\r\nAt Horizon OOH, we provide full campaign execution including production, installation, and on-ground monitoring to guarantee seamless delivery and optimal performance.\r\n\r\nContact us to check availability, pricing, and campaign options for this location. Map pin: approximate roadside or corridor reference, not confirmed support coordinates. Contact Horizon OOH to confirm the exact advertising face and campaign dates.",
+        "description_ar": "تتميز هذه اليافطة الإعلانية بموقع استراتيجي في واحدة من أكثر المناطق حيوية وكثافة مرورية، مما يوفر ظهورًا قويًا ومستمرًا لعلامتك التجارية أمام آلاف المارة يوميًا.\r\n\r\nتعد هذه اللوحة خيارًا مثاليًا للعلامات التجارية التي تسعى إلى تعزيز الوعي وتحقيق انتشار واسع في السوق من خلال مواقع عالية التأثير.\r\n\r\nنقدم في Horizon OOH خدمات متكاملة تشمل الإنتاج، التركيب، والمتابعة الميدانية لضمان تنفيذ الحملة بأعلى مستوى من الجودة والكفاءة.\r\n\r\nتواصل معنا لمعرفة المتوافر، الأسعار، وخيارات الحملات الإعلانية المتاحة لهذه اللوحة. نقطة الخريطة مرجع تقريبي على الطريق أو نطاق الإعلان وليست إحداثيات مؤكدة لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة.",
+        "full_address": "Gate - YOUD, Alexandria–Marsa Matrouh Road, Matruh, Egypt",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "7 × 14",
+        "quantity": 2,
+        "sides": 8,
+        "location_id": 7,
+        "district_id": 496,
+        "lat": 31.070153,
+        "lng": 28.158794
+      },
+      "addressAr": "بوابة - يود، مطروح، مصر",
+      "provenance": {
+        "key": "H-14387",
+        "page": null,
+        "anchor": "youd",
+        "approximate": true,
+        "source": "Volcano North Coast 2027",
+        "mapMethod": "Named landmark/road corridor reference, constrained to road routing geometry and visually checked against satellite imagery; exact support unconfirmed",
+        "originalSupplierId": 292
+      }
+    },
+    {
+      "id": 13577,
+      "code": "H-13577",
+      "data": {
+        "title": "COMBO - ALAMEIN - NORTH COAST",
+        "name_ar": "كومبو - العالمين - الساحل الشمالي",
+        "description": "COMBO - ALAMEIN - NORTH COAST",
+        "description_ar": "كومبو - العالمين - الساحل الشمالي",
+        "full_address": "Wadi El Natrun - El Alamein Rd, El Alamein, Matrouh Governorate, Egypt",
+        "type": "Combo",
+        "format": "billboard",
+        "size": "8 × 20",
+        "quantity": 3,
+        "sides": 12,
+        "location_id": 7,
+        "district_id": 485,
+        "lat": "30.8158491",
+        "lng": "28.9837851"
+      },
+      "addressAr": "كومبو - العالمين - الساحل الشمالي، الساحل الشمالي، مصر",
+      "slug": "combo-alamein-north-coast",
+      "oldCitySlug": "matruh",
+      "provenance": {
+        "key": "H-13577",
+        "mapOnly": false,
+        "reframeOnly": true,
+        "originalSupplierId": 230
+      }
+    },
+    {
+      "id": 13598,
+      "code": "H-13598",
+      "data": {
+        "title": "COMBO - BIANCHI - NORTH COAST",
+        "name_ar": "كومبو - بيانكي - الساحل الشمالي",
+        "description": "COMBO - BIANCHI - NORTH COAST",
+        "description_ar": "كومبو - بيانكي - الساحل الشمالي",
+        "full_address": "40M, El Alamein, Matrouh Governorate, Egypt",
+        "type": "Combo",
+        "format": "billboard",
+        "size": "10 × 20",
+        "quantity": 1,
+        "sides": 8,
+        "location_id": 7,
+        "district_id": 485,
+        "lat": "30.9856201",
+        "lng": "28.7010462"
+      },
+      "addressAr": "كومبو - بيانكي - الساحل الشمالي، الساحل الشمالي، مصر",
+      "slug": "combo-bianchi-north-coast",
+      "oldCitySlug": "matruh",
+      "provenance": {
+        "key": "H-13598",
+        "mapOnly": false,
+        "reframeOnly": true,
+        "originalSupplierId": 230
+      }
+    }
+  ],
+  "imageReplacements": [
+    {
+      "id": 13577,
+      "code": "H-13577",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/H-13577.jpg",
+          "sourcePage": null,
+          "fileName": "h-13577-horizon-reframe-20261101.jpg",
+          "url": "/images/h-13577-horizon-reframe-20261101.jpg",
+          "sha256": "cd3095cbce71645c06e2faed966eb06f2069134ac072055cfe9e7227f8a1c7e0",
+          "bytes": 33689,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "COMBO - ALAMEIN - NORTH COAST - H-13577 | Horizon OOH",
+          "altAr": "كومبو - العالمين - الساحل الشمالي - H-13577 | هورايزون للإعلانات الخارجية"
+        }
+      ]
+    },
+    {
+      "id": 13598,
+      "code": "H-13598",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/H-13598.jpg",
+          "sourcePage": null,
+          "fileName": "h-13598-horizon-reframe-20261101.jpg",
+          "url": "/images/h-13598-horizon-reframe-20261101.jpg",
+          "sha256": "2671cb79c4c875b2ac276c9dcfd29603aea0d508ba59a396e06b13aff15cdb8f",
+          "bytes": 31807,
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "COMBO - BIANCHI - NORTH COAST - H-13598 | Horizon OOH",
+          "altAr": "كومبو - بيانكي - الساحل الشمالي - H-13598 | هورايزون للإعلانات الخارجية"
+        }
+      ]
+    }
+  ],
+  "pendingMapCodes": [
+    "H-14356",
+    "H-14357",
+    "H-14358",
+    "H-14353",
+    "H-14363"
+  ],
+  "heldSourcePages": [
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    28,
+    29,
+    30
+  ],
+  "coveredPages": [
+    24,
+    25,
+    27,
+    31,
+    32,
+    33,
+    35,
+    36,
+    37,
+    41,
+    42,
+    44,
+    46
+  ],
+  "newAvailability": "available",
+  "publicPrices": false,
+  "processing": {
+    "canvas": "640x380",
+    "retouch": "ImageMagick brightness2 contrast1 saturation101 unsharp0x0.5+0.3+0.02",
+    "sourceCrop": "2250x1140+75+100 from 2400px 2027 renders; remove supplier footer. Original retained photographs cropped to remove Yafta Map footer.",
+    "fit": "Contain full photographic width; no billboard artwork redrawn",
+    "frameSha256": "7e152a6488bdd886e127faa64dd08d6bdb503001c353afa191ca2cf04b984d1d",
+    "encoding": "JPEG90 4:4:4 metadata stripped"
+  }
+}
