@@ -11,3 +11,5 @@ Neither source file contains GPS/map hyperlinks. New pins are approximate roadsi
 The task is therefore partially complete, not an all-source import. Further location/overlap verification is needed for the held offers. Source rates and photographs have been extracted locally for that follow-up. Al Alamia International supplier 111 is a different existing inventory grouping and is not conflated with Alamia 81. Existing supplier assignments on matched bookings are preserved. No billboard deleted. Saudi untouched.
 
 Guarded import backup: /home/horizon/deploy-backups/alamia-20261101/backup-20261101-145117. Full target baselines and source photo hashes are checked before the transaction; rows are locked and unrelated inventory, retained photos, suppliers, districts and protected fields are compared before commit. The 24 retained images are unchanged. Validation covers database values, English/Arabic server-rendered pages/canonicals/ALT, delivered photo hashes, public price redaction, bilingual redirects, sitemap inclusion and the SSG build.
+
+Latest follow-up: [remaining-inventory review](../alamia-review-20261101/README.md).

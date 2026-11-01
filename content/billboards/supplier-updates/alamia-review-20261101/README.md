@@ -1,0 +1,22 @@
+# Alamia remaining-inventory review — 1 November 2026
+
+Follow-up to the initial Alamia import. Created 10 Available offers H-14648–H-14657 with 22 new Horizon-framed source photographs and bilingual ALT. The three North90 8x4 unipoles, Gezira Club mirror, Abu El Feda tunnel mirror, Gamal Abdel Nasser Bridge3 and Bridge4 gates, West Arena combo, New Giza/ESLSCA five-flag sequence and Farouk Bridge gate are separate source offers. New customer rates are monthly EGP and stay private; no source prices or database baselines are committed. Existing prices, suppliers, availability, slugs and existing photographs are preserved. No billboard deleted. Saudi untouched.
+
+Corrected road references for H-14394 and H-14395 from the repeated Shooting Club interior point to the Mohy El Din Abu El Ezz frontage corridor, and H-14391 from a distant Nasr Street reference to the Farouk/Nahda bridge-exit vicinity in Maadi, following the supplier's Farouk-exit address. The exact support positions remain unconfirmed. H-14397's existing Gabalaya coordinate is already approximately five metres from the named road, so it is retained rather than unnecessarily moved. Existing H-14485 matches the Mostafa Kamel/4-flag booking; H-14491/H-14492 already include the Gardenia unipoles inside the larger package. Those commercial scopes and their Horizon-framed photos are retained without another duplicate aggregate or application of the smaller package's rate.
+
+All new pins are explicitly approximate road/crossing/corridor references, not surveyed support coordinates. Geometry comes from the public OpenStreetMap API/OSRM and satellite imagery was reviewed. Jumia's official business address and Waze venue, Petrosport stadium, the North90 service-road route, and existing Waterway references anchor the northern corridor. The Abu El Feda source photo visibly includes El Sawy Cultural Wheel and Opera House/Tahrir directions. The bridge numbering is corroborated by the engineer's quoted 2022 briefing (Bridge3 = Mohamed Naguib, Bridge4 = El Gezira); the contractor independently identifies the El Gezira intersection project. West Arena's primary HQ link is distinguished from an unrelated project map on the same developer website. The New Giza source photo visibly identifies ESLSCA, corroborated with its official campus address and the Mercedes-Benz/SNA Pyramids Heights address. Farouk/Nahda uses an actual bridge across the metro corridor rather than the earlier unverified residential-interior suggestion.
+
+Primary/venue references used:
+- https://www.jumia.ma/fragment/contents/sp-conditions/?lang=fr
+- https://www.waze.com/live-map/directions/eg/cairo-governorate/jumia-egypt?to=place.ChIJ907IPMZAWBQRPqextzU0ZIY
+- https://www.el-madar.com/ar/project_category/bridges-construction/
+- https://ae.linkedin.com/posts/el-madar-engineering-projects_%D8%AA%D8%AD%D8%AA-%D8%A7%D8%B4%D8%B1%D8%A7%D9%81-%D8%A7%D9%84%D9%87%D9%8A%D8%A6%D8%A9-%D8%A7%D9%84%D9%87%D9%86%D8%AF%D8%B3%D9%8A%D8%A9-%D8%A7%D8%AF%D8%A7%D8%B1%D8%A9-%D8%A7%D9%84%D9%85%D9%87%D9%86%D8%AF%D8%B3%D9%8A%D9%86-activity-6979483810019053568-vENo
+- https://manassa.news/stories/8249 (transcript quoting the project engineer's numbered bridge explanation)
+- https://everestview.net/contact-us (West Arena HQ map: https://maps.app.goo.gl/Dii2wAtb8byiSYKM6)
+- https://eslsca.edu.eg/others/contact
+- https://www.mercedes-benz.com.eg/en/passengercars/buy/new-car/search-results.html
+- https://www.waze.com/ar/live-map/directions/mydan-alfarwq-almaady?to=place.w.20513068.204868532.13132119
+
+Seven source offers remain unresolved: CFC zone, South90/NBE, North90/Chillout, NA Road, the two generic Mehwar package variants and the Beverly Hills mini-mega pair. These either overlap existing units/packages or lack enough support-level location evidence. No duplicate partial package, guessed whole-zone price or arbitrary new support is created for them. Neither Alamia document includes GPS links. The initial audit remains historical; this manifest is the latest outstanding list. Baselines and two full inventory backups remain private outside the web root.
+
+Validation: guarded transactions compare target baselines and all unrelated/protected inventory, retained images, suppliers and districts. English/Arabic pages/canonicals/ALT, all delivered photo hashes, guest API price redaction, sitemap inclusion and generated SSG routes are checked. The reference locations should not be described as exact pin surveys.

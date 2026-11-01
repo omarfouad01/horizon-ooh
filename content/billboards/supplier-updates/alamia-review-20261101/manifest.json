@@ -1,0 +1,946 @@
+{
+  "batch": "alamia-review-20261101",
+  "supplierId": 81,
+  "sourceDocuments": [
+    "Alamia October 2026 V1.pdf",
+    "Alamia Outdoor 3x4  Oct. 2026 (2).pptx"
+  ],
+  "newRows": [
+    {
+      "data": {
+        "code": "H-14648",
+        "supplier_id": 81,
+        "title": "Uni-pole - North 90 Street - Magles El Omana",
+        "name_ar": "يوني بول - التسعين الشمالي - مجلس الأمناء",
+        "description": "Uni-pole - North 90 Street - Magles El Omana. Outdoor advertising in Cairo, Egypt, with Horizon OOH. The booking covers one advertising unit with 2 face(s). Dimensions (width x height): 8 x 4 m. The map pin is an approximate reference on the named road or bridge/tunnel crossing, not surveyed support coordinates. Lighting is not specified in the source. Contact Horizon OOH to confirm the exact advertising face, campaign dates and request a tailored quote.",
+        "description_ar": "يوني بول - التسعين الشمالي - مجلس الأمناء. إعلانات خارجية في القاهرة مع هورايزون. يشمل الحجز وحدة إعلانية واحدة بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 8 x 4 متر. نقطة الخريطة مرجع تقريبي على الطريق المذكور أو عند تقاطع الكوبري أو النفق وليست إحداثيات مساحية مؤكدة لحامل اليافطة. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Uni-pole - North 90 Street - Magles El Omana, Cairo, Egypt",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "8 x 4",
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 2,
+        "district_id": 7,
+        "lat": 30.021277,
+        "lng": 31.420999,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 8,
+        "height": 4,
+        "sqm": 32
+      },
+      "addressAr": "يوني بول - التسعين الشمالي - مجلس الأمناء، القاهرة، مصر",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P25-1.jpg",
+          "sourceDocument": "Alamia October 2026 V1.pdf",
+          "sourcePage": 26,
+          "sha256": "71bf043150c816cf0c33de84ffd4a365512edde1b032d60ddcd05fa0c8527aaf",
+          "bytes": 75087,
+          "fileName": "h-14648-alamia-followup-20261101-1.jpg",
+          "url": "/images/h-14648-alamia-followup-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Uni-pole - North 90 Street - Magles El Omana - H-14648 - view 1 | Horizon OOH",
+          "altAr": "يوني بول - التسعين الشمالي - مجلس الأمناء - H-14648 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/P25-2.jpg",
+          "sourceDocument": "Alamia October 2026 V1.pdf",
+          "sourcePage": 27,
+          "sha256": "4a6b64d151b7b6761fd02750453463b7f56ff9fb5502b8c07ac9b8a99b0ae77d",
+          "bytes": 82331,
+          "fileName": "h-14648-alamia-followup-20261101-2.jpg",
+          "url": "/images/h-14648-alamia-followup-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Uni-pole - North 90 Street - Magles El Omana - H-14648 - view 2 | Horizon OOH",
+          "altAr": "يوني بول - التسعين الشمالي - مجلس الأمناء - H-14648 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "provenance": {
+        "key": "P25",
+        "sourceInfoPage": 25,
+        "sourcePhotos": [
+          {
+            "doc": "pdf",
+            "page": 26
+          },
+          {
+            "doc": "pdf",
+            "page": 27
+          }
+        ],
+        "period": "month",
+        "currency": "EGP",
+        "approximate": true,
+        "mapMethod": "Named source corridor/crossing, OSM road snapping, satellite review. Jumia/Petrosport reference follows the North90 service-road route between verified venue anchors.",
+        "originalSupplierId": 81
+      }
+    },
+    {
+      "data": {
+        "code": "H-14649",
+        "supplier_id": 81,
+        "title": "Uni-pole - North 90 Street - Between Jumia and Petrosport",
+        "name_ar": "يوني بول - التسعين الشمالي - بين جوميا وبتروسبورت",
+        "description": "Uni-pole - North 90 Street - Between Jumia and Petrosport. Outdoor advertising in Cairo, Egypt, with Horizon OOH. The booking covers one advertising unit with 2 face(s). Dimensions (width x height): 8 x 4 m. The map pin is an approximate reference on the named road or bridge/tunnel crossing, not surveyed support coordinates. Lighting is not specified in the source. Contact Horizon OOH to confirm the exact advertising face, campaign dates and request a tailored quote.",
+        "description_ar": "يوني بول - التسعين الشمالي - بين جوميا وبتروسبورت. إعلانات خارجية في القاهرة مع هورايزون. يشمل الحجز وحدة إعلانية واحدة بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 8 x 4 متر. نقطة الخريطة مرجع تقريبي على الطريق المذكور أو عند تقاطع الكوبري أو النفق وليست إحداثيات مساحية مؤكدة لحامل اليافطة. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Uni-pole - North 90 Street - Between Jumia and Petrosport, Cairo, Egypt",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "8 x 4",
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 2,
+        "district_id": 7,
+        "lat": 30.03042,
+        "lng": 31.449334,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 8,
+        "height": 4,
+        "sqm": 32
+      },
+      "addressAr": "يوني بول - التسعين الشمالي - بين جوميا وبتروسبورت، القاهرة، مصر",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P28-1.jpg",
+          "sourceDocument": "Alamia October 2026 V1.pdf",
+          "sourcePage": 29,
+          "sha256": "b683da51efdf4ded4a49b590ec7c25e4375d9531546dbab0a4818459be1df872",
+          "bytes": 80004,
+          "fileName": "h-14649-alamia-followup-20261101-1.jpg",
+          "url": "/images/h-14649-alamia-followup-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Uni-pole - North 90 Street - Between Jumia and Petrosport - H-14649 - view 1 | Horizon OOH",
+          "altAr": "يوني بول - التسعين الشمالي - بين جوميا وبتروسبورت - H-14649 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/P28-2.jpg",
+          "sourceDocument": "Alamia October 2026 V1.pdf",
+          "sourcePage": 30,
+          "sha256": "81dfac888e1346fc5ae56c7c10bd8c833a9976cd547f0bab0721afaa0aa95692",
+          "bytes": 63447,
+          "fileName": "h-14649-alamia-followup-20261101-2.jpg",
+          "url": "/images/h-14649-alamia-followup-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Uni-pole - North 90 Street - Between Jumia and Petrosport - H-14649 - view 2 | Horizon OOH",
+          "altAr": "يوني بول - التسعين الشمالي - بين جوميا وبتروسبورت - H-14649 - صورة 2 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/P28-3.jpg",
+          "sourceDocument": "Alamia October 2026 V1.pdf",
+          "sourcePage": 31,
+          "sha256": "c77de7268028c24986ce81fb6cd2fb73aced07ae7eb34264ed718f97bfb8b4d2",
+          "bytes": 75491,
+          "fileName": "h-14649-alamia-followup-20261101-3.jpg",
+          "url": "/images/h-14649-alamia-followup-20261101-3.jpg",
+          "isPrimary": false,
+          "sortOrder": 2,
+          "alt": "Uni-pole - North 90 Street - Between Jumia and Petrosport - H-14649 - view 3 | Horizon OOH",
+          "altAr": "يوني بول - التسعين الشمالي - بين جوميا وبتروسبورت - H-14649 - صورة 3 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/P28-4.jpg",
+          "sourceDocument": "Alamia October 2026 V1.pdf",
+          "sourcePage": 32,
+          "sha256": "dfb974696d14b2506f4bb3f5687379e4496f0cb8b2fc909b74adfb6144296896",
+          "bytes": 66566,
+          "fileName": "h-14649-alamia-followup-20261101-4.jpg",
+          "url": "/images/h-14649-alamia-followup-20261101-4.jpg",
+          "isPrimary": false,
+          "sortOrder": 3,
+          "alt": "Uni-pole - North 90 Street - Between Jumia and Petrosport - H-14649 - view 4 | Horizon OOH",
+          "altAr": "يوني بول - التسعين الشمالي - بين جوميا وبتروسبورت - H-14649 - صورة 4 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "provenance": {
+        "key": "P28",
+        "sourceInfoPage": 28,
+        "sourcePhotos": [
+          {
+            "doc": "pdf",
+            "page": 29
+          },
+          {
+            "doc": "pdf",
+            "page": 30
+          },
+          {
+            "doc": "pdf",
+            "page": 31
+          },
+          {
+            "doc": "pdf",
+            "page": 32
+          }
+        ],
+        "period": "month",
+        "currency": "EGP",
+        "approximate": true,
+        "mapMethod": "Named source corridor/crossing, OSM road snapping, satellite review. Jumia/Petrosport reference follows the North90 service-road route between verified venue anchors.",
+        "originalSupplierId": 81
+      }
+    },
+    {
+      "data": {
+        "code": "H-14650",
+        "supplier_id": 81,
+        "title": "Uni-pole - North 90 Street - Waterway 2",
+        "name_ar": "يوني بول - التسعين الشمالي - واترواي ٢",
+        "description": "Uni-pole - North 90 Street - Waterway 2. Outdoor advertising in Cairo, Egypt, with Horizon OOH. The booking covers one advertising unit with 2 face(s). Dimensions (width x height): 8 x 4 m. The map pin is an approximate reference on the named road or bridge/tunnel crossing, not surveyed support coordinates. Lighting is not specified in the source. Contact Horizon OOH to confirm the exact advertising face, campaign dates and request a tailored quote.",
+        "description_ar": "يوني بول - التسعين الشمالي - واترواي ٢. إعلانات خارجية في القاهرة مع هورايزون. يشمل الحجز وحدة إعلانية واحدة بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 8 x 4 متر. نقطة الخريطة مرجع تقريبي على الطريق المذكور أو عند تقاطع الكوبري أو النفق وليست إحداثيات مساحية مؤكدة لحامل اليافطة. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Uni-pole - North 90 Street - Waterway 2, Cairo, Egypt",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "8 x 4",
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 2,
+        "district_id": 7,
+        "lat": 30.028909,
+        "lng": 31.479401,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 8,
+        "height": 4,
+        "sqm": 32
+      },
+      "addressAr": "يوني بول - التسعين الشمالي - واترواي ٢، القاهرة، مصر",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P33-1.jpg",
+          "sourceDocument": "Alamia October 2026 V1.pdf",
+          "sourcePage": 34,
+          "sha256": "fd3e92cc7c9c6b929326aaaa1e327375760234550b662659edbda911abbdca5f",
+          "bytes": 65646,
+          "fileName": "h-14650-alamia-followup-20261101-1.jpg",
+          "url": "/images/h-14650-alamia-followup-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Uni-pole - North 90 Street - Waterway 2 - H-14650 - view 1 | Horizon OOH",
+          "altAr": "يوني بول - التسعين الشمالي - واترواي ٢ - H-14650 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/P33-2.jpg",
+          "sourceDocument": "Alamia October 2026 V1.pdf",
+          "sourcePage": 35,
+          "sha256": "4df3b0e7fb85e1b335d1924d758ce3dc880108aebbece435f4065b994bde90f2",
+          "bytes": 65019,
+          "fileName": "h-14650-alamia-followup-20261101-2.jpg",
+          "url": "/images/h-14650-alamia-followup-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Uni-pole - North 90 Street - Waterway 2 - H-14650 - view 2 | Horizon OOH",
+          "altAr": "يوني بول - التسعين الشمالي - واترواي ٢ - H-14650 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "provenance": {
+        "key": "P33",
+        "sourceInfoPage": 33,
+        "sourcePhotos": [
+          {
+            "doc": "pdf",
+            "page": 34
+          },
+          {
+            "doc": "pdf",
+            "page": 35
+          }
+        ],
+        "period": "month",
+        "currency": "EGP",
+        "approximate": true,
+        "mapMethod": "Named source corridor/crossing, OSM road snapping, satellite review. Jumia/Petrosport reference follows the North90 service-road route between verified venue anchors.",
+        "originalSupplierId": 81
+      }
+    },
+    {
+      "data": {
+        "code": "H-14651",
+        "supplier_id": 81,
+        "title": "Mirror - El Gezira Club - Zamalek",
+        "name_ar": "مرايه - نادي الجزيرة - الزمالك",
+        "description": "Mirror - El Gezira Club - Zamalek. Outdoor advertising in Cairo, Egypt, with Horizon OOH. The booking covers one advertising unit with 1 face(s). Dimensions (width x height): 14 x 3 m. The map pin is an approximate reference on the named road or bridge/tunnel crossing, not surveyed support coordinates. Lighting is not specified in the source. Contact Horizon OOH to confirm the exact advertising face, campaign dates and request a tailored quote.",
+        "description_ar": "مرايه - نادي الجزيرة - الزمالك. إعلانات خارجية في القاهرة مع هورايزون. يشمل الحجز وحدة إعلانية واحدة بإجمالي 1 وجهًا. المقاسات (العرض × الارتفاع): 14 x 3 متر. نقطة الخريطة مرجع تقريبي على الطريق المذكور أو عند تقاطع الكوبري أو النفق وليست إحداثيات مساحية مؤكدة لحامل اليافطة. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Mirror - El Gezira Club - Zamalek, Cairo, Egypt",
+        "type": "Mirror",
+        "format": "Billboard",
+        "size": "14 x 3",
+        "quantity": 1,
+        "sides": 1,
+        "location_id": 2,
+        "district_id": 3,
+        "lat": 30.058409,
+        "lng": 31.224842,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 14,
+        "height": 3,
+        "sqm": 42
+      },
+      "addressAr": "مرايه - نادي الجزيرة - الزمالك، القاهرة، مصر",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P82-1.jpg",
+          "sourceDocument": "Alamia October 2026 V1.pdf",
+          "sourcePage": 83,
+          "sha256": "a67f0a2594635c9cd5cd3b00155ebb6a1905b606cbb4b0fb18ff3dd954ff380f",
+          "bytes": 70150,
+          "fileName": "h-14651-alamia-followup-20261101-1.jpg",
+          "url": "/images/h-14651-alamia-followup-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Mirror - El Gezira Club - Zamalek - H-14651 - view 1 | Horizon OOH",
+          "altAr": "مرايه - نادي الجزيرة - الزمالك - H-14651 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/P82-2.jpg",
+          "sourceDocument": "Alamia October 2026 V1.pdf",
+          "sourcePage": 84,
+          "sha256": "381d011068077a30553c3787deeae00c30c71034a36e0d84cf336f5acc8ef482",
+          "bytes": 74482,
+          "fileName": "h-14651-alamia-followup-20261101-2.jpg",
+          "url": "/images/h-14651-alamia-followup-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Mirror - El Gezira Club - Zamalek - H-14651 - view 2 | Horizon OOH",
+          "altAr": "مرايه - نادي الجزيرة - الزمالك - H-14651 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "provenance": {
+        "key": "P82",
+        "sourceInfoPage": 82,
+        "sourcePhotos": [
+          {
+            "doc": "pdf",
+            "page": 83
+          },
+          {
+            "doc": "pdf",
+            "page": 84
+          }
+        ],
+        "period": "month",
+        "currency": "EGP",
+        "approximate": true,
+        "mapMethod": "Named source corridor/crossing, OSM road snapping, satellite review. Jumia/Petrosport reference follows the North90 service-road route between verified venue anchors.",
+        "originalSupplierId": 81
+      }
+    },
+    {
+      "data": {
+        "code": "H-14652",
+        "supplier_id": 81,
+        "title": "Mirror - Abu El Feda Tunnel - Zamalek",
+        "name_ar": "مرايه - نفق أبو الفدا - الزمالك",
+        "description": "Mirror - Abu El Feda Tunnel - Zamalek. Outdoor advertising in Cairo, Egypt, with Horizon OOH. The booking covers one advertising unit with 2 face(s). Dimensions (width x height): 8 x 3 m. The map pin is an approximate reference on the named road or bridge/tunnel crossing, not surveyed support coordinates. Lighting is not specified in the source. Contact Horizon OOH to confirm the exact advertising face, campaign dates and request a tailored quote.",
+        "description_ar": "مرايه - نفق أبو الفدا - الزمالك. إعلانات خارجية في القاهرة مع هورايزون. يشمل الحجز وحدة إعلانية واحدة بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 8 x 3 متر. نقطة الخريطة مرجع تقريبي على الطريق المذكور أو عند تقاطع الكوبري أو النفق وليست إحداثيات مساحية مؤكدة لحامل اليافطة. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Mirror - Abu El Feda Tunnel - Zamalek, Cairo, Egypt",
+        "type": "Mirror",
+        "format": "Billboard",
+        "size": "8 x 3",
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 2,
+        "district_id": 3,
+        "lat": 30.062284,
+        "lng": 31.216693,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 8,
+        "height": 3,
+        "sqm": 24
+      },
+      "addressAr": "مرايه - نفق أبو الفدا - الزمالك، القاهرة، مصر",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P85-1.jpg",
+          "sourceDocument": "Alamia October 2026 V1.pdf",
+          "sourcePage": 86,
+          "sha256": "6e285e7ccb50c862358b2ff7952688165c3bc3b640bb2983d5fddf16cfd895d4",
+          "bytes": 85785,
+          "fileName": "h-14652-alamia-followup-20261101-1.jpg",
+          "url": "/images/h-14652-alamia-followup-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Mirror - Abu El Feda Tunnel - Zamalek - H-14652 - view 1 | Horizon OOH",
+          "altAr": "مرايه - نفق أبو الفدا - الزمالك - H-14652 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/P85-2.jpg",
+          "sourceDocument": "Alamia October 2026 V1.pdf",
+          "sourcePage": 87,
+          "sha256": "e5725b4dcccbb338313e8172b2ca224ec7ac10f61d747a8958f76824ca972dbb",
+          "bytes": 78619,
+          "fileName": "h-14652-alamia-followup-20261101-2.jpg",
+          "url": "/images/h-14652-alamia-followup-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Mirror - Abu El Feda Tunnel - Zamalek - H-14652 - view 2 | Horizon OOH",
+          "altAr": "مرايه - نفق أبو الفدا - الزمالك - H-14652 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "provenance": {
+        "key": "P85",
+        "sourceInfoPage": 85,
+        "sourcePhotos": [
+          {
+            "doc": "pdf",
+            "page": 86
+          },
+          {
+            "doc": "pdf",
+            "page": 87
+          }
+        ],
+        "period": "month",
+        "currency": "EGP",
+        "approximate": true,
+        "mapMethod": "Named source corridor/crossing, OSM road snapping, satellite review. Jumia/Petrosport reference follows the North90 service-road route between verified venue anchors.",
+        "originalSupplierId": 81
+      }
+    },
+    {
+      "data": {
+        "code": "H-14653",
+        "supplier_id": 81,
+        "title": "Gate - Gamal Abdel Nasser Axis - Bridge 3, Mohamed Naguib Intersection",
+        "name_ar": "بوابه - محور جمال عبد الناصر - كوبري ٣ تقاطع محمد نجيب",
+        "description": "Gate - Gamal Abdel Nasser Axis - Bridge 3, Mohamed Naguib Intersection. Outdoor advertising in Cairo, Egypt, with Horizon OOH. The booking covers 2 advertising unit(s) with 4 face(s). Dimensions (width x height): 16 x 8 m. The map pin is an approximate road/bridge reference, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and request a tailored quote.",
+        "description_ar": "بوابه - محور جمال عبد الناصر - كوبري ٣ تقاطع محمد نجيب. إعلانات خارجية في القاهرة مع هورايزون. يشمل الحجز 2 وحدة إعلانية بإجمالي 4 وجهًا. المقاسات (العرض × الارتفاع): 16 x 8 متر. نقطة الخريطة مرجع تقريبي على الطريق أو الكوبري وليست إحداثيات مساحية مؤكدة لحامل اليافطة؛ نقاط الباكدجات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Gate - Gamal Abdel Nasser Axis - Bridge 3, Mohamed Naguib Intersection, Cairo, Egypt",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "16 x 8",
+        "quantity": 2,
+        "sides": 4,
+        "location_id": 2,
+        "district_id": 7,
+        "lat": 29.9992,
+        "lng": 31.4688,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 16,
+        "height": 8,
+        "sqm": 128
+      },
+      "addressAr": "بوابه - محور جمال عبد الناصر - كوبري ٣ تقاطع محمد نجيب، القاهرة، مصر",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P47-1.jpg",
+          "sourceDocument": "Alamia October 2026 V1.pdf",
+          "sourcePage": 48,
+          "sha256": "0616d2e851d0fbf97d5deef72548af17038e0d8a24ffaa62b0d03ca1a01a4ec2",
+          "bytes": 67647,
+          "fileName": "h-14653-alamia-road-review-20261101-1.jpg",
+          "url": "/images/h-14653-alamia-road-review-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Gate - Gamal Abdel Nasser Axis - Bridge 3, Mohamed Naguib Intersection - H-14653 - view 1 | Horizon OOH",
+          "altAr": "بوابه - محور جمال عبد الناصر - كوبري ٣ تقاطع محمد نجيب - H-14653 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/P47-2.jpg",
+          "sourceDocument": "Alamia October 2026 V1.pdf",
+          "sourcePage": 49,
+          "sha256": "62ef1eaa97a0a41274994616dd268d72d3668a4352df2381bb41f0660967541b",
+          "bytes": 61460,
+          "fileName": "h-14653-alamia-road-review-20261101-2.jpg",
+          "url": "/images/h-14653-alamia-road-review-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Gate - Gamal Abdel Nasser Axis - Bridge 3, Mohamed Naguib Intersection - H-14653 - view 2 | Horizon OOH",
+          "altAr": "بوابه - محور جمال عبد الناصر - كوبري ٣ تقاطع محمد نجيب - H-14653 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "provenance": {
+        "key": "P47",
+        "sourceInfoPage": 47,
+        "sourcePhotos": [
+          {
+            "doc": "pdf",
+            "page": 48
+          },
+          {
+            "doc": "pdf",
+            "page": 49
+          }
+        ],
+        "period": "month",
+        "currency": "EGP",
+        "approximate": true,
+        "mapMethod": "Named source location, primary landmark addresses and OSM road/bridge geometry, imagery review. Approximate corridor/support vicinity reference.",
+        "originalSupplierId": 81
+      }
+    },
+    {
+      "data": {
+        "code": "H-14654",
+        "supplier_id": 81,
+        "title": "Gate - Gamal Abdel Nasser Axis - Bridge 4, El Gezira Intersection",
+        "name_ar": "بوابه - محور جمال عبد الناصر - كوبري ٤ تقاطع شارع الجزيرة",
+        "description": "Gate - Gamal Abdel Nasser Axis - Bridge 4, El Gezira Intersection. Outdoor advertising in Cairo, Egypt, with Horizon OOH. The booking covers 2 advertising unit(s) with 4 face(s). Dimensions (width x height): 16 x 8 m. The map pin is an approximate road/bridge reference, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and request a tailored quote.",
+        "description_ar": "بوابه - محور جمال عبد الناصر - كوبري ٤ تقاطع شارع الجزيرة. إعلانات خارجية في القاهرة مع هورايزون. يشمل الحجز 2 وحدة إعلانية بإجمالي 4 وجهًا. المقاسات (العرض × الارتفاع): 16 x 8 متر. نقطة الخريطة مرجع تقريبي على الطريق أو الكوبري وليست إحداثيات مساحية مؤكدة لحامل اليافطة؛ نقاط الباكدجات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Gate - Gamal Abdel Nasser Axis - Bridge 4, El Gezira Intersection, Cairo, Egypt",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "16 x 8",
+        "quantity": 2,
+        "sides": 4,
+        "location_id": 2,
+        "district_id": 7,
+        "lat": 29.99943,
+        "lng": 31.4805,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 16,
+        "height": 8,
+        "sqm": 128
+      },
+      "addressAr": "بوابه - محور جمال عبد الناصر - كوبري ٤ تقاطع شارع الجزيرة، القاهرة، مصر",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P50-1.jpg",
+          "sourceDocument": "Alamia October 2026 V1.pdf",
+          "sourcePage": 51,
+          "sha256": "33b4f44f35ba38a426f14b6b108de338ce61cff697374b18fe664acee7ba556c",
+          "bytes": 60991,
+          "fileName": "h-14654-alamia-road-review-20261101-1.jpg",
+          "url": "/images/h-14654-alamia-road-review-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Gate - Gamal Abdel Nasser Axis - Bridge 4, El Gezira Intersection - H-14654 - view 1 | Horizon OOH",
+          "altAr": "بوابه - محور جمال عبد الناصر - كوبري ٤ تقاطع شارع الجزيرة - H-14654 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/P50-2.jpg",
+          "sourceDocument": "Alamia October 2026 V1.pdf",
+          "sourcePage": 52,
+          "sha256": "707b7e44921eadc932d6434b270c73dc50f0beef1a19b5504e31b9c4977e0883",
+          "bytes": 50283,
+          "fileName": "h-14654-alamia-road-review-20261101-2.jpg",
+          "url": "/images/h-14654-alamia-road-review-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Gate - Gamal Abdel Nasser Axis - Bridge 4, El Gezira Intersection - H-14654 - view 2 | Horizon OOH",
+          "altAr": "بوابه - محور جمال عبد الناصر - كوبري ٤ تقاطع شارع الجزيرة - H-14654 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "provenance": {
+        "key": "P50",
+        "sourceInfoPage": 50,
+        "sourcePhotos": [
+          {
+            "doc": "pdf",
+            "page": 51
+          },
+          {
+            "doc": "pdf",
+            "page": 52
+          }
+        ],
+        "period": "month",
+        "currency": "EGP",
+        "approximate": true,
+        "mapMethod": "Named source location, primary landmark addresses and OSM road/bridge geometry, imagery review. Approximate corridor/support vicinity reference.",
+        "originalSupplierId": 81
+      }
+    },
+    {
+      "data": {
+        "code": "H-14655",
+        "supplier_id": 81,
+        "title": "Uni-pole and 3 Mini Megas - West Arena - Waslet Dahshur",
+        "name_ar": "يوني بول و٣ ميني ميجا - ويست أرينا - وصلة دهشور",
+        "description": "Uni-pole and 3 Mini Megas - West Arena - Waslet Dahshur. Outdoor advertising in Giza, Egypt, with Horizon OOH. The booking covers 4 advertising unit(s) with 8 face(s). Dimensions (width x height): 20 x 10 + 7 x 4 m. One 20 x 10 m unipole with two faces and three 7 x 4 m mini megas with six faces. The map pin is an approximate road/bridge reference, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and request a tailored quote.",
+        "description_ar": "يوني بول و٣ ميني ميجا - ويست أرينا - وصلة دهشور. إعلانات خارجية في الجيزة مع هورايزون. يشمل الحجز 4 وحدة إعلانية بإجمالي 8 وجهًا. المقاسات (العرض × الارتفاع): 20 x 10 + 7 x 4 متر. يوني بول واحد بمقاس ٢٠ × ١٠ م ووجهين، و٣ ميني ميجا بمقاس ٧ × ٤ م بإجمالي ٦ أوجه. نقطة الخريطة مرجع تقريبي على الطريق أو الكوبري وليست إحداثيات مساحية مؤكدة لحامل اليافطة؛ نقاط الباكدجات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Uni-pole and 3 Mini Megas - West Arena - Waslet Dahshur, Giza, Egypt",
+        "type": "Combo",
+        "format": "Billboard",
+        "size": "20 x 10 + 7 x 4",
+        "quantity": 4,
+        "sides": 8,
+        "location_id": 3,
+        "district_id": 494,
+        "lat": 30.027076,
+        "lng": 30.965863,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": null,
+        "height": null,
+        "sqm": null
+      },
+      "addressAr": "يوني بول و٣ ميني ميجا - ويست أرينا - وصلة دهشور، الجيزة، مصر",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P105-1.jpg",
+          "sourceDocument": "Alamia October 2026 V1.pdf",
+          "sourcePage": 106,
+          "sha256": "d0e97a3758c7edf39ee5e15b2d3de65da501df614dc781408e1f4c67ebe02a85",
+          "bytes": 68804,
+          "fileName": "h-14655-alamia-road-review-20261101-1.jpg",
+          "url": "/images/h-14655-alamia-road-review-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Uni-pole and 3 Mini Megas - West Arena - Waslet Dahshur - H-14655 - view 1 | Horizon OOH",
+          "altAr": "يوني بول و٣ ميني ميجا - ويست أرينا - وصلة دهشور - H-14655 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "provenance": {
+        "key": "P105",
+        "sourceInfoPage": 105,
+        "sourcePhotos": [
+          {
+            "doc": "pdf",
+            "page": 106
+          }
+        ],
+        "period": "month",
+        "currency": "EGP",
+        "approximate": true,
+        "mapMethod": "Named source location, primary landmark addresses and OSM road/bridge geometry, imagery review. Approximate corridor/support vicinity reference.",
+        "originalSupplierId": 81
+      }
+    },
+    {
+      "data": {
+        "code": "H-14656",
+        "supplier_id": 81,
+        "title": "5 Flags - New Giza Mercedes-Benz - ESLSCA - Cairo Alexandria Desert Road",
+        "name_ar": "٥ فلاج - نيو جيزة مرسيدس - جامعة إسلسكا - طريق القاهرة الإسكندرية الصحراوي",
+        "description": "5 Flags - New Giza Mercedes-Benz - ESLSCA - Cairo Alexandria Desert Road. Outdoor advertising in Giza, Egypt, with Horizon OOH. The booking covers 5 advertising unit(s) with 10 face(s). Dimensions (width x height): 3 x 6 m. The map pin is an approximate road/bridge reference, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and request a tailored quote.",
+        "description_ar": "٥ فلاج - نيو جيزة مرسيدس - جامعة إسلسكا - طريق القاهرة الإسكندرية الصحراوي. إعلانات خارجية في الجيزة مع هورايزون. يشمل الحجز 5 وحدة إعلانية بإجمالي 10 وجهًا. المقاسات (العرض × الارتفاع): 3 x 6 متر. نقطة الخريطة مرجع تقريبي على الطريق أو الكوبري وليست إحداثيات مساحية مؤكدة لحامل اليافطة؛ نقاط الباكدجات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "5 Flags - New Giza Mercedes-Benz - ESLSCA - Cairo Alexandria Desert Road, Giza, Egypt",
+        "type": "Flag",
+        "format": "Billboard",
+        "size": "3 x 6",
+        "quantity": 5,
+        "sides": 10,
+        "location_id": 3,
+        "district_id": 456,
+        "lat": 30.021837,
+        "lng": 31.072999,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 3,
+        "height": 6,
+        "sqm": 18
+      },
+      "addressAr": "٥ فلاج - نيو جيزة مرسيدس - جامعة إسلسكا - طريق القاهرة الإسكندرية الصحراوي، الجيزة، مصر",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P111-1.jpg",
+          "sourceDocument": "Alamia October 2026 V1.pdf",
+          "sourcePage": 112,
+          "sha256": "86d5368b470f805ec33a4f3cbbdd38ed66d4ec9fdadf601b26537253ea0cb86e",
+          "bytes": 47507,
+          "fileName": "h-14656-alamia-road-review-20261101-1.jpg",
+          "url": "/images/h-14656-alamia-road-review-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "5 Flags - New Giza Mercedes-Benz - ESLSCA - Cairo Alexandria Desert Road - H-14656 - view 1 | Horizon OOH",
+          "altAr": "٥ فلاج - نيو جيزة مرسيدس - جامعة إسلسكا - طريق القاهرة الإسكندرية الصحراوي - H-14656 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/P111-2.jpg",
+          "sourceDocument": "Alamia October 2026 V1.pdf",
+          "sourcePage": 113,
+          "sha256": "beb443fae1bda076f13be18a1d9073ee41bdd01e8c128ae5d7ca690871d63639",
+          "bytes": 69621,
+          "fileName": "h-14656-alamia-road-review-20261101-2.jpg",
+          "url": "/images/h-14656-alamia-road-review-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "5 Flags - New Giza Mercedes-Benz - ESLSCA - Cairo Alexandria Desert Road - H-14656 - view 2 | Horizon OOH",
+          "altAr": "٥ فلاج - نيو جيزة مرسيدس - جامعة إسلسكا - طريق القاهرة الإسكندرية الصحراوي - H-14656 - صورة 2 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/P111-3.jpg",
+          "sourceDocument": "Alamia October 2026 V1.pdf",
+          "sourcePage": 114,
+          "sha256": "903d7847a979c43da5e1fa0821605b23ab460346af21480cf7ed2b26dcecffbd",
+          "bytes": 63448,
+          "fileName": "h-14656-alamia-road-review-20261101-3.jpg",
+          "url": "/images/h-14656-alamia-road-review-20261101-3.jpg",
+          "isPrimary": false,
+          "sortOrder": 2,
+          "alt": "5 Flags - New Giza Mercedes-Benz - ESLSCA - Cairo Alexandria Desert Road - H-14656 - view 3 | Horizon OOH",
+          "altAr": "٥ فلاج - نيو جيزة مرسيدس - جامعة إسلسكا - طريق القاهرة الإسكندرية الصحراوي - H-14656 - صورة 3 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/P111-4.jpg",
+          "sourceDocument": "Alamia October 2026 V1.pdf",
+          "sourcePage": 115,
+          "sha256": "4ac84833ac2f152de4bd87a87e541189e2eab32f2378e953af41c52abc4cb271",
+          "bytes": 51148,
+          "fileName": "h-14656-alamia-road-review-20261101-4.jpg",
+          "url": "/images/h-14656-alamia-road-review-20261101-4.jpg",
+          "isPrimary": false,
+          "sortOrder": 3,
+          "alt": "5 Flags - New Giza Mercedes-Benz - ESLSCA - Cairo Alexandria Desert Road - H-14656 - view 4 | Horizon OOH",
+          "altAr": "٥ فلاج - نيو جيزة مرسيدس - جامعة إسلسكا - طريق القاهرة الإسكندرية الصحراوي - H-14656 - صورة 4 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "provenance": {
+        "key": "P111",
+        "sourceInfoPage": 111,
+        "sourcePhotos": [
+          {
+            "doc": "pdf",
+            "page": 112
+          },
+          {
+            "doc": "pdf",
+            "page": 113
+          },
+          {
+            "doc": "pdf",
+            "page": 114
+          },
+          {
+            "doc": "pdf",
+            "page": 115
+          }
+        ],
+        "period": "month",
+        "currency": "EGP",
+        "approximate": true,
+        "mapMethod": "Named source location, primary landmark addresses and OSM road/bridge geometry, imagery review. Approximate corridor/support vicinity reference.",
+        "originalSupplierId": 81
+      }
+    },
+    {
+      "data": {
+        "code": "H-14657",
+        "supplier_id": 81,
+        "title": "Gate - El Farouk Bridge - Maadi",
+        "name_ar": "بوابه - كوبري الفاروق - المعادي",
+        "description": "Gate - El Farouk Bridge - Maadi. Outdoor advertising in Cairo, Egypt, with Horizon OOH. The booking covers 2 advertising unit(s) with 2 face(s). Dimensions (width x height): 6 x 4 m. The source photo shows separate single-face supports on the two sides of the bridge. The map pin is an approximate road/bridge reference, not surveyed support coordinates; network pins represent corridor coverage. Lighting is not specified in the source. Contact Horizon OOH to confirm exact faces, campaign dates and request a tailored quote.",
+        "description_ar": "بوابه - كوبري الفاروق - المعادي. إعلانات خارجية في القاهرة مع هورايزون. يشمل الحجز 2 وحدة إعلانية بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 6 x 4 متر. تُظهر صورة المورد حاملين منفصلين بوجه واحد على كل جانب من الكوبري. نقطة الخريطة مرجع تقريبي على الطريق أو الكوبري وليست إحداثيات مساحية مؤكدة لحامل اليافطة؛ نقاط الباكدجات تمثل نطاق التغطية. نوع الإضاءة غير محدد بالمصدر. تواصل مع هورايزون لتأكيد الأوجه ومواعيد الحملة وطلب عرض سعر مناسب.",
+        "full_address": "Gate - El Farouk Bridge - Maadi, Cairo, Egypt",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "6 x 4",
+        "quantity": 2,
+        "sides": 2,
+        "location_id": 2,
+        "district_id": 4,
+        "lat": 29.9591,
+        "lng": 31.25865,
+        "availability": "available",
+        "illuminated": false,
+        "brightness": "Not specified",
+        "width": 6,
+        "height": 4,
+        "sqm": 24
+      },
+      "addressAr": "بوابه - كوبري الفاروق - المعادي، القاهرة، مصر",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/P71-1.jpg",
+          "sourceDocument": "Alamia October 2026 V1.pdf",
+          "sourcePage": 72,
+          "sha256": "d14aade8d1d5eec228800731d5d4e075bebcb031f4c680a6250a77e6d94f29dd",
+          "bytes": 103159,
+          "fileName": "h-14657-alamia-road-review-20261101-1.jpg",
+          "url": "/images/h-14657-alamia-road-review-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Gate - El Farouk Bridge - Maadi - H-14657 - view 1 | Horizon OOH",
+          "altAr": "بوابه - كوبري الفاروق - المعادي - H-14657 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "provenance": {
+        "key": "P71",
+        "sourceInfoPage": 71,
+        "sourcePhotos": [
+          {
+            "doc": "pdf",
+            "page": 72
+          }
+        ],
+        "period": "month",
+        "currency": "EGP",
+        "approximate": true,
+        "mapMethod": "Named source location, primary landmark addresses and OSM road/bridge geometry, imagery review. Approximate corridor/support vicinity reference.",
+        "originalSupplierId": 81
+      }
+    }
+  ],
+  "updates": [
+    {
+      "id": 14394,
+      "code": "H-14394",
+      "slug": "h-14394-t-pole-shooting-club-dokki",
+      "oldCitySlug": "giza",
+      "data": {
+        "title": "T-Pole - Shooting Club towards Gameat El Dewal - Double Face",
+        "name_ar": "تي بول - نادي الصيد اتجاه جامعة الدول - وجهين",
+        "description": "T-Pole - Shooting Club towards Gameat El Dewal - Double Face. Outdoor advertising in Giza, Egypt, with Horizon OOH. The booking covers 1 unit(s) and 2 face(s). Dimensions (width x height): 4 x 3 m.  The map pin is an approximate roadside/corridor reference, not surveyed support coordinates. Contact Horizon OOH to confirm the exact advertising face, campaign dates and request a tailored quote. Approximate road reference: Mohy El Din Abu El Ezz Street beside the Shooting Club; the exact support position requires confirmation.",
+        "description_ar": "تي بول - نادي الصيد اتجاه جامعة الدول - وجهين. إعلانات خارجية في الجيزة مع هورايزون. يشمل الحجز 1 وحدة إعلانية بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 4 x 3 متر.  نقطة الخريطة مرجع تقريبي على الطريق أو ضمن نطاق الإعلان وليست إحداثيات مساحية لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة وطلب عرض سعر مناسب. مرجع تقريبي على شارع محيي الدين أبو العز بجوار نادي الصيد؛ موضع الحامل نفسه يحتاج تأكيدًا.",
+        "full_address": "T-Pole - Shooting Club towards Gameat El Dewal - Double Face, Giza, Egypt",
+        "type": "T-Pole",
+        "format": "Billboard",
+        "size": "4 x 3",
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 3,
+        "district_id": 23,
+        "lat": 30.04485,
+        "lng": 31.199739
+      },
+      "addressAr": "تي بول - نادي الصيد اتجاه جامعة الدول - وجهين، الدقي، الجيزة، مصر",
+      "provenance": {
+        "key": "H-14394",
+        "approximate": true,
+        "sourcePhotoPages": [
+          17,
+          18
+        ],
+        "originalSupplierId": 81,
+        "mapMethod": "Source club-frontage photos, named Mohy El Din Abu El Ezz OSM road geometry, imagery review. Approximate street reference, not surveyed support."
+      }
+    },
+    {
+      "id": 14395,
+      "code": "H-14395",
+      "slug": "h-14395-t-pole-shooting-club-cairo",
+      "oldCitySlug": "giza",
+      "data": {
+        "title": "T-Pole - Shooting Club towards Gameat El Dewal - Single Face",
+        "name_ar": "تي بول - نادي الصيد اتجاه جامعة الدول - وجه واحد",
+        "description": "T-Pole - Shooting Club towards Gameat El Dewal - Single Face. Outdoor advertising in Giza, Egypt, with Horizon OOH. The booking covers 1 unit(s) and 1 face(s). Dimensions (width x height): 4 x 3 m.  The map pin is an approximate roadside/corridor reference, not surveyed support coordinates. Contact Horizon OOH to confirm the exact advertising face, campaign dates and request a tailored quote. Approximate road reference: Mohy El Din Abu El Ezz Street beside the Shooting Club; the exact support position requires confirmation.",
+        "description_ar": "تي بول - نادي الصيد اتجاه جامعة الدول - وجه واحد. إعلانات خارجية في الجيزة مع هورايزون. يشمل الحجز 1 وحدة إعلانية بإجمالي 1 وجهًا. المقاسات (العرض × الارتفاع): 4 x 3 متر.  نقطة الخريطة مرجع تقريبي على الطريق أو ضمن نطاق الإعلان وليست إحداثيات مساحية لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة وطلب عرض سعر مناسب. مرجع تقريبي على شارع محيي الدين أبو العز بجوار نادي الصيد؛ موضع الحامل نفسه يحتاج تأكيدًا.",
+        "full_address": "T-Pole - Shooting Club towards Gameat El Dewal - Single Face, Giza, Egypt",
+        "type": "T-Pole",
+        "format": "Billboard",
+        "size": "4 x 3",
+        "quantity": 1,
+        "sides": 1,
+        "location_id": 3,
+        "district_id": 23,
+        "lat": 30.046399,
+        "lng": 31.199492
+      },
+      "addressAr": "تي بول - نادي الصيد اتجاه جامعة الدول - وجه واحد، الدقي، الجيزة، مصر",
+      "provenance": {
+        "key": "H-14395",
+        "approximate": true,
+        "sourcePhotoPages": [
+          20
+        ],
+        "originalSupplierId": 81,
+        "mapMethod": "Source club-frontage photos, named Mohy El Din Abu El Ezz OSM road geometry, imagery review. Approximate street reference, not surveyed support."
+      }
+    },
+    {
+      "id": 14391,
+      "code": "H-14391",
+      "slug": "h-14391-t-pole-nasr-st",
+      "oldCitySlug": "cairo",
+      "data": {
+        "title": "T-Pole - El Farouk Exit - Maadi",
+        "name_ar": "تي بول - منزل الفاروق - المعادي",
+        "description": "T-Pole - El Farouk Exit - Maadi. Outdoor advertising in Cairo, Egypt, with Horizon OOH. The booking covers 1 unit(s) and 1 face(s). Dimensions (width x height): 4 x 3 m.  The map pin is an approximate roadside/corridor reference, not surveyed support coordinates. Contact Horizon OOH to confirm the exact advertising face, campaign dates and request a tailored quote. Approximate road reference at the El Farouk / El Nahda Bridge exit in Maadi; exact advertising support coordinates are not confirmed.",
+        "description_ar": "تي بول - منزل الفاروق - المعادي. إعلانات خارجية في القاهرة مع هورايزون. يشمل الحجز 1 وحدة إعلانية بإجمالي 1 وجهًا. المقاسات (العرض × الارتفاع): 4 x 3 متر.  نقطة الخريطة مرجع تقريبي على الطريق أو ضمن نطاق الإعلان وليست إحداثيات مساحية لحامل اليافطة. تواصل مع هورايزون لتأكيد الوجه الإعلاني ومواعيد الحملة وطلب عرض سعر مناسب. مرجع تقريبي على الطريق عند منزل كوبري الفاروق / النهضة في المعادي؛ إحداثيات حامل الإعلان نفسه غير مؤكدة.",
+        "full_address": "T-Pole - El Farouk Exit - Maadi, Cairo, Egypt",
+        "type": "T-Pole",
+        "format": "Billboard",
+        "size": "4 x 3",
+        "quantity": 1,
+        "sides": 1,
+        "location_id": 2,
+        "district_id": 4,
+        "lat": 29.959927,
+        "lng": 31.2601731
+      },
+      "addressAr": "تي بول - منزل الفاروق - المعادي، المعادي، القاهرة، مصر",
+      "provenance": {
+        "key": "H-14391",
+        "approximate": true,
+        "sourceInfoPage": 11,
+        "sourceDocument": "Alamia Outdoor 3x4  Oct. 2026 (2).pptx",
+        "sourcePhotoPages": [
+          12
+        ],
+        "mapMethod": "Source Farouk-exit address; bridge geometry on El Nahda Street over Metro corridor; imagery and Farouk Square reference. Approximate road reference.",
+        "originalSupplierId": 81
+      }
+    }
+  ],
+  "reviewOnly": [
+    {
+      "sourcePage": 53,
+      "codes": [
+        "H-14485"
+      ],
+      "status": "Existing one unipole/four flag booking covers source offer; retain supplier, price, existing Horizon photos and commercial scope."
+    },
+    {
+      "sourcePage": 57,
+      "codes": [
+        "H-14491",
+        "H-14492"
+      ],
+      "status": "Two Gardenia unipoles are already represented in the existing larger package. No duplicate two-unit package and no source-only rate applied to the larger package."
+    },
+    {
+      "codes": [
+        "H-14397"
+      ],
+      "status": "Existing pin verified against named Gabalaya Street; no map mutation required."
+    }
+  ],
+  "pendingSourceOffers": [
+    {
+      "sourcePage": 2,
+      "reason": "Four-unit CFC zone overlaps existing individual bookings; unit-level matching incomplete."
+    },
+    {
+      "sourcePage": 17,
+      "reason": "NBE unipole exact support and overlap with existing South 90 inventory unconfirmed."
+    },
+    {
+      "sourcePage": 44,
+      "reason": "North 90 Chillout exact branch/support unconfirmed."
+    },
+    {
+      "sourcePage": 61,
+      "reason": "NA Road gate exact roadside point unconfirmed."
+    },
+    {
+      "sourcePage": 92,
+      "reason": "Generic Mehwar zone extent and overlap with existing bookings unconfirmed."
+    },
+    {
+      "sourcePage": 95,
+      "reason": "Second Mehwar zone extent and overlap with existing bookings unconfirmed."
+    },
+    {
+      "sourcePage": 107,
+      "reason": "Beverly Hills mini-mega pair may overlap an existing single booking."
+    }
+  ],
+  "newAvailability": "available",
+  "publicPrices": false,
+  "processing": {
+    "canvas": "640x380",
+    "retouch": "ImageMagick sRGB, saturation99, mild unsharp 0x0.4+0.25+0.02; retain source creative and full photo width",
+    "frame": "Approved original Horizon RGBA frame, contain photo in 640x350 canvas",
+    "encoding": "JPEG90, 4:4:4, metadata stripped"
+  }
+}
