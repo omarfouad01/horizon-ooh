@@ -1,0 +1,11 @@
+# Color Studio supplier review — 1 November 2026
+
+Reviewed 211 pages across the three supplied PDFs. May's static offers are covered by June; no duplicate May import. Four new booking offers H-14609–H-14612, 22 existing listings updated, 53 photographs processed and given bilingual ALT. Existing billboard records are not deleted. New inventory is Available per owner instruction. Existing prices, suppliers, availability and slugs are preserved. New customer rates are kept only in private database fields, omitted from this versioned manifest and public pages/API.
+
+Moshir remains two separate offers as explicitly confirmed by the owner: H-11682 has two digital faces, H-14022 has two static backlit faces. Nasr Road mixed gantry likewise keeps its static and digital components separate. Combined bridge/Rehab booking offers disclose their overlap with standalone placements; no whole-network aggregate is added on top of all child records. Thawra portrait component has no allocated standalone rate. Physical dimensions remain distinct from pixel resolutions; mixed dimensions use the size text and do not invent a combined area.
+
+Supplier Google links were resolved and satellite images inspected. The Nasr Road printed link wrongly repeats Ghamra and is not reused. Three Cairo/Giza assignments are corrected with six bilingual permanent redirects. The Giza tunnel pin is an approximate road reference, not a surveyed support point. The lamp-post corridor H-14023 still needs reliable georeferencing of the supplier screenshot; its existing coordinates are retained and the uncertainty disclosed, rather than moving it to a guessed support.
+
+ImageMagick composites the exact approved Horizon frame after mild retouch and a per-image crop removing supplier rate cards. No AI regeneration or billboard creative replacement. Photos and full inventory were backed up at /home/horizon/deploy-backups/color-studio-20261101/backup-20261101-124527. A guarded transaction verifies target baselines and unchanged protected fields across existing inventory, unrelated images, supplier and district tables. Saudi is untouched.
+
+Validation: database comparisons, public API price redaction, bilingual SSG page/canonical/ALT checks, delivered image hashes, redirects and new sitemap URLs. Private rate cards and full baseline backups remain outside Git and the public web root.

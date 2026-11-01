@@ -5,6 +5,11 @@ namespace App\Support;
 class LegacyPublicRedirect
 {
     private const ALIASES = [
+        // Color Studio Giza inventory belongs to Giza; retain indexed URLs.
+        'locations/cairo/billboards/digital-screen-doki-bridge' => 'locations/giza/billboards/digital-screen-doki-bridge',
+        'locations/cairo/billboards/roof-top-mohandesin-cairo' => 'locations/giza/billboards/roof-top-mohandesin-cairo',
+        'locations/cairo/billboards/t-pole-doki-street' => 'locations/giza/billboards/t-pole-doki-street',
+
         // Three Angles west-Cairo inventory belongs to Giza; retain indexed URLs.
         'locations/cairo/billboards/gate-mehwar-el-shekh-zayed' => 'locations/giza/billboards/gate-mehwar-el-shekh-zayed',
         'locations/cairo/billboards/combo-mehwar-el-shehk-zayed' => 'locations/giza/billboards/combo-mehwar-el-shehk-zayed',

@@ -1,0 +1,2100 @@
+{
+  "batch": "color-studio-20261101",
+  "supplierId": 16,
+  "sourceDocuments": [
+    "The Real Screens Network In The Capital Of Egypt.pdf",
+    "June Updated 6 April 2026.pdf",
+    "May Updated 5 April 2026.pdf"
+  ],
+  "newRows": [
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/N04B-1.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 38,
+          "sha256": "99f7609e61cbb8a995c3f31cf73576d026cd9e02e9394224f50fbee3b655e486",
+          "bytes": 44456,
+          "fileName": "h-14609-color-studio-20261101-1.jpg",
+          "url": "/images/h-14609-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen Network - Al Thawra Road, 3 Portrait Screens - H-14609 - view 1 | Horizon OOH",
+          "altAr": "شبكة شاشات ديجيتال - طريق الثورة، ٣ شاشات رأسية - H-14609 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/N04B-2.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 37,
+          "sha256": "b72af4f035dbc215aebde1568a644bf565379083252d0b2051f0019aebd55e71",
+          "bytes": 40334,
+          "fileName": "h-14609-color-studio-20261101-2.jpg",
+          "url": "/images/h-14609-color-studio-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Digital Screen Network - Al Thawra Road, 3 Portrait Screens - H-14609 - view 2 | Horizon OOH",
+          "altAr": "شبكة شاشات ديجيتال - طريق الثورة، ٣ شاشات رأسية - H-14609 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "title": "Digital Screen Network - Al Thawra Road, 3 Portrait Screens",
+        "name_ar": "شبكة شاشات ديجيتال - طريق الثورة، ٣ شاشات رأسية",
+        "description": "Digital Screen Network - Al Thawra Road, 3 Portrait Screens. Outdoor advertising in Cairo, Egypt, with Horizon OOH. This booking covers 3 advertising unit(s) and 3 faces. Dimensions (width x height): 3 x 6 m. Three-screen portrait sequence, the portrait component of the five-screen Thawra zone. The two gantry faces have a separate listing. Resolution: 1000 x 2000 pixels. Digital playback: 7.5-second advertisements within a 30–60-second loop, operating 24 hours daily. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "شبكة شاشات ديجيتال - طريق الثورة، ٣ شاشات رأسية. إعلانات خارجية في القاهرة مع هورايزون. يشمل عرض الحجز 3 وحدة إعلانية بإجمالي 3 وجهًا. المقاسات (العرض × الارتفاع): 3 x 6 متر. تتابع من ٣ شاشات رأسية ضمن نطاق الثورة ذي الشاشات الخمس. وجها الجانتري متاحان في سجل مستقل. الدقة ١٠٠٠ × ٢٠٠٠ بكسل. عرض إعلاني لمدة ٧٫٥ ثانية ضمن دورة من ٣٠ إلى ٦٠ ثانية، وتشغيل على مدار اليوم. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Digital Screen Network - Al Thawra Road, 3 Portrait Screens, Cairo, Egypt",
+        "type": "Digital Screen",
+        "format": "Digital screen",
+        "size": "3 x 6",
+        "quantity": 3,
+        "sides": 3,
+        "location_id": 2,
+        "district_id": 5,
+        "lat": 30.0786435,
+        "lng": 31.3759839,
+        "width": 3,
+        "height": 6,
+        "sqm": 18,
+        "illuminated": true,
+        "brightness": "Digital LED",
+        "code": "H-14609",
+        "supplier_id": 16,
+        "availability": "available"
+      },
+      "addressAr": "شبكة شاشات ديجيتال - طريق الثورة، ٣ شاشات رأسية، القاهرة، مصر",
+      "provenance": {
+        "key": "N04B",
+        "sourcePhotos": [
+          {
+            "doc": "network",
+            "page": 38,
+            "crop": 1577
+          },
+          {
+            "doc": "network",
+            "page": 37,
+            "crop": 1577
+          }
+        ],
+        "notes": "Three-screen portrait sequence, the portrait component of the five-screen Thawra zone. The two gantry faces have a separate listing. Resolution: 1000 x 2000 pixels. No standalone rate is stated for this component.",
+        "notesAr": "تتابع من ٣ شاشات رأسية ضمن نطاق الثورة ذي الشاشات الخمس. وجها الجانتري متاحان في سجل مستقل. الدقة ١٠٠٠ × ٢٠٠٠ بكسل. لا يذكر المصدر سعرًا مستقلًا لهذا الجزء.",
+        "approximate": true,
+        "originalSupplierId": 16,
+        "mapPending": false
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/N10-1.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 71,
+          "sha256": "8c4229f98fa6ebd06b3162908a21f7240a075037914cb85521f9d60259bc1782",
+          "bytes": 47007,
+          "fileName": "h-14610-color-studio-20261101-1.jpg",
+          "url": "/images/h-14610-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen Package - Mohamed Naguib Axis, Rehab 1 Entrance - H-14610 - view 1 | Horizon OOH",
+          "altAr": "باكدج شاشات ديجيتال - محور محمد نجيب، مدخل الرحاب ١ - H-14610 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/N10-2.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 72,
+          "sha256": "3ce50cf4ebe1faab2dbb21de7e64ba15f5fcf8b74da61ad3d89fd7595ae364a8",
+          "bytes": 53509,
+          "fileName": "h-14610-color-studio-20261101-2.jpg",
+          "url": "/images/h-14610-color-studio-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Digital Screen Package - Mohamed Naguib Axis, Rehab 1 Entrance - H-14610 - view 2 | Horizon OOH",
+          "altAr": "باكدج شاشات ديجيتال - محور محمد نجيب، مدخل الرحاب ١ - H-14610 - صورة 2 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/N10-3.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 74,
+          "sha256": "0c65f94340b2d6772f5d852758ac6ab7ac718899562e4906c670da69508e25ba",
+          "bytes": 41997,
+          "fileName": "h-14610-color-studio-20261101-3.jpg",
+          "url": "/images/h-14610-color-studio-20261101-3.jpg",
+          "isPrimary": false,
+          "sortOrder": 2,
+          "alt": "Digital Screen Package - Mohamed Naguib Axis, Rehab 1 Entrance - H-14610 - view 3 | Horizon OOH",
+          "altAr": "باكدج شاشات ديجيتال - محور محمد نجيب، مدخل الرحاب ١ - H-14610 - صورة 3 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "title": "Digital Screen Package - Mohamed Naguib Axis, Rehab 1 Entrance",
+        "name_ar": "باكدج شاشات ديجيتال - محور محمد نجيب، مدخل الرحاب ١",
+        "description": "Digital Screen Package - Mohamed Naguib Axis, Rehab 1 Entrance. Outdoor advertising in Cairo, Egypt, with Horizon OOH. This booking covers 2 advertising unit(s) and 2 faces. Dimensions (width x height): 16.32 x 8.64 + 8.64 x 8.64 m. Two-screen zone including a corner/wraparound display and a bridge-approach display. Two advertised screens are specified by the supplier; this is not a count of LED modules. Resolutions: 2000 x 1060 and 2000 x 2000 pixels. Individual nearby screens may also have standalone booking offers; this listing is the combined supplier zone. Digital playback: 7.5-second advertisements within a 30–60-second loop, operating 24 hours daily. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "باكدج شاشات ديجيتال - محور محمد نجيب، مدخل الرحاب ١. إعلانات خارجية في القاهرة مع هورايزون. يشمل عرض الحجز 2 وحدة إعلانية بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 16.32 x 8.64 + 8.64 x 8.64 متر. نطاق من شاشتين يشمل شاشة عند الركن وأخرى عند مدخل الكوبري. العدد المذكور هو شاشتان إعلانيتان وفق المورد وليس عدد وحدات الليد. الدقتان ٢٠٠٠ × ١٠٦٠ و٢٠٠٠ × ٢٠٠٠ بكسل. قد تتاح بعض الشاشات القريبة بعروض منفصلة؛ هذا السجل مخصص لنطاق المورد المجمع. عرض إعلاني لمدة ٧٫٥ ثانية ضمن دورة من ٣٠ إلى ٦٠ ثانية، وتشغيل على مدار اليوم. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Digital Screen Package - Mohamed Naguib Axis, Rehab 1 Entrance, Cairo, Egypt",
+        "type": "Digital Screen",
+        "format": "Digital screen",
+        "size": "16.32 x 8.64 + 8.64 x 8.64",
+        "quantity": 2,
+        "sides": 2,
+        "location_id": 2,
+        "district_id": 458,
+        "lat": 30.08293,
+        "lng": 31.470976,
+        "width": null,
+        "height": null,
+        "sqm": null,
+        "illuminated": true,
+        "brightness": "Digital LED",
+        "code": "H-14610",
+        "supplier_id": 16,
+        "availability": "available"
+      },
+      "addressAr": "باكدج شاشات ديجيتال - محور محمد نجيب، مدخل الرحاب ١، القاهرة، مصر",
+      "provenance": {
+        "key": "N10",
+        "sourcePhotos": [
+          {
+            "doc": "network",
+            "page": 71,
+            "crop": 1577
+          },
+          {
+            "doc": "network",
+            "page": 72,
+            "crop": 1577
+          },
+          {
+            "doc": "network",
+            "page": 74,
+            "crop": 1310
+          }
+        ],
+        "notes": "Two-screen zone including a corner/wraparound display and a bridge-approach display. Two advertised screens are specified by the supplier; this is not a count of LED modules. Resolutions: 2000 x 1060 and 2000 x 2000 pixels. Individual nearby screens may also have standalone booking offers; this listing is the combined supplier zone.",
+        "notesAr": "نطاق من شاشتين يشمل شاشة عند الركن وأخرى عند مدخل الكوبري. العدد المذكور هو شاشتان إعلانيتان وفق المورد وليس عدد وحدات الليد. الدقتان ٢٠٠٠ × ١٠٦٠ و٢٠٠٠ × ٢٠٠٠ بكسل. قد تتاح بعض الشاشات القريبة بعروض منفصلة؛ هذا السجل مخصص لنطاق المورد المجمع.",
+        "approximate": false,
+        "originalSupplierId": 16,
+        "mapPending": false
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/J03-1.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 14,
+          "sha256": "b7d82145ee205fbff2caf7e7cd197f20798e507ee7491b2e15e43d86e0197ab6",
+          "bytes": 54943,
+          "fileName": "h-14611-color-studio-20261101-1.jpg",
+          "url": "/images/h-14611-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Combined Package - 6th October Bridge, 2 Uni-poles and Digital Screen - H-14611 - view 1 | Horizon OOH",
+          "altAr": "باكدج مجمع - كوبري ٦ أكتوبر، ٢ يوني بول وشاشة ديجيتال - H-14611 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/J03-2.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 16,
+          "sha256": "0362bd16a4ffb2102d94394e9bc351ab7c9cdbcfd93278a9919b26f473b7ad97",
+          "bytes": 52441,
+          "fileName": "h-14611-color-studio-20261101-2.jpg",
+          "url": "/images/h-14611-color-studio-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Combined Package - 6th October Bridge, 2 Uni-poles and Digital Screen - H-14611 - view 2 | Horizon OOH",
+          "altAr": "باكدج مجمع - كوبري ٦ أكتوبر، ٢ يوني بول وشاشة ديجيتال - H-14611 - صورة 2 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/J03-3.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 14,
+          "sha256": "2893eed233eb1b1da6f65b3e8eab831fa897a43bcb25e0506ecd31ca2b2ef877",
+          "bytes": 53233,
+          "fileName": "h-14611-color-studio-20261101-3.jpg",
+          "url": "/images/h-14611-color-studio-20261101-3.jpg",
+          "isPrimary": false,
+          "sortOrder": 2,
+          "alt": "Combined Package - 6th October Bridge, 2 Uni-poles and Digital Screen - H-14611 - view 3 | Horizon OOH",
+          "altAr": "باكدج مجمع - كوبري ٦ أكتوبر، ٢ يوني بول وشاشة ديجيتال - H-14611 - صورة 3 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "title": "Combined Package - 6th October Bridge, 2 Uni-poles and Digital Screen",
+        "name_ar": "باكدج مجمع - كوبري ٦ أكتوبر، ٢ يوني بول وشاشة ديجيتال",
+        "description": "Combined Package - 6th October Bridge, 2 Uni-poles and Digital Screen. Outdoor advertising in Cairo, Egypt, with Horizon OOH. This booking covers 3 advertising unit(s) and 5 faces. Dimensions (width x height): 16 x 8 + 20.16 x 12.48 m. Four static uni-pole faces plus the separately listed suspended-bridge digital screen H-13874. This is an alternative combined booking, not three new standalone placements. June rounds the screen to 20 x 12 m; the dedicated screen specification gives 20.16 x 12.48 m. Static faces are backlit; the digital screen runs 24 hours. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "باكدج مجمع - كوبري ٦ أكتوبر، ٢ يوني بول وشاشة ديجيتال. إعلانات خارجية في القاهرة مع هورايزون. يشمل عرض الحجز 3 وحدة إعلانية بإجمالي 5 وجهًا. المقاسات (العرض × الارتفاع): 16 x 8 + 20.16 x 12.48 متر. ٤ أوجه يوني بول ثابتة مع شاشة الوصلة المعلقة المسجلة بشكل منفصل بالكود H-13874. هذا عرض حجز مجمع بديل وليس ثلاث وحدات جديدة مستقلة. يقرب ملف يونيو مقاس الشاشة إلى ٢٠ × ١٢ متر، بينما يحدد ملف الشاشة المقاس الدقيق ٢٠٫١٦ × ١٢٫٤٨ متر. الأوجه الثابتة بإضاءة خلفية والشاشة تعمل على مدار اليوم. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Combined Package - 6th October Bridge, 2 Uni-poles and Digital Screen, Cairo, Egypt",
+        "type": "Combo",
+        "format": "Billboard",
+        "size": "16 x 8 + 20.16 x 12.48",
+        "quantity": 3,
+        "sides": 5,
+        "location_id": 2,
+        "district_id": 449,
+        "lat": 30.069256,
+        "lng": 31.264328,
+        "width": null,
+        "height": null,
+        "sqm": null,
+        "illuminated": true,
+        "brightness": "Back Light",
+        "code": "H-14611",
+        "supplier_id": 16,
+        "availability": "available"
+      },
+      "addressAr": "باكدج مجمع - كوبري ٦ أكتوبر، ٢ يوني بول وشاشة ديجيتال، القاهرة، مصر",
+      "provenance": {
+        "key": "J03",
+        "sourcePhotos": [
+          {
+            "doc": "june",
+            "page": 14,
+            "crop": 1577
+          },
+          {
+            "doc": "june",
+            "page": 16,
+            "crop": 1577
+          },
+          {
+            "doc": "network",
+            "page": 14,
+            "crop": 1577
+          }
+        ],
+        "notes": "Four static uni-pole faces plus the separately listed suspended-bridge digital screen H-13874. This is an alternative combined booking, not three new standalone placements. June rounds the screen to 20 x 12 m; the dedicated screen specification gives 20.16 x 12.48 m. Static faces are backlit; the digital screen runs 24 hours.",
+        "notesAr": "٤ أوجه يوني بول ثابتة مع شاشة الوصلة المعلقة المسجلة بشكل منفصل بالكود H-13874. هذا عرض حجز مجمع بديل وليس ثلاث وحدات جديدة مستقلة. يقرب ملف يونيو مقاس الشاشة إلى ٢٠ × ١٢ متر، بينما يحدد ملف الشاشة المقاس الدقيق ٢٠٫١٦ × ١٢٫٤٨ متر. الأوجه الثابتة بإضاءة خلفية والشاشة تعمل على مدار اليوم.",
+        "approximate": false,
+        "originalSupplierId": 16,
+        "mapPending": false
+      }
+    },
+    {
+      "images": [
+        {
+          "sourceFile": "prepared-pages/J12-1.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 64,
+          "sha256": "af12deb6dc381937f7560c3ad1673683758355e5abe5cd44d22fd49d9d576dc0",
+          "bytes": 64146,
+          "fileName": "h-14612-color-studio-20261101-1.jpg",
+          "url": "/images/h-14612-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Mirror - Giza Nile Street Tunnel Approach - H-14612 - view 1 | Horizon OOH",
+          "altAr": "مرايه - مدخل نفق شارع النيل بالجيزة - H-14612 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/J12-2.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 66,
+          "sha256": "4d5f8e9775c520505cf0532a14da736f72ecdad753fc208e2fb8e787bf182813",
+          "bytes": 46353,
+          "fileName": "h-14612-color-studio-20261101-2.jpg",
+          "url": "/images/h-14612-color-studio-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Mirror - Giza Nile Street Tunnel Approach - H-14612 - view 2 | Horizon OOH",
+          "altAr": "مرايه - مدخل نفق شارع النيل بالجيزة - H-14612 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ],
+      "data": {
+        "title": "Mirror - Giza Nile Street Tunnel Approach",
+        "name_ar": "مرايه - مدخل نفق شارع النيل بالجيزة",
+        "description": "Mirror - Giza Nile Street Tunnel Approach. Outdoor advertising in Giza, Egypt, with Horizon OOH. This booking covers 1 advertising unit(s) and 1 faces. Dimensions (width x height): 20 x 4 m. Supplier labels the approach from El Bahr El Aazam and Ring Road towards Nile Street. No map link is supplied; the roadside/tunnel reference is approximate and requires supplier coordinate confirmation. Backlit from sunset to sunrise. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "مرايه - مدخل نفق شارع النيل بالجيزة. إعلانات خارجية في الجيزة مع هورايزون. يشمل عرض الحجز 1 وحدة إعلانية بإجمالي 1 وجهًا. المقاسات (العرض × الارتفاع): 20 x 4 متر. يسمي المورد الاتجاه القادم من البحر الأعظم والدائري نحو شارع النيل. لم يرفق رابط خريطة؛ مرجع الطريق والنفق تقريبي ويحتاج تأكيد إحداثيات المورد. إضاءة خلفية من الغروب حتى الشروق. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Mirror - Giza Nile Street Tunnel Approach, Giza, Egypt",
+        "type": "Mirror",
+        "format": "Billboard",
+        "size": "20 x 4",
+        "quantity": 1,
+        "sides": 1,
+        "location_id": 3,
+        "district_id": 23,
+        "lat": 30.0384,
+        "lng": 31.22057,
+        "width": 20,
+        "height": 4,
+        "sqm": 80,
+        "illuminated": true,
+        "brightness": "Back Light",
+        "code": "H-14612",
+        "supplier_id": 16,
+        "availability": "available"
+      },
+      "addressAr": "مرايه - مدخل نفق شارع النيل بالجيزة، الجيزة، مصر",
+      "provenance": {
+        "key": "J12",
+        "sourcePhotos": [
+          {
+            "doc": "june",
+            "page": 64,
+            "crop": 1380
+          },
+          {
+            "doc": "june",
+            "page": 66,
+            "crop": 1577
+          }
+        ],
+        "notes": "Supplier labels the approach from El Bahr El Aazam and Ring Road towards Nile Street. No map link is supplied; the roadside/tunnel reference is approximate and requires supplier coordinate confirmation. Backlit from sunset to sunrise.",
+        "notesAr": "يسمي المورد الاتجاه القادم من البحر الأعظم والدائري نحو شارع النيل. لم يرفق رابط خريطة؛ مرجع الطريق والنفق تقريبي ويحتاج تأكيد إحداثيات المورد. إضاءة خلفية من الغروب حتى الشروق.",
+        "approximate": true,
+        "originalSupplierId": 16,
+        "mapPending": false
+      }
+    }
+  ],
+  "updates": [
+    {
+      "id": 14051,
+      "code": "H-14051",
+      "slug": "gate-6th-october-bridge",
+      "oldCitySlug": "cairo",
+      "data": {
+        "title": "Digital Screen Package - 6th October Bridge, Abdel Moneim Riad",
+        "name_ar": "باكدج شاشات ديجيتال - كوبري ٦ أكتوبر، عبد المنعم رياض",
+        "description": "Digital Screen Package - 6th October Bridge, Abdel Moneim Riad. Outdoor advertising in Cairo, Egypt, with Horizon OOH. This booking covers 2 advertising unit(s) and 4 faces. Dimensions (width x height): 15 x 6 m. Four screen faces in the two directions at the first Nile crossing gate. Resolution: 2000 x 800 pixels per face. Digital playback: 7.5-second advertisements within a 30–60-second loop, operating 24 hours daily. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "باكدج شاشات ديجيتال - كوبري ٦ أكتوبر، عبد المنعم رياض. إعلانات خارجية في القاهرة مع هورايزون. يشمل عرض الحجز 2 وحدة إعلانية بإجمالي 4 وجهًا. المقاسات (العرض × الارتفاع): 15 x 6 متر. ٤ أوجه شاشات في الاتجاهين عند أول بوابه على النيل. دقة كل وجه ٢٠٠٠ × ٨٠٠ بكسل. عرض إعلاني لمدة ٧٫٥ ثانية ضمن دورة من ٣٠ إلى ٦٠ ثانية، وتشغيل على مدار اليوم. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Digital Screen Package - 6th October Bridge, Abdel Moneim Riad, Cairo, Egypt",
+        "type": "Digital Screen",
+        "format": "Digital screen",
+        "size": "15 x 6",
+        "quantity": 2,
+        "sides": 4,
+        "location_id": 2,
+        "district_id": 449,
+        "lat": 30.0491052,
+        "lng": 31.2312247,
+        "width": 15,
+        "height": 6,
+        "sqm": 90,
+        "illuminated": true,
+        "brightness": "Digital LED"
+      },
+      "addressAr": "باكدج شاشات ديجيتال - كوبري ٦ أكتوبر، عبد المنعم رياض، القاهرة، مصر",
+      "provenance": {
+        "key": "N01",
+        "sourcePhotos": [
+          {
+            "doc": "network",
+            "page": 6,
+            "crop": 1400
+          },
+          {
+            "doc": "network",
+            "page": 7,
+            "crop": 1577
+          }
+        ],
+        "notes": "Four screen faces in the two directions at the first Nile crossing gate. Resolution: 2000 x 800 pixels per face.",
+        "notesAr": "٤ أوجه شاشات في الاتجاهين عند أول بوابه على النيل. دقة كل وجه ٢٠٠٠ × ٨٠٠ بكسل.",
+        "approximate": false,
+        "originalSupplierId": 48,
+        "mapPending": false
+      }
+    },
+    {
+      "id": 13874,
+      "code": "H-13874",
+      "slug": "digital-screen-6-october-bridge-cairo",
+      "oldCitySlug": "cairo",
+      "data": {
+        "title": "Digital Screen - Suspended 6th October Bridge, Ghamra",
+        "name_ar": "شاشة ديجيتال - الوصلة المعلقة بكوبري ٦ أكتوبر، غمرة",
+        "description": "Digital Screen - Suspended 6th October Bridge, Ghamra. Outdoor advertising in Cairo, Egypt, with Horizon OOH. This booking covers 1 advertising unit(s) and 1 faces. Dimensions (width x height): 20.16 x 12.48 m. Resolution: 2000 x 1238 pixels. This screen is also included in the separate combined booking with two static uni-poles. Digital playback: 7.5-second advertisements within a 30–60-second loop, operating 24 hours daily. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "شاشة ديجيتال - الوصلة المعلقة بكوبري ٦ أكتوبر، غمرة. إعلانات خارجية في القاهرة مع هورايزون. يشمل عرض الحجز 1 وحدة إعلانية بإجمالي 1 وجهًا. المقاسات (العرض × الارتفاع): 20.16 x 12.48 متر. دقة الشاشة ٢٠٠٠ × ١٢٣٨ بكسل. تتاح الشاشة أيضًا ضمن عرض حجز مجمع مستقل مع ٢ يوني بول ثابت. عرض إعلاني لمدة ٧٫٥ ثانية ضمن دورة من ٣٠ إلى ٦٠ ثانية، وتشغيل على مدار اليوم. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Digital Screen - Suspended 6th October Bridge, Ghamra, Cairo, Egypt",
+        "type": "Digital Screen",
+        "format": "Digital screen",
+        "size": "20.16 x 12.48",
+        "quantity": 1,
+        "sides": 1,
+        "location_id": 2,
+        "district_id": 449,
+        "lat": 30.069256,
+        "lng": 31.264328,
+        "width": 20.16,
+        "height": 12.48,
+        "sqm": 251.5968,
+        "illuminated": true,
+        "brightness": "Digital LED"
+      },
+      "addressAr": "شاشة ديجيتال - الوصلة المعلقة بكوبري ٦ أكتوبر، غمرة، القاهرة، مصر",
+      "provenance": {
+        "key": "N02",
+        "sourcePhotos": [
+          {
+            "doc": "network",
+            "page": 14,
+            "crop": 1577
+          },
+          {
+            "doc": "network",
+            "page": 16,
+            "crop": 1577
+          }
+        ],
+        "notes": "Resolution: 2000 x 1238 pixels. This screen is also included in the separate combined booking with two static uni-poles.",
+        "notesAr": "دقة الشاشة ٢٠٠٠ × ١٢٣٨ بكسل. تتاح الشاشة أيضًا ضمن عرض حجز مجمع مستقل مع ٢ يوني بول ثابت.",
+        "approximate": false,
+        "originalSupplierId": 16,
+        "mapPending": false
+      }
+    },
+    {
+      "id": 11681,
+      "code": "H-11681",
+      "slug": "digital-screen-oroba-road-cairo",
+      "oldCitySlug": "cairo",
+      "data": {
+        "title": "Digital Gantry Screens - Al Orouba Road",
+        "name_ar": "شاشات جانتري ديجيتال - طريق العروبة",
+        "description": "Digital Gantry Screens - Al Orouba Road. Outdoor advertising in Cairo, Egypt, with Horizon OOH. This booking covers 1 advertising unit(s) and 2 faces. Dimensions (width x height): 60 x 7.2 m. Two directional screen faces serving both road directions. Resolution: 2000 x 240 pixels. Digital playback: 7.5-second advertisements within a 30–60-second loop, operating 24 hours daily. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "شاشات جانتري ديجيتال - طريق العروبة. إعلانات خارجية في القاهرة مع هورايزون. يشمل عرض الحجز 1 وحدة إعلانية بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 60 x 7.2 متر. وجهان للشاشات يخدمان اتجاهي الطريق. الدقة ٢٠٠٠ × ٢٤٠ بكسل. عرض إعلاني لمدة ٧٫٥ ثانية ضمن دورة من ٣٠ إلى ٦٠ ثانية، وتشغيل على مدار اليوم. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Digital Gantry Screens - Al Orouba Road, Cairo, Egypt",
+        "type": "Digital Screen",
+        "format": "Digital screen",
+        "size": "60 x 7.2",
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 2,
+        "district_id": 454,
+        "lat": 30.0954,
+        "lng": 31.342329,
+        "width": 60,
+        "height": 7.2,
+        "sqm": 432,
+        "illuminated": true,
+        "brightness": "Digital LED"
+      },
+      "addressAr": "شاشات جانتري ديجيتال - طريق العروبة، القاهرة، مصر",
+      "provenance": {
+        "key": "N03",
+        "sourcePhotos": [
+          {
+            "doc": "network",
+            "page": 22,
+            "crop": 1577
+          },
+          {
+            "doc": "network",
+            "page": 23,
+            "crop": 1577
+          }
+        ],
+        "notes": "Two directional screen faces serving both road directions. Resolution: 2000 x 240 pixels.",
+        "notesAr": "وجهان للشاشات يخدمان اتجاهي الطريق. الدقة ٢٠٠٠ × ٢٤٠ بكسل.",
+        "approximate": false,
+        "originalSupplierId": 16,
+        "mapPending": false
+      }
+    },
+    {
+      "id": 14019,
+      "code": "H-14019",
+      "slug": "digital-screen-al-thewera-road",
+      "oldCitySlug": "cairo",
+      "data": {
+        "title": "Digital Gantry Screens - Al Thawra Road",
+        "name_ar": "شاشات جانتري ديجيتال - طريق الثورة",
+        "description": "Digital Gantry Screens - Al Thawra Road. Outdoor advertising in Cairo, Egypt, with Horizon OOH. This booking covers 1 advertising unit(s) and 2 faces. Dimensions (width x height): 62.4 x 7.2 m. Gantry component of the supplier five-screen Thawra zone. Three portrait screens are represented separately. Resolution: 2000 x 230 pixels. Digital playback: 7.5-second advertisements within a 30–60-second loop, operating 24 hours daily. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "شاشات جانتري ديجيتال - طريق الثورة. إعلانات خارجية في القاهرة مع هورايزون. يشمل عرض الحجز 1 وحدة إعلانية بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 62.4 x 7.2 متر. جزء الجانتري من نطاق الثورة ذي الشاشات الخمس لدى المورد. الشاشات الرأسية الثلاث متاحة في سجل مستقل. الدقة ٢٠٠٠ × ٢٣٠ بكسل. عرض إعلاني لمدة ٧٫٥ ثانية ضمن دورة من ٣٠ إلى ٦٠ ثانية، وتشغيل على مدار اليوم. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Digital Gantry Screens - Al Thawra Road, Cairo, Egypt",
+        "type": "Digital Screen",
+        "format": "Digital screen",
+        "size": "62.4 x 7.2",
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 2,
+        "district_id": 5,
+        "lat": 30.078869,
+        "lng": 31.37299,
+        "width": 62.4,
+        "height": 7.2,
+        "sqm": 449.28,
+        "illuminated": true,
+        "brightness": "Digital LED"
+      },
+      "addressAr": "شاشات جانتري ديجيتال - طريق الثورة، القاهرة، مصر",
+      "provenance": {
+        "key": "N04A",
+        "sourcePhotos": [
+          {
+            "doc": "network",
+            "page": 34,
+            "crop": 1577
+          },
+          {
+            "doc": "network",
+            "page": 35,
+            "crop": 1577
+          }
+        ],
+        "notes": "Gantry component of the supplier five-screen Thawra zone. Three portrait screens are represented separately. Resolution: 2000 x 230 pixels. Source zone price covers all five screens and is not allocated to individual components.",
+        "notesAr": "جزء الجانتري من نطاق الثورة ذي الشاشات الخمس لدى المورد. الشاشات الرأسية الثلاث متاحة في سجل مستقل. الدقة ٢٠٠٠ × ٢٣٠ بكسل. سعر النطاق لدى المورد يشمل الشاشات الخمس ولم يوزع على المكونات.",
+        "approximate": false,
+        "originalSupplierId": 16,
+        "mapPending": false
+      }
+    },
+    {
+      "id": 11682,
+      "code": "H-11682",
+      "slug": "digital-screen-el-moushir-cairo",
+      "oldCitySlug": "cairo",
+      "data": {
+        "title": "Digital Gantry - El Moshir Tantawy Axis, Two Faces",
+        "name_ar": "جانتري ديجيتال - محور المشير طنطاوي، وجهان",
+        "description": "Digital Gantry - El Moshir Tantawy Axis, Two Faces. Outdoor advertising in Cairo, Egypt, with Horizon OOH. This booking covers 1 advertising unit(s) and 2 faces. Dimensions (width x height): 30.72 x 7.68 + 20.16 x 7.68 m. Two digital faces, separate from the two static backlit faces at the same site, as confirmed by the owner. Resolutions: 2000 x 500 pixels and 2000 x 762 pixels. Digital playback: 7.5-second advertisements within a 30–60-second loop, operating 24 hours daily. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "جانتري ديجيتال - محور المشير طنطاوي، وجهان. إعلانات خارجية في القاهرة مع هورايزون. يشمل عرض الحجز 1 وحدة إعلانية بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 30.72 x 7.68 + 20.16 x 7.68 متر. وجهان ديجيتال منفصلان عن الوجهين الثابتين بإضاءة خلفية في الموقع نفسه، طبقًا لتأكيد المالك. الدقتان ٢٠٠٠ × ٥٠٠ و٢٠٠٠ × ٧٦٢ بكسل. عرض إعلاني لمدة ٧٫٥ ثانية ضمن دورة من ٣٠ إلى ٦٠ ثانية، وتشغيل على مدار اليوم. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Digital Gantry - El Moshir Tantawy Axis, Two Faces, Cairo, Egypt",
+        "type": "Digital Screen",
+        "format": "Digital screen",
+        "size": "30.72 x 7.68 + 20.16 x 7.68",
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 2,
+        "district_id": 473,
+        "lat": 30.017643,
+        "lng": 31.389984,
+        "width": null,
+        "height": null,
+        "sqm": null,
+        "illuminated": true,
+        "brightness": "Digital LED"
+      },
+      "addressAr": "جانتري ديجيتال - محور المشير طنطاوي، وجهان، القاهرة، مصر",
+      "provenance": {
+        "key": "N05",
+        "sourcePhotos": [
+          {
+            "doc": "network",
+            "page": 43,
+            "crop": 1320
+          },
+          {
+            "doc": "network",
+            "page": 44,
+            "crop": 1320
+          }
+        ],
+        "notes": "Two digital faces, separate from the two static backlit faces at the same site, as confirmed by the owner. Resolutions: 2000 x 500 pixels and 2000 x 762 pixels.",
+        "notesAr": "وجهان ديجيتال منفصلان عن الوجهين الثابتين بإضاءة خلفية في الموقع نفسه، طبقًا لتأكيد المالك. الدقتان ٢٠٠٠ × ٥٠٠ و٢٠٠٠ × ٧٦٢ بكسل.",
+        "approximate": false,
+        "originalSupplierId": 16,
+        "mapPending": false
+      }
+    },
+    {
+      "id": 11684,
+      "code": "H-11684",
+      "slug": "digital-screen-nasr-road-cairo",
+      "oldCitySlug": "cairo",
+      "data": {
+        "title": "Digital Gantry Faces - Al Nasr Road, Cairo Stadium",
+        "name_ar": "أوجه جانتري ديجيتال - طريق النصر، استاد القاهرة",
+        "description": "Digital Gantry Faces - Al Nasr Road, Cairo Stadium. Outdoor advertising in Cairo, Egypt, with Horizon OOH. This booking covers 1 advertising unit(s) and 2 faces. Dimensions (width x height): 30.72 x 6.72 m. Digital halves of the mixed static/digital gantry in the two directions. Static backlit halves are offered separately. Resolution: 2000 x 438 pixels. Digital playback: 7.5-second advertisements within a 30–60-second loop, operating 24 hours daily. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "أوجه جانتري ديجيتال - طريق النصر، استاد القاهرة. إعلانات خارجية في القاهرة مع هورايزون. يشمل عرض الحجز 1 وحدة إعلانية بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 30.72 x 6.72 متر. النصف الديجيتال من الجانتري المختلط في الاتجاهين؛ النصف الثابت بإضاءة خلفية متاح بشكل منفصل. الدقة ٢٠٠٠ × ٤٣٨ بكسل. عرض إعلاني لمدة ٧٫٥ ثانية ضمن دورة من ٣٠ إلى ٦٠ ثانية، وتشغيل على مدار اليوم. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Digital Gantry Faces - Al Nasr Road, Cairo Stadium, Cairo, Egypt",
+        "type": "Digital Screen",
+        "format": "Digital screen",
+        "size": "30.72 x 6.72",
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 2,
+        "district_id": 6,
+        "lat": 30.0632355,
+        "lng": 31.3118697,
+        "width": 30.72,
+        "height": 6.72,
+        "sqm": 206.43839999999997,
+        "illuminated": true,
+        "brightness": "Digital LED"
+      },
+      "addressAr": "أوجه جانتري ديجيتال - طريق النصر، استاد القاهرة، القاهرة، مصر",
+      "provenance": {
+        "key": "N06",
+        "sourcePhotos": [
+          {
+            "doc": "network",
+            "page": 47,
+            "crop": 1320
+          },
+          {
+            "doc": "network",
+            "page": 49,
+            "crop": 1300
+          }
+        ],
+        "notes": "Digital halves of the mixed static/digital gantry in the two directions. Static backlit halves are offered separately. Resolution: 2000 x 438 pixels. The printed map short link mistakenly repeats the Ghamra screen; the Nasr Road map image and existing matching site are used instead.",
+        "notesAr": "النصف الديجيتال من الجانتري المختلط في الاتجاهين؛ النصف الثابت بإضاءة خلفية متاح بشكل منفصل. الدقة ٢٠٠٠ × ٤٣٨ بكسل. رابط الخريطة المطبوع يكرر شاشة غمرة بالخطأ؛ تم الاستناد إلى صورة خريطة طريق النصر والموقع المطابق المسجل.",
+        "approximate": true,
+        "originalSupplierId": 16,
+        "mapPending": false
+      }
+    },
+    {
+      "id": 14026,
+      "code": "H-14026",
+      "slug": "digital-screen-al-ain-al-sokhena-with-ring-road",
+      "oldCitySlug": "cairo",
+      "data": {
+        "title": "Digital Screen - Ring Road, Ain Sokhna Bridge Entrance",
+        "name_ar": "شاشة ديجيتال - الطريق الدائري، مدخل كوبري العين السخنة",
+        "description": "Digital Screen - Ring Road, Ain Sokhna Bridge Entrance. Outdoor advertising in Cairo, Egypt, with Horizon OOH. This booking covers 1 advertising unit(s) and 1 faces. Dimensions (width x height): 16 x 8 m. Resolution: 2000 x 1000 pixels. Digital playback: 7.5-second advertisements within a 30–60-second loop, operating 24 hours daily. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "شاشة ديجيتال - الطريق الدائري، مدخل كوبري العين السخنة. إعلانات خارجية في القاهرة مع هورايزون. يشمل عرض الحجز 1 وحدة إعلانية بإجمالي 1 وجهًا. المقاسات (العرض × الارتفاع): 16 x 8 متر. دقة الشاشة ٢٠٠٠ × ١٠٠٠ بكسل. عرض إعلاني لمدة ٧٫٥ ثانية ضمن دورة من ٣٠ إلى ٦٠ ثانية، وتشغيل على مدار اليوم. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Digital Screen - Ring Road, Ain Sokhna Bridge Entrance, Cairo, Egypt",
+        "type": "Digital Screen",
+        "format": "Digital screen",
+        "size": "16 x 8",
+        "quantity": 1,
+        "sides": 1,
+        "location_id": 2,
+        "district_id": 451,
+        "lat": 29.978188,
+        "lng": 31.356865,
+        "width": 16,
+        "height": 8,
+        "sqm": 128,
+        "illuminated": true,
+        "brightness": "Digital LED"
+      },
+      "addressAr": "شاشة ديجيتال - الطريق الدائري، مدخل كوبري العين السخنة، القاهرة، مصر",
+      "provenance": {
+        "key": "N07",
+        "sourcePhotos": [
+          {
+            "doc": "network",
+            "page": 55,
+            "crop": 1420
+          },
+          {
+            "doc": "network",
+            "page": 54,
+            "crop": 1577
+          }
+        ],
+        "notes": "Resolution: 2000 x 1000 pixels.",
+        "notesAr": "دقة الشاشة ٢٠٠٠ × ١٠٠٠ بكسل.",
+        "approximate": false,
+        "originalSupplierId": 16,
+        "mapPending": false
+      }
+    },
+    {
+      "id": 14025,
+      "code": "H-14025",
+      "slug": "digital-screen-katameya-heights",
+      "oldCitySlug": "cairo",
+      "data": {
+        "title": "Digital Screen - Ring Road, Golf and Katameya Heights",
+        "name_ar": "شاشة ديجيتال - الطريق الدائري، الجولف وقطامية هايتس",
+        "description": "Digital Screen - Ring Road, Golf and Katameya Heights. Outdoor advertising in Cairo, Egypt, with Horizon OOH. This booking covers 1 advertising unit(s) and 1 faces. Dimensions (width x height): 24 x 8.64 m. Resolution: 2000 x 720 pixels. Digital playback: 7.5-second advertisements within a 30–60-second loop, operating 24 hours daily. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "شاشة ديجيتال - الطريق الدائري، الجولف وقطامية هايتس. إعلانات خارجية في القاهرة مع هورايزون. يشمل عرض الحجز 1 وحدة إعلانية بإجمالي 1 وجهًا. المقاسات (العرض × الارتفاع): 24 x 8.64 متر. دقة الشاشة ٢٠٠٠ × ٧٢٠ بكسل. عرض إعلاني لمدة ٧٫٥ ثانية ضمن دورة من ٣٠ إلى ٦٠ ثانية، وتشغيل على مدار اليوم. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Digital Screen - Ring Road, Golf and Katameya Heights, Cairo, Egypt",
+        "type": "Digital Screen",
+        "format": "Digital screen",
+        "size": "24 x 8.64",
+        "quantity": 1,
+        "sides": 1,
+        "location_id": 2,
+        "district_id": 451,
+        "lat": 29.995504,
+        "lng": 31.390231,
+        "width": 24,
+        "height": 8.64,
+        "sqm": 207.36,
+        "illuminated": true,
+        "brightness": "Digital LED"
+      },
+      "addressAr": "شاشة ديجيتال - الطريق الدائري، الجولف وقطامية هايتس، القاهرة، مصر",
+      "provenance": {
+        "key": "N08",
+        "sourcePhotos": [
+          {
+            "doc": "network",
+            "page": 62,
+            "crop": 1577
+          },
+          {
+            "doc": "network",
+            "page": 61,
+            "crop": 1577
+          }
+        ],
+        "notes": "Resolution: 2000 x 720 pixels.",
+        "notesAr": "دقة الشاشة ٢٠٠٠ × ٧٢٠ بكسل.",
+        "approximate": false,
+        "originalSupplierId": 16,
+        "mapPending": false
+      }
+    },
+    {
+      "id": 11683,
+      "code": "H-11683",
+      "slug": "digital-screen-jw-marriott-cairo",
+      "oldCitySlug": "cairo",
+      "data": {
+        "title": "Digital Screen - Ring Road, New Capital Ramp at JW Marriott",
+        "name_ar": "شاشة ديجيتال - الطريق الدائري، مطلع العاصمة عند جي دبليو ماريوت",
+        "description": "Digital Screen - Ring Road, New Capital Ramp at JW Marriott. Outdoor advertising in Cairo, Egypt, with Horizon OOH. This booking covers 1 advertising unit(s) and 1 faces. Dimensions (width x height): 24 x 8.64 m. One digital screen. Resolution: 2000 x 720 pixels. Digital playback: 7.5-second advertisements within a 30–60-second loop, operating 24 hours daily. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "شاشة ديجيتال - الطريق الدائري، مطلع العاصمة عند جي دبليو ماريوت. إعلانات خارجية في القاهرة مع هورايزون. يشمل عرض الحجز 1 وحدة إعلانية بإجمالي 1 وجهًا. المقاسات (العرض × الارتفاع): 24 x 8.64 متر. شاشة ديجيتال واحدة بدقة ٢٠٠٠ × ٧٢٠ بكسل. عرض إعلاني لمدة ٧٫٥ ثانية ضمن دورة من ٣٠ إلى ٦٠ ثانية، وتشغيل على مدار اليوم. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Digital Screen - Ring Road, New Capital Ramp at JW Marriott, Cairo, Egypt",
+        "type": "Digital Screen",
+        "format": "Digital screen",
+        "size": "24 x 8.64",
+        "quantity": 1,
+        "sides": 1,
+        "location_id": 2,
+        "district_id": 451,
+        "lat": 30.075734,
+        "lng": 31.43401,
+        "width": 24,
+        "height": 8.64,
+        "sqm": 207.36,
+        "illuminated": true,
+        "brightness": "Digital LED"
+      },
+      "addressAr": "شاشة ديجيتال - الطريق الدائري، مطلع العاصمة عند جي دبليو ماريوت، القاهرة، مصر",
+      "provenance": {
+        "key": "N09",
+        "sourcePhotos": [
+          {
+            "doc": "network",
+            "page": 68,
+            "crop": 1420
+          },
+          {
+            "doc": "network",
+            "page": 67,
+            "crop": 1577
+          }
+        ],
+        "notes": "One screen is stated in the current supplier zone, correcting the former duplicated count. Resolution: 2000 x 720 pixels.",
+        "notesAr": "يذكر نطاق المورد الحالي شاشة واحدة، لتصحيح العدد المكرر سابقًا. الدقة ٢٠٠٠ × ٧٢٠ بكسل.",
+        "approximate": false,
+        "originalSupplierId": 16,
+        "mapPending": false
+      }
+    },
+    {
+      "id": 11732,
+      "code": "H-11732",
+      "slug": "digital-screen-doki-bridge",
+      "oldCitySlug": "cairo",
+      "data": {
+        "title": "Digital Screen - Dokki Bridge",
+        "name_ar": "شاشة ديجيتال - كوبري الدقي",
+        "description": "Digital Screen - Dokki Bridge. Outdoor advertising in Giza, Egypt, with Horizon OOH. This booking covers 1 advertising unit(s) and 1 faces. Dimensions (width x height): 7.68 x 3.84 m. Resolution: 2000 x 1000 pixels. Digital playback: 7.5-second advertisements within a 30–60-second loop, operating 24 hours daily. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "شاشة ديجيتال - كوبري الدقي. إعلانات خارجية في الجيزة مع هورايزون. يشمل عرض الحجز 1 وحدة إعلانية بإجمالي 1 وجهًا. المقاسات (العرض × الارتفاع): 7.68 x 3.84 متر. دقة الشاشة ٢٠٠٠ × ١٠٠٠ بكسل. عرض إعلاني لمدة ٧٫٥ ثانية ضمن دورة من ٣٠ إلى ٦٠ ثانية، وتشغيل على مدار اليوم. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Digital Screen - Dokki Bridge, Giza, Egypt",
+        "type": "Digital Screen",
+        "format": "Digital screen",
+        "size": "7.68 x 3.84",
+        "quantity": 1,
+        "sides": 1,
+        "location_id": 3,
+        "district_id": 23,
+        "lat": 30.030094,
+        "lng": 31.212494,
+        "width": 7.68,
+        "height": 3.84,
+        "sqm": 29.4912,
+        "illuminated": true,
+        "brightness": "Digital LED"
+      },
+      "addressAr": "شاشة ديجيتال - كوبري الدقي، الجيزة، مصر",
+      "provenance": {
+        "key": "N11",
+        "sourcePhotos": [
+          {
+            "doc": "network",
+            "page": 81,
+            "crop": 1577
+          },
+          {
+            "doc": "network",
+            "page": 80,
+            "crop": 1410
+          }
+        ],
+        "notes": "Resolution: 2000 x 1000 pixels.",
+        "notesAr": "دقة الشاشة ٢٠٠٠ × ١٠٠٠ بكسل.",
+        "approximate": false,
+        "originalSupplierId": 16,
+        "mapPending": false
+      }
+    },
+    {
+      "id": 11736,
+      "code": "H-11736",
+      "slug": "t-pole-giza",
+      "oldCitySlug": "giza",
+      "data": {
+        "title": "Digital Screen - Giza Bridge and Mourad Street",
+        "name_ar": "شاشة ديجيتال - كوبري الجيزة وشارع مراد",
+        "description": "Digital Screen - Giza Bridge and Mourad Street. Outdoor advertising in Giza, Egypt, with Horizon OOH. This booking covers 1 advertising unit(s) and 1 faces. Dimensions (width x height): 5 x 3 m. Digital screen. Resolution: 2000 x 1200 pixels. Digital playback: 7.5-second advertisements within a 30–60-second loop, operating 24 hours daily. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "شاشة ديجيتال - كوبري الجيزة وشارع مراد. إعلانات خارجية في الجيزة مع هورايزون. يشمل عرض الحجز 1 وحدة إعلانية بإجمالي 1 وجهًا. المقاسات (العرض × الارتفاع): 5 x 3 متر. شاشة ديجيتال بدقة ٢٠٠٠ × ١٢٠٠ بكسل. عرض إعلاني لمدة ٧٫٥ ثانية ضمن دورة من ٣٠ إلى ٦٠ ثانية، وتشغيل على مدار اليوم. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Digital Screen - Giza Bridge and Mourad Street, Giza, Egypt",
+        "type": "Digital Screen",
+        "format": "Digital screen",
+        "size": "5 x 3",
+        "quantity": 1,
+        "sides": 1,
+        "location_id": 3,
+        "district_id": 27,
+        "lat": 30.020288,
+        "lng": 31.216435,
+        "width": 5,
+        "height": 3,
+        "sqm": 15,
+        "illuminated": true,
+        "brightness": "Digital LED"
+      },
+      "addressAr": "شاشة ديجيتال - كوبري الجيزة وشارع مراد، الجيزة، مصر",
+      "provenance": {
+        "key": "N12",
+        "sourcePhotos": [
+          {
+            "doc": "network",
+            "page": 85,
+            "crop": 1410
+          },
+          {
+            "doc": "network",
+            "page": 84,
+            "crop": 1577
+          }
+        ],
+        "notes": "Current supplier identifies this placement as a digital screen, replacing its legacy T-pole classification. Resolution: 2000 x 1200 pixels.",
+        "notesAr": "يصنف المورد هذا الموقع حاليًا كشاشة ديجيتال بدل التصنيف القديم تي بول. الدقة ٢٠٠٠ × ١٢٠٠ بكسل.",
+        "approximate": false,
+        "originalSupplierId": 16,
+        "mapPending": false
+      }
+    },
+    {
+      "id": 11733,
+      "code": "H-11733",
+      "slug": "gate-6-of-october-bridge-cairo",
+      "oldCitySlug": "cairo",
+      "data": {
+        "title": "Double Decker Gate - 6th October Bridge",
+        "name_ar": "بوابه دبل ديكر - كوبري ٦ أكتوبر",
+        "description": "Double Decker Gate - 6th October Bridge. Outdoor advertising in Cairo, Egypt, with Horizon OOH. This booking covers 4 advertising unit(s) and 8 faces. Dimensions (width x height): 15 x 6 m. Eight static faces, backlit from sunset to sunrise. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "بوابه دبل ديكر - كوبري ٦ أكتوبر. إعلانات خارجية في القاهرة مع هورايزون. يشمل عرض الحجز 4 وحدة إعلانية بإجمالي 8 وجهًا. المقاسات (العرض × الارتفاع): 15 x 6 متر. ٨ أوجه ثابتة بإضاءة خلفية من الغروب حتى الشروق. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Double Decker Gate - 6th October Bridge, Cairo, Egypt",
+        "type": "Double Decker",
+        "format": "Billboard",
+        "size": "15 x 6",
+        "quantity": 4,
+        "sides": 8,
+        "location_id": 2,
+        "district_id": 449,
+        "lat": 30.057444874999998,
+        "lng": 31.24152158,
+        "width": 15,
+        "height": 6,
+        "sqm": 90,
+        "illuminated": true,
+        "brightness": "Back Light"
+      },
+      "addressAr": "بوابه دبل ديكر - كوبري ٦ أكتوبر، القاهرة، مصر",
+      "provenance": {
+        "key": "J01",
+        "sourcePhotos": [
+          {
+            "doc": "june",
+            "page": 3,
+            "crop": 1577
+          },
+          {
+            "doc": "june",
+            "page": 4,
+            "crop": 1380
+          }
+        ],
+        "notes": "Eight static faces, backlit from sunset to sunrise.",
+        "notesAr": "٨ أوجه ثابتة بإضاءة خلفية من الغروب حتى الشروق.",
+        "approximate": true,
+        "originalSupplierId": 16,
+        "mapPending": false
+      }
+    },
+    {
+      "id": 11734,
+      "code": "H-11734",
+      "slug": "combo-october-bridge-ghamra",
+      "oldCitySlug": "cairo",
+      "data": {
+        "title": "Static Billboard Composition - 6th October Bridge, Ghamra",
+        "name_ar": "تشكيل لوحات ثابتة - كوبري ٦ أكتوبر، غمرة",
+        "description": "Static Billboard Composition - 6th October Bridge, Ghamra. Outdoor advertising in Cairo, Egypt, with Horizon OOH. This booking covers 3 advertising unit(s) and 6 faces. Dimensions (width x height): 25 x 14 + 20 x 8 m. Two faces at 25 x 14 m and four double-decker faces at 20 x 8 m; backlit. Supplier states a 500 m face-to-face viewing range. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "تشكيل لوحات ثابتة - كوبري ٦ أكتوبر، غمرة. إعلانات خارجية في القاهرة مع هورايزون. يشمل عرض الحجز 3 وحدة إعلانية بإجمالي 6 وجهًا. المقاسات (العرض × الارتفاع): 25 x 14 + 20 x 8 متر. وجهان بمقاس ٢٥ × ١٤ متر و٤ أوجه دبل ديكر بمقاس ٢٠ × ٨ متر، بإضاءة خلفية. يذكر المورد مدى رؤية مقابلًا للوجه يبلغ ٥٠٠ متر. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Static Billboard Composition - 6th October Bridge, Ghamra, Cairo, Egypt",
+        "type": "Combo",
+        "format": "Billboard",
+        "size": "25 x 14 + 20 x 8",
+        "quantity": 3,
+        "sides": 6,
+        "location_id": 2,
+        "district_id": 449,
+        "lat": 30.0675056,
+        "lng": 31.2588474,
+        "width": null,
+        "height": null,
+        "sqm": null,
+        "illuminated": true,
+        "brightness": "Back Light"
+      },
+      "addressAr": "تشكيل لوحات ثابتة - كوبري ٦ أكتوبر، غمرة، القاهرة، مصر",
+      "provenance": {
+        "key": "J02",
+        "sourcePhotos": [
+          {
+            "doc": "june",
+            "page": 7,
+            "crop": 1577
+          }
+        ],
+        "notes": "Two faces at 25 x 14 m and four double-decker faces at 20 x 8 m; backlit. Supplier states a 500 m face-to-face viewing range.",
+        "notesAr": "وجهان بمقاس ٢٥ × ١٤ متر و٤ أوجه دبل ديكر بمقاس ٢٠ × ٨ متر، بإضاءة خلفية. يذكر المورد مدى رؤية مقابلًا للوجه يبلغ ٥٠٠ متر.",
+        "approximate": true,
+        "originalSupplierId": 16,
+        "mapPending": false
+      }
+    },
+    {
+      "id": 14018,
+      "code": "H-14018",
+      "slug": "uni-pole-oroba-road",
+      "oldCitySlug": "cairo",
+      "data": {
+        "title": "Twin Pole Sequence - Al Orouba Road",
+        "name_ar": "تتابع توين بول - طريق العروبة",
+        "description": "Twin Pole Sequence - Al Orouba Road. Outdoor advertising in Cairo, Egypt, with Horizon OOH. This booking covers 2 advertising unit(s) and 4 faces. Dimensions (width x height): 24 x 8 m. Two twin-pole units with four backlit faces. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "تتابع توين بول - طريق العروبة. إعلانات خارجية في القاهرة مع هورايزون. يشمل عرض الحجز 2 وحدة إعلانية بإجمالي 4 وجهًا. المقاسات (العرض × الارتفاع): 24 x 8 متر. وحدتا توين بول بإجمالي ٤ أوجه بإضاءة خلفية. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Twin Pole Sequence - Al Orouba Road, Cairo, Egypt",
+        "type": "Twin Pole",
+        "format": "Billboard",
+        "size": "24 x 8",
+        "quantity": 2,
+        "sides": 4,
+        "location_id": 2,
+        "district_id": 454,
+        "lat": 30.0868559,
+        "lng": 31.32693934,
+        "width": 24,
+        "height": 8,
+        "sqm": 192,
+        "illuminated": true,
+        "brightness": "Back Light"
+      },
+      "addressAr": "تتابع توين بول - طريق العروبة، القاهرة، مصر",
+      "provenance": {
+        "key": "J04",
+        "sourcePhotos": [
+          {
+            "doc": "june",
+            "page": 21,
+            "crop": 1577
+          },
+          {
+            "doc": "june",
+            "page": 23,
+            "crop": 1340
+          }
+        ],
+        "notes": "Two twin-pole units with four backlit faces.",
+        "notesAr": "وحدتا توين بول بإجمالي ٤ أوجه بإضاءة خلفية.",
+        "approximate": true,
+        "originalSupplierId": 16,
+        "mapPending": false
+      }
+    },
+    {
+      "id": 11685,
+      "code": "H-11685",
+      "slug": "mirror-nasr-city-cairo",
+      "oldCitySlug": "cairo",
+      "data": {
+        "title": "Mirror - Nasr City Bridge Entrance",
+        "name_ar": "مرايه - مدخل كوبري مدينة نصر",
+        "description": "Mirror - Nasr City Bridge Entrance. Outdoor advertising in Cairo, Egypt, with Horizon OOH. This booking covers 1 advertising unit(s) and 2 faces. Dimensions (width x height): 53 x 5.5 + 25 x 5.5 m. Unequal directional faces: 53 x 5.5 m and 25 x 5.5 m. Backlit from sunset to sunrise. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "مرايه - مدخل كوبري مدينة نصر. إعلانات خارجية في القاهرة مع هورايزون. يشمل عرض الحجز 1 وحدة إعلانية بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 53 x 5.5 + 25 x 5.5 متر. وجهان بمقاسين مختلفين: ٥٣ × ٥٫٥ متر و٢٥ × ٥٫٥ متر. إضاءة خلفية من الغروب حتى الشروق. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Mirror - Nasr City Bridge Entrance, Cairo, Egypt",
+        "type": "Mirror",
+        "format": "Billboard",
+        "size": "53 x 5.5 + 25 x 5.5",
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 2,
+        "district_id": 6,
+        "lat": 30.0631915,
+        "lng": 31.3118362,
+        "width": null,
+        "height": null,
+        "sqm": null,
+        "illuminated": true,
+        "brightness": "Back Light"
+      },
+      "addressAr": "مرايه - مدخل كوبري مدينة نصر، القاهرة، مصر",
+      "provenance": {
+        "key": "J05",
+        "sourcePhotos": [
+          {
+            "doc": "june",
+            "page": 26,
+            "crop": 1577
+          },
+          {
+            "doc": "june",
+            "page": 30,
+            "crop": 1340
+          }
+        ],
+        "notes": "Unequal directional faces: 53 x 5.5 m and 25 x 5.5 m. Backlit from sunset to sunrise.",
+        "notesAr": "وجهان بمقاسين مختلفين: ٥٣ × ٥٫٥ متر و٢٥ × ٥٫٥ متر. إضاءة خلفية من الغروب حتى الشروق.",
+        "approximate": true,
+        "originalSupplierId": 16,
+        "mapPending": false
+      }
+    },
+    {
+      "id": 14021,
+      "code": "H-14021",
+      "slug": "gantry-nasr-road",
+      "oldCitySlug": "cairo",
+      "data": {
+        "title": "Static Gantry Faces - Al Nasr Road, Cairo Stadium",
+        "name_ar": "أوجه جانتري ثابتة - طريق النصر، استاد القاهرة",
+        "description": "Static Gantry Faces - Al Nasr Road, Cairo Stadium. Outdoor advertising in Cairo, Egypt, with Horizon OOH. This booking covers 1 advertising unit(s) and 2 faces. Dimensions (width x height): 32 x 7.25 m. Static backlit halves of the mixed-media gantry in both directions. The digital halves are listed separately under H-11684. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "أوجه جانتري ثابتة - طريق النصر، استاد القاهرة. إعلانات خارجية في القاهرة مع هورايزون. يشمل عرض الحجز 1 وحدة إعلانية بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 32 x 7.25 متر. النصف الثابت بإضاءة خلفية من الجانتري المختلط في الاتجاهين. النصف الديجيتال متاح في سجل منفصل بالكود H-11684. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Static Gantry Faces - Al Nasr Road, Cairo Stadium, Cairo, Egypt",
+        "type": "Gantry",
+        "format": "Billboard",
+        "size": "32 x 7.25",
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 2,
+        "district_id": 6,
+        "lat": 30.0632355,
+        "lng": 31.3118697,
+        "width": 32,
+        "height": 7.25,
+        "sqm": 232,
+        "illuminated": true,
+        "brightness": "Back Light"
+      },
+      "addressAr": "أوجه جانتري ثابتة - طريق النصر، استاد القاهرة، القاهرة، مصر",
+      "provenance": {
+        "key": "J06",
+        "sourcePhotos": [
+          {
+            "doc": "june",
+            "page": 38,
+            "crop": 1400
+          },
+          {
+            "doc": "june",
+            "page": 36,
+            "crop": 1390
+          }
+        ],
+        "notes": "Static backlit halves of the mixed-media gantry in both directions. The digital halves are listed separately under H-11684.",
+        "notesAr": "النصف الثابت بإضاءة خلفية من الجانتري المختلط في الاتجاهين. النصف الديجيتال متاح في سجل منفصل بالكود H-11684.",
+        "approximate": true,
+        "originalSupplierId": 16,
+        "mapPending": false
+      }
+    },
+    {
+      "id": 11686,
+      "code": "H-11686",
+      "slug": "uni-pole-nasr-road-cairo",
+      "oldCitySlug": "cairo",
+      "data": {
+        "title": "Gantry - Nasr City Entrance, Al Fangary Axis",
+        "name_ar": "جانتري - مدخل مدينة نصر، محور الفنجرى",
+        "description": "Gantry - Nasr City Entrance, Al Fangary Axis. Outdoor advertising in Cairo, Egypt, with Horizon OOH. This booking covers 1 advertising unit(s) and 2 faces. Dimensions (width x height): 36 x 7 m. Double-sided static gantry, backlit from sunset to sunrise, serving the Salah Salem/Fangary approach to Nasr City. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "جانتري - مدخل مدينة نصر، محور الفنجرى. إعلانات خارجية في القاهرة مع هورايزون. يشمل عرض الحجز 1 وحدة إعلانية بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 36 x 7 متر. جانتري ثابت بوجهين وإضاءة خلفية من الغروب حتى الشروق، يخدم مدخل مدينة نصر من صلاح سالم ومحور الفنجرى. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Gantry - Nasr City Entrance, Al Fangary Axis, Cairo, Egypt",
+        "type": "Gantry",
+        "format": "Billboard",
+        "size": "36 x 7",
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 2,
+        "district_id": 6,
+        "lat": 30.0699615,
+        "lng": 31.3037979,
+        "width": 36,
+        "height": 7,
+        "sqm": 252,
+        "illuminated": true,
+        "brightness": "Back Light"
+      },
+      "addressAr": "جانتري - مدخل مدينة نصر، محور الفنجرى، القاهرة، مصر",
+      "provenance": {
+        "key": "J07",
+        "sourcePhotos": [
+          {
+            "doc": "june",
+            "page": 43,
+            "crop": 1370
+          },
+          {
+            "doc": "june",
+            "page": 42,
+            "crop": 1370
+          }
+        ],
+        "notes": "Double-sided static gantry, backlit from sunset to sunrise, serving the Salah Salem/Fangary approach to Nasr City.",
+        "notesAr": "جانتري ثابت بوجهين وإضاءة خلفية من الغروب حتى الشروق، يخدم مدخل مدينة نصر من صلاح سالم ومحور الفنجرى.",
+        "approximate": true,
+        "originalSupplierId": 16,
+        "mapPending": false
+      }
+    },
+    {
+      "id": 14023,
+      "code": "H-14023",
+      "slug": "succette-moshir",
+      "oldCitySlug": "cairo",
+      "data": {
+        "title": "Backlit Lamp-post Network - El Moshir Bridge Extension",
+        "name_ar": "شبكة أعمدة إنارة بإضاءة خلفية - امتداد كوبري المشير",
+        "description": "Backlit Lamp-post Network - El Moshir Bridge Extension. Outdoor advertising in Cairo, Egypt, with Horizon OOH. This booking covers 30 advertising unit(s) and 60 faces. Dimensions (width x height): 1.5 x 3 m. Thirty lamp posts and sixty backlit flex faces across a stated 750 m two-way corridor.  Map location is an approximate corridor reference pending confirmation of the supplier map. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "شبكة أعمدة إنارة بإضاءة خلفية - امتداد كوبري المشير. إعلانات خارجية في القاهرة مع هورايزون. يشمل عرض الحجز 30 وحدة إعلانية بإجمالي 60 وجهًا. المقاسات (العرض × الارتفاع): 1.5 x 3 متر. ٣٠ عمود إنارة بإجمالي ٦٠ وجه فلكس بإضاءة خلفية، على امتداد ٧٥٠ مترًا في الاتجاهين وفق المورد.  نقطة الخريطة مرجع تقريبي للنطاق لحين تأكيد موقع خريطة المورد. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Backlit Lamp-post Network - El Moshir Bridge Extension, Cairo, Egypt",
+        "type": "Flag",
+        "format": "Billboard",
+        "size": "1.5 x 3",
+        "quantity": 30,
+        "sides": 60,
+        "location_id": 2,
+        "district_id": 473,
+        "lat": 30.045982,
+        "lng": 31.3078786,
+        "width": 1.5,
+        "height": 3,
+        "sqm": 4.5,
+        "illuminated": true,
+        "brightness": "Back Light"
+      },
+      "addressAr": "شبكة أعمدة إنارة بإضاءة خلفية - امتداد كوبري المشير، القاهرة، مصر",
+      "provenance": {
+        "key": "J08",
+        "sourcePhotos": [
+          {
+            "doc": "june",
+            "page": 47,
+            "crop": 1577
+          },
+          {
+            "doc": "june",
+            "page": 46,
+            "crop": 1270
+          }
+        ],
+        "notes": "Thirty lamp posts and sixty backlit flex faces across a stated 750 m two-way corridor. Replaces the inconsistent old quantity/face fields.",
+        "notesAr": "٣٠ عمود إنارة بإجمالي ٦٠ وجه فلكس بإضاءة خلفية، على امتداد ٧٥٠ مترًا في الاتجاهين وفق المورد. يصحح الأعداد القديمة غير المتسقة.",
+        "approximate": true,
+        "originalSupplierId": 16,
+        "mapPending": true
+      }
+    },
+    {
+      "id": 14022,
+      "code": "H-14022",
+      "slug": "digital-screen-al-moshir",
+      "oldCitySlug": "cairo",
+      "data": {
+        "title": "Static Gantry - El Moshir Tantawy Axis, Two Faces",
+        "name_ar": "جانتري ثابت - محور المشير طنطاوي، وجهان",
+        "description": "Static Gantry - El Moshir Tantawy Axis, Two Faces. Outdoor advertising in Cairo, Egypt, with Horizon OOH. This booking covers 1 advertising unit(s) and 2 faces. Dimensions (width x height): 30.5 x 7.5 + 20 x 7.5 m. Two static backlit faces, separate from the two digital faces at the same site, explicitly confirmed by the owner. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "جانتري ثابت - محور المشير طنطاوي، وجهان. إعلانات خارجية في القاهرة مع هورايزون. يشمل عرض الحجز 1 وحدة إعلانية بإجمالي 2 وجهًا. المقاسات (العرض × الارتفاع): 30.5 x 7.5 + 20 x 7.5 متر. وجهان ثابتان بإضاءة خلفية، منفصلان عن الوجهين الديجيتال في الموقع نفسه، طبقًا لتأكيد المالك. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Static Gantry - El Moshir Tantawy Axis, Two Faces, Cairo, Egypt",
+        "type": "Gantry",
+        "format": "Billboard",
+        "size": "30.5 x 7.5 + 20 x 7.5",
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 2,
+        "district_id": 473,
+        "lat": 30.017643,
+        "lng": 31.389984,
+        "width": null,
+        "height": null,
+        "sqm": null,
+        "illuminated": true,
+        "brightness": "Back Light"
+      },
+      "addressAr": "جانتري ثابت - محور المشير طنطاوي، وجهان، القاهرة، مصر",
+      "provenance": {
+        "key": "J09",
+        "sourcePhotos": [
+          {
+            "doc": "june",
+            "page": 49,
+            "crop": 1300
+          },
+          {
+            "doc": "june",
+            "page": 50,
+            "crop": 1300
+          }
+        ],
+        "notes": "Two static backlit faces, separate from the two digital faces at the same site, explicitly confirmed by the owner. The old digital classification is corrected. Source area label is not arithmetically consistent with its listed dimensions, so no combined area is inferred.",
+        "notesAr": "وجهان ثابتان بإضاءة خلفية، منفصلان عن الوجهين الديجيتال في الموقع نفسه، طبقًا لتأكيد المالك. تم تصحيح التصنيف القديم كشاشة. بيان المساحة في المصدر غير متسق حسابيًا مع المقاسات، لذلك لم تستنتج مساحة إجمالية.",
+        "approximate": false,
+        "originalSupplierId": 16,
+        "mapPending": false
+      }
+    },
+    {
+      "id": 14020,
+      "code": "H-14020",
+      "slug": "mega-post-al-thewera-street",
+      "oldCitySlug": "cairo",
+      "data": {
+        "title": "Backlit T-pole Sequence - Al Thawra Road",
+        "name_ar": "تتابع تي بول بإضاءة خلفية - طريق الثورة",
+        "description": "Backlit T-pole Sequence - Al Thawra Road. Outdoor advertising in Cairo, Egypt, with Horizon OOH. This booking covers 4 advertising unit(s) and 4 faces. Dimensions (width x height): 3 x 6 m. Four one-face static placements. This is separate from the portrait digital screen network in the current screen portfolio. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "تتابع تي بول بإضاءة خلفية - طريق الثورة. إعلانات خارجية في القاهرة مع هورايزون. يشمل عرض الحجز 4 وحدة إعلانية بإجمالي 4 وجهًا. المقاسات (العرض × الارتفاع): 3 x 6 متر. ٤ وحدات ثابتة بوجه واحد لكل وحدة. تختلف عن شبكة الشاشات الرأسية الديجيتال الواردة في ملف الشاشات. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Backlit T-pole Sequence - Al Thawra Road, Cairo, Egypt",
+        "type": "T Pole",
+        "format": "Billboard",
+        "size": "3 x 6",
+        "quantity": 4,
+        "sides": 4,
+        "location_id": 2,
+        "district_id": 5,
+        "lat": 30.0786435,
+        "lng": 31.3759839,
+        "width": 3,
+        "height": 6,
+        "sqm": 18,
+        "illuminated": true,
+        "brightness": "Back Light"
+      },
+      "addressAr": "تتابع تي بول بإضاءة خلفية - طريق الثورة، القاهرة، مصر",
+      "provenance": {
+        "key": "J10",
+        "sourcePhotos": [
+          {
+            "doc": "june",
+            "page": 53,
+            "crop": 1577
+          },
+          {
+            "doc": "june",
+            "page": 52,
+            "crop": 1380
+          }
+        ],
+        "notes": "Four one-face static placements. This is separate from the portrait digital screen network in the current screen portfolio.",
+        "notesAr": "٤ وحدات ثابتة بوجه واحد لكل وحدة. تختلف عن شبكة الشاشات الرأسية الديجيتال الواردة في ملف الشاشات.",
+        "approximate": true,
+        "originalSupplierId": 16,
+        "mapPending": false
+      }
+    },
+    {
+      "id": 11706,
+      "code": "H-11706",
+      "slug": "roof-top-mohandesin-cairo",
+      "oldCitySlug": "cairo",
+      "data": {
+        "title": "Rooftop Billboard - Gameat El Dewal Street Towards Sphinx",
+        "name_ar": "لوحة روف توب - شارع جامعة الدول باتجاه سفنكس",
+        "description": "Rooftop Billboard - Gameat El Dewal Street Towards Sphinx. Outdoor advertising in Giza, Egypt, with Horizon OOH. This booking covers 1 advertising unit(s) and 1 faces. Dimensions (width x height): 26 x 12 m. Street-facing rooftop placement. Supplier states an approximately 1 km face-to-face viewing range. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "لوحة روف توب - شارع جامعة الدول باتجاه سفنكس. إعلانات خارجية في الجيزة مع هورايزون. يشمل عرض الحجز 1 وحدة إعلانية بإجمالي 1 وجهًا. المقاسات (العرض × الارتفاع): 26 x 12 متر. لوحة على سطح مبنى مواجهة للشارع. يذكر المورد مدى رؤية مقابلًا للوجه يقارب كيلومترًا. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Rooftop Billboard - Gameat El Dewal Street Towards Sphinx, Giza, Egypt",
+        "type": "Roof Top",
+        "format": "Billboard",
+        "size": "26 x 12",
+        "quantity": 1,
+        "sides": 1,
+        "location_id": 3,
+        "district_id": 24,
+        "lat": 30.0617894,
+        "lng": 31.2101374,
+        "width": 26,
+        "height": 12,
+        "sqm": 312
+      },
+      "addressAr": "لوحة روف توب - شارع جامعة الدول باتجاه سفنكس، الجيزة، مصر",
+      "provenance": {
+        "key": "J11",
+        "sourcePhotos": [
+          {
+            "doc": "june",
+            "page": 60,
+            "crop": 1577
+          },
+          {
+            "doc": "june",
+            "page": 56,
+            "crop": 1300
+          },
+          {
+            "doc": "june",
+            "page": 61,
+            "crop": 1440
+          }
+        ],
+        "notes": "Street-facing rooftop placement. Supplier states an approximately 1 km face-to-face viewing range. Illumination specification is not stated on the rooftop data card.",
+        "notesAr": "لوحة على سطح مبنى مواجهة للشارع. يذكر المورد مدى رؤية مقابلًا للوجه يقارب كيلومترًا. بطاقة الموقع لا تحدد نوع الإضاءة.",
+        "approximate": true,
+        "originalSupplierId": 16,
+        "mapPending": false
+      }
+    },
+    {
+      "id": 13133,
+      "code": "H-13133",
+      "slug": "t-pole-doki-street",
+      "oldCitySlug": "cairo",
+      "data": {
+        "title": "Backlit T-pole - Dokki Street Beside October Bridge Ramp",
+        "name_ar": "تي بول بإضاءة خلفية - شارع الدقي بجوار مطلع كوبري أكتوبر",
+        "description": "Backlit T-pole - Dokki Street Beside October Bridge Ramp. Outdoor advertising in Giza, Egypt, with Horizon OOH. This booking covers 1 advertising unit(s) and 1 faces. Dimensions (width x height): 4 x 3 m. One static backlit face next to the October Bridge ramp. Contact Horizon OOH to confirm campaign dates, availability and request a tailored quote.",
+        "description_ar": "تي بول بإضاءة خلفية - شارع الدقي بجوار مطلع كوبري أكتوبر. إعلانات خارجية في الجيزة مع هورايزون. يشمل عرض الحجز 1 وحدة إعلانية بإجمالي 1 وجهًا. المقاسات (العرض × الارتفاع): 4 x 3 متر. وجه ثابت واحد بإضاءة خلفية بجوار مطلع كوبري أكتوبر. تواصل مع هورايزون لتأكيد مواعيد الحملة والتوفر وطلب عرض سعر مناسب.",
+        "full_address": "Backlit T-pole - Dokki Street Beside October Bridge Ramp, Giza, Egypt",
+        "type": "T Pole",
+        "format": "Billboard",
+        "size": "4 x 3",
+        "quantity": 1,
+        "sides": 1,
+        "location_id": 3,
+        "district_id": 23,
+        "lat": 30.04551945,
+        "lng": 31.2119429,
+        "width": 4,
+        "height": 3,
+        "sqm": 12,
+        "illuminated": true,
+        "brightness": "Back Light"
+      },
+      "addressAr": "تي بول بإضاءة خلفية - شارع الدقي بجوار مطلع كوبري أكتوبر، الجيزة، مصر",
+      "provenance": {
+        "key": "J13",
+        "sourcePhotos": [
+          {
+            "doc": "june",
+            "page": 68,
+            "crop": 1370
+          }
+        ],
+        "notes": "One static backlit face next to the October Bridge ramp.",
+        "notesAr": "وجه ثابت واحد بإضاءة خلفية بجوار مطلع كوبري أكتوبر.",
+        "approximate": true,
+        "originalSupplierId": 16,
+        "mapPending": false
+      }
+    }
+  ],
+  "imageReplacements": [
+    {
+      "id": 14051,
+      "code": "H-14051",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/N01-1.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 6,
+          "sha256": "813a3ba2d740fdf23a26a382d35ef5af7d9ee576533d5447995819c5bfedd59b",
+          "bytes": 55994,
+          "fileName": "h-14051-color-studio-20261101-1.jpg",
+          "url": "/images/h-14051-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen Package - 6th October Bridge, Abdel Moneim Riad - H-14051 - view 1 | Horizon OOH",
+          "altAr": "باكدج شاشات ديجيتال - كوبري ٦ أكتوبر، عبد المنعم رياض - H-14051 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/N01-2.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 7,
+          "sha256": "e0621f017d387f54ae70a5e25a824af34c8910257d786452425ab02295280587",
+          "bytes": 41307,
+          "fileName": "h-14051-color-studio-20261101-2.jpg",
+          "url": "/images/h-14051-color-studio-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Digital Screen Package - 6th October Bridge, Abdel Moneim Riad - H-14051 - view 2 | Horizon OOH",
+          "altAr": "باكدج شاشات ديجيتال - كوبري ٦ أكتوبر، عبد المنعم رياض - H-14051 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ]
+    },
+    {
+      "id": 13874,
+      "code": "H-13874",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/N02-1.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 14,
+          "sha256": "2893eed233eb1b1da6f65b3e8eab831fa897a43bcb25e0506ecd31ca2b2ef877",
+          "bytes": 53233,
+          "fileName": "h-13874-color-studio-20261101-1.jpg",
+          "url": "/images/h-13874-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen - Suspended 6th October Bridge, Ghamra - H-13874 - view 1 | Horizon OOH",
+          "altAr": "شاشة ديجيتال - الوصلة المعلقة بكوبري ٦ أكتوبر، غمرة - H-13874 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/N02-2.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 16,
+          "sha256": "d263ec9d54b1550a38b34f43db2db878e456ffb345ac7d818b6cd84d0a7dc065",
+          "bytes": 29953,
+          "fileName": "h-13874-color-studio-20261101-2.jpg",
+          "url": "/images/h-13874-color-studio-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Digital Screen - Suspended 6th October Bridge, Ghamra - H-13874 - view 2 | Horizon OOH",
+          "altAr": "شاشة ديجيتال - الوصلة المعلقة بكوبري ٦ أكتوبر، غمرة - H-13874 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ]
+    },
+    {
+      "id": 11681,
+      "code": "H-11681",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/N03-1.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 22,
+          "sha256": "a489f1158f46c713707378f4001d45af990af087aed10074641eb9a952bbce64",
+          "bytes": 45466,
+          "fileName": "h-11681-color-studio-20261101-1.jpg",
+          "url": "/images/h-11681-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Gantry Screens - Al Orouba Road - H-11681 - view 1 | Horizon OOH",
+          "altAr": "شاشات جانتري ديجيتال - طريق العروبة - H-11681 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/N03-2.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 23,
+          "sha256": "bc7769ec7fdf5d143ac6d93cb214ca7693d3daf68523ffa733d9c440b9085d83",
+          "bytes": 49033,
+          "fileName": "h-11681-color-studio-20261101-2.jpg",
+          "url": "/images/h-11681-color-studio-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Digital Gantry Screens - Al Orouba Road - H-11681 - view 2 | Horizon OOH",
+          "altAr": "شاشات جانتري ديجيتال - طريق العروبة - H-11681 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ]
+    },
+    {
+      "id": 14019,
+      "code": "H-14019",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/N04A-1.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 34,
+          "sha256": "0f24cc74ac42e9beed19303b28dc659f6507c58def6e467e3f815d61b2c60dab",
+          "bytes": 37521,
+          "fileName": "h-14019-color-studio-20261101-1.jpg",
+          "url": "/images/h-14019-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Gantry Screens - Al Thawra Road - H-14019 - view 1 | Horizon OOH",
+          "altAr": "شاشات جانتري ديجيتال - طريق الثورة - H-14019 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/N04A-2.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 35,
+          "sha256": "9bb2e2747767718e500d143491bb3ff077dc653589e9127dd49e8087c572a966",
+          "bytes": 36732,
+          "fileName": "h-14019-color-studio-20261101-2.jpg",
+          "url": "/images/h-14019-color-studio-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Digital Gantry Screens - Al Thawra Road - H-14019 - view 2 | Horizon OOH",
+          "altAr": "شاشات جانتري ديجيتال - طريق الثورة - H-14019 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ]
+    },
+    {
+      "id": 11682,
+      "code": "H-11682",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/N05-1.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 43,
+          "sha256": "f8e2d9dd8c63c6f462fdeee455e166af7b716444d792041740666bae249bc0a7",
+          "bytes": 45700,
+          "fileName": "h-11682-color-studio-20261101-1.jpg",
+          "url": "/images/h-11682-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Gantry - El Moshir Tantawy Axis, Two Faces - H-11682 - view 1 | Horizon OOH",
+          "altAr": "جانتري ديجيتال - محور المشير طنطاوي، وجهان - H-11682 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/N05-2.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 44,
+          "sha256": "ef3fc8f1bb9548bc6e1529dc19bd8da6741a0396f88f178458fd841bbae51f90",
+          "bytes": 58684,
+          "fileName": "h-11682-color-studio-20261101-2.jpg",
+          "url": "/images/h-11682-color-studio-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Digital Gantry - El Moshir Tantawy Axis, Two Faces - H-11682 - view 2 | Horizon OOH",
+          "altAr": "جانتري ديجيتال - محور المشير طنطاوي، وجهان - H-11682 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ]
+    },
+    {
+      "id": 11684,
+      "code": "H-11684",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/N06-1.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 47,
+          "sha256": "819f93ab6e6c7351b5c1de13137ce0e2737a9194b6faaa6adfd7d3b15dddda1b",
+          "bytes": 59949,
+          "fileName": "h-11684-color-studio-20261101-1.jpg",
+          "url": "/images/h-11684-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Gantry Faces - Al Nasr Road, Cairo Stadium - H-11684 - view 1 | Horizon OOH",
+          "altAr": "أوجه جانتري ديجيتال - طريق النصر، استاد القاهرة - H-11684 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/N06-2.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 49,
+          "sha256": "35e1087ee0e476b61ea26da53a8b71499cbf8887e2e98fe4f5107ae659339fe5",
+          "bytes": 64351,
+          "fileName": "h-11684-color-studio-20261101-2.jpg",
+          "url": "/images/h-11684-color-studio-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Digital Gantry Faces - Al Nasr Road, Cairo Stadium - H-11684 - view 2 | Horizon OOH",
+          "altAr": "أوجه جانتري ديجيتال - طريق النصر، استاد القاهرة - H-11684 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ]
+    },
+    {
+      "id": 14026,
+      "code": "H-14026",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/N07-1.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 55,
+          "sha256": "49c15d5deca64dd6aab3a33c93869285a78df6ac8040f70e04c3fca3756e1a28",
+          "bytes": 35603,
+          "fileName": "h-14026-color-studio-20261101-1.jpg",
+          "url": "/images/h-14026-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen - Ring Road, Ain Sokhna Bridge Entrance - H-14026 - view 1 | Horizon OOH",
+          "altAr": "شاشة ديجيتال - الطريق الدائري، مدخل كوبري العين السخنة - H-14026 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/N07-2.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 54,
+          "sha256": "9802219f1f892431709b54ea1889c93df3225f2a025288467d599e347585b857",
+          "bytes": 37794,
+          "fileName": "h-14026-color-studio-20261101-2.jpg",
+          "url": "/images/h-14026-color-studio-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Digital Screen - Ring Road, Ain Sokhna Bridge Entrance - H-14026 - view 2 | Horizon OOH",
+          "altAr": "شاشة ديجيتال - الطريق الدائري، مدخل كوبري العين السخنة - H-14026 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ]
+    },
+    {
+      "id": 14025,
+      "code": "H-14025",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/N08-1.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 62,
+          "sha256": "b2c2aa9b930efc28a14b6b6b9b46e322a349f4c82c636e3e7e04f69c67b4c512",
+          "bytes": 39556,
+          "fileName": "h-14025-color-studio-20261101-1.jpg",
+          "url": "/images/h-14025-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen - Ring Road, Golf and Katameya Heights - H-14025 - view 1 | Horizon OOH",
+          "altAr": "شاشة ديجيتال - الطريق الدائري، الجولف وقطامية هايتس - H-14025 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/N08-2.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 61,
+          "sha256": "2b5a7b1dc9ea07c709b2e5c87865c09dcec82572922dbd814204bbdd5f6a2439",
+          "bytes": 40403,
+          "fileName": "h-14025-color-studio-20261101-2.jpg",
+          "url": "/images/h-14025-color-studio-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Digital Screen - Ring Road, Golf and Katameya Heights - H-14025 - view 2 | Horizon OOH",
+          "altAr": "شاشة ديجيتال - الطريق الدائري، الجولف وقطامية هايتس - H-14025 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ]
+    },
+    {
+      "id": 11683,
+      "code": "H-11683",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/N09-1.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 68,
+          "sha256": "4ef34897147e998c6827ac6b583a60aa1ffdfce406eac857c020058e847a046b",
+          "bytes": 50730,
+          "fileName": "h-11683-color-studio-20261101-1.jpg",
+          "url": "/images/h-11683-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen - Ring Road, New Capital Ramp at JW Marriott - H-11683 - view 1 | Horizon OOH",
+          "altAr": "شاشة ديجيتال - الطريق الدائري، مطلع العاصمة عند جي دبليو ماريوت - H-11683 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/N09-2.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 67,
+          "sha256": "5c1bd180a22e45872d0af56f16c172a52ca16604d56158a283bc4d5dcee6e040",
+          "bytes": 38938,
+          "fileName": "h-11683-color-studio-20261101-2.jpg",
+          "url": "/images/h-11683-color-studio-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Digital Screen - Ring Road, New Capital Ramp at JW Marriott - H-11683 - view 2 | Horizon OOH",
+          "altAr": "شاشة ديجيتال - الطريق الدائري، مطلع العاصمة عند جي دبليو ماريوت - H-11683 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ]
+    },
+    {
+      "id": 11732,
+      "code": "H-11732",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/N11-1.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 81,
+          "sha256": "343e3300563fee82d88017ebd01c98752e219856e8b6c582f9f4ad0c01100558",
+          "bytes": 65943,
+          "fileName": "h-11732-color-studio-20261101-1.jpg",
+          "url": "/images/h-11732-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen - Dokki Bridge - H-11732 - view 1 | Horizon OOH",
+          "altAr": "شاشة ديجيتال - كوبري الدقي - H-11732 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/N11-2.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 80,
+          "sha256": "0ab024afc7e0fa1e62791ac093a97b613bc668650e5e7f05e49ce6c8eba1ae4b",
+          "bytes": 42809,
+          "fileName": "h-11732-color-studio-20261101-2.jpg",
+          "url": "/images/h-11732-color-studio-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Digital Screen - Dokki Bridge - H-11732 - view 2 | Horizon OOH",
+          "altAr": "شاشة ديجيتال - كوبري الدقي - H-11732 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ]
+    },
+    {
+      "id": 11736,
+      "code": "H-11736",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/N12-1.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 85,
+          "sha256": "bc70ba44cfc6393c53e3b654df17ea26114db7d36e77e50c7e66e1a1c992f46c",
+          "bytes": 74256,
+          "fileName": "h-11736-color-studio-20261101-1.jpg",
+          "url": "/images/h-11736-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen - Giza Bridge and Mourad Street - H-11736 - view 1 | Horizon OOH",
+          "altAr": "شاشة ديجيتال - كوبري الجيزة وشارع مراد - H-11736 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/N12-2.jpg",
+          "sourceDocument": "network",
+          "sourcePage": 84,
+          "sha256": "b13c11ab833b2116381ce42156e9d53cb45c3d899e02003c5fb87dd3da59e590",
+          "bytes": 68974,
+          "fileName": "h-11736-color-studio-20261101-2.jpg",
+          "url": "/images/h-11736-color-studio-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Digital Screen - Giza Bridge and Mourad Street - H-11736 - view 2 | Horizon OOH",
+          "altAr": "شاشة ديجيتال - كوبري الجيزة وشارع مراد - H-11736 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ]
+    },
+    {
+      "id": 11733,
+      "code": "H-11733",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/J01-1.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 3,
+          "sha256": "747fa0dbfd6dd8a2ee7fc630f6ec9cd82a880461cf6df10b8fafa46d3c69a155",
+          "bytes": 52547,
+          "fileName": "h-11733-color-studio-20261101-1.jpg",
+          "url": "/images/h-11733-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Double Decker Gate - 6th October Bridge - H-11733 - view 1 | Horizon OOH",
+          "altAr": "بوابه دبل ديكر - كوبري ٦ أكتوبر - H-11733 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/J01-2.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 4,
+          "sha256": "c3ac0b22f6444b7bb86c870e6d76680b1c832d37a36a9e56620d0116709be1c5",
+          "bytes": 38359,
+          "fileName": "h-11733-color-studio-20261101-2.jpg",
+          "url": "/images/h-11733-color-studio-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Double Decker Gate - 6th October Bridge - H-11733 - view 2 | Horizon OOH",
+          "altAr": "بوابه دبل ديكر - كوبري ٦ أكتوبر - H-11733 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ]
+    },
+    {
+      "id": 11734,
+      "code": "H-11734",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/J02-1.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 7,
+          "sha256": "ffc2ebc7ee2810da3fdd66c37a86d662f218c475399fe021c4f85828e91d844d",
+          "bytes": 49785,
+          "fileName": "h-11734-color-studio-20261101-1.jpg",
+          "url": "/images/h-11734-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Static Billboard Composition - 6th October Bridge, Ghamra - H-11734 - view 1 | Horizon OOH",
+          "altAr": "تشكيل لوحات ثابتة - كوبري ٦ أكتوبر، غمرة - H-11734 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ]
+    },
+    {
+      "id": 14018,
+      "code": "H-14018",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/J04-1.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 21,
+          "sha256": "9c2a640490483784ac8912f8288b323bbff4675eea04aafc339533f03f46f70a",
+          "bytes": 72200,
+          "fileName": "h-14018-color-studio-20261101-1.jpg",
+          "url": "/images/h-14018-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Twin Pole Sequence - Al Orouba Road - H-14018 - view 1 | Horizon OOH",
+          "altAr": "تتابع توين بول - طريق العروبة - H-14018 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/J04-2.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 23,
+          "sha256": "1af16e9ba66b22941401282108b011467e3c11f93a1b23345980c5ff2d92c760",
+          "bytes": 54134,
+          "fileName": "h-14018-color-studio-20261101-2.jpg",
+          "url": "/images/h-14018-color-studio-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Twin Pole Sequence - Al Orouba Road - H-14018 - view 2 | Horizon OOH",
+          "altAr": "تتابع توين بول - طريق العروبة - H-14018 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ]
+    },
+    {
+      "id": 11685,
+      "code": "H-11685",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/J05-1.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 26,
+          "sha256": "435b411a0c9e7bb2dcd50b58897861e00b11e10eadd945a0023f8d5534ace7d4",
+          "bytes": 41761,
+          "fileName": "h-11685-color-studio-20261101-1.jpg",
+          "url": "/images/h-11685-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Mirror - Nasr City Bridge Entrance - H-11685 - view 1 | Horizon OOH",
+          "altAr": "مرايه - مدخل كوبري مدينة نصر - H-11685 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/J05-2.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 30,
+          "sha256": "b1f9fdfe1b211bfbf53b815521c8c797cf952cb02e860dd14488c6b143e84c9a",
+          "bytes": 37001,
+          "fileName": "h-11685-color-studio-20261101-2.jpg",
+          "url": "/images/h-11685-color-studio-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Mirror - Nasr City Bridge Entrance - H-11685 - view 2 | Horizon OOH",
+          "altAr": "مرايه - مدخل كوبري مدينة نصر - H-11685 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ]
+    },
+    {
+      "id": 14021,
+      "code": "H-14021",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/J06-1.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 38,
+          "sha256": "80209868d18dd649d29b1eec70aaea5c145caa8919df5276a61d09031b7f5a59",
+          "bytes": 73949,
+          "fileName": "h-14021-color-studio-20261101-1.jpg",
+          "url": "/images/h-14021-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Static Gantry Faces - Al Nasr Road, Cairo Stadium - H-14021 - view 1 | Horizon OOH",
+          "altAr": "أوجه جانتري ثابتة - طريق النصر، استاد القاهرة - H-14021 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/J06-2.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 36,
+          "sha256": "15ac20ee9f84116a3eb47980a608a46b4fd992b0e7e09c3596441849c638b14f",
+          "bytes": 59146,
+          "fileName": "h-14021-color-studio-20261101-2.jpg",
+          "url": "/images/h-14021-color-studio-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Static Gantry Faces - Al Nasr Road, Cairo Stadium - H-14021 - view 2 | Horizon OOH",
+          "altAr": "أوجه جانتري ثابتة - طريق النصر، استاد القاهرة - H-14021 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ]
+    },
+    {
+      "id": 11686,
+      "code": "H-11686",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/J07-1.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 43,
+          "sha256": "fd0eaf6f3414029e8ac3f5a953cfbdb2ea5aa1b895f09538e10e6a19146c9d1f",
+          "bytes": 40928,
+          "fileName": "h-11686-color-studio-20261101-1.jpg",
+          "url": "/images/h-11686-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Gantry - Nasr City Entrance, Al Fangary Axis - H-11686 - view 1 | Horizon OOH",
+          "altAr": "جانتري - مدخل مدينة نصر، محور الفنجرى - H-11686 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/J07-2.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 42,
+          "sha256": "82bc355b5b5f6f644b1200b59f076d79fb8833a59a463f8d76b5eb68ca366da2",
+          "bytes": 32346,
+          "fileName": "h-11686-color-studio-20261101-2.jpg",
+          "url": "/images/h-11686-color-studio-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Gantry - Nasr City Entrance, Al Fangary Axis - H-11686 - view 2 | Horizon OOH",
+          "altAr": "جانتري - مدخل مدينة نصر، محور الفنجرى - H-11686 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ]
+    },
+    {
+      "id": 14023,
+      "code": "H-14023",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/J08-1.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 47,
+          "sha256": "42159912f6156583103f76fc7a0ae890f984aa2cc021c703fca1515122b606d9",
+          "bytes": 40270,
+          "fileName": "h-14023-color-studio-20261101-1.jpg",
+          "url": "/images/h-14023-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Backlit Lamp-post Network - El Moshir Bridge Extension - H-14023 - view 1 | Horizon OOH",
+          "altAr": "شبكة أعمدة إنارة بإضاءة خلفية - امتداد كوبري المشير - H-14023 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/J08-2.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 46,
+          "sha256": "68b734af40cf2122b5ebc4a2c4d0227a647ada1e4f0c31e8ae997ded7baeeaa2",
+          "bytes": 58225,
+          "fileName": "h-14023-color-studio-20261101-2.jpg",
+          "url": "/images/h-14023-color-studio-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Backlit Lamp-post Network - El Moshir Bridge Extension - H-14023 - view 2 | Horizon OOH",
+          "altAr": "شبكة أعمدة إنارة بإضاءة خلفية - امتداد كوبري المشير - H-14023 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ]
+    },
+    {
+      "id": 14022,
+      "code": "H-14022",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/J09-1.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 49,
+          "sha256": "a4b6234ea37aabc1da714f038cd2d1cf3357519ee60e05bc8faf1e7b926f3310",
+          "bytes": 56354,
+          "fileName": "h-14022-color-studio-20261101-1.jpg",
+          "url": "/images/h-14022-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Static Gantry - El Moshir Tantawy Axis, Two Faces - H-14022 - view 1 | Horizon OOH",
+          "altAr": "جانتري ثابت - محور المشير طنطاوي، وجهان - H-14022 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/J09-2.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 50,
+          "sha256": "81c31fb005203bbf59bc7e8cfc50ca4b08a94ef648158de13b4999f809084a8f",
+          "bytes": 53099,
+          "fileName": "h-14022-color-studio-20261101-2.jpg",
+          "url": "/images/h-14022-color-studio-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Static Gantry - El Moshir Tantawy Axis, Two Faces - H-14022 - view 2 | Horizon OOH",
+          "altAr": "جانتري ثابت - محور المشير طنطاوي، وجهان - H-14022 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ]
+    },
+    {
+      "id": 14020,
+      "code": "H-14020",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/J10-1.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 53,
+          "sha256": "b483a2e5638ec132786267239b62143ad2d3a46e355f9f799f97154c5310de44",
+          "bytes": 31349,
+          "fileName": "h-14020-color-studio-20261101-1.jpg",
+          "url": "/images/h-14020-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Backlit T-pole Sequence - Al Thawra Road - H-14020 - view 1 | Horizon OOH",
+          "altAr": "تتابع تي بول بإضاءة خلفية - طريق الثورة - H-14020 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/J10-2.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 52,
+          "sha256": "b069b1d08dbb0a07a9319fbf27eed82ed507d3ff23b2c2ff70bb59d2963d2b2c",
+          "bytes": 55485,
+          "fileName": "h-14020-color-studio-20261101-2.jpg",
+          "url": "/images/h-14020-color-studio-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Backlit T-pole Sequence - Al Thawra Road - H-14020 - view 2 | Horizon OOH",
+          "altAr": "تتابع تي بول بإضاءة خلفية - طريق الثورة - H-14020 - صورة 2 | هورايزون للإعلانات الخارجية"
+        }
+      ]
+    },
+    {
+      "id": 11706,
+      "code": "H-11706",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/J11-1.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 60,
+          "sha256": "15dac1c17f5b677abf3ab525ab9795cf1240f484fe4201ef900d23a8d736de46",
+          "bytes": 55513,
+          "fileName": "h-11706-color-studio-20261101-1.jpg",
+          "url": "/images/h-11706-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Rooftop Billboard - Gameat El Dewal Street Towards Sphinx - H-11706 - view 1 | Horizon OOH",
+          "altAr": "لوحة روف توب - شارع جامعة الدول باتجاه سفنكس - H-11706 - صورة 1 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/J11-2.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 56,
+          "sha256": "200a68650893a9ea85da6403dc4dbef78434818daa009814d3a520a96b12f9f9",
+          "bytes": 79467,
+          "fileName": "h-11706-color-studio-20261101-2.jpg",
+          "url": "/images/h-11706-color-studio-20261101-2.jpg",
+          "isPrimary": false,
+          "sortOrder": 1,
+          "alt": "Rooftop Billboard - Gameat El Dewal Street Towards Sphinx - H-11706 - view 2 | Horizon OOH",
+          "altAr": "لوحة روف توب - شارع جامعة الدول باتجاه سفنكس - H-11706 - صورة 2 | هورايزون للإعلانات الخارجية"
+        },
+        {
+          "sourceFile": "prepared-pages/J11-3.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 61,
+          "sha256": "b874d4a08e8cffd4ac86088393c8cac0db9447f8746f1bbf55ed0702d30c662a",
+          "bytes": 66438,
+          "fileName": "h-11706-color-studio-20261101-3.jpg",
+          "url": "/images/h-11706-color-studio-20261101-3.jpg",
+          "isPrimary": false,
+          "sortOrder": 2,
+          "alt": "Rooftop Billboard - Gameat El Dewal Street Towards Sphinx - H-11706 - view 3 | Horizon OOH",
+          "altAr": "لوحة روف توب - شارع جامعة الدول باتجاه سفنكس - H-11706 - صورة 3 | هورايزون للإعلانات الخارجية"
+        }
+      ]
+    },
+    {
+      "id": 13133,
+      "code": "H-13133",
+      "images": [
+        {
+          "sourceFile": "prepared-pages/J13-1.jpg",
+          "sourceDocument": "june",
+          "sourcePage": 68,
+          "sha256": "4e830ba12c2c270b3dc336c17494f30adfcfc9583cb12dd8d8db0d25fd69698f",
+          "bytes": 84947,
+          "fileName": "h-13133-color-studio-20261101-1.jpg",
+          "url": "/images/h-13133-color-studio-20261101-1.jpg",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Backlit T-pole - Dokki Street Beside October Bridge Ramp - H-13133 - view 1 | Horizon OOH",
+          "altAr": "تي بول بإضاءة خلفية - شارع الدقي بجوار مطلع كوبري أكتوبر - H-13133 - صورة 1 | هورايزون للإعلانات الخارجية"
+        }
+      ]
+    }
+  ],
+  "newAvailability": "available",
+  "publicPrices": false,
+  "processing": {
+    "canvas": "640x380",
+    "retouch": "ImageMagick: brightness 2, contrast 1, saturation 101, unsharp 0x0.5+0.3+0.02",
+    "fit": "Contained source photo; per-photo footer crop; original billboard artwork preserved",
+    "frameSha256": "7e152a6488bdd886e127faa64dd08d6bdb503001c353afa191ca2cf04b984d1d",
+    "encoding": "JPEG90 4:4:4 metadata stripped"
+  }
+}
