@@ -5,6 +5,9 @@ namespace App\Support;
 class LegacyPublicRedirect
 {
     private const ALIASES = [
+        // Alamia governorate corrections retain previously indexed URLs; retain indexed URLs.
+        'locations/giza/billboards/h-14397-t-pole-gabalaya-street' => 'locations/cairo/billboards/h-14397-t-pole-gabalaya-street',
+
         // Volcano governorate corrections retain previously indexed URLs; retain indexed URLs.
         'locations/alexandria/billboards/h-14352-gate-before-bridge-alex-desert-road' => 'locations/beheira/billboards/h-14352-gate-before-bridge-alex-desert-road',
         'locations/matruh/billboards/h-14354-gate-before-wadi-el-natron' => 'locations/beheira/billboards/h-14354-gate-before-wadi-el-natron',
