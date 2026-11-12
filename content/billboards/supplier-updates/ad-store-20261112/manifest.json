@@ -1,0 +1,99 @@
+{
+  "supplier": "Ad Store",
+  "source": "Ad Store -  2027.pptx",
+  "newRows": [
+    {
+      "sourceSlide": 125,
+      "roadReference": "https://www.openstreetmap.org/way/28816244",
+      "addressAr": "جرين بلازا، طريق 14 مايو، سموحة",
+      "data": {
+        "code": "H-14683",
+        "title": "Uni-pole - Green Plaza, 14 May Road, Smouha",
+        "name_ar": "يوني بول - جرين بلازا، طريق 14 مايو، سموحة",
+        "description": "Uni-pole - Green Plaza, 14 May Road, Smouha. 1 unit(s), 2 face(s). Face size: 14 x 7 m. The map pin marks an approximate reference on the road. Contact Horizon OOH to confirm the placement and get a quote.",
+        "description_ar": "يوني بول - جرين بلازا، طريق 14 مايو، سموحة. عدد الوحدات 1 وإجمالي الأوجه 2. المقاس 14 x 7 متر. نقطة الخريطة مرجع تقريبي على الطريق. تواصل مع هورايزون لتأكيد الموقع وطلب عرض سعر.",
+        "full_address": "Green Plaza, 14 May Road, Smouha",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "14 x 7",
+        "width": 14,
+        "height": 7,
+        "sqm": 98,
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 5,
+        "district_id": 58,
+        "lat": 31.2070749,
+        "lng": 29.9662008,
+        "illuminated": false,
+        "brightness": "Not specified",
+        "availability": "available",
+        "price": null
+      },
+      "images": [
+        {
+          "fileName": "h-14683-ad-store-20261112-1.jpg",
+          "sourceFile": "prepared/h-14683-ad-store-20261112-1.jpg",
+          "url": "/images/h-14683-ad-store-20261112-1.jpg",
+          "sha256": "5fb3b2e3989172ab1ec780f4282ef68db3d2f7be5cbc75b387f179115a352133",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Uni-pole - Green Plaza, 14 May Road, Smouha | H-14683 | Photo 1",
+          "altAr": "يوني بول - جرين بلازا، طريق 14 مايو، سموحة | H-14683 | صورة 1"
+        }
+      ]
+    },
+    {
+      "sourceSlide": 126,
+      "roadReference": "https://www.openstreetmap.org/way/178126173",
+      "addressAr": "كورنيش جليم قرب ابن حميدو",
+      "data": {
+        "code": "H-14684",
+        "title": "Uni-pole - Gleem Corniche near Ibn Hamido",
+        "name_ar": "يوني بول - كورنيش جليم قرب ابن حميدو",
+        "description": "Uni-pole - Gleem Corniche near Ibn Hamido. 1 unit(s), 2 face(s). Face size: 14 x 6 m. The map pin marks an approximate reference on the road. Contact Horizon OOH to confirm the placement and get a quote.",
+        "description_ar": "يوني بول - كورنيش جليم قرب ابن حميدو. عدد الوحدات 1 وإجمالي الأوجه 2. المقاس 14 x 6 متر. نقطة الخريطة مرجع تقريبي على الطريق. تواصل مع هورايزون لتأكيد الموقع وطلب عرض سعر.",
+        "full_address": "Gleem Corniche near Ibn Hamido",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "14 x 6",
+        "width": 14,
+        "height": 6,
+        "sqm": 84,
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 5,
+        "district_id": 481,
+        "lat": 31.2406674,
+        "lng": 29.9563456,
+        "illuminated": false,
+        "brightness": "Not specified",
+        "availability": "available",
+        "price": null
+      },
+      "images": [
+        {
+          "fileName": "h-14684-ad-store-20261112-1.jpg",
+          "sourceFile": "prepared/h-14684-ad-store-20261112-1.jpg",
+          "url": "/images/h-14684-ad-store-20261112-1.jpg",
+          "sha256": "22e2278d23adf421fe426543ece88a300dc78e177ff5ca470a043c119dc95192",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Uni-pole - Gleem Corniche near Ibn Hamido | H-14684 | Photo 1",
+          "altAr": "يوني بول - كورنيش جليم قرب ابن حميدو | H-14684 | صورة 1"
+        },
+        {
+          "fileName": "h-14684-ad-store-20261112-2.jpg",
+          "sourceFile": "prepared/h-14684-ad-store-20261112-2.jpg",
+          "url": "/images/h-14684-ad-store-20261112-2.jpg",
+          "sha256": "0457a22904045bfd4301bd0f7b7c76ca6654e198e34a1e0ebe342958c4bc5ae4",
+          "sortOrder": 1,
+          "isPrimary": false,
+          "alt": "Uni-pole - Gleem Corniche near Ibn Hamido | H-14684 | Photo 2",
+          "altAr": "يوني بول - كورنيش جليم قرب ابن حميدو | H-14684 | صورة 2"
+        }
+      ]
+    }
+  ],
+  "updates": []
+}
