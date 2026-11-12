@@ -535,7 +535,8 @@ export default function Product() {
       {/* ═══════════════════════════════════════════════════════════════
           4. BILLBOARD LOCATION MAP
       ═══════════════════════════════════════════════════════════════ */}
-      <section className="bg-white" style={{ paddingTop: 80, paddingBottom: 80 }}>
+      {product.lat != null && product.lng != null && Number.isFinite(Number(product.lat)) && Number.isFinite(Number(product.lng)) && (Number(product.lat) !== 0 || Number(product.lng) !== 0) && (
+        <section className="bg-white" style={{ paddingTop: 80, paddingBottom: 80 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <div className="flex items-end justify-between mb-10">
             <div>
@@ -622,6 +623,7 @@ export default function Product() {
           </Reveal>
         </div>
       </section>
+      )}
 
       {/* ═══════════════════════════════════════════════════════════════
           5. KEY BENEFITS

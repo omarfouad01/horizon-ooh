@@ -1,0 +1,362 @@
+{
+  "supplier": "Ad Store",
+  "source": "Ad Store -  2027.pptx",
+  "newRows": [
+    {
+      "sourceSlide": 87,
+      "roadReference": null,
+      "addressAr": "كورنيش المعادي، مدخل الطريق الدائري",
+      "data": {
+        "code": "H-14685",
+        "title": "Uni-pole - Maadi Corniche, Ring Road entrance",
+        "name_ar": "يوني بول - كورنيش المعادي، مدخل الطريق الدائري",
+        "description": "Uni-pole - Maadi Corniche, Ring Road entrance. 2 face(s). Face size: 14 x 6 m. Listed from January 1, 2027. The map pin marks an approximate reference on the road. Contact Horizon OOH for a quote.",
+        "description_ar": "يوني بول - كورنيش المعادي، مدخل الطريق الدائري. إجمالي الأوجه 2. المقاس 14 x 6 متر. بداية التوفر حسب العرض: ١ يناير ٢٠٢٧. نقطة الخريطة مرجع تقريبي على الطريق. تواصل مع هورايزون لطلب عرض سعر.",
+        "full_address": "Maadi Corniche, Ring Road entrance",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "14 x 6",
+        "width": 14,
+        "height": 6,
+        "sqm": 84,
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 2,
+        "district_id": 4,
+        "lat": 29.986033,
+        "lng": 31.229392,
+        "illuminated": false,
+        "brightness": "Not specified",
+        "availability": "Not Available",
+        "price": null
+      },
+      "images": [
+        {
+          "fileName": "h-14685-ad-store-followup-20261112-1.jpg",
+          "sourceFile": "prepared/h-14685-ad-store-followup-20261112-1.jpg",
+          "url": "/images/h-14685-ad-store-followup-20261112-1.jpg",
+          "sha256": "f2ddaf72e4daf86ada847e9f51aef378815f040c5b28fbe7c59cdd4b1363aed4",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Uni-pole - Maadi Corniche, Ring Road entrance | H-14685 | Photo 1",
+          "altAr": "يوني بول - كورنيش المعادي، مدخل الطريق الدائري | H-14685 | صورة 1"
+        },
+        {
+          "fileName": "h-14685-ad-store-followup-20261112-2.jpg",
+          "sourceFile": "prepared/h-14685-ad-store-followup-20261112-2.jpg",
+          "url": "/images/h-14685-ad-store-followup-20261112-2.jpg",
+          "sha256": "056803328736a3d6913201c8c4d845142a4496a0cc363ee069eeb8e0877f5685",
+          "sortOrder": 1,
+          "isPrimary": false,
+          "alt": "Uni-pole - Maadi Corniche, Ring Road entrance | H-14685 | Photo 2",
+          "altAr": "يوني بول - كورنيش المعادي، مدخل الطريق الدائري | H-14685 | صورة 2"
+        }
+      ],
+      "availableFrom": "2027-01-01"
+    },
+    {
+      "sourceSlide": 91,
+      "roadReference": null,
+      "addressAr": "كورنيش المعادي اتجاه ذا بلاتفورم والمدخل الأول",
+      "data": {
+        "code": "H-14686",
+        "title": "Double Decker - Maadi Corniche toward The Platform and Entrance 1",
+        "name_ar": "دبل ديكر - كورنيش المعادي اتجاه ذا بلاتفورم والمدخل الأول",
+        "description": "Double Decker - Maadi Corniche toward The Platform and Entrance 1. 4 face(s). Face size: 14 x 7 m. The map pin marks an approximate reference on the road. Contact Horizon OOH for a quote.",
+        "description_ar": "دبل ديكر - كورنيش المعادي اتجاه ذا بلاتفورم والمدخل الأول. إجمالي الأوجه 4. المقاس 14 x 7 متر. نقطة الخريطة مرجع تقريبي على الطريق. تواصل مع هورايزون لطلب عرض سعر.",
+        "full_address": "Maadi Corniche toward The Platform and Entrance 1",
+        "type": "Double Decker",
+        "format": "Billboard",
+        "size": "14 x 7",
+        "width": 14,
+        "height": 7,
+        "sqm": 98,
+        "quantity": 1,
+        "sides": 4,
+        "location_id": 2,
+        "district_id": 4,
+        "lat": 29.974596,
+        "lng": 31.234782,
+        "illuminated": false,
+        "brightness": "Not specified",
+        "availability": "available",
+        "price": null
+      },
+      "images": [
+        {
+          "fileName": "h-14686-ad-store-followup-20261112-1.jpg",
+          "sourceFile": "prepared/h-14686-ad-store-followup-20261112-1.jpg",
+          "url": "/images/h-14686-ad-store-followup-20261112-1.jpg",
+          "sha256": "b98a1d53b8e65a66cd347b5e52990c4c6eb2d66a308923e7d36d97579a29095d",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Double Decker - Maadi Corniche toward The Platform and Entrance 1 | H-14686 | Photo 1",
+          "altAr": "دبل ديكر - كورنيش المعادي اتجاه ذا بلاتفورم والمدخل الأول | H-14686 | صورة 1"
+        },
+        {
+          "fileName": "h-14686-ad-store-followup-20261112-2.jpg",
+          "sourceFile": "prepared/h-14686-ad-store-followup-20261112-2.jpg",
+          "url": "/images/h-14686-ad-store-followup-20261112-2.jpg",
+          "sha256": "a315aa0912057af7de82834beb974b7dd97724b481d04a86448bf8adf3febeaa",
+          "sortOrder": 1,
+          "isPrimary": false,
+          "alt": "Double Decker - Maadi Corniche toward The Platform and Entrance 1 | H-14686 | Photo 2",
+          "altAr": "دبل ديكر - كورنيش المعادي اتجاه ذا بلاتفورم والمدخل الأول | H-14686 | صورة 2"
+        }
+      ]
+    },
+    {
+      "sourceSlide": 95,
+      "roadReference": null,
+      "addressAr": "أوتوستراد المعادي، من صلاح سالم اتجاه المعادي",
+      "data": {
+        "code": "H-14687",
+        "title": "Mirror - Maadi Autostrad toward Maadi from Salah Salem",
+        "name_ar": "مرايه - أوتوستراد المعادي، من صلاح سالم اتجاه المعادي",
+        "description": "Mirror - Maadi Autostrad toward Maadi from Salah Salem. 2 face(s). Face size: 15 x 3.3 m. Contact us to confirm the pedestrian bridge location. Contact Horizon OOH for a quote.",
+        "description_ar": "مرايه - أوتوستراد المعادي، من صلاح سالم اتجاه المعادي. إجمالي الأوجه 2. المقاس 15 x 3.3 متر. تواصل معنا لتأكيد موقع كوبري المشاة. تواصل مع هورايزون لطلب عرض سعر.",
+        "full_address": "Maadi Autostrad toward Maadi from Salah Salem",
+        "type": "Mirror",
+        "format": "Billboard",
+        "size": "15 x 3.3",
+        "width": 15,
+        "height": 3.3,
+        "sqm": 49.5,
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 2,
+        "district_id": 4,
+        "lat": null,
+        "lng": null,
+        "illuminated": true,
+        "brightness": "Illuminated",
+        "availability": "available",
+        "price": null
+      },
+      "images": [
+        {
+          "fileName": "h-14687-ad-store-followup-20261112-1.jpg",
+          "sourceFile": "prepared/h-14687-ad-store-followup-20261112-1.jpg",
+          "url": "/images/h-14687-ad-store-followup-20261112-1.jpg",
+          "sha256": "1ff47e455e8a32c67063de4d27fcab8a1f8028da777d534758998f4d65ac1927",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Mirror - Maadi Autostrad toward Maadi from Salah Salem | H-14687 | Photo 1",
+          "altAr": "مرايه - أوتوستراد المعادي، من صلاح سالم اتجاه المعادي | H-14687 | صورة 1"
+        },
+        {
+          "fileName": "h-14687-ad-store-followup-20261112-2.jpg",
+          "sourceFile": "prepared/h-14687-ad-store-followup-20261112-2.jpg",
+          "url": "/images/h-14687-ad-store-followup-20261112-2.jpg",
+          "sha256": "3a2b9076dd47c1f68b7440829dc7098abc370593b9e832ef7bbfafad6e5f1a6b",
+          "sortOrder": 1,
+          "isPrimary": false,
+          "alt": "Mirror - Maadi Autostrad toward Maadi from Salah Salem | H-14687 | Photo 2",
+          "altAr": "مرايه - أوتوستراد المعادي، من صلاح سالم اتجاه المعادي | H-14687 | صورة 2"
+        }
+      ]
+    }
+  ],
+  "updates": [
+    {
+      "sourceSlide": 3,
+      "roadReference": "https://www.openstreetmap.org/way/715091911",
+      "addressAr": "كوبري 6 أكتوبر، من صلاح سالم اتجاه رمسيس",
+      "data": {
+        "code": "H-13903",
+        "title": "Double Decker - 6 October Bridge, Salah Salem toward Ramses",
+        "name_ar": "دبل ديكر - كوبري 6 أكتوبر، من صلاح سالم اتجاه رمسيس",
+        "description": "Double Decker - 6 October Bridge, Salah Salem toward Ramses. 4 face(s). Face size: 14 x 5 m. The map pin marks an approximate reference on the road. Contact Horizon OOH for a quote.",
+        "description_ar": "دبل ديكر - كوبري 6 أكتوبر، من صلاح سالم اتجاه رمسيس. إجمالي الأوجه 4. المقاس 14 x 5 متر. نقطة الخريطة مرجع تقريبي على الطريق. تواصل مع هورايزون لطلب عرض سعر.",
+        "full_address": "6 October Bridge, Salah Salem toward Ramses",
+        "type": "Double Decker",
+        "format": "Billboard",
+        "size": "14 x 5",
+        "width": 14,
+        "height": 5,
+        "sqm": 70,
+        "quantity": 1,
+        "sides": 4,
+        "location_id": 2,
+        "district_id": 449,
+        "lat": 30.064299,
+        "lng": 31.2523476,
+        "illuminated": false,
+        "brightness": "Not specified"
+      },
+      "images": [
+        {
+          "fileName": "h-13903-ad-store-followup-20261112-1.jpg",
+          "sourceFile": "prepared/h-13903-ad-store-followup-20261112-1.jpg",
+          "url": "/images/h-13903-ad-store-followup-20261112-1.jpg",
+          "sha256": "8d5b52fd65ccf27058da6562e128fe18d0507902f66055baa93da771d0669cef",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Double Decker - 6 October Bridge, Salah Salem toward Ramses | H-13903 | Photo 1",
+          "altAr": "دبل ديكر - كوبري 6 أكتوبر، من صلاح سالم اتجاه رمسيس | H-13903 | صورة 1"
+        },
+        {
+          "fileName": "h-13903-ad-store-followup-20261112-2.jpg",
+          "sourceFile": "prepared/h-13903-ad-store-followup-20261112-2.jpg",
+          "url": "/images/h-13903-ad-store-followup-20261112-2.jpg",
+          "sha256": "46440180f729e48bd5636e301c1d1644d65fe2065f0146feb58d517901a64033",
+          "sortOrder": 1,
+          "isPrimary": false,
+          "alt": "Double Decker - 6 October Bridge, Salah Salem toward Ramses | H-13903 | Photo 2",
+          "altAr": "دبل ديكر - كوبري 6 أكتوبر، من صلاح سالم اتجاه رمسيس | H-13903 | صورة 2"
+        }
+      ]
+    },
+    {
+      "sourceSlide": 5,
+      "roadReference": "https://www.openstreetmap.org/way/51066237",
+      "addressAr": "كوبري 6 أكتوبر، باكدج 7 أوجه اتجاه رمسيس",
+      "data": {
+        "code": "H-11796",
+        "title": "Combo - 6 October Bridge, seven-face package toward Ramses",
+        "name_ar": "كومبو - كوبري 6 أكتوبر، باكدج 7 أوجه اتجاه رمسيس",
+        "description": "Combo - 6 October Bridge, seven-face package toward Ramses. Seven faces: four at 14 × 5 m, one at 14 × 8 m and two at 14 × 7 m. Listed from January 1, 2027. The map pin marks an approximate reference on the road. Contact Horizon OOH for a quote.",
+        "description_ar": "كومبو - كوبري 6 أكتوبر، باكدج 7 أوجه اتجاه رمسيس. ٧ أوجه: ٤ بمقاس ١٤ × ٥ متر، ووجه ١٤ × ٨ متر، ووجهان ١٤ × ٧ متر. بداية التوفر حسب العرض: ١ يناير ٢٠٢٧. نقطة الخريطة مرجع تقريبي على الطريق. تواصل مع هورايزون لطلب عرض سعر.",
+        "full_address": "6 October Bridge, seven-face package toward Ramses",
+        "type": "Combo",
+        "format": "Billboard",
+        "size": "14 x 5 + 14 x 8 + 14 x 7",
+        "width": null,
+        "height": null,
+        "sqm": null,
+        "quantity": 1,
+        "sides": 7,
+        "location_id": 2,
+        "district_id": 449,
+        "lat": 30.0771862,
+        "lng": 31.2763898,
+        "illuminated": false,
+        "brightness": "Not specified",
+        "availability": "Not Available"
+      },
+      "images": [
+        {
+          "fileName": "h-11796-ad-store-followup-20261112-1.jpg",
+          "sourceFile": "prepared/h-11796-ad-store-followup-20261112-1.jpg",
+          "url": "/images/h-11796-ad-store-followup-20261112-1.jpg",
+          "sha256": "a3c5e8e58fc6d69b6e6302edadf9e8da7ab62c06e5e2855b8f915ec6ca4618b5",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Combo - 6 October Bridge, seven-face package toward Ramses | H-11796 | Photo 1",
+          "altAr": "كومبو - كوبري 6 أكتوبر، باكدج 7 أوجه اتجاه رمسيس | H-11796 | صورة 1"
+        },
+        {
+          "fileName": "h-11796-ad-store-followup-20261112-2.jpg",
+          "sourceFile": "prepared/h-11796-ad-store-followup-20261112-2.jpg",
+          "url": "/images/h-11796-ad-store-followup-20261112-2.jpg",
+          "sha256": "e60e03db03f096d4be5449546ca61a4130b5bb915fe5fe17714f7f7049de4302",
+          "sortOrder": 1,
+          "isPrimary": false,
+          "alt": "Combo - 6 October Bridge, seven-face package toward Ramses | H-11796 | Photo 2",
+          "altAr": "كومبو - كوبري 6 أكتوبر، باكدج 7 أوجه اتجاه رمسيس | H-11796 | صورة 2"
+        }
+      ],
+      "availableFrom": "2027-01-01"
+    },
+    {
+      "sourceSlide": 89,
+      "roadReference": null,
+      "addressAr": "كورنيش المعادي قرب مستشفى النيل بدراوي",
+      "data": {
+        "code": "H-13926",
+        "title": "Uni-pole - Maadi Corniche near Nile Badrawi Hospital",
+        "name_ar": "يوني بول - كورنيش المعادي قرب مستشفى النيل بدراوي",
+        "description": "Uni-pole - Maadi Corniche near Nile Badrawi Hospital. 2 face(s). Face size: 14 x 6 m. Listed from January 1, 2027. The map pin marks an approximate reference on the road. Contact Horizon OOH for a quote.",
+        "description_ar": "يوني بول - كورنيش المعادي قرب مستشفى النيل بدراوي. إجمالي الأوجه 2. المقاس 14 x 6 متر. بداية التوفر حسب العرض: ١ يناير ٢٠٢٧. نقطة الخريطة مرجع تقريبي على الطريق. تواصل مع هورايزون لطلب عرض سعر.",
+        "full_address": "Maadi Corniche near Nile Badrawi Hospital",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "14 x 6",
+        "width": 14,
+        "height": 6,
+        "sqm": 84,
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 2,
+        "district_id": 4,
+        "lat": 29.978853,
+        "lng": 31.232808,
+        "illuminated": false,
+        "brightness": "Not specified",
+        "availability": "Not Available"
+      },
+      "images": [
+        {
+          "fileName": "h-13926-ad-store-followup-20261112-1.jpg",
+          "sourceFile": "prepared/h-13926-ad-store-followup-20261112-1.jpg",
+          "url": "/images/h-13926-ad-store-followup-20261112-1.jpg",
+          "sha256": "f1cc37a55a4e471534a22985bd9084082cd9534199a68d0941a553aa3532ef53",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Uni-pole - Maadi Corniche near Nile Badrawi Hospital | H-13926 | Photo 1",
+          "altAr": "يوني بول - كورنيش المعادي قرب مستشفى النيل بدراوي | H-13926 | صورة 1"
+        },
+        {
+          "fileName": "h-13926-ad-store-followup-20261112-2.jpg",
+          "sourceFile": "prepared/h-13926-ad-store-followup-20261112-2.jpg",
+          "url": "/images/h-13926-ad-store-followup-20261112-2.jpg",
+          "sha256": "58aca04dabd4cfc2fc25ea26a62be9609410a7592e0b41e31c9b3bf37adcca33",
+          "sortOrder": 1,
+          "isPrimary": false,
+          "alt": "Uni-pole - Maadi Corniche near Nile Badrawi Hospital | H-13926 | Photo 2",
+          "altAr": "يوني بول - كورنيش المعادي قرب مستشفى النيل بدراوي | H-13926 | صورة 2"
+        }
+      ],
+      "availableFrom": "2027-01-01"
+    },
+    {
+      "sourceSlide": 93,
+      "roadReference": null,
+      "addressAr": "كورنيش المعادي عند كوبري المشاة قرب إتش إس بي سي",
+      "data": {
+        "code": "H-14081",
+        "title": "Double Decker - Maadi Corniche at the HSBC pedestrian crossing",
+        "name_ar": "دبل ديكر - كورنيش المعادي عند كوبري المشاة قرب إتش إس بي سي",
+        "description": "Double Decker - Maadi Corniche at the HSBC pedestrian crossing. 4 face(s). Face size: 14 x 7 m. The map pin marks an approximate reference on the road. Contact Horizon OOH for a quote.",
+        "description_ar": "دبل ديكر - كورنيش المعادي عند كوبري المشاة قرب إتش إس بي سي. إجمالي الأوجه 4. المقاس 14 x 7 متر. نقطة الخريطة مرجع تقريبي على الطريق. تواصل مع هورايزون لطلب عرض سعر.",
+        "full_address": "Maadi Corniche at the HSBC pedestrian crossing",
+        "type": "Double Decker",
+        "format": "Billboard",
+        "size": "14 x 7",
+        "width": 14,
+        "height": 7,
+        "sqm": 98,
+        "quantity": 1,
+        "sides": 4,
+        "location_id": 2,
+        "district_id": 4,
+        "lat": 29.985339,
+        "lng": 31.229608,
+        "illuminated": false,
+        "brightness": "Not specified"
+      },
+      "images": [
+        {
+          "fileName": "h-14081-ad-store-followup-20261112-1.jpg",
+          "sourceFile": "prepared/h-14081-ad-store-followup-20261112-1.jpg",
+          "url": "/images/h-14081-ad-store-followup-20261112-1.jpg",
+          "sha256": "e61beb1ba80691b6b26a719f67cf9a9d31099c895c5d42823292542e0beb1666",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Double Decker - Maadi Corniche at the HSBC pedestrian crossing | H-14081 | Photo 1",
+          "altAr": "دبل ديكر - كورنيش المعادي عند كوبري المشاة قرب إتش إس بي سي | H-14081 | صورة 1"
+        },
+        {
+          "fileName": "h-14081-ad-store-followup-20261112-2.jpg",
+          "sourceFile": "prepared/h-14081-ad-store-followup-20261112-2.jpg",
+          "url": "/images/h-14081-ad-store-followup-20261112-2.jpg",
+          "sha256": "59aae8bee90194ee9954dc701e472a35b4a02d7132c875e0e701cca2542316f1",
+          "sortOrder": 1,
+          "isPrimary": false,
+          "alt": "Double Decker - Maadi Corniche at the HSBC pedestrian crossing | H-14081 | Photo 2",
+          "altAr": "دبل ديكر - كورنيش المعادي عند كوبري المشاة قرب إتش إس بي سي | H-14081 | صورة 2"
+        }
+      ]
+    }
+  ]
+}
