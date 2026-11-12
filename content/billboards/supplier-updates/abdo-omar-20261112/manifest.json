@@ -1,0 +1,597 @@
+{
+  "supplier": "Abdo Omar Ad",
+  "source": "Available June 20-5-26.pdf",
+  "newRows": [
+    {
+      "sourcePage": 2,
+      "roadReference": "https://www.openstreetmap.org/way/561030559",
+      "addressAr": "كورنيش سيدي جابر، كوبري سيدي جابر",
+      "data": {
+        "code": "H-14672",
+        "title": "Mirror - Sidi Gaber Corniche, Sidi Gaber Bridge",
+        "name_ar": "مرايه - كورنيش سيدي جابر، كوبري سيدي جابر",
+        "description": "Mirror - Sidi Gaber Corniche, Sidi Gaber Bridge. 1 unit(s), 1 face(s). Face size: 13.5 x 5 m. The map pin marks an approximate reference on the road. Contact Horizon OOH to confirm the placement and get a quote.",
+        "description_ar": "مرايه - كورنيش سيدي جابر، كوبري سيدي جابر. عدد الوحدات 1 وإجمالي الأوجه 1. المقاس 13.5 x 5 متر. نقطة الخريطة مرجع تقريبي على الطريق. تواصل مع هورايزون لتأكيد الموقع وطلب عرض سعر.",
+        "full_address": "Sidi Gaber Corniche, Sidi Gaber Bridge",
+        "type": "Mirror",
+        "format": "Billboard",
+        "size": "13.5 x 5",
+        "width": 13.5,
+        "height": 5,
+        "sqm": 67.5,
+        "quantity": 1,
+        "sides": 1,
+        "location_id": 5,
+        "district_id": 55,
+        "lat": 31.2300183,
+        "lng": 29.9436226,
+        "illuminated": false,
+        "brightness": "Not specified",
+        "availability": "available",
+        "price": null
+      },
+      "images": [
+        {
+          "fileName": "h-14672-abdo-omar-20261112-1.jpg",
+          "sourceFile": "prepared/h-14672-abdo-omar-20261112-1.jpg",
+          "url": "/images/h-14672-abdo-omar-20261112-1.jpg",
+          "sha256": "a27571c118adc3829ff68b57ebec0b0699c0d8eb13e715a8da59b7537cbb5f07",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Mirror - Sidi Gaber Corniche, Sidi Gaber Bridge | H-14672 | Photo 1",
+          "altAr": "مرايه - كورنيش سيدي جابر، كوبري سيدي جابر | H-14672 | صورة 1"
+        },
+        {
+          "fileName": "h-14672-abdo-omar-20261112-2.jpg",
+          "sourceFile": "prepared/h-14672-abdo-omar-20261112-2.jpg",
+          "url": "/images/h-14672-abdo-omar-20261112-2.jpg",
+          "sha256": "c86b284df88ddff3b46ee306ec6da8261303aa5c18d94a2175227f37fa05382a",
+          "sortOrder": 1,
+          "isPrimary": false,
+          "alt": "Mirror - Sidi Gaber Corniche, Sidi Gaber Bridge | H-14672 | Photo 2",
+          "altAr": "مرايه - كورنيش سيدي جابر، كوبري سيدي جابر | H-14672 | صورة 2"
+        }
+      ]
+    },
+    {
+      "sourcePage": 4,
+      "roadReference": "https://www.openstreetmap.org/way/561030577",
+      "addressAr": "كورنيش سبورتنج، طريق الجيش",
+      "data": {
+        "code": "H-14673",
+        "title": "Wall - Sporting Corniche, El Geish Road",
+        "name_ar": "وول - كورنيش سبورتنج، طريق الجيش",
+        "description": "Wall - Sporting Corniche, El Geish Road. 1 unit(s), 1 face(s). Face size: 15 x 30 m. The map pin marks an approximate reference on the road. Contact Horizon OOH to confirm the placement and get a quote.",
+        "description_ar": "وول - كورنيش سبورتنج، طريق الجيش. عدد الوحدات 1 وإجمالي الأوجه 1. المقاس 15 x 30 متر. نقطة الخريطة مرجع تقريبي على الطريق. تواصل مع هورايزون لتأكيد الموقع وطلب عرض سعر.",
+        "full_address": "Sporting Corniche, El Geish Road",
+        "type": "Wall",
+        "format": "Billboard",
+        "size": "15 x 30",
+        "width": 15,
+        "height": 30,
+        "sqm": 450,
+        "quantity": 1,
+        "sides": 1,
+        "location_id": 5,
+        "district_id": 481,
+        "lat": 31.2212161,
+        "lng": 29.9308928,
+        "illuminated": true,
+        "brightness": "Illuminated",
+        "availability": "available",
+        "price": null
+      },
+      "images": [
+        {
+          "fileName": "h-14673-abdo-omar-20261112-1.jpg",
+          "sourceFile": "prepared/h-14673-abdo-omar-20261112-1.jpg",
+          "url": "/images/h-14673-abdo-omar-20261112-1.jpg",
+          "sha256": "32df2f43a9f4781540d5779f92e29f5f9009cb345f41d8383d145dfeb86ac6fc",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Wall - Sporting Corniche, El Geish Road | H-14673 | Photo 1",
+          "altAr": "وول - كورنيش سبورتنج، طريق الجيش | H-14673 | صورة 1"
+        },
+        {
+          "fileName": "h-14673-abdo-omar-20261112-2.jpg",
+          "sourceFile": "prepared/h-14673-abdo-omar-20261112-2.jpg",
+          "url": "/images/h-14673-abdo-omar-20261112-2.jpg",
+          "sha256": "fee6206b5993e7d50755c10dea6f0b028ad0ef2d6262809df9600227b07f303a",
+          "sortOrder": 1,
+          "isPrimary": false,
+          "alt": "Wall - Sporting Corniche, El Geish Road | H-14673 | Photo 2",
+          "altAr": "وول - كورنيش سبورتنج، طريق الجيش | H-14673 | صورة 2"
+        }
+      ]
+    },
+    {
+      "sourcePage": 6,
+      "roadReference": "https://www.openstreetmap.org/way/561030559",
+      "addressAr": "منتصف كورنيش سيدي جابر",
+      "data": {
+        "code": "H-14674",
+        "title": "Uni-pole - Central Sidi Gaber Corniche",
+        "name_ar": "يوني بول - منتصف كورنيش سيدي جابر",
+        "description": "Uni-pole - Central Sidi Gaber Corniche. 1 unit(s), 2 face(s). Face size: 16 x 8 m. The map pin marks an approximate reference on the road. Contact Horizon OOH to confirm the placement and get a quote.",
+        "description_ar": "يوني بول - منتصف كورنيش سيدي جابر. عدد الوحدات 1 وإجمالي الأوجه 2. المقاس 16 x 8 متر. نقطة الخريطة مرجع تقريبي على الطريق. تواصل مع هورايزون لتأكيد الموقع وطلب عرض سعر.",
+        "full_address": "Central Sidi Gaber Corniche",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "16 x 8",
+        "width": 16,
+        "height": 8,
+        "sqm": 128,
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 5,
+        "district_id": 55,
+        "lat": 31.2287721,
+        "lng": 29.9423573,
+        "illuminated": false,
+        "brightness": "Not specified",
+        "availability": "available",
+        "price": null
+      },
+      "images": [
+        {
+          "fileName": "h-14674-abdo-omar-20261112-1.jpg",
+          "sourceFile": "prepared/h-14674-abdo-omar-20261112-1.jpg",
+          "url": "/images/h-14674-abdo-omar-20261112-1.jpg",
+          "sha256": "bbfcbfed817820e368132adf0fed34db55cb2a49d846bfec5ed5cd15524db18f",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Uni-pole - Central Sidi Gaber Corniche | H-14674 | Photo 1",
+          "altAr": "يوني بول - منتصف كورنيش سيدي جابر | H-14674 | صورة 1"
+        }
+      ]
+    },
+    {
+      "sourcePage": 8,
+      "roadReference": null,
+      "addressAr": "فندق المحروسة، كورنيش لوران",
+      "data": {
+        "code": "H-14675",
+        "title": "Wall - El Mahrousa Hotel, Louran Corniche",
+        "name_ar": "وول - فندق المحروسة، كورنيش لوران",
+        "description": "Wall - El Mahrousa Hotel, Louran Corniche. 1 unit(s), 1 face(s). Face size: 10 x 22 m. The map pin marks an approximate reference on the road. Contact Horizon OOH to confirm the placement and get a quote.",
+        "description_ar": "وول - فندق المحروسة، كورنيش لوران. عدد الوحدات 1 وإجمالي الأوجه 1. المقاس 10 x 22 متر. نقطة الخريطة مرجع تقريبي على الطريق. تواصل مع هورايزون لتأكيد الموقع وطلب عرض سعر.",
+        "full_address": "El Mahrousa Hotel, Louran Corniche",
+        "type": "Wall",
+        "format": "Billboard",
+        "size": "10 x 22",
+        "width": 10,
+        "height": 22,
+        "sqm": 220,
+        "quantity": 1,
+        "sides": 1,
+        "location_id": 5,
+        "district_id": 60,
+        "lat": 31.254229,
+        "lng": 29.973759,
+        "illuminated": true,
+        "brightness": "Illuminated",
+        "availability": "available",
+        "price": null
+      },
+      "images": [
+        {
+          "fileName": "h-14675-abdo-omar-20261112-1.jpg",
+          "sourceFile": "prepared/h-14675-abdo-omar-20261112-1.jpg",
+          "url": "/images/h-14675-abdo-omar-20261112-1.jpg",
+          "sha256": "522f3a259936e2c6417a1101c02e1baabb1cab6d7bdd8224f050327c039187f3",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Wall - El Mahrousa Hotel, Louran Corniche | H-14675 | Photo 1",
+          "altAr": "وول - فندق المحروسة، كورنيش لوران | H-14675 | صورة 1"
+        }
+      ]
+    },
+    {
+      "sourcePage": 9,
+      "roadReference": "https://www.openstreetmap.org/way/1282144751",
+      "addressAr": "كورنيش الشاطبي",
+      "data": {
+        "code": "H-14676",
+        "title": "Stand - Al Shatby Corniche",
+        "name_ar": "ستاند - كورنيش الشاطبي",
+        "description": "Stand - Al Shatby Corniche. 10 unit(s), 20 face(s). Face size: 2 x 2 m. The map pin marks an approximate reference on the road. Contact Horizon OOH to confirm the placement and get a quote.",
+        "description_ar": "ستاند - كورنيش الشاطبي. عدد الوحدات 10 وإجمالي الأوجه 20. المقاس 2 x 2 متر. نقطة الخريطة مرجع تقريبي على الطريق. تواصل مع هورايزون لتأكيد الموقع وطلب عرض سعر.",
+        "full_address": "Al Shatby Corniche",
+        "type": "Stand",
+        "format": "Billboard",
+        "size": "2 x 2",
+        "width": 2,
+        "height": 2,
+        "sqm": 4,
+        "quantity": 10,
+        "sides": 20,
+        "location_id": 5,
+        "district_id": 481,
+        "lat": 31.2108011,
+        "lng": 29.9130911,
+        "illuminated": true,
+        "brightness": "Illuminated",
+        "availability": "available",
+        "price": null
+      },
+      "images": [
+        {
+          "fileName": "h-14676-abdo-omar-20261112-1.jpg",
+          "sourceFile": "prepared/h-14676-abdo-omar-20261112-1.jpg",
+          "url": "/images/h-14676-abdo-omar-20261112-1.jpg",
+          "sha256": "f8677f8934b7678a7c4fa69dd408a84c394fdff46e4a24e7125bee2f3f19f942",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Stand - Al Shatby Corniche | H-14676 | Photo 1",
+          "altAr": "ستاند - كورنيش الشاطبي | H-14676 | صورة 1"
+        }
+      ]
+    },
+    {
+      "sourcePage": 10,
+      "roadReference": null,
+      "addressAr": "كوبري ستانلي، مداخل الكوبري على الكورنيش",
+      "data": {
+        "code": "H-14677",
+        "title": "Flag - Stanley Bridge, Corniche approaches",
+        "name_ar": "فلاج - كوبري ستانلي، مداخل الكوبري على الكورنيش",
+        "description": "Flag - Stanley Bridge, Corniche approaches. 20 flags; one face per flag is recorded pending confirmation. Face size: 1 x 2 m. The map pin marks an approximate reference on the road. Contact Horizon OOH to confirm the placement and get a quote.",
+        "description_ar": "فلاج - كوبري ستانلي، مداخل الكوبري على الكورنيش. 20 فلاج. تم تسجيل وجه واحد لكل فلاج لحين تأكيد عدد الأوجه. المقاس 1 x 2 متر. نقطة الخريطة مرجع تقريبي على الطريق. تواصل مع هورايزون لتأكيد الموقع وطلب عرض سعر.",
+        "full_address": "Stanley Bridge, Corniche approaches",
+        "type": "Flag",
+        "format": "Billboard",
+        "size": "1 x 2",
+        "width": 1,
+        "height": 2,
+        "sqm": 2,
+        "quantity": 20,
+        "sides": 20,
+        "location_id": 5,
+        "district_id": 59,
+        "lat": 31.235195,
+        "lng": 29.948754,
+        "illuminated": false,
+        "brightness": "Not specified",
+        "availability": "available",
+        "price": null
+      },
+      "images": [
+        {
+          "fileName": "h-14677-abdo-omar-20261112-1.jpg",
+          "sourceFile": "prepared/h-14677-abdo-omar-20261112-1.jpg",
+          "url": "/images/h-14677-abdo-omar-20261112-1.jpg",
+          "sha256": "47e5a6fdd39ad5d13f26bb36ff2c33e166d2fa09e89072c82dee74af389e8f7f",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Flag - Stanley Bridge, Corniche approaches | H-14677 | Photo 1",
+          "altAr": "فلاج - كوبري ستانلي، مداخل الكوبري على الكورنيش | H-14677 | صورة 1"
+        },
+        {
+          "fileName": "h-14677-abdo-omar-20261112-2.jpg",
+          "sourceFile": "prepared/h-14677-abdo-omar-20261112-2.jpg",
+          "url": "/images/h-14677-abdo-omar-20261112-2.jpg",
+          "sha256": "19a67c9933984052e38f4da6dfb8f536b14786f433f11619da215981c44231b7",
+          "sortOrder": 1,
+          "isPrimary": false,
+          "alt": "Flag - Stanley Bridge, Corniche approaches | H-14677 | Photo 2",
+          "altAr": "فلاج - كوبري ستانلي، مداخل الكوبري على الكورنيش | H-14677 | صورة 2"
+        }
+      ]
+    },
+    {
+      "sourcePage": 12,
+      "roadReference": "https://www.openstreetmap.org/way/34571161",
+      "addressAr": "نفق شارع قناة السويس اتجاه كارفور",
+      "data": {
+        "code": "H-14678",
+        "title": "Mirror - Suez Canal Road tunnel toward Carrefour",
+        "name_ar": "مرايه - نفق شارع قناة السويس اتجاه كارفور",
+        "description": "Mirror - Suez Canal Road tunnel toward Carrefour. 1 unit(s), 1 face(s). Face size: 6.6 x 1.7 m. The map pin marks an approximate reference on the road. Contact Horizon OOH to confirm the placement and get a quote.",
+        "description_ar": "مرايه - نفق شارع قناة السويس اتجاه كارفور. عدد الوحدات 1 وإجمالي الأوجه 1. المقاس 6.6 x 1.7 متر. نقطة الخريطة مرجع تقريبي على الطريق. تواصل مع هورايزون لتأكيد الموقع وطلب عرض سعر.",
+        "full_address": "Suez Canal Road tunnel toward Carrefour",
+        "type": "Mirror",
+        "format": "Billboard",
+        "size": "6.6 x 1.7",
+        "width": 6.6,
+        "height": 1.7,
+        "sqm": 11.219999999999999,
+        "quantity": 1,
+        "sides": 1,
+        "location_id": 5,
+        "district_id": 481,
+        "lat": 31.1985466,
+        "lng": 29.9163144,
+        "illuminated": false,
+        "brightness": "Not specified",
+        "availability": "available",
+        "price": null
+      },
+      "images": [
+        {
+          "fileName": "h-14678-abdo-omar-20261112-1.jpg",
+          "sourceFile": "prepared/h-14678-abdo-omar-20261112-1.jpg",
+          "url": "/images/h-14678-abdo-omar-20261112-1.jpg",
+          "sha256": "219cb7f75f91ab550604f95ec8e660b2f9b1c343ebf95680eeac02a93e17a608",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Mirror - Suez Canal Road tunnel toward Carrefour | H-14678 | Photo 1",
+          "altAr": "مرايه - نفق شارع قناة السويس اتجاه كارفور | H-14678 | صورة 1"
+        },
+        {
+          "fileName": "h-14678-abdo-omar-20261112-2.jpg",
+          "sourceFile": "prepared/h-14678-abdo-omar-20261112-2.jpg",
+          "url": "/images/h-14678-abdo-omar-20261112-2.jpg",
+          "sha256": "dfce5d98b35fd58b2355490dbbd04b5689ef4381415b0c72fbc2c33300425f8f",
+          "sortOrder": 1,
+          "isPrimary": false,
+          "alt": "Mirror - Suez Canal Road tunnel toward Carrefour | H-14678 | Photo 2",
+          "altAr": "مرايه - نفق شارع قناة السويس اتجاه كارفور | H-14678 | صورة 2"
+        }
+      ]
+    },
+    {
+      "sourcePage": 14,
+      "roadReference": "https://www.openstreetmap.org/way/34571055",
+      "addressAr": "شارع قناة السويس اتجاه كارفور",
+      "data": {
+        "code": "H-14679",
+        "title": "Uni-pole - Suez Canal Road, Carrefour direction",
+        "name_ar": "يوني بول - شارع قناة السويس اتجاه كارفور",
+        "description": "Uni-pole - Suez Canal Road, Carrefour direction. 1 unit(s), 1 face(s). Face size: 6 x 4 m. The map pin marks an approximate reference on the road. Contact Horizon OOH to confirm the placement and get a quote.",
+        "description_ar": "يوني بول - شارع قناة السويس اتجاه كارفور. عدد الوحدات 1 وإجمالي الأوجه 1. المقاس 6 x 4 متر. نقطة الخريطة مرجع تقريبي على الطريق. تواصل مع هورايزون لتأكيد الموقع وطلب عرض سعر.",
+        "full_address": "Suez Canal Road, Carrefour direction",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "6 x 4",
+        "width": 6,
+        "height": 4,
+        "sqm": 24,
+        "quantity": 1,
+        "sides": 1,
+        "location_id": 5,
+        "district_id": 481,
+        "lat": 31.1998432,
+        "lng": 29.9163295,
+        "illuminated": false,
+        "brightness": "Not specified",
+        "availability": "available",
+        "price": null
+      },
+      "images": [
+        {
+          "fileName": "h-14679-abdo-omar-20261112-1.jpg",
+          "sourceFile": "prepared/h-14679-abdo-omar-20261112-1.jpg",
+          "url": "/images/h-14679-abdo-omar-20261112-1.jpg",
+          "sha256": "f4f017f4649948247c8baf53c329aef408bdc7197bacbc35d10ca8b13ac520aa",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Uni-pole - Suez Canal Road, Carrefour direction | H-14679 | Photo 1",
+          "altAr": "يوني بول - شارع قناة السويس اتجاه كارفور | H-14679 | صورة 1"
+        },
+        {
+          "fileName": "h-14679-abdo-omar-20261112-2.jpg",
+          "sourceFile": "prepared/h-14679-abdo-omar-20261112-2.jpg",
+          "url": "/images/h-14679-abdo-omar-20261112-2.jpg",
+          "sha256": "48b67e53af3f447c438bc3bb2c6f04f36e847d921cb14edef1e7592202ff65df",
+          "sortOrder": 1,
+          "isPrimary": false,
+          "alt": "Uni-pole - Suez Canal Road, Carrefour direction | H-14679 | Photo 2",
+          "altAr": "يوني بول - شارع قناة السويس اتجاه كارفور | H-14679 | صورة 2"
+        }
+      ]
+    },
+    {
+      "sourcePage": 17,
+      "roadReference": "https://www.openstreetmap.org/way/338819012",
+      "addressAr": "كوبري أبو عين واحدة، محرم بك",
+      "data": {
+        "code": "H-14680",
+        "title": "Mirror - One Eye Bridge, Moharram Bek",
+        "name_ar": "مرايه - كوبري أبو عين واحدة، محرم بك",
+        "description": "Mirror - One Eye Bridge, Moharram Bek. 1 unit(s), 1 face(s). Face size: 15 x 2 m. The map pin marks an approximate reference on the road. Contact Horizon OOH to confirm the placement and get a quote.",
+        "description_ar": "مرايه - كوبري أبو عين واحدة، محرم بك. عدد الوحدات 1 وإجمالي الأوجه 1. المقاس 15 x 2 متر. نقطة الخريطة مرجع تقريبي على الطريق. تواصل مع هورايزون لتأكيد الموقع وطلب عرض سعر.",
+        "full_address": "One Eye Bridge, Moharram Bek",
+        "type": "Mirror",
+        "format": "Billboard",
+        "size": "15 x 2",
+        "width": 15,
+        "height": 2,
+        "sqm": 30,
+        "quantity": 1,
+        "sides": 1,
+        "location_id": 5,
+        "district_id": 481,
+        "lat": 31.195797,
+        "lng": 29.913038,
+        "illuminated": false,
+        "brightness": "Not specified",
+        "availability": "available",
+        "price": null
+      },
+      "images": [
+        {
+          "fileName": "h-14680-abdo-omar-20261112-1.jpg",
+          "sourceFile": "prepared/h-14680-abdo-omar-20261112-1.jpg",
+          "url": "/images/h-14680-abdo-omar-20261112-1.jpg",
+          "sha256": "0cad1401f4559770a2a5b0ce78c3930cce6dee1a2abc68460bf4a99a040f9987",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Mirror - One Eye Bridge, Moharram Bek | H-14680 | Photo 1",
+          "altAr": "مرايه - كوبري أبو عين واحدة، محرم بك | H-14680 | صورة 1"
+        }
+      ]
+    },
+    {
+      "sourcePage": 18,
+      "roadReference": "https://www.openstreetmap.org/way/30644575",
+      "addressAr": "سموحة، نطاق شارع فوزي معاذ",
+      "data": {
+        "code": "H-14681",
+        "title": "Light Box - Smouha, Fawzy Moaz Road corridor",
+        "name_ar": "لايت بوكس - سموحة، نطاق شارع فوزي معاذ",
+        "description": "Light Box - Smouha, Fawzy Moaz Road corridor. 10 unit(s), 20 face(s). Face size: 1.4 x 2.1 m. The map pin marks an approximate reference on the road. Contact Horizon OOH to confirm the placement and get a quote.",
+        "description_ar": "لايت بوكس - سموحة، نطاق شارع فوزي معاذ. عدد الوحدات 10 وإجمالي الأوجه 20. المقاس 1.4 x 2.1 متر. نقطة الخريطة مرجع تقريبي على الطريق. تواصل مع هورايزون لتأكيد الموقع وطلب عرض سعر.",
+        "full_address": "Smouha, Fawzy Moaz Road corridor",
+        "type": "Light Box",
+        "format": "Billboard",
+        "size": "1.4 x 2.1",
+        "width": 1.4,
+        "height": 2.1,
+        "sqm": 2.94,
+        "quantity": 10,
+        "sides": 20,
+        "location_id": 5,
+        "district_id": 58,
+        "lat": 31.2145384,
+        "lng": 29.9450511,
+        "illuminated": true,
+        "brightness": "Illuminated",
+        "availability": "available",
+        "price": null
+      },
+      "images": [
+        {
+          "fileName": "h-14681-abdo-omar-20261112-1.jpg",
+          "sourceFile": "prepared/h-14681-abdo-omar-20261112-1.jpg",
+          "url": "/images/h-14681-abdo-omar-20261112-1.jpg",
+          "sha256": "cd88735716ff72981385475d87af150b2039f340f35d6cfb07c12615e05e0354",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Light Box - Smouha, Fawzy Moaz Road corridor | H-14681 | Photo 1",
+          "altAr": "لايت بوكس - سموحة، نطاق شارع فوزي معاذ | H-14681 | صورة 1"
+        },
+        {
+          "fileName": "h-14681-abdo-omar-20261112-2.jpg",
+          "sourceFile": "prepared/h-14681-abdo-omar-20261112-2.jpg",
+          "url": "/images/h-14681-abdo-omar-20261112-2.jpg",
+          "sha256": "449424d7abc59f909343a02947c2f21130b3844324f17834d5585c4d997ed6d3",
+          "sortOrder": 1,
+          "isPrimary": false,
+          "alt": "Light Box - Smouha, Fawzy Moaz Road corridor | H-14681 | Photo 2",
+          "altAr": "لايت بوكس - سموحة، نطاق شارع فوزي معاذ | H-14681 | صورة 2"
+        }
+      ]
+    },
+    {
+      "sourcePage": 22,
+      "roadReference": "https://www.openstreetmap.org/way/533894730",
+      "addressAr": "طريق الحرية قرب مستشفى جمال عبد الناصر",
+      "data": {
+        "code": "H-14682",
+        "title": "Uni-pole - Al Horreya Road, near Gamal Abdel Nasser Hospital",
+        "name_ar": "يوني بول - طريق الحرية قرب مستشفى جمال عبد الناصر",
+        "description": "Uni-pole - Al Horreya Road, near Gamal Abdel Nasser Hospital. 1 unit(s), 2 face(s). Face size: 12 x 5 m. The map pin marks an approximate reference on the road. Contact Horizon OOH to confirm the placement and get a quote.",
+        "description_ar": "يوني بول - طريق الحرية قرب مستشفى جمال عبد الناصر. عدد الوحدات 1 وإجمالي الأوجه 2. المقاس 12 x 5 متر. نقطة الخريطة مرجع تقريبي على الطريق. تواصل مع هورايزون لتأكيد الموقع وطلب عرض سعر.",
+        "full_address": "Al Horreya Road, near Gamal Abdel Nasser Hospital",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "12 x 5",
+        "width": 12,
+        "height": 5,
+        "sqm": 60,
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 5,
+        "district_id": 481,
+        "lat": 31.205958,
+        "lng": 29.9265073,
+        "illuminated": true,
+        "brightness": "Illuminated",
+        "availability": "available",
+        "price": null
+      },
+      "images": [
+        {
+          "fileName": "h-14682-abdo-omar-20261112-1.jpg",
+          "sourceFile": "prepared/h-14682-abdo-omar-20261112-1.jpg",
+          "url": "/images/h-14682-abdo-omar-20261112-1.jpg",
+          "sha256": "67fc033e55d1c3a29fa4a4b77f4cef8b1d17f7a39df94b6b4fddc0e72602950f",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Uni-pole - Al Horreya Road, near Gamal Abdel Nasser Hospital | H-14682 | Photo 1",
+          "altAr": "يوني بول - طريق الحرية قرب مستشفى جمال عبد الناصر | H-14682 | صورة 1"
+        }
+      ]
+    }
+  ],
+  "updates": [
+    {
+      "sourcePage": 20,
+      "roadReference": "https://www.openstreetmap.org/way/36143884",
+      "addressAr": "رشدي اتجاه جليم، القادم من سيدي جابر",
+      "data": {
+        "code": "H-13827",
+        "title": "Wall - Rushdy toward Gleem, from Sidi Gaber",
+        "name_ar": "وول - رشدي اتجاه جليم، القادم من سيدي جابر",
+        "description": "Wall - Rushdy toward Gleem, from Sidi Gaber. 1 unit(s), 1 face(s). Face size: 10 x 12 m. The map pin marks an approximate reference on the road. Contact Horizon OOH to confirm the placement and get a quote.",
+        "description_ar": "وول - رشدي اتجاه جليم، القادم من سيدي جابر. عدد الوحدات 1 وإجمالي الأوجه 1. المقاس 10 x 12 متر. نقطة الخريطة مرجع تقريبي على الطريق. تواصل مع هورايزون لتأكيد الموقع وطلب عرض سعر.",
+        "full_address": "Rushdy toward Gleem, from Sidi Gaber",
+        "type": "Wall",
+        "format": "Billboard",
+        "size": "10 x 12",
+        "width": 10,
+        "height": 12,
+        "sqm": 120,
+        "quantity": 1,
+        "sides": 1,
+        "location_id": 5,
+        "district_id": 57,
+        "lat": 31.228064,
+        "lng": 29.951847,
+        "illuminated": false,
+        "brightness": "Not specified"
+      },
+      "images": [
+        {
+          "fileName": "h-13827-abdo-omar-20261112-1.jpg",
+          "sourceFile": "prepared/h-13827-abdo-omar-20261112-1.jpg",
+          "url": "/images/h-13827-abdo-omar-20261112-1.jpg",
+          "sha256": "7472f36fc73f2bcac0e8837b3cdd9bf8c4d589100cccadab279bd263bf468d9c",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Wall - Rushdy toward Gleem, from Sidi Gaber | H-13827 | Photo 1",
+          "altAr": "وول - رشدي اتجاه جليم، القادم من سيدي جابر | H-13827 | صورة 1"
+        }
+      ]
+    },
+    {
+      "sourcePage": 21,
+      "roadReference": "https://www.openstreetmap.org/way/36143884",
+      "addressAr": "رشدي، طريق الحرية عند إشارة شارع سوريا",
+      "data": {
+        "code": "H-13828",
+        "title": "Wall - Rushdy, Al Horreya Road at Syria Street",
+        "name_ar": "وول - رشدي، طريق الحرية عند إشارة شارع سوريا",
+        "description": "Wall - Rushdy, Al Horreya Road at Syria Street. 1 unit(s), 1 face(s). Face size: 8 x 12 m. The map pin marks an approximate reference on the road. Contact Horizon OOH to confirm the placement and get a quote.",
+        "description_ar": "وول - رشدي، طريق الحرية عند إشارة شارع سوريا. عدد الوحدات 1 وإجمالي الأوجه 1. المقاس 8 x 12 متر. نقطة الخريطة مرجع تقريبي على الطريق. تواصل مع هورايزون لتأكيد الموقع وطلب عرض سعر.",
+        "full_address": "Rushdy, Al Horreya Road at Syria Street",
+        "type": "Wall",
+        "format": "Billboard",
+        "size": "8 x 12",
+        "width": 8,
+        "height": 12,
+        "sqm": 96,
+        "quantity": 1,
+        "sides": 1,
+        "location_id": 5,
+        "district_id": 57,
+        "lat": 31.227983,
+        "lng": 29.951893,
+        "illuminated": false,
+        "brightness": "Not specified"
+      },
+      "images": [
+        {
+          "fileName": "h-13828-abdo-omar-20261112-1.jpg",
+          "sourceFile": "prepared/h-13828-abdo-omar-20261112-1.jpg",
+          "url": "/images/h-13828-abdo-omar-20261112-1.jpg",
+          "sha256": "b36825d6db00a352ff9c61228330080ef6e55955866dbe09fe1c6aa6c7847b6f",
+          "sortOrder": 0,
+          "isPrimary": true,
+          "alt": "Wall - Rushdy, Al Horreya Road at Syria Street | H-13828 | Photo 1",
+          "altAr": "وول - رشدي، طريق الحرية عند إشارة شارع سوريا | H-13828 | صورة 1"
+        }
+      ]
+    }
+  ]
+}
