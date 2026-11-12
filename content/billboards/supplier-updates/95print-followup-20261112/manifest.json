@@ -1,0 +1,148 @@
+{
+  "supplier": "95 Print",
+  "newRows": [
+    {
+      "sourcePage": 7,
+      "sourceMap": "https://maps.app.goo.gl/LTDDSP1uAKf2r3618",
+      "addressAr": "منزل كوبري ميدان لبنان، محور 26 يوليو اتجاه الشيخ زايد",
+      "data": {
+        "code": "H-14669",
+        "title": "Chassis - Lebanon Square Bridge Exit, 26 July Corridor toward Zayed",
+        "name_ar": "شاسيه - منزل كوبري ميدان لبنان، محور 26 يوليو اتجاه الشيخ زايد",
+        "description": "Chassis - Lebanon Square Bridge Exit, 26 July Corridor toward Zayed. Supplier package: 1 unit(s), 1 advertising face(s), 20 x 12 m per face. The pin comes from the supplier’s map; for packages it marks the corridor. Contact Horizon OOH for a quote.",
+        "description_ar": "شاسيه - منزل كوبري ميدان لبنان، محور 26 يوليو اتجاه الشيخ زايد. عدد الوحدات: 1، وإجمالي الأوجه: 1، ومقاس الوجه: 20 x 12 متر. النقطة من خريطة المورد، وتمثل مرجع الطريق للباكدجات. تواصل مع هورايزون لطلب عرض سعر.",
+        "full_address": "Lebanon Square Bridge Exit, 26 July Corridor toward Zayed",
+        "type": "Chassis",
+        "format": "Billboard",
+        "size": "20 x 12",
+        "width": 20,
+        "height": 12,
+        "sqm": 240,
+        "quantity": 1,
+        "sides": 1,
+        "location_id": 3,
+        "district_id": 24,
+        "lat": 30.0602528,
+        "lng": 31.1843618,
+        "availability": "available",
+        "price": null,
+        "illuminated": true,
+        "brightness": "Illuminated"
+      },
+      "images": [
+        {
+          "sourceFile": "prepared/h-14669-95print-20261112.jpg",
+          "fileName": "h-14669-95print-20261112.jpg",
+          "url": "/images/h-14669-95print-20261112.jpg",
+          "sha256": "7fbf72fb2b4d7409a47e85a9d192364715415c024639c955b71d69d9f3bb6abf",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Chassis - Lebanon Square Bridge Exit, 26 July Corridor toward Zayed | H-14669",
+          "altAr": "شاسيه - منزل كوبري ميدان لبنان، محور 26 يوليو اتجاه الشيخ زايد | H-14669"
+        }
+      ]
+    },
+    {
+      "sourcePage": 8,
+      "sourceMap": "https://maps.app.goo.gl/VxLaSoDVzci23HsG9",
+      "addressAr": "بوابة رسوم محور روض الفرج–الضبعة",
+      "data": {
+        "code": "H-14670",
+        "title": "Succette - Rod El Farag–El Dabaa Corridor Toll Gate",
+        "name_ar": "سوسيت - بوابة رسوم محور روض الفرج–الضبعة",
+        "description": "Succette - Rod El Farag–El Dabaa Corridor Toll Gate. Supplier package: 40 unit(s), 2 x 1.25 m per face. The pin comes from the supplier’s map; for packages it marks the corridor. Face count is recorded as one per unit pending confirmation. Contact Horizon OOH for a quote.",
+        "description_ar": "سوسيت - بوابة رسوم محور روض الفرج–الضبعة. عدد الوحدات: 40، ومقاس الوجه: 2 x 1.25 متر. النقطة من خريطة المورد، وتمثل مرجع الطريق للباكدجات. تم تسجيل وجه واحد لكل وحدة لحين تأكيد العدد. تواصل مع هورايزون لطلب عرض سعر.",
+        "full_address": "Rod El Farag–El Dabaa Corridor Toll Gate",
+        "type": "Succette",
+        "format": "Billboard",
+        "size": "2 x 1.25",
+        "width": 2,
+        "height": 1.25,
+        "sqm": 2.5,
+        "quantity": 40,
+        "sides": 40,
+        "location_id": 3,
+        "district_id": 456,
+        "lat": 30.1068625,
+        "lng": 31.002234375,
+        "availability": "available",
+        "price": null,
+        "illuminated": false,
+        "brightness": "Not specified"
+      },
+      "images": [
+        {
+          "sourceFile": "prepared/h-14670-95print-20261112.jpg",
+          "fileName": "h-14670-95print-20261112.jpg",
+          "url": "/images/h-14670-95print-20261112.jpg",
+          "sha256": "d2dc944a9fc8c86a759c4fce24b3786b1aa2ea629c737e2d9ca014920f1214c4",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Succette - Rod El Farag–El Dabaa Corridor Toll Gate | H-14670",
+          "altAr": "سوسيت - بوابة رسوم محور روض الفرج–الضبعة | H-14670"
+        }
+      ]
+    },
+    {
+      "sourcePage": 10,
+      "sourceMap": "https://www.openstreetmap.org/way/377856792",
+      "addressAr": "شارع لبنان قرب ميدان لبنان، المهندسين",
+      "data": {
+        "code": "H-14671",
+        "title": "Digital Screen - Lebanon Street near Lebanon Square, Mohandessin",
+        "name_ar": "شاشة ديجيتال - شارع لبنان قرب ميدان لبنان، المهندسين",
+        "description": "Digital Screen - Lebanon Street near Lebanon Square, Mohandessin. Supplier package: 1 unit(s), 2 advertising face(s), 7 x 4 m per face. Artwork resolution: 1344 × 768 px. The pin is an approximate road reference on Lebanon Street near Lebanon Square. Contact Horizon OOH for a quote.",
+        "description_ar": "شاشة ديجيتال - شارع لبنان قرب ميدان لبنان، المهندسين. عدد الوحدات: 1، وإجمالي الأوجه: 2، ومقاس الوجه: 7 x 4 متر. دقة التصميم: 1344 × 768 بكسل. النقطة مرجع تقريبي على شارع لبنان قرب الميدان. تواصل مع هورايزون لطلب عرض سعر.",
+        "full_address": "Lebanon Street near Lebanon Square, Mohandessin",
+        "type": "Digital Screen",
+        "format": "Digital screen",
+        "size": "7 x 4",
+        "width": 7,
+        "height": 4,
+        "sqm": 28,
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 3,
+        "district_id": 24,
+        "lat": 30.0593882,
+        "lng": 31.193228,
+        "availability": "available",
+        "price": null,
+        "illuminated": true,
+        "brightness": "Not specified"
+      },
+      "images": [
+        {
+          "sourceFile": "prepared/h-14671-95print-20261112.jpg",
+          "fileName": "h-14671-95print-20261112.jpg",
+          "url": "/images/h-14671-95print-20261112.jpg",
+          "sha256": "8bda8c201cca12a9c70646b1119bddf3297186fac27267359c4f6b9ee0f4e888",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen - Lebanon Street near Lebanon Square, Mohandessin | H-14671",
+          "altAr": "شاشة ديجيتال - شارع لبنان قرب ميدان لبنان، المهندسين | H-14671"
+        }
+      ]
+    }
+  ],
+  "updates": [],
+  "imageReplacements": [],
+  "baseline": [],
+  "additionalTranslations": {},
+  "mirrorFace": {
+    "code": "H-14658",
+    "sourcePage": 3,
+    "sourceMap": "https://maps.app.goo.gl/ywfT1LZ7E1cAAHF26",
+    "size": "17.5 x 4",
+    "image": {
+      "sourceFile": "prepared/h-14658-95print-face2-20261112.jpg",
+      "fileName": "h-14658-95print-face2-20261112.jpg",
+      "url": "/images/h-14658-95print-face2-20261112.jpg",
+      "sha256": "6960936e5a808f1fc2a89462a62bc6b90f0eac3def9afced923d5150d445c9cf",
+      "isPrimary": false,
+      "sortOrder": 1,
+      "alt": "Ahmed Orabi mirror H-14658 — 17.5 × 4 m face toward Gameat El Dowal",
+      "altAr": "مرايه عرابي H-14658 — وجه 17.5 × 4 متر اتجاه جامعة الدول"
+    }
+  }
+}
