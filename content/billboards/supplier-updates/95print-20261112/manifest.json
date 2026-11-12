@@ -1,0 +1,466 @@
+{
+  "supplier": "95 Print",
+  "newRows": [
+    {
+      "sourcePage": 2,
+      "sourceMap": "https://maps.app.goo.gl/H1vqr9ccYjWtyzRc9",
+      "addressAr": "محور عرابي، كوبري 15 مايو اتجاه محور 26 يوليو",
+      "data": {
+        "code": "H-14658",
+        "title": "Mirror - Ahmed Orabi Axis, 15 May Bridge toward 26 July Corridor",
+        "name_ar": "مرايه - محور عرابي، كوبري 15 مايو اتجاه محور 26 يوليو",
+        "description": "Mirror - Ahmed Orabi Axis, 15 May Bridge toward 26 July Corridor. Supplier package: 1 unit(s), 1 advertising face(s), 35 x 4 m per face. The pin comes from the supplier’s map; for packages it marks the corridor. Contact Horizon OOH for a quote.",
+        "description_ar": "مرايه - محور عرابي، كوبري 15 مايو اتجاه محور 26 يوليو. عدد الوحدات: 1، وإجمالي الأوجه: 1، ومقاس الوجه: 35 x 4 متر. النقطة من خريطة المورد، وتمثل مرجع الطريق للباكدجات. تواصل مع هورايزون لطلب عرض سعر.",
+        "full_address": "Ahmed Orabi Axis, 15 May Bridge toward 26 July Corridor",
+        "type": "Mirror",
+        "format": "Billboard",
+        "size": "35 x 4",
+        "width": 35,
+        "height": 4,
+        "sqm": 140,
+        "quantity": 1,
+        "sides": 1,
+        "location_id": 3,
+        "district_id": 24,
+        "lat": 30.0609348,
+        "lng": 31.2086338,
+        "availability": "available",
+        "price": null,
+        "illuminated": true,
+        "brightness": "Illuminated"
+      },
+      "images": [
+        {
+          "sourceFile": "prepared/h-14658-95print-20261112.jpg",
+          "fileName": "h-14658-95print-20261112.jpg",
+          "url": "/images/h-14658-95print-20261112.jpg",
+          "sha256": "9a90357c7e4ca082b4007c86afc894140834225d5264e5799a38b23cf2874c2a",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Mirror - Ahmed Orabi Axis, 15 May Bridge toward 26 July Corridor | H-14658",
+          "altAr": "مرايه - محور عرابي، كوبري 15 مايو اتجاه محور 26 يوليو | H-14658"
+        }
+      ]
+    },
+    {
+      "sourcePage": 4,
+      "sourceMap": "https://maps.app.goo.gl/cEc6nPtm7xrNzoPu8",
+      "addressAr": "طريق مصر إسكندرية الصحراوي قرب داندي مول",
+      "data": {
+        "code": "H-14659",
+        "title": "Gate - Cairo–Alexandria Desert Road near Dandy Mall",
+        "name_ar": "بوابه - طريق مصر إسكندرية الصحراوي قرب داندي مول",
+        "description": "Gate - Cairo–Alexandria Desert Road near Dandy Mall. Supplier package: 1 unit(s), 4 advertising face(s), 14 x 7 m per face. The pin comes from the supplier’s map; for packages it marks the corridor. Contact Horizon OOH for a quote.",
+        "description_ar": "بوابه - طريق مصر إسكندرية الصحراوي قرب داندي مول. عدد الوحدات: 1، وإجمالي الأوجه: 4، ومقاس الوجه: 14 x 7 متر. النقطة من خريطة المورد، وتمثل مرجع الطريق للباكدجات. تواصل مع هورايزون لطلب عرض سعر.",
+        "full_address": "Cairo–Alexandria Desert Road near Dandy Mall",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "14 x 7",
+        "width": 14,
+        "height": 7,
+        "sqm": 98,
+        "quantity": 1,
+        "sides": 4,
+        "location_id": 3,
+        "district_id": 456,
+        "lat": 30.0546899,
+        "lng": 31.0404985,
+        "availability": "available",
+        "price": null,
+        "illuminated": false,
+        "brightness": "Not specified"
+      },
+      "images": [
+        {
+          "sourceFile": "prepared/h-14659-95print-20261112.jpg",
+          "fileName": "h-14659-95print-20261112.jpg",
+          "url": "/images/h-14659-95print-20261112.jpg",
+          "sha256": "9e6b515d8f9f1a0cfdf6ee48de92048682d628de8c9cbcdb7af90ed97603eccd",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Gate - Cairo–Alexandria Desert Road near Dandy Mall | H-14659",
+          "altAr": "بوابه - طريق مصر إسكندرية الصحراوي قرب داندي مول | H-14659"
+        }
+      ]
+    },
+    {
+      "sourcePage": 5,
+      "sourceMap": "https://maps.app.goo.gl/zGRfWkZ9vLAzK3o7A",
+      "addressAr": "امتداد المشير، قطاع ميدان جيهان السادات",
+      "data": {
+        "code": "H-14660",
+        "title": "Stand - El Moshir Extension, Gehan El Sadat Square sector",
+        "name_ar": "ستاند - امتداد المشير، قطاع ميدان جيهان السادات",
+        "description": "Stand - El Moshir Extension, Gehan El Sadat Square sector. Supplier package: 8 unit(s), 16 advertising face(s), 3 x 6 m per face. The pin comes from the supplier’s map; for packages it marks the corridor. Contact Horizon OOH for a quote.",
+        "description_ar": "ستاند - امتداد المشير، قطاع ميدان جيهان السادات. عدد الوحدات: 8، وإجمالي الأوجه: 16، ومقاس الوجه: 3 x 6 متر. النقطة من خريطة المورد، وتمثل مرجع الطريق للباكدجات. تواصل مع هورايزون لطلب عرض سعر.",
+        "full_address": "El Moshir Extension, Gehan El Sadat Square sector",
+        "type": "Stand",
+        "format": "Billboard",
+        "size": "3 x 6",
+        "width": 3,
+        "height": 6,
+        "sqm": 18,
+        "quantity": 8,
+        "sides": 16,
+        "location_id": 2,
+        "district_id": 473,
+        "lat": 30.0372864,
+        "lng": 31.3064529,
+        "availability": "available",
+        "price": null,
+        "illuminated": false,
+        "brightness": "Not specified"
+      },
+      "images": [
+        {
+          "sourceFile": "prepared/h-14660-95print-20261112.jpg",
+          "fileName": "h-14660-95print-20261112.jpg",
+          "url": "/images/h-14660-95print-20261112.jpg",
+          "sha256": "9787606e9ccd77e6583a6588aa0a9b3194af4df52a9e14d181e5e45eb9e6cf74",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Stand - El Moshir Extension, Gehan El Sadat Square sector | H-14660",
+          "altAr": "ستاند - امتداد المشير، قطاع ميدان جيهان السادات | H-14660"
+        }
+      ]
+    },
+    {
+      "sourcePage": 6,
+      "sourceMap": "https://maps.app.goo.gl/hNeArctbTWhmSmNQ7",
+      "addressAr": "امتداد المشير، قطاع قبل تشيل أوت",
+      "data": {
+        "code": "H-14661",
+        "title": "Stand - El Moshir Extension, Chillout sector",
+        "name_ar": "ستاند - امتداد المشير، قطاع قبل تشيل أوت",
+        "description": "Stand - El Moshir Extension, Chillout sector. Supplier package: 7 unit(s), 14 advertising face(s), 3 x 6 m per face. The pin comes from the supplier’s map; for packages it marks the corridor. Contact Horizon OOH for a quote.",
+        "description_ar": "ستاند - امتداد المشير، قطاع قبل تشيل أوت. عدد الوحدات: 7، وإجمالي الأوجه: 14، ومقاس الوجه: 3 x 6 متر. النقطة من خريطة المورد، وتمثل مرجع الطريق للباكدجات. تواصل مع هورايزون لطلب عرض سعر.",
+        "full_address": "El Moshir Extension, Chillout sector",
+        "type": "Stand",
+        "format": "Billboard",
+        "size": "3 x 6",
+        "width": 3,
+        "height": 6,
+        "sqm": 18,
+        "quantity": 7,
+        "sides": 14,
+        "location_id": 2,
+        "district_id": 473,
+        "lat": 30.0293182,
+        "lng": 31.3105111,
+        "availability": "available",
+        "price": null,
+        "illuminated": false,
+        "brightness": "Not specified"
+      },
+      "images": [
+        {
+          "sourceFile": "prepared/h-14661-95print-20261112.jpg",
+          "fileName": "h-14661-95print-20261112.jpg",
+          "url": "/images/h-14661-95print-20261112.jpg",
+          "sha256": "990df5f23411edeeb3a88f19dc9d64939e3c0efab80adf1d771eb3a67526be39",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Stand - El Moshir Extension, Chillout sector | H-14661",
+          "altAr": "ستاند - امتداد المشير، قطاع قبل تشيل أوت | H-14661"
+        }
+      ]
+    },
+    {
+      "sourcePage": 11,
+      "sourceMap": "https://maps.app.goo.gl/aCcLQFoUUKb1QMjX7",
+      "addressAr": "محور عرابي، كوبري 15 مايو اتجاه جامعة الدول",
+      "data": {
+        "code": "H-14662",
+        "title": "Digital Screen - Ahmed Orabi Axis, 15 May Bridge toward Gameat El Dowal",
+        "name_ar": "شاشة ديجيتال - محور عرابي، كوبري 15 مايو اتجاه جامعة الدول",
+        "description": "Digital Screen - Ahmed Orabi Axis, 15 May Bridge toward Gameat El Dowal. Supplier package: 1 unit(s), 1 advertising face(s), 17.5 x 4 m per face. Artwork resolution: 2160 × 480 px. The pin comes from the supplier’s map; for packages it marks the corridor. Contact Horizon OOH for a quote.",
+        "description_ar": "شاشة ديجيتال - محور عرابي، كوبري 15 مايو اتجاه جامعة الدول. عدد الوحدات: 1، وإجمالي الأوجه: 1، ومقاس الوجه: 17.5 x 4 متر. دقة التصميم: 2160 × 480 بكسل. النقطة من خريطة المورد، وتمثل مرجع الطريق للباكدجات. تواصل مع هورايزون لطلب عرض سعر.",
+        "full_address": "Ahmed Orabi Axis, 15 May Bridge toward Gameat El Dowal",
+        "type": "Digital Screen",
+        "format": "Digital screen",
+        "size": "17.5 x 4",
+        "width": 17.5,
+        "height": 4,
+        "sqm": 70,
+        "quantity": 1,
+        "sides": 1,
+        "location_id": 3,
+        "district_id": 24,
+        "lat": 30.0612159,
+        "lng": 31.2080591,
+        "availability": "available",
+        "price": null,
+        "illuminated": true,
+        "brightness": "Not specified"
+      },
+      "images": [
+        {
+          "sourceFile": "prepared/h-14662-95print-20261112.jpg",
+          "fileName": "h-14662-95print-20261112.jpg",
+          "url": "/images/h-14662-95print-20261112.jpg",
+          "sha256": "2a3ac29e043be645fd3f1180c259382afd3637136328781a36911c3742ebf11e",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen - Ahmed Orabi Axis, 15 May Bridge toward Gameat El Dowal | H-14662",
+          "altAr": "شاشة ديجيتال - محور عرابي، كوبري 15 مايو اتجاه جامعة الدول | H-14662"
+        }
+      ]
+    },
+    {
+      "sourcePage": 12,
+      "sourceMap": "https://maps.app.goo.gl/p8Wj7hy1YoAGsJYT8",
+      "addressAr": "أمريكانا بلازا، ميدان كابيتال، الشيخ زايد",
+      "data": {
+        "code": "H-14663",
+        "title": "Digital Screen - Americana Plaza, Capital Square, Sheikh Zayed",
+        "name_ar": "شاشة ديجيتال - أمريكانا بلازا، ميدان كابيتال، الشيخ زايد",
+        "description": "Digital Screen - Americana Plaza, Capital Square, Sheikh Zayed. Supplier package: 1 unit(s), 2 advertising face(s), 3 x 6 m per face. Artwork resolution: 360 × 720 px. The pin comes from the supplier’s map; for packages it marks the corridor. Contact Horizon OOH for a quote.",
+        "description_ar": "شاشة ديجيتال - أمريكانا بلازا، ميدان كابيتال، الشيخ زايد. عدد الوحدات: 1، وإجمالي الأوجه: 2، ومقاس الوجه: 3 x 6 متر. دقة التصميم: 360 × 720 بكسل. النقطة من خريطة المورد، وتمثل مرجع الطريق للباكدجات. تواصل مع هورايزون لطلب عرض سعر.",
+        "full_address": "Americana Plaza, Capital Square, Sheikh Zayed",
+        "type": "Digital Screen",
+        "format": "Digital screen",
+        "size": "3 x 6",
+        "width": 3,
+        "height": 6,
+        "sqm": 18,
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 3,
+        "district_id": 40,
+        "lat": 30.0290206,
+        "lng": 31.0129137,
+        "availability": "available",
+        "price": null,
+        "illuminated": true,
+        "brightness": "Not specified"
+      },
+      "images": [
+        {
+          "sourceFile": "prepared/h-14663-95print-20261112.jpg",
+          "fileName": "h-14663-95print-20261112.jpg",
+          "url": "/images/h-14663-95print-20261112.jpg",
+          "sha256": "2dd0a5b4d8d1ed733c5d77935eef7d3e59b9681fa56da33b55e45014d830c892",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen - Americana Plaza, Capital Square, Sheikh Zayed | H-14663",
+          "altAr": "شاشة ديجيتال - أمريكانا بلازا، ميدان كابيتال، الشيخ زايد | H-14663"
+        }
+      ]
+    },
+    {
+      "sourcePage": 13,
+      "sourceMap": "https://maps.app.goo.gl/qo4NYNpJZKhYpsed8",
+      "addressAr": "ميدان زد بارك، الشيخ زايد",
+      "data": {
+        "code": "H-14664",
+        "title": "Digital Screen - Z Park Square, Sheikh Zayed",
+        "name_ar": "شاشة ديجيتال - ميدان زد بارك، الشيخ زايد",
+        "description": "Digital Screen - Z Park Square, Sheikh Zayed. Supplier package: 1 unit(s), 2 advertising face(s), 3 x 6 m per face. Artwork resolution: 360 × 720 px. The pin comes from the supplier’s map; for packages it marks the corridor. Contact Horizon OOH for a quote.",
+        "description_ar": "شاشة ديجيتال - ميدان زد بارك، الشيخ زايد. عدد الوحدات: 1، وإجمالي الأوجه: 2، ومقاس الوجه: 3 x 6 متر. دقة التصميم: 360 × 720 بكسل. النقطة من خريطة المورد، وتمثل مرجع الطريق للباكدجات. تواصل مع هورايزون لطلب عرض سعر.",
+        "full_address": "Z Park Square, Sheikh Zayed",
+        "type": "Digital Screen",
+        "format": "Digital screen",
+        "size": "3 x 6",
+        "width": 3,
+        "height": 6,
+        "sqm": 18,
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 3,
+        "district_id": 40,
+        "lat": 30.042978,
+        "lng": 30.9923394,
+        "availability": "available",
+        "price": null,
+        "illuminated": true,
+        "brightness": "Not specified"
+      },
+      "images": [
+        {
+          "sourceFile": "prepared/h-14664-95print-20261112.jpg",
+          "fileName": "h-14664-95print-20261112.jpg",
+          "url": "/images/h-14664-95print-20261112.jpg",
+          "sha256": "9ecd98a5e4ea1143bc233695b8666c825d88ba8c5a420104f0478973db141c36",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen - Z Park Square, Sheikh Zayed | H-14664",
+          "altAr": "شاشة ديجيتال - ميدان زد بارك، الشيخ زايد | H-14664"
+        }
+      ]
+    },
+    {
+      "sourcePage": 14,
+      "sourceMap": "https://maps.app.goo.gl/yKHauXzPa5z4Xm9t9",
+      "addressAr": "أوبرا سيتي وبنك التعمير والإسكان، الشيخ زايد",
+      "data": {
+        "code": "H-14665",
+        "title": "Digital Screen - Opera City and Housing & Development Bank, Sheikh Zayed",
+        "name_ar": "شاشة ديجيتال - أوبرا سيتي وبنك التعمير والإسكان، الشيخ زايد",
+        "description": "Digital Screen - Opera City and Housing & Development Bank, Sheikh Zayed. Supplier package: 1 unit(s), 2 advertising face(s), 3 x 6 m per face. Artwork resolution: 360 × 720 px. The pin comes from the supplier’s map; for packages it marks the corridor. Contact Horizon OOH for a quote.",
+        "description_ar": "شاشة ديجيتال - أوبرا سيتي وبنك التعمير والإسكان، الشيخ زايد. عدد الوحدات: 1، وإجمالي الأوجه: 2، ومقاس الوجه: 3 x 6 متر. دقة التصميم: 360 × 720 بكسل. النقطة من خريطة المورد، وتمثل مرجع الطريق للباكدجات. تواصل مع هورايزون لطلب عرض سعر.",
+        "full_address": "Opera City and Housing & Development Bank, Sheikh Zayed",
+        "type": "Digital Screen",
+        "format": "Digital screen",
+        "size": "3 x 6",
+        "width": 3,
+        "height": 6,
+        "sqm": 18,
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 3,
+        "district_id": 40,
+        "lat": 30.0402396,
+        "lng": 30.9882139,
+        "availability": "available",
+        "price": null,
+        "illuminated": true,
+        "brightness": "Not specified"
+      },
+      "images": [
+        {
+          "sourceFile": "prepared/h-14665-95print-20261112.jpg",
+          "fileName": "h-14665-95print-20261112.jpg",
+          "url": "/images/h-14665-95print-20261112.jpg",
+          "sha256": "28800b5abbc9c96d53cec163ad5a0df53eb2f5fff23097229686810daf1a323c",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen - Opera City and Housing & Development Bank, Sheikh Zayed | H-14665",
+          "altAr": "شاشة ديجيتال - أوبرا سيتي وبنك التعمير والإسكان، الشيخ زايد | H-14665"
+        }
+      ]
+    },
+    {
+      "sourcePage": 15,
+      "sourceMap": "https://maps.app.goo.gl/8FoRi8zsnXDQo59e6",
+      "addressAr": "البستان، أمام مول 205، الشيخ زايد",
+      "data": {
+        "code": "H-14666",
+        "title": "Digital Screen - Al Bostan, opposite Mall 205, Sheikh Zayed",
+        "name_ar": "شاشة ديجيتال - البستان، أمام مول 205، الشيخ زايد",
+        "description": "Digital Screen - Al Bostan, opposite Mall 205, Sheikh Zayed. Supplier package: 1 unit(s), 2 advertising face(s), 3 x 6 m per face. Artwork resolution: 360 × 720 px. The pin comes from the supplier’s map; for packages it marks the corridor. Contact Horizon OOH for a quote.",
+        "description_ar": "شاشة ديجيتال - البستان، أمام مول 205، الشيخ زايد. عدد الوحدات: 1، وإجمالي الأوجه: 2، ومقاس الوجه: 3 x 6 متر. دقة التصميم: 360 × 720 بكسل. النقطة من خريطة المورد، وتمثل مرجع الطريق للباكدجات. تواصل مع هورايزون لطلب عرض سعر.",
+        "full_address": "Al Bostan, opposite Mall 205, Sheikh Zayed",
+        "type": "Digital Screen",
+        "format": "Digital screen",
+        "size": "3 x 6",
+        "width": 3,
+        "height": 6,
+        "sqm": 18,
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 3,
+        "district_id": 40,
+        "lat": 30.0192394,
+        "lng": 30.9953435,
+        "availability": "available",
+        "price": null,
+        "illuminated": true,
+        "brightness": "Not specified"
+      },
+      "images": [
+        {
+          "sourceFile": "prepared/h-14666-95print-20261112.jpg",
+          "fileName": "h-14666-95print-20261112.jpg",
+          "url": "/images/h-14666-95print-20261112.jpg",
+          "sha256": "8964e6a2c71ee62a1786f5040caf97a1eea48a0215ee5c7df0f112d5952f22f3",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Digital Screen - Al Bostan, opposite Mall 205, Sheikh Zayed | H-14666",
+          "altAr": "شاشة ديجيتال - البستان، أمام مول 205، الشيخ زايد | H-14666"
+        }
+      ]
+    },
+    {
+      "sourcePage": 17,
+      "sourceMap": "https://maps.app.goo.gl/SBGkvHLWck1cgSey7",
+      "addressAr": "طريق وادي النطرون–العلمين، كم 3 بعد البوابة",
+      "data": {
+        "code": "H-14667",
+        "title": "Stand - Wadi El Natrun–El Alamein Road, km 3 after the toll gate",
+        "name_ar": "ستاند - طريق وادي النطرون–العلمين، كم 3 بعد البوابة",
+        "description": "Stand - Wadi El Natrun–El Alamein Road, km 3 after the toll gate. Supplier package: 8 unit(s), 16 advertising face(s), 4 x 8 m per face. The pin comes from the supplier’s map; for packages it marks the corridor. Contact Horizon OOH for a quote.",
+        "description_ar": "ستاند - طريق وادي النطرون–العلمين، كم 3 بعد البوابة. عدد الوحدات: 8، وإجمالي الأوجه: 16، ومقاس الوجه: 4 x 8 متر. النقطة من خريطة المورد، وتمثل مرجع الطريق للباكدجات. تواصل مع هورايزون لطلب عرض سعر.",
+        "full_address": "Wadi El Natrun–El Alamein Road, km 3 after the toll gate",
+        "type": "Stand",
+        "format": "Billboard",
+        "size": "4 x 8",
+        "width": 4,
+        "height": 8,
+        "sqm": 32,
+        "quantity": 8,
+        "sides": 16,
+        "location_id": 6,
+        "district_id": 498,
+        "lat": 30.4981163,
+        "lng": 30.2087076,
+        "availability": "available",
+        "price": null,
+        "illuminated": false,
+        "brightness": "Not specified"
+      },
+      "images": [
+        {
+          "sourceFile": "prepared/h-14667-95print-20261112.jpg",
+          "fileName": "h-14667-95print-20261112.jpg",
+          "url": "/images/h-14667-95print-20261112.jpg",
+          "sha256": "ff5d64fd9a62ef8b53b116248f18f96e0e0cfbe86bec4a735a706c64b3d16488",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Stand - Wadi El Natrun–El Alamein Road, km 3 after the toll gate | H-14667",
+          "altAr": "ستاند - طريق وادي النطرون–العلمين، كم 3 بعد البوابة | H-14667"
+        }
+      ]
+    },
+    {
+      "sourcePage": 18,
+      "sourceMap": "https://maps.app.goo.gl/qSd853rqJ9bKiuvM9",
+      "addressAr": "طريق وادي النطرون–العلمين، كم 5 بعد البوابة",
+      "data": {
+        "code": "H-14668",
+        "title": "Mega - Wadi El Natrun–El Alamein Road, km 5 after the toll gate",
+        "name_ar": "ميجا - طريق وادي النطرون–العلمين، كم 5 بعد البوابة",
+        "description": "Mega - Wadi El Natrun–El Alamein Road, km 5 after the toll gate. Supplier package: 2 unit(s), 4 advertising face(s), 20 x 10 m per face. The pin comes from the supplier’s map; for packages it marks the corridor. Contact Horizon OOH for a quote.",
+        "description_ar": "ميجا - طريق وادي النطرون–العلمين، كم 5 بعد البوابة. عدد الوحدات: 2، وإجمالي الأوجه: 4، ومقاس الوجه: 20 x 10 متر. النقطة من خريطة المورد، وتمثل مرجع الطريق للباكدجات. تواصل مع هورايزون لطلب عرض سعر.",
+        "full_address": "Wadi El Natrun–El Alamein Road, km 5 after the toll gate",
+        "type": "Mega",
+        "format": "Billboard",
+        "size": "20 x 10",
+        "width": 20,
+        "height": 10,
+        "sqm": 200,
+        "quantity": 2,
+        "sides": 4,
+        "location_id": 6,
+        "district_id": 498,
+        "lat": 30.483967,
+        "lng": 30.174287,
+        "availability": "available",
+        "price": null,
+        "illuminated": false,
+        "brightness": "Not specified"
+      },
+      "images": [
+        {
+          "sourceFile": "prepared/h-14668-95print-20261112.jpg",
+          "fileName": "h-14668-95print-20261112.jpg",
+          "url": "/images/h-14668-95print-20261112.jpg",
+          "sha256": "3cdd0944e07f9d4684956afd10e1b4cd61ced97ac501e2caf6143f46a9a672d7",
+          "isPrimary": true,
+          "sortOrder": 0,
+          "alt": "Mega - Wadi El Natrun–El Alamein Road, km 5 after the toll gate | H-14668",
+          "altAr": "ميجا - طريق وادي النطرون–العلمين، كم 5 بعد البوابة | H-14668"
+        }
+      ]
+    }
+  ],
+  "updates": [],
+  "imageReplacements": [],
+  "baseline": [],
+  "additionalTranslations": {},
+  "held": [
+    3,
+    7,
+    8,
+    10
+  ]
+}
