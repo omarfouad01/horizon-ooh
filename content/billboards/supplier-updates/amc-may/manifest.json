@@ -1,0 +1,334 @@
+{
+    "supplier": "AMC Mahmoud Fathy",
+    "newRows": [
+        {
+            "source": "3",
+            "sources": [
+                "3"
+            ],
+            "addressAr": "جانتري ديجيتال – كورنيش المعادي أمام المحكمة الدستورية العليا، مصر",
+            "data": {
+                "title": "Digital Gantry – Maadi Corniche, Supreme Constitutional Court",
+                "name_ar": "جانتري ديجيتال – كورنيش المعادي أمام المحكمة الدستورية العليا",
+                "description": "Digital Gantry – Maadi Corniche, Supreme Constitutional Court. Billboard size: 24 × 6 m. The supplier lists 2 advertising faces. The pin is an approximate road reference. The supplier lists 2,304 × 576 pixels.",
+                "description_ar": "جانتري ديجيتال – كورنيش المعادي أمام المحكمة الدستورية العليا. مقاس الإعلان 24 × 6 متر. عدد الأوجه حسب عرض المورد 2. البن مرجع تقريبي على الطريق. دقة الشاشة حسب العرض ٢٣٠٤ × ٥٧٦ بكسل.",
+                "full_address": "Digital Gantry – Maadi Corniche, Supreme Constitutional Court, Egypt",
+                "type": "Digital Screen",
+                "format": "Billboard",
+                "size": "24 x 6",
+                "width": 24,
+                "height": 6,
+                "sqm": 144,
+                "quantity": 1,
+                "sides": 2,
+                "location_id": 2,
+                "district_id": 4,
+                "lat": 29.968889999999998252633304218761622905731201171875,
+                "lng": 31.23935000000000172803993336856365203857421875,
+                "illuminated": true,
+                "brightness": "Digital",
+                "price": null,
+                "availability": "available",
+                "code": "H-14805",
+                "supplier_id": 302,
+                "slug": "h-14805-digital-gantry-maadi-corniche-supreme-constitutional-court",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14805-amc-may-1.jpg",
+                    "sha256": "0b076e79abd40346cf1b4cf428534b28facc64e3fcaae1738ef60bdc741e2c30",
+                    "alt": "Digital Gantry – Maadi Corniche, Supreme Constitutional Court | H-14805 | Photo 1",
+                    "altAr": "جانتري ديجيتال – كورنيش المعادي أمام المحكمة الدستورية العليا | H-14805 | صورة 1"
+                }
+            ],
+            "id": 14814
+        },
+        {
+            "source": "5",
+            "sources": [
+                "5"
+            ],
+            "addressAr": "يوني بول – ميدان شارع البنوك، التجمع الخامس، مصر",
+            "data": {
+                "title": "Uni-pole – Banks Street Square, Fifth Settlement",
+                "name_ar": "يوني بول – ميدان شارع البنوك، التجمع الخامس",
+                "description": "Uni-pole – Banks Street Square, Fifth Settlement. Billboard size: 14 × 7 m. The supplier lists 2 advertising faces.",
+                "description_ar": "يوني بول – ميدان شارع البنوك، التجمع الخامس. مقاس الإعلان 14 × 7 متر. عدد الأوجه حسب عرض المورد 2.",
+                "full_address": "Uni-pole – Banks Street Square, Fifth Settlement, Egypt",
+                "type": "Uni-pole",
+                "format": "Billboard",
+                "size": "14 x 7",
+                "width": 14,
+                "height": 7,
+                "sqm": 98,
+                "quantity": 1,
+                "sides": 2,
+                "location_id": 2,
+                "district_id": 7,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14806",
+                "supplier_id": 302,
+                "slug": "h-14806-uni-pole-banks-street-square-fifth-settlement",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14806-amc-may-1.jpg",
+                    "sha256": "2f581d20dc3252076547ae5e7d6954154e0b9275af7f33e26839630439f03ca1",
+                    "alt": "Uni-pole – Banks Street Square, Fifth Settlement | H-14806 | Photo 1",
+                    "altAr": "يوني بول – ميدان شارع البنوك، التجمع الخامس | H-14806 | صورة 1"
+                }
+            ],
+            "id": 14815
+        },
+        {
+            "source": "8",
+            "sources": [
+                "8",
+                "9"
+            ],
+            "addressAr": "بوابه توين بول – محور ٢٦ يوليو أمام رويال سيتي والخمائل، مصر",
+            "data": {
+                "title": "Twin Pole Gate – 26th of July Corridor, Royal City and Al Khamael",
+                "name_ar": "بوابه توين بول – محور ٢٦ يوليو أمام رويال سيتي والخمائل",
+                "description": "Twin Pole Gate – 26th of July Corridor, Royal City and Al Khamael. Billboard size: 20 × 10 m. The supplier lists 4 advertising faces. The pin is an approximate road reference.",
+                "description_ar": "بوابه توين بول – محور ٢٦ يوليو أمام رويال سيتي والخمائل. مقاس الإعلان 20 × 10 متر. عدد الأوجه حسب عرض المورد 4. البن مرجع تقريبي على الطريق.",
+                "full_address": "Twin Pole Gate – 26th of July Corridor, Royal City and Al Khamael, Egypt",
+                "type": "Gate",
+                "format": "Billboard",
+                "size": "20 x 10",
+                "width": 20,
+                "height": 10,
+                "sqm": 200,
+                "quantity": 2,
+                "sides": 4,
+                "location_id": 3,
+                "district_id": 40,
+                "lat": 30.035689999999998889279595459811389446258544921875,
+                "lng": 31.033300000000000551381162949837744235992431640625,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14807",
+                "supplier_id": 302,
+                "slug": "h-14807-twin-pole-gate-26th-of-july-corridor-royal-city-and-al-khamael",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14807-amc-may-1.jpg",
+                    "sha256": "bca91ddacc5b2b56422fae2df306a867c2e388f8d7db245d23b324f1d1fa61c9",
+                    "alt": "Twin Pole Gate – 26th of July Corridor, Royal City and Al Khamael | H-14807 | Photo 1",
+                    "altAr": "بوابه توين بول – محور ٢٦ يوليو أمام رويال سيتي والخمائل | H-14807 | صورة 1"
+                },
+                {
+                    "fileName": "h-14807-amc-may-2.jpg",
+                    "sha256": "bcb545c1b92b2f38115c73e741773293286ba542843a2b74afb9e8ca6f184d15",
+                    "alt": "Twin Pole Gate – 26th of July Corridor, Royal City and Al Khamael | H-14807 | Photo 2",
+                    "altAr": "بوابه توين بول – محور ٢٦ يوليو أمام رويال سيتي والخمائل | H-14807 | صورة 2"
+                }
+            ],
+            "id": 14816
+        },
+        {
+            "source": "10",
+            "sources": [
+                "10",
+                "11"
+            ],
+            "addressAr": "بوابه توين بول – محور ٢٦ يوليو قبل هايبر وان، مصر",
+            "data": {
+                "title": "Twin Pole Gate – 26th of July Corridor, Before Hyper One",
+                "name_ar": "بوابه توين بول – محور ٢٦ يوليو قبل هايبر وان",
+                "description": "Twin Pole Gate – 26th of July Corridor, Before Hyper One. Billboard size: 20 × 10 m. The supplier lists 4 advertising faces. The pin is an approximate road reference.",
+                "description_ar": "بوابه توين بول – محور ٢٦ يوليو قبل هايبر وان. مقاس الإعلان 20 × 10 متر. عدد الأوجه حسب عرض المورد 4. البن مرجع تقريبي على الطريق.",
+                "full_address": "Twin Pole Gate – 26th of July Corridor, Before Hyper One, Egypt",
+                "type": "Gate",
+                "format": "Billboard",
+                "size": "20 x 10",
+                "width": 20,
+                "height": 10,
+                "sqm": 200,
+                "quantity": 2,
+                "sides": 4,
+                "location_id": 3,
+                "district_id": 40,
+                "lat": 30.028919999999999390638549812138080596923828125,
+                "lng": 31.023469999999999657802618457935750484466552734375,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14808",
+                "supplier_id": 302,
+                "slug": "h-14808-twin-pole-gate-26th-of-july-corridor-before-hyper-one",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14808-amc-may-1.jpg",
+                    "sha256": "a0507307475babe97a5b00eb3d9d5510ed14c5f617749ecd42a800ce729f3959",
+                    "alt": "Twin Pole Gate – 26th of July Corridor, Before Hyper One | H-14808 | Photo 1",
+                    "altAr": "بوابه توين بول – محور ٢٦ يوليو قبل هايبر وان | H-14808 | صورة 1"
+                },
+                {
+                    "fileName": "h-14808-amc-may-2.jpg",
+                    "sha256": "c083e5b883f7aabf3feb6ca59d72ce835fec6229dc8d19dda9e01d34b446b43a",
+                    "alt": "Twin Pole Gate – 26th of July Corridor, Before Hyper One | H-14808 | Photo 2",
+                    "altAr": "بوابه توين بول – محور ٢٦ يوليو قبل هايبر وان | H-14808 | صورة 2"
+                }
+            ],
+            "id": 14817
+        },
+        {
+            "source": "12",
+            "sources": [
+                "12"
+            ],
+            "addressAr": "توين بول – المحور المركزي أمام الممشى السياحي قرب جامعة مصر، مصر",
+            "data": {
+                "title": "Twin Pole – Central Axis, Tourist Promenade near MUST",
+                "name_ar": "توين بول – المحور المركزي أمام الممشى السياحي قرب جامعة مصر",
+                "description": "Twin Pole – Central Axis, Tourist Promenade near MUST. Billboard size: 20 × 10 m. Confirm the number of bookable faces with Horizon OOH.",
+                "description_ar": "توين بول – المحور المركزي أمام الممشى السياحي قرب جامعة مصر. مقاس الإعلان 20 × 10 متر. تواصل مع هورايزون لتأكيد عدد الأوجه المتاحة للحجز.",
+                "full_address": "Twin Pole – Central Axis, Tourist Promenade near MUST, Egypt",
+                "type": "Twin Pole",
+                "format": "Billboard",
+                "size": "20 x 10",
+                "width": 20,
+                "height": 10,
+                "sqm": 200,
+                "quantity": 1,
+                "sides": 1,
+                "location_id": 3,
+                "district_id": 39,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14809",
+                "supplier_id": 302,
+                "slug": "h-14809-twin-pole-central-axis-tourist-promenade-near-must",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14809-amc-may-1.jpg",
+                    "sha256": "830f29f626d5352ce4ca245fe5432114b6173a98fdd1d3b45ca663b8bda27647",
+                    "alt": "Twin Pole – Central Axis, Tourist Promenade near MUST | H-14809 | Photo 1",
+                    "altAr": "توين بول – المحور المركزي أمام الممشى السياحي قرب جامعة مصر | H-14809 | صورة 1"
+                }
+            ],
+            "id": 14818
+        },
+        {
+            "source": "15",
+            "sources": [
+                "15"
+            ],
+            "addressAr": "توين بول – طريق القاهرة الإسكندرية الصحراوي عند تشيل أوت، مصر",
+            "data": {
+                "title": "Twin Pole – Cairo–Alexandria Desert Road, Chillout",
+                "name_ar": "توين بول – طريق القاهرة الإسكندرية الصحراوي عند تشيل أوت",
+                "description": "Twin Pole – Cairo–Alexandria Desert Road, Chillout. Billboard size: 24 × 8 m. The supplier lists 2 advertising faces.",
+                "description_ar": "توين بول – طريق القاهرة الإسكندرية الصحراوي عند تشيل أوت. مقاس الإعلان 24 × 8 متر. عدد الأوجه حسب عرض المورد 2.",
+                "full_address": "Twin Pole – Cairo–Alexandria Desert Road, Chillout, Egypt",
+                "type": "Twin Pole",
+                "format": "Billboard",
+                "size": "24 x 8",
+                "width": 24,
+                "height": 8,
+                "sqm": 192,
+                "quantity": 1,
+                "sides": 2,
+                "location_id": 3,
+                "district_id": 456,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14810",
+                "supplier_id": 302,
+                "slug": "h-14810-twin-pole-cairo-alexandria-desert-road-chillout",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14810-amc-may-1.jpg",
+                    "sha256": "ca6530ad4518302d896b593000b2a01ed5fdec0b53ff2026a305f1494aa311f0",
+                    "alt": "Twin Pole – Cairo–Alexandria Desert Road, Chillout | H-14810 | Photo 1",
+                    "altAr": "توين بول – طريق القاهرة الإسكندرية الصحراوي عند تشيل أوت | H-14810 | صورة 1"
+                }
+            ],
+            "id": 14819
+        },
+        {
+            "source": "20",
+            "sources": [
+                "20",
+                "21"
+            ],
+            "addressAr": "يوني بول – دائري المعادي أمام كادبوري، مصر",
+            "data": {
+                "title": "Uni-pole – Maadi Ring Road, Cadbury",
+                "name_ar": "يوني بول – دائري المعادي أمام كادبوري",
+                "description": "Uni-pole – Maadi Ring Road, Cadbury. Billboard size: 16 × 8 m. The supplier lists 2 advertising faces.",
+                "description_ar": "يوني بول – دائري المعادي أمام كادبوري. مقاس الإعلان 16 × 8 متر. عدد الأوجه حسب عرض المورد 2.",
+                "full_address": "Uni-pole – Maadi Ring Road, Cadbury, Egypt",
+                "type": "Uni-pole",
+                "format": "Billboard",
+                "size": "16 x 8",
+                "width": 16,
+                "height": 8,
+                "sqm": 128,
+                "quantity": 1,
+                "sides": 2,
+                "location_id": 2,
+                "district_id": 451,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14811",
+                "supplier_id": 302,
+                "slug": "h-14811-uni-pole-maadi-ring-road-cadbury",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14811-amc-may-1.jpg",
+                    "sha256": "5e36235d963ce9d1e3fe9c6702f2c5eef11bedd4df331a8d559e5cef0efc5306",
+                    "alt": "Uni-pole – Maadi Ring Road, Cadbury | H-14811 | Photo 1",
+                    "altAr": "يوني بول – دائري المعادي أمام كادبوري | H-14811 | صورة 1"
+                },
+                {
+                    "fileName": "h-14811-amc-may-2.jpg",
+                    "sha256": "7db625a7c908a7960b05bd8f0a1fbc893a5c3f0b6e1774187c5391e3bdfdaaa2",
+                    "alt": "Uni-pole – Maadi Ring Road, Cadbury | H-14811 | Photo 2",
+                    "altAr": "يوني بول – دائري المعادي أمام كادبوري | H-14811 | صورة 2"
+                }
+            ],
+            "id": 14820
+        }
+    ]
+}
