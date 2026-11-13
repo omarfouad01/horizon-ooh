@@ -1,0 +1,1281 @@
+{
+    "supplier": "Andalusia group",
+    "newRows": [
+        {
+            "source": "6",
+            "sources": [
+                "6"
+            ],
+            "addressAr": "مدخل أليكس ويست، مصر",
+            "data": {
+                "title": "Uni-pole – Alex West Entrance",
+                "name_ar": "يوني بول – مدخل أليكس ويست",
+                "description": "Alex West Entrance. The supplier lists 3 unit(s), 6 advertising faces and a size of 14 × 7 m.",
+                "description_ar": "مدخل أليكس ويست. العرض يشمل 3 وحدة بإجمالي 6 وجه، بمقاس 14 × 7 متر.",
+                "full_address": "Alex West Entrance, Egypt",
+                "type": "Uni-pole",
+                "format": "Billboard",
+                "size": "14 x 7",
+                "width": 14,
+                "height": 7,
+                "sqm": 98,
+                "quantity": 3,
+                "sides": 6,
+                "location_id": 5,
+                "district_id": 481,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14813",
+                "supplier_id": 303,
+                "slug": "h-14813-uni-pole-alex-west-entrance",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14813-andalusia-1.jpg",
+                    "sha256": "aee9f486f0e6d471e0a09b6620fbbdf955e6c3ff1173428c19d366465a3906d4",
+                    "alt": "Uni-pole – Alex West Entrance | H-14813 | Photo 1",
+                    "altAr": "يوني بول – مدخل أليكس ويست | H-14813 | صورة 1"
+                }
+            ],
+            "id": 14822
+        },
+        {
+            "source": "8",
+            "sources": [
+                "8"
+            ],
+            "addressAr": "مدخل كارفور سيتي سنتر الإسكندرية، مصر",
+            "data": {
+                "title": "Uni-pole – Carrefour City Centre Alexandria Entrance",
+                "name_ar": "يوني بول – مدخل كارفور سيتي سنتر الإسكندرية",
+                "description": "Carrefour City Centre Alexandria Entrance. The supplier lists 2 unit(s), 4 advertising faces and a size of 14 × 7 m.",
+                "description_ar": "مدخل كارفور سيتي سنتر الإسكندرية. العرض يشمل 2 وحدة بإجمالي 4 وجه، بمقاس 14 × 7 متر.",
+                "full_address": "Carrefour City Centre Alexandria Entrance, Egypt",
+                "type": "Uni-pole",
+                "format": "Billboard",
+                "size": "14 x 7",
+                "width": 14,
+                "height": 7,
+                "sqm": 98,
+                "quantity": 2,
+                "sides": 4,
+                "location_id": 5,
+                "district_id": 481,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14814",
+                "supplier_id": 303,
+                "slug": "h-14814-uni-pole-carrefour-city-centre-alexandria-entrance",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14814-andalusia-1.jpg",
+                    "sha256": "2bbe8d577b7050b7ed3d0dddadd842b258fe0a7dd80a36b597ca75f7d7de1fc0",
+                    "alt": "Uni-pole – Carrefour City Centre Alexandria Entrance | H-14814 | Photo 1",
+                    "altAr": "يوني بول – مدخل كارفور سيتي سنتر الإسكندرية | H-14814 | صورة 1"
+                }
+            ],
+            "id": 14823
+        },
+        {
+            "source": "10",
+            "sources": [
+                "10"
+            ],
+            "addressAr": "طريق الإسكندرية الصحراوي عند كوبري حسن علام، مصر",
+            "data": {
+                "title": "Uni-pole – Alexandria Desert Road, Hassan Allam Bridge",
+                "name_ar": "يوني بول – طريق الإسكندرية الصحراوي عند كوبري حسن علام",
+                "description": "Alexandria Desert Road, Hassan Allam Bridge. The supplier lists 3 unit(s), 6 advertising faces and a size of 14 × 7 m.",
+                "description_ar": "طريق الإسكندرية الصحراوي عند كوبري حسن علام. العرض يشمل 3 وحدة بإجمالي 6 وجه، بمقاس 14 × 7 متر.",
+                "full_address": "Alexandria Desert Road, Hassan Allam Bridge, Egypt",
+                "type": "Uni-pole",
+                "format": "Billboard",
+                "size": "14 x 7",
+                "width": 14,
+                "height": 7,
+                "sqm": 98,
+                "quantity": 3,
+                "sides": 6,
+                "location_id": 5,
+                "district_id": 481,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14815",
+                "supplier_id": 303,
+                "slug": "h-14815-uni-pole-alexandria-desert-road-hassan-allam-bridge",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14815-andalusia-1.jpg",
+                    "sha256": "4f261cd1f2f736e5e93d2a13d1da8850e77f1efbfc6dc4ea650f21d26eb164e2",
+                    "alt": "Uni-pole – Alexandria Desert Road, Hassan Allam Bridge | H-14815 | Photo 1",
+                    "altAr": "يوني بول – طريق الإسكندرية الصحراوي عند كوبري حسن علام | H-14815 | صورة 1"
+                }
+            ],
+            "id": 14824
+        },
+        {
+            "source": "11",
+            "sources": [
+                "11"
+            ],
+            "addressAr": "مدخل الإسكندرية عند كوبري حسن علام، مصر",
+            "data": {
+                "title": "Stand – Alexandria Entrance, Hassan Allam Bridge",
+                "name_ar": "ستاند – مدخل الإسكندرية عند كوبري حسن علام",
+                "description": "Alexandria Entrance, Hassan Allam Bridge. The supplier lists 6 unit(s), 12 advertising faces and a size of 6 × 3 m.",
+                "description_ar": "مدخل الإسكندرية عند كوبري حسن علام. العرض يشمل 6 وحدة بإجمالي 12 وجه، بمقاس 6 × 3 متر.",
+                "full_address": "Alexandria Entrance, Hassan Allam Bridge, Egypt",
+                "type": "Stand",
+                "format": "Billboard",
+                "size": "6 x 3",
+                "width": 6,
+                "height": 3,
+                "sqm": 18,
+                "quantity": 6,
+                "sides": 12,
+                "location_id": 5,
+                "district_id": 481,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14816",
+                "supplier_id": 303,
+                "slug": "h-14816-stand-alexandria-entrance-hassan-allam-bridge",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14816-andalusia-1.jpg",
+                    "sha256": "942c9ce325df513571beffd63a49c4b95904f91acb6dc4f92f68d922856f17fb",
+                    "alt": "Stand – Alexandria Entrance, Hassan Allam Bridge | H-14816 | Photo 1",
+                    "altAr": "ستاند – مدخل الإسكندرية عند كوبري حسن علام | H-14816 | صورة 1"
+                }
+            ],
+            "id": 14825
+        },
+        {
+            "source": "12",
+            "sources": [
+                "12"
+            ],
+            "addressAr": "الجزيرة الوسطى عند مدخل كارفور سيتي سنتر الإسكندرية، مصر",
+            "data": {
+                "title": "Stand – Carrefour City Centre Alexandria, Entrance Median",
+                "name_ar": "ستاند – الجزيرة الوسطى عند مدخل كارفور سيتي سنتر الإسكندرية",
+                "description": "Carrefour City Centre Alexandria, Entrance Median. The supplier lists 4 unit(s), 8 advertising faces and a size of 6 × 3 m.",
+                "description_ar": "الجزيرة الوسطى عند مدخل كارفور سيتي سنتر الإسكندرية. العرض يشمل 4 وحدة بإجمالي 8 وجه، بمقاس 6 × 3 متر.",
+                "full_address": "Carrefour City Centre Alexandria, Entrance Median, Egypt",
+                "type": "Stand",
+                "format": "Billboard",
+                "size": "6 x 3",
+                "width": 6,
+                "height": 3,
+                "sqm": 18,
+                "quantity": 4,
+                "sides": 8,
+                "location_id": 5,
+                "district_id": 481,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14817",
+                "supplier_id": 303,
+                "slug": "h-14817-stand-carrefour-city-centre-alexandria-entrance-median",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14817-andalusia-1.jpg",
+                    "sha256": "119dfa4b40fd2486c0a93613cf52424e41996ada4f24773b931a271a488cfb04",
+                    "alt": "Stand – Carrefour City Centre Alexandria, Entrance Median | H-14817 | Photo 1",
+                    "altAr": "ستاند – الجزيرة الوسطى عند مدخل كارفور سيتي سنتر الإسكندرية | H-14817 | صورة 1"
+                }
+            ],
+            "id": 14826
+        },
+        {
+            "source": "13",
+            "sources": [
+                "13"
+            ],
+            "addressAr": "طريق الإسكندرية الصحراوي عند كارفور، مصر",
+            "data": {
+                "title": "Digital Screen – Alexandria Desert Road, Carrefour",
+                "name_ar": "شاشة رقمية – طريق الإسكندرية الصحراوي عند كارفور",
+                "description": "Alexandria Desert Road, Carrefour. The supplier lists 1 unit(s), 1 advertising faces and a size of 20 × 5 m.",
+                "description_ar": "طريق الإسكندرية الصحراوي عند كارفور. العرض يشمل 1 وحدة بإجمالي 1 وجه، بمقاس 20 × 5 متر.",
+                "full_address": "Alexandria Desert Road, Carrefour, Egypt",
+                "type": "Digital Screen",
+                "format": "Billboard",
+                "size": "20 x 5",
+                "width": 20,
+                "height": 5,
+                "sqm": 100,
+                "quantity": 1,
+                "sides": 1,
+                "location_id": 5,
+                "district_id": 481,
+                "lat": null,
+                "lng": null,
+                "illuminated": true,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14818",
+                "supplier_id": 303,
+                "slug": "h-14818-digital-screen-alexandria-desert-road-carrefour",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14818-andalusia-1.jpg",
+                    "sha256": "9d95d6325df495ce5f6f110aaa4421f0d1710b5fb470b9b8d6e29bedbfa51af0",
+                    "alt": "Digital Screen – Alexandria Desert Road, Carrefour | H-14818 | Photo 1",
+                    "altAr": "شاشة رقمية – طريق الإسكندرية الصحراوي عند كارفور | H-14818 | صورة 1"
+                }
+            ],
+            "id": 14827
+        },
+        {
+            "source": "14",
+            "sources": [
+                "14"
+            ],
+            "addressAr": "طريق الحرية، باب شرق، طريق أبو قير، مصر",
+            "data": {
+                "title": "Mega – Al Horreya Road, Bab Sharq, Abu Qir Road",
+                "name_ar": "ميجا – طريق الحرية، باب شرق، طريق أبو قير",
+                "description": "Al Horreya Road, Bab Sharq, Abu Qir Road. The supplier lists 1 unit(s), 1 advertising faces and a size of 9 × 3.5 m.",
+                "description_ar": "طريق الحرية، باب شرق، طريق أبو قير. العرض يشمل 1 وحدة بإجمالي 1 وجه، بمقاس 9 × 3.5 متر.",
+                "full_address": "Al Horreya Road, Bab Sharq, Abu Qir Road, Egypt",
+                "type": "Mega",
+                "format": "Billboard",
+                "size": "9 x 3.5",
+                "width": 9,
+                "height": 3.5,
+                "sqm": 31.5,
+                "quantity": 1,
+                "sides": 1,
+                "location_id": 5,
+                "district_id": 481,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14819",
+                "supplier_id": 303,
+                "slug": "h-14819-mega-al-horreya-road-bab-sharq-abu-qir-road",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14819-andalusia-1.jpg",
+                    "sha256": "cc9d2188997f302f7a78edf92828ef5b9a9a093042b0c5cc3e41cba600878dfe",
+                    "alt": "Mega – Al Horreya Road, Bab Sharq, Abu Qir Road | H-14819 | Photo 1",
+                    "altAr": "ميجا – طريق الحرية، باب شرق، طريق أبو قير | H-14819 | صورة 1"
+                }
+            ],
+            "id": 14828
+        },
+        {
+            "source": "15",
+            "sources": [
+                "15"
+            ],
+            "addressAr": "طريق الحرية عند نفق عبد المنعم رياض، مصر",
+            "data": {
+                "title": "Billboard – Al Horreya Road, Abdel Moneim Riad Tunnel",
+                "name_ar": "لوحة إعلانية – طريق الحرية عند نفق عبد المنعم رياض",
+                "description": "Al Horreya Road, Abdel Moneim Riad Tunnel. The supplier lists 1 unit(s), 2 advertising faces and a size of 2 × 2 m.",
+                "description_ar": "طريق الحرية عند نفق عبد المنعم رياض. العرض يشمل 1 وحدة بإجمالي 2 وجه، بمقاس 2 × 2 متر.",
+                "full_address": "Al Horreya Road, Abdel Moneim Riad Tunnel, Egypt",
+                "type": "Billboard",
+                "format": "Billboard",
+                "size": "2 x 2",
+                "width": 2,
+                "height": 2,
+                "sqm": 4,
+                "quantity": 1,
+                "sides": 2,
+                "location_id": 5,
+                "district_id": 481,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14820",
+                "supplier_id": 303,
+                "slug": "h-14820-billboard-al-horreya-road-abdel-moneim-riad-tunnel",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14820-andalusia-1.jpg",
+                    "sha256": "c9f3a4c0baa80035f6dcdcc03de3167a90a0e724e6dd0c4b330156e317e596af",
+                    "alt": "Billboard – Al Horreya Road, Abdel Moneim Riad Tunnel | H-14820 | Photo 1",
+                    "altAr": "لوحة إعلانية – طريق الحرية عند نفق عبد المنعم رياض | H-14820 | صورة 1"
+                }
+            ],
+            "id": 14829
+        },
+        {
+            "source": "16",
+            "sources": [
+                "16"
+            ],
+            "addressAr": "طريق الحرية عند شارع فؤاد، مصر",
+            "data": {
+                "title": "Billboard – Al Horreya Road at Fouad Street",
+                "name_ar": "لوحة إعلانية – طريق الحرية عند شارع فؤاد",
+                "description": "Al Horreya Road at Fouad Street. The supplier lists 1 unit(s), 2 advertising faces and a size of 2 × 2 m.",
+                "description_ar": "طريق الحرية عند شارع فؤاد. العرض يشمل 1 وحدة بإجمالي 2 وجه، بمقاس 2 × 2 متر.",
+                "full_address": "Al Horreya Road at Fouad Street, Egypt",
+                "type": "Billboard",
+                "format": "Billboard",
+                "size": "2 x 2",
+                "width": 2,
+                "height": 2,
+                "sqm": 4,
+                "quantity": 1,
+                "sides": 2,
+                "location_id": 5,
+                "district_id": 481,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14821",
+                "supplier_id": 303,
+                "slug": "h-14821-billboard-al-horreya-road-at-fouad-street",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14821-andalusia-1.jpg",
+                    "sha256": "74dee1f8f31ca56603a4a2784009ff9089bd570842210a7a8c7e427d915a1767",
+                    "alt": "Billboard – Al Horreya Road at Fouad Street | H-14821 | Photo 1",
+                    "altAr": "لوحة إعلانية – طريق الحرية عند شارع فؤاد | H-14821 | صورة 1"
+                }
+            ],
+            "id": 14830
+        },
+        {
+            "source": "17",
+            "sources": [
+                "17"
+            ],
+            "addressAr": "شارع السلطان حسين من طريق الحرية إلى مستشفى أندلسية، مصر",
+            "data": {
+                "title": "Succette – Sultan Hussein Street, Al Horreya to Andalusia Hospital",
+                "name_ar": "سوسيت – شارع السلطان حسين من طريق الحرية إلى مستشفى أندلسية",
+                "description": "Sultan Hussein Street, Al Horreya to Andalusia Hospital. The supplier lists 25 unit(s), 50 advertising faces and a size of 1.25 × 2 m.",
+                "description_ar": "شارع السلطان حسين من طريق الحرية إلى مستشفى أندلسية. العرض يشمل 25 وحدة بإجمالي 50 وجه، بمقاس 1.25 × 2 متر.",
+                "full_address": "Sultan Hussein Street, Al Horreya to Andalusia Hospital, Egypt",
+                "type": "Succette",
+                "format": "Billboard",
+                "size": "1.25 x 2",
+                "width": 1.25,
+                "height": 2,
+                "sqm": 2.5,
+                "quantity": 25,
+                "sides": 50,
+                "location_id": 5,
+                "district_id": 481,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14822",
+                "supplier_id": 303,
+                "slug": "h-14822-succette-sultan-hussein-street-al-horreya-to-andalusia-hospital",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14822-andalusia-1.jpg",
+                    "sha256": "ff498c8759ac1037e6ca7877746bb9297d55c87c8c974460779e9605b9acfe21",
+                    "alt": "Succette – Sultan Hussein Street, Al Horreya to Andalusia Hospital | H-14822 | Photo 1",
+                    "altAr": "سوسيت – شارع السلطان حسين من طريق الحرية إلى مستشفى أندلسية | H-14822 | صورة 1"
+                }
+            ],
+            "id": 14831
+        },
+        {
+            "source": "18",
+            "sources": [
+                "18"
+            ],
+            "addressAr": "شارع فؤاد، محطة الرمل، مصر",
+            "data": {
+                "title": "Billboard – Fouad Street, Raml Station",
+                "name_ar": "لوحة إعلانية – شارع فؤاد، محطة الرمل",
+                "description": "Fouad Street, Raml Station. The supplier lists 2 unit(s), 4 advertising faces and a size of 2 × 2 m.",
+                "description_ar": "شارع فؤاد، محطة الرمل. العرض يشمل 2 وحدة بإجمالي 4 وجه، بمقاس 2 × 2 متر.",
+                "full_address": "Fouad Street, Raml Station, Egypt",
+                "type": "Billboard",
+                "format": "Billboard",
+                "size": "2 x 2",
+                "width": 2,
+                "height": 2,
+                "sqm": 4,
+                "quantity": 2,
+                "sides": 4,
+                "location_id": 5,
+                "district_id": 481,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14823",
+                "supplier_id": 303,
+                "slug": "h-14823-billboard-fouad-street-raml-station",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14823-andalusia-1.jpg",
+                    "sha256": "3d72f488d893f60d4e4c8927ce0507661dcc3afd1ac2fc850fab611d45fb577c",
+                    "alt": "Billboard – Fouad Street, Raml Station | H-14823 | Photo 1",
+                    "altAr": "لوحة إعلانية – شارع فؤاد، محطة الرمل | H-14823 | صورة 1"
+                }
+            ],
+            "id": 14832
+        },
+        {
+            "source": "19",
+            "sources": [
+                "19"
+            ],
+            "addressAr": "شارع قناة السويس، محرم بك، مصر",
+            "data": {
+                "title": "Light Box – Suez Canal Street, Moharam Bek",
+                "name_ar": "لايت بوكس – شارع قناة السويس، محرم بك",
+                "description": "Suez Canal Street, Moharam Bek. The supplier lists 80 unit(s), 160 advertising faces and a size of 1.25 × 2 m.",
+                "description_ar": "شارع قناة السويس، محرم بك. العرض يشمل 80 وحدة بإجمالي 160 وجه، بمقاس 1.25 × 2 متر.",
+                "full_address": "Suez Canal Street, Moharam Bek, Egypt",
+                "type": "Light Box",
+                "format": "Billboard",
+                "size": "1.25 x 2",
+                "width": 1.25,
+                "height": 2,
+                "sqm": 2.5,
+                "quantity": 80,
+                "sides": 160,
+                "location_id": 5,
+                "district_id": 481,
+                "lat": null,
+                "lng": null,
+                "illuminated": true,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14824",
+                "supplier_id": 303,
+                "slug": "h-14824-light-box-suez-canal-street-moharam-bek",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14824-andalusia-1.jpg",
+                    "sha256": "7555e58f5ad2412ccaa82a0a91fbc0d1f0abdcc992b2ebf5561c17d53cf16501",
+                    "alt": "Light Box – Suez Canal Street, Moharam Bek | H-14824 | Photo 1",
+                    "altAr": "لايت بوكس – شارع قناة السويس، محرم بك | H-14824 | صورة 1"
+                }
+            ],
+            "id": 14833
+        },
+        {
+            "source": "20",
+            "sources": [
+                "20"
+            ],
+            "addressAr": "محور المحمودية عند مدخل سموحة، مصر",
+            "data": {
+                "title": "Billboard – Mahmoudia Axis, Smouha Entrance",
+                "name_ar": "لوحة إعلانية – محور المحمودية عند مدخل سموحة",
+                "description": "Mahmoudia Axis, Smouha Entrance. The supplier lists 3 unit(s), 6 advertising faces and a size of 16 × 8 m.",
+                "description_ar": "محور المحمودية عند مدخل سموحة. العرض يشمل 3 وحدة بإجمالي 6 وجه، بمقاس 16 × 8 متر.",
+                "full_address": "Mahmoudia Axis, Smouha Entrance, Egypt",
+                "type": "Billboard",
+                "format": "Billboard",
+                "size": "16 x 8",
+                "width": 16,
+                "height": 8,
+                "sqm": 128,
+                "quantity": 3,
+                "sides": 6,
+                "location_id": 5,
+                "district_id": 58,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14825",
+                "supplier_id": 303,
+                "slug": "h-14825-billboard-mahmoudia-axis-smouha-entrance",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14825-andalusia-1.jpg",
+                    "sha256": "617efe2f1efb16649220ae29a291f1470a5e897f48c06438f865deddd45e7843",
+                    "alt": "Billboard – Mahmoudia Axis, Smouha Entrance | H-14825 | Photo 1",
+                    "altAr": "لوحة إعلانية – محور المحمودية عند مدخل سموحة | H-14825 | صورة 1"
+                }
+            ],
+            "id": 14834
+        },
+        {
+            "source": "21",
+            "sources": [
+                "21"
+            ],
+            "addressAr": "محور المحمودية عند مدخل سموحة، مصر",
+            "data": {
+                "title": "Stand – Mahmoudia Axis, Smouha Entrance",
+                "name_ar": "ستاند – محور المحمودية عند مدخل سموحة",
+                "description": "Mahmoudia Axis, Smouha Entrance. The supplier lists 8 unit(s), 16 advertising faces and a size of 6 × 3 m.",
+                "description_ar": "محور المحمودية عند مدخل سموحة. العرض يشمل 8 وحدة بإجمالي 16 وجه، بمقاس 6 × 3 متر.",
+                "full_address": "Mahmoudia Axis, Smouha Entrance, Egypt",
+                "type": "Stand",
+                "format": "Billboard",
+                "size": "6 x 3",
+                "width": 6,
+                "height": 3,
+                "sqm": 18,
+                "quantity": 8,
+                "sides": 16,
+                "location_id": 5,
+                "district_id": 58,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14826",
+                "supplier_id": 303,
+                "slug": "h-14826-stand-mahmoudia-axis-smouha-entrance",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14826-andalusia-1.jpg",
+                    "sha256": "8e4f749ce889ec99b9ffa346dd3c30291fae782431f04b8516312af462b658a3",
+                    "alt": "Stand – Mahmoudia Axis, Smouha Entrance | H-14826 | Photo 1",
+                    "altAr": "ستاند – محور المحمودية عند مدخل سموحة | H-14826 | صورة 1"
+                }
+            ],
+            "id": 14835
+        },
+        {
+            "source": "22",
+            "sources": [
+                "22"
+            ],
+            "addressAr": "شارع سوتر عند سور كلية الحقوق، الأزاريطة، مصر",
+            "data": {
+                "title": "Billboard – Souter Street, Faculty of Law Fence, Azarita",
+                "name_ar": "لوحة إعلانية – شارع سوتر عند سور كلية الحقوق، الأزاريطة",
+                "description": "Souter Street, Faculty of Law Fence, Azarita. The supplier lists 3 unit(s), 6 advertising faces and a size of 2 × 2 m.",
+                "description_ar": "شارع سوتر عند سور كلية الحقوق، الأزاريطة. العرض يشمل 3 وحدة بإجمالي 6 وجه، بمقاس 2 × 2 متر.",
+                "full_address": "Souter Street, Faculty of Law Fence, Azarita, Egypt",
+                "type": "Billboard",
+                "format": "Billboard",
+                "size": "2 x 2",
+                "width": 2,
+                "height": 2,
+                "sqm": 4,
+                "quantity": 3,
+                "sides": 6,
+                "location_id": 5,
+                "district_id": 481,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14827",
+                "supplier_id": 303,
+                "slug": "h-14827-billboard-souter-street-faculty-of-law-fence-azarita",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14827-andalusia-1.jpg",
+                    "sha256": "6877f43565f33f46fa97fa8c3d764fbdf74ac2eb4ca53ff89f1bb91ee791fb93",
+                    "alt": "Billboard – Souter Street, Faculty of Law Fence, Azarita | H-14827 | Photo 1",
+                    "altAr": "لوحة إعلانية – شارع سوتر عند سور كلية الحقوق، الأزاريطة | H-14827 | صورة 1"
+                }
+            ],
+            "id": 14836
+        },
+        {
+            "source": "24",
+            "sources": [
+                "24"
+            ],
+            "addressAr": "شارع فؤاد أمام مركز الفنون، مصر",
+            "data": {
+                "title": "Billboard – Fouad Street, Opposite the Arts Centre",
+                "name_ar": "لوحة إعلانية – شارع فؤاد أمام مركز الفنون",
+                "description": "Fouad Street, Opposite the Arts Centre. The supplier lists 1 unit(s), 2 advertising faces and a size of 2 × 2 m.",
+                "description_ar": "شارع فؤاد أمام مركز الفنون. العرض يشمل 1 وحدة بإجمالي 2 وجه، بمقاس 2 × 2 متر.",
+                "full_address": "Fouad Street, Opposite the Arts Centre, Egypt",
+                "type": "Billboard",
+                "format": "Billboard",
+                "size": "2 x 2",
+                "width": 2,
+                "height": 2,
+                "sqm": 4,
+                "quantity": 1,
+                "sides": 2,
+                "location_id": 5,
+                "district_id": 481,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14828",
+                "supplier_id": 303,
+                "slug": "h-14828-billboard-fouad-street-opposite-the-arts-centre",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14828-andalusia-1.jpg",
+                    "sha256": "0c9d1be831971a87ed08843d7a29cc62e4e2d472ca17483c6e9ad5e5aeac8aa6",
+                    "alt": "Billboard – Fouad Street, Opposite the Arts Centre | H-14828 | Photo 1",
+                    "altAr": "لوحة إعلانية – شارع فؤاد أمام مركز الفنون | H-14828 | صورة 1"
+                }
+            ],
+            "id": 14837
+        },
+        {
+            "source": "25",
+            "sources": [
+                "25"
+            ],
+            "addressAr": "كورنيش طريق الجيش أمام فندق سان جيوفاني، رشدي، مصر",
+            "data": {
+                "title": "Succette – El Geish Corniche, Opposite San Giovanni Hotel, Roshdy",
+                "name_ar": "سوسيت – كورنيش طريق الجيش أمام فندق سان جيوفاني، رشدي",
+                "description": "El Geish Corniche, Opposite San Giovanni Hotel, Roshdy. The supplier lists 4 unit(s), 8 advertising faces and a size of 1.4 × 2 m.",
+                "description_ar": "كورنيش طريق الجيش أمام فندق سان جيوفاني، رشدي. العرض يشمل 4 وحدة بإجمالي 8 وجه، بمقاس 1.4 × 2 متر.",
+                "full_address": "El Geish Corniche, Opposite San Giovanni Hotel, Roshdy, Egypt",
+                "type": "Succette",
+                "format": "Billboard",
+                "size": "1.4 x 2",
+                "width": 1.399999999999999911182158029987476766109466552734375,
+                "height": 2,
+                "sqm": 2.79999999999999982236431605997495353221893310546875,
+                "quantity": 4,
+                "sides": 8,
+                "location_id": 5,
+                "district_id": 55,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14829",
+                "supplier_id": 303,
+                "slug": "h-14829-succette-el-geish-corniche-opposite-san-giovanni-hotel-roshdy",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14829-andalusia-1.jpg",
+                    "sha256": "7ca93d1eac2f81160dddc2b4e36ba190fc7ce9bf5e92735a19c0de4726ba61e2",
+                    "alt": "Succette – El Geish Corniche, Opposite San Giovanni Hotel, Roshdy | H-14829 | Photo 1",
+                    "altAr": "سوسيت – كورنيش طريق الجيش أمام فندق سان جيوفاني، رشدي | H-14829 | صورة 1"
+                }
+            ],
+            "id": 14838
+        },
+        {
+            "source": "26",
+            "sources": [
+                "26"
+            ],
+            "addressAr": "كورنيش طريق الجيش أسفل كوبري سيدي جابر، مصر",
+            "data": {
+                "title": "Light Box – El Geish Corniche, Beneath Sidi Gaber Bridge",
+                "name_ar": "لايت بوكس – كورنيش طريق الجيش أسفل كوبري سيدي جابر",
+                "description": "El Geish Corniche, Beneath Sidi Gaber Bridge. The supplier lists 22 unit(s), 22 advertising faces and a size of 1.25 × 2 m. The pin marks the approximate road segment.",
+                "description_ar": "كورنيش طريق الجيش أسفل كوبري سيدي جابر. العرض يشمل 22 وحدة بإجمالي 22 وجه، بمقاس 1.25 × 2 متر. البن مرجع تقريبي على الطريق.",
+                "full_address": "El Geish Corniche, Beneath Sidi Gaber Bridge, Egypt",
+                "type": "Light Box",
+                "format": "Billboard",
+                "size": "1.25 x 2",
+                "width": 1.25,
+                "height": 2,
+                "sqm": 2.5,
+                "quantity": 22,
+                "sides": 22,
+                "location_id": 5,
+                "district_id": 55,
+                "lat": 31.22611200000000053478288464248180389404296875,
+                "lng": 29.937042999999999182136889430694282054901123046875,
+                "illuminated": true,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14830",
+                "supplier_id": 303,
+                "slug": "h-14830-light-box-el-geish-corniche-beneath-sidi-gaber-bridge",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14830-andalusia-1.jpg",
+                    "sha256": "ef5acbf679d00a481fb6341bd444e94395779cb90a5ef75f3d49e5f588db1972",
+                    "alt": "Light Box – El Geish Corniche, Beneath Sidi Gaber Bridge | H-14830 | Photo 1",
+                    "altAr": "لايت بوكس – كورنيش طريق الجيش أسفل كوبري سيدي جابر | H-14830 | صورة 1"
+                }
+            ],
+            "id": 14839
+        },
+        {
+            "source": "28",
+            "sources": [
+                "28"
+            ],
+            "addressAr": "كورنيش طريق الجيش، سبورتنج، مصر",
+            "data": {
+                "title": "Succette – El Geish Corniche, Sporting",
+                "name_ar": "سوسيت – كورنيش طريق الجيش، سبورتنج",
+                "description": "El Geish Corniche, Sporting. The supplier lists 6 unit(s), 12 advertising faces and a size of 1.25 × 2 m.",
+                "description_ar": "كورنيش طريق الجيش، سبورتنج. العرض يشمل 6 وحدة بإجمالي 12 وجه، بمقاس 1.25 × 2 متر.",
+                "full_address": "El Geish Corniche, Sporting, Egypt",
+                "type": "Succette",
+                "format": "Billboard",
+                "size": "1.25 x 2",
+                "width": 1.25,
+                "height": 2,
+                "sqm": 2.5,
+                "quantity": 6,
+                "sides": 12,
+                "location_id": 5,
+                "district_id": 481,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14831",
+                "supplier_id": 303,
+                "slug": "h-14831-succette-el-geish-corniche-sporting",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14831-andalusia-1.jpg",
+                    "sha256": "a87776e1359bad6ac702864fdd68df721b5928796f09fe2d513fdbb135492486",
+                    "alt": "Succette – El Geish Corniche, Sporting | H-14831 | Photo 1",
+                    "altAr": "سوسيت – كورنيش طريق الجيش، سبورتنج | H-14831 | صورة 1"
+                }
+            ],
+            "id": 14840
+        },
+        {
+            "source": "30",
+            "sources": [
+                "30"
+            ],
+            "addressAr": "كوبري ٦ أكتوبر عند سور مستشفى العباسية، مصر",
+            "data": {
+                "title": "Double Decker – 6th October Bridge, Abbassia Hospital Fence",
+                "name_ar": "دبل ديكر – كوبري ٦ أكتوبر عند سور مستشفى العباسية",
+                "description": "6th October Bridge, Abbassia Hospital Fence. The supplier lists 1 unit(s), 4 advertising faces and a size of 16 × 6 m.",
+                "description_ar": "كوبري ٦ أكتوبر عند سور مستشفى العباسية. العرض يشمل 1 وحدة بإجمالي 4 وجه، بمقاس 16 × 6 متر.",
+                "full_address": "6th October Bridge, Abbassia Hospital Fence, Egypt",
+                "type": "Double Decker",
+                "format": "Billboard",
+                "size": "16 x 6",
+                "width": 16,
+                "height": 6,
+                "sqm": 96,
+                "quantity": 1,
+                "sides": 4,
+                "location_id": 2,
+                "district_id": 449,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14832",
+                "supplier_id": 303,
+                "slug": "h-14832-double-decker-6th-october-bridge-abbassia-hospital-fence",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14832-andalusia-1.jpg",
+                    "sha256": "83a6c0a1f3e855e183ad18dc2bf921a5161ed12de9d38ffb1abb3c0f55a7f05a",
+                    "alt": "Double Decker – 6th October Bridge, Abbassia Hospital Fence | H-14832 | Photo 1",
+                    "altAr": "دبل ديكر – كوبري ٦ أكتوبر عند سور مستشفى العباسية | H-14832 | صورة 1"
+                }
+            ],
+            "id": 14841
+        },
+        {
+            "source": "33",
+            "sources": [
+                "33"
+            ],
+            "addressAr": "دائري المعادي، قطاع المورد ٢٩ (١٠١)، مصر",
+            "data": {
+                "title": "Billboard – Maadi Ring Road, Supplier Section 29 (101)",
+                "name_ar": "لوحة إعلانية – دائري المعادي، قطاع المورد ٢٩ (١٠١)",
+                "description": "Maadi Ring Road, Supplier Section 29 (101). The supplier lists 3 unit(s), 6 advertising faces and a size of 16 × 8 m.",
+                "description_ar": "دائري المعادي، قطاع المورد ٢٩ (١٠١). العرض يشمل 3 وحدة بإجمالي 6 وجه، بمقاس 16 × 8 متر.",
+                "full_address": "Maadi Ring Road, Supplier Section 29 (101), Egypt",
+                "type": "Billboard",
+                "format": "Billboard",
+                "size": "16 x 8",
+                "width": 16,
+                "height": 8,
+                "sqm": 128,
+                "quantity": 3,
+                "sides": 6,
+                "location_id": 2,
+                "district_id": 451,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14833",
+                "supplier_id": 303,
+                "slug": "h-14833-billboard-maadi-ring-road-supplier-section-29-101",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14833-andalusia-1.jpg",
+                    "sha256": "f1dd612674335db22717520601b44e59ebb10010a57d55173a6e78f818ad50de",
+                    "alt": "Billboard – Maadi Ring Road, Supplier Section 29 (101) | H-14833 | Photo 1",
+                    "altAr": "لوحة إعلانية – دائري المعادي، قطاع المورد ٢٩ (١٠١) | H-14833 | صورة 1"
+                }
+            ],
+            "id": 14842
+        },
+        {
+            "source": "34",
+            "sources": [
+                "34"
+            ],
+            "addressAr": "دائري المعادي، قطاع المورد ٢٤ (B-1)، مصر",
+            "data": {
+                "title": "Billboard – Maadi Ring Road, Supplier Section 24 (B-1)",
+                "name_ar": "لوحة إعلانية – دائري المعادي، قطاع المورد ٢٤ (B-1)",
+                "description": "Maadi Ring Road, Supplier Section 24 (B-1). The supplier lists 3 unit(s), 6 advertising faces and a size of 16 × 8 m.",
+                "description_ar": "دائري المعادي، قطاع المورد ٢٤ (B-1). العرض يشمل 3 وحدة بإجمالي 6 وجه، بمقاس 16 × 8 متر.",
+                "full_address": "Maadi Ring Road, Supplier Section 24 (B-1), Egypt",
+                "type": "Billboard",
+                "format": "Billboard",
+                "size": "16 x 8",
+                "width": 16,
+                "height": 8,
+                "sqm": 128,
+                "quantity": 3,
+                "sides": 6,
+                "location_id": 2,
+                "district_id": 451,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14834",
+                "supplier_id": 303,
+                "slug": "h-14834-billboard-maadi-ring-road-supplier-section-24-b-1",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14834-andalusia-1.jpg",
+                    "sha256": "d92bda246c931316b2efb4304d536dd851f6024780aeef0abb6989b251b35fa8",
+                    "alt": "Billboard – Maadi Ring Road, Supplier Section 24 (B-1) | H-14834 | Photo 1",
+                    "altAr": "لوحة إعلانية – دائري المعادي، قطاع المورد ٢٤ (B-1) | H-14834 | صورة 1"
+                }
+            ],
+            "id": 14843
+        },
+        {
+            "source": "35",
+            "sources": [
+                "35"
+            ],
+            "addressAr": "اللاسلكي، شارع النادي الجديد، المعادي، مصر",
+            "data": {
+                "title": "Billboard – El Laselki, New Club Street, Maadi",
+                "name_ar": "لوحة إعلانية – اللاسلكي، شارع النادي الجديد، المعادي",
+                "description": "El Laselki, New Club Street, Maadi. The supplier lists 2 unit(s), 2 advertising faces and a size of 16 × 8 m.",
+                "description_ar": "اللاسلكي، شارع النادي الجديد، المعادي. العرض يشمل 2 وحدة بإجمالي 2 وجه، بمقاس 16 × 8 متر.",
+                "full_address": "El Laselki, New Club Street, Maadi, Egypt",
+                "type": "Billboard",
+                "format": "Billboard",
+                "size": "16 x 8",
+                "width": 16,
+                "height": 8,
+                "sqm": 128,
+                "quantity": 2,
+                "sides": 2,
+                "location_id": 2,
+                "district_id": 4,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14835",
+                "supplier_id": 303,
+                "slug": "h-14835-billboard-el-laselki-new-club-street-maadi",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14835-andalusia-1.jpg",
+                    "sha256": "5f2917a1d3debd2e488d476f19bbebdadc35d6d0e1aca14e72c08707e2576fa4",
+                    "alt": "Billboard – El Laselki, New Club Street, Maadi | H-14835 | Photo 1",
+                    "altAr": "لوحة إعلانية – اللاسلكي، شارع النادي الجديد، المعادي | H-14835 | صورة 1"
+                }
+            ],
+            "id": 14844
+        },
+        {
+            "source": "36",
+            "sources": [
+                "36"
+            ],
+            "addressAr": "أمام وخلف جراند مول المعادي، مصر",
+            "data": {
+                "title": "Billboard – Maadi Grand Mall Front and Rear",
+                "name_ar": "لوحة إعلانية – أمام وخلف جراند مول المعادي",
+                "description": "Maadi Grand Mall Front and Rear. The supplier lists 3 unit(s), 3 advertising faces and a size of 4 × 3 m. The pin marks the approximate road segment.",
+                "description_ar": "أمام وخلف جراند مول المعادي. العرض يشمل 3 وحدة بإجمالي 3 وجه، بمقاس 4 × 3 متر. البن مرجع تقريبي على الطريق.",
+                "full_address": "Maadi Grand Mall Front and Rear, Egypt",
+                "type": "Billboard",
+                "format": "Billboard",
+                "size": "4 x 3",
+                "width": 4,
+                "height": 3,
+                "sqm": 12,
+                "quantity": 3,
+                "sides": 3,
+                "location_id": 2,
+                "district_id": 4,
+                "lat": 29.966171500000001515218173153698444366455078125,
+                "lng": 31.269617499999998955217961338348686695098876953125,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14836",
+                "supplier_id": 303,
+                "slug": "h-14836-billboard-maadi-grand-mall-front-and-rear",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14836-andalusia-1.jpg",
+                    "sha256": "baddadc1e40dde8252fe40755d400f91c72f0b2e8ae1471cf220f598c6030920",
+                    "alt": "Billboard – Maadi Grand Mall Front and Rear | H-14836 | Photo 1",
+                    "altAr": "لوحة إعلانية – أمام وخلف جراند مول المعادي | H-14836 | صورة 1"
+                }
+            ],
+            "id": 14845
+        },
+        {
+            "source": "37",
+            "sources": [
+                "37"
+            ],
+            "addressAr": "شارع النصر، اللاسلكي، المعادي، مصر",
+            "data": {
+                "title": "Uni-pole – Al Nasr Street, El Laselki, Maadi",
+                "name_ar": "يوني بول – شارع النصر، اللاسلكي، المعادي",
+                "description": "Al Nasr Street, El Laselki, Maadi. The supplier lists 1 unit(s), 1 advertising faces and a size of 10 × 10 m.",
+                "description_ar": "شارع النصر، اللاسلكي، المعادي. العرض يشمل 1 وحدة بإجمالي 1 وجه، بمقاس 10 × 10 متر.",
+                "full_address": "Al Nasr Street, El Laselki, Maadi, Egypt",
+                "type": "Uni-pole",
+                "format": "Billboard",
+                "size": "10 x 10",
+                "width": 10,
+                "height": 10,
+                "sqm": 100,
+                "quantity": 1,
+                "sides": 1,
+                "location_id": 2,
+                "district_id": 4,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14837",
+                "supplier_id": 303,
+                "slug": "h-14837-uni-pole-al-nasr-street-el-laselki-maadi",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14837-andalusia-1.jpg",
+                    "sha256": "16a303d518fdd8934ea3e9a32822896dfee940fa1a3fdeb3a6fbf190183cb3ec",
+                    "alt": "Uni-pole – Al Nasr Street, El Laselki, Maadi | H-14837 | Photo 1",
+                    "altAr": "يوني بول – شارع النصر، اللاسلكي، المعادي | H-14837 | صورة 1"
+                }
+            ],
+            "id": 14846
+        },
+        {
+            "source": "38",
+            "sources": [
+                "38"
+            ],
+            "addressAr": "شارع اللاسلكي أمام سمارت فيليدج المعادي، مصر",
+            "data": {
+                "title": "Light Box – El Laselki Street, Opposite Smart Village Maadi",
+                "name_ar": "لايت بوكس – شارع اللاسلكي أمام سمارت فيليدج المعادي",
+                "description": "El Laselki Street, Opposite Smart Village Maadi. The supplier lists 40 unit(s), 80 advertising faces and a size of 1.25 × 2 m.",
+                "description_ar": "شارع اللاسلكي أمام سمارت فيليدج المعادي. العرض يشمل 40 وحدة بإجمالي 80 وجه، بمقاس 1.25 × 2 متر.",
+                "full_address": "El Laselki Street, Opposite Smart Village Maadi, Egypt",
+                "type": "Light Box",
+                "format": "Billboard",
+                "size": "1.25 x 2",
+                "width": 1.25,
+                "height": 2,
+                "sqm": 2.5,
+                "quantity": 40,
+                "sides": 80,
+                "location_id": 2,
+                "district_id": 4,
+                "lat": null,
+                "lng": null,
+                "illuminated": true,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14838",
+                "supplier_id": 303,
+                "slug": "h-14838-light-box-el-laselki-street-opposite-smart-village-maadi",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14838-andalusia-1.jpg",
+                    "sha256": "c7ce1e4d198d7335f4a76748e70e7dd3b3a2aaefc7c3acb119284d70f0ab6652",
+                    "alt": "Light Box – El Laselki Street, Opposite Smart Village Maadi | H-14838 | Photo 1",
+                    "altAr": "لايت بوكس – شارع اللاسلكي أمام سمارت فيليدج المعادي | H-14838 | صورة 1"
+                }
+            ],
+            "id": 14847
+        },
+        {
+            "source": "39",
+            "sources": [
+                "39"
+            ],
+            "addressAr": "كورنيش المعادي عند كوبري النيل بدراوي، مصر",
+            "data": {
+                "title": "Light Box – Maadi Corniche, Nile Badrawy Bridge",
+                "name_ar": "لايت بوكس – كورنيش المعادي عند كوبري النيل بدراوي",
+                "description": "Maadi Corniche, Nile Badrawy Bridge. The supplier lists 50 unit(s), 100 advertising faces and a size of 1.25 × 2 m.",
+                "description_ar": "كورنيش المعادي عند كوبري النيل بدراوي. العرض يشمل 50 وحدة بإجمالي 100 وجه، بمقاس 1.25 × 2 متر.",
+                "full_address": "Maadi Corniche, Nile Badrawy Bridge, Egypt",
+                "type": "Light Box",
+                "format": "Billboard",
+                "size": "1.25 x 2",
+                "width": 1.25,
+                "height": 2,
+                "sqm": 2.5,
+                "quantity": 50,
+                "sides": 100,
+                "location_id": 2,
+                "district_id": 4,
+                "lat": null,
+                "lng": null,
+                "illuminated": true,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14839",
+                "supplier_id": 303,
+                "slug": "h-14839-light-box-maadi-corniche-nile-badrawy-bridge",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14839-andalusia-1.jpg",
+                    "sha256": "af3dcb9bd661cbc7eca3686bc4a5a08271c9dfff534b22f8094ff0486ed4eda2",
+                    "alt": "Light Box – Maadi Corniche, Nile Badrawy Bridge | H-14839 | Photo 1",
+                    "altAr": "لايت بوكس – كورنيش المعادي عند كوبري النيل بدراوي | H-14839 | صورة 1"
+                }
+            ],
+            "id": 14848
+        },
+        {
+            "source": "40",
+            "sources": [
+                "40"
+            ],
+            "addressAr": "الأوتوستراد عند السلاب ومدخل ومخرج المقطم، مصر",
+            "data": {
+                "title": "Stand – Autostrad Road, Al Salab and Mokattam Access",
+                "name_ar": "ستاند – الأوتوستراد عند السلاب ومدخل ومخرج المقطم",
+                "description": "Autostrad Road, Al Salab and Mokattam Access. The supplier lists 10 unit(s), 20 advertising faces and a size of 6 × 3 m.",
+                "description_ar": "الأوتوستراد عند السلاب ومدخل ومخرج المقطم. العرض يشمل 10 وحدة بإجمالي 20 وجه، بمقاس 6 × 3 متر.",
+                "full_address": "Autostrad Road, Al Salab and Mokattam Access, Egypt",
+                "type": "Stand",
+                "format": "Billboard",
+                "size": "6 x 3",
+                "width": 6,
+                "height": 3,
+                "sqm": 18,
+                "quantity": 10,
+                "sides": 20,
+                "location_id": 2,
+                "district_id": 4,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14840",
+                "supplier_id": 303,
+                "slug": "h-14840-stand-autostrad-road-al-salab-and-mokattam-access",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14840-andalusia-1.jpg",
+                    "sha256": "8317fff407922cfa349a49c08335d74b1310182e274388c708c41d1668fd028a",
+                    "alt": "Stand – Autostrad Road, Al Salab and Mokattam Access | H-14840 | Photo 1",
+                    "altAr": "ستاند – الأوتوستراد عند السلاب ومدخل ومخرج المقطم | H-14840 | صورة 1"
+                }
+            ],
+            "id": 14849
+        },
+        {
+            "source": "43",
+            "sources": [
+                "43"
+            ],
+            "addressAr": "صلاح سالم بجوار حديقة الأزهر، مصر",
+            "data": {
+                "title": "Billboard – Salah Salem Road, Next to Al Azhar Park",
+                "name_ar": "لوحة إعلانية – صلاح سالم بجوار حديقة الأزهر",
+                "description": "Salah Salem Road, Next to Al Azhar Park. The supplier lists 4 unit(s), 8 advertising faces and a size of 16 × 8 m. The pin marks the approximate road segment.",
+                "description_ar": "صلاح سالم بجوار حديقة الأزهر. العرض يشمل 4 وحدة بإجمالي 8 وجه، بمقاس 16 × 8 متر. البن مرجع تقريبي على الطريق.",
+                "full_address": "Salah Salem Road, Next to Al Azhar Park, Egypt",
+                "type": "Billboard",
+                "format": "Billboard",
+                "size": "16 x 8",
+                "width": 16,
+                "height": 8,
+                "sqm": 128,
+                "quantity": 4,
+                "sides": 8,
+                "location_id": 2,
+                "district_id": 454,
+                "lat": 30.0427801000000016529156710021197795867919921875,
+                "lng": 31.268000000000000682121026329696178436279296875,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14841",
+                "supplier_id": 303,
+                "slug": "h-14841-billboard-salah-salem-road-next-to-al-azhar-park",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14841-andalusia-1.jpg",
+                    "sha256": "d89e0fdb81b69bf36eb9fc6dc45a117c4518e1927d632cf601a367098f83d0e3",
+                    "alt": "Billboard – Salah Salem Road, Next to Al Azhar Park | H-14841 | Photo 1",
+                    "altAr": "لوحة إعلانية – صلاح سالم بجوار حديقة الأزهر | H-14841 | صورة 1"
+                }
+            ],
+            "id": 14850
+        }
+    ]
+}
