@@ -1,0 +1,596 @@
+{
+    "supplier": "Beehive",
+    "newRows": [
+        {
+            "source": "11",
+            "sources": [
+                "0-11",
+                "0-12"
+            ],
+            "addressAr": "التسعين الجنوبي عند هيلنان لاند مارك، القاهرة",
+            "data": {
+                "title": "Uni-pole – South 90th Street, Helnan Landmark",
+                "name_ar": "يوني بول – التسعين الجنوبي عند هيلنان لاند مارك",
+                "description": "South 90th Street, Helnan Landmark. The offer covers 2 advertising faces. Dimensions: 24 x 8 m. The pin marks the approximate road segment.",
+                "description_ar": "التسعين الجنوبي عند هيلنان لاند مارك. العرض يشمل 2 وجه إعلاني. المقاس 24 x 8 متر. البن مرجع تقريبي على الطريق.",
+                "full_address": "South 90th Street, Helnan Landmark, Cairo, Egypt",
+                "type": "Uni-pole",
+                "format": "Billboard",
+                "size": "24 x 8",
+                "width": 24,
+                "height": 8,
+                "sqm": 192,
+                "quantity": 1,
+                "sides": 2,
+                "location_id": 2,
+                "district_id": 7,
+                "lat": 30.016490000000001003854777081869542598724365234375,
+                "lng": 31.431916300000001029957275022752583026885986328125,
+                "illuminated": true,
+                "brightness": "Back Light",
+                "price": null,
+                "availability": "available",
+                "code": "H-14843",
+                "supplier_id": 65,
+                "slug": "h-14843-uni-pole-south-90th-street-helnan-landmark",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14843-beehive-july-1.jpg",
+                    "sha256": "7a92893154770fc85b654e3b311e99527077bff33eaf8b96ee2c434abfac0b95",
+                    "alt": "Uni-pole – South 90th Street, Helnan Landmark | H-14843 | Photo 1",
+                    "altAr": "يوني بول – التسعين الجنوبي عند هيلنان لاند مارك | H-14843 | صورة 1"
+                },
+                {
+                    "fileName": "h-14843-beehive-july-2.jpg",
+                    "sha256": "4df4dee2ab7f2b311a855ce94e0c4c960a03ffdb1458c8bbf7fb838a025dcf69",
+                    "alt": "Uni-pole – South 90th Street, Helnan Landmark | H-14843 | Photo 2",
+                    "altAr": "يوني بول – التسعين الجنوبي عند هيلنان لاند مارك | H-14843 | صورة 2"
+                }
+            ],
+            "id": 14852
+        },
+        {
+            "source": "13",
+            "sources": [
+                "0-13",
+                "0-14"
+            ],
+            "addressAr": "التسعين الجنوبي عند شركة المياه، القاهرة",
+            "data": {
+                "title": "Uni-pole – South 90th Street, Water Company",
+                "name_ar": "يوني بول – التسعين الجنوبي عند شركة المياه",
+                "description": "South 90th Street, Water Company. The offer covers 2 advertising faces. Dimensions: 24 x 8 m.",
+                "description_ar": "التسعين الجنوبي عند شركة المياه. العرض يشمل 2 وجه إعلاني. المقاس 24 x 8 متر.",
+                "full_address": "South 90th Street, Water Company, Cairo, Egypt",
+                "type": "Uni-pole",
+                "format": "Billboard",
+                "size": "24 x 8",
+                "width": 24,
+                "height": 8,
+                "sqm": 192,
+                "quantity": 1,
+                "sides": 2,
+                "location_id": 2,
+                "district_id": 7,
+                "lat": null,
+                "lng": null,
+                "illuminated": true,
+                "brightness": "Back Light",
+                "price": null,
+                "availability": "available",
+                "code": "H-14844",
+                "supplier_id": 65,
+                "slug": "h-14844-uni-pole-south-90th-street-water-company",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14844-beehive-july-1.jpg",
+                    "sha256": "4047dd0ceebdb2187022b431f5932ba39888a1a1caa88f921ff24a718c3fc4e6",
+                    "alt": "Uni-pole – South 90th Street, Water Company | H-14844 | Photo 1",
+                    "altAr": "يوني بول – التسعين الجنوبي عند شركة المياه | H-14844 | صورة 1"
+                },
+                {
+                    "fileName": "h-14844-beehive-july-2.jpg",
+                    "sha256": "336fd844073f263758e7f4f171f5087983aba01385ee3b84db7af07ad3ef1637",
+                    "alt": "Uni-pole – South 90th Street, Water Company | H-14844 | Photo 2",
+                    "altAr": "يوني بول – التسعين الجنوبي عند شركة المياه | H-14844 | صورة 2"
+                }
+            ],
+            "id": 14853
+        },
+        {
+            "source": "15",
+            "sources": [
+                "0-15",
+                "0-16"
+            ],
+            "addressAr": "التسعين الجنوبي عند جامعة المستقبل، القاهرة",
+            "data": {
+                "title": "Uni-pole – South 90th Street, Future University",
+                "name_ar": "يوني بول – التسعين الجنوبي عند جامعة المستقبل",
+                "description": "South 90th Street, Future University. The offer covers 2 advertising faces. Dimensions: 16 x 8 m.",
+                "description_ar": "التسعين الجنوبي عند جامعة المستقبل. العرض يشمل 2 وجه إعلاني. المقاس 16 x 8 متر.",
+                "full_address": "South 90th Street, Future University, Cairo, Egypt",
+                "type": "Uni-pole",
+                "format": "Billboard",
+                "size": "16 x 8",
+                "width": 16,
+                "height": 8,
+                "sqm": 128,
+                "quantity": 1,
+                "sides": 2,
+                "location_id": 2,
+                "district_id": 7,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14845",
+                "supplier_id": 65,
+                "slug": "h-14845-uni-pole-south-90th-street-future-university",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14845-beehive-july-1.jpg",
+                    "sha256": "434c47a269ee1ef373b9eabbee44641df3a343e87816a5830a5a1958d20ba8b9",
+                    "alt": "Uni-pole – South 90th Street, Future University | H-14845 | Photo 1",
+                    "altAr": "يوني بول – التسعين الجنوبي عند جامعة المستقبل | H-14845 | صورة 1"
+                },
+                {
+                    "fileName": "h-14845-beehive-july-2.jpg",
+                    "sha256": "beb42a7bd1b36b900cc3f90bf545ea74db3af0da4a4aed13f5e33fd05d630cdb",
+                    "alt": "Uni-pole – South 90th Street, Future University | H-14845 | Photo 2",
+                    "altAr": "يوني بول – التسعين الجنوبي عند جامعة المستقبل | H-14845 | صورة 2"
+                }
+            ],
+            "id": 14854
+        },
+        {
+            "source": "22",
+            "sources": [
+                "0-22",
+                "0-23"
+            ],
+            "addressAr": "التسعين الشمالي عند ذا نوكس قرب واترواي ٢، القاهرة",
+            "data": {
+                "title": "Uni-pole – North 90th Street, The Nox near Waterway 2",
+                "name_ar": "يوني بول – التسعين الشمالي عند ذا نوكس قرب واترواي ٢",
+                "description": "North 90th Street, The Nox near Waterway 2. The offer covers 2 advertising faces. Dimensions: 16 x 8 m.",
+                "description_ar": "التسعين الشمالي عند ذا نوكس قرب واترواي ٢. العرض يشمل 2 وجه إعلاني. المقاس 16 x 8 متر.",
+                "full_address": "North 90th Street, The Nox near Waterway 2, Cairo, Egypt",
+                "type": "Uni-pole",
+                "format": "Billboard",
+                "size": "16 x 8",
+                "width": 16,
+                "height": 8,
+                "sqm": 128,
+                "quantity": 1,
+                "sides": 2,
+                "location_id": 2,
+                "district_id": 7,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14846",
+                "supplier_id": 65,
+                "slug": "h-14846-uni-pole-north-90th-street-the-nox-near-waterway-2",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14846-beehive-july-1.jpg",
+                    "sha256": "715f1bf167d492c93f43cd8a658bbcc1194de010a86ee8bef62f24719212b045",
+                    "alt": "Uni-pole – North 90th Street, The Nox near Waterway 2 | H-14846 | Photo 1",
+                    "altAr": "يوني بول – التسعين الشمالي عند ذا نوكس قرب واترواي ٢ | H-14846 | صورة 1"
+                },
+                {
+                    "fileName": "h-14846-beehive-july-2.jpg",
+                    "sha256": "c1c550d06dd7f891f9d30394b294940370201550377eb6a3f6c5b0badb7d4155",
+                    "alt": "Uni-pole – North 90th Street, The Nox near Waterway 2 | H-14846 | Photo 2",
+                    "altAr": "يوني بول – التسعين الشمالي عند ذا نوكس قرب واترواي ٢ | H-14846 | صورة 2"
+                }
+            ],
+            "id": 14855
+        },
+        {
+            "source": "28",
+            "sources": [
+                "0-28",
+                "0-29"
+            ],
+            "addressAr": "التسعين الشمالي عند جامعة المستقبل وماكسيما مول، القاهرة",
+            "data": {
+                "title": "Combo – North 90th Street, Future University and Maxima Mall",
+                "name_ar": "باكدج – التسعين الشمالي عند جامعة المستقبل وماكسيما مول",
+                "description": "North 90th Street, Future University and Maxima Mall. The offer covers 14 advertising faces. Dimensions: 16 x 8 + 3 x 6 m.",
+                "description_ar": "التسعين الشمالي عند جامعة المستقبل وماكسيما مول. العرض يشمل 14 وجه إعلاني. المقاس 16 x 8 + 3 x 6 متر.",
+                "full_address": "North 90th Street, Future University and Maxima Mall, Cairo, Egypt",
+                "type": "Combo",
+                "format": "Billboard",
+                "size": "16 x 8 + 3 x 6",
+                "width": null,
+                "height": null,
+                "sqm": null,
+                "quantity": 7,
+                "sides": 14,
+                "location_id": 2,
+                "district_id": 7,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14847",
+                "supplier_id": 65,
+                "slug": "h-14847-combo-north-90th-street-future-university-and-maxima-mall",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14847-beehive-july-1.jpg",
+                    "sha256": "b41626442dcbaab883f0472761c107e01432d4136779f83b95112cc9f63b98f7",
+                    "alt": "Combo – North 90th Street, Future University and Maxima Mall | H-14847 | Photo 1",
+                    "altAr": "باكدج – التسعين الشمالي عند جامعة المستقبل وماكسيما مول | H-14847 | صورة 1"
+                },
+                {
+                    "fileName": "h-14847-beehive-july-2.jpg",
+                    "sha256": "60edc29cc61fa0833b003b6937e44073222ac5e59351f2c88ec3ce00d8d0d5c0",
+                    "alt": "Combo – North 90th Street, Future University and Maxima Mall | H-14847 | Photo 2",
+                    "altAr": "باكدج – التسعين الشمالي عند جامعة المستقبل وماكسيما مول | H-14847 | صورة 2"
+                }
+            ],
+            "id": 14856
+        },
+        {
+            "source": "31",
+            "sources": [
+                "0-31",
+                "0-32"
+            ],
+            "addressAr": "محور محمد نجيب عند واترواي ١، القاهرة",
+            "data": {
+                "title": "Uni-pole – Mohamed Naguib Axis, Waterway 1",
+                "name_ar": "يوني بول – محور محمد نجيب عند واترواي ١",
+                "description": "Mohamed Naguib Axis, Waterway 1. The offer covers 2 advertising faces. Dimensions: 24 x 8 m.",
+                "description_ar": "محور محمد نجيب عند واترواي ١. العرض يشمل 2 وجه إعلاني. المقاس 24 x 8 متر.",
+                "full_address": "Mohamed Naguib Axis, Waterway 1, Cairo, Egypt",
+                "type": "Uni-pole",
+                "format": "Billboard",
+                "size": "24 x 8",
+                "width": 24,
+                "height": 8,
+                "sqm": 192,
+                "quantity": 1,
+                "sides": 2,
+                "location_id": 2,
+                "district_id": 7,
+                "lat": null,
+                "lng": null,
+                "illuminated": true,
+                "brightness": "Back Light",
+                "price": null,
+                "availability": "available",
+                "code": "H-14848",
+                "supplier_id": 65,
+                "slug": "h-14848-uni-pole-mohamed-naguib-axis-waterway-1",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14848-beehive-july-1.jpg",
+                    "sha256": "576361de889d367efd6196de853d09c7f73dbc14fb339844a5854ef9dd0d096f",
+                    "alt": "Uni-pole – Mohamed Naguib Axis, Waterway 1 | H-14848 | Photo 1",
+                    "altAr": "يوني بول – محور محمد نجيب عند واترواي ١ | H-14848 | صورة 1"
+                },
+                {
+                    "fileName": "h-14848-beehive-july-2.jpg",
+                    "sha256": "9841dd021fc16e33cf371bd96ba370731d7c6a275c712888eef0ae990915b046",
+                    "alt": "Uni-pole – Mohamed Naguib Axis, Waterway 1 | H-14848 | Photo 2",
+                    "altAr": "يوني بول – محور محمد نجيب عند واترواي ١ | H-14848 | صورة 2"
+                }
+            ],
+            "id": 14857
+        },
+        {
+            "source": "37",
+            "sources": [
+                "0-37"
+            ],
+            "addressAr": "التسعين الجنوبي عند ميدان جيبوتي وسوديك إيست، القاهرة",
+            "data": {
+                "title": "Uni-pole – South 90th Street, Djibouti Square and Sodic East",
+                "name_ar": "يوني بول – التسعين الجنوبي عند ميدان جيبوتي وسوديك إيست",
+                "description": "South 90th Street, Djibouti Square and Sodic East. The offer covers 2 advertising faces. Dimensions: 16 x 8 m.",
+                "description_ar": "التسعين الجنوبي عند ميدان جيبوتي وسوديك إيست. العرض يشمل 2 وجه إعلاني. المقاس 16 x 8 متر.",
+                "full_address": "South 90th Street, Djibouti Square and Sodic East, Cairo, Egypt",
+                "type": "Uni-pole",
+                "format": "Billboard",
+                "size": "16 x 8",
+                "width": 16,
+                "height": 8,
+                "sqm": 128,
+                "quantity": 1,
+                "sides": 2,
+                "location_id": 2,
+                "district_id": 7,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14849",
+                "supplier_id": 65,
+                "slug": "h-14849-uni-pole-south-90th-street-djibouti-square-and-sodic-east",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14849-beehive-july-1.jpg",
+                    "sha256": "4aad62be76c86864361e2eb9f1997605389a9e3760f83239fd64163ac878e5b8",
+                    "alt": "Uni-pole – South 90th Street, Djibouti Square and Sodic East | H-14849 | Photo 1",
+                    "altAr": "يوني بول – التسعين الجنوبي عند ميدان جيبوتي وسوديك إيست | H-14849 | صورة 1"
+                }
+            ],
+            "id": 14858
+        },
+        {
+            "source": "38",
+            "sources": [
+                "0-38",
+                "0-39"
+            ],
+            "addressAr": "التسعين الجنوبي عند أجورا، القاهرة",
+            "data": {
+                "title": "Uni-pole – South 90th Street, Agora",
+                "name_ar": "يوني بول – التسعين الجنوبي عند أجورا",
+                "description": "South 90th Street, Agora. The offer covers 2 advertising faces. Dimensions: 16 x 8 m.",
+                "description_ar": "التسعين الجنوبي عند أجورا. العرض يشمل 2 وجه إعلاني. المقاس 16 x 8 متر.",
+                "full_address": "South 90th Street, Agora, Cairo, Egypt",
+                "type": "Uni-pole",
+                "format": "Billboard",
+                "size": "16 x 8",
+                "width": 16,
+                "height": 8,
+                "sqm": 128,
+                "quantity": 1,
+                "sides": 2,
+                "location_id": 2,
+                "district_id": 7,
+                "lat": null,
+                "lng": null,
+                "illuminated": true,
+                "brightness": "Back Light",
+                "price": null,
+                "availability": "available",
+                "code": "H-14850",
+                "supplier_id": 65,
+                "slug": "h-14850-uni-pole-south-90th-street-agora",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14850-beehive-july-1.jpg",
+                    "sha256": "74dca6522d67f9fb9d4b5e59f2a18ac8f5a2565e665e405f9209cdfcd3090a91",
+                    "alt": "Uni-pole – South 90th Street, Agora | H-14850 | Photo 1",
+                    "altAr": "يوني بول – التسعين الجنوبي عند أجورا | H-14850 | صورة 1"
+                },
+                {
+                    "fileName": "h-14850-beehive-july-2.jpg",
+                    "sha256": "75fe8dcb8984e2fe9f6cff8197090c91e0f1eb5d85da0d19e73195fd5b89bfbb",
+                    "alt": "Uni-pole – South 90th Street, Agora | H-14850 | Photo 2",
+                    "altAr": "يوني بول – التسعين الجنوبي عند أجورا | H-14850 | صورة 2"
+                }
+            ],
+            "id": 14859
+        },
+        {
+            "source": "43",
+            "sources": [
+                "0-43",
+                "0-44"
+            ],
+            "addressAr": "محور السادات عند تشيل أوت، مدخل التجمع الأول، القاهرة",
+            "data": {
+                "title": "Gate – El Sadat Axis, Chillout at First Settlement Entrance",
+                "name_ar": "بوابه – محور السادات عند تشيل أوت، مدخل التجمع الأول",
+                "description": "El Sadat Axis, Chillout at First Settlement Entrance. The offer covers 4 advertising faces. Dimensions: 24 x 8 m.",
+                "description_ar": "محور السادات عند تشيل أوت، مدخل التجمع الأول. العرض يشمل 4 وجه إعلاني. المقاس 24 x 8 متر.",
+                "full_address": "El Sadat Axis, Chillout at First Settlement Entrance, Cairo, Egypt",
+                "type": "Gate",
+                "format": "Billboard",
+                "size": "24 x 8",
+                "width": 24,
+                "height": 8,
+                "sqm": 192,
+                "quantity": 2,
+                "sides": 4,
+                "location_id": 2,
+                "district_id": 7,
+                "lat": null,
+                "lng": null,
+                "illuminated": true,
+                "brightness": "Back Light",
+                "price": null,
+                "availability": "available",
+                "code": "H-14851",
+                "supplier_id": 65,
+                "slug": "h-14851-gate-el-sadat-axis-chillout-at-first-settlement-entrance",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14851-beehive-july-1.jpg",
+                    "sha256": "efa9147e87cda9d0b03179ce59a73f804d939ec653f4dbe0e48983944d941af7",
+                    "alt": "Gate – El Sadat Axis, Chillout at First Settlement Entrance | H-14851 | Photo 1",
+                    "altAr": "بوابه – محور السادات عند تشيل أوت، مدخل التجمع الأول | H-14851 | صورة 1"
+                },
+                {
+                    "fileName": "h-14851-beehive-july-2.jpg",
+                    "sha256": "12c4a26587d581d4fb5591d56eff147a9283ce40b63d0cb1ba355189b288092e",
+                    "alt": "Gate – El Sadat Axis, Chillout at First Settlement Entrance | H-14851 | Photo 2",
+                    "altAr": "بوابه – محور السادات عند تشيل أوت، مدخل التجمع الأول | H-14851 | صورة 2"
+                }
+            ],
+            "id": 14860
+        },
+        {
+            "source": "51",
+            "sources": [
+                "0-51"
+            ],
+            "addressAr": "الطريق الدائري عند مطلع كوبري التسعين، القاهرة",
+            "data": {
+                "title": "Billboard – Ring Road, Ramp to 90th Street Bridge",
+                "name_ar": "لوحة إعلانية – الطريق الدائري عند مطلع كوبري التسعين",
+                "description": "Ring Road, Ramp to 90th Street Bridge. The offer covers 6 advertising faces. Dimensions: 4 x 8 m. The pin marks the approximate road segment.",
+                "description_ar": "الطريق الدائري عند مطلع كوبري التسعين. العرض يشمل 6 وجه إعلاني. المقاس 4 x 8 متر. البن مرجع تقريبي على الطريق.",
+                "full_address": "Ring Road, Ramp to 90th Street Bridge, Cairo, Egypt",
+                "type": "Billboard",
+                "format": "Billboard",
+                "size": "4 x 8",
+                "width": 4,
+                "height": 8,
+                "sqm": 32,
+                "quantity": 6,
+                "sides": 6,
+                "location_id": 2,
+                "district_id": 451,
+                "lat": 30.016444400000001024864104692824184894561767578125,
+                "lng": 31.404349599999999753663360024802386760711669921875,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14852",
+                "supplier_id": 65,
+                "slug": "h-14852-billboard-ring-road-ramp-to-90th-street-bridge",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14852-beehive-july-1.jpg",
+                    "sha256": "b6ae57956662f565be5e9a266549ea8e5360820104a9d9f5b6ae187b790d6e25",
+                    "alt": "Billboard – Ring Road, Ramp to 90th Street Bridge | H-14852 | Photo 1",
+                    "altAr": "لوحة إعلانية – الطريق الدائري عند مطلع كوبري التسعين | H-14852 | صورة 1"
+                }
+            ],
+            "id": 14861
+        },
+        {
+            "source": "52",
+            "sources": [
+                "0-52",
+                "0-53"
+            ],
+            "addressAr": "الطريق الدائري من كايرو فيستيفال سيتي اتجاه كمبينسكي، القاهرة",
+            "data": {
+                "title": "Mirror – Ring Road, Cairo Festival City towards Kempinski",
+                "name_ar": "مرايه – الطريق الدائري من كايرو فيستيفال سيتي اتجاه كمبينسكي",
+                "description": "Ring Road, Cairo Festival City towards Kempinski. The offer covers 4 advertising faces. Dimensions: 70 x 5 + 20 x 5 m.",
+                "description_ar": "الطريق الدائري من كايرو فيستيفال سيتي اتجاه كمبينسكي. العرض يشمل 4 وجه إعلاني. المقاس 70 x 5 + 20 x 5 متر.",
+                "full_address": "Ring Road, Cairo Festival City towards Kempinski, Cairo, Egypt",
+                "type": "Mirror",
+                "format": "Billboard",
+                "size": "70 x 5 + 20 x 5",
+                "width": null,
+                "height": null,
+                "sqm": null,
+                "quantity": 2,
+                "sides": 4,
+                "location_id": 2,
+                "district_id": 451,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14853",
+                "supplier_id": 65,
+                "slug": "h-14853-mirror-ring-road-cairo-festival-city-towards-kempinski",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14853-beehive-july-1.jpg",
+                    "sha256": "c742b441bec647130c6d3d3c25c8bf76f3f2e562b898148ab3c1ca36696c4d4d",
+                    "alt": "Mirror – Ring Road, Cairo Festival City towards Kempinski | H-14853 | Photo 1",
+                    "altAr": "مرايه – الطريق الدائري من كايرو فيستيفال سيتي اتجاه كمبينسكي | H-14853 | صورة 1"
+                },
+                {
+                    "fileName": "h-14853-beehive-july-2.jpg",
+                    "sha256": "bb087663c424cb18cc26614c6dbac9baf3581db6b1552a7bed3ef0a57a24b4c3",
+                    "alt": "Mirror – Ring Road, Cairo Festival City towards Kempinski | H-14853 | Photo 2",
+                    "altAr": "مرايه – الطريق الدائري من كايرو فيستيفال سيتي اتجاه كمبينسكي | H-14853 | صورة 2"
+                }
+            ],
+            "id": 14862
+        },
+        {
+            "source": "ST60",
+            "sources": [
+                "1-20"
+            ],
+            "addressAr": "امتداد التسعين الجنوبي قبل أجورا، القاهرة",
+            "data": {
+                "title": "Stand Network – South 90th Street Extension before Agora (ST 60)",
+                "name_ar": "شبكة ستاندات – امتداد التسعين الجنوبي قبل أجورا (ST 60)",
+                "description": "Four 6 × 3 m stands with eight faces along the South 90th Street extension before Agora.",
+                "description_ar": "أربعة ستاندات بمقاس ٦ × ٣ متر بإجمالي ثمانية أوجه على امتداد التسعين الجنوبي قبل أجورا.",
+                "full_address": "South 90th Street Extension before Agora, Cairo, Egypt",
+                "type": "Stand",
+                "format": "Billboard",
+                "size": "6 x 3",
+                "width": 6,
+                "height": 3,
+                "sqm": 18,
+                "quantity": 4,
+                "sides": 8,
+                "location_id": 2,
+                "district_id": 7,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14854",
+                "supplier_id": 65,
+                "slug": "h-14854-stand-network-south-90th-street-extension-before-agora-st-60",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14854-beehive-july-1.jpg",
+                    "sha256": "5b019e5d537c3b4a8034ad4312e4ec59cbce59805aab63273cca672afa690cb7",
+                    "alt": "Stand Network – South 90th Street Extension before Agora (ST 60) | H-14854 | Photo 1",
+                    "altAr": "شبكة ستاندات – امتداد التسعين الجنوبي قبل أجورا (ST 60) | H-14854 | صورة 1"
+                }
+            ],
+            "id": 14863
+        }
+    ]
+}
