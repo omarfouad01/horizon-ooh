@@ -1,0 +1,355 @@
+{
+  "supplier": "Alamia",
+  "newRows": [
+    {
+      "source": "2",
+      "sources": [
+        "3",
+        "4"
+      ],
+      "addressAr": "باكدج – الطريق الدائري أمام كايرو فيستيفال سيتي، مصر",
+      "data": {
+        "title": "Zone – Ring Road in Front of Cairo Festival City",
+        "name_ar": "باكدج – الطريق الدائري أمام كايرو فيستيفال سيتي",
+        "description": "Two faces at 24 × 8 m and six at 16 × 8 m. This is the supplier's combined booking across four units. The map pin is an approximate road reference.",
+        "description_ar": "وجهان بمقاس ٢٤ × ٨ م وستة أوجه بمقاس ١٦ × ٨ م ضمن حجز مجمّع لأربع وحدات. البن مرجع تقريبي على الطريق.",
+        "full_address": "Zone – Ring Road in Front of Cairo Festival City, Egypt",
+        "type": "Combo",
+        "format": "Billboard",
+        "size": "24 x 8 + 16 x 8",
+        "width": null,
+        "height": null,
+        "sqm": null,
+        "quantity": 4,
+        "sides": 8,
+        "location_id": 2,
+        "district_id": 451,
+        "lat": 30.02355,
+        "lng": 31.40163,
+        "illuminated": false,
+        "brightness": "Not specified",
+        "availability": "available",
+        "code": "H-14798",
+        "supplier_id": 81,
+        "slug": "h-14798-zone-ring-road-in-front-of-cairo-festival-city",
+        "featured": false,
+        "sort_order": 0
+      },
+      "images": [
+        {
+          "fileName": "h-14798-alamia-seven-1.jpg",
+          "sha256": "9373e69e4918d4e6b8abb036bcbf8247b428a70a4439fdd055c1fbd1b363a9db",
+          "alt": "Zone – Ring Road in Front of Cairo Festival City | H-14798 | Photo 1",
+          "altAr": "باكدج – الطريق الدائري أمام كايرو فيستيفال سيتي | H-14798 | صورة 1"
+        },
+        {
+          "fileName": "h-14798-alamia-seven-2.jpg",
+          "sha256": "83722693b30d1587c4d8cc9de42ff4c203d13c46770b71a1d1c92b209cc6004f",
+          "alt": "Zone – Ring Road in Front of Cairo Festival City | H-14798 | Photo 2",
+          "altAr": "باكدج – الطريق الدائري أمام كايرو فيستيفال سيتي | H-14798 | صورة 2"
+        }
+      ],
+      "id": 14807
+    },
+    {
+      "source": "17",
+      "sources": [
+        "18",
+        "19"
+      ],
+      "addressAr": "يوني بول – التسعين الجنوبي عند البنك الأهلي المصري، مصر",
+      "data": {
+        "title": "Uni-pole – South 90th Street, National Bank of Egypt",
+        "name_ar": "يوني بول – التسعين الجنوبي عند البنك الأهلي المصري",
+        "description": "Two faces on South 90th Street near the banking district. The map pin is an approximate road reference.",
+        "description_ar": "وجهان على شارع التسعين الجنوبي قرب منطقة البنوك. البن مرجع تقريبي على الطريق.",
+        "full_address": "Uni-pole – South 90th Street, National Bank of Egypt, Egypt",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "24 x 8",
+        "width": 24,
+        "height": 8,
+        "sqm": 192,
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 2,
+        "district_id": 7,
+        "lat": 30.01647,
+        "lng": 31.42646,
+        "illuminated": false,
+        "brightness": "Not specified",
+        "availability": "available",
+        "code": "H-14799",
+        "supplier_id": 81,
+        "slug": "h-14799-uni-pole-south-90th-street-national-bank-of-egypt",
+        "featured": false,
+        "sort_order": 0
+      },
+      "images": [
+        {
+          "fileName": "h-14799-alamia-seven-1.jpg",
+          "sha256": "a3631cab1e4dcadf0e70cafec22dc5f16c8a34e5adbf6fe71f818cf1d0d67d19",
+          "alt": "Uni-pole – South 90th Street, National Bank of Egypt | H-14799 | Photo 1",
+          "altAr": "يوني بول – التسعين الجنوبي عند البنك الأهلي المصري | H-14799 | صورة 1"
+        },
+        {
+          "fileName": "h-14799-alamia-seven-2.jpg",
+          "sha256": "853dacb1e0579cd7325d99d534fdc8072d21982ecaf88ee4e311710887f4ebfd",
+          "alt": "Uni-pole – South 90th Street, National Bank of Egypt | H-14799 | Photo 2",
+          "altAr": "يوني بول – التسعين الجنوبي عند البنك الأهلي المصري | H-14799 | صورة 2"
+        }
+      ],
+      "id": 14808
+    },
+    {
+      "source": "44",
+      "sources": [
+        "45",
+        "46"
+      ],
+      "addressAr": "يوني بول – التسعين الشمالي عند تشيل أوت، مصر",
+      "data": {
+        "title": "Uni-pole – North 90th Street, Chillout",
+        "name_ar": "يوني بول – التسعين الشمالي عند تشيل أوت",
+        "description": "Two faces on North 90th Street near Chillout. The map pin is an approximate road reference.",
+        "description_ar": "وجهان على شارع التسعين الشمالي قرب تشيل أوت. البن مرجع تقريبي على الطريق.",
+        "full_address": "Uni-pole – North 90th Street, Chillout, Egypt",
+        "type": "Uni-pole",
+        "format": "Billboard",
+        "size": "24 x 8",
+        "width": 24,
+        "height": 8,
+        "sqm": 192,
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 2,
+        "district_id": 7,
+        "lat": 30.02865,
+        "lng": 31.46776,
+        "illuminated": false,
+        "brightness": "Not specified",
+        "availability": "available",
+        "code": "H-14800",
+        "supplier_id": 81,
+        "slug": "h-14800-uni-pole-north-90th-street-chillout",
+        "featured": false,
+        "sort_order": 0
+      },
+      "images": [
+        {
+          "fileName": "h-14800-alamia-seven-1.jpg",
+          "sha256": "e9bf256e4ab812d8bbbf1e49a3a9c64a71b1a71ca7ba0906d9f3a26a793b604b",
+          "alt": "Uni-pole – North 90th Street, Chillout | H-14800 | Photo 1",
+          "altAr": "يوني بول – التسعين الشمالي عند تشيل أوت | H-14800 | صورة 1"
+        },
+        {
+          "fileName": "h-14800-alamia-seven-2.jpg",
+          "sha256": "749ee143930dade1c7ffd88fcc9708a5ee45229bd2e2b64e2d179b2204e291d0",
+          "alt": "Uni-pole – North 90th Street, Chillout | H-14800 | Photo 2",
+          "altAr": "يوني بول – التسعين الشمالي عند تشيل أوت | H-14800 | صورة 2"
+        }
+      ],
+      "id": 14809
+    },
+    {
+      "source": "61",
+      "sources": [
+        "62",
+        "63"
+      ],
+      "addressAr": "بوابه – طريق NA بجوار مسار المونوريل، مصر",
+      "data": {
+        "title": "Gate – NA Road, Monorail Corridor",
+        "name_ar": "بوابه – طريق NA بجوار مسار المونوريل",
+        "description": "Two faces along NA Road near the monorail alignment. The map pin is an approximate road reference.",
+        "description_ar": "وجهان على طريق NA بجوار مسار المونوريل. البن مرجع تقريبي على الطريق.",
+        "full_address": "Gate – NA Road, Monorail Corridor, Egypt",
+        "type": "Gate",
+        "format": "Billboard",
+        "size": "24 x 8",
+        "width": 24,
+        "height": 8,
+        "sqm": 192,
+        "quantity": 1,
+        "sides": 2,
+        "location_id": 2,
+        "district_id": 473,
+        "lat": 30.02071,
+        "lng": 31.37837,
+        "illuminated": false,
+        "brightness": "Not specified",
+        "availability": "available",
+        "code": "H-14801",
+        "supplier_id": 81,
+        "slug": "h-14801-gate-na-road-monorail-corridor",
+        "featured": false,
+        "sort_order": 0
+      },
+      "images": [
+        {
+          "fileName": "h-14801-alamia-seven-1.jpg",
+          "sha256": "f42bd2b6f50ebf760389f4c68a263cc1bb091b551420aea03eae83e45008e755",
+          "alt": "Gate – NA Road, Monorail Corridor | H-14801 | Photo 1",
+          "altAr": "بوابه – طريق NA بجوار مسار المونوريل | H-14801 | صورة 1"
+        },
+        {
+          "fileName": "h-14801-alamia-seven-2.jpg",
+          "sha256": "7d55eb051d9456a2aea0c4d7e74847dc6866b5fb3afa0744668328f074701dd1",
+          "alt": "Gate – NA Road, Monorail Corridor | H-14801 | Photo 2",
+          "altAr": "بوابه – طريق NA بجوار مسار المونوريل | H-14801 | صورة 2"
+        }
+      ],
+      "id": 14810
+    },
+    {
+      "source": "92",
+      "sources": [
+        "93",
+        "94"
+      ],
+      "addressAr": "باكدج – محور ٢٦ يوليو، يوني بول و٩ فلاج، مصر",
+      "data": {
+        "title": "Zone – 26th of July Corridor, One Uni-pole and Nine Flags",
+        "name_ar": "باكدج – محور ٢٦ يوليو، يوني بول و٩ فلاج",
+        "description": "One unipole with two faces and nine flags with eighteen faces. Confirm unit overlap with the two-unipole offer before booking both. Contact Horizon OOH to confirm the package boundaries along the corridor.",
+        "description_ar": "يوني بول بوجهين و٩ فلاج بإجمالي ١٨ وجهًا للفلاج. يُرجى تأكيد الوحدات المشتركة مع عرض اليوني بولين قبل حجز العرضين. تواصل مع هورايزون لتأكيد بداية ونهاية نطاق الباكدج على المحور.",
+        "full_address": "Zone – 26th of July Corridor, One Uni-pole and Nine Flags, Egypt",
+        "type": "Combo",
+        "format": "Billboard",
+        "size": "24 x 8 + 3 x 6",
+        "width": null,
+        "height": null,
+        "sqm": null,
+        "quantity": 10,
+        "sides": 20,
+        "location_id": 3,
+        "district_id": 456,
+        "lat": null,
+        "lng": null,
+        "illuminated": false,
+        "brightness": "Not specified",
+        "availability": "available",
+        "code": "H-14802",
+        "supplier_id": 81,
+        "slug": "h-14802-zone-26th-of-july-corridor-one-uni-pole-and-nine-flags",
+        "featured": false,
+        "sort_order": 0
+      },
+      "images": [
+        {
+          "fileName": "h-14802-alamia-seven-1.jpg",
+          "sha256": "08b89e7dd334bf6b7fc1ac76bac792f5333c6e90bf8668ed6685189cf6a71881",
+          "alt": "Zone – 26th of July Corridor, One Uni-pole and Nine Flags | H-14802 | Photo 1",
+          "altAr": "باكدج – محور ٢٦ يوليو، يوني بول و٩ فلاج | H-14802 | صورة 1"
+        },
+        {
+          "fileName": "h-14802-alamia-seven-2.jpg",
+          "sha256": "253fa934302609fe0c0bff0f3b433a047f6410b04ec6c14e546602c66a1c4350",
+          "alt": "Zone – 26th of July Corridor, One Uni-pole and Nine Flags | H-14802 | Photo 2",
+          "altAr": "باكدج – محور ٢٦ يوليو، يوني بول و٩ فلاج | H-14802 | صورة 2"
+        }
+      ],
+      "id": 14811
+    },
+    {
+      "source": "95",
+      "sources": [
+        "96",
+        "97"
+      ],
+      "addressAr": "باكدج – محور ٢٦ يوليو، ٢ يوني بول و٩ فلاج، مصر",
+      "data": {
+        "title": "Zone – 26th of July Corridor, Two Uni-poles and Nine Flags",
+        "name_ar": "باكدج – محور ٢٦ يوليو، ٢ يوني بول و٩ فلاج",
+        "description": "Two unipoles with four faces and nine flags with eighteen faces. Confirm unit overlap with the one-unipole offer before booking both. Contact Horizon OOH to confirm the package boundaries along the corridor.",
+        "description_ar": "٢ يوني بول بأربعة أوجه و٩ فلاج بإجمالي ١٨ وجهًا للفلاج. يُرجى تأكيد الوحدات المشتركة مع عرض اليوني بول الواحد قبل حجز العرضين. تواصل مع هورايزون لتأكيد بداية ونهاية نطاق الباكدج على المحور.",
+        "full_address": "Zone – 26th of July Corridor, Two Uni-poles and Nine Flags, Egypt",
+        "type": "Combo",
+        "format": "Billboard",
+        "size": "24 x 8 + 3 x 6",
+        "width": null,
+        "height": null,
+        "sqm": null,
+        "quantity": 11,
+        "sides": 22,
+        "location_id": 3,
+        "district_id": 456,
+        "lat": null,
+        "lng": null,
+        "illuminated": false,
+        "brightness": "Not specified",
+        "availability": "available",
+        "code": "H-14803",
+        "supplier_id": 81,
+        "slug": "h-14803-zone-26th-of-july-corridor-two-uni-poles-and-nine-flags",
+        "featured": false,
+        "sort_order": 0
+      },
+      "images": [
+        {
+          "fileName": "h-14803-alamia-seven-1.jpg",
+          "sha256": "474eda2a39835b0b904f18a9f3dd57ffc8fbc7b782b910d9dd77a97e05f7208e",
+          "alt": "Zone – 26th of July Corridor, Two Uni-poles and Nine Flags | H-14803 | Photo 1",
+          "altAr": "باكدج – محور ٢٦ يوليو، ٢ يوني بول و٩ فلاج | H-14803 | صورة 1"
+        },
+        {
+          "fileName": "h-14803-alamia-seven-2.jpg",
+          "sha256": "89afd5b353e65aff462cb28b13172c63b85b37e2d8bf7977f1306529229fd8b7",
+          "alt": "Zone – 26th of July Corridor, Two Uni-poles and Nine Flags | H-14803 | Photo 2",
+          "altAr": "باكدج – محور ٢٦ يوليو، ٢ يوني بول و٩ فلاج | H-14803 | صورة 2"
+        }
+      ],
+      "id": 14812
+    },
+    {
+      "source": "107",
+      "sources": [
+        "108",
+        "109"
+      ],
+      "addressAr": "٢ ميني ميجا – وصلة دهشور الشمالية عند بيفرلي هيلز، مصر",
+      "data": {
+        "title": "Two Mini Megas – North Dahshur Road, Beverly Hills",
+        "name_ar": "٢ ميني ميجا – وصلة دهشور الشمالية عند بيفرلي هيلز",
+        "description": "A combined booking for two mini megas with four faces along North Dahshur Road. The map pin is an approximate road reference.",
+        "description_ar": "حجز مجمّع لوحدتين ميني ميجا بإجمالي أربعة أوجه على وصلة دهشور الشمالية. البن مرجع تقريبي على الطريق.",
+        "full_address": "Two Mini Megas – North Dahshur Road, Beverly Hills, Egypt",
+        "type": "Mini Mega",
+        "format": "Billboard",
+        "size": "7 x 4",
+        "width": 7,
+        "height": 4,
+        "sqm": 28,
+        "quantity": 2,
+        "sides": 4,
+        "location_id": 3,
+        "district_id": 494,
+        "lat": 30.06492,
+        "lng": 30.93358,
+        "illuminated": false,
+        "brightness": "Not specified",
+        "availability": "available",
+        "code": "H-14804",
+        "supplier_id": 81,
+        "slug": "h-14804-two-mini-megas-north-dahshur-road-beverly-hills",
+        "featured": false,
+        "sort_order": 0
+      },
+      "images": [
+        {
+          "fileName": "h-14804-alamia-seven-1.jpg",
+          "sha256": "efbae474211c4b79f6130e5feeaa6926546b83060ae7216960764cffbdb80991",
+          "alt": "Two Mini Megas – North Dahshur Road, Beverly Hills | H-14804 | Photo 1",
+          "altAr": "٢ ميني ميجا – وصلة دهشور الشمالية عند بيفرلي هيلز | H-14804 | صورة 1"
+        },
+        {
+          "fileName": "h-14804-alamia-seven-2.jpg",
+          "sha256": "400c97eff0964bc17b283312e6b2bdeb689d4253ef1a038bf31c089e04f2bf13",
+          "alt": "Two Mini Megas – North Dahshur Road, Beverly Hills | H-14804 | Photo 2",
+          "altAr": "٢ ميني ميجا – وصلة دهشور الشمالية عند بيفرلي هيلز | H-14804 | صورة 2"
+        }
+      ],
+      "id": 14813
+    }
+  ]
+}
