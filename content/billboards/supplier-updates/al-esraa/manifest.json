@@ -1,0 +1,158 @@
+{
+    "supplier": "Al esraa adv",
+    "newRows": [
+        {
+            "source": "0-16",
+            "sources": [
+                "0-16",
+                "0-17",
+                "0-18"
+            ],
+            "addressAr": "شارع حسن المأمون، القاهرة",
+            "data": {
+                "title": "Mega Post – Hassan El Maamoun Street",
+                "name_ar": "ميجا بوست – شارع حسن المأمون",
+                "description": "32 units along Hassan El Maamoun Street. The map pin marks the approximate road segment.",
+                "description_ar": "٣٢ وحدة على امتداد شارع حسن المأمون. البن يشير للمقطع التقريبي على الطريق.",
+                "full_address": "Hassan El Maamoun Street, Cairo",
+                "type": "Mega Post",
+                "format": "Billboard",
+                "size": "3 x 1.5",
+                "width": 3,
+                "height": 1.5,
+                "sqm": 4.5,
+                "quantity": 32,
+                "sides": 2,
+                "location_id": 2,
+                "district_id": 6,
+                "lat": 30.070519999999998361772668431513011455535888671875,
+                "lng": 31.356359999999998677822077297605574131011962890625,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14795",
+                "supplier_id": 21,
+                "slug": "h-14795-mega-post-hassan-el-maamoun-street",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14795-al-esraa-1.jpg",
+                    "sha256": "646c95a9aa926686a52e7a020a9f6b48748544a2be968d91e61448ad313511df",
+                    "alt": "Mega Post – Hassan El Maamoun Street | H-14795 | Photo 1",
+                    "altAr": "ميجا بوست – شارع حسن المأمون | H-14795 | صورة 1"
+                },
+                {
+                    "fileName": "h-14795-al-esraa-2.jpg",
+                    "sha256": "bbcbb1180d47692824fb61a6db2a8178ec12d8a61d1447651ef7b39920d94882",
+                    "alt": "Mega Post – Hassan El Maamoun Street | H-14795 | Photo 2",
+                    "altAr": "ميجا بوست – شارع حسن المأمون | H-14795 | صورة 2"
+                },
+                {
+                    "fileName": "h-14795-al-esraa-3.jpg",
+                    "sha256": "6a09bb501f50e9710cef91d0b63633554d80bf606209b79206a53782249cba95",
+                    "alt": "Mega Post – Hassan El Maamoun Street | H-14795 | Photo 3",
+                    "altAr": "ميجا بوست – شارع حسن المأمون | H-14795 | صورة 3"
+                }
+            ],
+            "id": 14804
+        },
+        {
+            "source": "1-37",
+            "sources": [
+                "1-37",
+                "1-38"
+            ],
+            "addressAr": "امتداد طريق الثورة – اتجاه مصر الجديدة ومدينة نصر، القاهرة",
+            "data": {
+                "title": "Mega Post – Al Thawra Road Extension – Towards Heliopolis and Nasr City",
+                "name_ar": "ميجا بوست – امتداد طريق الثورة – اتجاه مصر الجديدة ومدينة نصر",
+                "description": "136 faces across the road network. The map pin marks the approximate road segment.",
+                "description_ar": "١٣٦ وجهًا على امتداد الطريق. البن يشير للمقطع التقريبي على الطريق.",
+                "full_address": "Al Thawra Road Extension – Towards Heliopolis and Nasr City, Cairo",
+                "type": "Mega Post",
+                "format": "Billboard",
+                "size": "3 x 1.5",
+                "width": 3,
+                "height": 1.5,
+                "sqm": 4.5,
+                "quantity": 68,
+                "sides": 2,
+                "location_id": 2,
+                "district_id": 457,
+                "lat": 30.080799999999999982946974341757595539093017578125,
+                "lng": 31.39699999999999846522769075818359851837158203125,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14796",
+                "supplier_id": 21,
+                "slug": "h-14796-mega-post-al-thawra-road-extension-towards-heliopolis-and-nasr-city",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14796-al-esraa-1.jpg",
+                    "sha256": "153bdccd8f2e2076be8736ce84fecc47457266da856b407941628da7e7e1029d",
+                    "alt": "Mega Post – Al Thawra Road Extension – Towards Heliopolis and Nasr City | H-14796 | Photo 1",
+                    "altAr": "ميجا بوست – امتداد طريق الثورة – اتجاه مصر الجديدة ومدينة نصر | H-14796 | صورة 1"
+                },
+                {
+                    "fileName": "h-14796-al-esraa-2.jpg",
+                    "sha256": "2320d5d6de64ca29fadf1d877f670318de873f7dbcf6917d232e5a5ae4b3d5c6",
+                    "alt": "Mega Post – Al Thawra Road Extension – Towards Heliopolis and Nasr City | H-14796 | Photo 2",
+                    "altAr": "ميجا بوست – امتداد طريق الثورة – اتجاه مصر الجديدة ومدينة نصر | H-14796 | صورة 2"
+                }
+            ],
+            "id": 14805
+        },
+        {
+            "source": "1-45",
+            "sources": [
+                "1-45"
+            ],
+            "addressAr": "كوبري التسعين – من مدينة نصر اتجاه التجمع الخامس، القاهرة",
+            "data": {
+                "title": "Uni pole – North 90th Street Bridge – Nasr City Towards Fifth Settlement",
+                "name_ar": "يوني بول – كوبري التسعين – من مدينة نصر اتجاه التجمع الخامس",
+                "description": "One face on the bridge approach towards 90th Street. The map pin marks the approximate road segment.",
+                "description_ar": "وجه واحد على مدخل الكوبري باتجاه شارع التسعين. البن يشير للمقطع التقريبي على الطريق.",
+                "full_address": "North 90th Street Bridge – Nasr City Towards Fifth Settlement, Cairo",
+                "type": "Uni pole",
+                "format": "Billboard",
+                "size": "8 x 24",
+                "width": 8,
+                "height": 24,
+                "sqm": 192,
+                "quantity": 1,
+                "sides": 1,
+                "location_id": 2,
+                "district_id": 7,
+                "lat": 30.016439999999999344026946346275508403778076171875,
+                "lng": 31.40435000000000087538865045644342899322509765625,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14797",
+                "supplier_id": 21,
+                "slug": "h-14797-uni-pole-north-90th-street-bridge-nasr-city-towards-fifth-settlement",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14797-al-esraa-1.jpg",
+                    "sha256": "219e7cec4f815b796a4a9b495383afed9ff94e1439bd73d85a554a75a4e19d1a",
+                    "alt": "Uni pole – North 90th Street Bridge – Nasr City Towards Fifth Settlement | H-14797 | Photo 1",
+                    "altAr": "يوني بول – كوبري التسعين – من مدينة نصر اتجاه التجمع الخامس | H-14797 | صورة 1"
+                }
+            ],
+            "id": 14806
+        }
+    ]
+}
