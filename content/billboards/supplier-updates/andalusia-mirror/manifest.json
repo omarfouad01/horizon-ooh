@@ -1,0 +1,56 @@
+{
+    "supplier": "Andalusia group",
+    "newRows": [
+        {
+            "source": "41",
+            "sources": [
+                "41",
+                "42"
+            ],
+            "addressAr": "الأوتوستراد أعلى الطريق الدائري، مدخل المعادي، القاهرة",
+            "data": {
+                "title": "Mirror Package - Autostrad over the Ring Road, Maadi Entrance",
+                "name_ar": "باكدج مرايا - الأوتوستراد أعلى الدائري عند مدخل المعادي",
+                "description": "One booking for two advertising faces, each 30 × 5 m, covering the Ring Road direction and the Maadi entrance.",
+                "description_ar": "عرض حجز واحد لوجهين إعلانيين، مقاس كل وجه ٣٠ × ٥ متر، لاتجاه الطريق الدائري ومدخل المعادي.",
+                "full_address": "Autostrad Road over the Ring Road, Maadi Entrance, Cairo, Egypt",
+                "type": "Mirror",
+                "format": "Billboard",
+                "size": "30 x 5",
+                "width": 30,
+                "height": 5,
+                "sqm": 150,
+                "quantity": 2,
+                "sides": 2,
+                "location_id": 2,
+                "district_id": 4,
+                "lat": null,
+                "lng": null,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14842",
+                "supplier_id": 303,
+                "slug": "h-14842-mirror-package-autostrad-over-the-ring-road-maadi-entrance",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14842-andalusia-mirror-1.jpg",
+                    "sha256": "3ad6a6fea7cc33bee3cc19141a5de27c9209c01e2593cbad494fba2a7d6d631b",
+                    "alt": "Mirror Package - Autostrad over the Ring Road, Maadi Entrance | H-14842 | Photo 1",
+                    "altAr": "باكدج مرايا - الأوتوستراد أعلى الدائري عند مدخل المعادي | H-14842 | صورة 1"
+                },
+                {
+                    "fileName": "h-14842-andalusia-mirror-2.jpg",
+                    "sha256": "a3aa40a638e23e7cb858aab72b7681055962bfe2e9e7473517ebdafd061d3de5",
+                    "alt": "Mirror Package - Autostrad over the Ring Road, Maadi Entrance | H-14842 | Photo 2",
+                    "altAr": "باكدج مرايا - الأوتوستراد أعلى الدائري عند مدخل المعادي | H-14842 | صورة 2"
+                }
+            ],
+            "id": 14851
+        }
+    ]
+}
