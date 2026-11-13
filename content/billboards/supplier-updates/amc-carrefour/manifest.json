@@ -1,0 +1,56 @@
+{
+    "supplier": "AMC Mahmoud Fathy",
+    "newRows": [
+        {
+            "source": "18",
+            "sources": [
+                "18",
+                "19"
+            ],
+            "addressAr": "يوني بول – دائري المعادي أمام كارفور، مصر",
+            "data": {
+                "title": "Uni-pole – Maadi Ring Road, Carrefour",
+                "name_ar": "يوني بول – دائري المعادي أمام كارفور",
+                "description": "Uni-pole – Maadi Ring Road, Carrefour. Billboard size: 16 × 8 m. The supplier lists 2 advertising faces. The pin is an approximate road reference.",
+                "description_ar": "يوني بول – دائري المعادي أمام كارفور. مقاس الإعلان 16 × 8 متر. عدد الأوجه حسب عرض المورد 2. البن مرجع تقريبي على الطريق.",
+                "full_address": "Uni-pole – Maadi Ring Road, Carrefour, Egypt",
+                "type": "Uni-pole",
+                "format": "Billboard",
+                "size": "16 x 8",
+                "width": 16,
+                "height": 8,
+                "sqm": 128,
+                "quantity": 1,
+                "sides": 2,
+                "location_id": 2,
+                "district_id": 451,
+                "lat": 29.983879999999999199644662439823150634765625,
+                "lng": 31.31897000000000019781509763561189174652099609375,
+                "illuminated": false,
+                "brightness": "Not specified",
+                "price": null,
+                "availability": "available",
+                "code": "H-14812",
+                "supplier_id": 302,
+                "slug": "h-14812-uni-pole-maadi-ring-road-carrefour",
+                "featured": false,
+                "sort_order": 0
+            },
+            "images": [
+                {
+                    "fileName": "h-14812-amc-carrefour-1.jpg",
+                    "sha256": "81a509303eaf048ea3d4474410e610a685991f1a2333667e4a700dc1b015b4f2",
+                    "alt": "Uni-pole – Maadi Ring Road, Carrefour | H-14812 | Photo 1",
+                    "altAr": "يوني بول – دائري المعادي أمام كارفور | H-14812 | صورة 1"
+                },
+                {
+                    "fileName": "h-14812-amc-carrefour-2.jpg",
+                    "sha256": "3bee06a56dafded7f7f6d987b51285a9879dd069a095dc6106d0acf73845f34f",
+                    "alt": "Uni-pole – Maadi Ring Road, Carrefour | H-14812 | Photo 2",
+                    "altAr": "يوني بول – دائري المعادي أمام كارفور | H-14812 | صورة 2"
+                }
+            ],
+            "id": 14821
+        }
+    ]
+}
