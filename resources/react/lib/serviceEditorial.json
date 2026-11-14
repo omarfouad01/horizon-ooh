@@ -41,7 +41,29 @@
     "overview": "Define who should hear the message, when it should air and how often. Compare channels by audience fit and time band, then align delivery and approval dates with the booking schedule.",
     "useCases": "For retail launches and regional promotions, compare radio by listening times and coverage. For television, consider the programming and surrounding audience as well as the slot.",
     "overviewAr": "حدد الجمهور المطلوب ومواعيد البث وعدد مرات العرض. قارن القنوات حسب الجمهور والفترة الزمنية ونسّق مواعيد التسليم والموافقة مع الحجز.",
-    "useCasesAr": "لإطلاق الفروع والعروض الإقليمية، قارن الإذاعات حسب أوقات الاستماع ونطاق التغطية. وفي التلفزيون، راجع طبيعة البرنامج وجمهوره إلى جانب موعد البث."
+    "useCasesAr": "لإطلاق الفروع والعروض الإقليمية، قارن الإذاعات حسب أوقات الاستماع ونطاق التغطية. وفي التلفزيون، راجع طبيعة البرنامج وجمهوره إلى جانب موعد البث.",
+    "benefits": [
+      "Audience and slot comparison",
+      "Spot delivery aligned to airtime",
+      "Itemized schedule for approval"
+    ],
+    "benefitsAr": [
+      "مقارنة الجمهور وفترات البث",
+      "تنسيق تسليم الإعلان مع موعد العرض",
+      "جدول مفصل للموافقة"
+    ],
+    "process": [
+      "Define audience and flight",
+      "Compare channel schedules",
+      "Confirm delivery specs and bookings",
+      "Reconcile the booked schedule"
+    ],
+    "processAr": [
+      "حدد الجمهور وفترة الحملة",
+      "قارن جداول القنوات",
+      "أكد المواصفات والحجز",
+      "راجع جدول البث المتفق عليه"
+    ]
   },
   "airport-advertising-in-egypt": {
     "en": "Airport Advertising in Egypt",
@@ -85,7 +107,29 @@
     "overview": "Airport advertising puts a message along the passenger journey. The terminal, direction of movement and time passengers spend near a placement help determine the right format and creative.",
     "useCases": "For hospitality and travel offers, compare arrival areas with departure placements. Check the routes served, the display’s position and what passengers can do after seeing the message.",
     "overviewAr": "تضع إعلانات المطارات رسالتك على مسار المسافر. تساعدك الصالة واتجاه الحركة والوقت الذي يقضيه المسافر بجوار الإعلان في اختيار الصيغة والتصميم.",
-    "useCasesAr": "لعروض السياحة والضيافة، قارن بين صالات الوصول والمغادرة. راجع الوجهات وموضع الإعلان والخطوة التي يستطيع المسافر اتخاذها بعد مشاهدته."
+    "useCasesAr": "لعروض السياحة والضيافة، قارن بين صالات الوصول والمغادرة. راجع الوجهات وموضع الإعلان والخطوة التي يستطيع المسافر اتخاذها بعد مشاهدته.",
+    "benefits": [
+      "Placement matched to passenger flow",
+      "Creative adapted to viewing time",
+      "Terminal conditions clarified early"
+    ],
+    "benefitsAr": [
+      "اختيار الموقع حسب مسار المسافرين",
+      "تصميم مناسب لمدة المشاهدة",
+      "توضيح شروط الصالة مبكرًا"
+    ],
+    "process": [
+      "Identify routes and dates",
+      "Compare terminal locations",
+      "Confirm access and artwork rules",
+      "Coordinate placement approval"
+    ],
+    "processAr": [
+      "حدد الرحلات والمواعيد",
+      "قارن مواقع الصالات",
+      "راجع الدخول ومواصفات التصميم",
+      "نسّق اعتماد الإعلان"
+    ]
   },
   "billboard-advertising-in-egypt": {
     "en": "Billboard Advertising in Egypt",
@@ -130,7 +174,29 @@
     "overview": "Billboard buying starts with the road and direction of travel. Compare each face by sightline, approach distance, lighting and the time available to read the message.",
     "useCases": "A board near a branch can give drivers a simple direction. For broad awareness, compare several roads and spread placements across the routes your audience uses.",
     "overviewAr": "يبدأ اختيار اليافطة بالطريق واتجاه السير. قارن الأوجه حسب زاوية الرؤية ومسافة الاقتراب والإضاءة والوقت المتاح لقراءة الرسالة.",
-    "useCasesAr": "يمكن ليافطة قرب الفرع توجيه السائقين إليه. ولزيادة الانتشار، قارن عدة طرق ووزّع الإعلانات على المسارات التي يستخدمها جمهورك."
+    "useCasesAr": "يمكن ليافطة قرب الفرع توجيه السائقين إليه. ولزيادة الانتشار، قارن عدة طرق ووزّع الإعلانات على المسارات التي يستخدمها جمهورك.",
+    "benefits": [
+      "Face-level sightline review",
+      "Clear format and lighting choices",
+      "Production scoped by booked dimensions"
+    ],
+    "benefitsAr": [
+      "مراجعة زاوية الرؤية لكل وجه",
+      "اختيار النوع والإضاءة بوضوح",
+      "تحديد الإنتاج حسب المقاس المحجوز"
+    ],
+    "process": [
+      "Map target routes",
+      "Compare faces and direction",
+      "Confirm sizes and availability",
+      "Coordinate production and installation"
+    ],
+    "processAr": [
+      "حدد الطرق المستهدفة",
+      "قارن الأوجه واتجاه السير",
+      "أكد المقاسات والتوفر",
+      "نسّق الإنتاج والتركيب"
+    ]
   },
   "booth-activation-production": {
     "en": "Exhibition Booth Design in Egypt",
@@ -174,7 +240,29 @@
     "overview": "A booth is both a branded space and a working area. Plan entrances, circulation, demonstrations, storage and staff positions around the floor plan and visitor flow.",
     "useCases": "A product demo may need power and room for a queue. A meeting booth needs seating and quieter conversation areas. Define these requirements before choosing finishes.",
     "overviewAr": "الجناح مساحة لعرض هوية البراند والعمل في الوقت نفسه. خطط للدخول والحركة والعروض والتخزين وأماكن الفريق حسب المخطط ومسار الزوار.",
-    "useCasesAr": "قد يحتاج عرض المنتج إلى كهرباء ومساحة لانتظار الزوار. ويحتاج جناح الاجتماعات إلى مقاعد ومكان أهدأ للحوار. حدد المتطلبات قبل اختيار التشطيبات."
+    "useCasesAr": "قد يحتاج عرض المنتج إلى كهرباء ومساحة لانتظار الزوار. ويحتاج جناح الاجتماعات إلى مقاعد ومكان أهدأ للحوار. حدد المتطلبات قبل اختيار التشطيبات.",
+    "benefits": [
+      "Floor space planned for visitors",
+      "Build scope aligned to venue rules",
+      "Equipment and finishes agreed early"
+    ],
+    "benefitsAr": [
+      "تخطيط المساحة لحركة الزوار",
+      "تنفيذ مناسب لاشتراطات المكان",
+      "اتفاق مبكر على المعدات والتشطيبات"
+    ],
+    "process": [
+      "Review the venue manual",
+      "Plan layout and equipment",
+      "Approve fabrication details",
+      "Schedule installation and removal"
+    ],
+    "processAr": [
+      "راجع دليل المكان",
+      "خطط للتوزيع والمعدات",
+      "اعتمد تفاصيل التصنيع",
+      "نسّق التركيب والفك"
+    ]
   },
   "commercial-video-production": {
     "en": "Commercial Video Production in Egypt",
@@ -218,7 +306,29 @@
     "overview": "Commercial video production turns a brief into footage and channel-ready edits. A clear script, shot list and delivery plan help make the filming day productive and the review process predictable.",
     "useCases": "A product film may need close-ups and demonstrations. A launch film may need shorter edits for screens and social use. Decide on aspect ratios, captions and languages before shooting.",
     "overviewAr": "يحوّل إنتاج الفيديو التجاري البريف إلى لقطات ونسخ مناسبة لقنوات العرض. يسهّل السيناريو وقائمة اللقطات وخطة التسليم التصوير والمراجعة.",
-    "useCasesAr": "قد يحتاج فيديو المنتج إلى لقطات مقربة وعرض لطريقة الاستخدام. وقد تحتاج حملة الإطلاق إلى نسخ أقصر للشاشات والمنصات. حدد الأبعاد والترجمة واللغات قبل التصوير."
+    "useCasesAr": "قد يحتاج فيديو المنتج إلى لقطات مقربة وعرض لطريقة الاستخدام. وقد تحتاج حملة الإطلاق إلى نسخ أقصر للشاشات والمنصات. حدد الأبعاد والترجمة واللغات قبل التصوير.",
+    "benefits": [
+      "Deliverables scoped by channel",
+      "Shoot plan aligned to script",
+      "Review rounds agreed before editing"
+    ],
+    "benefitsAr": [
+      "تحديد النسخ لكل قناة",
+      "خطة تصوير مبنية على السيناريو",
+      "اتفاق على جولات المراجعة قبل المونتاج"
+    ],
+    "process": [
+      "Agree on the concept and deliverables",
+      "Plan locations and shots",
+      "Film the approved script",
+      "Edit and export final versions"
+    ],
+    "processAr": [
+      "اتفق على الفكرة والنسخ",
+      "خطط للمواقع واللقطات",
+      "صوّر السيناريو المعتمد",
+      "حرّر وصدّر النسخ النهائية"
+    ]
   },
   "dooh-advertising-in-egypt": {
     "en": "DOOH Advertising in Egypt",
@@ -262,7 +372,29 @@
     "overview": "Digital outdoor advertising uses timed spots on screens. Compare screen visibility, the length of the display loop and when your creative runs before choosing a network or individual site.",
     "useCases": "Use short, legible creative on roads. At pedestrian venues, match the message to dwell time and ask about rotation and available dayparts.",
     "overviewAr": "تُعرض إعلانات الشاشات الخارجية ضمن جدول تشغيل. قارن وضوح الشاشات وطول دورة العرض ومواعيد تشغيل الإعلان قبل اختيار شبكة أو موقع منفرد.",
-    "useCasesAr": "استخدم تصميمًا قصيرًا ومقروءًا على الطرق. وفي أماكن المشاة، راعِ وقت الانتظار واسأل عن تكرار الإعلان وفترات العرض المتاحة."
+    "useCasesAr": "استخدم تصميمًا قصيرًا ومقروءًا على الطرق. وفي أماكن المشاة، راعِ وقت الانتظار واسأل عن تكرار الإعلان وفترات العرض المتاحة.",
+    "benefits": [
+      "Booking terms tied to the screen loop",
+      "Creative suited to screen dimensions",
+      "Schedule options matched to the audience"
+    ],
+    "benefitsAr": [
+      "حجز مبني على دورة عرض الشاشة",
+      "تصميم مناسب لأبعاد الشاشة",
+      "فترات عرض تناسب الجمهور"
+    ],
+    "process": [
+      "Select routes or venues",
+      "Review loop timing and availability",
+      "Prepare and approve versions",
+      "Confirm the playback schedule"
+    ],
+    "processAr": [
+      "اختر الطرق أو المواقع",
+      "راجع دورة العرض والتوفر",
+      "جهّز واعتمد النسخ",
+      "أكد جدول التشغيل"
+    ]
   },
   "event-management-brand-activations": {
     "en": "Event Management in Egypt",
@@ -306,7 +438,29 @@
     "overview": "Event management coordinates the guest experience and the work behind it. Set the objective, expected attendance, site requirements and operational responsibilities early.",
     "useCases": "For a launch, plan arrivals, demonstrations and press access. For a public activation, plan visitor flow, staffing and how participants will engage.",
     "overviewAr": "تربط إدارة الفعاليات بين تجربة الضيوف والتجهيزات اللازمة. حدد الهدف وعدد الحضور واحتياجات المكان ومسؤوليات التشغيل مبكرًا.",
-    "useCasesAr": "خطط لاستقبال الضيوف وعروض المنتجات ودخول الصحافة في حفلات الإطلاق. وفي التنشيط الميداني، حدد مسارات الجمهور والطاقم وطريقة المشاركة."
+    "useCasesAr": "خطط لاستقبال الضيوف وعروض المنتجات ودخول الصحافة في حفلات الإطلاق. وفي التنشيط الميداني، حدد مسارات الجمهور والطاقم وطريقة المشاركة.",
+    "benefits": [
+      "Clearly assigned vendor responsibilities",
+      "Guest flow considered in site planning",
+      "A shared schedule for event day"
+    ],
+    "benefitsAr": [
+      "توزيع واضح لمسؤوليات الموردين",
+      "تخطيط الموقع حسب حركة الضيوف",
+      "جدول مشترك ليوم الفعالية"
+    ],
+    "process": [
+      "Define goals and attendance",
+      "Review venue and suppliers",
+      "Agree on staffing and run of show",
+      "Coordinate on-site delivery"
+    ],
+    "processAr": [
+      "حدد الهدف وعدد الحضور",
+      "راجع المكان والموردين",
+      "اتفق على الطاقم والجدول",
+      "نسّق التنفيذ في الموقع"
+    ]
   },
   "in-flight-advertising": {
     "en": "In-Flight Advertising in Egypt",
@@ -350,7 +504,29 @@
     "overview": "In-flight media reaches passengers during the flight. Formats and approval requirements can differ by airline, so compare viable options against planned routes and campaign dates.",
     "useCases": "Travel, hospitality and destination brands can brief campaigns around selected routes. Confirm creative deadlines and where the material appears on board.",
     "overviewAr": "تصل الإعلانات على متن الطائرات إلى المسافرين أثناء الرحلة. تختلف الصيغ والموافقات حسب شركة الطيران، فقارن الاختيارات حسب الوجهات ومواعيد الحملة.",
-    "useCasesAr": "يمكن لبراندات السفر والضيافة تخطيط حملات لخطوط محددة. راجع موعد تسليم المواد ومكان ظهورها على الطائرة."
+    "useCasesAr": "يمكن لبراندات السفر والضيافة تخطيط حملات لخطوط محددة. راجع موعد تسليم المواد ومكان ظهورها على الطائرة.",
+    "benefits": [
+      "Airline options compared by route",
+      "Creative requirements clarified before production",
+      "Lead times reflected in the plan"
+    ],
+    "benefitsAr": [
+      "مقارنة شركات الطيران حسب الوجهة",
+      "توضيح المواصفات قبل الإنتاج",
+      "احتساب مهلة التسليم ضمن الخطة"
+    ],
+    "process": [
+      "Identify destinations and dates",
+      "Review airline media options",
+      "Confirm format and approvals",
+      "Coordinate submission before the deadline"
+    ],
+    "processAr": [
+      "حدد الوجهات والمواعيد",
+      "راجع خيارات الإعلان مع الشركات",
+      "أكد الصيغة والموافقات",
+      "نسّق التسليم قبل الموعد"
+    ]
   },
   "mall-advertising": {
     "en": "Mall Advertising in Egypt",
@@ -394,7 +570,29 @@
     "overview": "Mall media works along shopping routes, including entrances, walkways and waiting areas. Choose placements based on visitor movement and how much time shoppers have to see the message.",
     "useCases": "Retailers can plan placements near the store or on the approach from parking and entrances. A product launch can also use visibility near related retail categories.",
     "overviewAr": "تظهر إعلانات المولات على مسارات التسوق، من المداخل والممرات إلى أماكن الانتظار. اختر الموقع حسب حركة الزوار والوقت المتاح لرؤية الإعلان.",
-    "useCasesAr": "يمكن للمتاجر اختيار مواقع قرب الفرع أو على الطريق من مواقف السيارات والمداخل. ويمكن لحملة إطلاق منتج الاستفادة من قربها من أقسام بيع مرتبطة به."
+    "useCasesAr": "يمكن للمتاجر اختيار مواقع قرب الفرع أو على الطريق من مواقف السيارات والمداخل. ويمكن لحملة إطلاق منتج الاستفادة من قربها من أقسام بيع مرتبطة به.",
+    "benefits": [
+      "Placements chosen along shopping routes",
+      "Campaign timing aligned to retail dates",
+      "Creative planned around venue rules"
+    ],
+    "benefitsAr": [
+      "اختيار المواقع على مسارات التسوق",
+      "توقيت يناسب مواعيد المتاجر",
+      "تصميم يراعي قواعد المكان"
+    ],
+    "process": [
+      "Identify malls and visitor routes",
+      "Compare available locations",
+      "Review creative and access rules",
+      "Confirm installation dates"
+    ],
+    "processAr": [
+      "حدد المولات ومسارات الزوار",
+      "قارن المواقع المتاحة",
+      "راجع التصميم وقواعد الدخول",
+      "أكد مواعيد التركيب"
+    ]
   },
   "on-screen-cinema-advertising": {
     "en": "Cinema Advertising in Egypt",
@@ -438,7 +636,29 @@
     "overview": "Cinema advertising places a finished spot in a screening schedule. Choose venues and dates around the audience you want to reach and verify the terms of each booking.",
     "useCases": "For launches and entertainment campaigns, check the cinema circuit, screening schedule and delivery requirements before committing to the flight.",
     "overviewAr": "يضع إعلان السينما نسخة جاهزة ضمن جدول العروض. اختر دور العرض والمواعيد حسب الجمهور المستهدف وراجع شروط كل حجز.",
-    "useCasesAr": "لحملات الإطلاق والترفيه، راجع شبكة السينمات ومواعيد العروض ومواصفات التسليم قبل تأكيد فترة الحملة."
+    "useCasesAr": "لحملات الإطلاق والترفيه، راجع شبكة السينمات ومواعيد العروض ومواصفات التسليم قبل تأكيد فترة الحملة.",
+    "benefits": [
+      "Venues aligned with campaign geography",
+      "Pre-show timing clarified in the brief",
+      "Cinema-ready files scoped in advance"
+    ],
+    "benefitsAr": [
+      "دور عرض تناسب نطاق الحملة",
+      "توضيح توقيت الإعلان في البريف",
+      "تحديد ملفات العرض مسبقًا"
+    ],
+    "process": [
+      "Identify cities and audience",
+      "Compare cinemas and screenings",
+      "Confirm delivery specifications",
+      "Submit and confirm scheduled dates"
+    ],
+    "processAr": [
+      "حدد المدن والجمهور",
+      "قارن السينمات والعروض",
+      "أكد مواصفات التسليم",
+      "سلّم المواد وراجع المواعيد"
+    ]
   },
   "outdoor-media-planning-buying": {
     "en": "Outdoor Media Buying in Egypt",
@@ -482,7 +702,29 @@
     "overview": "Outdoor media planning turns an audience brief into a shortlist of locations, formats and dates. Compare static and digital placements by visibility, coverage overlap and fit with the budget.",
     "useCases": "For a local campaign, prioritize routes around the branch or service area. For regional coverage, compare a mix of corridors and cities against the audience brief.",
     "overviewAr": "يحوّل تخطيط الإعلانات الخارجية البريف إلى قائمة مواقع وصيغ ومواعيد. قارن الثابت والديجيتال حسب وضوح الظهور وتداخل التغطية والميزانية.",
-    "useCasesAr": "للحملات المحلية، ابدأ بالمسارات حول الفرع أو منطقة الخدمة. وللتغطية الإقليمية، قارن المحاور والمدن حسب الجمهور المطلوب."
+    "useCasesAr": "للحملات المحلية، ابدأ بالمسارات حول الفرع أو منطقة الخدمة. وللتغطية الإقليمية، قارن المحاور والمدن حسب الجمهور المطلوب.",
+    "benefits": [
+      "Visibility and coverage compared together",
+      "Clear role for static and digital formats",
+      "Overlap considered before buying"
+    ],
+    "benefitsAr": [
+      "مقارنة الرؤية والتغطية معًا",
+      "دور واضح للإعلانات الثابتة والديجيتال",
+      "مراجعة تداخل التغطية قبل الشراء"
+    ],
+    "process": [
+      "Define goals and budget",
+      "Shortlist routes and formats",
+      "Compare coverage and dates",
+      "Approve the media plan and booking list"
+    ],
+    "processAr": [
+      "حدد الهدف والميزانية",
+      "اختر الطرق والصيغ",
+      "قارن التغطية والمواعيد",
+      "اعتمد الخطة وقائمة الحجوزات"
+    ]
   },
   "pr-communication-services": {
     "en": "PR & Communications in Egypt",
@@ -526,7 +768,29 @@
     "overview": "Public relations starts with a credible story, clear facts and a defined audience. Prepare approved messages, press materials and a spokesperson before outreach.",
     "useCases": "For an opening or launch, give journalists the relevant facts, visuals and access details. Decide how to track mentions and message pickup before release.",
     "overviewAr": "تبدأ العلاقات العامة بقصة موثقة وحقائق واضحة وجمهور محدد. جهّز الرسائل المعتمدة والمواد الصحفية والمتحدث الرسمي قبل التواصل مع الإعلام.",
-    "useCasesAr": "في الافتتاحات وإطلاق المنتجات، أرسل للصحفيين الحقائق والصور وتفاصيل الحضور. حدد طريقة متابعة التغطية والرسائل قبل النشر."
+    "useCasesAr": "في الافتتاحات وإطلاق المنتجات، أرسل للصحفيين الحقائق والصور وتفاصيل الحضور. حدد طريقة متابعة التغطية والرسائل قبل النشر.",
+    "benefits": [
+      "Approved messages across press materials",
+      "Outreach matched to the story",
+      "Coverage tracking defined up front"
+    ],
+    "benefitsAr": [
+      "رسائل معتمدة في المواد الصحفية",
+      "تواصل يناسب الخبر",
+      "معايير متابعة محددة مسبقًا"
+    ],
+    "process": [
+      "Set the narrative and approvals",
+      "Prepare the press materials",
+      "Brief relevant outlets",
+      "Review coverage against agreed goals"
+    ],
+    "processAr": [
+      "حدد القصة والموافقات",
+      "جهّز المواد الصحفية",
+      "تواصل مع الوسائل المناسبة",
+      "راجع التغطية حسب الأهداف"
+    ]
   },
   "erp-solutions": {
     "en": "ERP Software Development in Egypt",
@@ -571,7 +835,29 @@
     "overview": "An ERP project connects selected workflows and records across teams. Start with a map of responsibilities, approval steps and data sources, then agree on which modules belong in the first rollout.",
     "useCases": "A distributor may prioritize stock and purchasing, while a service business may begin with billing and approvals. Include migration checks, role-based access and staff training in the project brief.",
     "overviewAr": "يربط مشروع تخطيط موارد المؤسسات عمليات وسجلات محددة بين الفرق. ابدأ بتحديد المسؤوليات والموافقات ومصادر البيانات، ثم اتفق على الوحدات المطلوبة في المرحلة الأولى.",
-    "useCasesAr": "قد تبدأ شركة توزيع بالمخزون والمشتريات، بينما تبدأ شركة خدمات بالفوترة والموافقات. أدرج اختبار نقل البيانات والصلاحيات وتدريب الفريق في البريف."
+    "useCasesAr": "قد تبدأ شركة توزيع بالمخزون والمشتريات، بينما تبدأ شركة خدمات بالفوترة والموافقات. أدرج اختبار نقل البيانات والصلاحيات وتدريب الفريق في البريف.",
+    "benefits": [
+      "Core workflows prioritized by need",
+      "Migration and access checks scoped early",
+      "Rollout planned around staff adoption"
+    ],
+    "benefitsAr": [
+      "ترتيب العمليات حسب الأولوية",
+      "تحديد اختبارات النقل والصلاحيات مبكرًا",
+      "خطة تراعي استخدام الفريق للنظام"
+    ],
+    "process": [
+      "Map workflows and data",
+      "Design the first rollout",
+      "Configure and test with representative records",
+      "Train users and prepare go-live"
+    ],
+    "processAr": [
+      "حدد العمليات والبيانات",
+      "صمّم المرحلة الأولى",
+      "جهّز واختبر بسجلات ممثلة",
+      "درّب المستخدمين وجهّز الإطلاق"
+    ]
   },
   "website-development": {
     "en": "Website Development in Egypt",
@@ -616,7 +902,29 @@
     "overview": "A website project starts with what users need to do and what staff need to update. Define pages, Arabic and English content, integrations and publishing roles before design begins.",
     "useCases": "A service site might prioritize inquiries and project galleries. A catalogue may need search, product data and requests by item. Include URL migration, mobile accessibility and launch checks when relevant.",
     "overviewAr": "يبدأ تطوير الموقع بتحديد مهام الزوار وما يحتاج الفريق إلى تحديثه. حدد الصفحات والمحتوى العربي والإنجليزي والتكاملات وصلاحيات النشر قبل التصميم.",
-    "useCasesAr": "قد يعطي موقع الخدمات الأولوية للاستفسارات ومعارض المشاريع. وقد يحتاج الكتالوج إلى البحث وبيانات المنتجات والطلبات حسب العنصر. أدرج نقل الروابط وسهولة الاستخدام على الموبايل وفحوصات الإطلاق عند الحاجة."
+    "useCasesAr": "قد يعطي موقع الخدمات الأولوية للاستفسارات ومعارض المشاريع. وقد يحتاج الكتالوج إلى البحث وبيانات المنتجات والطلبات حسب العنصر. أدرج نقل الروابط وسهولة الاستخدام على الموبايل وفحوصات الإطلاق عند الحاجة.",
+    "benefits": [
+      "Mobile and RTL needs in the design brief",
+      "Publishing responsibilities agreed early",
+      "Migration and launch checks scoped"
+    ],
+    "benefitsAr": [
+      "تضمين الموبايل والاتجاه العربي في البريف",
+      "اتفاق مبكر على صلاحيات النشر",
+      "تحديد فحوصات النقل والإطلاق"
+    ],
+    "process": [
+      "Define pages and user paths",
+      "Design English and Arabic views",
+      "Develop and test publishing and forms",
+      "Verify redirects and deploy"
+    ],
+    "processAr": [
+      "حدد الصفحات ومسارات الزوار",
+      "صمّم الشاشات العربية والإنجليزية",
+      "طوّر واختبر النشر والنماذج",
+      "راجع التحويلات وانشر الموقع"
+    ]
   },
   "mobile-applications": {
     "en": "Mobile App Development in Egypt",
@@ -661,6 +969,28 @@
     "overview": "A mobile app should make a recurring task easy on a phone. Define the essential flows, user roles and platform scope before designing screens or connecting back-end systems.",
     "useCases": "A booking app needs clear availability and confirmation. A field team app may need offline entry or photo uploads. Test core flows on target devices and plan store submissions as part of release.",
     "overviewAr": "يسهّل تطبيق الموبايل تنفيذ مهمة متكررة من الهاتف. حدد الخطوات الأساسية وأدوار المستخدمين والأنظمة المستهدفة قبل تصميم الشاشات والربط.",
-    "useCasesAr": "يحتاج تطبيق الحجز إلى عرض التوفر وتأكيد الحجز. وقد يحتاج تطبيق الفرق الميدانية لإدخال البيانات دون اتصال أو رفع الصور. اختبر الخطوات الأساسية على الأجهزة المستهدفة وخطط للنشر في المتاجر."
+    "useCasesAr": "يحتاج تطبيق الحجز إلى عرض التوفر وتأكيد الحجز. وقد يحتاج تطبيق الفرق الميدانية لإدخال البيانات دون اتصال أو رفع الصور. اختبر الخطوات الأساسية على الأجهزة المستهدفة وخطط للنشر في المتاجر.",
+    "benefits": [
+      "Release scope focused on core tasks",
+      "Device and integration testing included in planning",
+      "Store responsibilities documented"
+    ],
+    "benefitsAr": [
+      "تركيز الإصدار على المهام الأساسية",
+      "تخطيط لاختبار الأجهزة والتكاملات",
+      "توثيق مسؤوليات النشر في المتاجر"
+    ],
+    "process": [
+      "Prioritize user flows",
+      "Prototype key screens",
+      "Develop and test on target devices",
+      "Prepare store submission and release"
+    ],
+    "processAr": [
+      "رتّب مهام المستخدم حسب الأولوية",
+      "صمّم نموذج الشاشات الأساسية",
+      "طوّر واختبر على الأجهزة المستهدفة",
+      "جهّز رفع التطبيق وإطلاقه"
+    ]
   }
 }

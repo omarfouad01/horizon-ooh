@@ -54,6 +54,7 @@ class ServiceController extends Controller
             'titleAr'           => $this->col($s, 'title_ar'),
             'descriptionAr'     => $this->col($s, 'description_ar'),
             'longDescriptionAr' => $this->col($s, 'long_description_ar'),
+            'editorial'         => $this->col($s, 'editorial'),
         ]);
     }
 
@@ -91,11 +92,8 @@ class ServiceController extends Controller
         try {
             $svc  = Service::findOrFail($id);
             $data = $this->validated($request, true);
-            if (isset($data['name']) || isset($data['short_title'])) {
-                $newSlug = Str::slug($data['short_title'] ?? $data['name']);
-                if ($newSlug !== $svc->slug) {
-                    $data['slug'] = $this->uniqueSlug($newSlug, $svc->id);
-                }
+            if (array_key_exists('editorial', $data)) {
+                $data['editorial'] = array_replace($this->col($svc, 'editorial') ?? [], $data['editorial']);
             }
             $normalized = $this->normalize($data);
             $normalized = $this->safeData($normalized);
@@ -150,6 +148,31 @@ class ServiceController extends Controller
             'descriptionAr'      => 'nullable|string',
             'long_description_ar'  => 'nullable|string',
             'longDescriptionAr'    => 'nullable|string',
+            'editorial'            => 'sometimes|array:en,ar,description,descriptionAr,overview,overviewAr,useCases,useCasesAr,benefits,benefitsAr,process,processAr,cta,ctaAr,faq',
+            'editorial.faq'        => 'sometimes|required|array|min:4|max:8',
+            'editorial.faq.*'      => 'required|array:question,questionAr,answer,answerAr',
+            'editorial.faq.*.question'   => 'required|string',
+            'editorial.faq.*.questionAr' => 'required|string',
+            'editorial.faq.*.answer'     => 'required|string',
+            'editorial.faq.*.answerAr'   => 'required|string',
+            'editorial.en'         => 'sometimes|required|string|max:100',
+            'editorial.ar'         => 'sometimes|required|string|max:100',
+            'editorial.description'   => 'sometimes|required|string|max:200',
+            'editorial.descriptionAr' => 'sometimes|required|string|max:200',
+            'editorial.overview'   => 'sometimes|required|string',
+            'editorial.overviewAr' => 'sometimes|required|string',
+            'editorial.useCases'   => 'sometimes|required|string',
+            'editorial.useCasesAr' => 'sometimes|required|string',
+            'editorial.benefits'   => 'sometimes|required|array|min:1|max:8',
+            'editorial.benefitsAr' => 'sometimes|required|array|min:1|max:8',
+            'editorial.process'    => 'sometimes|required|array|min:1|max:8',
+            'editorial.processAr'  => 'sometimes|required|array|min:1|max:8',
+            'editorial.benefits.*'   => 'required|string',
+            'editorial.benefitsAr.*' => 'required|string',
+            'editorial.process.*'    => 'required|string',
+            'editorial.processAr.*'  => 'required|string',
+            'editorial.cta'        => 'sometimes|required|string|max:100',
+            'editorial.ctaAr'      => 'sometimes|required|string|max:100',
         ]);
     }
 

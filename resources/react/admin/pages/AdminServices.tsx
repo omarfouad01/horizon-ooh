@@ -5,13 +5,17 @@ import { useStore, serviceStore } from '@/store/dataStore'
 import { Btn, PageHeader, Tbl, Th, Td, Tr, Badge, Confirm, Modal, Field, TA, ArrayEditor, ImagePicker } from '../ui'
 import { Plus, Pencil, Trash2 } from 'lucide-react'
 import toast from 'react-hot-toast'
+import { getServiceEditorial } from '@/lib/serviceMetadata'
 
 // Default why-choose columns (3 pre-populated entries)
 const DEFAULT_WHY = [
-  { title: 'Egypt\'s Largest Network', text: '' },
-  { title: 'Award-Winning Campaigns', text: '' },
-  { title: 'End-to-End Partnership', text: '' },
+  { title: '', text: '' },
+  { title: '', text: '' },
+  { title: '', text: '' },
 ]
+
+const EDITORIAL_FIELDS = ['en', 'ar', 'description', 'descriptionAr', 'overview', 'overviewAr', 'useCases', 'useCasesAr', 'benefits', 'benefitsAr', 'process', 'processAr', 'cta', 'ctaAr', 'faq'] as const;
+const FAQ_FIELDS = ['question', 'answer', 'questionAr', 'answerAr'] as const;
 
 function WhyChooseEditor({ value, onChange }: { value: { title: string; text: string }[]; onChange: (v: { title: string; text: string }[]) => void }) {
   const cols = value.length === 3 ? value : DEFAULT_WHY.map((d, i) => ({ ...d, ...(value[i] ?? {}) }))
@@ -58,6 +62,10 @@ function ServiceForm({ editing, onClose }: any) {
     whyChoose: DEFAULT_WHY,
   }
   const [f, setF]           = useState({ ...init })
+  const [editorial, setEditorial] = useState(() => editing ? getServiceEditorial(editing) : undefined)
+  const editSection = (field: string, value: string | string[]) => {
+    setEditorial((current) => current && { ...current, [field]: value });
+  };
   const [benefits, setBen]  = useState<string[]>(init.benefits || [])
   const [proc, setProc]     = useState<string[]>(init.process || [])
   const [whyChoose, setWhy] = useState<{ title: string; text: string }[]>(defaultWhy)
@@ -73,7 +81,7 @@ function ServiceForm({ editing, onClose }: any) {
       benefits,
       process: proc,
       whyChoose,
-      slug: (f.shortTitle || f.title).toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      ...(editorial ? { editorial: Object.fromEntries(EDITORIAL_FIELDS.map(field => [field, editorial[field]])) } : {}),
     }
     try {
       if (editing) await serviceStore.update(editing.id, data)
@@ -117,6 +125,34 @@ function ServiceForm({ editing, onClose }: any) {
 
       <ImagePicker label="Service Image" value={f.image} altValue={f.imageAlt} onChange={(url: string, alt: string) => { set('image', url); set('imageAlt', alt) }} />
 
+      {editorial && <fieldset className="space-y-4 rounded border p-4">
+        <legend className="font-semibold">Published service copy and SEO</legend>
+        {([
+          ['en', 'Heading'], ['description', 'Meta description and introduction'],
+          ['overview', 'Overview'], ['useCases', 'Use cases'], ['cta', 'Quote button'],
+        ] as const).map(([field, label]) => {
+          const arField = field === 'en' ? 'ar' : `${field}Ar` as const;
+          return <div key={field} className="grid gap-3 sm:grid-cols-2">
+            <TA label={`${label} (English)`} value={editorial[field]} onChange={(e: any) => editSection(field, e.target.value)} rows={3} required />
+            <TA label={`${label} (Arabic)`} value={editorial[arField]} onChange={(e: any) => editSection(arField, e.target.value)} rows={3} dir="rtl" required />
+          </div>;
+        })}
+        {(['benefits', 'process'] as const).map(field => <div key={field} className="grid gap-3 sm:grid-cols-2">
+          <ArrayEditor label={`${field} (English)`} value={editorial[field]} onChange={(v: string[]) => editSection(field, v)} placeholder="Add an item…" />
+          <ArrayEditor label={`${field} (Arabic)`} value={editorial[`${field}Ar`]} onChange={(v: string[]) => editSection(`${field}Ar`, v)} placeholder="أضف عنصرًا…" />
+        </div>)}
+        {editorial.faq.map((item, i) => <div key={i} className="grid gap-3 sm:grid-cols-2">
+          {FAQ_FIELDS.map(field => <TA key={field} label={`FAQ ${i + 1} ${field}`} value={item[field]} rows={2} dir={field.endsWith('Ar') ? 'rtl' : 'ltr'} required
+            onChange={(e: any) => {
+              const value = e.target.value;
+              setEditorial(current => current && {
+                ...current, faq: current.faq.map((entry, index) => index === i ? { ...entry, [field]: value } : entry),
+              });
+            }} />)}
+        </div>)}
+      </fieldset>}
+
+      {!editorial && <>
       <ArrayEditor label="Benefits"      value={benefits} onChange={setBen}  placeholder="Add a benefit…" />
       <ArrayEditor label="Process Steps" value={proc}     onChange={setProc} placeholder="Add a step…" />
 
@@ -126,6 +162,7 @@ function ServiceForm({ editing, onClose }: any) {
         <div className="flex-1 h-px bg-gray-100" />
       </div>
       <WhyChooseEditor value={whyChoose} onChange={setWhy} />
+      </>}
 
       <div className="flex gap-3 justify-end pt-2 border-t border-gray-100">
         <Btn variant="ghost" type="button" onClick={onClose}>Cancel</Btn>

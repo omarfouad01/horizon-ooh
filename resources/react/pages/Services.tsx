@@ -1,7 +1,7 @@
 import {LocalizedText, LocalizedElement} from "@/components/Localized";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
-import { editorialServices } from "@/lib/serviceMetadata";
+import { getServiceEditorial } from "@/lib/serviceMetadata";
 import { useStore } from "@/store/dataStore";
 import { RevealGroup, RevealItem, PageHero, CTABanner } from "@/components/UI";
 import { serviceHref, RED } from "@/lib/routes";
@@ -75,7 +75,7 @@ export default function Services() {
                   <p
                     className="text-[15px] leading-[1.7] flex-1 text-[rgba(11,15,26,0.45)] group-hover:text-white/70 transition-colors duration-500"
                   >
-                    <LocalizedText>{(isAr ? editorialServices[service.slug]?.descriptionAr || (service as any).descriptionAr : editorialServices[service.slug]?.description) || service.description}</LocalizedText>
+                    <LocalizedText>{(isAr ? getServiceEditorial(service)?.descriptionAr || (service as any).descriptionAr : getServiceEditorial(service)?.description) || service.description}</LocalizedText>
                   </p>
 
                   {/* CTA */}

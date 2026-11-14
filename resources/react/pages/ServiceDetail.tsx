@@ -8,7 +8,7 @@ import { serviceHref, langPath, RED, NAVY, ease } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
 import { motion } from "framer-motion";
 import SEO from "@/components/SEO";
-import { editorialServices, serviceMetadata } from "@/lib/serviceMetadata";
+import { editorialServices, getServiceEditorial, serviceMetadata } from "@/lib/serviceMetadata";
 import { servicesApi } from "@/api";
 import { thumb, thumbSrcSet } from "@/lib/img";
 
@@ -103,7 +103,7 @@ export default function ServiceDetail() {
   }
 
   const serviceSeo = serviceMetadata(service);
-  const editorial = editorialServices[service.slug];
+  const editorial = getServiceEditorial(service);
   const technology = ['erp-solutions', 'website-development', 'mobile-applications'].includes(service.slug);
   const heading = editorial ? (isAr ? editorial.ar : editorial.en) : service.shortTitle;
   const cta = editorial ? (isAr ? editorial.ctaAr : editorial.cta) : 'Get a Quote';
@@ -222,7 +222,7 @@ export default function ServiceDetail() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <SectionHeading eyebrow="Key Benefits" title="Why it works." />
           <RevealGroup className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {(service.benefits || []).map((benefit, i) => (
+            {(editorial ? (isAr ? editorial.benefitsAr : editorial.benefits) : service.benefits || []).map((benefit, i) => (
               <RevealItem key={i}>
                 <div className="bg-white border border-[#0B0F1A]/[0.07] p-10">
                   <span className="font-black text-[11px] tracking-[0.25em] uppercase block mb-6" style={{ color: "rgba(11,15,26,0.2)" }}>
@@ -265,7 +265,7 @@ export default function ServiceDetail() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <SectionHeading eyebrow={isAr ? "مراحل التنفيذ" : "Process"} title={technology ? (isAr ? "خطوات تطوير المشروع" : "How We Deliver Your Project") : (isAr ? "خطوات تنفيذ الخدمة" : "How We Deliver This Service")} titleAccent="" />
           <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
-            {(service.process || []).map((step, i) => (
+            {(editorial ? (isAr ? editorial.processAr : editorial.process) : service.process || []).map((step, i) => (
               <RevealItem key={i}>
                 <div className="bg-white p-10">
                   <span className="font-black text-[11px] tracking-[0.25em] uppercase block mb-5" style={{ color: RED }}><LocalizedText>
@@ -281,8 +281,8 @@ export default function ServiceDetail() {
         </div>
       </section>
 
-      {/* Why Choose HORIZON OOH — controlled from dashboard */}
-      <LocalizedText>{(() => {
+      {/* Existing CMS content for services outside the reviewed catalog */}
+      <LocalizedText>{!editorial && (() => {
         const whyCols: { title?: string; text?: string }[] = (service as any).whyChoose ?? [];
         // Only render section if at least one column has text
         const hasContent = whyCols.some(c => c?.text?.trim());
@@ -352,8 +352,8 @@ export default function ServiceDetail() {
         <section className="bg-white py-16">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
             <h2 className="font-black text-3xl mb-6">{isAr ? "أسئلة شائعة" : "Frequently Asked Questions"}</h2>
-            {[editorial, ...editorial.faq].map((item) => (
-              <div key={item.question} className="mb-6">
+            {editorial.faq.map((item, index) => (
+              <div key={index} className="mb-6">
                 <h3 className="font-bold mb-2">{isAr ? item.questionAr : item.question}</h3>
                 <p>{isAr ? item.answerAr : item.answer}</p>
               </div>
