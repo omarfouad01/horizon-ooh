@@ -9,6 +9,7 @@ The directory uses three in-page anchors and preserves the approved category int
 - resources/react/pages/Services.tsx
 - resources/react/pages/ApprovedService.tsx
 - resources/react/pages/ServiceCard.tsx
+- resources/react/components/UI.tsx
 - app/Http/Controllers/Api/ServiceController.php
 - docs/SERVICES-UI-UX-REDESIGN-REPORT.md
 
@@ -18,3 +19,5 @@ The directory uses three in-page anchors and preserves the approved category int
 - Exact five-width testing is **NOT VERIFIED**. Browser viewport scaling reported CSS widths that differed from the requested values. A production baseline screenshot was captured, but preview screenshot capture failed. Desktop, mobile and RTL after screenshots are **NOT VERIFIED**.
 - The live Services API returned HTTP 500 because the deployed controller lacked its CRUD handlers. The review branch restores the handlers and approved bilingual validation. The browser preview used the last deployed static snapshot as a fixture for Services data. The restored backend and authenticated CMS saves require verification in a PHP environment.
 - Production has not been modified by this redesign. The report belongs to the final redesign commit on the review branch.
+
+- Final TypeScript compilation passed. All 32 targeted server-rendered HTML checks passed with the redesigned markup and preserved page heads from the production baseline.

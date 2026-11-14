@@ -27,7 +27,7 @@ export function ApprovedCTA({ copy, href, visualHeading }: { copy: CTA; href: st
         {visualHeading && <p className="break-words text-3xl font-black sm:text-5xl">{visualHeading}</p>}
         <p className="mt-4 max-w-3xl leading-relaxed text-white/75">{copy.description}</p>
       </div>
-      <div className="shrink-0"><RedBtn label={copy.button} href={href} /></div>
+      <div className="shrink-0"><RedBtn exactLabel label={copy.button} href={href} /></div>
     </div>
   </section>;
 }
@@ -59,7 +59,7 @@ export function ApprovedService({ slug, entry, image, imageAlt }: {
           <div className="min-w-0">
             <h1 className={editorialHeading}>{copy.heading}</h1>
             <p className="mb-8 mt-6 max-w-3xl text-lg leading-relaxed text-white/80">{copy.intro}</p>
-            <RedBtn label={copy.cta.button} href={quote} />
+            <RedBtn exactLabel label={copy.cta.button} href={quote} />
           </div>
           {image && <img src={image} alt={imageAlt ?? ""} width={800} height={600} fetchPriority="high" decoding="async" className="aspect-[4/3] h-auto min-w-0 w-full object-cover" />}
         </div>
