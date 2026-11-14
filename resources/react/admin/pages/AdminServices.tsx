@@ -5,13 +5,15 @@ import { useStore, serviceStore } from '@/store/dataStore'
 import { Btn, PageHeader, Tbl, Th, Td, Tr, Badge, Confirm, Modal, Field, TA, ArrayEditor, ImagePicker } from '../ui'
 import { Plus, Pencil, Trash2 } from 'lucide-react'
 import toast from 'react-hot-toast'
+import { approvedService } from '@/pages/ApprovedService'
 
 // Default why-choose columns (3 pre-populated entries)
 const DEFAULT_WHY = [
-  { title: 'Egypt\'s Largest Network', text: '' },
-  { title: 'Award-Winning Campaigns', text: '' },
-  { title: 'End-to-End Partnership', text: '' },
+  { title: '', text: '' },
+  { title: '', text: '' },
+  { title: '', text: '' },
 ]
+
 
 function WhyChooseEditor({ value, onChange }: { value: { title: string; text: string }[]; onChange: (v: { title: string; text: string }[]) => void }) {
   const cols = value.length === 3 ? value : DEFAULT_WHY.map((d, i) => ({ ...d, ...(value[i] ?? {}) }))
@@ -58,6 +60,8 @@ function ServiceForm({ editing, onClose }: any) {
     whyChoose: DEFAULT_WHY,
   }
   const [f, setF]           = useState({ ...init })
+  const initialApproved = editing && approvedService(editing.slug, editing.editorial?.approved)
+  const [editorial, setEditorial] = useState(() => initialApproved ? JSON.stringify(initialApproved, null, 2) : '')
   const [benefits, setBen]  = useState<string[]>(init.benefits || [])
   const [proc, setProc]     = useState<string[]>(init.process || [])
   const [whyChoose, setWhy] = useState<{ title: string; text: string }[]>(defaultWhy)
@@ -73,9 +77,13 @@ function ServiceForm({ editing, onClose }: any) {
       benefits,
       process: proc,
       whyChoose,
-      slug: (f.shortTitle || f.title).toLowerCase().replace(/[^a-z0-9]+/g, '-'),
     }
     try {
+      if (initialApproved && editorial.trim() !== JSON.stringify(initialApproved, null, 2)) {
+        data.editorial = { approved: JSON.parse(editorial) };
+      } else {
+        delete data.editorial;
+      }
       if (editing) await serviceStore.update(editing.id, data)
       else         await serviceStore.add(data)
       toast.success(editing ? 'Service updated' : 'Service created')
@@ -117,6 +125,10 @@ function ServiceForm({ editing, onClose }: any) {
 
       <ImagePicker label="Service Image" value={f.image} altValue={f.imageAlt} onChange={(url: string, alt: string) => { set('image', url); set('imageAlt', alt) }} />
 
+      {initialApproved && <TA label="Published bilingual service content (JSON)" value={editorial}
+        onChange={(e: any) => setEditorial(e.target.value)} rows={24} required />}
+
+      {!editorial && <>
       <ArrayEditor label="Benefits"      value={benefits} onChange={setBen}  placeholder="Add a benefit…" />
       <ArrayEditor label="Process Steps" value={proc}     onChange={setProc} placeholder="Add a step…" />
 
@@ -126,6 +138,7 @@ function ServiceForm({ editing, onClose }: any) {
         <div className="flex-1 h-px bg-gray-100" />
       </div>
       <WhyChooseEditor value={whyChoose} onChange={setWhy} />
+      </>}
 
       <div className="flex gap-3 justify-end pt-2 border-t border-gray-100">
         <Btn variant="ghost" type="button" onClick={onClose}>Cancel</Btn>

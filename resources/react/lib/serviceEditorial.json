@@ -1,0 +1,996 @@
+{
+  "ad-airing-media-distribution": {
+    "en": "TV & Radio Media Buying in Egypt",
+    "ar": "شراء إعلانات التلفزيون والراديو في مصر",
+    "keywords": [
+      "Broadcast media buying",
+      "TV commercial airing",
+      "radio spots",
+      "channel scheduling",
+      "media distribution"
+    ],
+    "description": "Plan broadcast placements around your audience, budget and dates. We coordinate creative delivery and confirm channel schedules before booking.",
+    "descriptionAr": "خطط للبث حسب الجمهور والميزانية والمواعيد. ننسّق تسليم المواد ونتحقق من جداول القنوات قبل الحجز.",
+    "cta": "Request a Broadcast Plan",
+    "ctaAr": "اطلب خطة بث",
+    "related": "outdoor-media-planning-buying",
+    "question": "Which details affect a broadcast quote?",
+    "questionAr": "إيه اللي بيحدد تكلفة البث؟",
+    "answer": "Channel, time slot, spot length and frequency affect the quote. Share the audience, dates and budget so we can compare options.",
+    "answerAr": "التكلفة حسب القناة وتوقيت البث ومدة الإعلان وعدد مرات عرضه. ابعت الجمهور والمواعيد والميزانية عشان نقارن الاختيارات.",
+    "faq": [
+      {
+        "question": "What should we send before booking?",
+        "answer": "Share the spot length, audience, dates and any preferred channels.",
+        "questionAr": "ماذا نرسل قبل الحجز؟",
+        "answerAr": "أرسل مدة الإعلان والجمهور والمواعيد والقنوات المفضلة."
+      },
+      {
+        "question": "Can the same file air everywhere?",
+        "answer": "Confirm each broadcaster’s delivery specifications before exporting the spot.",
+        "questionAr": "هل يصلح ملف واحد لكل القنوات؟",
+        "answerAr": "راجع مواصفات التسليم لكل قناة قبل تصدير الإعلان."
+      },
+      {
+        "question": "What should a schedule show?",
+        "answer": "Ask for channels, time bands, spot counts and flight dates.",
+        "questionAr": "ماذا يتضمن جدول البث؟",
+        "answerAr": "اطلب أسماء القنوات والفترات وعدد مرات البث وتواريخ الحملة."
+      }
+    ],
+    "overview": "Define who should hear the message, when it should air and how often. Compare channels by audience fit and time band, then align delivery and approval dates with the booking schedule.",
+    "useCases": "For retail launches and regional promotions, compare radio by listening times and coverage. For television, consider the programming and surrounding audience as well as the slot.",
+    "overviewAr": "حدد الجمهور المطلوب ومواعيد البث وعدد مرات العرض. قارن القنوات حسب الجمهور والفترة الزمنية ونسّق مواعيد التسليم والموافقة مع الحجز.",
+    "useCasesAr": "لإطلاق الفروع والعروض الإقليمية، قارن الإذاعات حسب أوقات الاستماع ونطاق التغطية. وفي التلفزيون، راجع طبيعة البرنامج وجمهوره إلى جانب موعد البث.",
+    "benefits": [
+      "Audience and slot comparison",
+      "Spot delivery aligned to airtime",
+      "Itemized schedule for approval"
+    ],
+    "benefitsAr": [
+      "مقارنة الجمهور وفترات البث",
+      "تنسيق تسليم الإعلان مع موعد العرض",
+      "جدول مفصل للموافقة"
+    ],
+    "process": [
+      "Define audience and flight",
+      "Compare channel schedules",
+      "Confirm delivery specs and bookings",
+      "Reconcile the booked schedule"
+    ],
+    "processAr": [
+      "حدد الجمهور وفترة الحملة",
+      "قارن جداول القنوات",
+      "أكد المواصفات والحجز",
+      "راجع جدول البث المتفق عليه"
+    ]
+  },
+  "airport-advertising-in-egypt": {
+    "en": "Airport Advertising in Egypt",
+    "ar": "إعلانات المطارات في مصر",
+    "keywords": [
+      "Airport media buying",
+      "terminal screens",
+      "baggage claim",
+      "airport branding",
+      "airport advertising rates"
+    ],
+    "description": "Explore terminal screens, baggage claim panels and airport branding where available. Confirm the terminal, placement and creative approval before booking.",
+    "descriptionAr": "استكشف شاشات الصالات ولوحات استلام الأمتعة ومساحات البراندنج حسب المتاح. نراجع الصالة والموقع واعتماد التصميم قبل الحجز.",
+    "cta": "Request Airport Advertising Rates",
+    "ctaAr": "اطلب عرض سعر لإعلانات المطارات",
+    "related": "in-flight-advertising",
+    "question": "Can I target arriving passengers?",
+    "questionAr": "ينفع أستهدف الركاب القادمين؟",
+    "answer": "We can review arrival halls and baggage claim placements in the available inventory. The terminal and campaign dates determine the shortlist.",
+    "answerAr": "نراجع صالات الوصول ومناطق استلام الأمتعة حسب المساحات المتاحة والصالة ومواعيد الحملة.",
+    "faq": [
+      {
+        "question": "Do arrival and departure placements work differently?",
+        "answer": "Arrivals reach people leaving the terminal, while departures can reach passengers waiting to board.",
+        "questionAr": "ما الفرق بين صالات الوصول والمغادرة؟",
+        "answerAr": "الوصول يخاطب المغادرين من المطار، والمغادرة تصل إلى ركاب ينتظرون الصعود للطائرة."
+      },
+      {
+        "question": "Can I choose a particular terminal?",
+        "answer": "Ask for available formats in the terminals serving your intended routes and dates.",
+        "questionAr": "هل أقدر أختار صالة محددة؟",
+        "answerAr": "اطلب الصيغ المتاحة في الصالات التي تخدم خطوط رحلتك ومواعيدها."
+      },
+      {
+        "question": "What should I verify before booking?",
+        "answer": "Review the terminal, passenger flow, display position and artwork deadlines.",
+        "questionAr": "ما الذي أراجعه قبل الحجز؟",
+        "answerAr": "راجع الصالة وحركة المسافرين ومكان الإعلان وموعد تسليم التصميم."
+      }
+    ],
+    "overview": "Airport advertising puts a message along the passenger journey. The terminal, direction of movement and time passengers spend near a placement help determine the right format and creative.",
+    "useCases": "For hospitality and travel offers, compare arrival areas with departure placements. Check the routes served, the display’s position and what passengers can do after seeing the message.",
+    "overviewAr": "تضع إعلانات المطارات رسالتك على مسار المسافر. تساعدك الصالة واتجاه الحركة والوقت الذي يقضيه المسافر بجوار الإعلان في اختيار الصيغة والتصميم.",
+    "useCasesAr": "لعروض السياحة والضيافة، قارن بين صالات الوصول والمغادرة. راجع الوجهات وموضع الإعلان والخطوة التي يستطيع المسافر اتخاذها بعد مشاهدته.",
+    "benefits": [
+      "Placement matched to passenger flow",
+      "Creative adapted to viewing time",
+      "Terminal conditions clarified early"
+    ],
+    "benefitsAr": [
+      "اختيار الموقع حسب مسار المسافرين",
+      "تصميم مناسب لمدة المشاهدة",
+      "توضيح شروط الصالة مبكرًا"
+    ],
+    "process": [
+      "Identify routes and dates",
+      "Compare terminal locations",
+      "Confirm access and artwork rules",
+      "Coordinate placement approval"
+    ],
+    "processAr": [
+      "حدد الرحلات والمواعيد",
+      "قارن مواقع الصالات",
+      "راجع الدخول ومواصفات التصميم",
+      "نسّق اعتماد الإعلان"
+    ]
+  },
+  "billboard-advertising-in-egypt": {
+    "en": "Billboard Advertising in Egypt",
+    "ar": "إعلانات الطرق في مصر",
+    "keywords": [
+      "Billboard rental Egypt",
+      "billboard prices",
+      "Cairo billboards",
+      "static OOH",
+      "highway advertising",
+      "uni-pole"
+    ],
+    "description": "Compare uni-poles, mega posts, double-deckers, gates, rooftops and walls across Cairo, Giza and Alexandria. Review size, direction, faces and lighting before booking.",
+    "descriptionAr": "قارن اليوني بول والميجا بوست والدابل ديكر والبوابات والرووف توب ولوحات الحوائط في القاهرة والجيزة والإسكندرية. راجع المقاس والاتجاه والأوجه والإضاءة قبل الحجز.",
+    "cta": "Request a Billboard Quote",
+    "ctaAr": "اطلب عرض سعر ليافطة",
+    "related": "outdoor-media-planning-buying",
+    "question": "How much does a billboard cost?",
+    "questionAr": "سعر تأجير اليافطة بيتحدد إزاي؟",
+    "answer": "Quotes vary by location, size, format, lighting and duration. Ask for separate line items for media, printing, installation and monitoring.",
+    "answerAr": "السعر حسب الموقع والمقاس والنوع والإضاءة والمدة. اطلب توضيح تكلفة المساحة والطباعة والتركيب والمتابعة في عرض السعر.",
+    "faq": [
+      {
+        "question": "How do I choose a billboard face?",
+        "answer": "Check traffic direction, sightlines and nearby obstructions using location photos.",
+        "questionAr": "كيف أختار وجه اليافطة؟",
+        "answerAr": "راجع اتجاه الحركة وزاوية الرؤية والعوائق القريبة من صور الموقع."
+      },
+      {
+        "question": "When is illuminated inventory useful?",
+        "answer": "Consider it when your audience travels after dark and confirm the lighting at the site.",
+        "questionAr": "متى تكون الإضاءة مهمة؟",
+        "answerAr": "اخترها لو جمهورك بيتحرك بالليل وتأكد من الإضاءة في الموقع."
+      },
+      {
+        "question": "What artwork should I prepare?",
+        "answer": "Get the exact dimensions and production specifications for the booked face first.",
+        "questionAr": "كيف أجهز التصميم؟",
+        "answerAr": "اطلب المقاس النهائي ومواصفات إنتاج الوجه المحجوز أولًا."
+      }
+    ],
+    "overview": "Billboard buying starts with the road and direction of travel. Compare each face by sightline, approach distance, lighting and the time available to read the message.",
+    "useCases": "A board near a branch can give drivers a simple direction. For broad awareness, compare several roads and spread placements across the routes your audience uses.",
+    "overviewAr": "يبدأ اختيار اليافطة بالطريق واتجاه السير. قارن الأوجه حسب زاوية الرؤية ومسافة الاقتراب والإضاءة والوقت المتاح لقراءة الرسالة.",
+    "useCasesAr": "يمكن ليافطة قرب الفرع توجيه السائقين إليه. ولزيادة الانتشار، قارن عدة طرق ووزّع الإعلانات على المسارات التي يستخدمها جمهورك.",
+    "benefits": [
+      "Face-level sightline review",
+      "Clear format and lighting choices",
+      "Production scoped by booked dimensions"
+    ],
+    "benefitsAr": [
+      "مراجعة زاوية الرؤية لكل وجه",
+      "اختيار النوع والإضاءة بوضوح",
+      "تحديد الإنتاج حسب المقاس المحجوز"
+    ],
+    "process": [
+      "Map target routes",
+      "Compare faces and direction",
+      "Confirm sizes and availability",
+      "Coordinate production and installation"
+    ],
+    "processAr": [
+      "حدد الطرق المستهدفة",
+      "قارن الأوجه واتجاه السير",
+      "أكد المقاسات والتوفر",
+      "نسّق الإنتاج والتركيب"
+    ]
+  },
+  "booth-activation-production": {
+    "en": "Exhibition Booth Design in Egypt",
+    "ar": "تصميم وتنفيذ بوثات المعارض في مصر",
+    "keywords": [
+      "Booth fabrication Cairo",
+      "exhibition stand design",
+      "kiosk production",
+      "mall activation booth",
+      "custom booth"
+    ],
+    "description": "Plan a custom booth from concept and 3D layout through materials, fabrication, branding, installation and dismantling, subject to venue requirements.",
+    "descriptionAr": "خطط لبوث مخصص من الفكرة والتصميم ثلاثي الأبعاد لحد اختيار الخامات والتصنيع والبراندنج والتركيب والفك، حسب اشتراطات الموقع.",
+    "cta": "Request a Booth Quotation",
+    "ctaAr": "اطلب عرض سعر للبوث",
+    "related": "event-management-brand-activations",
+    "question": "What should I send for a booth quote?",
+    "questionAr": "أبعت إيه عشان آخد سعر البوث؟",
+    "answer": "Share the floor plan, dimensions, venue, dates, branding guidelines and needs such as lighting, screens or storage.",
+    "answerAr": "ابعت مخطط المساحة والمقاسات والموقع والمواعيد ودليل الهوية واحتياجات الإضاءة أو الشاشات أو التخزين.",
+    "faq": [
+      {
+        "question": "Can the booth be reused?",
+        "answer": "Share the planned venues and storage constraints before selecting a modular design.",
+        "questionAr": "هل يمكن إعادة استخدام الجناح؟",
+        "answerAr": "حدد أماكن الاستخدام والتخزين قبل اختيار تصميم قابل للفك والتركيب."
+      },
+      {
+        "question": "Who confirms venue requirements?",
+        "answer": "Collect the exhibitor manual and confirm access, power and height limits during planning.",
+        "questionAr": "كيف نتأكد من اشتراطات المكان؟",
+        "answerAr": "هات دليل العارض وراجع الدخول والكهرباء وحدود الارتفاع أثناء التخطيط."
+      },
+      {
+        "question": "What should the initial brief include?",
+        "answer": "Share the floor plan, required equipment and installation and removal dates.",
+        "questionAr": "ماذا يتضمن البريف؟",
+        "answerAr": "أرسل المخطط والمعدات المطلوبة ومواعيد التركيب والفك."
+      }
+    ],
+    "overview": "A booth is both a branded space and a working area. Plan entrances, circulation, demonstrations, storage and staff positions around the floor plan and visitor flow.",
+    "useCases": "A product demo may need power and room for a queue. A meeting booth needs seating and quieter conversation areas. Define these requirements before choosing finishes.",
+    "overviewAr": "الجناح مساحة لعرض هوية البراند والعمل في الوقت نفسه. خطط للدخول والحركة والعروض والتخزين وأماكن الفريق حسب المخطط ومسار الزوار.",
+    "useCasesAr": "قد يحتاج عرض المنتج إلى كهرباء ومساحة لانتظار الزوار. ويحتاج جناح الاجتماعات إلى مقاعد ومكان أهدأ للحوار. حدد المتطلبات قبل اختيار التشطيبات.",
+    "benefits": [
+      "Floor space planned for visitors",
+      "Build scope aligned to venue rules",
+      "Equipment and finishes agreed early"
+    ],
+    "benefitsAr": [
+      "تخطيط المساحة لحركة الزوار",
+      "تنفيذ مناسب لاشتراطات المكان",
+      "اتفاق مبكر على المعدات والتشطيبات"
+    ],
+    "process": [
+      "Review the venue manual",
+      "Plan layout and equipment",
+      "Approve fabrication details",
+      "Schedule installation and removal"
+    ],
+    "processAr": [
+      "راجع دليل المكان",
+      "خطط للتوزيع والمعدات",
+      "اعتمد تفاصيل التصنيع",
+      "نسّق التركيب والفك"
+    ]
+  },
+  "commercial-video-production": {
+    "en": "Commercial Video Production in Egypt",
+    "ar": "إنتاج الإعلانات والفيديو في مصر",
+    "keywords": [
+      "TVC production Egypt",
+      "advertising video production",
+      "filming Cairo",
+      "motion graphics",
+      "DOOH video"
+    ],
+    "description": "Develop the brief, script and storyboard, then coordinate filming, editing, colour and sound. Agree on deliverables for broadcast, social or outdoor screens.",
+    "descriptionAr": "نطوّر البريف والسيناريو والستوري بورد، وننسّق التصوير والمونتاج والألوان والصوت. نحدد النسخ المطلوبة للتلفزيون أو السوشيال أو الشاشات الخارجية.",
+    "cta": "Discuss Your Video Project",
+    "ctaAr": "ناقش مشروع الفيديو",
+    "related": "dooh-advertising-in-egypt",
+    "question": "Can the same video run on TV and outdoor screens?",
+    "questionAr": "ينفع نفس الفيديو للتلفزيون والشاشات الخارجية؟",
+    "answer": "We can plan multiple versions. Screen dimensions, spot length, sound and broadcaster requirements guide each export.",
+    "answerAr": "ممكن نجهّز أكتر من نسخة. مقاس الشاشة ومدة الإعلان والصوت ومتطلبات جهة العرض بتحدد مواصفات كل نسخة.",
+    "faq": [
+      {
+        "question": "What should we decide before filming?",
+        "answer": "Agree on the script, locations, deliverables and approvals before the shoot.",
+        "questionAr": "ماذا نحدد قبل التصوير؟",
+        "answerAr": "اتفق على السيناريو والمواقع والنسخ المطلوبة والموافقات قبل التصوير."
+      },
+      {
+        "question": "Can one shoot support several channels?",
+        "answer": "Plan framing and take coverage for each required aspect ratio and cut length.",
+        "questionAr": "هل يمكن استخدام التصوير لأكثر من قناة؟",
+        "answerAr": "خطط للكادرات واللقطات المناسبة لنسب العرض والمدد المطلوبة."
+      },
+      {
+        "question": "What affects the production schedule?",
+        "answer": "Casting, locations, shooting days and feedback rounds affect delivery.",
+        "questionAr": "ما الذي يحدد مدة الإنتاج؟",
+        "answerAr": "اختيار الممثلين والمواقع وأيام التصوير وجولات المراجعة تحدد المدة."
+      }
+    ],
+    "overview": "Commercial video production turns a brief into footage and channel-ready edits. A clear script, shot list and delivery plan help make the filming day productive and the review process predictable.",
+    "useCases": "A product film may need close-ups and demonstrations. A launch film may need shorter edits for screens and social use. Decide on aspect ratios, captions and languages before shooting.",
+    "overviewAr": "يحوّل إنتاج الفيديو التجاري البريف إلى لقطات ونسخ مناسبة لقنوات العرض. يسهّل السيناريو وقائمة اللقطات وخطة التسليم التصوير والمراجعة.",
+    "useCasesAr": "قد يحتاج فيديو المنتج إلى لقطات مقربة وعرض لطريقة الاستخدام. وقد تحتاج حملة الإطلاق إلى نسخ أقصر للشاشات والمنصات. حدد الأبعاد والترجمة واللغات قبل التصوير.",
+    "benefits": [
+      "Deliverables scoped by channel",
+      "Shoot plan aligned to script",
+      "Review rounds agreed before editing"
+    ],
+    "benefitsAr": [
+      "تحديد النسخ لكل قناة",
+      "خطة تصوير مبنية على السيناريو",
+      "اتفاق على جولات المراجعة قبل المونتاج"
+    ],
+    "process": [
+      "Agree on the concept and deliverables",
+      "Plan locations and shots",
+      "Film the approved script",
+      "Edit and export final versions"
+    ],
+    "processAr": [
+      "اتفق على الفكرة والنسخ",
+      "خطط للمواقع واللقطات",
+      "صوّر السيناريو المعتمد",
+      "حرّر وصدّر النسخ النهائية"
+    ]
+  },
+  "dooh-advertising-in-egypt": {
+    "en": "DOOH Advertising in Egypt",
+    "ar": "إعلانات الشاشات الرقمية في مصر",
+    "keywords": [
+      "Digital billboards Cairo",
+      "LED advertising screens",
+      "screen booking",
+      "creative rotation",
+      "digital OOH"
+    ],
+    "description": "Book digital screens with a defined spot length, rotation and schedule. Confirm file requirements, creative updates and any playback reporting for each screen.",
+    "descriptionAr": "احجز شاشات رقمية بمدة عرض وتكرار وجدول واضح. راجع مواصفات الملفات وإمكانية تحديث المحتوى وتقارير العرض لكل شاشة.",
+    "cta": "Get a Digital Screen Proposal",
+    "ctaAr": "اطلب عرض للشاشات الرقمية",
+    "related": "commercial-video-production",
+    "question": "What does a screen booking include?",
+    "questionAr": "حجز الشاشة بيشمل إيه؟",
+    "answer": "Confirm the screen, campaign dates, spot length and expected frequency. Ask what proof of play the operator can provide.",
+    "answerAr": "أكد الشاشة والمواعيد ومدة الإعلان والتكرار المتوقع، واسأل عن إثبات العرض اللي المشغّل يقدر يوفره.",
+    "faq": [
+      {
+        "question": "How often will my creative appear?",
+        "answer": "Confirm spot length, loop length and playback schedule in the booking proposal.",
+        "questionAr": "كم مرة يظهر الإعلان؟",
+        "answerAr": "راجع مدة الإعلان وطول دورة العرض وجدول التشغيل في العرض."
+      },
+      {
+        "question": "Can I schedule different creatives?",
+        "answer": "Ask whether the network supports time slots and specify when each version should run.",
+        "questionAr": "هل أقدر أجدول تصميمات مختلفة؟",
+        "answerAr": "اسأل عن دعم الفترات الزمنية وحدد وقت تشغيل كل نسخة."
+      },
+      {
+        "question": "What file does a screen need?",
+        "answer": "Request its pixel dimensions, orientation, duration and supported file format.",
+        "questionAr": "ما مواصفات ملف الشاشة؟",
+        "answerAr": "اطلب أبعاد الشاشة بالبكسل واتجاهها ومدة الإعلان وصيغة الملف."
+      }
+    ],
+    "overview": "Digital outdoor advertising uses timed spots on screens. Compare screen visibility, the length of the display loop and when your creative runs before choosing a network or individual site.",
+    "useCases": "Use short, legible creative on roads. At pedestrian venues, match the message to dwell time and ask about rotation and available dayparts.",
+    "overviewAr": "تُعرض إعلانات الشاشات الخارجية ضمن جدول تشغيل. قارن وضوح الشاشات وطول دورة العرض ومواعيد تشغيل الإعلان قبل اختيار شبكة أو موقع منفرد.",
+    "useCasesAr": "استخدم تصميمًا قصيرًا ومقروءًا على الطرق. وفي أماكن المشاة، راعِ وقت الانتظار واسأل عن تكرار الإعلان وفترات العرض المتاحة.",
+    "benefits": [
+      "Booking terms tied to the screen loop",
+      "Creative suited to screen dimensions",
+      "Schedule options matched to the audience"
+    ],
+    "benefitsAr": [
+      "حجز مبني على دورة عرض الشاشة",
+      "تصميم مناسب لأبعاد الشاشة",
+      "فترات عرض تناسب الجمهور"
+    ],
+    "process": [
+      "Select routes or venues",
+      "Review loop timing and availability",
+      "Prepare and approve versions",
+      "Confirm the playback schedule"
+    ],
+    "processAr": [
+      "اختر الطرق أو المواقع",
+      "راجع دورة العرض والتوفر",
+      "جهّز واعتمد النسخ",
+      "أكد جدول التشغيل"
+    ]
+  },
+  "event-management-brand-activations": {
+    "en": "Event Management in Egypt",
+    "ar": "تنظيم الفعاليات وتنشيط العلامات التجارية في مصر",
+    "keywords": [
+      "Event agency Cairo",
+      "brand activations",
+      "product launches",
+      "corporate events",
+      "experiential marketing"
+    ],
+    "description": "Plan the guest experience, venue, suppliers, production and on-site delivery for corporate events and activations. Define staffing and reporting in the brief.",
+    "descriptionAr": "خطط لتجربة الضيوف والموقع والموردين والإنتاج والتنفيذ للفعاليات وتنشيط العلامة التجارية. حدّد فريق التشغيل والتقارير المطلوبة في البريف.",
+    "cta": "Plan Your Event",
+    "ctaAr": "خطط لفعاليتك",
+    "related": "booth-activation-production",
+    "question": "What makes an event brief useful?",
+    "questionAr": "إيه المعلومات المطلوبة في بريف الفعالية؟",
+    "answer": "Include the objective, audience size, preferred date and venue, budget range, branding and the decisions you need help with.",
+    "answerAr": "اكتب الهدف وعدد الحضور والمواعيد والمكان المقترح والميزانية والهوية والقرارات اللي محتاج مساعدة فيها.",
+    "faq": [
+      {
+        "question": "When should we book a venue?",
+        "answer": "Start once dates, guest count and site needs are defined so you can compare workable venues.",
+        "questionAr": "متى نحجز المكان؟",
+        "answerAr": "ابدأ بعد تحديد التاريخ وعدد الضيوف واحتياجات الموقع لمقارنة الأماكن المناسبة."
+      },
+      {
+        "question": "How is setup coordinated?",
+        "answer": "Agree on access times, vendor responsibilities and an event-day schedule in advance.",
+        "questionAr": "كيف يتم تنسيق التجهيز؟",
+        "answerAr": "اتفق مسبقًا على مواعيد الدخول ومسؤولية كل مورد وجدول يوم الفعالية."
+      },
+      {
+        "question": "Can you plan a multi-day activation?",
+        "answer": "Share operating hours, staffing needs and storage arrangements for each day.",
+        "questionAr": "هل يمكن التخطيط لتنشيط يمتد عدة أيام؟",
+        "answerAr": "شارك ساعات التشغيل واحتياجات الطاقم والتخزين لكل يوم."
+      }
+    ],
+    "overview": "Event management coordinates the guest experience and the work behind it. Set the objective, expected attendance, site requirements and operational responsibilities early.",
+    "useCases": "For a launch, plan arrivals, demonstrations and press access. For a public activation, plan visitor flow, staffing and how participants will engage.",
+    "overviewAr": "تربط إدارة الفعاليات بين تجربة الضيوف والتجهيزات اللازمة. حدد الهدف وعدد الحضور واحتياجات المكان ومسؤوليات التشغيل مبكرًا.",
+    "useCasesAr": "خطط لاستقبال الضيوف وعروض المنتجات ودخول الصحافة في حفلات الإطلاق. وفي التنشيط الميداني، حدد مسارات الجمهور والطاقم وطريقة المشاركة.",
+    "benefits": [
+      "Clearly assigned vendor responsibilities",
+      "Guest flow considered in site planning",
+      "A shared schedule for event day"
+    ],
+    "benefitsAr": [
+      "توزيع واضح لمسؤوليات الموردين",
+      "تخطيط الموقع حسب حركة الضيوف",
+      "جدول مشترك ليوم الفعالية"
+    ],
+    "process": [
+      "Define goals and attendance",
+      "Review venue and suppliers",
+      "Agree on staffing and run of show",
+      "Coordinate on-site delivery"
+    ],
+    "processAr": [
+      "حدد الهدف وعدد الحضور",
+      "راجع المكان والموردين",
+      "اتفق على الطاقم والجدول",
+      "نسّق التنفيذ في الموقع"
+    ]
+  },
+  "in-flight-advertising": {
+    "en": "In-Flight Advertising in Egypt",
+    "ar": "الإعلانات داخل الطائرات في مصر",
+    "keywords": [
+      "Airline advertising",
+      "onboard media",
+      "in-flight magazines",
+      "inflight entertainment",
+      "airline placements"
+    ],
+    "description": "Assess onboard media such as entertainment or magazine placements when offered by the airline. Routes, lead times and approvals shape the booking.",
+    "descriptionAr": "نراجع خيارات الإعلان داخل الطائرة زي الترفيه أو المجلات حسب اللي شركة الطيران بتتيحه. المسارات ومواعيد التسليم والموافقات بتحدد الحجز.",
+    "cta": "Request an In-Flight Media Plan",
+    "ctaAr": "اطلب خطة إعلان داخل الطائرات",
+    "related": "airport-advertising-in-egypt",
+    "question": "Can I choose specific routes?",
+    "questionAr": "ينفع أختار خطوط طيران أو رحلات معينة؟",
+    "answer": "Share target routes and travel dates. We can confirm which airline formats, routes and campaign windows can be quoted.",
+    "answerAr": "ابعت المسارات والتواريخ المطلوبة عشان نراجع خيارات الإعلان المتاحة ونعرف إيه اللي ممكن يتسعّر.",
+    "faq": [
+      {
+        "question": "Which routes can I target?",
+        "answer": "Share destinations and dates to compare inventory where airline routes overlap with your audience.",
+        "questionAr": "ما الخطوط الجوية التي يمكن استهدافها؟",
+        "answerAr": "أرسل الوجهات والمواعيد لمقارنة رحلات الشركات مع جمهورك."
+      },
+      {
+        "question": "What formats should I ask about?",
+        "answer": "Check available placements and creative rules with the relevant airline before designing.",
+        "questionAr": "عن أي صيغ أسأل؟",
+        "answerAr": "راجع الإعلانات المتاحة وشروط تصميمها مع شركة الطيران قبل البدء."
+      },
+      {
+        "question": "How early should we plan?",
+        "answer": "Allow time for approvals, production and the airline’s media booking cycle.",
+        "questionAr": "متى نبدأ التخطيط؟",
+        "answerAr": "خصص وقتًا للموافقات والإنتاج ودورة حجز الإعلانات لدى الشركة."
+      }
+    ],
+    "overview": "In-flight media reaches passengers during the flight. Formats and approval requirements can differ by airline, so compare viable options against planned routes and campaign dates.",
+    "useCases": "Travel, hospitality and destination brands can brief campaigns around selected routes. Confirm creative deadlines and where the material appears on board.",
+    "overviewAr": "تصل الإعلانات على متن الطائرات إلى المسافرين أثناء الرحلة. تختلف الصيغ والموافقات حسب شركة الطيران، فقارن الاختيارات حسب الوجهات ومواعيد الحملة.",
+    "useCasesAr": "يمكن لبراندات السفر والضيافة تخطيط حملات لخطوط محددة. راجع موعد تسليم المواد ومكان ظهورها على الطائرة.",
+    "benefits": [
+      "Airline options compared by route",
+      "Creative requirements clarified before production",
+      "Lead times reflected in the plan"
+    ],
+    "benefitsAr": [
+      "مقارنة شركات الطيران حسب الوجهة",
+      "توضيح المواصفات قبل الإنتاج",
+      "احتساب مهلة التسليم ضمن الخطة"
+    ],
+    "process": [
+      "Identify destinations and dates",
+      "Review airline media options",
+      "Confirm format and approvals",
+      "Coordinate submission before the deadline"
+    ],
+    "processAr": [
+      "حدد الوجهات والمواعيد",
+      "راجع خيارات الإعلان مع الشركات",
+      "أكد الصيغة والموافقات",
+      "نسّق التسليم قبل الموعد"
+    ]
+  },
+  "mall-advertising": {
+    "en": "Mall Advertising in Egypt",
+    "ar": "إعلانات المولات في مصر",
+    "keywords": [
+      "Mall digital screens",
+      "shopping centre advertising",
+      "retail branding",
+      "mall booths",
+      "activation spaces"
+    ],
+    "description": "Choose screens, panels or branding around the shopper journey. For a staffed activation, confirm the floor area, power and mall approval before production.",
+    "descriptionAr": "اختار شاشات أو لوحات أو مساحات براندنج حسب مسار الزوار. لو النشاط محتاج فريق، أكد المساحة والكهرباء وموافقة المول قبل الإنتاج.",
+    "cta": "Explore Mall Advertising Options",
+    "ctaAr": "استكشف خيارات إعلانات المولات",
+    "related": "booth-activation-production",
+    "question": "Can a media booking include an activation?",
+    "questionAr": "ممكن أحجز إعلان ونشاط ترويجي مع بعض؟",
+    "answer": "They can be planned together. Availability, staffing, approvals, installation and booking periods are confirmed for each element.",
+    "answerAr": "ينفع نخطط للاتنين مع بعض. بنأكد التوفر والعمالة والموافقات والتركيب ومدة الحجز لكل جزء.",
+    "faq": [
+      {
+        "question": "How do I compare placements inside a mall?",
+        "answer": "Review foot traffic, sightlines and nearby tenants around each proposed placement.",
+        "questionAr": "كيف أقارن مواقع الإعلان داخل المول؟",
+        "answerAr": "راجع حركة الزوار وزوايا الرؤية والمحلات القريبة من كل موقع مقترح."
+      },
+      {
+        "question": "Can a display support a store opening?",
+        "answer": "Choose timings and locations that guide shoppers to the store, then confirm signage rules.",
+        "questionAr": "هل تناسب الإعلانات افتتاح فرع؟",
+        "answerAr": "اختر مواعيد ومواقع توجه الزوار للفرع وراجع قواعد اللافتات."
+      },
+      {
+        "question": "What deadline matters most?",
+        "answer": "Confirm the mall’s approval and installation deadlines alongside the launch date.",
+        "questionAr": "ما الموعد الأهم؟",
+        "answerAr": "تأكد من مواعيد موافقة المول والتركيب قبل تاريخ الإطلاق."
+      }
+    ],
+    "overview": "Mall media works along shopping routes, including entrances, walkways and waiting areas. Choose placements based on visitor movement and how much time shoppers have to see the message.",
+    "useCases": "Retailers can plan placements near the store or on the approach from parking and entrances. A product launch can also use visibility near related retail categories.",
+    "overviewAr": "تظهر إعلانات المولات على مسارات التسوق، من المداخل والممرات إلى أماكن الانتظار. اختر الموقع حسب حركة الزوار والوقت المتاح لرؤية الإعلان.",
+    "useCasesAr": "يمكن للمتاجر اختيار مواقع قرب الفرع أو على الطريق من مواقف السيارات والمداخل. ويمكن لحملة إطلاق منتج الاستفادة من قربها من أقسام بيع مرتبطة به.",
+    "benefits": [
+      "Placements chosen along shopping routes",
+      "Campaign timing aligned to retail dates",
+      "Creative planned around venue rules"
+    ],
+    "benefitsAr": [
+      "اختيار المواقع على مسارات التسوق",
+      "توقيت يناسب مواعيد المتاجر",
+      "تصميم يراعي قواعد المكان"
+    ],
+    "process": [
+      "Identify malls and visitor routes",
+      "Compare available locations",
+      "Review creative and access rules",
+      "Confirm installation dates"
+    ],
+    "processAr": [
+      "حدد المولات ومسارات الزوار",
+      "قارن المواقع المتاحة",
+      "راجع التصميم وقواعد الدخول",
+      "أكد مواعيد التركيب"
+    ]
+  },
+  "on-screen-cinema-advertising": {
+    "en": "Cinema Advertising in Egypt",
+    "ar": "إعلانات شاشات السينما في مصر",
+    "keywords": [
+      "Cinema screen advertising",
+      "pre-show commercial",
+      "cinema advertising Cairo",
+      "cinema media buying",
+      "theater ads"
+    ],
+    "description": "Plan on-screen commercials before film screenings. Confirm cinema selection, dates, spot length and technical approval before delivering the final file.",
+    "descriptionAr": "خطط لعرض إعلانك قبل الفيلم. أكد دور السينما والتواريخ ومدة الإعلان والموافقة الفنية قبل تسليم الملف النهائي.",
+    "cta": "Request Cinema Advertising Rates",
+    "ctaAr": "اطلب عرض سعر لإعلانات السينما",
+    "related": "commercial-video-production",
+    "question": "Can an existing TV commercial be used?",
+    "questionAr": "ينفع نستخدم إعلان تلفزيون موجود؟",
+    "answer": "The cinema operator checks format, runtime and sound. Allow time to adapt and approve the creative before the first screening.",
+    "answerAr": "مشغّل السينما بيراجع صيغة الملف والمدة والصوت. احسب وقت لتعديل المادة واعتمادها قبل أول عرض.",
+    "faq": [
+      {
+        "question": "Can I target specific cinemas?",
+        "answer": "Share your preferred cities and audience to compare cinema circuits and available dates.",
+        "questionAr": "هل يمكن استهداف سينمات محددة؟",
+        "answerAr": "شارك المدن والجمهور المقصود لمقارنة دور العرض والمواعيد المتاحة."
+      },
+      {
+        "question": "When does the ad run?",
+        "answer": "Confirm where the spot runs in the pre-show schedule and any exceptions by screening.",
+        "questionAr": "متى يُعرض الإعلان؟",
+        "answerAr": "تأكد من موضع الإعلان قبل الفيلم وأي استثناءات حسب العرض."
+      },
+      {
+        "question": "What file is required?",
+        "answer": "Confirm cinema delivery format, audio specifications and mastering deadlines in advance.",
+        "questionAr": "ما مواصفات الملف المطلوب؟",
+        "answerAr": "تأكد مسبقًا من صيغة العرض ومواصفات الصوت وموعد تسليم النسخة النهائية."
+      }
+    ],
+    "overview": "Cinema advertising places a finished spot in a screening schedule. Choose venues and dates around the audience you want to reach and verify the terms of each booking.",
+    "useCases": "For launches and entertainment campaigns, check the cinema circuit, screening schedule and delivery requirements before committing to the flight.",
+    "overviewAr": "يضع إعلان السينما نسخة جاهزة ضمن جدول العروض. اختر دور العرض والمواعيد حسب الجمهور المستهدف وراجع شروط كل حجز.",
+    "useCasesAr": "لحملات الإطلاق والترفيه، راجع شبكة السينمات ومواعيد العروض ومواصفات التسليم قبل تأكيد فترة الحملة.",
+    "benefits": [
+      "Venues aligned with campaign geography",
+      "Pre-show timing clarified in the brief",
+      "Cinema-ready files scoped in advance"
+    ],
+    "benefitsAr": [
+      "دور عرض تناسب نطاق الحملة",
+      "توضيح توقيت الإعلان في البريف",
+      "تحديد ملفات العرض مسبقًا"
+    ],
+    "process": [
+      "Identify cities and audience",
+      "Compare cinemas and screenings",
+      "Confirm delivery specifications",
+      "Submit and confirm scheduled dates"
+    ],
+    "processAr": [
+      "حدد المدن والجمهور",
+      "قارن السينمات والعروض",
+      "أكد مواصفات التسليم",
+      "سلّم المواد وراجع المواعيد"
+    ]
+  },
+  "outdoor-media-planning-buying": {
+    "en": "Outdoor Media Buying in Egypt",
+    "ar": "تخطيط وشراء مساحات إعلانات الطرق في مصر",
+    "keywords": [
+      "OOH media planning",
+      "outdoor campaign strategy",
+      "billboard media buying",
+      "site comparison",
+      "supplier coordination"
+    ],
+    "description": "Build a plan from audience geography, format options, budget and dates. Compare locations and operator terms before confirming production and monitoring.",
+    "descriptionAr": "ابنِ خطة حسب مناطق الجمهور وأنواع الإعلانات والميزانية والمواعيد. قارن المواقع وشروط الموردين قبل اعتماد الإنتاج والمتابعة.",
+    "cta": "Request an Outdoor Media Plan",
+    "ctaAr": "اطلب خطة إعلانات خارجية",
+    "related": "billboard-advertising-in-egypt",
+    "question": "What information helps compare sites?",
+    "questionAr": "نقارن مواقع اليافطات على أساس إيه؟",
+    "answer": "Review direction of travel, physical visibility, format, operating terms and verified availability. Request measurement data where the operator can provide it.",
+    "answerAr": "راجع اتجاه السير ووضوح الرؤية والنوع وشروط التشغيل والتوفر المؤكد. اطلب بيانات القياس لو المورد يقدر يوفرها.",
+    "faq": [
+      {
+        "question": "What goes into a useful media brief?",
+        "answer": "Send the campaign objective, target areas, dates and working budget.",
+        "questionAr": "ما مكونات بريف التخطيط الإعلامي؟",
+        "answerAr": "أرسل هدف الحملة والمناطق المستهدفة والمواعيد والميزانية المتاحة."
+      },
+      {
+        "question": "How do you compare different routes?",
+        "answer": "Compare audience movement, direction of travel, coverage overlap and site visibility.",
+        "questionAr": "كيف نقارن الطرق المختلفة؟",
+        "answerAr": "قارن حركة الجمهور واتجاه السير وتداخل التغطية ووضوح كل موقع."
+      },
+      {
+        "question": "What should I request before approving a booking?",
+        "answer": "Review the site list, formats, dates and which costs the plan includes.",
+        "questionAr": "ماذا أطلب قبل الموافقة على الحجز؟",
+        "answerAr": "راجع قائمة المواقع والصيغ والمواعيد والتكاليف المشمولة."
+      }
+    ],
+    "overview": "Outdoor media planning turns an audience brief into a shortlist of locations, formats and dates. Compare static and digital placements by visibility, coverage overlap and fit with the budget.",
+    "useCases": "For a local campaign, prioritize routes around the branch or service area. For regional coverage, compare a mix of corridors and cities against the audience brief.",
+    "overviewAr": "يحوّل تخطيط الإعلانات الخارجية البريف إلى قائمة مواقع وصيغ ومواعيد. قارن الثابت والديجيتال حسب وضوح الظهور وتداخل التغطية والميزانية.",
+    "useCasesAr": "للحملات المحلية، ابدأ بالمسارات حول الفرع أو منطقة الخدمة. وللتغطية الإقليمية، قارن المحاور والمدن حسب الجمهور المطلوب.",
+    "benefits": [
+      "Visibility and coverage compared together",
+      "Clear role for static and digital formats",
+      "Overlap considered before buying"
+    ],
+    "benefitsAr": [
+      "مقارنة الرؤية والتغطية معًا",
+      "دور واضح للإعلانات الثابتة والديجيتال",
+      "مراجعة تداخل التغطية قبل الشراء"
+    ],
+    "process": [
+      "Define goals and budget",
+      "Shortlist routes and formats",
+      "Compare coverage and dates",
+      "Approve the media plan and booking list"
+    ],
+    "processAr": [
+      "حدد الهدف والميزانية",
+      "اختر الطرق والصيغ",
+      "قارن التغطية والمواعيد",
+      "اعتمد الخطة وقائمة الحجوزات"
+    ]
+  },
+  "pr-communication-services": {
+    "en": "PR & Communications in Egypt",
+    "ar": "العلاقات العامة والتواصل الإعلامي في مصر",
+    "keywords": [
+      "PR agency Egypt",
+      "media relations",
+      "press releases",
+      "corporate communications",
+      "brand messaging"
+    ],
+    "description": "Define the audience, message and media outreach around a launch or corporate announcement. Agree on brief, approvals and reporting before distribution.",
+    "descriptionAr": "حدد الجمهور والرسالة وطريقة التواصل مع الإعلام لإطلاق منتج أو إعلان مؤسسي. اتفق على البريف والموافقات والتقارير قبل التوزيع.",
+    "cta": "Discuss Your Communications Brief",
+    "ctaAr": "ناقش بريف التواصل الإعلامي",
+    "related": "event-management-brand-activations",
+    "question": "Can you guarantee press coverage?",
+    "questionAr": "هل التغطية الصحفية مضمونة؟",
+    "answer": "Editorial coverage depends on each outlet. Agree on materials, outreach and reporting so you can track the work delivered.",
+    "answerAr": "قرار النشر بيرجع لكل وسيلة إعلامية. بنحدد المواد والتواصل والتقارير عشان تتابع الشغل اللي اتنفّذ.",
+    "faq": [
+      {
+        "question": "What should be in a press brief?",
+        "answer": "Share the announcement, target audiences, approved facts and available spokespeople.",
+        "questionAr": "ماذا يتضمن البريف الصحفي؟",
+        "answerAr": "شارك تفاصيل الخبر والجمهور والحقائق المعتمدة والمتحدثين المتاحين."
+      },
+      {
+        "question": "How are publications selected?",
+        "answer": "Match their readership and editorial coverage to the announcement.",
+        "questionAr": "كيف تختارون وسائل النشر؟",
+        "answerAr": "نقارن جمهور الوسيلة وموضوعات تغطيتها بالخبر."
+      },
+      {
+        "question": "How can we measure coverage?",
+        "answer": "Agree on relevant outlets and messages to track before outreach begins.",
+        "questionAr": "كيف نقيس التغطية؟",
+        "answerAr": "حدد الوسائل والرسائل التي ستتابعها قبل التواصل مع الإعلام."
+      }
+    ],
+    "overview": "Public relations starts with a credible story, clear facts and a defined audience. Prepare approved messages, press materials and a spokesperson before outreach.",
+    "useCases": "For an opening or launch, give journalists the relevant facts, visuals and access details. Decide how to track mentions and message pickup before release.",
+    "overviewAr": "تبدأ العلاقات العامة بقصة موثقة وحقائق واضحة وجمهور محدد. جهّز الرسائل المعتمدة والمواد الصحفية والمتحدث الرسمي قبل التواصل مع الإعلام.",
+    "useCasesAr": "في الافتتاحات وإطلاق المنتجات، أرسل للصحفيين الحقائق والصور وتفاصيل الحضور. حدد طريقة متابعة التغطية والرسائل قبل النشر.",
+    "benefits": [
+      "Approved messages across press materials",
+      "Outreach matched to the story",
+      "Coverage tracking defined up front"
+    ],
+    "benefitsAr": [
+      "رسائل معتمدة في المواد الصحفية",
+      "تواصل يناسب الخبر",
+      "معايير متابعة محددة مسبقًا"
+    ],
+    "process": [
+      "Set the narrative and approvals",
+      "Prepare the press materials",
+      "Brief relevant outlets",
+      "Review coverage against agreed goals"
+    ],
+    "processAr": [
+      "حدد القصة والموافقات",
+      "جهّز المواد الصحفية",
+      "تواصل مع الوسائل المناسبة",
+      "راجع التغطية حسب الأهداف"
+    ]
+  },
+  "erp-solutions": {
+    "en": "ERP Software Development in Egypt",
+    "ar": "تطوير أنظمة ERP للشركات في مصر",
+    "keywords": [
+      "Custom ERP Egypt",
+      "ERP implementation",
+      "inventory management",
+      "procurement",
+      "invoicing",
+      "data migration"
+    ],
+    "description": "Scope an ERP system around stock, purchasing, sales, invoicing and approvals. Define integrations, access roles, reporting and migration before rollout.",
+    "descriptionAr": "حدّد نظام ERP يناسب المخزون والمشتريات والمبيعات والفواتير والموافقات. راجع الربط والصلاحيات والتقارير ونقل البيانات قبل التشغيل.",
+    "cta": "Request an ERP Consultation",
+    "ctaAr": "اطلب استشارة ERP",
+    "related": "website-development",
+    "question": "Can we migrate data from our current system?",
+    "questionAr": "ممكن ننقل بيانات النظام الحالي؟",
+    "answer": "Start with sample exports and check field mapping, data quality and ownership. Agree on a test migration, training and deployment support in the proposal.",
+    "answerAr": "نبدأ بعينة تصدير ونراجع تطابق الحقول وجودة البيانات ومسؤوليتها. نتفق على تجربة النقل والتدريب ودعم التشغيل في العرض.",
+    "faq": [
+      {
+        "question": "Where should an ERP rollout start?",
+        "answer": "Identify the processes with the most manual work and confirm which data each team owns.",
+        "questionAr": "بماذا يبدأ تطبيق النظام؟",
+        "answerAr": "حدد العمليات الأكثر اعتمادًا على العمل اليدوي ومسؤولية كل فريق عن البيانات."
+      },
+      {
+        "question": "Can existing records be migrated?",
+        "answer": "Audit the source files and test a sample import before planning the full migration.",
+        "questionAr": "هل يمكن نقل السجلات الحالية؟",
+        "answerAr": "راجع الملفات الأصلية واختبر استيراد عينة قبل النقل الكامل."
+      },
+      {
+        "question": "How should access be set up?",
+        "answer": "Map staff roles to the records and actions each role needs.",
+        "questionAr": "كيف نحدد صلاحيات الدخول؟",
+        "answerAr": "اربط أدوار الموظفين بالسجلات والإجراءات اللازمة لكل دور."
+      }
+    ],
+    "overview": "An ERP project connects selected workflows and records across teams. Start with a map of responsibilities, approval steps and data sources, then agree on which modules belong in the first rollout.",
+    "useCases": "A distributor may prioritize stock and purchasing, while a service business may begin with billing and approvals. Include migration checks, role-based access and staff training in the project brief.",
+    "overviewAr": "يربط مشروع تخطيط موارد المؤسسات عمليات وسجلات محددة بين الفرق. ابدأ بتحديد المسؤوليات والموافقات ومصادر البيانات، ثم اتفق على الوحدات المطلوبة في المرحلة الأولى.",
+    "useCasesAr": "قد تبدأ شركة توزيع بالمخزون والمشتريات، بينما تبدأ شركة خدمات بالفوترة والموافقات. أدرج اختبار نقل البيانات والصلاحيات وتدريب الفريق في البريف.",
+    "benefits": [
+      "Core workflows prioritized by need",
+      "Migration and access checks scoped early",
+      "Rollout planned around staff adoption"
+    ],
+    "benefitsAr": [
+      "ترتيب العمليات حسب الأولوية",
+      "تحديد اختبارات النقل والصلاحيات مبكرًا",
+      "خطة تراعي استخدام الفريق للنظام"
+    ],
+    "process": [
+      "Map workflows and data",
+      "Design the first rollout",
+      "Configure and test with representative records",
+      "Train users and prepare go-live"
+    ],
+    "processAr": [
+      "حدد العمليات والبيانات",
+      "صمّم المرحلة الأولى",
+      "جهّز واختبر بسجلات ممثلة",
+      "درّب المستخدمين وجهّز الإطلاق"
+    ]
+  },
+  "website-development": {
+    "en": "Website Development in Egypt",
+    "ar": "تصميم وتطوير مواقع إلكترونية في مصر",
+    "keywords": [
+      "Bilingual web development",
+      "corporate websites",
+      "CMS Egypt",
+      "landing pages",
+      "technical SEO",
+      "Arabic website design"
+    ],
+    "description": "Plan a bilingual website with editable content, responsive layouts, analytics and technical SEO. Scope page types, integrations and launch support up front.",
+    "descriptionAr": "خطط لموقع بالعربي والإنجليزي بمحتوى قابل للتعديل وتصميم متجاوب وتحليلات وتهيئة لمحركات البحث. حدد أنواع الصفحات والربط والدعم قبل التنفيذ.",
+    "cta": "Get a Website Development Quote",
+    "ctaAr": "اطلب عرض سعر لتطوير موقع",
+    "related": "mobile-applications",
+    "question": "What affects the price of a website?",
+    "questionAr": "إيه اللي بيحدد تكلفة الموقع؟",
+    "answer": "Page templates, multilingual content, CMS roles, integrations and maintenance all affect scope. Share your site map and priority features for a quote.",
+    "answerAr": "القوالب واللغات وصلاحيات إدارة المحتوى والربط والصيانة بتحدد النطاق. ابعت خريطة الصفحات وأهم الخصائص لعرض السعر.",
+    "faq": [
+      {
+        "question": "Can we migrate our current website?",
+        "answer": "Inventory valuable URLs, content and integrations before designing the migration.",
+        "questionAr": "هل يمكن نقل موقعنا الحالي؟",
+        "answerAr": "احصر الروابط المهمة والمحتوى والأنظمة المرتبطة قبل التخطيط للنقل."
+      },
+      {
+        "question": "Can our team manage the content?",
+        "answer": "List what staff need to edit and define the roles that can publish changes.",
+        "questionAr": "هل يقدر فريقنا يدير المحتوى؟",
+        "answerAr": "حدد المحتوى الذي يحتاج الفريق لتعديله والأدوار المخولة بالنشر."
+      },
+      {
+        "question": "How should the Arabic version be planned?",
+        "answer": "Allow for right-to-left layouts, Arabic typography and independent review on phones.",
+        "questionAr": "كيف نخطط للنسخة العربية؟",
+        "answerAr": "راعِ اتجاه الكتابة من اليمين لليسار والخطوط العربية واختبر النسخة على الموبايل."
+      }
+    ],
+    "overview": "A website project starts with what users need to do and what staff need to update. Define pages, Arabic and English content, integrations and publishing roles before design begins.",
+    "useCases": "A service site might prioritize inquiries and project galleries. A catalogue may need search, product data and requests by item. Include URL migration, mobile accessibility and launch checks when relevant.",
+    "overviewAr": "يبدأ تطوير الموقع بتحديد مهام الزوار وما يحتاج الفريق إلى تحديثه. حدد الصفحات والمحتوى العربي والإنجليزي والتكاملات وصلاحيات النشر قبل التصميم.",
+    "useCasesAr": "قد يعطي موقع الخدمات الأولوية للاستفسارات ومعارض المشاريع. وقد يحتاج الكتالوج إلى البحث وبيانات المنتجات والطلبات حسب العنصر. أدرج نقل الروابط وسهولة الاستخدام على الموبايل وفحوصات الإطلاق عند الحاجة.",
+    "benefits": [
+      "Mobile and RTL needs in the design brief",
+      "Publishing responsibilities agreed early",
+      "Migration and launch checks scoped"
+    ],
+    "benefitsAr": [
+      "تضمين الموبايل والاتجاه العربي في البريف",
+      "اتفاق مبكر على صلاحيات النشر",
+      "تحديد فحوصات النقل والإطلاق"
+    ],
+    "process": [
+      "Define pages and user paths",
+      "Design English and Arabic views",
+      "Develop and test publishing and forms",
+      "Verify redirects and deploy"
+    ],
+    "processAr": [
+      "حدد الصفحات ومسارات الزوار",
+      "صمّم الشاشات العربية والإنجليزية",
+      "طوّر واختبر النشر والنماذج",
+      "راجع التحويلات وانشر الموقع"
+    ]
+  },
+  "mobile-applications": {
+    "en": "Mobile App Development in Egypt",
+    "ar": "تطوير تطبيقات الموبايل في مصر",
+    "keywords": [
+      "Mobile app development Egypt",
+      "iOS apps",
+      "Android apps",
+      "booking app",
+      "app integration",
+      "store submission"
+    ],
+    "description": "Plan Arabic and English apps for iOS and Android around booking, ordering or account management. Define integrations, device testing and release support.",
+    "descriptionAr": "خطط لتطبيق عربي وإنجليزي على آيفون وأندرويد للحجز أو الطلب أو إدارة الحساب. حدد الربط والاختبارات على الأجهزة ودعم النشر.",
+    "cta": "Discuss Your Mobile App Project",
+    "ctaAr": "ناقش مشروع تطبيق الموبايل",
+    "related": "erp-solutions",
+    "question": "What determines the delivery timeline?",
+    "questionAr": "إيه اللي بيحدد مدة تطوير التطبيق؟",
+    "answer": "The number of user roles, flows, integrations and device requirements affects time. Prioritize the launch features and account for store review.",
+    "answerAr": "الأدوار وعدد الخطوات والربط ومتطلبات الأجهزة بتأثر على المدة. حدد خصائص أول إصدار وسيب وقت لمراجعة المتاجر.",
+    "faq": [
+      {
+        "question": "Should we launch on both platforms?",
+        "answer": "Use audience devices and budget to decide whether to release together or in phases.",
+        "questionAr": "هل نطلق على النظامين معًا؟",
+        "answerAr": "حدد حسب أجهزة جمهورك والميزانية إذا كان الإطلاق متزامنًا أو على مراحل."
+      },
+      {
+        "question": "What integrations should the app brief cover?",
+        "answer": "List payment, accounts, notifications or operational systems the first release needs.",
+        "questionAr": "ما الأنظمة التي يجب أن يتكامل معها التطبيق؟",
+        "answerAr": "حدد المدفوعات والحسابات والإشعارات أو أنظمة التشغيل المطلوبة في الإصدار الأول."
+      },
+      {
+        "question": "Who controls store listings?",
+        "answer": "Agree on the publisher account, review access and release responsibilities before submission.",
+        "questionAr": "من يدير صفحة التطبيق في المتجر؟",
+        "answerAr": "اتفق على حساب الناشر وصلاحيات المراجعة ومسؤوليات النشر قبل التقديم."
+      }
+    ],
+    "overview": "A mobile app should make a recurring task easy on a phone. Define the essential flows, user roles and platform scope before designing screens or connecting back-end systems.",
+    "useCases": "A booking app needs clear availability and confirmation. A field team app may need offline entry or photo uploads. Test core flows on target devices and plan store submissions as part of release.",
+    "overviewAr": "يسهّل تطبيق الموبايل تنفيذ مهمة متكررة من الهاتف. حدد الخطوات الأساسية وأدوار المستخدمين والأنظمة المستهدفة قبل تصميم الشاشات والربط.",
+    "useCasesAr": "يحتاج تطبيق الحجز إلى عرض التوفر وتأكيد الحجز. وقد يحتاج تطبيق الفرق الميدانية لإدخال البيانات دون اتصال أو رفع الصور. اختبر الخطوات الأساسية على الأجهزة المستهدفة وخطط للنشر في المتاجر.",
+    "benefits": [
+      "Release scope focused on core tasks",
+      "Device and integration testing included in planning",
+      "Store responsibilities documented"
+    ],
+    "benefitsAr": [
+      "تركيز الإصدار على المهام الأساسية",
+      "تخطيط لاختبار الأجهزة والتكاملات",
+      "توثيق مسؤوليات النشر في المتاجر"
+    ],
+    "process": [
+      "Prioritize user flows",
+      "Prototype key screens",
+      "Develop and test on target devices",
+      "Prepare store submission and release"
+    ],
+    "processAr": [
+      "رتّب مهام المستخدم حسب الأولوية",
+      "صمّم نموذج الشاشات الأساسية",
+      "طوّر واختبر على الأجهزة المستهدفة",
+      "جهّز رفع التطبيق وإطلاقه"
+    ]
+  }
+}

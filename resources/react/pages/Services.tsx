@@ -1,31 +1,41 @@
 import {LocalizedText, LocalizedElement} from "@/components/Localized";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
+import approved from "@/lib/approvedServices.json";
+import { ApprovedCTA, approvedService } from "./ApprovedService";
 import { useStore } from "@/store/dataStore";
-import { Reveal, RevealGroup, RevealItem, PageHero, CTABanner, Eyebrow } from "@/components/UI";
-import { serviceHref, RED, NAVY } from "@/lib/routes";
+import { RevealGroup, RevealItem } from "@/components/UI";
+import { serviceHref, langPath, RED } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
 import { ServiceIcon } from "@/components/ServiceIcon";
 
 export default function Services() {
   const { services: SERVICES } = useStore()
   const { lang, isAr, t } = useLang()
+  const copy = isAr ? approved.directory.ar : approved.directory.en;
+  const slugs = Object.keys(approved.services);
+  const groups = [slugs.filter((_, i) => [0,1,2,5,7,8,9,10].includes(i)), slugs.filter((_, i) => [3,4,6,11].includes(i)), slugs.slice(12)];
   return (
     <>
-      <SEO title="Outdoor Advertising Services in Egypt | HORIZON OOH" description="Explore HORIZON OOH's full range of outdoor advertising services: billboards, digital screens, mall media, transit advertising and more across Egypt." canonical="/services" />
-      <PageHero
-        eyebrow={t('services.whatWeDo')}
-        title={t('services.title')}
-        titleAccent={t('services.titleAccent')}
-        subtitle={t('services.subtitle')}
-        dark={false}
-      />
+      <SEO exact title={approved.directory.en.title} titleAr={approved.directory.ar.title}
+        description={approved.directory.en.description} descriptionAr={approved.directory.ar.description} canonical="/services" />
+      <header data-approved-directory className="bg-[#F5F5F6] px-4 pb-20 pt-32 sm:px-8 lg:px-[120px]">
+        <h1 className="mx-auto max-w-[1200px] break-words text-4xl font-black lg:text-6xl">{copy.heading}</h1>
+        <p className="mx-auto mt-6 max-w-[1200px] text-lg">{copy.intro}</p>
+      </header>
 
       {/* Services grid */}
       <section className="bg-white" style={{ paddingTop: 80, paddingBottom: 120 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
+          {copy.categories.map((section, index) => <section key={section.heading} className="mb-12">
+          <h2 className="mb-4 break-words text-3xl font-black">{section.heading}</h2>
+          <p className="mb-6 max-w-3xl">{section.text}</p>
           <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-stretch gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
-            {SERVICES.map((service, i) => (
+            {groups[index].map((slug, i) => {
+              const service = SERVICES.find(item => item.slug === slug) ?? {slug, id: slug};
+              const entry = approvedService(slug, service.editorial?.approved)!;
+              const card = isAr ? entry.ar : entry.en;
+              return (
               <RevealItem key={service.id} className="h-full">
                 <LocalizedElement as={Link}
                   to={serviceHref(lang, service.slug)}
@@ -50,12 +60,11 @@ export default function Services() {
                   </div>
 
                   {/* Title */}
-                  <h2
-                    className="font-bold tracking-[-0.02em] mb-4 text-[#0B0F1A] group-hover:text-white transition-colors duration-500"
+                  <h3 className="font-bold tracking-[-0.02em] mb-4 text-[#0B0F1A] group-hover:text-white transition-colors duration-500"
                     style={{ fontSize: 22, lineHeight: 1.2 }}
                   >
-                    <LocalizedText>{isAr && (service as any).titleAr ? (service as any).titleAr : service.title}</LocalizedText>
-                  </h2>
+                    {card.heading}
+                  </h3>
 
                   {/* Divider */}
                   <div
@@ -71,7 +80,7 @@ export default function Services() {
                   <p
                     className="text-[15px] leading-[1.7] flex-1 text-[rgba(11,15,26,0.45)] group-hover:text-white/70 transition-colors duration-500"
                   >
-                    <LocalizedText>{isAr && (service as any).descriptionAr ? (service as any).descriptionAr : service.description}</LocalizedText>
+                    {card.card}
                   </p>
 
                   {/* CTA */}
@@ -91,49 +100,14 @@ export default function Services() {
                   </div>
                 </LocalizedElement>
               </RevealItem>
-            ))}
+              );
+            })}
           </RevealGroup>
+          </section>)}
         </div>
       </section>
 
-      {/* Trust strip */}
-      <section style={{ background: "#F5F5F6", paddingTop: 80, paddingBottom: 80 }}>
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
-          <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              { value: "9,500+", labelKey: 'services.stat1Label' },
-              { value: "6",      labelKey: 'services.stat2Label' },
-              { value: "100+",  labelKey: 'services.stat3Label' },
-            ].map((stat, i) => (
-              <RevealItem key={stat.labelKey}>
-                <div
-                  className="flex flex-col items-center py-10 text-center"
-                  style={{ borderRight: i < 2 ? "1px solid rgba(11,15,26,0.08)" : "none" }}
-                >
-                  <span
-                    className="font-black leading-none tracking-[-0.05em] mb-3"
-                    style={{ fontSize: "clamp(40px, 4.5vw, 60px)", color: RED }}
-                  >
-                    <LocalizedText>{stat.value}</LocalizedText>
-                  </span>
-                  <span
-                    className="text-[11px] font-semibold tracking-[0.22em] uppercase"
-                    style={{ color: "rgba(11,15,26,0.35)" }}
-                  >
-                    <LocalizedText>{t(stat.labelKey as any)}</LocalizedText>
-                  </span>
-                </div>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
-      </section>
-
-      <CTABanner
-        title={t('services.ctaTitle')}
-        subtitle={t('services.ctaSubtitle')}
-        buttonLabel={t('services.ctaButton')}
-      />
+      <ApprovedCTA copy={copy.cta} href={langPath(lang, "/contact")} />
     </>
   );
 }

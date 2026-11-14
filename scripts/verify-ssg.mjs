@@ -22,7 +22,7 @@ const coreChecks = [
     content: "Outdoor Advertising Agency",
   },
   { file: "public/ssg/about/index.html", title: "About HORIZON OOH", canonical: "https://horizonooh.com/about" },
-  { file: "public/ssg/services/index.html", title: "Our Services", canonical: "https://horizonooh.com/services" },
+  { file: "public/ssg/services/index.html", title: "Advertising, Media & Technology Services Egypt", canonical: "https://horizonooh.com/services" },
   { file: "public/ssg/projects/index.html", title: "Projects", canonical: "https://horizonooh.com/projects" },
   { file: "public/ssg/locations/index.html", title: "Locations", canonical: "https://horizonooh.com/locations" },
   { file: "public/ssg/blog/index.html", title: "Blog", canonical: "https://horizonooh.com/blog" },

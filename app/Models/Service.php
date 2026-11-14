@@ -8,7 +8,7 @@ class Service extends Model
         'slug','name','short_title','tagline','icon','eyebrow','headline',
         'description','long_description','what_is','where_used','image','image_alt',
         'features','benefits','process','stats','sort_order','why_choose',
-        'title_ar','description_ar','long_description_ar',
+        'title_ar','description_ar','long_description_ar','editorial',
     ];
     protected $casts = [
         'features'   => 'array',
@@ -16,5 +16,6 @@ class Service extends Model
         'benefits'   => 'array',
         'process'    => 'array',
         'why_choose' => 'array',
+        'editorial'  => 'array',
     ];
 }

@@ -8,9 +8,10 @@ import { serviceHref, langPath, RED, NAVY, ease } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
 import { motion } from "framer-motion";
 import SEO from "@/components/SEO";
-import { serviceMetadata } from "@/lib/serviceMetadata";
+import { editorialServices, getServiceEditorial, serviceMetadata } from "@/lib/serviceMetadata";
 import { servicesApi } from "@/api";
 import { thumb, thumbSrcSet } from "@/lib/img";
+import { ApprovedService, approvedService } from "./ApprovedService";
 
 // ── Branded service skeleton ──────────────────────────────────────────────────
 function ServiceSkeleton() {
@@ -80,7 +81,7 @@ export default function ServiceDetail() {
 
   // Resolve: direct fetch is authoritative; store supplements once loaded
   const storeService = SERVICES.find((s: any) => s.slug === slug);
-  const rawService = fetchedService ?? storeService;
+  const rawService = fetchedService?.slug === slug ? fetchedService : storeService;
   const service = rawService ? { ...rawService, title: rawService.title || rawService.name || rawService.shortTitle,
     shortTitle: rawService.shortTitle || rawService.name || rawService.title } : null;
   const others       = SERVICES.filter((s: any) => s.id !== service?.id).slice(0, 3);
@@ -102,7 +103,16 @@ export default function ServiceDetail() {
     );
   }
 
+  const approved = approvedService(service.slug, service.editorial?.approved);
+  if (approved) return <ApprovedService slug={service.slug} entry={approved} image={service.image} imageAlt={isAr ? approved.ar.heading : service.imageAlt} />;
+
   const serviceSeo = serviceMetadata(service);
+  const editorial = getServiceEditorial(service);
+  const technology = ['erp-solutions', 'website-development', 'mobile-applications'].includes(service.slug);
+  const heading = editorial ? (isAr ? editorial.ar : editorial.en) : service.shortTitle;
+  const cta = editorial ? (isAr ? editorial.ctaAr : editorial.cta) : 'Get a Quote';
+  const quoteHref = langPath(lang, '/contact') + '?' + new URLSearchParams({ source: 'service', service: service.slug });
+  const related = editorial && editorialServices[editorial.related];
 
   // ── Structured data ────────────────────────────────────────────────────
   const serviceSchema = {
@@ -126,7 +136,6 @@ export default function ServiceDetail() {
       <SEO
         {...serviceSeo}
         ogImage={service.image}
-        keywords={`${(service.title ?? '').toLowerCase()} Egypt, outdoor advertising Egypt, OOH advertising Egypt, ${(service.shortTitle ?? '').toLowerCase()} Cairo`}
         canonical={`/services/${service.slug}`}
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(serviceSchema) }} />
@@ -148,22 +157,22 @@ export default function ServiceDetail() {
                 className="font-black leading-[0.88] tracking-[-0.05em] text-white mb-6"
                 style={{ fontSize: "clamp(52px, 6vw, 84px)" }}
               >
-                <LocalizedText>{service.tagline}</LocalizedText>
+                <LocalizedText>{heading}</LocalizedText>
               </h1>
             </Reveal>
             <Reveal delay={0.12}>
               <p className="text-[17px] leading-[1.75] mb-12" style={{ color: "rgba(255,255,255,0.45)" }}>
-                <LocalizedText>{service.longDescription}</LocalizedText>
+                <LocalizedText>{editorial ? (isAr ? editorial.descriptionAr : editorial.description) : service.longDescription}</LocalizedText>
               </p>
             </Reveal>
             <Reveal delay={0.2}>
               <LocalizedElement as={Link}
-                to={langPath(lang, "/contact")}
+                to={quoteHref}
                 className="group relative h-[52px] px-9 overflow-hidden text-[12px] font-bold tracking-[0.2em] uppercase text-white w-fit flex items-center active:scale-[0.97] transition-transform"
                 style={{ background: RED, textDecoration: 'none' }}
               >
                 <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" style={{ background: "white" }} />
-                <span className="relative z-10 group-hover:text-[#0B0F1A] transition-colors duration-300"><LocalizedText>Get a Quote</LocalizedText></span>
+                <span className="relative z-10 group-hover:text-[#0B0F1A] transition-colors duration-300"><LocalizedText>{cta}</LocalizedText></span>
               </LocalizedElement>
             </Reveal>
           </div>
@@ -204,7 +213,7 @@ export default function ServiceDetail() {
             <div className="col-span-12 lg:col-span-8 flex items-center">
               <Reveal delay={0.1}>
                 <p className="text-[17px] leading-[1.8]" style={{ color: "rgba(11,15,26,0.5)" }}>
-                  <LocalizedText>{service.whatIs}</LocalizedText>
+                  <LocalizedText>{editorial ? (isAr ? editorial.overviewAr : editorial.overview) : service.whatIs}</LocalizedText>
                 </p>
               </Reveal>
             </div>
@@ -217,7 +226,7 @@ export default function ServiceDetail() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <SectionHeading eyebrow="Key Benefits" title="Why it works." />
           <RevealGroup className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {(service.benefits || []).map((benefit, i) => (
+            {(editorial ? (isAr ? editorial.benefitsAr : editorial.benefits) : service.benefits || []).map((benefit, i) => (
               <RevealItem key={i}>
                 <div className="bg-white border border-[#0B0F1A]/[0.07] p-10">
                   <span className="font-black text-[11px] tracking-[0.25em] uppercase block mb-6" style={{ color: "rgba(11,15,26,0.2)" }}>
@@ -239,16 +248,16 @@ export default function ServiceDetail() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
             <div>
-              <Eyebrow text="Coverage" light />
+              <Eyebrow text={technology ? (isAr ? "مجالات الاستخدام" : "Use Cases") : "Coverage"} light />
               <Reveal delay={0.04}>
                 <h2 className="font-black leading-[0.9] tracking-[-0.04em] text-white" style={{ fontSize: "clamp(32px, 3.5vw, 48px)" }}><LocalizedText>
-                  Where we</LocalizedText><br /><span style={{ color: "rgba(255,255,255,0.2)" }}><LocalizedText>deploy it.</LocalizedText></span>
+                  {technology ? (isAr ? "الشركات التي نخدمها" : "Businesses We Support") : (isAr ? "أين تُستخدم الخدمة؟" : "Where We Deliver This Service")}</LocalizedText>
                 </h2>
               </Reveal>
             </div>
             <Reveal delay={0.1}>
               <p className="text-[17px] leading-[1.8]" style={{ color: "rgba(255,255,255,0.45)" }}>
-                <LocalizedText>{service.whereUsed}</LocalizedText>
+                <LocalizedText>{editorial ? (isAr ? editorial.useCasesAr : editorial.useCases) : service.whereUsed}</LocalizedText>
               </p>
             </Reveal>
           </div>
@@ -258,9 +267,9 @@ export default function ServiceDetail() {
       {/* Process */}
       <section className="bg-white" style={{ paddingTop: 100, paddingBottom: 100 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
-          <SectionHeading eyebrow="Campaign Process" title={`Our ${service.shortTitle} Campaign Process`} titleAccent="" />
+          <SectionHeading eyebrow={isAr ? "مراحل التنفيذ" : "Process"} title={technology ? (isAr ? "خطوات تطوير المشروع" : "How We Deliver Your Project") : (isAr ? "خطوات تنفيذ الخدمة" : "How We Deliver This Service")} titleAccent="" />
           <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
-            {(service.process || []).map((step, i) => (
+            {(editorial ? (isAr ? editorial.processAr : editorial.process) : service.process || []).map((step, i) => (
               <RevealItem key={i}>
                 <div className="bg-white p-10">
                   <span className="font-black text-[11px] tracking-[0.25em] uppercase block mb-5" style={{ color: RED }}><LocalizedText>
@@ -276,8 +285,8 @@ export default function ServiceDetail() {
         </div>
       </section>
 
-      {/* Why Choose HORIZON OOH — controlled from dashboard */}
-      <LocalizedText>{(() => {
+      {/* Existing CMS content for services outside the reviewed catalog */}
+      <LocalizedText>{!editorial && (() => {
         const whyCols: { title?: string; text?: string }[] = (service as any).whyChoose ?? [];
         // Only render section if at least one column has text
         const hasContent = whyCols.some(c => c?.text?.trim());
@@ -287,7 +296,7 @@ export default function ServiceDetail() {
             <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
               <Reveal>
                 <h2 className="font-black text-[clamp(28px,3.5vw,44px)] tracking-[-0.03em] mb-12" style={{ color: NAVY }}><LocalizedText>
-                  Why Choose HORIZON OOH for </LocalizedText><LocalizedText>{service.shortTitle}</LocalizedText><LocalizedText> Advertising?
+                  {isAr ? "لماذا هورايزون؟" : "Why Work with Horizon OOH?"}
                 </LocalizedText></h2>
               </Reveal>
               <RevealGroup className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -343,7 +352,24 @@ export default function ServiceDetail() {
         </div>
       </section>
 
-      <CTABanner title={`Launch your ${service.shortTitle} campaign.`} subtitle="We'll handle everything — from site selection to campaign reporting." buttonLabel="Get a Quote" />
+      {editorial && (
+        <section className="bg-white py-16">
+          <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
+            <h2 className="font-black text-3xl mb-6">{isAr ? "أسئلة شائعة" : "Frequently Asked Questions"}</h2>
+            {editorial.faq.map((item, index) => (
+              <div key={index} className="mb-6">
+                <h3 className="font-bold mb-2">{isAr ? item.questionAr : item.question}</h3>
+                <p>{isAr ? item.answerAr : item.answer}</p>
+              </div>
+            ))}
+            {related && <Link className="underline" to={serviceHref(lang, editorial.related)}>{isAr ? related.ar : related.en}</Link>}
+            {service.slug === 'billboard-advertising-in-egypt' && (
+              <Link className="block mt-4 underline" to={langPath(lang, '/locations')}>{isAr ? 'استكشف مواقع اليافطات' : 'Explore Billboard Locations'}</Link>
+            )}
+          </div>
+        </section>
+      )}
+      <CTABanner href={quoteHref} title={cta} subtitle={isAr ? "شاركنا أهدافك ومتطلباتك والمواعيد المطلوبة." : "Share your goals, requirements and preferred dates."} buttonLabel={cta} />
     </>
   );
 }

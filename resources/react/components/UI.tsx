@@ -368,11 +368,13 @@ export function CTABanner({
   subtitle = "Let's put your brand where it gets seen.",
   buttonLabel = "Get a Quote",
   dark = true,
+  href,
 }: {
   title?: string;
   subtitle?: string;
   buttonLabel?: string;
   dark?: boolean;
+  href?: string;
 }) {
   const { lang } = useLang();
   return (
@@ -406,7 +408,7 @@ export function CTABanner({
         </div>
         <Reveal delay={0.15}>
           <div className="flex gap-4">
-            <RedBtn label={buttonLabel} href={langPath(lang, '/contact')} />
+            <RedBtn label={buttonLabel} href={href || langPath(lang, '/contact')} />
           </div>
         </Reveal>
       </div>

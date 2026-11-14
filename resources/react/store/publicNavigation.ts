@@ -15,7 +15,7 @@ export function parsePublicSnapshot(html: string): Record<string, any> | null {
   try {
     const value = JSON.parse(match[1]);
     if (!value || value.loaded !== true || value.usingDemo !== false || !value.settings || Array.isArray(value.settings)) return null;
-    const clean = Object.fromEntries(publicFields.filter(key => Object.hasOwn(value, key)).map(key => [key, value[key]]));
+    const clean = Object.fromEntries(publicFields.filter(key => Object.prototype.hasOwnProperty.call(value, key)).map(key => [key, value[key]]));
     if (Array.isArray(clean.blogPosts)) clean.blogPosts = clean.blogPosts.filter((post: any) => post.published === true || post.published === 1);
     return clean;
   } catch { return null; }

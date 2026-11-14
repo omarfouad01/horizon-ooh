@@ -6,6 +6,7 @@ import { Reveal, RevealGroup, RevealItem, PageHero, Eyebrow } from "@/components
 import { RED, NAVY, ease } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
 import { Link, useSearchParams } from "react-router-dom";
+import { editorialServices } from "@/lib/serviceMetadata";
 import { trackEvent } from "@/lib/analytics";
 
 export default function Contact() {
@@ -16,6 +17,8 @@ export default function Contact() {
   const { isAr, t } = useLang();
   const [searchParams] = useSearchParams();
   const billboardCode = searchParams.get('billboard') || '';
+  const candidateService = searchParams.get('service') || '';
+  const service = Object.prototype.hasOwnProperty.call(editorialServices, candidateService) ? candidateService : undefined;
   const billboardName = searchParams.get('name') || '';
   const CONTACT_INFO = [
     { label: isAr ? (cc.hqLabelAr || 'المقر الرئيسي بالقاهرة') : (cc.hqLabel || (settings as any).hqLabel || 'Cairo HQ'), value: settings.address || 'Cairo, Egypt', icon: '◉' },
@@ -42,7 +45,7 @@ export default function Contact() {
       email:   form.email   || "",
       phone:   form.phone   || "",
       company: form.company || "",
-      subject: billboardCode ? `Billboard quote request: ${billboardCode}` : undefined,
+      subject: billboardCode ? `Billboard quote request: ${billboardCode}` : service ? `Service enquiry: ${editorialServices[service].en}` : undefined,
       message: billboardCode
         ? `[Selected billboard: ${billboardCode}${billboardName ? ` — ${billboardName}` : ''}]\n\n${form.message || ""}`
         : form.message || "",
@@ -56,13 +59,13 @@ export default function Contact() {
     // contactStore.add handles both API submission and local state update
     try {
       await contactStore.add(payload);
-      trackEvent('generate_lead', { source: searchParams.get('source') || 'contact', billboard_code: billboardCode || undefined });
+      trackEvent('generate_lead', { source: searchParams.get('source') || 'contact', billboard_code: billboardCode || undefined, service_slug: service });
       setSubmitted(true);
     } catch {
       setApiError(isAr
         ? 'تعذر إرسال رسالتك. لم نفقد بياناتك — يرجى المحاولة مرة أخرى أو التواصل عبر واتساب.'
         : 'We could not send your message. Your details are still here—please retry or contact us on WhatsApp.');
-      trackEvent('contact_form_error', { source: searchParams.get('source') || 'contact', billboard_code: billboardCode || undefined });
+      trackEvent('contact_form_error', { source: searchParams.get('source') || 'contact', billboard_code: billboardCode || undefined, service_slug: service });
     } finally {
       setLoading(false);
     }
