@@ -37,7 +37,11 @@
         "questionAr": "ماذا يتضمن جدول البث؟",
         "answerAr": "اطلب أسماء القنوات والفترات وعدد مرات البث وتواريخ الحملة."
       }
-    ]
+    ],
+    "overview": "Define who should hear the message, when it should air and how often. Compare channels by audience fit and time band, then align delivery and approval dates with the booking schedule.",
+    "useCases": "For retail launches and regional promotions, compare radio by listening times and coverage. For television, consider the programming and surrounding audience as well as the slot.",
+    "overviewAr": "حدد الجمهور المطلوب ومواعيد البث وعدد مرات العرض. قارن القنوات حسب الجمهور والفترة الزمنية ونسّق مواعيد التسليم والموافقة مع الحجز.",
+    "useCasesAr": "لإطلاق الفروع والعروض الإقليمية، قارن الإذاعات حسب أوقات الاستماع ونطاق التغطية. وفي التلفزيون، راجع طبيعة البرنامج وجمهوره إلى جانب موعد البث."
   },
   "airport-advertising-in-egypt": {
     "en": "Airport Advertising in Egypt",
@@ -77,7 +81,11 @@
         "questionAr": "ما الذي أراجعه قبل الحجز؟",
         "answerAr": "راجع الصالة وحركة المسافرين ومكان الإعلان وموعد تسليم التصميم."
       }
-    ]
+    ],
+    "overview": "Airport advertising puts a message along the passenger journey. The terminal, direction of movement and time passengers spend near a placement help determine the right format and creative.",
+    "useCases": "For hospitality and travel offers, compare arrival areas with departure placements. Check the routes served, the display’s position and what passengers can do after seeing the message.",
+    "overviewAr": "تضع إعلانات المطارات رسالتك على مسار المسافر. تساعدك الصالة واتجاه الحركة والوقت الذي يقضيه المسافر بجوار الإعلان في اختيار الصيغة والتصميم.",
+    "useCasesAr": "لعروض السياحة والضيافة، قارن بين صالات الوصول والمغادرة. راجع الوجهات وموضع الإعلان والخطوة التي يستطيع المسافر اتخاذها بعد مشاهدته."
   },
   "billboard-advertising-in-egypt": {
     "en": "Billboard Advertising in Egypt",
@@ -118,7 +126,11 @@
         "questionAr": "كيف أجهز التصميم؟",
         "answerAr": "اطلب المقاس النهائي ومواصفات إنتاج الوجه المحجوز أولًا."
       }
-    ]
+    ],
+    "overview": "Billboard buying starts with the road and direction of travel. Compare each face by sightline, approach distance, lighting and the time available to read the message.",
+    "useCases": "A board near a branch can give drivers a simple direction. For broad awareness, compare several roads and spread placements across the routes your audience uses.",
+    "overviewAr": "يبدأ اختيار اليافطة بالطريق واتجاه السير. قارن الأوجه حسب زاوية الرؤية ومسافة الاقتراب والإضاءة والوقت المتاح لقراءة الرسالة.",
+    "useCasesAr": "يمكن ليافطة قرب الفرع توجيه السائقين إليه. ولزيادة الانتشار، قارن عدة طرق ووزّع الإعلانات على المسارات التي يستخدمها جمهورك."
   },
   "booth-activation-production": {
     "en": "Exhibition Booth Design in Egypt",
@@ -158,7 +170,11 @@
         "questionAr": "ماذا يتضمن البريف؟",
         "answerAr": "أرسل المخطط والمعدات المطلوبة ومواعيد التركيب والفك."
       }
-    ]
+    ],
+    "overview": "A booth is both a branded space and a working area. Plan entrances, circulation, demonstrations, storage and staff positions around the floor plan and visitor flow.",
+    "useCases": "A product demo may need power and room for a queue. A meeting booth needs seating and quieter conversation areas. Define these requirements before choosing finishes.",
+    "overviewAr": "الجناح مساحة لعرض هوية البراند والعمل في الوقت نفسه. خطط للدخول والحركة والعروض والتخزين وأماكن الفريق حسب المخطط ومسار الزوار.",
+    "useCasesAr": "قد يحتاج عرض المنتج إلى كهرباء ومساحة لانتظار الزوار. ويحتاج جناح الاجتماعات إلى مقاعد ومكان أهدأ للحوار. حدد المتطلبات قبل اختيار التشطيبات."
   },
   "commercial-video-production": {
     "en": "Commercial Video Production in Egypt",
@@ -198,7 +214,11 @@
         "questionAr": "ما الذي يحدد مدة الإنتاج؟",
         "answerAr": "اختيار الممثلين والمواقع وأيام التصوير وجولات المراجعة تحدد المدة."
       }
-    ]
+    ],
+    "overview": "Commercial video production turns a brief into footage and channel-ready edits. A clear script, shot list and delivery plan help make the filming day productive and the review process predictable.",
+    "useCases": "A product film may need close-ups and demonstrations. A launch film may need shorter edits for screens and social use. Decide on aspect ratios, captions and languages before shooting.",
+    "overviewAr": "يحوّل إنتاج الفيديو التجاري البريف إلى لقطات ونسخ مناسبة لقنوات العرض. يسهّل السيناريو وقائمة اللقطات وخطة التسليم التصوير والمراجعة.",
+    "useCasesAr": "قد يحتاج فيديو المنتج إلى لقطات مقربة وعرض لطريقة الاستخدام. وقد تحتاج حملة الإطلاق إلى نسخ أقصر للشاشات والمنصات. حدد الأبعاد والترجمة واللغات قبل التصوير."
   },
   "dooh-advertising-in-egypt": {
     "en": "DOOH Advertising in Egypt",
@@ -238,7 +258,11 @@
         "questionAr": "ما مواصفات ملف الشاشة؟",
         "answerAr": "اطلب أبعاد الشاشة بالبكسل واتجاهها ومدة الإعلان وصيغة الملف."
       }
-    ]
+    ],
+    "overview": "Digital outdoor advertising uses timed spots on screens. Compare screen visibility, the length of the display loop and when your creative runs before choosing a network or individual site.",
+    "useCases": "Use short, legible creative on roads. At pedestrian venues, match the message to dwell time and ask about rotation and available dayparts.",
+    "overviewAr": "تُعرض إعلانات الشاشات الخارجية ضمن جدول تشغيل. قارن وضوح الشاشات وطول دورة العرض ومواعيد تشغيل الإعلان قبل اختيار شبكة أو موقع منفرد.",
+    "useCasesAr": "استخدم تصميمًا قصيرًا ومقروءًا على الطرق. وفي أماكن المشاة، راعِ وقت الانتظار واسأل عن تكرار الإعلان وفترات العرض المتاحة."
   },
   "event-management-brand-activations": {
     "en": "Event Management in Egypt",
@@ -278,7 +302,11 @@
         "questionAr": "هل يمكن التخطيط لتنشيط يمتد عدة أيام؟",
         "answerAr": "شارك ساعات التشغيل واحتياجات الطاقم والتخزين لكل يوم."
       }
-    ]
+    ],
+    "overview": "Event management coordinates the guest experience and the work behind it. Set the objective, expected attendance, site requirements and operational responsibilities early.",
+    "useCases": "For a launch, plan arrivals, demonstrations and press access. For a public activation, plan visitor flow, staffing and how participants will engage.",
+    "overviewAr": "تربط إدارة الفعاليات بين تجربة الضيوف والتجهيزات اللازمة. حدد الهدف وعدد الحضور واحتياجات المكان ومسؤوليات التشغيل مبكرًا.",
+    "useCasesAr": "خطط لاستقبال الضيوف وعروض المنتجات ودخول الصحافة في حفلات الإطلاق. وفي التنشيط الميداني، حدد مسارات الجمهور والطاقم وطريقة المشاركة."
   },
   "in-flight-advertising": {
     "en": "In-Flight Advertising in Egypt",
@@ -318,7 +346,11 @@
         "questionAr": "متى نبدأ التخطيط؟",
         "answerAr": "خصص وقتًا للموافقات والإنتاج ودورة حجز الإعلانات لدى الشركة."
       }
-    ]
+    ],
+    "overview": "In-flight media reaches passengers during the flight. Formats and approval requirements can differ by airline, so compare viable options against planned routes and campaign dates.",
+    "useCases": "Travel, hospitality and destination brands can brief campaigns around selected routes. Confirm creative deadlines and where the material appears on board.",
+    "overviewAr": "تصل الإعلانات على متن الطائرات إلى المسافرين أثناء الرحلة. تختلف الصيغ والموافقات حسب شركة الطيران، فقارن الاختيارات حسب الوجهات ومواعيد الحملة.",
+    "useCasesAr": "يمكن لبراندات السفر والضيافة تخطيط حملات لخطوط محددة. راجع موعد تسليم المواد ومكان ظهورها على الطائرة."
   },
   "mall-advertising": {
     "en": "Mall Advertising in Egypt",
@@ -358,7 +390,11 @@
         "questionAr": "ما الموعد الأهم؟",
         "answerAr": "تأكد من مواعيد موافقة المول والتركيب قبل تاريخ الإطلاق."
       }
-    ]
+    ],
+    "overview": "Mall media works along shopping routes, including entrances, walkways and waiting areas. Choose placements based on visitor movement and how much time shoppers have to see the message.",
+    "useCases": "Retailers can plan placements near the store or on the approach from parking and entrances. A product launch can also use visibility near related retail categories.",
+    "overviewAr": "تظهر إعلانات المولات على مسارات التسوق، من المداخل والممرات إلى أماكن الانتظار. اختر الموقع حسب حركة الزوار والوقت المتاح لرؤية الإعلان.",
+    "useCasesAr": "يمكن للمتاجر اختيار مواقع قرب الفرع أو على الطريق من مواقف السيارات والمداخل. ويمكن لحملة إطلاق منتج الاستفادة من قربها من أقسام بيع مرتبطة به."
   },
   "on-screen-cinema-advertising": {
     "en": "Cinema Advertising in Egypt",
@@ -398,7 +434,11 @@
         "questionAr": "ما مواصفات الملف المطلوب؟",
         "answerAr": "تأكد مسبقًا من صيغة العرض ومواصفات الصوت وموعد تسليم النسخة النهائية."
       }
-    ]
+    ],
+    "overview": "Cinema advertising places a finished spot in a screening schedule. Choose venues and dates around the audience you want to reach and verify the terms of each booking.",
+    "useCases": "For launches and entertainment campaigns, check the cinema circuit, screening schedule and delivery requirements before committing to the flight.",
+    "overviewAr": "يضع إعلان السينما نسخة جاهزة ضمن جدول العروض. اختر دور العرض والمواعيد حسب الجمهور المستهدف وراجع شروط كل حجز.",
+    "useCasesAr": "لحملات الإطلاق والترفيه، راجع شبكة السينمات ومواعيد العروض ومواصفات التسليم قبل تأكيد فترة الحملة."
   },
   "outdoor-media-planning-buying": {
     "en": "Outdoor Media Buying in Egypt",
@@ -438,7 +478,11 @@
         "questionAr": "ماذا أطلب قبل الموافقة على الحجز؟",
         "answerAr": "راجع قائمة المواقع والصيغ والمواعيد والتكاليف المشمولة."
       }
-    ]
+    ],
+    "overview": "Outdoor media planning turns an audience brief into a shortlist of locations, formats and dates. Compare static and digital placements by visibility, coverage overlap and fit with the budget.",
+    "useCases": "For a local campaign, prioritize routes around the branch or service area. For regional coverage, compare a mix of corridors and cities against the audience brief.",
+    "overviewAr": "يحوّل تخطيط الإعلانات الخارجية البريف إلى قائمة مواقع وصيغ ومواعيد. قارن الثابت والديجيتال حسب وضوح الظهور وتداخل التغطية والميزانية.",
+    "useCasesAr": "للحملات المحلية، ابدأ بالمسارات حول الفرع أو منطقة الخدمة. وللتغطية الإقليمية، قارن المحاور والمدن حسب الجمهور المطلوب."
   },
   "pr-communication-services": {
     "en": "PR & Communications in Egypt",
@@ -478,7 +522,11 @@
         "questionAr": "كيف نقيس التغطية؟",
         "answerAr": "حدد الوسائل والرسائل التي ستتابعها قبل التواصل مع الإعلام."
       }
-    ]
+    ],
+    "overview": "Public relations starts with a credible story, clear facts and a defined audience. Prepare approved messages, press materials and a spokesperson before outreach.",
+    "useCases": "For an opening or launch, give journalists the relevant facts, visuals and access details. Decide how to track mentions and message pickup before release.",
+    "overviewAr": "تبدأ العلاقات العامة بقصة موثقة وحقائق واضحة وجمهور محدد. جهّز الرسائل المعتمدة والمواد الصحفية والمتحدث الرسمي قبل التواصل مع الإعلام.",
+    "useCasesAr": "في الافتتاحات وإطلاق المنتجات، أرسل للصحفيين الحقائق والصور وتفاصيل الحضور. حدد طريقة متابعة التغطية والرسائل قبل النشر."
   },
   "erp-solutions": {
     "en": "ERP Software Development in Egypt",
@@ -519,7 +567,11 @@
         "questionAr": "كيف نحدد صلاحيات الدخول؟",
         "answerAr": "اربط أدوار الموظفين بالسجلات والإجراءات اللازمة لكل دور."
       }
-    ]
+    ],
+    "overview": "An ERP project connects selected workflows and records across teams. Start with a map of responsibilities, approval steps and data sources, then agree on which modules belong in the first rollout.",
+    "useCases": "A distributor may prioritize stock and purchasing, while a service business may begin with billing and approvals. Include migration checks, role-based access and staff training in the project brief.",
+    "overviewAr": "يربط مشروع تخطيط موارد المؤسسات عمليات وسجلات محددة بين الفرق. ابدأ بتحديد المسؤوليات والموافقات ومصادر البيانات، ثم اتفق على الوحدات المطلوبة في المرحلة الأولى.",
+    "useCasesAr": "قد تبدأ شركة توزيع بالمخزون والمشتريات، بينما تبدأ شركة خدمات بالفوترة والموافقات. أدرج اختبار نقل البيانات والصلاحيات وتدريب الفريق في البريف."
   },
   "website-development": {
     "en": "Website Development in Egypt",
@@ -560,7 +612,11 @@
         "questionAr": "كيف نخطط للنسخة العربية؟",
         "answerAr": "راعِ اتجاه الكتابة من اليمين لليسار والخطوط العربية واختبر النسخة على الموبايل."
       }
-    ]
+    ],
+    "overview": "A website project starts with what users need to do and what staff need to update. Define pages, Arabic and English content, integrations and publishing roles before design begins.",
+    "useCases": "A service site might prioritize inquiries and project galleries. A catalogue may need search, product data and requests by item. Include URL migration, mobile accessibility and launch checks when relevant.",
+    "overviewAr": "يبدأ تطوير الموقع بتحديد مهام الزوار وما يحتاج الفريق إلى تحديثه. حدد الصفحات والمحتوى العربي والإنجليزي والتكاملات وصلاحيات النشر قبل التصميم.",
+    "useCasesAr": "قد يعطي موقع الخدمات الأولوية للاستفسارات ومعارض المشاريع. وقد يحتاج الكتالوج إلى البحث وبيانات المنتجات والطلبات حسب العنصر. أدرج نقل الروابط وسهولة الاستخدام على الموبايل وفحوصات الإطلاق عند الحاجة."
   },
   "mobile-applications": {
     "en": "Mobile App Development in Egypt",
@@ -601,6 +657,10 @@
         "questionAr": "من يدير صفحة التطبيق في المتجر؟",
         "answerAr": "اتفق على حساب الناشر وصلاحيات المراجعة ومسؤوليات النشر قبل التقديم."
       }
-    ]
+    ],
+    "overview": "A mobile app should make a recurring task easy on a phone. Define the essential flows, user roles and platform scope before designing screens or connecting back-end systems.",
+    "useCases": "A booking app needs clear availability and confirmation. A field team app may need offline entry or photo uploads. Test core flows on target devices and plan store submissions as part of release.",
+    "overviewAr": "يسهّل تطبيق الموبايل تنفيذ مهمة متكررة من الهاتف. حدد الخطوات الأساسية وأدوار المستخدمين والأنظمة المستهدفة قبل تصميم الشاشات والربط.",
+    "useCasesAr": "يحتاج تطبيق الحجز إلى عرض التوفر وتأكيد الحجز. وقد يحتاج تطبيق الفرق الميدانية لإدخال البيانات دون اتصال أو رفع الصور. اختبر الخطوات الأساسية على الأجهزة المستهدفة وخطط للنشر في المتاجر."
   }
 }

@@ -209,7 +209,7 @@ export default function ServiceDetail() {
             <div className="col-span-12 lg:col-span-8 flex items-center">
               <Reveal delay={0.1}>
                 <p className="text-[17px] leading-[1.8]" style={{ color: "rgba(11,15,26,0.5)" }}>
-                  <LocalizedText>{service.whatIs}</LocalizedText>
+                  <LocalizedText>{editorial ? (isAr ? editorial.overviewAr : editorial.overview) : service.whatIs}</LocalizedText>
                 </p>
               </Reveal>
             </div>
@@ -253,7 +253,7 @@ export default function ServiceDetail() {
             </div>
             <Reveal delay={0.1}>
               <p className="text-[17px] leading-[1.8]" style={{ color: "rgba(255,255,255,0.45)" }}>
-                <LocalizedText>{service.whereUsed}</LocalizedText>
+                <LocalizedText>{editorial ? (isAr ? editorial.useCasesAr : editorial.useCases) : service.whereUsed}</LocalizedText>
               </p>
             </Reveal>
           </div>
