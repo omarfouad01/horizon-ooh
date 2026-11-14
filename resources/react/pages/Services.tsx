@@ -1,9 +1,10 @@
 import {LocalizedText, LocalizedElement} from "@/components/Localized";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
+import { editorialServices } from "@/lib/serviceMetadata";
 import { useStore } from "@/store/dataStore";
-import { Reveal, RevealGroup, RevealItem, PageHero, CTABanner, Eyebrow } from "@/components/UI";
-import { serviceHref, RED, NAVY } from "@/lib/routes";
+import { RevealGroup, RevealItem, PageHero, CTABanner } from "@/components/UI";
+import { serviceHref, RED } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
 import { ServiceIcon } from "@/components/ServiceIcon";
 
@@ -12,12 +13,15 @@ export default function Services() {
   const { lang, isAr, t } = useLang()
   return (
     <>
-      <SEO title="Outdoor Advertising Services in Egypt | HORIZON OOH" description="Explore HORIZON OOH's full range of outdoor advertising services: billboards, digital screens, mall media, transit advertising and more across Egypt." canonical="/services" />
+      <SEO title="Advertising, Media & Digital Services in Egypt | HORIZON OOH"
+        titleAr="خدمات الإعلانات والإنتاج والحلول الرقمية في مصر | هورايزون"
+        description="Explore outdoor advertising, media planning, video production, events and digital development services across Egypt, from billboard bookings to ERP and apps."
+        descriptionAr="استكشف خدمات الإعلانات الخارجية وتخطيط الحملات والإنتاج والفعاليات والحلول الرقمية في مصر، من حجز اليافطات إلى تطوير المواقع والتطبيقات وأنظمة ERP."
+        canonical="/services" />
       <PageHero
         eyebrow={t('services.whatWeDo')}
-        title={t('services.title')}
-        titleAccent={t('services.titleAccent')}
-        subtitle={t('services.subtitle')}
+        title={isAr ? 'خدمات الإعلانات والإنتاج والحلول الرقمية في مصر' : 'Advertising, Media Production & Digital Services in Egypt'}
+        subtitle={isAr ? 'خطط لحملتك الإعلانية أو طوّر مشروعك الرقمي مع هورايزون. استكشف خدماتنا واختر ما يناسب أهدافك.' : 'Plan an advertising campaign, produce brand experiences or build a digital product with Horizon OOH.'}
         dark={false}
       />
 
@@ -71,7 +75,7 @@ export default function Services() {
                   <p
                     className="text-[15px] leading-[1.7] flex-1 text-[rgba(11,15,26,0.45)] group-hover:text-white/70 transition-colors duration-500"
                   >
-                    <LocalizedText>{isAr && (service as any).descriptionAr ? (service as any).descriptionAr : service.description}</LocalizedText>
+                    <LocalizedText>{(isAr ? editorialServices[service.slug]?.descriptionAr || (service as any).descriptionAr : editorialServices[service.slug]?.description) || service.description}</LocalizedText>
                   </p>
 
                   {/* CTA */}
@@ -96,42 +100,9 @@ export default function Services() {
         </div>
       </section>
 
-      {/* Trust strip */}
-      <section style={{ background: "#F5F5F6", paddingTop: 80, paddingBottom: 80 }}>
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
-          <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              { value: "9,500+", labelKey: 'services.stat1Label' },
-              { value: "6",      labelKey: 'services.stat2Label' },
-              { value: "100+",  labelKey: 'services.stat3Label' },
-            ].map((stat, i) => (
-              <RevealItem key={stat.labelKey}>
-                <div
-                  className="flex flex-col items-center py-10 text-center"
-                  style={{ borderRight: i < 2 ? "1px solid rgba(11,15,26,0.08)" : "none" }}
-                >
-                  <span
-                    className="font-black leading-none tracking-[-0.05em] mb-3"
-                    style={{ fontSize: "clamp(40px, 4.5vw, 60px)", color: RED }}
-                  >
-                    <LocalizedText>{stat.value}</LocalizedText>
-                  </span>
-                  <span
-                    className="text-[11px] font-semibold tracking-[0.22em] uppercase"
-                    style={{ color: "rgba(11,15,26,0.35)" }}
-                  >
-                    <LocalizedText>{t(stat.labelKey as any)}</LocalizedText>
-                  </span>
-                </div>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
-      </section>
-
       <CTABanner
-        title={t('services.ctaTitle')}
-        subtitle={t('services.ctaSubtitle')}
+        title={isAr ? 'ناقش مشروعك مع هورايزون' : 'Discuss Your Project with Horizon OOH'}
+        subtitle={isAr ? 'شاركنا أهدافك الإعلانية أو متطلبات مشروعك الرقمي.' : 'Tell us about your campaign or digital project.'}
         buttonLabel={t('services.ctaButton')}
       />
     </>
