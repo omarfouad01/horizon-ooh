@@ -1,7 +1,9 @@
 import dictionary from './publicArabic.json';
+import digitalServices from './digitalServicesArabic.json';
+import digitalServices from './digitalServicesArabic.json';
 
 const normalize = (text: string) => text.replace(/[’‘]/g, "'").replace(/\s+/g, ' ').trim().toLowerCase();
-const entries = dictionary as Record<string, string>;
+const entries: Record<string, string> = { ...dictionary, ...digitalServices };
 const phrases = Object.entries(entries).filter(([key]) => /\s|[-/]/.test(key)).sort((a, b) => b[0].length - a[0].length);
 const escape = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const replacements = phrases.map(([key, value]) => [new RegExp(`(?<![A-Za-z])${escape(key).replace(/ /g, '\\s+')}(?![A-Za-z])`, 'gi'), value] as const);

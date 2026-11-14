@@ -169,7 +169,7 @@ export default function ServiceDetail() {
           </div>
 
           {/* Right image */}
-          <div className="relative overflow-hidden">
+          {service.image && <div className="relative overflow-hidden">
             <LocalizedElement as="img"
               src={thumb(service.image, 800, 600)}
               srcSet={thumbSrcSet(service.image, [400, 800, 1200], 4 / 3)}
@@ -185,7 +185,7 @@ export default function ServiceDetail() {
               style={{ opacity: 0.6 }}
             />
             <div className="absolute inset-0" style={{ background: `linear-gradient(to right, ${NAVY} 0%, rgba(11,15,26,0.2) 60%, transparent 100%)` }} />
-          </div>
+          </div>}
         </div>
       </section>
 
