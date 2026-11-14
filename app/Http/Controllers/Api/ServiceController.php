@@ -54,6 +54,100 @@ class ServiceController extends Controller
             'titleAr'           => $this->col($s, 'title_ar'),
             'descriptionAr'     => $this->col($s, 'description_ar'),
             'longDescriptionAr' => $this->col($s, 'long_description_ar'),
+            'editorial'         => $this->col($s, 'editorial'),
+        ]);
+    }
+
+    public function index(): JsonResponse
+    {
+        return response()->json(
+            Service::orderBy('sort_order')->orderBy('name')->get()->map(fn($s) => $this->transform($s))
+        );
+    }
+
+    public function show(string $slug): JsonResponse
+    {
+        return response()->json($this->transform(Service::where('slug', $slug)->firstOrFail()));
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        try {
+            $data = $this->validated($request);
+            $base = Str::slug($data['short_title'] ?? $data['name'] ?? 'service');
+            $data['slug'] = $this->uniqueSlug($base);
+            $normalized   = $this->normalize($data);
+            $normalized   = $this->safeData($normalized);
+            $svc = Service::create($normalized);
+            return response()->json($this->transform($svc), 201);
+        } catch (QueryException $e) {
+            return response()->json(['message' => 'Database error: ' . $e->getMessage()], 500);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 422);
+        }
+    }
+
+    public function update(Request $request, int $id): JsonResponse
+    {
+        try {
+            $svc  = Service::findOrFail($id);
+            $data = $this->validated($request, true);
+            if (array_key_exists('editorial', $data)) {
+                $data['editorial'] = array_replace($this->col($svc, 'editorial') ?? [], $data['editorial']);
+            }
+            $normalized = $this->normalize($data);
+            $normalized = $this->safeData($normalized);
+            $svc->update($normalized);
+            return response()->json($this->transform($svc));
+        } catch (QueryException $e) {
+            return response()->json(['message' => 'Database error: ' . $e->getMessage()], 500);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 422);
+        }
+    }
+
+    public function destroy(int $id): JsonResponse
+    {
+        Service::findOrFail($id)->delete();
+        return response()->json(['message' => 'Deleted']);
+    }
+
+    private function validated(Request $r, bool $optional = false): array
+    {
+        $rule = $optional ? 'sometimes' : 'required';
+        return $r->validate([
+            'name'               => "{$rule}|string|max:200",
+            'short_title'        => 'nullable|string|max:200',
+            'shortTitle'         => 'nullable|string|max:200',
+            'tagline'            => 'nullable|string',
+            'icon'               => 'nullable|string',
+            'eyebrow'            => 'nullable|string',
+            'headline'           => 'nullable|string',
+            'description'        => 'nullable|string',
+            'long_description'   => 'nullable|string',
+            'longDescription'    => 'nullable|string',
+            'what_is'            => 'nullable|string',
+            'whatIs'             => 'nullable|string',
+            'where_used'         => 'nullable|string',
+            'whereUsed'          => 'nullable|string',
+            'image'              => 'nullable|string',
+            'image_alt'          => 'nullable|string',
+            'imageAlt'           => 'nullable|string',
+            'features'           => 'nullable|array',
+            'benefits'           => 'nullable|array',
+            'process'            => 'nullable|array',
+            'stats'              => 'nullable|array',
+            'why_choose'         => 'nullable|array',
+            'whyChoose'          => 'nullable|array',
+            'whyChoose.*.title'  => 'nullable|string',
+            'whyChoose.*.text'   => 'nullable|string',
+            'sort_order'         => 'nullable|integer',
+            'title_ar'           => 'nullable|string',
+            'titleAr'            => 'nullable|string',
+            'description_ar'     => 'nullable|string',
+            'descriptionAr'      => 'nullable|string',
+            'long_description_ar'  => 'nullable|string',
+            'longDescriptionAr'    => 'nullable|string',
             'editorial' => 'sometimes|array:approved',
             'editorial.approved' => 'required_with:editorial|array:en,ar,related',
             'editorial.approved.related' => 'required_with:editorial.approved|array|min:2|max:3',
