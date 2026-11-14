@@ -11,6 +11,7 @@ import SEO from "@/components/SEO";
 import { editorialServices, getServiceEditorial, serviceMetadata } from "@/lib/serviceMetadata";
 import { servicesApi } from "@/api";
 import { thumb, thumbSrcSet } from "@/lib/img";
+import { ApprovedService, approvedService } from "./ApprovedService";
 
 // ── Branded service skeleton ──────────────────────────────────────────────────
 function ServiceSkeleton() {
@@ -80,7 +81,7 @@ export default function ServiceDetail() {
 
   // Resolve: direct fetch is authoritative; store supplements once loaded
   const storeService = SERVICES.find((s: any) => s.slug === slug);
-  const rawService = fetchedService ?? storeService;
+  const rawService = fetchedService?.slug === slug ? fetchedService : storeService;
   const service = rawService ? { ...rawService, title: rawService.title || rawService.name || rawService.shortTitle,
     shortTitle: rawService.shortTitle || rawService.name || rawService.title } : null;
   const others       = SERVICES.filter((s: any) => s.id !== service?.id).slice(0, 3);
@@ -101,6 +102,9 @@ export default function ServiceDetail() {
       </div>
     );
   }
+
+  const approved = approvedService(service.slug, service.editorial?.approved);
+  if (approved) return <ApprovedService slug={service.slug} entry={approved} image={service.image} imageAlt={isAr ? approved.ar.heading : service.imageAlt} />;
 
   const serviceSeo = serviceMetadata(service);
   const editorial = getServiceEditorial(service);

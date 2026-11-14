@@ -13,6 +13,7 @@ export interface SEOProps {
   canonical?: string;
   robots?: string;
   type?: "website" | "article";
+  exact?: boolean;
 }
 
 const SITE_URL = "https://horizonooh.com";
@@ -39,12 +40,13 @@ export default function SEO({
   canonical,
   robots = "index, follow",
   type = "website",
+  exact = false,
 }: SEOProps) {
   const { pathname } = useLocation();
   const isArabic = pathname === "/ar" || pathname.startsWith("/ar/");
   const localizedMetadata = metadata(pathname, isArabic, {title: inputTitle, description: inputDescription, titleAr, descriptionAr});
-  const title = isArabic ? arabicText(localizedMetadata.title) : localizedMetadata.title;
-  const description = isArabic ? arabicText(localizedMetadata.description) : localizedMetadata.description;
+  const title = exact ? (isArabic ? titleAr ?? inputTitle : inputTitle) : isArabic ? arabicText(localizedMetadata.title) : localizedMetadata.title;
+  const description = exact ? (isArabic ? descriptionAr ?? inputDescription : inputDescription) : isArabic ? arabicText(localizedMetadata.description) : localizedMetadata.description;
   const keywords = isArabic && inputKeywords ? arabicText(inputKeywords) : inputKeywords;
   const englishPath = (canonical || pathname).replace(/^https:\/\/horizonooh\.com/, "").replace(/^\/ar(?=\/|$)/, "") || "/";
   const routePath = isArabic ? (englishPath === "/" ? "/ar" : `/ar${englishPath}`) : englishPath;

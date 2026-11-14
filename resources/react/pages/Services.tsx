@@ -1,35 +1,41 @@
 import {LocalizedText, LocalizedElement} from "@/components/Localized";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
-import { getServiceEditorial } from "@/lib/serviceMetadata";
+import approved from "@/lib/approvedServices.json";
+import { ApprovedCTA, approvedService } from "./ApprovedService";
 import { useStore } from "@/store/dataStore";
-import { RevealGroup, RevealItem, PageHero, CTABanner } from "@/components/UI";
-import { serviceHref, RED } from "@/lib/routes";
+import { RevealGroup, RevealItem } from "@/components/UI";
+import { serviceHref, langPath, RED } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
 import { ServiceIcon } from "@/components/ServiceIcon";
 
 export default function Services() {
   const { services: SERVICES } = useStore()
   const { lang, isAr, t } = useLang()
+  const copy = isAr ? approved.directory.ar : approved.directory.en;
+  const slugs = Object.keys(approved.services);
+  const groups = [slugs.filter((_, i) => [0,1,2,5,7,8,9,10].includes(i)), slugs.filter((_, i) => [3,4,6,11].includes(i)), slugs.slice(12)];
   return (
     <>
-      <SEO title="Advertising, Media & Digital Services in Egypt | HORIZON OOH"
-        titleAr="خدمات الإعلانات والإنتاج والحلول الرقمية في مصر | هورايزون"
-        description="Explore outdoor advertising, media planning, video production, events and digital development services across Egypt, from billboard bookings to ERP and apps."
-        descriptionAr="استكشف خدمات الإعلانات الخارجية وتخطيط الحملات والإنتاج والفعاليات والحلول الرقمية في مصر، من حجز اليافطات إلى تطوير المواقع والتطبيقات وأنظمة ERP."
-        canonical="/services" />
-      <PageHero
-        eyebrow={t('services.whatWeDo')}
-        title={isAr ? 'خدمات الإعلانات والإنتاج والحلول الرقمية في مصر' : 'Advertising, Media Production & Digital Services in Egypt'}
-        subtitle={isAr ? 'خطط لحملتك الإعلانية أو طوّر مشروعك الرقمي مع هورايزون. استكشف خدماتنا واختر ما يناسب أهدافك.' : 'Plan an advertising campaign, produce brand experiences or build a digital product with Horizon OOH.'}
-        dark={false}
-      />
+      <SEO exact title={approved.directory.en.title} titleAr={approved.directory.ar.title}
+        description={approved.directory.en.description} descriptionAr={approved.directory.ar.description} canonical="/services" />
+      <header data-approved-directory className="bg-[#F5F5F6] px-4 pb-20 pt-32 sm:px-8 lg:px-[120px]">
+        <h1 className="mx-auto max-w-[1200px] break-words text-4xl font-black lg:text-6xl">{copy.heading}</h1>
+        <p className="mx-auto mt-6 max-w-[1200px] text-lg">{copy.intro}</p>
+      </header>
 
       {/* Services grid */}
       <section className="bg-white" style={{ paddingTop: 80, paddingBottom: 120 }}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
+          {copy.categories.map((section, index) => <section key={section.heading} className="mb-12">
+          <h2 className="mb-4 break-words text-3xl font-black">{section.heading}</h2>
+          <p className="mb-6 max-w-3xl">{section.text}</p>
           <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-stretch gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
-            {SERVICES.map((service, i) => (
+            {groups[index].map((slug, i) => {
+              const service = SERVICES.find(item => item.slug === slug) ?? {slug, id: slug};
+              const entry = approvedService(slug, service.editorial?.approved)!;
+              const card = isAr ? entry.ar : entry.en;
+              return (
               <RevealItem key={service.id} className="h-full">
                 <LocalizedElement as={Link}
                   to={serviceHref(lang, service.slug)}
@@ -54,12 +60,11 @@ export default function Services() {
                   </div>
 
                   {/* Title */}
-                  <h2
-                    className="font-bold tracking-[-0.02em] mb-4 text-[#0B0F1A] group-hover:text-white transition-colors duration-500"
+                  <h3 className="font-bold tracking-[-0.02em] mb-4 text-[#0B0F1A] group-hover:text-white transition-colors duration-500"
                     style={{ fontSize: 22, lineHeight: 1.2 }}
                   >
-                    <LocalizedText>{isAr && (service as any).titleAr ? (service as any).titleAr : service.title}</LocalizedText>
-                  </h2>
+                    {card.heading}
+                  </h3>
 
                   {/* Divider */}
                   <div
@@ -75,7 +80,7 @@ export default function Services() {
                   <p
                     className="text-[15px] leading-[1.7] flex-1 text-[rgba(11,15,26,0.45)] group-hover:text-white/70 transition-colors duration-500"
                   >
-                    <LocalizedText>{(isAr ? getServiceEditorial(service)?.descriptionAr || (service as any).descriptionAr : getServiceEditorial(service)?.description) || service.description}</LocalizedText>
+                    {card.card}
                   </p>
 
                   {/* CTA */}
@@ -95,16 +100,14 @@ export default function Services() {
                   </div>
                 </LocalizedElement>
               </RevealItem>
-            ))}
+              );
+            })}
           </RevealGroup>
+          </section>)}
         </div>
       </section>
 
-      <CTABanner
-        title={isAr ? 'ناقش مشروعك مع هورايزون' : 'Discuss Your Project with Horizon OOH'}
-        subtitle={isAr ? 'شاركنا أهدافك الإعلانية أو متطلبات مشروعك الرقمي.' : 'Tell us about your campaign or digital project.'}
-        buttonLabel={t('services.ctaButton')}
-      />
+      <ApprovedCTA copy={copy.cta} href={langPath(lang, "/contact")} />
     </>
   );
 }

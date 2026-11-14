@@ -1,6 +1,5 @@
 import dictionary from './publicArabic.json';
 import digitalServices from './digitalServicesArabic.json';
-import digitalServices from './digitalServicesArabic.json';
 
 const normalize = (text: string) => text.replace(/[’‘]/g, "'").replace(/\s+/g, ' ').trim().toLowerCase();
 const entries: Record<string, string> = { ...dictionary, ...digitalServices };

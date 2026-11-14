@@ -18,7 +18,7 @@ export default function Contact() {
   const [searchParams] = useSearchParams();
   const billboardCode = searchParams.get('billboard') || '';
   const candidateService = searchParams.get('service') || '';
-  const service = Object.hasOwn(editorialServices, candidateService) ? candidateService : undefined;
+  const service = Object.prototype.hasOwnProperty.call(editorialServices, candidateService) ? candidateService : undefined;
   const billboardName = searchParams.get('name') || '';
   const CONTACT_INFO = [
     { label: isAr ? (cc.hqLabelAr || 'المقر الرئيسي بالقاهرة') : (cc.hqLabel || (settings as any).hqLabel || 'Cairo HQ'), value: settings.address || 'Cairo, Egypt', icon: '◉' },

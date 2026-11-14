@@ -54,126 +54,39 @@ class ServiceController extends Controller
             'titleAr'           => $this->col($s, 'title_ar'),
             'descriptionAr'     => $this->col($s, 'description_ar'),
             'longDescriptionAr' => $this->col($s, 'long_description_ar'),
-            'editorial'         => $this->col($s, 'editorial'),
+            'editorial' => 'sometimes|array:approved',
+            'editorial.approved' => 'required_with:editorial|array:en,ar,related',
+            'editorial.approved.related' => 'required_with:editorial.approved|array|min:2|max:3',
+            'editorial.approved.related.*' => 'required|string|distinct|exists:services,slug',
+            'editorial.approved.en' => 'required_with:editorial.approved|array:title,description,heading,intro,cta,sections,card',
+            'editorial.approved.ar' => 'required_with:editorial.approved|array:title,description,heading,intro,cta,sections,card',
+            ...$this->approvedLocaleRules('en'),
+            ...$this->approvedLocaleRules('ar'),
         ]);
     }
 
-    public function index(): JsonResponse
+    private function approvedLocaleRules(string $locale): array
     {
-        return response()->json(
-            Service::orderBy('sort_order')->orderBy('name')->get()->map(fn($s) => $this->transform($s))
-        );
-    }
+        $key = "editorial.approved.{$locale}";
 
-    public function show(string $slug): JsonResponse
-    {
-        return response()->json($this->transform(Service::where('slug', $slug)->firstOrFail()));
-    }
-
-    public function store(Request $request): JsonResponse
-    {
-        try {
-            $data = $this->validated($request);
-            $base = Str::slug($data['short_title'] ?? $data['name'] ?? 'service');
-            $data['slug'] = $this->uniqueSlug($base);
-            $normalized   = $this->normalize($data);
-            $normalized   = $this->safeData($normalized);
-            $svc = Service::create($normalized);
-            return response()->json($this->transform($svc), 201);
-        } catch (QueryException $e) {
-            return response()->json(['message' => 'Database error: ' . $e->getMessage()], 500);
-        } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 422);
-        }
-    }
-
-    public function update(Request $request, int $id): JsonResponse
-    {
-        try {
-            $svc  = Service::findOrFail($id);
-            $data = $this->validated($request, true);
-            if (array_key_exists('editorial', $data)) {
-                $data['editorial'] = array_replace($this->col($svc, 'editorial') ?? [], $data['editorial']);
-            }
-            $normalized = $this->normalize($data);
-            $normalized = $this->safeData($normalized);
-            $svc->update($normalized);
-            return response()->json($this->transform($svc));
-        } catch (QueryException $e) {
-            return response()->json(['message' => 'Database error: ' . $e->getMessage()], 500);
-        } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 422);
-        }
-    }
-
-    public function destroy(int $id): JsonResponse
-    {
-        Service::findOrFail($id)->delete();
-        return response()->json(['message' => 'Deleted']);
-    }
-
-    private function validated(Request $r, bool $optional = false): array
-    {
-        $rule = $optional ? 'sometimes' : 'required';
-        return $r->validate([
-            'name'               => "{$rule}|string|max:200",
-            'short_title'        => 'nullable|string|max:200',
-            'shortTitle'         => 'nullable|string|max:200',
-            'tagline'            => 'nullable|string',
-            'icon'               => 'nullable|string',
-            'eyebrow'            => 'nullable|string',
-            'headline'           => 'nullable|string',
-            'description'        => 'nullable|string',
-            'long_description'   => 'nullable|string',
-            'longDescription'    => 'nullable|string',
-            'what_is'            => 'nullable|string',
-            'whatIs'             => 'nullable|string',
-            'where_used'         => 'nullable|string',
-            'whereUsed'          => 'nullable|string',
-            'image'              => 'nullable|string',
-            'image_alt'          => 'nullable|string',
-            'imageAlt'           => 'nullable|string',
-            'features'           => 'nullable|array',
-            'benefits'           => 'nullable|array',
-            'process'            => 'nullable|array',
-            'stats'              => 'nullable|array',
-            'why_choose'         => 'nullable|array',
-            'whyChoose'          => 'nullable|array',
-            'whyChoose.*.title'  => 'nullable|string',
-            'whyChoose.*.text'   => 'nullable|string',
-            'sort_order'         => 'nullable|integer',
-            'title_ar'           => 'nullable|string',
-            'titleAr'            => 'nullable|string',
-            'description_ar'     => 'nullable|string',
-            'descriptionAr'      => 'nullable|string',
-            'long_description_ar'  => 'nullable|string',
-            'longDescriptionAr'    => 'nullable|string',
-            'editorial'            => 'sometimes|array:en,ar,description,descriptionAr,overview,overviewAr,useCases,useCasesAr,benefits,benefitsAr,process,processAr,cta,ctaAr,faq',
-            'editorial.faq'        => 'sometimes|required|array|min:4|max:8',
-            'editorial.faq.*'      => 'required|array:question,questionAr,answer,answerAr',
-            'editorial.faq.*.question'   => 'required|string',
-            'editorial.faq.*.questionAr' => 'required|string',
-            'editorial.faq.*.answer'     => 'required|string',
-            'editorial.faq.*.answerAr'   => 'required|string',
-            'editorial.en'         => 'sometimes|required|string|max:100',
-            'editorial.ar'         => 'sometimes|required|string|max:100',
-            'editorial.description'   => 'sometimes|required|string|max:200',
-            'editorial.descriptionAr' => 'sometimes|required|string|max:200',
-            'editorial.overview'   => 'sometimes|required|string',
-            'editorial.overviewAr' => 'sometimes|required|string',
-            'editorial.useCases'   => 'sometimes|required|string',
-            'editorial.useCasesAr' => 'sometimes|required|string',
-            'editorial.benefits'   => 'sometimes|required|array|min:1|max:8',
-            'editorial.benefitsAr' => 'sometimes|required|array|min:1|max:8',
-            'editorial.process'    => 'sometimes|required|array|min:1|max:8',
-            'editorial.processAr'  => 'sometimes|required|array|min:1|max:8',
-            'editorial.benefits.*'   => 'required|string',
-            'editorial.benefitsAr.*' => 'required|string',
-            'editorial.process.*'    => 'required|string',
-            'editorial.processAr.*'  => 'required|string',
-            'editorial.cta'        => 'sometimes|required|string|max:100',
-            'editorial.ctaAr'      => 'sometimes|required|string|max:100',
-        ]);
+        return [
+            "{$key}.title" => "required_with:{$key}|string|max:200",
+            "{$key}.description" => "required_with:{$key}|string|max:300",
+            "{$key}.heading" => "required_with:{$key}|string|max:200",
+            "{$key}.intro" => "required_with:{$key}|string",
+            "{$key}.card" => "required_with:{$key}|string",
+            "{$key}.cta" => "required_with:{$key}|array:heading,description,button",
+            "{$key}.cta.heading" => "required_with:{$key}|string",
+            "{$key}.cta.description" => "required_with:{$key}|string",
+            "{$key}.cta.button" => "required_with:{$key}|string",
+            "{$key}.sections" => "required_with:{$key}|array|size:5",
+            "{$key}.sections.*" => "required|array:heading,items",
+            "{$key}.sections.*.heading" => "required|string",
+            "{$key}.sections.*.items" => "required|array|min:1",
+            "{$key}.sections.*.items.*" => "required|array:label,text",
+            "{$key}.sections.*.items.*.label" => "sometimes|required|string",
+            "{$key}.sections.*.items.*.text" => "required|string",
+        ];
     }
 
     private function uniqueSlug(string $base, ?int $excludeId = null): string

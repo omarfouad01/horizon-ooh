@@ -5,7 +5,7 @@ import { useStore, serviceStore } from '@/store/dataStore'
 import { Btn, PageHeader, Tbl, Th, Td, Tr, Badge, Confirm, Modal, Field, TA, ArrayEditor, ImagePicker } from '../ui'
 import { Plus, Pencil, Trash2 } from 'lucide-react'
 import toast from 'react-hot-toast'
-import { getServiceEditorial } from '@/lib/serviceMetadata'
+import { approvedService } from '@/pages/ApprovedService'
 
 // Default why-choose columns (3 pre-populated entries)
 const DEFAULT_WHY = [
@@ -14,8 +14,6 @@ const DEFAULT_WHY = [
   { title: '', text: '' },
 ]
 
-const EDITORIAL_FIELDS = ['en', 'ar', 'description', 'descriptionAr', 'overview', 'overviewAr', 'useCases', 'useCasesAr', 'benefits', 'benefitsAr', 'process', 'processAr', 'cta', 'ctaAr', 'faq'] as const;
-const FAQ_FIELDS = ['question', 'answer', 'questionAr', 'answerAr'] as const;
 
 function WhyChooseEditor({ value, onChange }: { value: { title: string; text: string }[]; onChange: (v: { title: string; text: string }[]) => void }) {
   const cols = value.length === 3 ? value : DEFAULT_WHY.map((d, i) => ({ ...d, ...(value[i] ?? {}) }))
@@ -62,10 +60,8 @@ function ServiceForm({ editing, onClose }: any) {
     whyChoose: DEFAULT_WHY,
   }
   const [f, setF]           = useState({ ...init })
-  const [editorial, setEditorial] = useState(() => editing ? getServiceEditorial(editing) : undefined)
-  const editSection = (field: string, value: string | string[]) => {
-    setEditorial((current) => current && { ...current, [field]: value });
-  };
+  const initialApproved = editing && approvedService(editing.slug, editing.editorial?.approved)
+  const [editorial, setEditorial] = useState(() => initialApproved ? JSON.stringify(initialApproved, null, 2) : '')
   const [benefits, setBen]  = useState<string[]>(init.benefits || [])
   const [proc, setProc]     = useState<string[]>(init.process || [])
   const [whyChoose, setWhy] = useState<{ title: string; text: string }[]>(defaultWhy)
@@ -81,9 +77,13 @@ function ServiceForm({ editing, onClose }: any) {
       benefits,
       process: proc,
       whyChoose,
-      ...(editorial ? { editorial: Object.fromEntries(EDITORIAL_FIELDS.map(field => [field, editorial[field]])) } : {}),
     }
     try {
+      if (initialApproved && editorial.trim() !== JSON.stringify(initialApproved, null, 2)) {
+        data.editorial = { approved: JSON.parse(editorial) };
+      } else {
+        delete data.editorial;
+      }
       if (editing) await serviceStore.update(editing.id, data)
       else         await serviceStore.add(data)
       toast.success(editing ? 'Service updated' : 'Service created')
@@ -125,32 +125,8 @@ function ServiceForm({ editing, onClose }: any) {
 
       <ImagePicker label="Service Image" value={f.image} altValue={f.imageAlt} onChange={(url: string, alt: string) => { set('image', url); set('imageAlt', alt) }} />
 
-      {editorial && <fieldset className="space-y-4 rounded border p-4">
-        <legend className="font-semibold">Published service copy and SEO</legend>
-        {([
-          ['en', 'Heading'], ['description', 'Meta description and introduction'],
-          ['overview', 'Overview'], ['useCases', 'Use cases'], ['cta', 'Quote button'],
-        ] as const).map(([field, label]) => {
-          const arField = field === 'en' ? 'ar' : `${field}Ar` as const;
-          return <div key={field} className="grid gap-3 sm:grid-cols-2">
-            <TA label={`${label} (English)`} value={editorial[field]} onChange={(e: any) => editSection(field, e.target.value)} rows={3} required />
-            <TA label={`${label} (Arabic)`} value={editorial[arField]} onChange={(e: any) => editSection(arField, e.target.value)} rows={3} dir="rtl" required />
-          </div>;
-        })}
-        {(['benefits', 'process'] as const).map(field => <div key={field} className="grid gap-3 sm:grid-cols-2">
-          <ArrayEditor label={`${field} (English)`} value={editorial[field]} onChange={(v: string[]) => editSection(field, v)} placeholder="Add an item…" />
-          <ArrayEditor label={`${field} (Arabic)`} value={editorial[`${field}Ar`]} onChange={(v: string[]) => editSection(`${field}Ar`, v)} placeholder="أضف عنصرًا…" />
-        </div>)}
-        {editorial.faq.map((item, i) => <div key={i} className="grid gap-3 sm:grid-cols-2">
-          {FAQ_FIELDS.map(field => <TA key={field} label={`FAQ ${i + 1} ${field}`} value={item[field]} rows={2} dir={field.endsWith('Ar') ? 'rtl' : 'ltr'} required
-            onChange={(e: any) => {
-              const value = e.target.value;
-              setEditorial(current => current && {
-                ...current, faq: current.faq.map((entry, index) => index === i ? { ...entry, [field]: value } : entry),
-              });
-            }} />)}
-        </div>)}
-      </fieldset>}
+      {initialApproved && <TA label="Published bilingual service content (JSON)" value={editorial}
+        onChange={(e: any) => setEditorial(e.target.value)} rows={24} required />}
 
       {!editorial && <>
       <ArrayEditor label="Benefits"      value={benefits} onChange={setBen}  placeholder="Add a benefit…" />

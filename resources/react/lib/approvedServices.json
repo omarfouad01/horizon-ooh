@@ -1,0 +1,2970 @@
+{
+  "directory": {
+    "en": {
+      "title": "Advertising, Media & Technology Services Egypt | Horizon OOH",
+      "description": "Explore Horizon OOH services in Egypt: billboards, DOOH, airport advertising, media production, events, ERP, websites and mobile apps.",
+      "heading": "Advertising, Media Production & Technology Services in Egypt",
+      "intro": "Explore integrated advertising, media production, and digital development services with Horizon OOH. From outdoor media planning and billboard campaigns to exhibition production, corporate communication, ERP systems, websites, and mobile applications, our services help businesses plan and execute projects according to their specific objectives.",
+      "cta": {
+        "heading": "Let's Discuss Your Next Project",
+        "description": "Whether you need an advertising campaign, branded experience, or software solution, share your requirements to explore the right approach.",
+        "button": "Contact Horizon OOH"
+      },
+      "categories": [
+        {
+          "heading": "Outdoor Advertising & Media",
+          "text": "Explore billboard advertising, DOOH screens, airport media, mall advertising, in-flight advertising, cinema advertising, media planning, and advertising distribution."
+        },
+        {
+          "heading": "Production, Events & Communication",
+          "text": "Discover commercial video production, exhibition booth design, event management, brand activations, and public relations support."
+        },
+        {
+          "heading": "Technology Solutions",
+          "text": "Explore ERP software development, professional website design, and custom mobile application development for business operations and customer experiences."
+        }
+      ]
+    },
+    "ar": {
+      "title": "خدمات الإعلانات والإنتاج والحلول التقنية في مصر",
+      "description": "خدمات Horizon OOH في مصر: إعلانات الطرق والشاشات الرقمية والمطارات والإنتاج والفعاليات وتطوير ERP والمواقع وتطبيقات الموبايل.",
+      "heading": "خدمات الإعلانات الخارجية والإنتاج الإعلامي والحلول التقنية في مصر",
+      "intro": "اكتشف خدمات Horizon OOH في الإعلانات والإنتاج الإعلامي والتطوير الرقمي. من تخطيط وحجز إعلانات الطرق والشاشات الرقمية إلى إنتاج البوثات وتنظيم الفعاليات والعلاقات العامة وتطوير أنظمة ERP والمواقع الإلكترونية وتطبيقات الموبايل، نقدم حلولًا تناسب احتياجات المشروعات المختلفة.",
+      "cta": {
+        "heading": "خلّينا نناقش مشروعك القادم",
+        "description": "سواء كنت تحتاج إلى حملة إعلانية أو فعالية أو حل برمجي، شاركنا متطلباتك لاختيار الحل المناسب.",
+        "button": "تواصل مع Horizon OOH"
+      },
+      "categories": [
+        {
+          "heading": "الإعلانات الخارجية والخدمات الإعلامية",
+          "text": "استكشف إعلانات الطرق والشاشات الرقمية والمطارات والمولات والطائرات والسينما، بالإضافة إلى التخطيط الإعلامي وشراء المساحات الإعلانية."
+        },
+        {
+          "heading": "الإنتاج والفعاليات والتواصل",
+          "text": "تعرّف على خدمات إنتاج الفيديو والبوثات الدعائية وتنظيم الفعاليات وتنشيط العلامات التجارية والعلاقات العامة."
+        },
+        {
+          "heading": "الحلول التقنية",
+          "text": "اكتشف خدمات تطوير أنظمة ERP وتصميم المواقع الإلكترونية وبرمجة تطبيقات الموبايل للشركات."
+        }
+      ]
+    }
+  },
+  "services": {
+    "ad-airing-media-distribution": {
+      "en": {
+        "title": "Media Buying & Ad Airing Services in Egypt | Horizon OOH",
+        "description": "Plan and distribute advertising campaigns across TV, radio, digital media and DOOH in Egypt with Horizon OOH's media buying services.",
+        "heading": "Media Buying & Advertising Distribution in Egypt",
+        "intro": "Reach your audience through the right advertising channels with professional media planning, buying, and distribution services in Egypt. Horizon OOH helps brands coordinate advertising campaigns across television, radio, digital media, and outdoor screens, bringing channel selection, scheduling, and campaign execution together in one coordinated strategy.",
+        "cta": {
+          "heading": "Plan Your Next Media Campaign",
+          "description": "Share your campaign objectives and target audience to receive a tailored media buying proposal.",
+          "button": "Request a Media Plan"
+        },
+        "sections": [
+          {
+            "heading": "Integrated Media Buying & Ad Distribution",
+            "items": [
+              {
+                "text": "Media buying is more than purchasing advertising space. It involves identifying suitable channels, planning the timing and frequency of placements, preparing creative materials, and coordinating the release of advertisements. Our approach starts with your campaign objectives and audience before recommending an appropriate combination of media channels."
+              }
+            ]
+          },
+          {
+            "heading": "Our Media Distribution Services",
+            "items": [
+              {
+                "label": "Television Advertising:",
+                "text": "Plan commercial placements on relevant television channels according to available airtime, campaign objectives, and booking requirements."
+              },
+              {
+                "label": "Radio Advertising:",
+                "text": "Coordinate radio advertising placements and schedules across relevant stations and programs."
+              },
+              {
+                "label": "Digital Out-of-Home:",
+                "text": "Combine digital billboard and screen placements with other advertising channels to extend campaign visibility beyond broadcast media."
+              },
+              {
+                "label": "Campaign Coordination:",
+                "text": "Manage creative specifications, submission timelines, media schedules, and operational follow-up across participating channels."
+              }
+            ]
+          },
+          {
+            "heading": "Who Is This Service For?",
+            "items": [
+              {
+                "text": "Our media distribution services are suitable for product launches, retail campaigns, corporate advertising, seasonal promotions, and brands seeking coordinated communication across multiple advertising channels. The appropriate media mix depends on the campaign's geography, target audience, duration, and budget."
+              }
+            ]
+          },
+          {
+            "heading": "Our Media Buying Process",
+            "items": [
+              {
+                "label": "Campaign Brief:",
+                "text": "Understand the audience, objectives, locations, timing, and budget."
+              },
+              {
+                "label": "Media Planning:",
+                "text": "Recommend relevant channels and placement schedules."
+              },
+              {
+                "label": "Booking & Creative Coordination:",
+                "text": "Confirm availability and prepare materials for each channel."
+              },
+              {
+                "label": "Campaign Follow-Up:",
+                "text": "Coordinate airing and review available execution reports."
+              }
+            ]
+          },
+          {
+            "heading": "Frequently Asked Questions",
+            "items": [
+              {
+                "label": "What is included in media buying services?",
+                "text": "Depending on the campaign, services may include channel selection, placement planning, commercial negotiations, booking coordination, scheduling, and reporting."
+              },
+              {
+                "label": "Can I advertise across television, radio, and digital screens together?",
+                "text": "Yes. An integrated media plan can combine different formats, subject to channel availability, technical requirements, and your campaign budget."
+              },
+              {
+                "label": "How are advertising costs calculated?",
+                "text": "Costs depend on the selected channel, placement, schedule, audience coverage, duration, and available inventory. A quotation is prepared after reviewing these requirements."
+              }
+            ]
+          }
+        ],
+        "card": "Media buying and ad distribution across TV, radio, digital platforms, and DOOH."
+      },
+      "ar": {
+        "title": "خدمات شراء المساحات الإعلانية في مصر | Horizon OOH",
+        "description": "خدمات الميديا باينج وتوزيع الإعلانات عبر التلفزيون والراديو والشاشات الرقمية في مصر مع Horizon OOH.",
+        "heading": "خدمات الميديا باينج وتوزيع الإعلانات في مصر",
+        "intro": "وصّل رسالتك الإعلانية للجمهور المناسب من خلال التخطيط الاحترافي وشراء المساحات الإعلانية في مصر. تساعد Horizon OOH العلامات التجارية على تنسيق حملاتها عبر التلفزيون والراديو والمنصات الرقمية والشاشات الإعلانية الخارجية، من اختيار الوسائل المناسبة وحتى جدولة الإعلانات ومتابعة التنفيذ.",
+        "cta": {
+          "heading": "ابدأ التخطيط لحملتك الإعلانية",
+          "description": "شاركنا أهدافك التسويقية والجمهور المستهدف للحصول على خطة إعلامية مناسبة.",
+          "button": "اطلب خطة إعلامية"
+        },
+        "sections": [
+          {
+            "heading": "التخطيط وشراء المساحات الإعلانية",
+            "items": [
+              {
+                "text": "لا تقتصر خدمات الميديا باينج على حجز المساحات الإعلانية، بل تشمل اختيار القنوات، وتحديد مواعيد الظهور، وتنسيق المواد الإعلانية، ومتابعة تنفيذ الحملة. نبدأ بفهم أهدافك التسويقية والجمهور المستهدف لاختيار المزيج الإعلامي الأنسب."
+              }
+            ]
+          },
+          {
+            "heading": "خدمات توزيع الإعلانات",
+            "items": [
+              {
+                "label": "إعلانات التلفزيون:",
+                "text": "التخطيط لحجز الإعلانات التجارية على القنوات المناسبة وفقًا للمواعيد والمساحات المتاحة."
+              },
+              {
+                "label": "إعلانات الراديو:",
+                "text": "تنسيق الحملات الإذاعية واختيار المحطات والبرامج المناسبة لطبيعة الجمهور."
+              },
+              {
+                "label": "الشاشات الإعلانية الرقمية:",
+                "text": "دمج إعلانات DOOH ضمن الحملات متعددة القنوات لتعزيز ظهور العلامة التجارية."
+              },
+              {
+                "label": "تنسيق الحملات:",
+                "text": "إدارة المتطلبات الفنية ومواعيد تسليم المواد الإعلانية وجدولة الظهور والمتابعة التشغيلية."
+              }
+            ]
+          },
+          {
+            "heading": "من يستفيد من خدماتنا؟",
+            "items": [
+              {
+                "text": "تناسب خدماتنا إطلاق المنتجات، والحملات الموسمية، وإعلانات المتاجر، والحملات المؤسسية، والعلامات التجارية التي تحتاج إلى الوصول لجمهورها عبر أكثر من وسيلة إعلانية. ويتم اختيار الوسائل وفقًا للميزانية والمدة والمناطق المستهدفة."
+              }
+            ]
+          },
+          {
+            "heading": "مراحل تنفيذ الحملة",
+            "items": [
+              {
+                "label": "دراسة الحملة:",
+                "text": "تحديد الأهداف والجمهور والميزانية والمدة."
+              },
+              {
+                "label": "التخطيط الإعلامي:",
+                "text": "اختيار القنوات والمواعيد والمساحات المناسبة."
+              },
+              {
+                "label": "الحجز والتجهيز:",
+                "text": "تأكيد التوافر وتنسيق المواد الإعلانية."
+              },
+              {
+                "label": "المتابعة:",
+                "text": "متابعة التنفيذ ومراجعة تقارير التشغيل المتاحة."
+              }
+            ]
+          },
+          {
+            "heading": "الأسئلة الشائعة",
+            "items": [
+              {
+                "label": "ما الخدمات التي يشملها الميديا باينج؟",
+                "text": "يشمل حسب طبيعة الحملة اختيار الوسائل الإعلانية، والتخطيط والحجز والتنسيق والجدولة والمتابعة."
+              },
+              {
+                "label": "هل يمكن الجمع بين التلفزيون والراديو والشاشات الرقمية؟",
+                "text": "نعم، يمكن تصميم خطة إعلانية تجمع أكثر من وسيلة وفقًا للتوافر والميزانية والمتطلبات الفنية."
+              },
+              {
+                "label": "كيف يتم تحديد الأسعار؟",
+                "text": "تختلف الأسعار حسب القناة والموقع الإعلاني ومدة الحملة ومواعيد العرض والمساحات المتاحة."
+              }
+            ]
+          }
+        ],
+        "card": "تخطيط وشراء المساحات الإعلانية عبر التلفزيون والراديو والمنصات الرقمية."
+      },
+      "related": [
+        "outdoor-media-planning-buying",
+        "commercial-video-production",
+        "dooh-advertising-in-egypt"
+      ]
+    },
+    "airport-advertising-in-egypt": {
+      "en": {
+        "title": "Airport Advertising in Egypt | Cairo & Hurghada | Horizon OOH",
+        "description": "Explore airport advertising in Egypt, including Cairo and Hurghada Airport media opportunities, digital screens, branding spaces and booking options.",
+        "heading": "Airport Advertising in Egypt",
+        "intro": "Connect your brand with domestic and international travelers through airport advertising in Egypt. Horizon OOH helps businesses explore advertising opportunities at Cairo International Airport, Hurghada International Airport, and other available airport locations, with media options tailored to campaign objectives, traveler journeys, and booking requirements.",
+        "cta": {
+          "heading": "Explore Airport Advertising Opportunities",
+          "description": "Request a proposal with available airport locations, photographs, dimensions, and commercial rates.",
+          "button": "Request Airport Rates"
+        },
+        "sections": [
+          {
+            "heading": "Reach Travelers Throughout Their Journey",
+            "items": [
+              {
+                "text": "Airport advertising creates opportunities for brands to communicate with travelers at different points of the airport experience. Depending on the airport and approved inventory, placements may be available in arrival areas, departure areas, terminal environments, and other designated advertising zones."
+              }
+            ]
+          },
+          {
+            "heading": "Airport Advertising Solutions",
+            "items": [
+              {
+                "label": "Digital Advertising Screens:",
+                "text": "Display approved advertising creatives on eligible airport digital media inventory."
+              },
+              {
+                "label": "Indoor Advertising Spaces:",
+                "text": "Explore static displays and branding placements within permitted terminal advertising areas."
+              },
+              {
+                "label": "Airport Outdoor Media:",
+                "text": "Evaluate available advertising positions on airport approaches and external passenger routes."
+              },
+              {
+                "label": "Campaign Planning & Booking:",
+                "text": "Compare airport locations, dimensions, visibility considerations, durations, and operational approval requirements."
+              }
+            ]
+          },
+          {
+            "heading": "Who Should Advertise at Airports?",
+            "items": [
+              {
+                "text": "Airport advertising can support tourism campaigns, airlines, hotels, luxury brands, financial services, telecommunications, and international companies entering the Egyptian market. Location selection should reflect the relevant passenger journey and the brand's intended audience."
+              }
+            ]
+          },
+          {
+            "heading": "Our Airport Campaign Process",
+            "items": [
+              {
+                "label": "Define Campaign Requirements:",
+                "text": "Confirm airports, passenger audiences, timing, and budget."
+              },
+              {
+                "label": "Review Available Inventory:",
+                "text": "Present eligible locations, photographs, dimensions, and commercial proposals."
+              },
+              {
+                "label": "Secure Booking Approval:",
+                "text": "Confirm availability, advertiser details, and required airport permissions."
+              },
+              {
+                "label": "Production & Execution:",
+                "text": "Coordinate approved artwork, production, installation, and monitoring where applicable."
+              }
+            ]
+          },
+          {
+            "heading": "Frequently Asked Questions",
+            "items": [
+              {
+                "label": "Can I advertise at Cairo and Hurghada International Airports?",
+                "text": "Horizon OOH can prepare proposals for advertising opportunities at both airports, subject to confirmed inventory, operator approval, and availability."
+              },
+              {
+                "label": "What determines airport advertising prices?",
+                "text": "Pricing varies by airport, terminal or zone, advertising format, dimensions, campaign duration, and production requirements."
+              },
+              {
+                "label": "Is the advertiser's brand name required for booking?",
+                "text": "The final advertiser or brand name may be required during the airport approval and booking process."
+              }
+            ]
+          }
+        ],
+        "card": "Advertising opportunities at Egyptian airports, including available screens and branding spaces."
+      },
+      "ar": {
+        "title": "إعلانات المطارات في مصر | مطار القاهرة والغردقة",
+        "description": "اكتشف فرص الإعلان في مطار القاهرة ومطار الغردقة، والشاشات الرقمية والمساحات الإعلانية داخل المطارات مع Horizon OOH.",
+        "heading": "إعلانات المطارات في مصر",
+        "intro": "عزّز ظهور علامتك التجارية أمام المسافرين من خلال إعلانات المطارات في مصر. تساعدك Horizon OOH على استكشاف فرص الإعلان في مطار القاهرة الدولي ومطار الغردقة الدولي وغيرها من المواقع المتاحة، مع اختيار المساحات المناسبة لأهداف حملتك والجمهور المستهدف.",
+        "cta": {
+          "heading": "اكتشف فرص الإعلان في المطارات",
+          "description": "اطلب عرضًا يشمل المواقع المتاحة والصور والمقاسات والأسعار.",
+          "button": "اطلب أسعار إعلانات المطارات"
+        },
+        "sections": [
+          {
+            "heading": "إعلانات تصل إلى المسافرين في مراحل رحلتهم",
+            "items": [
+              {
+                "text": "توفر المطارات بيئة إعلانية مناسبة للتواصل مع المسافرين المحليين والدوليين. وتختلف المساحات المتاحة حسب كل مطار، وقد تشمل مناطق الوصول والمغادرة والصالات والمواقع الخارجية المخصصة للإعلانات."
+              }
+            ]
+          },
+          {
+            "heading": "حلول إعلانات المطارات",
+            "items": [
+              {
+                "label": "الشاشات الرقمية:",
+                "text": "عرض المواد الإعلانية على الشاشات المتاحة وفقًا للمواصفات والموافقات المطلوبة."
+              },
+              {
+                "label": "المساحات الداخلية:",
+                "text": "استكشاف اللوحات الثابتة ومساحات البراندينج داخل المناطق المسموح بالإعلان فيها."
+              },
+              {
+                "label": "الإعلانات الخارجية بالمطارات:",
+                "text": "دراسة المواقع المتاحة على طرق الوصول والمداخل الخارجية."
+              },
+              {
+                "label": "تخطيط وحجز الحملات:",
+                "text": "مقارنة المواقع والمقاسات ومدد الحجز والمتطلبات التشغيلية."
+              }
+            ]
+          },
+          {
+            "heading": "العلامات التجارية المناسبة لإعلانات المطارات",
+            "items": [
+              {
+                "text": "تناسب إعلانات المطارات شركات السياحة والطيران والفنادق والعلامات الفاخرة والخدمات المالية والاتصالات والشركات الدولية التي تستهدف السوق المصري. ويعتمد اختيار الموقع على طبيعة الجمهور وحركة المسافرين المستهدفة."
+              }
+            ]
+          },
+          {
+            "heading": "مراحل تنفيذ الحملة",
+            "items": [
+              {
+                "label": "تحديد الاحتياجات:",
+                "text": "اختيار المطارات والجمهور والمدة والميزانية."
+              },
+              {
+                "label": "مراجعة المواقع:",
+                "text": "تقديم المساحات المتاحة والصور والمقاسات وعرض السعر."
+              },
+              {
+                "label": "تأكيد الحجز:",
+                "text": "مراجعة التوافر وبيانات المعلن والموافقات المطلوبة."
+              },
+              {
+                "label": "الإنتاج والتنفيذ:",
+                "text": "تنسيق الخامات والطباعة والتركيب والمتابعة حسب نوع الإعلان."
+              }
+            ]
+          },
+          {
+            "heading": "الأسئلة الشائعة",
+            "items": [
+              {
+                "label": "هل تتوفر فرص إعلان في مطار القاهرة والغردقة؟",
+                "text": "يمكن إعداد عروض للمطارين بناءً على المساحات المتاحة والموافقات المطلوبة وقت الحجز."
+              },
+              {
+                "label": "ما العوامل التي تحدد أسعار إعلانات المطارات؟",
+                "text": "تختلف الأسعار حسب المطار وموقع المساحة الإعلانية ونوعها ومقاسها ومدة الحملة."
+              },
+              {
+                "label": "هل يجب تقديم اسم العميل عند الحجز؟",
+                "text": "قد يُطلب الاسم النهائي للمعلن أو العلامة التجارية لاستكمال إجراءات الموافقة والحجز."
+              }
+            ]
+          }
+        ],
+        "card": "فرص إعلانية في المطارات المصرية تشمل الشاشات ومساحات البراندينج المتاحة."
+      },
+      "related": [
+        "dooh-advertising-in-egypt",
+        "outdoor-media-planning-buying",
+        "commercial-video-production"
+      ]
+    },
+    "billboard-advertising-in-egypt": {
+      "en": {
+        "title": "Billboard Advertising & Rental in Egypt | Horizon OOH",
+        "description": "Explore billboard rental and outdoor advertising in Egypt. Compare strategic billboard locations, formats, campaign options and prices.",
+        "heading": "Billboard Advertising & Rental in Egypt",
+        "intro": "Build visibility for your brand with strategically selected billboard advertising locations across Egypt. Horizon OOH helps businesses plan, book, produce, and manage outdoor advertising campaigns across Cairo, Giza, Alexandria, and other available markets, matching advertising formats to campaign objectives and budgets.",
+        "cta": {
+          "heading": "Find the Right Billboard for Your Brand",
+          "description": "Explore available outdoor advertising locations and request a tailored media quotation.",
+          "button": "Explore Billboard Locations"
+        },
+        "sections": [
+          {
+            "heading": "Outdoor Advertising That Fits Your Campaign",
+            "items": [
+              {
+                "text": "Billboard advertising places brand messages along roads, highways, and commercial routes where people travel every day. A successful campaign depends on more than billboard size: location, viewing direction, format, creative readability, and booking duration all influence media selection."
+              }
+            ]
+          },
+          {
+            "heading": "Billboard Advertising Formats",
+            "items": [
+              {
+                "label": "Uni-pole Billboards:",
+                "text": "Large-format roadside advertising structures designed for visibility from approaching traffic."
+              },
+              {
+                "label": "Double-Decker Billboards:",
+                "text": "Stacked advertising faces suitable for selected road corridors and high-visibility placements."
+              },
+              {
+                "label": "Mega-Posts & Billboard Gates:",
+                "text": "Advertising formats available in different dimensions and configurations, depending on the site."
+              },
+              {
+                "label": "Wall & Rooftop Advertising:",
+                "text": "Building-mounted and elevated media formats where suitable inventory and permissions are available."
+              },
+              {
+                "label": "Campaign Production:",
+                "text": "Artwork adaptation, printing, installation coordination, and maintenance follow-up."
+              }
+            ]
+          },
+          {
+            "heading": "Where Can You Advertise?",
+            "items": [
+              {
+                "text": "Explore billboard advertising opportunities across Greater Cairo, including New Cairo, the Ring Road, Sheikh Zayed, 6th of October, and major connecting corridors. Other Egyptian cities and governorates can be included according to current inventory."
+              }
+            ]
+          },
+          {
+            "heading": "Our Billboard Booking Process",
+            "items": [
+              {
+                "label": "Campaign Planning:",
+                "text": "Define objectives, audience, geography, and budget."
+              },
+              {
+                "label": "Location Selection:",
+                "text": "Review billboard photographs, dimensions, viewing directions, and prices."
+              },
+              {
+                "label": "Booking & Production:",
+                "text": "Confirm inventory and coordinate approved printing and installation."
+              },
+              {
+                "label": "Campaign Monitoring:",
+                "text": "Follow installation progress and monitor campaign execution."
+              }
+            ]
+          },
+          {
+            "heading": "Frequently Asked Questions",
+            "items": [
+              {
+                "label": "How much does billboard advertising cost in Egypt?",
+                "text": "Prices vary according to location, format, dimensions, number of advertising faces, and booking duration. Request a location-specific quotation for accurate pricing."
+              },
+              {
+                "label": "Does billboard rental include printing and installation?",
+                "text": "Inclusions vary by location and proposal. The quotation should specify rental fees, production costs, installation, and applicable taxes separately."
+              },
+              {
+                "label": "How can I select the right billboard location?",
+                "text": "Begin with the audience and areas you need to reach, then compare viewing direction, road characteristics, available formats, and budget."
+              }
+            ]
+          }
+        ],
+        "card": "Billboard rental, location planning, production, and outdoor advertising campaigns across Egypt."
+      },
+      "ar": {
+        "title": "إعلانات الطرق وتأجير اللوحات الإعلانية في مصر",
+        "description": "اكتشف مواقع إعلانات الطرق وتأجير اللوحات الإعلانية في القاهرة والجيزة والإسكندرية ومناطق مختلفة في مصر مع Horizon OOH.",
+        "heading": "إعلانات الطرق وتأجير اللوحات الإعلانية في مصر",
+        "intro": "عزّز انتشار علامتك التجارية من خلال مواقع إعلانات الطرق المناسبة لجمهورك المستهدف. تساعد Horizon OOH الشركات على تخطيط وحجز وتنفيذ حملات الإعلانات الخارجية في القاهرة والجيزة والإسكندرية ومناطق مختلفة في مصر، مع توفير خيارات متنوعة من اللوحات والمقاسات.",
+        "cta": {
+          "heading": "اختار الموقع الإعلاني المناسب لعلامتك التجارية",
+          "description": "استكشف مواقع اللوحات الإعلانية المتاحة واطلب عرض سعر يناسب حملتك.",
+          "button": "استكشف مواقع إعلانات الطرق"
+        },
+        "sections": [
+          {
+            "heading": "كيف تختار لوحة إعلانية مناسبة؟",
+            "items": [
+              {
+                "text": "نجاح حملة إعلانات الطرق لا يعتمد على حجم اللوحة فقط، بل على موقعها واتجاه الرؤية وطبيعة الطريق ووضوح التصميم ومدة الحجز. لذلك نساعدك على مقارنة الخيارات المتاحة للوصول إلى مزيج مناسب بين الانتشار والتكلفة."
+              }
+            ]
+          },
+          {
+            "heading": "أنواع اللوحات الإعلانية",
+            "items": [
+              {
+                "label": "لوحات Uni-pole:",
+                "text": "لوحات إعلانية مرتفعة مناسبة للطرق والمحاور الرئيسية."
+              },
+              {
+                "label": "لوحات Double-Decker:",
+                "text": "لوحات متعددة المستويات تتيح استخدام أكثر من وجه إعلاني."
+              },
+              {
+                "label": "لوحات Mega-Post والبوابات:",
+                "text": "مساحات إعلانية بمقاسات وتكوينات مختلفة حسب الموقع."
+              },
+              {
+                "label": "إعلانات الواجهات والأسطح:",
+                "text": "لوحات مثبتة على المباني والأسطح وفقًا للمواقع والتصاريح المتاحة."
+              },
+              {
+                "label": "الإنتاج والتنفيذ:",
+                "text": "تجهيز التصميم والطباعة وتنسيق التركيب والمتابعة الميدانية."
+              }
+            ]
+          },
+          {
+            "heading": "مواقع إعلانات الطرق في مصر",
+            "items": [
+              {
+                "text": "استكشف المواقع المتاحة في القاهرة الكبرى، بما فيها التجمع الخامس والطريق الدائري والشيخ زايد ومدينة 6 أكتوبر والمحاور الرئيسية، بالإضافة إلى فرص الإعلان في محافظات أخرى وفقًا للتوافر."
+              }
+            ]
+          },
+          {
+            "heading": "خطوات حجز حملة إعلانات طرق",
+            "items": [
+              {
+                "label": "تحديد الحملة:",
+                "text": "معرفة الجمهور والمناطق والميزانية."
+              },
+              {
+                "label": "اختيار المواقع:",
+                "text": "مراجعة الصور والمقاسات والأسعار واتجاهات الرؤية."
+              },
+              {
+                "label": "الحجز والإنتاج:",
+                "text": "تأكيد المواقع وتجهيز المواد الإعلانية."
+              },
+              {
+                "label": "المتابعة:",
+                "text": "متابعة التركيب والتنفيذ طوال مدة الحملة."
+              }
+            ]
+          },
+          {
+            "heading": "الأسئلة الشائعة",
+            "items": [
+              {
+                "label": "كام أسعار إعلانات الطرق في مصر؟",
+                "text": "تختلف الأسعار حسب الموقع والمقاس ونوع اللوحة وعدد الأوجه ومدة الحجز."
+              },
+              {
+                "label": "هل أسعار اللوحات تشمل الطباعة والتركيب؟",
+                "text": "تختلف التفاصيل من موقع لآخر، ويجب توضيح تكلفة الإيجار والطباعة والتركيب والضرائب في عرض السعر."
+              },
+              {
+                "label": "إزاي أختار أفضل مكان للإعلان؟",
+                "text": "يعتمد الاختيار على الجمهور المستهدف والمناطق المهمة للحملة واتجاه رؤية اللوحة وطبيعة الطريق والميزانية."
+              }
+            ]
+          }
+        ],
+        "card": "تأجير اللوحات الإعلانية وتخطيط المواقع وتنفيذ حملات إعلانات الطرق في مصر."
+      },
+      "related": [
+        "outdoor-media-planning-buying",
+        "dooh-advertising-in-egypt",
+        "commercial-video-production"
+      ]
+    },
+    "booth-activation-production": {
+      "en": {
+        "title": "Exhibition Booth Design & Production Egypt | Horizon OOH",
+        "description": "Custom exhibition booth design, promotional kiosk production and brand activation fabrication in Egypt for malls, exhibitions and events.",
+        "heading": "Exhibition Booth Design & Production in Egypt",
+        "intro": "Turn your brand into a physical experience with custom exhibition booths, promotional kiosks, and activation structures. Horizon OOH supports businesses with booth concept development, design, production, and on-site coordination for exhibitions, shopping malls, product launches, and branded events across Egypt.",
+        "cta": {
+          "heading": "Bring Your Brand Experience to Life",
+          "description": "Send your booth dimensions, venue details, and references for a custom production proposal.",
+          "button": "Request a Booth Quotation"
+        },
+        "sections": [
+          {
+            "heading": "Custom Booths Built Around Your Brand",
+            "items": [
+              {
+                "text": "Every exhibition and activation has its own operational needs. A successful booth should communicate the brand clearly, accommodate staff and visitors, present products effectively, and work within the permitted site dimensions and technical requirements."
+              }
+            ]
+          },
+          {
+            "heading": "Our Booth Production Services",
+            "items": [
+              {
+                "label": "Exhibition Booths:",
+                "text": "Custom stand concepts for trade shows and business exhibitions."
+              },
+              {
+                "label": "Mall Activation Booths:",
+                "text": "Promotional kiosks and visitor-interaction spaces for shopping environments."
+              },
+              {
+                "label": "Product Display Structures:",
+                "text": "Branded counters, display walls, shelving, and presentation areas."
+              },
+              {
+                "label": "Production & Installation:",
+                "text": "Material specification, fabrication, lighting coordination, transport, and on-site assembly."
+              }
+            ]
+          },
+          {
+            "heading": "Applications & Requirements",
+            "items": [
+              {
+                "text": "Booth solutions can support product launches, sampling campaigns, retail activations, exhibitions, and promotional events. Project scope depends on the venue, available footprint, operating period, approved materials, electrical requirements, and branding specifications."
+              }
+            ]
+          },
+          {
+            "heading": "Our Production Process",
+            "items": [
+              {
+                "label": "Brief & Site Requirements:",
+                "text": "Confirm objectives, dimensions, venue, and operational restrictions."
+              },
+              {
+                "label": "Concept & Technical Design:",
+                "text": "Develop the proposed arrangement, materials, and visual appearance."
+              },
+              {
+                "label": "Fabrication:",
+                "text": "Produce the approved booth components."
+              },
+              {
+                "label": "Installation & Handover:",
+                "text": "Coordinate delivery, assembly, and site readiness."
+              }
+            ]
+          },
+          {
+            "heading": "Frequently Asked Questions",
+            "items": [
+              {
+                "label": "Do you design custom exhibition booths?",
+                "text": "Yes. Booth design and production can be planned around your branding, products, space, and operational needs."
+              },
+              {
+                "label": "What information is needed for a quotation?",
+                "text": "Share the venue, dimensions, event dates, visual references, required equipment, and preferred materials."
+              },
+              {
+                "label": "Does booth pricing include installation and dismantling?",
+                "text": "These services can be included in the project scope. Their inclusion should be confirmed in the commercial proposal."
+              }
+            ]
+          }
+        ],
+        "card": "Custom exhibition booths, promotional kiosks, and activation structures."
+      },
+      "ar": {
+        "title": "تصميم وتنفيذ بوثات المعارض في مصر | Horizon OOH",
+        "description": "تصميم وتصنيع بوثات المعارض والأكشاك الترويجية وستاندات البراندينج في المولات والفعاليات بمصر.",
+        "heading": "تصميم وتنفيذ بوثات المعارض والفعاليات في مصر",
+        "intro": "حوّل علامتك التجارية إلى تجربة واقعية من خلال تصميم وتنفيذ بوثات المعارض والأكشاك الترويجية. تقدم Horizon OOH حلولًا لتصميم وإنتاج وتجهيز المساحات الدعائية داخل المعارض والمولات والفعاليات وإطلاق المنتجات في مصر.",
+        "cta": {
+          "heading": "خلّي علامتك التجارية تجربة مميزة",
+          "description": "ابعتلنا المقاسات والموقع والمراجع البصرية للحصول على عرض تنفيذ مناسب.",
+          "button": "اطلب عرض سعر للبوث"
+        },
+        "sections": [
+          {
+            "heading": "بوثات مصممة لتناسب علامتك التجارية",
+            "items": [
+              {
+                "text": "يحتاج كل معرض أو نشاط ترويجي إلى تصميم يناسب المكان وطبيعة المنتجات وحركة الزوار. لذلك نراعي الهوية البصرية ومساحات العرض واحتياجات فريق العمل والمقاسات والاشتراطات الفنية للموقع."
+              }
+            ]
+          },
+          {
+            "heading": "خدمات تصميم وتنفيذ البوثات",
+            "items": [
+              {
+                "label": "بوثات المعارض:",
+                "text": "تصميم أجنحة مخصصة للمعارض التجارية والفعاليات المتخصصة."
+              },
+              {
+                "label": "بوثات المولات:",
+                "text": "أكشاك ترويجية ومساحات للتفاعل مع الزوار داخل مراكز التسوق."
+              },
+              {
+                "label": "ستاندات عرض المنتجات:",
+                "text": "كاونترات ووحدات عرض وخلفيات براندينج وحلول لإبراز المنتجات."
+              },
+              {
+                "label": "التصنيع والتركيب:",
+                "text": "اختيار الخامات والتصنيع وتنسيق الإضاءة والنقل والتركيب بالموقع."
+              }
+            ]
+          },
+          {
+            "heading": "استخدامات البوثات الدعائية",
+            "items": [
+              {
+                "text": "تناسب حلولنا إطلاق المنتجات والتجارب الترويجية والمعارض والحملات داخل المولات والفعاليات المؤسسية. ويتم تحديد نطاق العمل وفقًا لمساحة الموقع ومدة التشغيل والخامات والتجهيزات المطلوبة."
+              }
+            ]
+          },
+          {
+            "heading": "مراحل التنفيذ",
+            "items": [
+              {
+                "label": "دراسة الاحتياجات:",
+                "text": "تحديد الموقع والمقاسات والهدف والاشتراطات."
+              },
+              {
+                "label": "التصميم:",
+                "text": "إعداد الفكرة والتوزيع الداخلي والخامات."
+              },
+              {
+                "label": "التصنيع:",
+                "text": "إنتاج مكونات البوث المعتمدة."
+              },
+              {
+                "label": "التركيب والتسليم:",
+                "text": "نقل البوث وتجهيزه داخل الموقع."
+              }
+            ]
+          },
+          {
+            "heading": "الأسئلة الشائعة",
+            "items": [
+              {
+                "label": "هل يمكن تصميم بوث مخصص للعلامة التجارية؟",
+                "text": "نعم، يمكن إعداد تصميم يناسب هوية البراند والمنتجات والمساحة المتاحة."
+              },
+              {
+                "label": "ما المطلوب للحصول على عرض سعر؟",
+                "text": "نحتاج إلى الموقع والمقاسات والتواريخ والتجهيزات المطلوبة وأي صور مرجعية."
+              },
+              {
+                "label": "هل يشمل السعر التركيب والفك؟",
+                "text": "يتم تحديد الخدمات المشمولة في عرض السعر حسب نطاق المشروع."
+              }
+            ]
+          }
+        ],
+        "card": "تصميم وتنفيذ بوثات المعارض والأكشاك الترويجية والستاندات الدعائية."
+      },
+      "related": [
+        "event-management-brand-activations",
+        "mall-advertising",
+        "commercial-video-production"
+      ]
+    },
+    "commercial-video-production": {
+      "en": {
+        "title": "Commercial & Video Production in Egypt | Horizon OOH",
+        "description": "Professional TV commercial, corporate video, promotional film and digital advertising video production services in Egypt.",
+        "heading": "Commercial & Advertising Video Production in Egypt",
+        "intro": "Bring your advertising ideas to life through commercial video production designed around your brand and communication objectives. Horizon OOH supports businesses with creative development, filming coordination, post-production, and video adaptation for television, digital campaigns, and outdoor advertising screens.",
+        "cta": {
+          "heading": "Create Your Next Advertising Video",
+          "description": "Share your creative brief and intended channels to discuss the right production approach.",
+          "button": "Request a Video Production Quote"
+        },
+        "sections": [
+          {
+            "heading": "Video Content Built for Every Advertising Format",
+            "items": [
+              {
+                "text": "A commercial video needs more than attractive visuals. Strong production begins with a clear message, a creative concept, and a format suitable for where the content will appear. From a TV commercial to a short DOOH video, the structure and technical requirements should be considered from the beginning."
+              }
+            ]
+          },
+          {
+            "heading": "Our Video Production Services",
+            "items": [
+              {
+                "label": "TV Commercials:",
+                "text": "Creative development and production planning for television advertising."
+              },
+              {
+                "label": "Corporate Videos:",
+                "text": "Company introductions, service explainers, and business communication content."
+              },
+              {
+                "label": "Promotional Videos:",
+                "text": "Product launches, campaign announcements, and digital advertising creatives."
+              },
+              {
+                "label": "DOOH Video Content:",
+                "text": "Video adaptation for digital billboards and commercial screens with appropriate dimensions and runtime."
+              },
+              {
+                "label": "Post-Production:",
+                "text": "Editing, color treatment, graphics, subtitles, audio, and required delivery formats."
+              }
+            ]
+          },
+          {
+            "heading": "Who Is This Service For?",
+            "items": [
+              {
+                "text": "Video production supports brands launching products, presenting corporate services, promoting events, or producing creative assets for advertising campaigns. Each production is scoped according to the brief, locations, duration, filming requirements, and final formats."
+              }
+            ]
+          },
+          {
+            "heading": "Our Video Production Process",
+            "items": [
+              {
+                "label": "Creative Brief:",
+                "text": "Define campaign goals, audience, and message."
+              },
+              {
+                "label": "Pre-Production:",
+                "text": "Develop scripts, visual references, and production requirements."
+              },
+              {
+                "label": "Production:",
+                "text": "Coordinate filming and required assets."
+              },
+              {
+                "label": "Post-Production:",
+                "text": "Edit, review, refine, and deliver approved files."
+              }
+            ]
+          },
+          {
+            "heading": "Frequently Asked Questions",
+            "items": [
+              {
+                "label": "Do you produce videos for TV and digital advertising?",
+                "text": "Video production can be planned for television, digital channels, and outdoor screens, with specifications adapted to each medium."
+              },
+              {
+                "label": "Can one video be adapted for different screen formats?",
+                "text": "Yes, although each channel may require different dimensions, durations, framing, or technical exports."
+              },
+              {
+                "label": "What affects video production costs?",
+                "text": "Costs depend on the concept, filming days, locations, crew, equipment, talent, post-production work, and deliverables."
+              }
+            ]
+          }
+        ],
+        "card": "TV commercials, corporate videos, promotional content, and DOOH creatives."
+      },
+      "ar": {
+        "title": "إنتاج الإعلانات والفيديوهات التجارية في مصر",
+        "description": "خدمات إنتاج الإعلانات التلفزيونية والفيديوهات الدعائية وفيديوهات الشركات ومحتوى الشاشات الإعلانية في مصر.",
+        "heading": "إنتاج الإعلانات التجارية والفيديوهات الدعائية في مصر",
+        "intro": "حوّل فكرتك الإعلانية إلى محتوى مرئي يعبر عن علامتك التجارية. تساعد Horizon OOH الشركات على تطوير وتنفيذ الفيديوهات الدعائية والإعلانات التجارية، من إعداد الفكرة والتصوير وحتى المونتاج وتجهيز النسخ المناسبة للتلفزيون والمنصات الرقمية والشاشات الخارجية.",
+        "cta": {
+          "heading": "خلّي فكرتك إعلان يشد الانتباه",
+          "description": "شاركنا فكرة المشروع ووسائل العرض المطلوبة لمناقشة الإنتاج.",
+          "button": "اطلب عرض إنتاج فيديو"
+        },
+        "sections": [
+          {
+            "heading": "إنتاج فيديو يناسب أهداف الحملة",
+            "items": [
+              {
+                "text": "يبدأ إنتاج الإعلان الناجح برسالة واضحة وفكرة إبداعية تناسب الجمهور ووسيلة العرض. تختلف متطلبات الإعلان التلفزيوني عن فيديو الشاشات الخارجية أو المحتوى الرقمي، لذلك نراعي طبيعة كل منصة من مرحلة التخطيط."
+              }
+            ]
+          },
+          {
+            "heading": "خدمات إنتاج الفيديو",
+            "items": [
+              {
+                "label": "الإعلانات التلفزيونية:",
+                "text": "تطوير الأفكار والتخطيط لإنتاج إعلانات TVC."
+              },
+              {
+                "label": "فيديوهات الشركات:",
+                "text": "تقديم الأنشطة والخدمات والهوية المؤسسية."
+              },
+              {
+                "label": "الفيديوهات الدعائية:",
+                "text": "محتوى لإطلاق المنتجات والحملات والعروض الترويجية."
+              },
+              {
+                "label": "محتوى شاشات DOOH:",
+                "text": "تجهيز الفيديوهات لتناسب المقاسات ومدد العرض المختلفة."
+              },
+              {
+                "label": "المونتاج وما بعد الإنتاج:",
+                "text": "تحرير الفيديو والألوان والجرافيك والصوت والترجمة وتجهيز الملفات."
+              }
+            ]
+          },
+          {
+            "heading": "لمن تناسب خدماتنا؟",
+            "items": [
+              {
+                "text": "تساعد خدمات الإنتاج المرئي الشركات والعلامات التجارية في إطلاق المنتجات والترويج للخدمات والفعاليات وإعداد المواد المطلوبة للحملات الإعلانية، وفقًا لنطاق التصوير والمخرجات المطلوبة."
+              }
+            ]
+          },
+          {
+            "heading": "مراحل إنتاج الفيديو",
+            "items": [
+              {
+                "label": "البريف الإبداعي:",
+                "text": "تحديد الرسالة والجمهور والهدف."
+              },
+              {
+                "label": "ما قبل الإنتاج:",
+                "text": "إعداد الفكرة والسيناريو والمتطلبات الفنية."
+              },
+              {
+                "label": "التصوير:",
+                "text": "تنفيذ خطة الإنتاج المعتمدة."
+              },
+              {
+                "label": "ما بعد الإنتاج:",
+                "text": "المونتاج والمراجعات وتسليم الملفات النهائية."
+              }
+            ]
+          },
+          {
+            "heading": "الأسئلة الشائعة",
+            "items": [
+              {
+                "label": "هل يمكن إنتاج إعلان للتلفزيون والمنصات الرقمية؟",
+                "text": "يمكن التخطيط للمحتوى بحيث يناسب أكثر من وسيلة مع مراعاة مواصفات كل قناة."
+              },
+              {
+                "label": "هل يمكن تعديل نفس الفيديو لمقاسات مختلفة؟",
+                "text": "نعم، حسب طبيعة المادة الأصلية ومتطلبات الأبعاد والمدة لكل شاشة."
+              },
+              {
+                "label": "ما الذي يحدد تكلفة إنتاج الفيديو؟",
+                "text": "تعتمد التكلفة على الفكرة وأيام التصوير والمواقع وفريق العمل والمعدات والمونتاج والمخرجات المطلوبة."
+              }
+            ]
+          }
+        ],
+        "card": "إنتاج الإعلانات التلفزيونية والفيديوهات الدعائية ومحتوى الشاشات الرقمية."
+      },
+      "related": [
+        "ad-airing-media-distribution",
+        "dooh-advertising-in-egypt",
+        "on-screen-cinema-advertising"
+      ]
+    },
+    "dooh-advertising-in-egypt": {
+      "en": {
+        "title": "DOOH & Digital Billboard Advertising Egypt | Horizon OOH",
+        "description": "Discover digital outdoor advertising and DOOH screens in Egypt. Explore digital billboard formats, campaign scheduling and media buying.",
+        "heading": "DOOH & Digital Billboard Advertising in Egypt",
+        "intro": "Promote your brand through digital out-of-home advertising on screens across selected locations in Egypt. Horizon OOH helps businesses plan DOOH campaigns, compare available digital media locations, adapt creative content, and coordinate advertising schedules suited to their objectives.",
+        "cta": {
+          "heading": "Launch a Digital Outdoor Campaign",
+          "description": "Explore available DOOH screens and request a plan for your advertising objectives.",
+          "button": "Request DOOH Availability"
+        },
+        "sections": [
+          {
+            "heading": "What Is DOOH Advertising?",
+            "items": [
+              {
+                "text": "Digital Out-of-Home advertising uses electronic screens in public and commercial environments to display advertising content. Unlike printed billboards, digital screens may allow multiple creative versions and scheduled playback, depending on the individual media operator and screen specifications."
+              }
+            ]
+          },
+          {
+            "heading": "Digital Advertising Solutions",
+            "items": [
+              {
+                "label": "Digital Roadside Billboards:",
+                "text": "Advertising opportunities on available digital screens along major roads."
+              },
+              {
+                "label": "Commercial Digital Screens:",
+                "text": "Digital media in approved commercial environments and other available locations."
+              },
+              {
+                "label": "Creative Adaptation:",
+                "text": "Preparation of static or video advertising files to match screen requirements."
+              },
+              {
+                "label": "Campaign Scheduling:",
+                "text": "Coordination of booking periods, creative rotations, and available playback specifications."
+              },
+              {
+                "label": "Monitoring:",
+                "text": "Follow-up on campaign execution and available proof-of-play records."
+              }
+            ]
+          },
+          {
+            "heading": "When Is DOOH Suitable?",
+            "items": [
+              {
+                "text": "DOOH is useful for product launches, promotions, brand-awareness campaigns, and brands that need flexible creative formats. The appropriate screen depends on geography, audience context, screen orientation, playback schedule, and campaign budget."
+              }
+            ]
+          },
+          {
+            "heading": "Our DOOH Campaign Process",
+            "items": [
+              {
+                "label": "Brief & Audience:",
+                "text": "Define the campaign geography and communication objective."
+              },
+              {
+                "label": "Screen Selection:",
+                "text": "Compare available screens, specifications, and prices."
+              },
+              {
+                "label": "Creative Preparation:",
+                "text": "Adapt files to the approved technical requirements."
+              },
+              {
+                "label": "Launch & Monitoring:",
+                "text": "Coordinate playback and follow-up."
+              }
+            ]
+          },
+          {
+            "heading": "Frequently Asked Questions",
+            "items": [
+              {
+                "label": "What is the difference between OOH and DOOH?",
+                "text": "OOH includes traditional outdoor advertising formats. DOOH specifically uses digital screens that display electronic content."
+              },
+              {
+                "label": "Can digital billboards display video?",
+                "text": "Many digital screens support video, but permitted formats, durations, and file specifications vary by location."
+              },
+              {
+                "label": "Can advertisements be changed during a campaign?",
+                "text": "Creative changes may be possible depending on the screen operator's approval process, technical requirements, and scheduling terms."
+              }
+            ]
+          }
+        ],
+        "card": "Digital billboard and screen advertising with campaign planning and scheduling."
+      },
+      "ar": {
+        "title": "إعلانات الشاشات الرقمية وDOOH في مصر",
+        "description": "إعلانات الشاشات الرقمية وتأجير شاشات الطرق في القاهرة ومصر، مع تخطيط حملات DOOH وتجهيز المحتوى والحجز.",
+        "heading": "إعلانات الشاشات الرقمية وDOOH في مصر",
+        "intro": "اعرض علامتك التجارية على الشاشات الإعلانية الرقمية في مواقع مختارة داخل مصر. تساعد Horizon OOH الشركات على تخطيط حملات DOOH واختيار الشاشات المتاحة وتجهيز المحتوى الإعلاني وتنسيق مواعيد العرض وفقًا لأهداف الحملة.",
+        "cta": {
+          "heading": "ابدأ حملتك على الشاشات الرقمية",
+          "description": "اكتشف الشاشات المتاحة واطلب خطة تناسب ميزانية وأهداف حملتك.",
+          "button": "استفسر عن الشاشات المتاحة"
+        },
+        "sections": [
+          {
+            "heading": "ما هي إعلانات DOOH؟",
+            "items": [
+              {
+                "text": "إعلانات Digital Out-of-Home هي إعلانات تُعرض على شاشات رقمية في الطرق والأماكن التجارية والعامة. وتتيح بعض الشاشات عرض أكثر من نسخة إعلانية أو جدولة المحتوى، بحسب إمكانيات كل شاشة وشروط تشغيلها."
+              }
+            ]
+          },
+          {
+            "heading": "حلول الإعلانات الرقمية",
+            "items": [
+              {
+                "label": "شاشات الطرق:",
+                "text": "مساحات إعلانية رقمية على المحاور والطرق المتاحة."
+              },
+              {
+                "label": "الشاشات التجارية:",
+                "text": "شاشات داخل المواقع التجارية والأماكن المسموح بالإعلان فيها."
+              },
+              {
+                "label": "تجهيز المحتوى:",
+                "text": "تعديل الصور والفيديوهات لتناسب مواصفات الشاشات."
+              },
+              {
+                "label": "جدولة الحملات:",
+                "text": "تنسيق مدد الحجز ومواعيد العرض ودورات تشغيل المحتوى."
+              },
+              {
+                "label": "المتابعة:",
+                "text": "متابعة التشغيل ومراجعة إثباتات العرض المتاحة."
+              }
+            ]
+          },
+          {
+            "heading": "متى تكون الشاشات الرقمية مناسبة؟",
+            "items": [
+              {
+                "text": "تناسب الشاشات الرقمية إطلاق المنتجات والعروض الترويجية وحملات زيادة الوعي بالعلامة التجارية، خصوصًا عندما يحتاج المعلن إلى محتوى مرئي متغير أو أكثر من نسخة إعلانية."
+              }
+            ]
+          },
+          {
+            "heading": "مراحل تنفيذ حملة DOOH",
+            "items": [
+              {
+                "label": "تحديد الهدف:",
+                "text": "معرفة الجمهور والمناطق المطلوبة."
+              },
+              {
+                "label": "اختيار الشاشات:",
+                "text": "مراجعة المواقع والمواصفات والأسعار."
+              },
+              {
+                "label": "تجهيز الإعلان:",
+                "text": "إعداد الملفات وفقًا للمقاسات والمتطلبات الفنية."
+              },
+              {
+                "label": "التشغيل والمتابعة:",
+                "text": "تنسيق عرض الحملة ومتابعة التنفيذ."
+              }
+            ]
+          },
+          {
+            "heading": "الأسئلة الشائعة",
+            "items": [
+              {
+                "label": "ما الفرق بين OOH وDOOH؟",
+                "text": "تشمل OOH الإعلانات الخارجية بمختلف أنواعها، بينما تعتمد DOOH على شاشات رقمية لعرض المحتوى."
+              },
+              {
+                "label": "هل يمكن تشغيل فيديو على الشاشات؟",
+                "text": "تدعم شاشات كثيرة الفيديو، لكن المواصفات والمدد المسموحة تختلف حسب الموقع."
+              },
+              {
+                "label": "هل يمكن تغيير الإعلان أثناء الحملة؟",
+                "text": "يعتمد ذلك على موافقات الجهة المشغلة والمواصفات الفنية وشروط الحجز."
+              }
+            ]
+          }
+        ],
+        "card": "إعلانات الشاشات الرقمية مع تخطيط الحملات وتنسيق مواعيد العرض."
+      },
+      "related": [
+        "billboard-advertising-in-egypt",
+        "outdoor-media-planning-buying",
+        "commercial-video-production"
+      ]
+    },
+    "event-management-brand-activations": {
+      "en": {
+        "title": "Event Management & Brand Activations Egypt | Horizon OOH",
+        "description": "Corporate event management, brand activation, product launches and event production services in Egypt.",
+        "heading": "Event Management & Brand Activations in Egypt",
+        "intro": "Create meaningful brand experiences through professionally planned events and promotional activations. Horizon OOH supports companies in developing event concepts, coordinating production, managing suppliers, and executing brand experiences for corporate events, product launches, exhibitions, and retail activations across Egypt.",
+        "cta": {
+          "heading": "Plan an Event That Represents Your Brand",
+          "description": "Share your event brief and let us discuss the production and coordination requirements.",
+          "button": "Request an Event Proposal"
+        },
+        "sections": [
+          {
+            "heading": "Events That Support Business Objectives",
+            "items": [
+              {
+                "text": "A successful event combines creative presentation with practical planning. From guest experience and venue requirements to branding and production schedules, each element should support the event's purpose and the audience attending."
+              }
+            ]
+          },
+          {
+            "heading": "Our Event Management Services",
+            "items": [
+              {
+                "label": "Corporate Events:",
+                "text": "Planning and coordination for business gatherings, company announcements, and branded occasions."
+              },
+              {
+                "label": "Product Launches:",
+                "text": "Concepts and execution support for introducing products or services."
+              },
+              {
+                "label": "Brand Activations:",
+                "text": "Promotional experiences designed to encourage direct audience interaction."
+              },
+              {
+                "label": "Event Branding:",
+                "text": "Backdrops, display structures, signage, presentation areas, and visual communication."
+              },
+              {
+                "label": "Operational Coordination:",
+                "text": "Supplier management, production schedules, venue requirements, and event-day follow-up."
+              }
+            ]
+          },
+          {
+            "heading": "Who Is This Service For?",
+            "items": [
+              {
+                "text": "Our event solutions can support corporate marketing teams, retailers, consumer brands, property developers, and businesses planning customer-facing or internal events."
+              }
+            ]
+          },
+          {
+            "heading": "Our Event Management Process",
+            "items": [
+              {
+                "label": "Event Brief:",
+                "text": "Confirm objectives, audience, location, and budget."
+              },
+              {
+                "label": "Concept & Planning:",
+                "text": "Define the event format, visual direction, and execution requirements."
+              },
+              {
+                "label": "Production Coordination:",
+                "text": "Organize the agreed suppliers, branding, and setup."
+              },
+              {
+                "label": "Event Execution:",
+                "text": "Coordinate delivery and on-site operations."
+              }
+            ]
+          },
+          {
+            "heading": "Frequently Asked Questions",
+            "items": [
+              {
+                "label": "What types of events can you support?",
+                "text": "Services can cover corporate events, brand activations, product launches, and promotional experiences according to the agreed project scope."
+              },
+              {
+                "label": "Can event management include booth production?",
+                "text": "Yes. Booths, branded counters, backdrops, and promotional displays can form part of an event production brief."
+              },
+              {
+                "label": "How do I request an event quotation?",
+                "text": "Share the event type, location, expected audience, proposed date, budget, and required production elements."
+              }
+            ]
+          }
+        ],
+        "card": "Corporate events, product launches, brand activations, and event production."
+      },
+      "ar": {
+        "title": "تنظيم الفعاليات وتنشيط العلامات التجارية في مصر",
+        "description": "خدمات تنظيم الفعاليات والمؤتمرات وإطلاق المنتجات وحملات تنشيط العلامات التجارية في مصر مع Horizon OOH.",
+        "heading": "تنظيم الفعاليات وحملات تنشيط العلامات التجارية في مصر",
+        "intro": "اصنع تجربة تعبر عن علامتك التجارية من خلال تنظيم الفعاليات والأنشطة الترويجية. تساعد Horizon OOH الشركات على تطوير أفكار الفعاليات وتنسيق الإنتاج وإدارة الموردين وتنفيذ إطلاق المنتجات والفعاليات المؤسسية والحملات التفاعلية داخل مصر.",
+        "cta": {
+          "heading": "خطّط لفعالية تعبر عن علامتك التجارية",
+          "description": "شاركنا تفاصيل الفعالية لمناقشة متطلبات التنظيم والإنتاج.",
+          "button": "اطلب عرض تنظيم فعالية"
+        },
+        "sections": [
+          {
+            "heading": "فعاليات تخدم أهداف علامتك التجارية",
+            "items": [
+              {
+                "text": "يجمع تنظيم الفعاليات الناجح بين الفكرة الإبداعية والتخطيط التشغيلي. فمن تجربة الضيوف إلى تجهيز الموقع والبراندينج ومواعيد التنفيذ، يجب أن تخدم جميع العناصر هدف الفعالية والجمهور المستهدف."
+              }
+            ]
+          },
+          {
+            "heading": "خدمات تنظيم الفعاليات",
+            "items": [
+              {
+                "label": "فعاليات الشركات:",
+                "text": "تنسيق الاجتماعات والاحتفالات والأنشطة المؤسسية."
+              },
+              {
+                "label": "إطلاق المنتجات:",
+                "text": "تخطيط الفكرة وتجهيز متطلبات تقديم المنتجات والخدمات."
+              },
+              {
+                "label": "Brand Activations:",
+                "text": "أنشطة ترويجية تتيح للجمهور التفاعل المباشر مع العلامة التجارية."
+              },
+              {
+                "label": "براندينج الفعاليات:",
+                "text": "تصميم وتجهيز الخلفيات واللوحات والستاندات ومساحات العرض."
+              },
+              {
+                "label": "التنسيق التشغيلي:",
+                "text": "إدارة الموردين والجداول والتجهيزات والمتابعة أثناء التنفيذ."
+              }
+            ]
+          },
+          {
+            "heading": "لمن تناسب خدماتنا؟",
+            "items": [
+              {
+                "text": "تناسب خدماتنا فرق التسويق والشركات والمتاجر والعلامات التجارية والمطورين العقاريين والجهات التي تخطط لفعاليات للعملاء أو الموظفين."
+              }
+            ]
+          },
+          {
+            "heading": "مراحل إدارة الفعالية",
+            "items": [
+              {
+                "label": "استلام البريف:",
+                "text": "تحديد الهدف والجمهور والمكان والميزانية."
+              },
+              {
+                "label": "التخطيط:",
+                "text": "وضع الفكرة والمتطلبات التشغيلية."
+              },
+              {
+                "label": "تنسيق الإنتاج:",
+                "text": "تجهيز الموردين والمواد والبراندينج."
+              },
+              {
+                "label": "التنفيذ:",
+                "text": "متابعة تجهيز الموقع وإدارة عمليات الفعالية."
+              }
+            ]
+          },
+          {
+            "heading": "الأسئلة الشائعة",
+            "items": [
+              {
+                "label": "ما أنواع الفعاليات التي يمكن تنظيمها؟",
+                "text": "تشمل الخدمات حسب نطاق المشروع فعاليات الشركات وإطلاق المنتجات والأنشطة الترويجية."
+              },
+              {
+                "label": "هل يمكن تنفيذ بوثات ضمن الفعالية؟",
+                "text": "نعم، يمكن إدراج البوثات والكاونترات والخلفيات الإعلانية ضمن متطلبات الإنتاج."
+              },
+              {
+                "label": "ما المعلومات المطلوبة لعرض السعر؟",
+                "text": "نوع الفعالية والموقع والتاريخ والعدد المتوقع للحضور والميزانية والتجهيزات."
+              }
+            ]
+          }
+        ],
+        "card": "تنظيم فعاليات الشركات وإطلاق المنتجات وحملات تنشيط العلامات التجارية."
+      },
+      "related": [
+        "booth-activation-production",
+        "pr-communication-services",
+        "commercial-video-production"
+      ]
+    },
+    "in-flight-advertising": {
+      "en": {
+        "title": "In-Flight & Airline Advertising in Egypt | Horizon OOH",
+        "description": "Explore in-flight advertising and airline media opportunities for brands targeting travelers, subject to available routes and media inventory.",
+        "heading": "In-Flight & Airline Advertising Opportunities",
+        "intro": "Reach travelers through airline advertising opportunities tailored to your campaign objectives. Horizon OOH helps brands explore available in-flight media, compare advertising formats, and coordinate bookings and creative requirements with the relevant media providers.",
+        "cta": {
+          "heading": "Explore Airline Advertising Options",
+          "description": "Tell us your target audience, routes, and dates to request available media opportunities.",
+          "button": "Request In-Flight Media Options"
+        },
+        "sections": [
+          {
+            "heading": "Advertising During the Travel Experience",
+            "items": [
+              {
+                "text": "In-flight advertising allows brands to communicate with passengers during their travel journey. Available formats depend on the airline, route, aircraft, media operator, and advertising approvals."
+              }
+            ]
+          },
+          {
+            "heading": "Airline Media Opportunities",
+            "items": [
+              {
+                "label": "In-Flight Print Media:",
+                "text": "Advertising opportunities in approved onboard publications where offered."
+              },
+              {
+                "label": "In-Flight Entertainment Media:",
+                "text": "Video or digital placements where supported by the airline and available inventory."
+              },
+              {
+                "label": "Onboard Branding:",
+                "text": "Other approved passenger-facing formats, subject to operator requirements."
+              },
+              {
+                "label": "Media Planning:",
+                "text": "Compare relevant routes, audience contexts, booking periods, and creative specifications."
+              }
+            ]
+          },
+          {
+            "heading": "Who Can Benefit from Airline Advertising?",
+            "items": [
+              {
+                "text": "Airline media can be relevant for tourism destinations, hotels, travel services, financial brands, telecommunications, and international consumer products. Format and route selection should reflect the intended passenger audience."
+              }
+            ]
+          },
+          {
+            "heading": "Our Booking Process",
+            "items": [
+              {
+                "label": "Audience & Route Brief:",
+                "text": "Establish target markets and campaign dates."
+              },
+              {
+                "label": "Availability Review:",
+                "text": "Identify relevant media options."
+              },
+              {
+                "label": "Creative Approval:",
+                "text": "Prepare materials according to operator specifications."
+              },
+              {
+                "label": "Booking Coordination:",
+                "text": "Confirm the selected placement and schedule."
+              }
+            ]
+          },
+          {
+            "heading": "Frequently Asked Questions",
+            "items": [
+              {
+                "label": "Which airlines are available for advertising?",
+                "text": "Airline and route availability must be confirmed for the requested campaign period."
+              },
+              {
+                "label": "Can video advertisements be shown in-flight?",
+                "text": "This depends on the airline's entertainment system, approved inventory, and technical specifications."
+              },
+              {
+                "label": "How are airline media rates determined?",
+                "text": "Prices depend on the operator, selected format, route coverage, timing, and duration."
+              }
+            ]
+          }
+        ],
+        "card": "Airline advertising opportunities and available in-flight media formats."
+      },
+      "ar": {
+        "title": "إعلانات الطائرات وشركات الطيران | Horizon OOH",
+        "description": "استكشف فرص الإعلانات داخل الطائرات والوسائط الإعلامية لشركات الطيران حسب الخطوط المتاحة ومتطلبات الحجز.",
+        "heading": "إعلانات الطائرات ووسائل الإعلان داخل الرحلات الجوية",
+        "intro": "وصّل رسالتك الإعلانية إلى المسافرين من خلال فرص الإعلان داخل الطائرات ووسائل الإعلام التابعة لشركات الطيران. تساعد Horizon OOH العلامات التجارية على استكشاف الوسائط المتاحة وتنسيق الحجز وتجهيز المواد الإعلانية وفقًا لمتطلبات كل مشغّل.",
+        "cta": {
+          "heading": "اكتشف فرص الإعلان داخل الطائرات",
+          "description": "شاركنا الجمهور والوجهات والتواريخ المطلوبة لمعرفة الخيارات المتاحة.",
+          "button": "استفسر عن إعلانات الطائرات"
+        },
+        "sections": [
+          {
+            "heading": "الوصول إلى الجمهور أثناء السفر",
+            "items": [
+              {
+                "text": "تتيح الإعلانات داخل الطائرات فرصًا للتواصل مع الركاب خلال الرحلة. وتختلف الوسائط المتاحة حسب شركة الطيران والوجهات والطائرات وموافقات التشغيل."
+              }
+            ]
+          },
+          {
+            "heading": "خيارات إعلانات الطائرات",
+            "items": [
+              {
+                "label": "المطبوعات داخل الطائرة:",
+                "text": "فرص الإعلان في المجلات والمطبوعات المعتمدة متى كانت متاحة."
+              },
+              {
+                "label": "شاشات الترفيه:",
+                "text": "عرض محتوى مرئي على أنظمة الترفيه التي تدعم الإعلانات."
+              },
+              {
+                "label": "البراندينج داخل الطائرة:",
+                "text": "صيغ دعائية أخرى وفقًا لموافقات شركة الطيران."
+              },
+              {
+                "label": "التخطيط الإعلامي:",
+                "text": "دراسة خطوط الطيران والجمهور والمواعيد والمواصفات الفنية."
+              }
+            ]
+          },
+          {
+            "heading": "العلامات التجارية المناسبة",
+            "items": [
+              {
+                "text": "قد تناسب هذه الإعلانات الوجهات السياحية والفنادق والخدمات المالية والاتصالات والعلامات الدولية التي تستهدف المسافرين."
+              }
+            ]
+          },
+          {
+            "heading": "مراحل الحجز",
+            "items": [
+              {
+                "label": "تحديد الجمهور:",
+                "text": "معرفة الأسواق والخطوط والتواريخ."
+              },
+              {
+                "label": "مراجعة التوافر:",
+                "text": "استكشاف الوسائط الإعلانية المناسبة."
+              },
+              {
+                "label": "اعتماد المحتوى:",
+                "text": "تجهيز المواد وفقًا للمواصفات."
+              },
+              {
+                "label": "تأكيد الحجز:",
+                "text": "تنسيق المساحات والمواعيد المعتمدة."
+              }
+            ]
+          },
+          {
+            "heading": "الأسئلة الشائعة",
+            "items": [
+              {
+                "label": "ما شركات الطيران المتاحة للإعلان؟",
+                "text": "يتم تأكيد الشركات والخطوط المتاحة حسب فترة الحملة المطلوبة."
+              },
+              {
+                "label": "هل يمكن عرض فيديو داخل الطائرة؟",
+                "text": "يعتمد ذلك على نظام الترفيه والوسائط الإعلانية المتاحة لدى شركة الطيران."
+              },
+              {
+                "label": "كيف يتم تحديد الأسعار؟",
+                "text": "تختلف الأسعار حسب الشركة والخطوط والصيغة الإعلانية ومدة الحملة."
+              }
+            ]
+          }
+        ],
+        "card": "فرص الإعلان داخل الطائرات عبر الوسائط الإعلانية المتاحة."
+      },
+      "related": [
+        "airport-advertising-in-egypt",
+        "ad-airing-media-distribution",
+        "outdoor-media-planning-buying"
+      ]
+    },
+    "mall-advertising": {
+      "en": {
+        "title": "Mall & Shopping Center Advertising in Egypt | Horizon OOH",
+        "description": "Explore shopping mall advertising in Egypt, including digital screens, indoor branding spaces, promotional kiosks and mall activations.",
+        "heading": "Mall Advertising & Retail Media in Egypt",
+        "intro": "Connect your brand with shoppers through advertising opportunities inside shopping malls and retail environments across Egypt. Horizon OOH helps businesses explore available mall media spaces, plan promotional activities, and coordinate advertising campaigns that align with shopper journeys and retail objectives.",
+        "cta": {
+          "heading": "Reach Customers Where They Shop",
+          "description": "Explore mall advertising spaces and promotional opportunities for your brand.",
+          "button": "Request Mall Advertising Options"
+        },
+        "sections": [
+          {
+            "heading": "Reach Audiences in Shopping Environments",
+            "items": [
+              {
+                "text": "Mall advertising places brand messages in environments where visitors browse, shop, dine, and spend leisure time. Different locations within a shopping center support different objectives, making placement selection an important part of campaign planning."
+              }
+            ]
+          },
+          {
+            "heading": "Mall Advertising Formats",
+            "items": [
+              {
+                "label": "Digital Screens:",
+                "text": "Advertising on available indoor digital media screens."
+              },
+              {
+                "label": "Indoor Branding:",
+                "text": "Approved advertising panels, displays, and other branded surfaces."
+              },
+              {
+                "label": "Promotional Booths:",
+                "text": "Temporary kiosks and interactive activation spaces where permitted."
+              },
+              {
+                "label": "Retail Campaign Coordination:",
+                "text": "Support with creative specifications, approval requirements, production, and placement schedules."
+              }
+            ]
+          },
+          {
+            "heading": "Suitable Campaigns",
+            "items": [
+              {
+                "text": "Mall advertising can support retail launches, fashion and beauty brands, electronics, consumer products, banking services, and seasonal promotions. The right format depends on the desired shopper audience and available inventory."
+              }
+            ]
+          },
+          {
+            "heading": "Our Mall Advertising Process",
+            "items": [
+              {
+                "label": "Campaign Brief:",
+                "text": "Define target customers, malls, and campaign period."
+              },
+              {
+                "label": "Inventory Selection:",
+                "text": "Review available advertising positions and formats."
+              },
+              {
+                "label": "Approvals & Production:",
+                "text": "Coordinate artwork, technical requirements, and venue approvals."
+              },
+              {
+                "label": "Execution:",
+                "text": "Arrange placement and campaign follow-up."
+              }
+            ]
+          },
+          {
+            "heading": "Frequently Asked Questions",
+            "items": [
+              {
+                "label": "What advertising formats are available inside malls?",
+                "text": "Depending on the mall, options may include digital screens, display panels, branding spaces, and promotional kiosks."
+              },
+              {
+                "label": "Can I run a promotional activation inside a mall?",
+                "text": "Activation opportunities depend on the venue's availability, permitted activities, and approval requirements."
+              },
+              {
+                "label": "What affects mall advertising prices?",
+                "text": "Costs vary by mall, placement, format, size, booking period, and production requirements."
+              }
+            ]
+          }
+        ],
+        "card": "Mall screens, indoor advertising spaces, and promotional activation opportunities."
+      },
+      "ar": {
+        "title": "إعلانات المولات ومراكز التسوق في مصر",
+        "description": "فرص الإعلانات داخل المولات في مصر، بما فيها الشاشات الرقمية والمساحات الدعائية والبوثات الترويجية.",
+        "heading": "إعلانات المولات ومراكز التسوق في مصر",
+        "intro": "اعرض علامتك التجارية أمام المتسوقين من خلال المساحات الإعلانية داخل المولات ومراكز التسوق في مصر. تساعد Horizon OOH الشركات على اختيار مواقع الإعلان المناسبة وتخطيط الأنشطة الترويجية وتنسيق الحملات داخل البيئات التجارية.",
+        "cta": {
+          "heading": "اعرض علامتك التجارية داخل المولات",
+          "description": "اكتشف المساحات الإعلانية والأنشطة الترويجية المتاحة.",
+          "button": "اطلب خيارات إعلانات المولات"
+        },
+        "sections": [
+          {
+            "heading": "الوصول إلى الجمهور داخل المولات",
+            "items": [
+              {
+                "text": "توفر المولات فرصًا للتواصل مع الزوار أثناء التسوق والترفيه وتناول الطعام. ويختلف تأثير كل موقع حسب مكانه داخل المول وطبيعة حركة الزوار، لذلك يعتبر اختيار المساحة المناسبة جزءًا أساسيًا من التخطيط."
+              }
+            ]
+          },
+          {
+            "heading": "أنواع إعلانات المولات",
+            "items": [
+              {
+                "label": "الشاشات الرقمية:",
+                "text": "عرض الإعلانات على الشاشات الداخلية المتاحة."
+              },
+              {
+                "label": "مساحات البراندينج:",
+                "text": "لوحات ووحدات دعائية داخل المواقع المسموح بها."
+              },
+              {
+                "label": "البوثات الترويجية:",
+                "text": "أكشاك مؤقتة ومساحات للتفاعل مع الزوار وفقًا لموافقات المول."
+              },
+              {
+                "label": "تنسيق الحملات:",
+                "text": "تجهيز المواد والمواصفات الفنية ومتابعة الموافقات ومواعيد التشغيل."
+              }
+            ]
+          },
+          {
+            "heading": "حملات مناسبة لإعلانات المولات",
+            "items": [
+              {
+                "text": "تناسب إعلانات المولات المتاجر والأزياء ومستحضرات التجميل والإلكترونيات والمنتجات الاستهلاكية والخدمات البنكية والعروض الموسمية."
+              }
+            ]
+          },
+          {
+            "heading": "مراحل تنفيذ الحملة",
+            "items": [
+              {
+                "label": "تحديد الاحتياجات:",
+                "text": "اختيار الجمهور والمولات والمدة."
+              },
+              {
+                "label": "اختيار المساحات:",
+                "text": "مراجعة المواقع والصيغ المتاحة."
+              },
+              {
+                "label": "الموافقات والإنتاج:",
+                "text": "تجهيز المواد وتنسيق متطلبات المول."
+              },
+              {
+                "label": "التنفيذ:",
+                "text": "متابعة التركيب وتشغيل الحملة."
+              }
+            ]
+          },
+          {
+            "heading": "الأسئلة الشائعة",
+            "items": [
+              {
+                "label": "ما أنواع الإعلانات المتاحة داخل المولات؟",
+                "text": "تختلف حسب المول، وقد تشمل الشاشات الرقمية واللوحات ومساحات البراندينج والبوثات."
+              },
+              {
+                "label": "هل يمكن تنظيم نشاط ترويجي داخل المول؟",
+                "text": "يعتمد ذلك على المساحات المسموح بها والتوافر وموافقات إدارة المول."
+              },
+              {
+                "label": "ما العوامل التي تحدد الأسعار؟",
+                "text": "نوع المول وموقع الإعلان والمقاس ومدة الحجز ومتطلبات التنفيذ."
+              }
+            ]
+          }
+        ],
+        "card": "شاشات المولات والمساحات الدعائية والبوثات والأنشطة الترويجية."
+      },
+      "related": [
+        "booth-activation-production",
+        "event-management-brand-activations",
+        "dooh-advertising-in-egypt"
+      ]
+    },
+    "on-screen-cinema-advertising": {
+      "en": {
+        "title": "Cinema & On-Screen Advertising in Egypt | Horizon OOH",
+        "description": "Advertise before movie screenings with cinema advertising in Egypt. Explore cinema media planning, video requirements and booking options.",
+        "heading": "Cinema Advertising in Egypt",
+        "intro": "Present your brand on the cinema screen through advertising placements scheduled around movie screenings. Horizon OOH helps businesses explore cinema advertising options, plan campaign coverage, prepare commercial materials, and coordinate bookings according to available cinema inventory.",
+        "cta": {
+          "heading": "Put Your Brand on the Big Screen",
+          "description": "Request available cinema advertising locations, packages, and booking requirements.",
+          "button": "Request Cinema Advertising Rates"
+        },
+        "sections": [
+          {
+            "heading": "Advertising Before the Film",
+            "items": [
+              {
+                "text": "On-screen cinema advertising places video messages within an entertainment environment. Campaign planning should consider the cinema locations, screening schedules, audience context, approved creative duration, and technical playback requirements."
+              }
+            ]
+          },
+          {
+            "heading": "Our Cinema Advertising Services",
+            "items": [
+              {
+                "label": "On-Screen Commercials:",
+                "text": "Coordinate advertising placements within approved cinema advertising slots."
+              },
+              {
+                "label": "Cinema Media Planning:",
+                "text": "Compare available theaters, locations, campaign schedules, and booking periods."
+              },
+              {
+                "label": "Creative Preparation:",
+                "text": "Adapt video commercials to the cinema operator's required specifications."
+              },
+              {
+                "label": "Booking Coordination:",
+                "text": "Manage commercial proposals, creative submission, and confirmation requirements."
+              }
+            ]
+          },
+          {
+            "heading": "Suitable Campaigns",
+            "items": [
+              {
+                "text": "Cinema advertising can support entertainment releases, consumer brands, retail campaigns, telecom services, financial products, and product launches targeting cinema audiences."
+              }
+            ]
+          },
+          {
+            "heading": "Our Cinema Advertising Process",
+            "items": [
+              {
+                "label": "Campaign Brief:",
+                "text": "Identify target locations, dates, and audience."
+              },
+              {
+                "label": "Cinema Selection:",
+                "text": "Review available theaters and advertising packages."
+              },
+              {
+                "label": "Creative Approval:",
+                "text": "Confirm video specifications and submission deadlines."
+              },
+              {
+                "label": "Booking & Follow-Up:",
+                "text": "Coordinate the approved schedule."
+              }
+            ]
+          },
+          {
+            "heading": "Frequently Asked Questions",
+            "items": [
+              {
+                "label": "When are cinema advertisements displayed?",
+                "text": "On-screen advertising is generally scheduled before film screenings according to the cinema operator's approved advertising arrangement."
+              },
+              {
+                "label": "Can I choose specific cinema locations?",
+                "text": "Location selection depends on available inventory and the commercial packages offered for the campaign dates."
+              },
+              {
+                "label": "What video format is required?",
+                "text": "Final technical specifications must be confirmed with the relevant cinema operator before delivery."
+              }
+            ]
+          }
+        ],
+        "card": "On-screen commercial placements and cinema advertising campaign coordination."
+      },
+      "ar": {
+        "title": "إعلانات السينما في مصر | حجز إعلانات شاشات السينما",
+        "description": "خدمات الإعلان على شاشات السينما في مصر قبل عرض الأفلام، مع تخطيط الحملات وتجهيز الفيديو والحجز.",
+        "heading": "إعلانات السينما وشاشات العرض في مصر",
+        "intro": "اعرض رسالتك الإعلانية على شاشة السينما قبل بداية الفيلم من خلال فرص الإعلان المتاحة داخل دور العرض. تساعد Horizon OOH العلامات التجارية على اختيار المواقع المناسبة وتنسيق حجز الإعلانات وتجهيز الفيديوهات وفقًا للمتطلبات الفنية.",
+        "cta": {
+          "heading": "اعرض علامتك التجارية على شاشة السينما",
+          "description": "اطلب المواقع والباقات والمتطلبات الفنية المتاحة.",
+          "button": "استفسر عن أسعار إعلانات السينما"
+        },
+        "sections": [
+          {
+            "heading": "الإعلان قبل عروض الأفلام",
+            "items": [
+              {
+                "text": "تتيح إعلانات السينما تقديم محتوى مرئي للجمهور داخل بيئة ترفيهية. ويعتمد التخطيط على مواقع دور العرض ومواعيد التشغيل ومدة الإعلان والمواصفات الفنية المعتمدة."
+              }
+            ]
+          },
+          {
+            "heading": "خدمات إعلانات السينما",
+            "items": [
+              {
+                "label": "الإعلانات على الشاشة:",
+                "text": "تنسيق عرض الإعلانات ضمن المساحات المعتمدة قبل الأفلام."
+              },
+              {
+                "label": "التخطيط الإعلامي:",
+                "text": "مقارنة دور السينما والمواقع والبرامج والفترات المتاحة."
+              },
+              {
+                "label": "تجهيز الفيديو:",
+                "text": "إعداد الملفات لتناسب متطلبات مشغّل السينما."
+              },
+              {
+                "label": "الحجز والتنسيق:",
+                "text": "متابعة عروض الأسعار وتسليم المواد وتأكيد المواعيد."
+              }
+            ]
+          },
+          {
+            "heading": "حملات مناسبة للسينما",
+            "items": [
+              {
+                "text": "تناسب إعلانات السينما إطلاق المنتجات والحملات الاستهلاكية والعروض الترفيهية والخدمات والعلامات التجارية التي تستهدف جمهور دور العرض."
+              }
+            ]
+          },
+          {
+            "heading": "مراحل الحملة",
+            "items": [
+              {
+                "label": "تحديد الهدف:",
+                "text": "اختيار الجمهور والمناطق والتواريخ."
+              },
+              {
+                "label": "اختيار دور العرض:",
+                "text": "مراجعة المواقع والباقات المتاحة."
+              },
+              {
+                "label": "اعتماد الفيديو:",
+                "text": "تأكيد المواصفات والمواعيد."
+              },
+              {
+                "label": "الحجز والمتابعة:",
+                "text": "تنسيق تشغيل الإعلان."
+              }
+            ]
+          },
+          {
+            "heading": "الأسئلة الشائعة",
+            "items": [
+              {
+                "label": "إمتى بيتم عرض الإعلانات داخل السينما؟",
+                "text": "عادةً تُعرض ضمن الفترات الإعلانية المعتمدة قبل بداية الأفلام."
+              },
+              {
+                "label": "هل يمكن اختيار دور سينما محددة؟",
+                "text": "يعتمد ذلك على المواقع والباقات المتاحة في فترة الحملة."
+              },
+              {
+                "label": "ما مواصفات الفيديو المطلوبة؟",
+                "text": "يتم تحديد المواصفات النهائية وفقًا لاشتراطات مشغّل السينما."
+              }
+            ]
+          }
+        ],
+        "card": "حجز الإعلانات على شاشات السينما وتنسيق حملات العرض."
+      },
+      "related": [
+        "commercial-video-production",
+        "ad-airing-media-distribution",
+        "outdoor-media-planning-buying"
+      ]
+    },
+    "outdoor-media-planning-buying": {
+      "en": {
+        "title": "Outdoor Media Planning & Buying Egypt | Horizon OOH",
+        "description": "Strategic OOH media planning and billboard buying in Egypt. Compare outdoor advertising locations, formats and campaign budgets.",
+        "heading": "Outdoor Media Planning & Buying in Egypt",
+        "intro": "Make informed decisions about your outdoor advertising investment. Horizon OOH provides media planning and buying support for brands that need to select billboard locations, compare OOH formats, allocate budgets, and coordinate campaigns across strategic locations in Egypt.",
+        "cta": {
+          "heading": "Build a Smarter OOH Media Plan",
+          "description": "Share your campaign brief to explore location strategies and budget options.",
+          "button": "Request an OOH Media Plan"
+        },
+        "sections": [
+          {
+            "heading": "Build an Outdoor Campaign Around Your Objectives",
+            "items": [
+              {
+                "text": "Effective media planning starts with the audience, not the billboard. The right plan considers the markets you need to cover, the routes your audience uses, the formats that communicate your message, and the budget available for the campaign."
+              }
+            ]
+          },
+          {
+            "heading": "Our Outdoor Media Buying Services",
+            "items": [
+              {
+                "label": "Geographical Planning:",
+                "text": "Identify priority cities, districts, and traffic corridors."
+              },
+              {
+                "label": "Media Format Selection:",
+                "text": "Compare static billboards, digital screens, and other suitable outdoor formats."
+              },
+              {
+                "label": "Location Evaluation:",
+                "text": "Review site photographs, dimensions, visibility, viewing direction, and commercial terms."
+              },
+              {
+                "label": "Budget Allocation:",
+                "text": "Organize available options into a campaign proposal that balances coverage and investment."
+              },
+              {
+                "label": "Supplier & Execution Coordination:",
+                "text": "Coordinate bookings, production requirements, campaign launches, and available monitoring."
+              }
+            ]
+          },
+          {
+            "heading": "Who Needs OOH Media Planning?",
+            "items": [
+              {
+                "text": "Media planning is particularly useful for brands expanding into new markets, running campaigns across several cities, launching products, or working within a defined advertising budget."
+              }
+            ]
+          },
+          {
+            "heading": "Our Planning Process",
+            "items": [
+              {
+                "label": "Brief Analysis:",
+                "text": "Review audience, markets, timing, and budget."
+              },
+              {
+                "label": "Media Shortlisting:",
+                "text": "Identify relevant formats and locations."
+              },
+              {
+                "label": "Commercial Proposal:",
+                "text": "Present a location-by-location cost breakdown."
+              },
+              {
+                "label": "Campaign Coordination:",
+                "text": "Confirm bookings, materials, and implementation requirements."
+              }
+            ]
+          },
+          {
+            "heading": "Frequently Asked Questions",
+            "items": [
+              {
+                "label": "What is the difference between media planning and billboard booking?",
+                "text": "Media planning determines which placements support the campaign's objectives. Booking secures the selected inventory."
+              },
+              {
+                "label": "Can you provide a location-by-location breakdown?",
+                "text": "A proposal can include available locations, dimensions, formats, rental costs, and relevant production charges."
+              },
+              {
+                "label": "Can a plan include several cities?",
+                "text": "Yes. Multi-city campaigns can be developed based on available inventory and the requested geographical coverage."
+              }
+            ]
+          }
+        ],
+        "card": "Strategic media planning, location selection, billboard booking, and budget allocation."
+      },
+      "ar": {
+        "title": "تخطيط وشراء إعلانات الطرق في مصر | Horizon OOH",
+        "description": "خدمات تخطيط حملات إعلانات الطرق وحجز اللوحات والشاشات الإعلانية في مصر، مع مقارنة المواقع والأسعار والميزانيات.",
+        "heading": "تخطيط الحملات وشراء مساحات إعلانات الطرق في مصر",
+        "intro": "خطط لاستثمارك الإعلاني بوضوح من خلال خدمات تخطيط وشراء المساحات الإعلانية الخارجية. تساعد Horizon OOH الشركات على مقارنة مواقع اللوحات وأنواع الإعلانات وتوزيع الميزانيات وتنسيق الحملات في المناطق والمحاور المناسبة داخل مصر.",
+        "cta": {
+          "heading": "خطّط لحملة إعلانات طرق أقوى",
+          "description": "شاركنا البريف الإعلاني والميزانية للحصول على مقترح مواقع مناسب.",
+          "button": "اطلب ميديا بلان لإعلانات الطرق"
+        },
+        "sections": [
+          {
+            "heading": "خطط لحملتك بناءً على الجمهور المستهدف",
+            "items": [
+              {
+                "text": "يبدأ التخطيط الإعلامي بفهم الجمهور والمناطق المطلوبة، ثم اختيار الطرق والمواقع والمقاسات والصيغ الإعلانية التي تناسب الرسالة والميزانية."
+              }
+            ]
+          },
+          {
+            "heading": "خدمات تخطيط إعلانات الطرق",
+            "items": [
+              {
+                "label": "التخطيط الجغرافي:",
+                "text": "تحديد المدن والمناطق والمحاور ذات الأولوية للحملة."
+              },
+              {
+                "label": "اختيار أنواع الإعلانات:",
+                "text": "مقارنة اللوحات الثابتة والشاشات الرقمية والصيغ الخارجية المناسبة."
+              },
+              {
+                "label": "تقييم المواقع:",
+                "text": "مراجعة الصور والمقاسات واتجاهات الرؤية والأسعار."
+              },
+              {
+                "label": "توزيع الميزانية:",
+                "text": "إعداد مقترح يوازن بين عدد المواقع والتغطية والتكلفة."
+              },
+              {
+                "label": "تنسيق التنفيذ:",
+                "text": "متابعة الحجز والإنتاج والتشغيل والمراقبة حسب نطاق الحملة."
+              }
+            ]
+          },
+          {
+            "heading": "من يحتاج خدمات الميديا بلان؟",
+            "items": [
+              {
+                "text": "تناسب هذه الخدمات الشركات التي تطلق منتجات جديدة أو تتوسع في محافظات مختلفة أو تحتاج إلى خطة إعلانات طرق بميزانية محددة."
+              }
+            ]
+          },
+          {
+            "heading": "خطوات إعداد الميديا بلان",
+            "items": [
+              {
+                "label": "تحليل البريف:",
+                "text": "دراسة الجمهور والمناطق والمدة والميزانية."
+              },
+              {
+                "label": "ترشيح المواقع:",
+                "text": "اختيار الصيغ والمساحات المناسبة."
+              },
+              {
+                "label": "عرض السعر:",
+                "text": "إعداد تفصيل مالي لكل موقع."
+              },
+              {
+                "label": "تنسيق الحملة:",
+                "text": "متابعة الحجز والمواد المطلوبة والتنفيذ."
+              }
+            ]
+          },
+          {
+            "heading": "الأسئلة الشائعة",
+            "items": [
+              {
+                "label": "ما الفرق بين الميديا بلان وحجز اللوحات؟",
+                "text": "الميديا بلان تحدد المواقع المناسبة لتحقيق أهداف الحملة، بينما الحجز يؤكد توافر المساحات المختارة."
+              },
+              {
+                "label": "هل يمكن الحصول على Breakdown لكل موقع؟",
+                "text": "يمكن إعداد عرض يوضح المواقع والمقاسات والأنواع وتكاليف الإيجار والإنتاج ذات الصلة."
+              },
+              {
+                "label": "هل يمكن تنفيذ حملة في أكثر من محافظة؟",
+                "text": "نعم، حسب التغطية المطلوبة والمساحات المتاحة."
+              }
+            ]
+          }
+        ],
+        "card": "تخطيط إعلانات الطرق واختيار المواقع وحجز المساحات وتوزيع الميزانيات."
+      },
+      "related": [
+        "billboard-advertising-in-egypt",
+        "dooh-advertising-in-egypt",
+        "airport-advertising-in-egypt"
+      ]
+    },
+    "pr-communication-services": {
+      "en": {
+        "title": "PR & Corporate Communication Services Egypt | Horizon OOH",
+        "description": "Public relations, corporate communication, media relations and brand messaging services for businesses and campaigns in Egypt.",
+        "heading": "Public Relations & Communication Services in Egypt",
+        "intro": "Communicate your brand's story with greater clarity and consistency through strategic public relations and communication support. Horizon OOH helps businesses organize campaign messaging, prepare media communication materials, and coordinate communication activities around corporate announcements, launches, and promotional campaigns.",
+        "cta": {
+          "heading": "Shape Your Brand's Communication",
+          "description": "Discuss your announcement, campaign, or corporate communication requirements.",
+          "button": "Request a PR Consultation"
+        },
+        "sections": [
+          {
+            "heading": "Communication That Supports Your Brand",
+            "items": [
+              {
+                "text": "Public relations focuses on how an organization communicates with audiences, media, and stakeholders. Effective PR begins with accurate messages, an understanding of the audience, and a coordinated approach to communicating important company developments."
+              }
+            ]
+          },
+          {
+            "heading": "Our Communication Services",
+            "items": [
+              {
+                "label": "PR Planning:",
+                "text": "Develop communication objectives and key messages for specific projects."
+              },
+              {
+                "label": "Media Communication:",
+                "text": "Prepare and coordinate approved media materials and communication requests."
+              },
+              {
+                "label": "Press Releases:",
+                "text": "Write and organize company announcements and campaign-related statements."
+              },
+              {
+                "label": "Corporate Communication:",
+                "text": "Support consistent language across stakeholder and brand communication."
+              },
+              {
+                "label": "Campaign Communication:",
+                "text": "Align PR messaging with events, product launches, and marketing initiatives."
+              }
+            ]
+          },
+          {
+            "heading": "Who Is This Service For?",
+            "items": [
+              {
+                "text": "PR and communication support can benefit companies announcing new services, introducing products, entering new markets, organizing important events, or improving how they communicate their business activities."
+              }
+            ]
+          },
+          {
+            "heading": "Our Communication Process",
+            "items": [
+              {
+                "label": "Brief & Objectives:",
+                "text": "Understand the announcement, audience, and desired message."
+              },
+              {
+                "label": "Message Development:",
+                "text": "Prepare approved talking points and materials."
+              },
+              {
+                "label": "Communication Coordination:",
+                "text": "Plan distribution and relevant communication activities."
+              },
+              {
+                "label": "Follow-Up:",
+                "text": "Review available responses and communication outputs."
+              }
+            ]
+          },
+          {
+            "heading": "Frequently Asked Questions",
+            "items": [
+              {
+                "label": "What is the difference between PR and paid advertising?",
+                "text": "PR focuses on communication and media relationships, while paid advertising involves purchasing placements under agreed commercial terms."
+              },
+              {
+                "label": "Can PR support a product launch?",
+                "text": "Yes. PR planning can help organize launch announcements, supporting messages, and relevant communication materials."
+              },
+              {
+                "label": "Does PR guarantee press coverage?",
+                "text": "Earned media coverage depends on editorial decisions and cannot be guaranteed through PR coordination alone."
+              }
+            ]
+          }
+        ],
+        "card": "Corporate communication, media relations, press releases, and campaign messaging."
+      },
+      "ar": {
+        "title": "خدمات العلاقات العامة والاتصال المؤسسي في مصر",
+        "description": "خدمات العلاقات العامة والاتصال المؤسسي والعلاقات الإعلامية وإعداد البيانات الصحفية للشركات في مصر.",
+        "heading": "خدمات العلاقات العامة والاتصال المؤسسي في مصر",
+        "intro": "قدّم قصة علامتك التجارية بوضوح واحترافية من خلال خدمات العلاقات العامة والتواصل المؤسسي. تساعد Horizon OOH الشركات على تنظيم الرسائل الإعلامية وإعداد المواد الصحفية وتنسيق الأنشطة الاتصالية المرتبطة بإطلاق المنتجات والفعاليات والإعلانات المؤسسية.",
+        "cta": {
+          "heading": "طوّر طريقة تواصل علامتك التجارية",
+          "description": "شاركنا تفاصيل الإعلان أو الحملة أو احتياجات الاتصال المؤسسي.",
+          "button": "اطلب استشارة علاقات عامة"
+        },
+        "sections": [
+          {
+            "heading": "تواصل يعكس هوية علامتك التجارية",
+            "items": [
+              {
+                "text": "تركز العلاقات العامة على طريقة تواصل المؤسسة مع الجمهور ووسائل الإعلام والأطراف المعنية. ويبدأ التواصل الفعّال برسائل دقيقة وفهم واضح للجمهور وطريقة منظمة للإعلان عن أخبار وأنشطة الشركة."
+              }
+            ]
+          },
+          {
+            "heading": "خدمات العلاقات العامة",
+            "items": [
+              {
+                "label": "التخطيط الاتصالي:",
+                "text": "تحديد أهداف التواصل والرسائل الأساسية."
+              },
+              {
+                "label": "العلاقات الإعلامية:",
+                "text": "إعداد وتنسيق المواد والتواصل الإعلامي المناسب."
+              },
+              {
+                "label": "البيانات الصحفية:",
+                "text": "كتابة وتنظيم الأخبار والإعلانات الرسمية للشركات."
+              },
+              {
+                "label": "الاتصال المؤسسي:",
+                "text": "توحيد لغة التواصل مع الجمهور والشركاء."
+              },
+              {
+                "label": "اتصال الحملات:",
+                "text": "تنسيق الرسائل الإعلامية مع الفعاليات وإطلاق المنتجات والأنشطة التسويقية."
+              }
+            ]
+          },
+          {
+            "heading": "من يستفيد من خدماتنا؟",
+            "items": [
+              {
+                "text": "تناسب خدمات العلاقات العامة الشركات التي تعلن عن خدمات أو منتجات جديدة أو تدخل أسواقًا مختلفة أو تنظم فعاليات مهمة أو تحتاج إلى تحسين أسلوب التواصل المؤسسي."
+              }
+            ]
+          },
+          {
+            "heading": "مراحل العمل",
+            "items": [
+              {
+                "label": "فهم الاحتياجات:",
+                "text": "تحديد الخبر والجمهور والرسائل المطلوبة."
+              },
+              {
+                "label": "تطوير الرسائل:",
+                "text": "إعداد المواد والنقاط الرئيسية."
+              },
+              {
+                "label": "التنسيق الإعلامي:",
+                "text": "تنظيم أنشطة التواصل المناسبة."
+              },
+              {
+                "label": "المتابعة:",
+                "text": "مراجعة المخرجات وردود الفعل المتاحة."
+              }
+            ]
+          },
+          {
+            "heading": "الأسئلة الشائعة",
+            "items": [
+              {
+                "label": "ما الفرق بين العلاقات العامة والإعلانات المدفوعة؟",
+                "text": "تهتم العلاقات العامة بالتواصل والعلاقات الإعلامية، بينما تعتمد الإعلانات المدفوعة على شراء مساحات إعلانية محددة."
+              },
+              {
+                "label": "هل يمكن دعم إطلاق منتج جديد؟",
+                "text": "نعم، يمكن إعداد الرسائل والبيانات والمواد الإعلامية المناسبة لإطلاق المنتج."
+              },
+              {
+                "label": "هل تضمن العلاقات العامة نشر الأخبار في وسائل الإعلام؟",
+                "text": "لا يمكن ضمان التغطية التحريرية لأنها تخضع لقرارات المؤسسات الإعلامية."
+              }
+            ]
+          }
+        ],
+        "card": "العلاقات العامة والاتصال المؤسسي والبيانات الصحفية والتواصل الإعلامي."
+      },
+      "related": [
+        "event-management-brand-activations",
+        "commercial-video-production",
+        "ad-airing-media-distribution"
+      ]
+    },
+    "erp-solutions": {
+      "en": {
+        "title": "ERP Software Development & Implementation Egypt | Horizon OOH",
+        "description": "Custom ERP software development in Egypt for inventory, sales, purchasing, invoicing, approvals and connected business operations.",
+        "heading": "ERP Software Development & Implementation in Egypt",
+        "intro": "Bring your business processes together with an ERP system designed around how your company operates. Horizon OOH provides ERP software development and implementation services for Egyptian businesses seeking better coordination across sales, purchasing, inventory, invoicing, and internal approvals. The solution is planned according to the company's actual workflows, priorities, and operational requirements.",
+        "cta": {
+          "heading": "Build an ERP System Around Your Business",
+          "description": "Tell us about your operations, current challenges, and required modules to discuss an ERP solution tailored to your organization.",
+          "button": "Request an ERP Consultation"
+        },
+        "sections": [
+          {
+            "heading": "What Is an ERP System?",
+            "items": [
+              {
+                "text": "Enterprise Resource Planning (ERP) software connects business departments through shared information and structured workflows. Instead of relying on disconnected spreadsheets and separate systems, an ERP platform can provide consistent records, defined user permissions, and clearer visibility into daily operations."
+              },
+              {
+                "text": "The right ERP implementation begins with understanding existing processes and identifying which activities require automation, approval controls, or integration."
+              }
+            ]
+          },
+          {
+            "heading": "Our ERP Development Services",
+            "items": [
+              {
+                "label": "Business Process Analysis:",
+                "text": "Review how teams manage sales, purchases, inventory, financial information, and approvals before defining the software scope."
+              },
+              {
+                "label": "Custom ERP Modules:",
+                "text": "Plan and develop modules relevant to the business, such as inventory, procurement, sales, invoicing, customer records, and operational dashboards."
+              },
+              {
+                "label": "Role-Based Access & Approvals:",
+                "text": "Configure user responsibilities and approval workflows according to organizational requirements."
+              },
+              {
+                "label": "System Integration:",
+                "text": "Evaluate connections with existing websites, applications, accounting tools, and business databases where technically feasible."
+              },
+              {
+                "label": "Data Migration & Deployment:",
+                "text": "Plan data preparation, testing, training, and controlled rollout to reduce operational disruption."
+              }
+            ]
+          },
+          {
+            "heading": "ERP Solutions for Different Businesses",
+            "items": [
+              {
+                "text": "ERP systems can support retailers managing products and orders, distributors coordinating warehouses and purchases, service companies tracking operational requests, and manufacturers organizing inventory and production-related workflows. The exact modules and capabilities depend on the approved project scope."
+              }
+            ]
+          },
+          {
+            "heading": "Our ERP Implementation Process",
+            "items": [
+              {
+                "label": "Discovery & Requirements:",
+                "text": "Understand existing workflows, business challenges, and required modules."
+              },
+              {
+                "label": "Solution Architecture:",
+                "text": "Define system structure, integrations, permissions, and user journeys."
+              },
+              {
+                "label": "Development & Testing:",
+                "text": "Implement and verify the agreed software functions."
+              },
+              {
+                "label": "Migration & Training:",
+                "text": "Prepare relevant data and support users during the rollout."
+              },
+              {
+                "label": "Launch & Support:",
+                "text": "Deploy according to an approved release plan and agreed support scope."
+              }
+            ]
+          },
+          {
+            "heading": "Frequently Asked Questions",
+            "items": [
+              {
+                "label": "What is the difference between custom ERP and ready-made ERP software?",
+                "text": "Custom ERP is built around specific business requirements, while ready-made software offers an existing feature set that may require configuration or customization."
+              },
+              {
+                "label": "Can an ERP system integrate with my current software?",
+                "text": "Integration may be possible depending on the existing software, available APIs, data structure, and security requirements."
+              },
+              {
+                "label": "How long does ERP development take?",
+                "text": "The timeline depends on the number of modules, complexity of workflows, data migration requirements, integrations, and testing scope."
+              },
+              {
+                "label": "Can ERP modules be introduced gradually?",
+                "text": "A phased implementation can prioritize essential operations first and introduce additional functions after testing and preparation."
+              }
+            ]
+          }
+        ],
+        "card": "Custom ERP development for inventory, sales, purchasing, invoicing, and business workflows."
+      },
+      "ar": {
+        "title": "تصميم وبرمجة أنظمة ERP للشركات في مصر",
+        "description": "تطوير وتنفيذ أنظمة ERP مخصصة لإدارة المخازن والمبيعات والمشتريات والفواتير وصلاحيات الموظفين في مصر.",
+        "heading": "تصميم وبرمجة أنظمة ERP للشركات في مصر",
+        "intro": "اربط إدارات شركتك داخل نظام واحد من خلال حلول ERP المصممة لتناسب طبيعة عملك. تقدم Horizon OOH خدمات تطوير وتنفيذ أنظمة تخطيط موارد المؤسسات للشركات في مصر، بهدف تنظيم المبيعات والمشتريات والمخازن والفواتير والموافقات الداخلية، وفقًا لاحتياجات كل نشاط تجاري.",
+        "cta": {
+          "heading": "طوّر نظام ERP يناسب شركتك",
+          "description": "شاركنا طبيعة نشاطك والتحديات الحالية والوحدات المطلوبة لمناقشة النظام المناسب.",
+          "button": "اطلب استشارة ERP"
+        },
+        "sections": [
+          {
+            "heading": "ما هو نظام ERP؟",
+            "items": [
+              {
+                "text": "نظام تخطيط موارد المؤسسات ERP هو برنامج يربط إدارات الشركة ببيانات وإجراءات موحدة. بدلًا من الاعتماد على ملفات منفصلة وأنظمة غير مترابطة، يمكن للشركة استخدام نظام واحد لتنظيم العمليات اليومية وتحديد صلاحيات الموظفين ومتابعة البيانات التشغيلية."
+              },
+              {
+                "text": "ويبدأ تنفيذ ERP مناسب بدراسة إجراءات العمل الحالية وتحديد العمليات التي تحتاج إلى تنظيم أو أتمتة أو ربط بأنظمة أخرى."
+              }
+            ]
+          },
+          {
+            "heading": "خدمات تطوير أنظمة ERP",
+            "items": [
+              {
+                "label": "تحليل العمليات:",
+                "text": "دراسة إجراءات المبيعات والمشتريات والمخازن والعمليات المالية والموافقات."
+              },
+              {
+                "label": "تطوير الوحدات البرمجية:",
+                "text": "تصميم الوحدات المطلوبة مثل إدارة المخزون والمشتريات والمبيعات والفواتير وبيانات العملاء والتقارير."
+              },
+              {
+                "label": "الصلاحيات والموافقات:",
+                "text": "تنظيم أدوار المستخدمين ومستويات الوصول ودورات الاعتماد."
+              },
+              {
+                "label": "الربط مع الأنظمة الأخرى:",
+                "text": "دراسة التكامل مع المواقع والتطبيقات والبرامج الحالية حسب الإمكانيات الفنية."
+              },
+              {
+                "label": "نقل البيانات والتشغيل:",
+                "text": "التخطيط لترحيل البيانات والاختبارات وتدريب المستخدمين وإطلاق النظام على مراحل مناسبة."
+              }
+            ]
+          },
+          {
+            "heading": "أنظمة ERP لمختلف الأنشطة",
+            "items": [
+              {
+                "text": "يمكن استخدام أنظمة ERP في شركات التجارة والتوزيع والخدمات والتصنيع لإدارة العمليات المرتبطة بالمخزون والطلبات والمشتريات والإجراءات الداخلية. ويتم تحديد الوحدات النهائية وفقًا لطبيعة النشاط ومتطلبات المشروع."
+              }
+            ]
+          },
+          {
+            "heading": "مراحل تطوير وتنفيذ ERP",
+            "items": [
+              {
+                "label": "تحليل المتطلبات:",
+                "text": "فهم العمليات والمشكلات والوحدات المطلوبة."
+              },
+              {
+                "label": "تصميم النظام:",
+                "text": "تحديد الهيكل والصلاحيات والتكاملات."
+              },
+              {
+                "label": "البرمجة والاختبارات:",
+                "text": "تنفيذ الوظائف المتفق عليها واختبارها."
+              },
+              {
+                "label": "نقل البيانات والتدريب:",
+                "text": "تجهيز البيانات ومساعدة المستخدمين."
+              },
+              {
+                "label": "الإطلاق والدعم:",
+                "text": "تشغيل النظام وفقًا لخطة معتمدة ونطاق الدعم المتفق عليه."
+              }
+            ]
+          },
+          {
+            "heading": "الأسئلة الشائعة",
+            "items": [
+              {
+                "label": "ما الفرق بين ERP مخصص ونظام ERP جاهز؟",
+                "text": "يتم تطوير النظام المخصص وفقًا لاحتياجات الشركة، بينما يقدم النظام الجاهز وظائف موجودة مسبقًا يمكن تهيئتها أو تخصيصها."
+              },
+              {
+                "label": "هل يمكن ربط ERP بالبرامج الموجودة حاليًا؟",
+                "text": "يعتمد ذلك على إمكانيات البرامج الحالية وواجهات الربط وقواعد البيانات ومتطلبات الأمان."
+              },
+              {
+                "label": "كم يستغرق تطوير نظام ERP؟",
+                "text": "تختلف المدة حسب الوحدات المطلوبة وتعقيد العمليات والربط ونقل البيانات والاختبارات."
+              },
+              {
+                "label": "هل يمكن تنفيذ النظام على مراحل؟",
+                "text": "نعم، يمكن البدء بالوظائف الأساسية ثم إضافة وحدات أخرى بعد الاختبار والتجهيز."
+              }
+            ]
+          }
+        ],
+        "card": "تطوير أنظمة ERP لإدارة المخزون والمبيعات والمشتريات والفواتير."
+      },
+      "related": [
+        "website-development",
+        "mobile-applications"
+      ]
+    },
+    "website-development": {
+      "en": {
+        "title": "Website Design & Development Company Egypt | Horizon OOH",
+        "description": "Professional website design and development in Egypt. Build bilingual corporate websites, landing pages and custom websites with SEO foundations.",
+        "heading": "Professional Website Design & Development in Egypt",
+        "intro": "Create a professional digital presence with a website designed around your business goals. Horizon OOH provides website design and development services for companies in Egypt, combining responsive user interfaces, clear content structures, manageable website systems, and technical foundations that support search engine visibility.",
+        "cta": {
+          "heading": "Build a Website That Works for Your Business",
+          "description": "Share your business type, required pages, languages, and functionality to discuss a tailored website development proposal.",
+          "button": "Get a Website Development Quote"
+        },
+        "sections": [
+          {
+            "heading": "Websites That Support Your Business",
+            "items": [
+              {
+                "text": "A business website should do more than look attractive. It should communicate what the company offers, guide visitors to relevant information, and provide clear ways to make inquiries or complete important actions. Effective website development brings together content planning, user experience, visual design, performance, and ongoing management."
+              }
+            ]
+          },
+          {
+            "heading": "Our Website Development Services",
+            "items": [
+              {
+                "label": "Corporate Websites:",
+                "text": "Professional websites presenting company information, services, projects, and contact details."
+              },
+              {
+                "label": "Custom Business Websites:",
+                "text": "Tailored websites designed around specific workflows, service directories, customer journeys, or business functions."
+              },
+              {
+                "label": "Landing Pages:",
+                "text": "Focused pages for product launches, advertising campaigns, and lead generation."
+              },
+              {
+                "label": "Bilingual Websites:",
+                "text": "Arabic and English experiences with responsive layouts and appropriate RTL support."
+              },
+              {
+                "label": "Content Management:",
+                "text": "Website administration tools that allow authorized teams to update relevant content."
+              },
+              {
+                "label": "SEO & Performance Foundations:",
+                "text": "Search-friendly page structure, metadata, internal links, mobile responsiveness, and performance considerations."
+              }
+            ]
+          },
+          {
+            "heading": "Who Needs Professional Website Development?",
+            "items": [
+              {
+                "text": "Our development services can support new businesses launching online, established companies replacing outdated websites, service providers improving their digital presence, and organizations requiring custom website functionality."
+              }
+            ]
+          },
+          {
+            "heading": "Our Website Development Process",
+            "items": [
+              {
+                "label": "Discovery:",
+                "text": "Understand business goals, audiences, features, and content requirements."
+              },
+              {
+                "label": "Structure & UX:",
+                "text": "Plan the pages, navigation, user journeys, and calls to action."
+              },
+              {
+                "label": "Design & Development:",
+                "text": "Build the approved responsive interfaces and required functionality."
+              },
+              {
+                "label": "Testing:",
+                "text": "Review usability, forms, mobile behavior, performance, and security requirements."
+              },
+              {
+                "label": "Launch & Handover:",
+                "text": "Prepare deployment and explain content management workflows."
+              }
+            ]
+          },
+          {
+            "heading": "Frequently Asked Questions",
+            "items": [
+              {
+                "label": "What is the difference between website design and website development?",
+                "text": "Website design focuses on visual presentation and user experience, while development implements functionality, content management, integrations, and technical behavior."
+              },
+              {
+                "label": "Can you build Arabic and English websites?",
+                "text": "Bilingual websites can be developed with dedicated Arabic and English content, responsive layouts, and right-to-left support where required."
+              },
+              {
+                "label": "Will my website be optimized for SEO?",
+                "text": "Technical SEO foundations can be included, such as semantic headings, metadata, clean site structure, internal linking, and mobile compatibility. Search rankings cannot be guaranteed."
+              },
+              {
+                "label": "Can I update website content myself?",
+                "text": "Content editing capabilities can be provided through an appropriate content management system according to project requirements."
+              }
+            ]
+          }
+        ],
+        "card": "Responsive business websites, bilingual platforms, CMS, and SEO foundations."
+      },
+      "ar": {
+        "title": "شركة تصميم وبرمجة مواقع إلكترونية في مصر",
+        "description": "تصميم وتطوير مواقع الشركات والمواقع المخصصة وصفحات الهبوط بالعربي والإنجليزي، مع أساسيات SEO وتجربة مستخدم احترافية.",
+        "heading": "تصميم وبرمجة مواقع إلكترونية احترافية في مصر",
+        "intro": "ابنِ حضورًا رقميًا يعكس احترافية شركتك من خلال موقع إلكتروني مصمم لأهداف نشاطك. تقدم Horizon OOH خدمات تصميم وتطوير المواقع الإلكترونية للشركات في مصر، مع الاهتمام بتجربة المستخدم والتوافق مع الموبايل وسهولة إدارة المحتوى والأساسيات التقنية لتحسين الظهور في محركات البحث.",
+        "cta": {
+          "heading": "ابدأ تطوير موقع إلكتروني يعبر عن شركتك",
+          "description": "شاركنا نوع النشاط والصفحات واللغات والوظائف المطلوبة للحصول على عرض مناسب.",
+          "button": "اطلب عرض سعر لموقع إلكتروني"
+        },
+        "sections": [
+          {
+            "heading": "موقع إلكتروني يخدم أهداف شركتك",
+            "items": [
+              {
+                "text": "الموقع الناجح لا يعتمد على الشكل الجذاب فقط، بل يجب أن يوضح الخدمات ويسهّل وصول الزائر للمعلومات ويوفر خطوات واضحة للتواصل أو طلب الخدمة. لذلك يجمع تطوير المواقع بين تخطيط المحتوى والتصميم والبرمجة والأداء وسهولة الاستخدام."
+              }
+            ]
+          },
+          {
+            "heading": "خدمات تصميم وتطوير المواقع",
+            "items": [
+              {
+                "label": "مواقع الشركات:",
+                "text": "مواقع احترافية لعرض معلومات الشركة وخدماتها ومشاريعها وبيانات التواصل."
+              },
+              {
+                "label": "المواقع المخصصة:",
+                "text": "تطوير وظائف وصفحات وتجارب مستخدم وفقًا لاحتياجات النشاط."
+              },
+              {
+                "label": "صفحات الهبوط:",
+                "text": "صفحات مخصصة للحملات الإعلانية وإطلاق المنتجات وجمع طلبات العملاء."
+              },
+              {
+                "label": "مواقع عربية وإنجليزية:",
+                "text": "تصميم متجاوب يدعم اللغتين واتجاه الكتابة من اليمين إلى اليسار."
+              },
+              {
+                "label": "إدارة المحتوى:",
+                "text": "أدوات تتيح للمستخدمين المصرح لهم تحديث المعلومات والصفحات."
+              },
+              {
+                "label": "أساسيات SEO والأداء:",
+                "text": "إعداد الهيكل والعناوين والبيانات الوصفية والروابط الداخلية والتوافق مع الأجهزة المختلفة."
+              }
+            ]
+          },
+          {
+            "heading": "من يحتاج إلى موقع إلكتروني احترافي؟",
+            "items": [
+              {
+                "text": "تناسب خدماتنا الشركات الجديدة التي تطلق موقعها الأول، والشركات التي تحتاج لتجديد مواقعها القديمة، ومقدمي الخدمات الراغبين في تطوير حضورهم الرقمي، والأنشطة التي تحتاج إلى وظائف مخصصة."
+              }
+            ]
+          },
+          {
+            "heading": "مراحل تطوير الموقع الإلكتروني",
+            "items": [
+              {
+                "label": "تحليل المتطلبات:",
+                "text": "فهم النشاط والجمهور والصفحات والوظائف المطلوبة."
+              },
+              {
+                "label": "تخطيط تجربة المستخدم:",
+                "text": "تنظيم الصفحات والقوائم ومسارات التواصل."
+              },
+              {
+                "label": "التصميم والبرمجة:",
+                "text": "تنفيذ الواجهات والوظائف المعتمدة."
+              },
+              {
+                "label": "الاختبارات:",
+                "text": "مراجعة الأداء والتجاوب والنماذج والمتطلبات الأمنية."
+              },
+              {
+                "label": "الإطلاق والتسليم:",
+                "text": "تجهيز الموقع وشرح طريقة إدارة المحتوى."
+              }
+            ]
+          },
+          {
+            "heading": "الأسئلة الشائعة",
+            "items": [
+              {
+                "label": "ما الفرق بين تصميم الموقع وبرمجته؟",
+                "text": "يركز التصميم على الشكل وتجربة المستخدم، بينما تهتم البرمجة بتنفيذ الوظائف وإدارة المحتوى والربط والعمليات التقنية."
+              },
+              {
+                "label": "هل يمكن تصميم موقع عربي وإنجليزي؟",
+                "text": "نعم، يمكن تطوير موقع ثنائي اللغة مع دعم اتجاه الكتابة والتصميم المتجاوب."
+              },
+              {
+                "label": "هل الموقع هيكون متوافق مع SEO؟",
+                "text": "يمكن تنفيذ الأساسيات التقنية مثل العناوين والبيانات الوصفية والروابط الداخلية والتوافق مع الموبايل، دون ضمان ترتيب محدد في Google."
+              },
+              {
+                "label": "هل أقدر أعدّل محتوى الموقع بنفسي؟",
+                "text": "يمكن توفير نظام لإدارة المحتوى يسمح بتعديل المعلومات وفقًا لصلاحيات المستخدمين ومتطلبات المشروع."
+              }
+            ]
+          }
+        ],
+        "card": "تصميم مواقع متجاوبة بالعربي والإنجليزي مع إدارة محتوى وأساسيات SEO."
+      },
+      "related": [
+        "erp-solutions",
+        "mobile-applications"
+      ]
+    },
+    "mobile-applications": {
+      "en": {
+        "title": "Mobile App Development Company in Egypt | Horizon OOH",
+        "description": "Custom mobile app development in Egypt for iOS and Android, including UI/UX, backend integrations, testing and release support.",
+        "heading": "Mobile App Development Services in Egypt",
+        "intro": "Turn your business idea into a mobile application designed around real user needs. Horizon OOH provides mobile application design and development services for companies in Egypt, helping businesses plan and build iOS and Android applications with intuitive user experiences, connected backend services, and structured testing and release processes.",
+        "cta": {
+          "heading": "Let's Build Your Mobile Application",
+          "description": "Share your app idea, target users, key features, and required platforms to discuss your development project.",
+          "button": "Request a Mobile App Consultation"
+        },
+        "sections": [
+          {
+            "heading": "Mobile Applications Built Around Your Users",
+            "items": [
+              {
+                "text": "A successful mobile application solves a clear problem and makes important tasks easy to complete. Whether the application supports customers, employees, or business partners, its design should reflect the intended users, essential workflows, data requirements, and long-term maintenance needs."
+              }
+            ]
+          },
+          {
+            "heading": "Our Mobile App Development Services",
+            "items": [
+              {
+                "label": "iOS & Android Applications:",
+                "text": "Develop applications for supported mobile platforms according to the project's functionality and technology requirements."
+              },
+              {
+                "label": "UI/UX Design:",
+                "text": "Plan user journeys, screen layouts, navigation, and interactive prototypes."
+              },
+              {
+                "label": "Backend & API Integration:",
+                "text": "Connect applications to relevant business systems, databases, and authorized backend services."
+              },
+              {
+                "label": "Business Applications:",
+                "text": "Build customer account experiences, booking workflows, service requests, or internal mobile tools according to scope."
+              },
+              {
+                "label": "Testing & Quality Assurance:",
+                "text": "Verify important features, device compatibility, validation, and error-handling behavior."
+              },
+              {
+                "label": "Publishing & Support:",
+                "text": "Prepare app-store submission materials and provide release support under the agreed project scope."
+              }
+            ]
+          },
+          {
+            "heading": "Types of Mobile Applications",
+            "items": [
+              {
+                "text": "Mobile applications can support retail, booking and appointment services, customer portals, business operations, delivery coordination, and other digital workflows. Features such as payments, notifications, authentication, and analytics are defined according to project requirements."
+              }
+            ]
+          },
+          {
+            "heading": "Our Mobile Development Process",
+            "items": [
+              {
+                "label": "Discovery:",
+                "text": "Define the problem, target users, app features, and business goals."
+              },
+              {
+                "label": "UX & Prototyping:",
+                "text": "Plan screens, navigation, and core interactions."
+              },
+              {
+                "label": "Development:",
+                "text": "Implement the approved application features and integrations."
+              },
+              {
+                "label": "Testing:",
+                "text": "Verify supported devices, workflows, and technical behavior."
+              },
+              {
+                "label": "Release Preparation:",
+                "text": "Coordinate store submission requirements and post-launch support."
+              }
+            ]
+          },
+          {
+            "heading": "Frequently Asked Questions",
+            "items": [
+              {
+                "label": "Do you develop applications for both Android and iOS?",
+                "text": "Projects can be planned for Android, iOS, or both platforms depending on requirements and the approved technical approach."
+              },
+              {
+                "label": "Can a mobile application connect to an ERP or existing website?",
+                "text": "Integration may be possible where the existing systems provide appropriate APIs, access permissions, and compatible data structures."
+              },
+              {
+                "label": "How much does mobile app development cost?",
+                "text": "Pricing depends on features, number of platforms, user roles, integrations, design requirements, testing, and support scope."
+              },
+              {
+                "label": "Can you help with App Store and Google Play publishing?",
+                "text": "Release preparation and submission support can be included, subject to the platform rules and the client's developer-account requirements."
+              }
+            ]
+          }
+        ],
+        "card": "Custom iOS and Android applications with UI/UX, integrations, and release support."
+      },
+      "ar": {
+        "title": "شركة تصميم وبرمجة تطبيقات الموبايل في مصر",
+        "description": "خدمات تصميم وبرمجة تطبيقات أندرويد وآيفون في مصر، مع تصميم UI/UX والربط بالأنظمة والاختبارات ودعم النشر.",
+        "heading": "تصميم وبرمجة تطبيقات الموبايل في مصر",
+        "intro": "حوّل فكرتك إلى تطبيق موبايل مصمم لاحتياجات المستخدمين. تقدم Horizon OOH خدمات تصميم وتطوير تطبيقات Android وiOS للشركات في مصر، مع الاهتمام بتجربة المستخدم والربط بالأنظمة الخلفية والاختبارات وتجهيز التطبيق للنشر.",
+        "cta": {
+          "heading": "ابدأ تطوير تطبيق الموبايل الخاص بك",
+          "description": "شاركنا فكرة التطبيق والمستخدمين والوظائف المطلوبة والمنصات المستهدفة.",
+          "button": "اطلب استشارة تطوير تطبيق"
+        },
+        "sections": [
+          {
+            "heading": "تطبيقات موبايل تناسب المستخدمين وأهداف النشاط",
+            "items": [
+              {
+                "text": "التطبيق الناجح يقدم حلًا واضحًا ويسهّل تنفيذ المهام الأساسية. سواء كان مخصصًا للعملاء أو الموظفين أو الشركاء، يجب تصميمه وفقًا لاحتياجات المستخدمين والعمليات المطلوبة وطريقة إدارة البيانات والدعم المستقبلي."
+              }
+            ]
+          },
+          {
+            "heading": "خدمات تطوير تطبيقات الموبايل",
+            "items": [
+              {
+                "label": "تطبيقات Android وiOS:",
+                "text": "تطوير التطبيقات للمنصات المطلوبة وفقًا للوظائف والتقنيات المناسبة للمشروع."
+              },
+              {
+                "label": "تصميم UI/UX:",
+                "text": "تخطيط الشاشات والتنقل وتجربة المستخدم والنماذج التفاعلية."
+              },
+              {
+                "label": "الربط بالأنظمة:",
+                "text": "توصيل التطبيق بقواعد البيانات وواجهات API والأنظمة المصرح بالربط معها."
+              },
+              {
+                "label": "تطبيقات الأعمال:",
+                "text": "تطوير وظائف حسابات العملاء والحجوزات والطلبات والعمليات الداخلية حسب المتطلبات."
+              },
+              {
+                "label": "الاختبارات وضمان الجودة:",
+                "text": "مراجعة الوظائف والتوافق مع الأجهزة والتحقق من المدخلات ومعالجة الأخطاء."
+              },
+              {
+                "label": "النشر والدعم:",
+                "text": "تجهيز متطلبات متاجر التطبيقات والمساعدة في إجراءات النشر حسب نطاق العمل."
+              }
+            ]
+          },
+          {
+            "heading": "أنواع تطبيقات الموبايل",
+            "items": [
+              {
+                "text": "يمكن تطوير تطبيقات للمتاجر والحجوزات والمواعيد وبوابات العملاء وإدارة العمليات والخدمات المختلفة. ويتم تحديد الوظائف مثل الدفع والإشعارات والحسابات والتحليلات حسب احتياجات المشروع."
+              }
+            ]
+          },
+          {
+            "heading": "مراحل تطوير التطبيق",
+            "items": [
+              {
+                "label": "تحليل الفكرة:",
+                "text": "تحديد الجمهور والوظائف وأهداف المشروع."
+              },
+              {
+                "label": "التصميم:",
+                "text": "إعداد الشاشات وتجربة المستخدم والنماذج الأولية."
+              },
+              {
+                "label": "البرمجة:",
+                "text": "تطوير الوظائف والتكاملات المعتمدة."
+              },
+              {
+                "label": "الاختبارات:",
+                "text": "مراجعة الأجهزة والعمليات والسلوك التقني."
+              },
+              {
+                "label": "تجهيز النشر:",
+                "text": "إعداد متطلبات المتاجر وخطة الدعم."
+              }
+            ]
+          },
+          {
+            "heading": "الأسئلة الشائعة",
+            "items": [
+              {
+                "label": "هل يمكن تطوير تطبيق لأندرويد وآيفون؟",
+                "text": "يمكن تنفيذ التطبيق لإحدى المنصتين أو كليهما حسب متطلبات المشروع والتقنية المعتمدة."
+              },
+              {
+                "label": "هل يمكن ربط التطبيق بموقع أو نظام ERP؟",
+                "text": "يعتمد ذلك على توافر واجهات الربط والصلاحيات وتوافق البيانات مع الأنظمة الحالية."
+              },
+              {
+                "label": "كام تكلفة برمجة تطبيق موبايل؟",
+                "text": "تختلف التكلفة حسب الوظائف وعدد المنصات والصلاحيات والتكاملات والتصميم والاختبارات والدعم."
+              },
+              {
+                "label": "هل يمكن المساعدة في نشر التطبيق على المتاجر؟",
+                "text": "يمكن إدراج دعم تجهيز التطبيق وتقديمه للمتاجر وفقًا لمتطلباتها وحسابات المطور الخاصة بالعميل."
+              }
+            ]
+          }
+        ],
+        "card": "تطوير تطبيقات أندرويد وآيفون مع تصميم تجربة المستخدم والربط بالأنظمة."
+      },
+      "related": [
+        "erp-solutions",
+        "website-development"
+      ]
+    }
+  }
+}
