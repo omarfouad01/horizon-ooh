@@ -272,11 +272,13 @@ export function RedBtn({
   onClick,
   href,
   size = "md",
+  exactLabel = false,
 }: {
   label: string;
   onClick?: () => void;
   href?: string;
   size?: "sm" | "md" | "lg";
+  exactLabel?: boolean;
 }) {
   const heights: Record<string, string> = { sm: "40px", md: "52px", lg: "56px" };
   const pads: Record<string, string> = { sm: "24px", md: "36px", lg: "44px" };
@@ -298,6 +300,12 @@ export function RedBtn({
     border: "none",
   };
   if (href) {
+    if (exactLabel) return (
+      <Link to={href} style={styles} className="group active:scale-[0.97] transition-transform focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">
+        <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" style={{ background: NAVY }} />
+        <span className="relative z-10">{label}</span>
+      </Link>
+    );
     return (
       <LocalizedElement as={Link} to={href} style={styles} className="group active:scale-[0.97] transition-transform">
         <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" style={{ background: NAVY }} />

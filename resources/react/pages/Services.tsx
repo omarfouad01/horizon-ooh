@@ -1,113 +1,99 @@
-import {LocalizedText, LocalizedElement} from "@/components/Localized";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import SEO from "@/components/SEO";
-import approved from "@/lib/approvedServices.json";
+import { Eyebrow } from "@/components/UI";
 import { ApprovedCTA, approvedService } from "./ApprovedService";
+import { editorialHeading, ServiceCard, servicesContainer, servicesFocus } from "./ServiceCard";
+import approved from "@/lib/approvedServices.json";
 import { useStore } from "@/store/dataStore";
-import { RevealGroup, RevealItem } from "@/components/UI";
-import { serviceHref, langPath, RED } from "@/lib/routes";
+import { serviceHref, langPath } from "@/lib/routes";
 import { useLang } from "@/i18n/LangContext";
-import { ServiceIcon } from "@/components/ServiceIcon";
+
+const categories = [
+  { id: "advertising-media", nav: "Advertising & Media", slugs: [
+    "billboard-advertising-in-egypt", "dooh-advertising-in-egypt", "airport-advertising-in-egypt",
+    "mall-advertising", "in-flight-advertising", "on-screen-cinema-advertising",
+    "outdoor-media-planning-buying", "ad-airing-media-distribution",
+  ] },
+  { id: "production-events", nav: "Production & Events", slugs: [
+    "commercial-video-production", "booth-activation-production", "event-management-brand-activations", "pr-communication-services",
+  ] },
+  { id: "technology-solutions", nav: "Technology Solutions", slugs: [
+    "erp-solutions", "website-development", "mobile-applications",
+  ] },
+] as const;
 
 export default function Services() {
-  const { services: SERVICES } = useStore()
-  const { lang, isAr, t } = useLang()
+  const { services } = useStore();
+  const { lang, isAr, t } = useLang();
   const copy = isAr ? approved.directory.ar : approved.directory.en;
-  const slugs = Object.keys(approved.services);
-  const groups = [slugs.filter((_, i) => [0,1,2,5,7,8,9,10].includes(i)), slugs.filter((_, i) => [3,4,6,11].includes(i)), slugs.slice(12)];
-  return (
-    <>
-      <SEO exact title={approved.directory.en.title} titleAr={approved.directory.ar.title}
-        description={approved.directory.en.description} descriptionAr={approved.directory.ar.description} canonical="/services" />
-      <header data-approved-directory className="bg-[#F5F5F6] px-4 pb-20 pt-32 sm:px-8 lg:px-[120px]">
-        <h1 className="mx-auto max-w-[1200px] break-words text-4xl font-black lg:text-6xl">{copy.heading}</h1>
-        <p className="mx-auto mt-6 max-w-[1200px] text-lg">{copy.intro}</p>
-      </header>
-
-      {/* Services grid */}
-      <section className="bg-white" style={{ paddingTop: 80, paddingBottom: 120 }}>
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-[120px]">
-          {copy.categories.map((section, index) => <section key={section.heading} className="mb-12">
-          <h2 className="mb-4 break-words text-3xl font-black">{section.heading}</h2>
-          <p className="mb-6 max-w-3xl">{section.text}</p>
-          <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-stretch gap-[1px]" style={{ background: "rgba(11,15,26,0.07)" }}>
-            {groups[index].map((slug, i) => {
-              const service = SERVICES.find(item => item.slug === slug) ?? {slug, id: slug};
-              const entry = approvedService(slug, service.editorial?.approved)!;
-              const card = isAr ? entry.ar : entry.en;
-              return (
-              <RevealItem key={service.id} className="h-full">
-                <LocalizedElement as={Link}
-                  to={serviceHref(lang, service.slug)}
-                  className="group bg-white hover:bg-[#0B0F1A] transition-colors duration-500 flex flex-col h-full"
-                  style={{ padding: "48px 40px 44px", textDecoration: "none" }}
-                >
-                  {/* Icon or Number */}
-                  <div className="flex items-center justify-between mb-10">
-                    <LocalizedText>{(service as any).icon ? (
-                      <span className="w-12 h-12 flex items-center justify-center rounded-2xl border border-[rgba(11,15,26,0.07)] group-hover:border-white/10 transition-all duration-500"
-                            style={{ background: 'rgba(11,15,26,0.04)' }}>
-                        <ServiceIcon
-                          icon={(service as any).icon}
-                          size={24}
-                          className="text-[#0B0F1A] group-hover:text-white transition-colors duration-500"
-                        />
-                      </span>
-                    ) : null}</LocalizedText>
-                    <span className="font-black text-[11px] tracking-[0.25em] uppercase text-[rgba(11,15,26,0.15)] group-hover:text-white/15 transition-colors duration-500 ml-auto">
-                      <LocalizedText>{String(i + 1).padStart(2, "0")}</LocalizedText>
-                    </span>
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="font-bold tracking-[-0.02em] mb-4 text-[#0B0F1A] group-hover:text-white transition-colors duration-500"
-                    style={{ fontSize: 22, lineHeight: 1.2 }}
-                  >
-                    {card.heading}
-                  </h3>
-
-                  {/* Divider */}
-                  <div
-                    className="w-8 h-[1px] mb-5 transition-all duration-500 group-hover:w-12"
-                    style={{ background: "rgba(11,15,26,0.15)", boxSizing: "border-box" }}
-                  />
-                  <div
-                    className="w-8 h-[1px] -mt-5 mb-5 opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:w-12"
-                    style={{ background: RED }}
-                  />
-
-                  {/* Short desc */}
-                  <p
-                    className="text-[15px] leading-[1.7] flex-1 text-[rgba(11,15,26,0.45)] group-hover:text-white/70 transition-colors duration-500"
-                  >
-                    {card.card}
-                  </p>
-
-                  {/* CTA */}
-                  <div className="flex items-center gap-2 mt-8">
-                    <span
-                      className="text-[11px] font-bold tracking-[0.2em] uppercase transition-colors duration-300"
-                      style={{ color: RED }}
-                    >
-                      <LocalizedText>{t('services.exploreService')}</LocalizedText>
-                    </span>
-                    <span
-                      className="opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-1 group-hover:translate-x-0"
-                      style={{ color: RED, fontSize: 18, lineHeight: 1 }}
-                    ><LocalizedText>
-                      →
-                    </LocalizedText></span>
-                  </div>
-                </LocalizedElement>
-              </RevealItem>
-              );
-            })}
-          </RevealGroup>
-          </section>)}
+  const [active, setActive] = useState("");
+  useEffect(() => {
+    const update = () => {
+      const current = [...categories].reverse().find(({ id }) => {
+        const section = document.getElementById(id);
+        return section && section.getBoundingClientRect().top <= 124;
+      });
+      setActive(current?.id ?? "");
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+  return <>
+    <SEO exact title={approved.directory.en.title} titleAr={approved.directory.ar.title}
+      description={approved.directory.en.description} descriptionAr={approved.directory.ar.description} canonical="/services" />
+    <div lang={isAr ? "ar" : "en"} dir={isAr ? "rtl" : "ltr"} data-approved-directory>
+      <header className="bg-[#F5F5F6] pb-16 pt-32 lg:pb-24 lg:pt-40">
+        <div className={servicesContainer}>
+          <Eyebrow text={t("services.whatWeDo")} />
+          <h1 className="sr-only">{copy.heading}</h1>
+          <p className={`max-w-[900px] ${editorialHeading}`}>{isAr ? "خبراتنا. خطوتك القادمة." : "Our Expertise. Your Next Move."}</p>
+          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-[#0B0F1A]/70">{copy.intro}</p>
         </div>
-      </section>
-
-      <ApprovedCTA copy={copy.cta} href={langPath(lang, "/contact")} />
-    </>
-  );
+      </header>
+      <nav aria-label={isAr ? "أقسام الخدمات" : "Service categories"} className="border-y border-[#0B0F1A]/10 bg-white">
+        <ul className={`${servicesContainer} flex flex-wrap gap-x-6 gap-y-1 py-2 lg:gap-x-10`}>
+          {categories.map(({id, nav}, index) => <li key={id}>
+            <a href={`#${id}`} aria-current={active === id ? "location" : undefined}
+              onClick={() => setActive(id)} className={`inline-flex min-h-11 items-center border-b-2 border-transparent py-2 text-sm font-bold text-[#0B0F1A] hover:border-[#D90429] hover:text-[#D90429] aria-[current=location]:border-[#D90429] aria-[current=location]:text-[#D90429] ${servicesFocus}`}>
+              {isAr ? copy.categories[index].heading : nav}
+            </a>
+          </li>)}
+        </ul>
+      </nav>
+      {categories.map(({id, slugs}, index) => {
+        const section = copy.categories[index];
+        const start = categories.slice(0, index).reduce((sum, category) => sum + category.slugs.length, 0);
+        return <section key={id} id={id} aria-labelledby={`${id}-title`} tabIndex={-1} className={`scroll-mt-28 py-16 lg:py-24 ${index % 2 === 1 ? "bg-[#F5F5F6]" : "bg-white"}`}>
+          <div className={servicesContainer}>
+            <Eyebrow text={`0${index + 1} / ${t("services.whatWeDo")}`} />
+            <div className="mb-8 flex flex-wrap items-end justify-between gap-x-8 gap-y-4 border-b border-[#0B0F1A]/10 pb-6">
+              <div className="min-w-0">
+                <h2 id={`${id}-title`} className="break-words text-[clamp(2rem,4vw,3.5rem)] font-black leading-tight ltr:tracking-[-0.04em]">{section.heading}</h2>
+                <p className="mt-4 max-w-3xl leading-relaxed text-[#0B0F1A]/70">{section.text}</p>
+              </div>
+              <p className="text-xs font-bold uppercase text-[#0B0F1A]/65 ltr:tracking-[0.2em]">{isAr ? `${slugs.length} خدمات` : `${String(slugs.length).padStart(2, "0")} Services`}</p>
+            </div>
+            <ul className="grid grid-cols-1 gap-px border border-[#0B0F1A]/10 bg-[#E5E5E7] md:grid-cols-2 lg:grid-cols-3">
+              {slugs.map((slug, i) => {
+                const service = services.find(item => item.slug === slug);
+                const entry = approvedService(slug, service?.editorial?.approved)!;
+                const card = isAr ? entry.ar : entry.en;
+                return <li key={slug} className="min-w-0">
+                  <ServiceCard href={serviceHref(lang, slug)} title={card.heading} description={card.card} icon={service?.icon}
+                    action={t("services.exploreService")} number={start + i + 1} rtl={isAr} />
+                </li>;
+              })}
+            </ul>
+          </div>
+        </section>;
+      })}
+      <ApprovedCTA copy={copy.cta} href={langPath(lang, "/contact")}
+        visualHeading={isAr ? "خلّينا نحوّل مشروعك الجاي إلى واقع." : "Let's Bring Your Next Project to Life."} />
+    </div>
+  </>;
 }
