@@ -1,0 +1,51 @@
+{
+  "supplier": "Egypta",
+  "supplierId": 50,
+  "pinAccuracy": "approximate roadside reference",
+  "offers": [
+    {
+      "page": 2,
+      "type": "Combo",
+      "typeAr": "كومبو",
+      "address": "Suez Road at the Ring Road entrance – Egypta four-face package",
+      "addressAr": "طريق السويس عند مدخل الدائري – باكدج إيجيبتا 4 أوجه",
+      "size": "8 × 24 + 8 × 30",
+      "quantity": 2,
+      "sides": 4,
+      "lat": 30.080635,
+      "lng": 31.395814,
+      "availability": "available",
+      "price": null
+    },
+    {
+      "page": 7,
+      "type": "Stand",
+      "typeAr": "ستاند",
+      "address": "El Moshir Axis Extension – Egypta 13-stand network",
+      "addressAr": "امتداد محور المشير – شبكة إيجيبتا 13 ستاند",
+      "size": "3 × 6",
+      "quantity": 13,
+      "sides": 26,
+      "lat": 30.0293182,
+      "lng": 31.3105111,
+      "availability": "available",
+      "price": null
+    }
+  ],
+  "published": [
+    {
+      "page": 2,
+      "code": "H-14885",
+      "slug": "h-14885-combo-suez-road-at-the-ring-road-entrance-egypta-four-face-package",
+      "region": "cairo",
+      "updated": false
+    },
+    {
+      "page": 7,
+      "code": "H-14886",
+      "slug": "h-14886-stand-el-moshir-axis-extension-egypta-13-stand-network",
+      "region": "cairo",
+      "updated": false
+    }
+  ]
+}
