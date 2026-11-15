@@ -1,0 +1,262 @@
+[
+  {
+    "ref": "aug:3,5,6,7",
+    "code": "H-12283",
+    "slug": "h-12283-october-bridge-rooftop",
+    "region": "cairo",
+    "updated": true,
+    "supplierId": 26,
+    "images": [
+      "h-12283-el-farouk-1.jpg",
+      "h-12283-el-farouk-2.jpg",
+      "h-12283-el-farouk-3.jpg",
+      "h-12283-el-farouk-4.jpg"
+    ]
+  },
+  {
+    "ref": "mar:8,9,11,12",
+    "code": "H-12280",
+    "slug": "h-12280-double-decker-october-bridge-ramses",
+    "region": "cairo",
+    "updated": true,
+    "supplierId": 26,
+    "images": [
+      "h-12280-el-farouk-1.jpg",
+      "h-12280-el-farouk-2.jpg",
+      "h-12280-el-farouk-3.jpg",
+      "h-12280-el-farouk-4.jpg"
+    ]
+  },
+  {
+    "ref": "aug:9,11,12,15,16,19",
+    "code": "H-12272",
+    "slug": "h-12272-gate-mehwar-el-shahed",
+    "region": "cairo",
+    "updated": true,
+    "supplierId": 26,
+    "images": [
+      "h-12272-el-farouk-1.jpg",
+      "h-12272-el-farouk-2.jpg",
+      "h-12272-el-farouk-3.jpg",
+      "h-12272-el-farouk-4.jpg",
+      "h-12272-el-farouk-5.jpg",
+      "h-12272-el-farouk-6.jpg"
+    ]
+  },
+  {
+    "ref": "aug:21,22,23,24",
+    "code": "H-12276",
+    "slug": "h-12276-uni-pole-carrefour-el-maadi",
+    "region": "cairo",
+    "updated": true,
+    "supplierId": 26,
+    "images": [
+      "h-12276-el-farouk-1.jpg",
+      "h-12276-el-farouk-2.jpg",
+      "h-12276-el-farouk-3.jpg",
+      "h-12276-el-farouk-4.jpg"
+    ]
+  },
+  {
+    "ref": "aug:25,26,28,29",
+    "code": "H-14842",
+    "slug": "h-14842-mirror-package-autostrad-over-the-ring-road-maadi-entrance",
+    "region": "cairo",
+    "updated": true,
+    "supplierId": 303,
+    "images": [
+      "h-14842-el-farouk-1.jpg",
+      "h-14842-el-farouk-2.jpg",
+      "h-14842-el-farouk-3.jpg",
+      "h-14842-el-farouk-4.jpg"
+    ]
+  },
+  {
+    "ref": "aug:30,31",
+    "code": "H-14965",
+    "slug": "h-14965-autostrad-interchange-ring-road-stand-network-before-carrefour-maadi",
+    "region": "cairo",
+    "updated": false,
+    "supplierId": 26,
+    "images": [
+      "h-14965-el-farouk-1.jpg",
+      "h-14965-el-farouk-2.jpg"
+    ]
+  },
+  {
+    "ref": "aug:32,30,31",
+    "code": "H-14966",
+    "slug": "h-14966-autostrad-interchange-group-a-package-mirror-and-eight-stands",
+    "region": "cairo",
+    "updated": false,
+    "supplierId": 26,
+    "images": [
+      "h-14966-el-farouk-1.jpg",
+      "h-14966-el-farouk-2.jpg",
+      "h-14966-el-farouk-3.jpg"
+    ]
+  },
+  {
+    "ref": "aug:33",
+    "code": "H-14967",
+    "slug": "h-14967-autostrad-interchange-group-b-package-mirror-and-two-boards",
+    "region": "cairo",
+    "updated": false,
+    "supplierId": 26,
+    "images": [
+      "h-14967-el-farouk-1.jpg"
+    ]
+  },
+  {
+    "ref": "aug:34,35,36,37",
+    "code": "H-14136",
+    "slug": "h-14136-uni-pole-ring-road-in-front-of-baron-mall",
+    "region": "cairo",
+    "updated": true,
+    "supplierId": 26,
+    "images": [
+      "h-14136-el-farouk-1.jpg",
+      "h-14136-el-farouk-2.jpg",
+      "h-14136-el-farouk-3.jpg",
+      "h-14136-el-farouk-4.jpg"
+    ]
+  },
+  {
+    "ref": "aug:38,39",
+    "code": "H-14968",
+    "slug": "h-14968-police-academy-ring-road-from-suez-road-towards-new-cairo",
+    "region": "cairo",
+    "updated": false,
+    "supplierId": 26,
+    "images": [
+      "h-14968-el-farouk-1.jpg",
+      "h-14968-el-farouk-2.jpg"
+    ]
+  },
+  {
+    "ref": "aug:40,41",
+    "code": "H-12273",
+    "slug": "h-12273-uni-pole-ring-road",
+    "region": "cairo",
+    "updated": true,
+    "supplierId": 26,
+    "images": [
+      "h-12273-el-farouk-1.jpg",
+      "h-12273-el-farouk-2.jpg"
+    ]
+  },
+  {
+    "ref": "aug:42,43,44,45,46",
+    "code": "H-12281",
+    "slug": "h-12281-mega-post-kempinski-ring-road",
+    "region": "cairo",
+    "updated": true,
+    "supplierId": 26,
+    "images": [
+      "h-12281-el-farouk-1.jpg",
+      "h-12281-el-farouk-2.jpg",
+      "h-12281-el-farouk-3.jpg",
+      "h-12281-el-farouk-4.jpg",
+      "h-12281-el-farouk-5.jpg"
+    ]
+  },
+  {
+    "ref": "aug:47,48,49,50,51",
+    "code": "H-14969",
+    "slug": "h-14969-ring-road-ramp-from-al-thawra-towards-new-cairo-and-maadi",
+    "region": "cairo",
+    "updated": false,
+    "supplierId": 26,
+    "images": [
+      "h-14969-el-farouk-1.jpg",
+      "h-14969-el-farouk-2.jpg",
+      "h-14969-el-farouk-3.jpg",
+      "h-14969-el-farouk-4.jpg",
+      "h-14969-el-farouk-5.jpg"
+    ]
+  },
+  {
+    "ref": "aug:53,54",
+    "code": "H-14970",
+    "slug": "h-14970-golf-tunnel-mirror-at-the-ring-road-access",
+    "region": "cairo",
+    "updated": false,
+    "supplierId": 26,
+    "images": [
+      "h-14970-el-farouk-1.jpg",
+      "h-14970-el-farouk-2.jpg"
+    ]
+  },
+  {
+    "ref": "aug:55,56,57,58",
+    "code": "H-14971",
+    "slug": "h-14971-golf-tunnel-combined-booking-mirror-and-ten-flags",
+    "region": "cairo",
+    "updated": false,
+    "supplierId": 26,
+    "images": [
+      "h-14971-el-farouk-1.jpg",
+      "h-14971-el-farouk-2.jpg",
+      "h-14971-el-farouk-3.jpg",
+      "h-14971-el-farouk-4.jpg"
+    ]
+  },
+  {
+    "ref": "aug:59,60,61,62,63",
+    "code": "H-14972",
+    "slug": "h-14972-gamal-abdel-nasser-axis-second-bridge-by-diplomats-compound",
+    "region": "cairo",
+    "updated": false,
+    "supplierId": 26,
+    "images": [
+      "h-14972-el-farouk-1.jpg",
+      "h-14972-el-farouk-2.jpg",
+      "h-14972-el-farouk-3.jpg",
+      "h-14972-el-farouk-4.jpg",
+      "h-14972-el-farouk-5.jpg"
+    ]
+  },
+  {
+    "ref": "aug:65,66,68,69,71",
+    "code": "H-14973",
+    "slug": "h-14973-abdel-hamid-badawy-street-pedestrian-bridge-by-concorde-el-salam-and-el-shams-club",
+    "region": "cairo",
+    "updated": false,
+    "supplierId": 26,
+    "images": [
+      "h-14973-el-farouk-1.jpg",
+      "h-14973-el-farouk-2.jpg",
+      "h-14973-el-farouk-3.jpg",
+      "h-14973-el-farouk-4.jpg",
+      "h-14973-el-farouk-5.jpg"
+    ]
+  },
+  {
+    "ref": "aug:73,74,75,76,77,78",
+    "code": "H-14974",
+    "slug": "h-14974-15th-of-may-bridge-wall-package-at-maspero",
+    "region": "cairo",
+    "updated": false,
+    "supplierId": 26,
+    "images": [
+      "h-14974-el-farouk-1.jpg",
+      "h-14974-el-farouk-2.jpg",
+      "h-14974-el-farouk-3.jpg",
+      "h-14974-el-farouk-4.jpg",
+      "h-14974-el-farouk-5.jpg",
+      "h-14974-el-farouk-6.jpg"
+    ]
+  },
+  {
+    "ref": "aug:80,81",
+    "code": "H-12284",
+    "slug": "h-12284-combo-mehwer-26th-of-july",
+    "region": "giza",
+    "updated": true,
+    "supplierId": 26,
+    "images": [
+      "h-12284-el-farouk-1.jpg",
+      "h-12284-el-farouk-2.jpg"
+    ]
+  }
+]
