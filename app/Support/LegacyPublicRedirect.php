@@ -5,6 +5,7 @@ namespace App\Support;
 class LegacyPublicRedirect
 {
     private const ALIASES = [
+        'locations/giza/billboards/uni-pole-misr-aswan-agricultural-road-minya-in-front-of-the-emergency-police-department' => 'locations/minya/billboards/uni-pole-misr-aswan-agricultural-road-minya-in-front-of-the-emergency-police-department',
         // Alamia governorate corrections retain previously indexed URLs; retain indexed URLs.
         'locations/giza/billboards/h-14397-t-pole-gabalaya-street' => 'locations/cairo/billboards/h-14397-t-pole-gabalaya-street',
 

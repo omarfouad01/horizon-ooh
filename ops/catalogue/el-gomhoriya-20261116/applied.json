@@ -1,0 +1,282 @@
+[
+    {
+        "ref": "minya:4",
+        "code": "H-11785",
+        "slug": "uni-pole-misr-aswan-agricultural-road-minya-in-front-of-the-emergency-police-department",
+        "region": "minya",
+        "updated": true,
+        "supplierId": 12,
+        "images": [
+            "h-11785-el-gomhoriya-1.jpg",
+            "h-11785-el-gomhoriya-2.jpg"
+        ]
+    },
+    {
+        "ref": "minya:6",
+        "code": "H-14980",
+        "slug": "h-14980-university-hospital-after-minya-university-minya",
+        "region": "minya",
+        "updated": false,
+        "supplierId": 12,
+        "images": [
+            "h-14980-el-gomhoriya-1.jpg",
+            "h-14980-el-gomhoriya-2.jpg"
+        ]
+    },
+    {
+        "ref": "minya:8",
+        "code": "H-14981",
+        "slug": "h-14981-before-al-habashi-bridge-by-rana-abdel-malek-pharmacy-minya",
+        "region": "minya",
+        "updated": false,
+        "supplierId": 12,
+        "images": [
+            "h-14981-el-gomhoriya-1.jpg",
+            "h-14981-el-gomhoriya-2.jpg"
+        ]
+    },
+    {
+        "ref": "minya:9",
+        "code": "H-14982",
+        "slug": "h-14982-new-shalaby-bridge-exit-minya",
+        "region": "minya",
+        "updated": false,
+        "supplierId": 12,
+        "images": [
+            "h-14982-el-gomhoriya-1.jpg",
+            "h-14982-el-gomhoriya-2.jpg"
+        ]
+    },
+    {
+        "ref": "minya:11",
+        "code": "H-14983",
+        "slug": "h-14983-shalaby-district-corner-minya",
+        "region": "minya",
+        "updated": false,
+        "supplierId": 12,
+        "images": [
+            "h-14983-el-gomhoriya-1.jpg",
+            "h-14983-el-gomhoriya-2.jpg"
+        ]
+    },
+    {
+        "ref": "minya:13",
+        "code": "H-14984",
+        "slug": "h-14984-new-minya-bus-stands-single-sided-package-minya",
+        "region": "minya",
+        "updated": false,
+        "supplierId": 12,
+        "images": [
+            "h-14984-el-gomhoriya-1.jpg",
+            "h-14984-el-gomhoriya-2.jpg"
+        ]
+    },
+    {
+        "ref": "minya:14",
+        "code": "H-14985",
+        "slug": "h-14985-zomoroda-wedding-hall-minya",
+        "region": "minya",
+        "updated": false,
+        "supplierId": 12,
+        "images": [
+            "h-14985-el-gomhoriya-1.jpg",
+            "h-14985-el-gomhoriya-2.jpg"
+        ]
+    },
+    {
+        "ref": "minya:15",
+        "code": "H-14986",
+        "slug": "h-14986-new-shalaby-bridge-approach-minya",
+        "region": "minya",
+        "updated": false,
+        "supplierId": 12,
+        "images": [
+            "h-14986-el-gomhoriya-1.jpg",
+            "h-14986-el-gomhoriya-2.jpg"
+        ]
+    },
+    {
+        "ref": "minya:16",
+        "code": "H-14987",
+        "slug": "h-14987-shalaby-district-corner-by-the-petrol-station-minya",
+        "region": "minya",
+        "updated": false,
+        "supplierId": 12,
+        "images": [
+            "h-14987-el-gomhoriya-1.jpg",
+            "h-14987-el-gomhoriya-2.jpg"
+        ]
+    },
+    {
+        "ref": "minya:18",
+        "code": "H-14988",
+        "slug": "h-14988-triple-university-hospital-minya",
+        "region": "minya",
+        "updated": false,
+        "supplierId": 12,
+        "images": [
+            "h-14988-el-gomhoriya-1.jpg",
+            "h-14988-el-gomhoriya-2.jpg"
+        ]
+    },
+    {
+        "ref": "minya:19",
+        "code": "H-14989",
+        "slug": "h-14989-minya-university-frontage-minya",
+        "region": "minya",
+        "updated": false,
+        "supplierId": 12,
+        "images": [
+            "h-14989-el-gomhoriya-1.jpg",
+            "h-14989-el-gomhoriya-2.jpg"
+        ]
+    },
+    {
+        "ref": "minya:20",
+        "code": "H-14990",
+        "slug": "h-14990-university-hospital-frontage-minya",
+        "region": "minya",
+        "updated": false,
+        "supplierId": 12,
+        "images": [
+            "h-14990-el-gomhoriya-1.jpg",
+            "h-14990-el-gomhoriya-2.jpg"
+        ]
+    },
+    {
+        "ref": "minya:21",
+        "code": "H-14991",
+        "slug": "h-14991-new-minya-bus-stands-double-sided-package-minya",
+        "region": "minya",
+        "updated": false,
+        "supplierId": 12,
+        "images": [
+            "h-14991-el-gomhoriya-1.jpg"
+        ]
+    },
+    {
+        "ref": "minya:24",
+        "code": "H-14992",
+        "slug": "h-14992-mohamed-badawi-bridge-ramp-landscape-set-minya",
+        "region": "minya",
+        "updated": false,
+        "supplierId": 12,
+        "images": [
+            "h-14992-el-gomhoriya-1.jpg"
+        ]
+    },
+    {
+        "ref": "minya:25",
+        "code": "H-14993",
+        "slug": "h-14993-mohamed-badawi-bridge-ramp-by-the-bus-stands-minya",
+        "region": "minya",
+        "updated": false,
+        "supplierId": 12,
+        "images": [
+            "h-14993-el-gomhoriya-1.jpg"
+        ]
+    },
+    {
+        "ref": "minya:26",
+        "code": "H-14994",
+        "slug": "h-14994-minya-chest-hospital-minya",
+        "region": "minya",
+        "updated": false,
+        "supplierId": 12,
+        "images": [
+            "h-14994-el-gomhoriya-1.jpg"
+        ]
+    },
+    {
+        "ref": "minya:28",
+        "code": "H-14995",
+        "slug": "h-14995-station-bridge-landscape-set-minya",
+        "region": "minya",
+        "updated": false,
+        "supplierId": 12,
+        "images": [
+            "h-14995-el-gomhoriya-1.jpg"
+        ]
+    },
+    {
+        "ref": "minya:29",
+        "code": "H-14996",
+        "slug": "h-14996-shalaby-district-landscape-set-minya",
+        "region": "minya",
+        "updated": false,
+        "supplierId": 12,
+        "images": [
+            "h-14996-el-gomhoriya-1.jpg"
+        ]
+    },
+    {
+        "ref": "minya:30",
+        "code": "H-14997",
+        "slug": "h-14997-between-the-university-hospital-and-damshir-checkpoint-minya",
+        "region": "minya",
+        "updated": false,
+        "supplierId": 12,
+        "images": [
+            "h-14997-el-gomhoriya-1.jpg"
+        ]
+    },
+    {
+        "ref": "minya:31",
+        "code": "H-14998",
+        "slug": "h-14998-university-hospital-landscape-set-minya",
+        "region": "minya",
+        "updated": false,
+        "supplierId": 12,
+        "images": [
+            "h-14998-el-gomhoriya-1.jpg"
+        ]
+    },
+    {
+        "ref": "minya:33",
+        "code": "H-14999",
+        "slug": "h-14999-emergency-police-and-zomoroda-hall-portrait-set-minya",
+        "region": "minya",
+        "updated": false,
+        "supplierId": 12,
+        "images": [
+            "h-14999-el-gomhoriya-1.jpg",
+            "h-14999-el-gomhoriya-2.jpg"
+        ]
+    },
+    {
+        "ref": "minya:34",
+        "code": "H-15000",
+        "slug": "h-15000-damaris-bridge-portrait-set-minya",
+        "region": "minya",
+        "updated": false,
+        "supplierId": 12,
+        "images": [
+            "h-15000-el-gomhoriya-1.jpg",
+            "h-15000-el-gomhoriya-2.jpg"
+        ]
+    },
+    {
+        "ref": "minya:35",
+        "code": "H-15001",
+        "slug": "h-15001-shalaby-district-portrait-set-minya",
+        "region": "minya",
+        "updated": false,
+        "supplierId": 12,
+        "images": [
+            "h-15001-el-gomhoriya-1.jpg",
+            "h-15001-el-gomhoriya-2.jpg"
+        ]
+    },
+    {
+        "ref": "minya:36",
+        "code": "H-15002",
+        "slug": "h-15002-before-station-bridge-portrait-set-minya",
+        "region": "minya",
+        "updated": false,
+        "supplierId": 12,
+        "images": [
+            "h-15002-el-gomhoriya-1.jpg",
+            "h-15002-el-gomhoriya-2.jpg"
+        ]
+    }
+]
