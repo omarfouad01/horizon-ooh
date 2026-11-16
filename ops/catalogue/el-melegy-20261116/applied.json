@@ -1,0 +1,83 @@
+[
+    {
+        "ref": "3–6",
+        "code": "H-15004",
+        "slug": "h-15004-senzo-mall-roundabout-three-face-billboard",
+        "region": "red-sea",
+        "updated": false,
+        "supplierId": 306,
+        "images": [
+            "h-15004-el-melegy-1.jpg",
+            "h-15004-el-melegy-2.jpg",
+            "h-15004-el-melegy-3.jpg"
+        ]
+    },
+    {
+        "ref": "7–9",
+        "code": "H-15005",
+        "slug": "h-15005-soma-bay-entrance-uni-pole",
+        "region": "red-sea",
+        "updated": false,
+        "supplierId": 306,
+        "images": [
+            "h-15005-el-melegy-1.jpg",
+            "h-15005-el-melegy-2.jpg"
+        ]
+    },
+    {
+        "ref": "10–13",
+        "code": "H-15006",
+        "slug": "h-15006-el-gouna-entrance-by-el-bostan-uni-pole",
+        "region": "red-sea",
+        "updated": false,
+        "supplierId": 306,
+        "images": [
+            "h-15006-el-melegy-1.jpg"
+        ]
+    },
+    {
+        "ref": "14–15",
+        "code": "H-15007",
+        "slug": "h-15007-makadi-entrance-uni-pole",
+        "region": "red-sea",
+        "updated": false,
+        "supplierId": 306,
+        "images": [
+            "h-15007-el-melegy-1.jpg"
+        ]
+    },
+    {
+        "ref": "16–18",
+        "code": "H-15008",
+        "slug": "h-15008-hurghada-airport-road-and-el-nasr-uni-pole",
+        "region": "red-sea",
+        "updated": false,
+        "supplierId": 306,
+        "images": [
+            "h-15008-el-melegy-1.jpg",
+            "h-15008-el-melegy-2.jpg"
+        ]
+    },
+    {
+        "ref": "19–20",
+        "code": "H-14072",
+        "slug": "gate-el-gouna-entrance",
+        "region": "red-sea",
+        "updated": true,
+        "supplierId": 48,
+        "images": [
+            "h-14072-el-melegy-1.jpg"
+        ]
+    },
+    {
+        "ref": "22–23",
+        "code": "H-15009",
+        "slug": "h-15009-al-ahyaa-checkpoint-roadside-stands",
+        "region": "red-sea",
+        "updated": false,
+        "supplierId": 306,
+        "images": [
+            "h-15009-el-melegy-1.jpg"
+        ]
+    }
+]

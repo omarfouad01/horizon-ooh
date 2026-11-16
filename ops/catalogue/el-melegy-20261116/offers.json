@@ -1,0 +1,160 @@
+[
+  {
+    "ref": "3–6",
+    "code": null,
+    "type": "Uni-pole",
+    "size": "16 × 8",
+    "quantity": 1,
+    "sides": 3,
+    "location": 27,
+    "district": 257,
+    "region": "red-sea",
+    "lat": 27.0952101,
+    "lng": 33.8202833,
+    "title": "Senzo Mall Roundabout Three-Face Billboard",
+    "titleAr": "يافطة ٣ أوجه عند دوران سنزو مول",
+    "photos": [
+      "4-0",
+      "5-1",
+      "6-1"
+    ],
+    "lit": false,
+    "description": "Faces toward Hurghada, the Safaga and Makadi road, and Sahl Hasheesh.",
+    "descriptionAr": "الأوجه باتجاه الغردقة وطريق سفاجا ومكادي وطريق سهل حشيش.",
+    "approx": true
+  },
+  {
+    "ref": "7–9",
+    "code": null,
+    "type": "Uni-pole",
+    "size": "20 × 10",
+    "quantity": 1,
+    "sides": 2,
+    "location": 27,
+    "district": 259,
+    "region": "red-sea",
+    "lat": 26.8631212,
+    "lng": 33.9118539,
+    "title": "Soma Bay Entrance Uni-pole",
+    "titleAr": "يوني بول أمام مدخل سوما باي",
+    "photos": [
+      "8-0",
+      "9-0"
+    ],
+    "lit": false,
+    "description": "Two faces near the Soma Bay entrance on the Hurghada–Safaga Road.",
+    "descriptionAr": "وجهين على طريق الغردقة–سفاجا أمام مدخل سوما باي.",
+    "approx": false
+  },
+  {
+    "ref": "10–13",
+    "code": null,
+    "type": "Uni-pole",
+    "size": "14 × 7",
+    "quantity": 1,
+    "sides": 1,
+    "location": 27,
+    "district": 258,
+    "region": "red-sea",
+    "lat": 27.3511609,
+    "lng": 33.6477042,
+    "title": "El Gouna Entrance by El Bostan Uni-pole",
+    "titleAr": "يوني بول عند مدخل الجونة ناحية البستان",
+    "photos": [
+      "11-0"
+    ],
+    "lit": false,
+    "description": "Roadside billboard by the El Bostan approach to El Gouna.",
+    "descriptionAr": "يافطة على الطريق عند مدخل الجونة ناحية البستان.",
+    "approx": false
+  },
+  {
+    "ref": "14–15",
+    "code": null,
+    "type": "Uni-pole",
+    "size": "14 × 7",
+    "quantity": 1,
+    "sides": 1,
+    "location": 27,
+    "district": 257,
+    "region": "red-sea",
+    "lat": 26.9620634,
+    "lng": 33.8715939,
+    "title": "Makadi Entrance Uni-pole",
+    "titleAr": "يوني بول عند مدخل مكادي",
+    "photos": [
+      "15-0"
+    ],
+    "lit": false,
+    "description": "Billboard at the Makadi entrance on the Hurghada–Safaga Road.",
+    "descriptionAr": "يافطة عند مدخل مكادي على طريق الغردقة–سفاجا.",
+    "approx": true
+  },
+  {
+    "ref": "16–18",
+    "code": null,
+    "type": "Uni-pole",
+    "size": "14 × 7",
+    "quantity": 1,
+    "sides": 2,
+    "location": 27,
+    "district": 257,
+    "region": "red-sea",
+    "lat": 27.2157078,
+    "lng": 33.8177647,
+    "title": "Hurghada Airport Road and El Nasr Uni-pole",
+    "titleAr": "يوني بول على طريق مطار الغردقة عند شارع النصر",
+    "photos": [
+      "17-0",
+      "18-0"
+    ],
+    "lit": false,
+    "description": "Two faces on Airport Road near the El Nasr Street and Ring Road junction.",
+    "descriptionAr": "وجهين على طريق المطار قرب تقاطع شارع النصر والطريق الدائري.",
+    "approx": true
+  },
+  {
+    "ref": "19–20",
+    "code": "H-14072",
+    "type": "Gate",
+    "size": "14 × 7",
+    "quantity": 2,
+    "sides": 2,
+    "location": 27,
+    "district": 258,
+    "region": "red-sea",
+    "lat": 27.3489832,
+    "lng": 33.6574128,
+    "title": "El Gouna Entrance Billboard Pair",
+    "titleAr": "يافطتان أمام مدخل الجونة",
+    "photos": [
+      "20-0"
+    ],
+    "lit": false,
+    "description": "Two placements at the El Gouna entrance.",
+    "descriptionAr": "يافطتان عند مدخل الجونة.",
+    "approx": true
+  },
+  {
+    "ref": "22–23",
+    "code": null,
+    "type": "Stand",
+    "size": "3 × 6",
+    "quantity": 2,
+    "sides": 2,
+    "location": 27,
+    "district": 257,
+    "region": "red-sea",
+    "lat": 27.2931513,
+    "lng": 33.7537507,
+    "title": "Al Ahyaa Checkpoint Roadside Stands",
+    "titleAr": "ستاندات عند كمين الأحياء بالغردقة",
+    "photos": [
+      "23-1"
+    ],
+    "lit": false,
+    "description": "Two vertical roadside faces marked in the supplier catalogue near Al Ahyaa checkpoint.",
+    "descriptionAr": "وجهان رأسيان عند كمين الأحياء على طريق الغردقة حسب العلامات في الكتالوج.",
+    "approx": true
+  }
+]
