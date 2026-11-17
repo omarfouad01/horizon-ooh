@@ -1,0 +1,103 @@
+[
+    {
+        "ref": "a4–5 \/ g4–5",
+        "code": "H-15173",
+        "slug": "h-15173-downtown-katameya-south-90-digital-screen",
+        "region": "cairo",
+        "updated": false,
+        "supplierId": 125,
+        "images": [
+            "h-15173-etac-1.jpg",
+            "h-15173-etac-2.jpg"
+        ]
+    },
+    {
+        "ref": "a6–10",
+        "code": "H-15174",
+        "slug": "h-15174-shifa-hospital-north-90-uni-pole",
+        "region": "cairo",
+        "updated": false,
+        "supplierId": 125,
+        "images": [
+            "h-15174-etac-1.jpg",
+            "h-15174-etac-2.jpg",
+            "h-15174-etac-3.jpg",
+            "h-15174-etac-4.jpg"
+        ]
+    },
+    {
+        "ref": "a11–12 \/ g6–7",
+        "code": "H-14127",
+        "slug": "h-14127-digital-screen-north-90th-street-waterway-2",
+        "region": "cairo",
+        "updated": true,
+        "supplierId": 48,
+        "images": [
+            "h-14127-etac-1.jpg"
+        ]
+    },
+    {
+        "ref": "a11,13 \/ g6,8",
+        "code": "H-14130",
+        "slug": "h-14130-digital-screen-90th-street-waterway-2",
+        "region": "cairo",
+        "updated": true,
+        "supplierId": 48,
+        "images": [
+            "h-14130-etac-1.jpg"
+        ]
+    },
+    {
+        "ref": "a14–18 \/ g9–12",
+        "code": "H-14043",
+        "slug": "uni-pole-ring-road-carrefour-1",
+        "region": "cairo",
+        "updated": true,
+        "supplierId": 125,
+        "images": [
+            "h-14043-etac-1.jpg",
+            "h-14043-etac-2.jpg",
+            "h-14043-etac-3.jpg",
+            "h-14043-etac-4.jpg"
+        ]
+    },
+    {
+        "ref": "a19–22",
+        "code": "H-14034",
+        "slug": "h-14034-double-decker-october-bridge-demerdash",
+        "region": "cairo",
+        "updated": true,
+        "supplierId": 125,
+        "images": [
+            "h-14034-etac-1.jpg",
+            "h-14034-etac-2.jpg",
+            "h-14034-etac-3.jpg"
+        ]
+    },
+    {
+        "ref": "a23–27 \/ g13–16",
+        "code": "H-14035",
+        "slug": "h-14035-uni-pole-mehwar-26-of-july-cairo-mohandessin",
+        "region": "cairo",
+        "updated": true,
+        "supplierId": 125,
+        "images": [
+            "h-14035-etac-1.jpg",
+            "h-14035-etac-2.jpg",
+            "h-14035-etac-3.jpg",
+            "h-14035-etac-4.jpg"
+        ]
+    },
+    {
+        "ref": "a28–30 \/ g17–19",
+        "code": "H-15175",
+        "slug": "h-15175-sheikh-zayed-uni-pole-by-the-monorail",
+        "region": "giza",
+        "updated": false,
+        "supplierId": 125,
+        "images": [
+            "h-15175-etac-1.jpg",
+            "h-15175-etac-2.jpg"
+        ]
+    }
+]
