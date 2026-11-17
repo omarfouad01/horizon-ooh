@@ -1,0 +1,26 @@
+[
+  {
+    "ref": "14–15",
+    "code": null,
+    "region": "giza",
+    "location": 3,
+    "district": 456,
+    "lat": 30.0468496,
+    "lng": 31.0521329,
+    "type": "Mirror",
+    "size": "50 × 5",
+    "quantity": 2,
+    "sides": 4,
+    "title": "26th of July Axis Bridge Mirrors at the Desert Road",
+    "titleAr": "مرايا كوبري محور ٢٦ يوليو عند الطريق الصحراوي",
+    "address": "26th of July Axis Bridge at Cairo–Alexandria Desert Road",
+    "description": "Two bridge mirrors and four faces at the 26th of July Axis crossing over Cairo–Alexandria Desert Road.",
+    "descriptionAr": "عرض مرايا كوبري محور ٢٦ يوليو عند تقاطعه مع طريق القاهرة–الإسكندرية الصحراوي، بإجمالي ٤ أوجه.",
+    "lit": true,
+    "approx": true,
+    "photos": [
+      "14-1",
+      "15-0"
+    ]
+  }
+]
