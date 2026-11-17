@@ -1,0 +1,90 @@
+[
+    {
+        "ref": "4–7",
+        "code": "H-15010",
+        "slug": "h-15010-nile-corniche-before-geziret-el-ward-club-mansoura",
+        "region": "dakahlia",
+        "updated": false,
+        "supplierId": 209,
+        "images": [
+            "h-15010-el-watar-1.jpg",
+            "h-15010-el-watar-2.jpg",
+            "h-15010-el-watar-3.jpg",
+            "h-15010-el-watar-4.jpg"
+        ]
+    },
+    {
+        "ref": "8–10",
+        "code": "H-15011",
+        "slug": "h-15011-mid-corniche-between-lower-mashaya-and-el-gomhoreya-street-mansoura",
+        "region": "dakahlia",
+        "updated": false,
+        "supplierId": 209,
+        "images": [
+            "h-15011-el-watar-1.jpg",
+            "h-15011-el-watar-2.jpg",
+            "h-15011-el-watar-3.jpg"
+        ]
+    },
+    {
+        "ref": "12–16",
+        "code": "H-15012",
+        "slug": "h-15012-nile-corniche-before-talkha-bridge-mansoura",
+        "region": "dakahlia",
+        "updated": false,
+        "supplierId": 209,
+        "images": [
+            "h-15012-el-watar-1.jpg",
+            "h-15012-el-watar-2.jpg",
+            "h-15012-el-watar-3.jpg",
+            "h-15012-el-watar-4.jpg",
+            "h-15012-el-watar-5.jpg"
+        ]
+    },
+    {
+        "ref": "21",
+        "code": "H-15013",
+        "slug": "h-15013-nile-corniche-opposite-mansoura-culture-palace-mansoura",
+        "region": "dakahlia",
+        "updated": false,
+        "supplierId": 209,
+        "images": [
+            "h-15013-el-watar-1.jpg"
+        ]
+    },
+    {
+        "ref": "25",
+        "code": "H-15014",
+        "slug": "h-15014-dakahlia-governorate-roundabout-mansoura",
+        "region": "dakahlia",
+        "updated": false,
+        "supplierId": 209,
+        "images": [
+            "h-15014-el-watar-1.jpg"
+        ]
+    },
+    {
+        "ref": "26–27",
+        "code": "H-15015",
+        "slug": "h-15015-toril-banks-street-corner-by-dakahlia-governorate-mansoura",
+        "region": "dakahlia",
+        "updated": false,
+        "supplierId": 209,
+        "images": [
+            "h-15015-el-watar-1.jpg",
+            "h-15015-el-watar-2.jpg"
+        ]
+    },
+    {
+        "ref": "29–30",
+        "code": "H-13420",
+        "slug": "gate-mansoura-talkha-bridge",
+        "region": "dakahlia",
+        "updated": true,
+        "supplierId": 209,
+        "images": [
+            "h-13420-el-watar-1.jpg",
+            "h-13420-el-watar-2.jpg"
+        ]
+    }
+]
